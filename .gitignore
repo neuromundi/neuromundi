@@ -1,0 +1,33 @@
+# ── Dependencias ──────────────────────────────────────────────
+node_modules/
+
+# ── Build / salida ────────────────────────────────────────────
+dist/
+dist-ssr/
+*.local
+
+# ── Caché y temporales (se regeneran) ─────────────────────────
+*.tsbuildinfo
+*.timestamp-*.mjs
+.vite/
+
+# ── Entorno / secretos (NO versionar) ─────────────────────────
+.env
+.env.*
+!.env.example
+
+# ── Archivo y respaldos (no versionar) ────────────────────────
+_archivo/
+backups/
+
+# ── Editor / Sistema operativo ────────────────────────────────
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# ── Logs ──────────────────────────────────────────────────────
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

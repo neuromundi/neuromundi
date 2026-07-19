@@ -1,0 +1,72 @@
+# ============================================================================
+# Neuromundi — .htaccess para Hostinger (Apache)
+# Colócalo en public_html/ junto al index.html de tu dist/.
+# Cubre: forzar HTTPS, ruteo de la SPA (React Router), compresión y caché.
+# ============================================================================
+
+# --- 1) Forzar HTTPS (obligatorio: el cifrado E2E y la PWA lo requieren) -----
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Redirige http -> https
+  RewriteCond %{HTTPS} !=on
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# --- 2) Ruteo de la SPA: todo lo que no sea archivo/carpeta real -> index.html
+<IfModule mod_rewrite.c>
+  RewriteBase /
+  RewriteRule ^index\.html$ - [L]
+
+  # IMPORTANTE: si falta un archivo dentro de /assets/ (p. ej. un chunk con hash
+  # viejo tras un nuevo despliegue), devolver un 404 REAL en vez de index.html.
+  # Si se reescribiera a index.html, el navegador recibiría HTML donde espera JS
+  # y fallaría con "Failed to fetch dynamically imported module".
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^assets/ - [R=404,L]
+
+  # El resto de rutas (de la SPA) sí van a index.html
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
+</IfModule>
+
+# --- 3) Compresión (acelera la carga) ----------------------------------------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/javascript application/javascript application/json application/xml image/svg+xml
+</IfModule>
+
+# --- 4) Caché -----------------------------------------------------------------
+# Los archivos de /assets/ llevan hash en el nombre: se pueden cachear mucho.
+# index.html y el service worker NO deben cachearse, para que las
+# actualizaciones se vean de inmediato.
+<IfModule mod_headers.c>
+  # No cachear el HTML de entrada ni el service worker
+  <FilesMatch "(index\.html|sw\.js|registerSW\.js|manifest\.webmanifest)$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires "0"
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  # Assets con hash (JS, CSS, imágenes, fuentes): un año
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType video/mp4 "access plus 1 month"
+  # HTML: sin caché (lo controla el bloque de Headers de arriba)
+  ExpiresByType text/html "access plus 0 seconds"
+</IfModule>
+
+# --- 5) Tipos MIME por si el servidor no los reconoce ------------------------
+<IfModule mod_mime.c>
+  AddType application/manifest+json .webmanifest
+  AddType application/javascript .js
+  AddType image/svg+xml .svg
+</IfModule>
