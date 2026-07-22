@@ -250,7 +250,7 @@ export function ClinicRegister() {
       <ol className="flex items-center gap-1">
         {STEPS.map((label, i) => (
           <li key={label} className="flex flex-1 flex-col items-center gap-1">
-            <span className={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold ${i < step ? 'bg-evs-5 text-white' : i === step ? 'bg-brand-600 text-white' : 'bg-slate-100 text-slate-400'}`}>
+            <span className={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold ${i < step ? 'bg-evs-5 text-white' : i === step ? 'bg-brand-700 text-white' : 'bg-slate-100 text-slate-400'}`}>
               {i < step ? <Check className="h-4 w-4" /> : i + 1}
             </span>
             <span className="hidden text-center text-[11px] text-muted sm:block">{label}</span>

@@ -84,7 +84,7 @@ export function WelcomePopup({ onClose }: { onClose: () => void }) {
         <button
           type="button"
           onClick={onClose}
-          className="mt-6 w-full rounded-xl bg-brand-600 px-4 py-3 font-semibold text-white shadow-lg hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+          className="mt-6 w-full rounded-xl bg-brand-700 px-4 py-3 font-semibold text-white shadow-lg hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
         >
           {t('welcome.cta')}
         </button>

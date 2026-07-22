@@ -311,6 +311,7 @@ function HistoryTab({ providerId, offers }: { providerId: string; offers: Offer[
 
   return (
     <div className="space-y-4">
+      <HowTo stepsKey="howto.history" />
       <div className="grid grid-cols-2 gap-2">
         <select
           aria-label={t('provider.history.filterStatus')}
@@ -629,7 +630,21 @@ export function ProviderDashboard() {
     content: <CourseManager />,
   };
 
-  const tabs = [...baseTabs, agendaTab, paymentsTab, contentTab, clinicalTab, affiliateTab, academyTab, ...(featureTab ? [featureTab] : []), ...(storeTab ? [storeTab] : []), networkTab, recommendTab];
+  // "Mis Afiliados" va inmediatamente después de "Mi tienda": primero el
+  // catálogo propio y enseguida quién puede promoverlo y ganar comisión.
+  const tabs = [
+    ...baseTabs,
+    agendaTab,
+    paymentsTab,
+    contentTab,
+    clinicalTab,
+    academyTab,
+    ...(featureTab ? [featureTab] : []),
+    ...(storeTab ? [storeTab] : []),
+    affiliateTab,
+    networkTab,
+    recommendTab,
+  ];
 
   return (
     <div className="mx-auto w-full max-w-2xl p-4">

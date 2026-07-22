@@ -55,7 +55,7 @@
   "nav": {
     "directory": "Directory",
     "dashboard": "Dashboard",
-    "settings": "Settings",
+    "settings": "My Profile",
     "login": "Sign in",
     "logout": "Sign out",
     "greeting": "Hi, {{name}}",
@@ -68,7 +68,8 @@
     "blog": "Blog",
     "events": "Events",
     "calendar": "Calendar",
-    "messages": "Messages"
+    "messages": "Messages",
+    "myPanel": "My panel"
   },
   "home": {
     "title": "The first global community connecting patients, families, specialists and providers in neurodevelopment and neurodivergence.",
@@ -681,7 +682,9 @@
     "secMessages": "Messages",
     "credential": "Professional credential",
     "noCredential": "No professional credential",
-    "viewDoc": "View document {{n}}"
+    "viewDoc": "View document {{n}}",
+    "secReferrals": "Referrals",
+    "secFees": "Fees"
   },
   "reg": {
     "typePatient": "Patient",
@@ -896,7 +899,12 @@
     "bannerPending": "You have {{days}} days left to pay your membership fee.",
     "bannerPastDue": "Your profile won't receive inquiries or interact until payment is complete.",
     "bannerCta": "Complete payment",
-    "founderDiscount": "As a Founder you get a 50% lifetime discount on the membership fee; only the annual increase according to your country's inflation applies."
+    "founderDiscount": "As a Founder you get a 50% lifetime discount on the membership fee; only the annual increase according to your country's inflation applies.",
+    "monthly": "Monthly",
+    "perMonth": "/ month",
+    "choosePeriod": "Choose how to pay",
+    "savingBadge": "Get 12 months, pay for 10",
+    "founderPrice": "You have Founding Member pricing"
   },
   "rules": {
     "version": "Version",
@@ -1032,7 +1040,8 @@
     "rfc": "Your tax ID (for invoices)",
     "rfcHint": "Optional. Used at payment.",
     "kindConsultation": "Consultation",
-    "kindTherapy": "Therapy"
+    "kindTherapy": "Therapy",
+    "discountApplied": "Discount applied: {{pct}}%"
   },
   "content": {
     "tab": "Content",
@@ -1119,6 +1128,13 @@
     "waitlist": {
       "title": "A slot is available",
       "join": "Waitlist"
+    },
+    "referral": {
+      "title": "Your link was used",
+      "reward": "You earned a discount"
+    },
+    "commission": {
+      "title": "You were paid a commission"
     }
   },
   "clin": {
@@ -1269,9 +1285,9 @@
     "corporateHint": "Products offered directly by Neuromundi."
   },
   "affil": {
-    "tab": "Affiliates",
-    "title": "Affiliate program",
-    "help": "Share your link and earn commission when someone buys through it.",
+    "tab": "My Affiliates",
+    "title": "Affiliate program for my products",
+    "help": "Reward those who promote YOUR products: whoever shares this link and drives a sale earns the commission you set, deducted from that sale.",
     "code": "Your code",
     "commission": "Commission (%)",
     "create": "Save code",
@@ -2085,9 +2101,10 @@
       "Publish it so it appears in Academy."
     ],
     "affiliate": [
-      "Copy your unique affiliate link.",
-      "Share it; when someone buys through it, your commission is recorded.",
-      "Check your sales and accrued commissions here."
+      "This program rewards whoever promotes YOUR Store products.",
+      "Set your code and the commission percentage you will pay per sale.",
+      "Share the link: anyone buying through it generates the commission.",
+      "Here you see the sales achieved and the accrued commission; settlement happens outside the app."
     ],
     "network": [
       "Search and connect with other professionals or providers.",
@@ -2113,6 +2130,23 @@
       "Choose or search the recipient patient/family.",
       "Add the products or indications and usage notes.",
       "Send the prescription; the patient sees it in their account and can mark it as ordered."
+    ],
+    "history": [
+      "Filter by status or offer to narrow what you need.",
+      "Each row is a redemption: date, offer applied and status.",
+      "Use “Export” to download the history as CSV for your bookkeeping."
+    ],
+    "waitlist": [
+      "Add patients by their member ID (NM-000123) and an optional note.",
+      "If an appointment is rejected or cancelled, the platform notifies those waiting automatically.",
+      "To offer a slot outside that case, use “Announce a free slot”.",
+      "When you fit someone in, mark them Assigned to remove them from the list."
+    ],
+    "campaigns": [
+      "Write a short, clear subject and message.",
+      "Choose the audience: your waitlist or your patients.",
+      "Pick the channels: in-app notification, email and/or SMS (SMS has a per-message cost).",
+      "Press Send; the log below shows how many people received it."
     ]
   },
   "recommend": {
@@ -2135,7 +2169,10 @@
       "facebook": "Share on Facebook",
       "x": "Share on X",
       "linkedin": "Share on LinkedIn"
-    }
+    },
+    "accrued": "You have {{pct}}% accrued toward your next payment (cap {{max}}%).",
+    "rules": "Your link is valid for {{days}} days after it is received. Whoever subscribes with it gets 5% off their first payment, and you earn {{step}}% for each referral who pays. Patients and families join free: no discount or reward, but the use is recorded.",
+    "creditLive": "Your discount applies to your next invoice only; if you already have an active subscription it is applied automatically."
   },
   "renewal": {
     "title": "Your membership is about to renew",
@@ -2538,6 +2575,154 @@
     "err": {
       "generic": "Couldn’t send the campaign.",
       "no_channels": "Pick at least one channel."
+    }
+  },
+  "ref": {
+    "totalUses": "Link uses",
+    "payingUses": "Paying",
+    "rewardsDue": "Rewards to grant",
+    "searchPlaceholder": "Search by name or member ID…",
+    "onlyRewards": "Only with reward",
+    "emptyTitle": "No referrals yet",
+    "empty": "Sign-ups made with referral links will appear here.",
+    "typePaying": "Paid membership",
+    "typeFree": "Free membership",
+    "paidUntil": "paid until",
+    "rewardDue": "Reward pending",
+    "awaitingPayment": "Awaiting payment",
+    "noReward": "No reward",
+    "linkValid": "Link still valid",
+    "adminHint": "The 5% applies only to the first payment of someone who arrives with a valid link and pays a fee. If they are a patient or parent there is no discount or reward, but the use is still recorded. Referrer rewards are granted from here.",
+    "cfgTitle": "Program settings",
+    "cfgDiscount": "Referred user discount",
+    "cfgStep": "Commission per referral",
+    "cfgMax": "Accrual cap",
+    "cfgDays": "Link validity",
+    "days": "days",
+    "cfgSave": "Save settings",
+    "cfgSaved": "Settings updated.",
+    "cfgError": "Couldn’t save.",
+    "cfgHint": "Only the admin changes these values. Users can never edit their commission or their code: the code is always their member number.",
+    "referrerIs": "referred by",
+    "roleProvider": "a provider",
+    "roleFamily": "a patient or family",
+    "rewardManual": "Manual reward"
+  },
+  "fees": {
+    "hint": "Set each user type’s fee for each country in its own currency. What you save here overrides the automatic exchange-rate calculation.",
+    "country": "Country",
+    "amount": "Amount",
+    "currency": "Currency",
+    "zeroDecimal": "No decimals",
+    "save": "Save",
+    "edit": "Edit",
+    "reset": "Reset",
+    "explicit": "Set",
+    "auto": "Automatic",
+    "saved": "Fee saved.",
+    "cleared": "Back to automatic calculation.",
+    "saveError": "Couldn’t save.",
+    "typePatient": "Patient",
+    "typeParent": "Parent or guardian",
+    "typeService": "Service provider",
+    "typeMerchant": "Merchant",
+    "typeSchool": "School",
+    "typeOther": "Other type",
+    "freeNote": "Patients and families join free: even with a configured fee, they are not charged.",
+    "defaultCountry": "Default (rest of the world)",
+    "groupConfigured": "With their own fee",
+    "groupAll": "All countries",
+    "defaultHint": "Applies to every country without its own fee. Worth configuring carefully.",
+    "countryHint": "Set this country’s fee in its currency here; if you don’t, it uses the default.",
+    "configuredCount": "{{count}} type(s) with their own fee in this country",
+    "noTypes": "No active affiliate types.",
+    "classFounder": "Founder",
+    "classOrdinary": "Standard",
+    "monthly": "Monthly",
+    "annual": "Annual (charged)",
+    "annualList": "Annual list price",
+    "annualHint": "= 10 months",
+    "listHint": "= 12 months, shown struck through",
+    "savingNote": "Get 12 months, pay for 10.",
+    "typeMedical": "Medical specialist",
+    "typeNonMedical": "Non-medical specialist",
+    "typeClinic": "Clinic"
+  },
+  "gate": {
+    "title": "Your account is paused",
+    "bodyFirst": "You’re almost in! Just cover your membership fee to activate your profile and start receiving enquiries.",
+    "bodyRenewal": "Your renewal is pending and we paused your profile for now. You pick up right where you left off as soon as the payment lands.",
+    "whatYouGet": "Once active, you get back:",
+    "benefit1": "Your directory visibility and enquiries from families.",
+    "benefit2": "Your calendar, appointments and messaging with patients.",
+    "benefit3": "Your store, campaigns and referral program.",
+    "yourFee": "Your fee",
+    "payNow": "Activate my account now",
+    "havePromo": "I have a promo code",
+    "promoPlaceholder": "Your code",
+    "promoApply": "Apply",
+    "promoOk": "Done! Your account is active.",
+    "promoBad": "That code isn’t valid.",
+    "later": "Not now",
+    "footer": "Your information and history stay intact in the meantime."
+  },
+  "reactivated": {
+    "title": "Welcome back!",
+    "thanks": "Thank you for trusting Neuromundi. Your payment is registered and your profile is active again, with all your features available.",
+    "motivation": "The families looking for you can find you again. On to that next patient!",
+    "cta": "Go to my panel"
+  },
+  "csv": {
+    "title": "Import and export fees (CSV)",
+    "hint": "Configure many countries at once: download what you have, edit it in Excel or Google Sheets, and upload it back. Nothing is saved until you confirm.",
+    "download": "Download CSV",
+    "upload": "Upload CSV",
+    "exported": "{{count}} fees downloaded.",
+    "templateDownloaded": "No fees set yet: a sample template was downloaded.",
+    "exportError": "Couldn’t download the file.",
+    "importError": "Couldn’t save the import.",
+    "allInvalid": "No row in the file is valid.",
+    "previewTitle": "Ready to import: {{count}} row(s)",
+    "errorsTitle": "{{count}} row(s) with problems",
+    "errorsNote": "Those rows are skipped; the rest are imported.",
+    "line": "Line",
+    "colType": "Type",
+    "colClass": "Class",
+    "replaceLabel": "Replace everything",
+    "replaceHint": "Deletes fees not present in the file. Leave unchecked to only add and update what the file contains.",
+    "confirm": "Import {{count}} row(s)",
+    "imported": "Done: {{inserted}} new, {{updated}} updated, {{deleted}} deleted.",
+    "formatTitle": "See the file format",
+    "formatBody": "One row per country, affiliate type and member class. Annual equals 10 months and the reference 12; leave them empty and they are derived from the monthly amount.",
+    "formatNote": "Accepts \";\" or \",\" as separator and comma decimals. The country may carry accents: \"México\" and \"Mexico\" are the same."
+  },
+  "comm": {
+    "title": "Promotion commissions",
+    "help": "This is where promotion commissions are tracked. Neuromundi neither holds nor transfers this money: the seller pays the promoter directly and records it here.",
+    "tabEarned": "Owed to me",
+    "tabOwed": "I owe",
+    "pendingToReceive": "To collect",
+    "pendingToPay": "To pay",
+    "alreadySettled": "Already settled",
+    "download": "Download statement",
+    "pending": "Pending",
+    "settled": "Settled",
+    "registerPayment": "Record payment",
+    "confirmBody": "You are recording that you already paid {{amount}} to {{name}}. This moves no money: it only leaves a record and notifies them.",
+    "noteLabel": "Payment reference (optional)",
+    "notePlaceholder": "Transfer no., date, method…",
+    "confirm": "Confirm",
+    "marked": "{{count}} commission(s) marked as paid",
+    "markError": "The payment could not be recorded",
+    "refundAfterPaid": "Sale refunded afterwards",
+    "emptyEarnedTitle": "No commissions yet",
+    "emptyEarned": "Share your affiliate link: when someone buys through it, the commission will appear here.",
+    "emptyOwedTitle": "You owe no commissions",
+    "emptyOwed": "When someone sells one of your products through their link, you will see what you owe them here.",
+    "status": {
+      "payable": "To pay",
+      "paid": "Paid",
+      "reversed": "Reversed"
     }
   }
 }

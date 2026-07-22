@@ -5,18 +5,15 @@
  *  - Si el navegador está en español → español.
  *  - Si NO está en español → inglés.
  * Los 8 idiomas se pueden elegir manualmente; la elección se recuerda.
+ *
+ * RENDIMIENTO: los diccionarios pesan ~900 KiB entre los 8 idiomas y antes
+ * entraban TODOS al bundle principal, aunque cada persona use uno solo. Ahora
+ * cada idioma es un chunk aparte que se descarga bajo demanda: al arrancar solo
+ * viaja el idioma detectado, y los demás al cambiarlos desde el selector.
  */
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-import es from './locales/es.json';
-import en from './locales/en.json';
-import fr from './locales/fr.json';
-import de from './locales/de.json';
-import it from './locales/it.json';
-import pt from './locales/pt.json';
-import ja from './locales/ja.json';
-import zh from './locales/zh.json';
 
 export const SUPPORTED_LANGUAGES = [
   { code: 'es', label: 'Español' },
@@ -65,28 +62,52 @@ function detectInitial(): LanguageCode {
   return 'en';
 }
 
-void i18n.use(initReactI18next).init({
-  resources: {
-    es: { translation: es },
-    en: { translation: en },
-    fr: { translation: fr },
-    de: { translation: de },
-    it: { translation: it },
-    pt: { translation: pt },
-    ja: { translation: ja },
-    zh: { translation: zh },
-  },
-  lng: detectInitial(),
-  fallbackLng: 'en',
-  interpolation: { escapeValue: false },
-});
+/** Diccionarios como chunks independientes (Vite los separa por sí solo). */
+const LOADERS: Record<LanguageCode, () => Promise<{ default: Record<string, unknown> }>> = {
+  es: () => import('./locales/es.json'),
+  en: () => import('./locales/en.json'),
+  fr: () => import('./locales/fr.json'),
+  de: () => import('./locales/de.json'),
+  it: () => import('./locales/it.json'),
+  pt: () => import('./locales/pt.json'),
+  ja: () => import('./locales/ja.json'),
+  zh: () => import('./locales/zh.json'),
+};
 
-/** Cambia el idioma y lo recuerda. */
+const loaded = new Set<LanguageCode>();
+
+/** Descarga un idioma y lo registra en i18next (una sola vez por idioma). */
+async function loadLanguage(code: LanguageCode): Promise<void> {
+  if (loaded.has(code)) return;
+  const mod = await LOADERS[code]();
+  i18n.addResourceBundle(code, 'translation', mod.default, true, true);
+  loaded.add(code);
+}
+
+/**
+ * Arranca i18n con el idioma detectado YA cargado. main.tsx espera esta promesa
+ * antes de montar la app, así que nadie ve claves sin traducir.
+ */
+export async function initI18n(): Promise<void> {
+  const lng = detectInitial();
+  const mod = await LOADERS[lng]();
+  loaded.add(lng);
+  await i18n.use(initReactI18next).init({
+    resources: { [lng]: { translation: mod.default } },
+    lng,
+    // Apunta al propio idioma: el respaldo nunca debe ser un bundle no
+    // descargado. La paridad de claves es 0, así que no se pierde nada.
+    fallbackLng: lng,
+    interpolation: { escapeValue: false },
+  });
+}
+
+/** Cambia el idioma y lo recuerda. Descarga su diccionario si hace falta. */
 export function changeLanguage(code: LanguageCode): void {
   if (typeof window !== 'undefined') {
     window.localStorage.setItem(STORAGE_KEY, code);
   }
-  void i18n.changeLanguage(code);
+  void loadLanguage(code).then(() => i18n.changeLanguage(code));
 }
 
 /** Locale Intl correspondiente al idioma actual de la app. */

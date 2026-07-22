@@ -123,7 +123,7 @@ export function Academy() {
           <span className="text-sm font-semibold text-slate-700">{t('lms.level')}:</span>
           <button
             onClick={() => setLevel('')}
-            className={`rounded-full px-3 py-1 text-sm ${level === '' ? 'bg-brand-600 text-white' : 'bg-slate-100 text-slate-700'}`}
+            className={`rounded-full px-3 py-1 text-sm ${level === '' ? 'bg-brand-700 text-white' : 'bg-slate-100 text-slate-700'}`}
           >
             {t('lms.levelAll')}
           </button>
@@ -131,7 +131,7 @@ export function Academy() {
             <button
               key={l}
               onClick={() => setLevel(l)}
-              className={`rounded-full px-3 py-1 text-sm ${level === l ? 'bg-brand-600 text-white' : 'bg-slate-100 text-slate-700'}`}
+              className={`rounded-full px-3 py-1 text-sm ${level === l ? 'bg-brand-700 text-white' : 'bg-slate-100 text-slate-700'}`}
             >
               {l}
             </button>

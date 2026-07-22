@@ -7,23 +7,43 @@
  */
 import { NavLink, Outlet, useNavigate, Link } from 'react-router-dom';
 import { Compass, LayoutDashboard, Settings, LogIn, LogOut, ShieldCheck, MessageCircleQuestion, School, GraduationCap, Grid3x3, X, BookOpenCheck, BookOpen, ShieldAlert, CalendarDays, ShoppingBag, MessageSquare } from 'lucide-react';
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense, lazy, useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '@/hooks/useAuth';
 import { useMembership } from '@/hooks/useMembership';
 import { Button, SkeletonCard } from '@/components/ui';
-import { WelcomeVideo, AuthModals, SupportButton, SocialOnboarding, FounderPopup, GuidedTour, type AuthView } from '@/components/onboarding';
+import type { AuthView } from '@/components/onboarding/AuthModals';
 import { track } from '@/lib/track';
-import { WelcomePopup } from '@/components/onboarding/WelcomePopup';
-import { SoftSignupBanner } from '@/components/onboarding/SoftSignupBanner';
 import { NotificationsBell } from '@/components/content/NotificationsBell';
 import { NavMoreMenu } from '@/components/layout/NavMoreMenu';
 import { useFounderAutoClaim, useFounderProgressNotice } from '@/hooks/useFounder';
 import { useReferralCapture } from '@/hooks/useReferral';
+import { useMembershipGate } from '@/hooks/useMembershipGate';
 import { useAppointmentReminders } from '@/hooks/useAppointmentRequests';
-import { MembershipReminderPopup } from '@/components/membership/MembershipReminderPopup';
-import { ReportModal } from '@/components/report/ReportModal';
+
+// ── Ventanas emergentes: fuera del bundle inicial ──────────────────────────
+// Ninguna de estas se ve al abrir la portada, pero todas viajaban en index.js
+// y había que descargarlas, analizarlas y ejecutarlas ANTES del primer pixel.
+// Las dos más caras: AuthModals arrastraba react-hook-form + zod + todos los
+// esquemas, y SocialOnboarding el catálogo de municipios de México (43 KB de
+// fuente). Con React.lazy cada una se descarga el día que se abre.
+//
+// Todas se renderizan condicionalmente y envueltas en <Suspense fallback={null}>:
+// mientras llega el chunk simplemente no hay modal, que es justo lo que había
+// un instante antes.
+const WelcomeVideo = lazy(() => import('@/components/onboarding/WelcomeVideo').then((m) => ({ default: m.WelcomeVideo })));
+const AuthModals = lazy(() => import('@/components/onboarding/AuthModals').then((m) => ({ default: m.AuthModals })));
+const SupportButton = lazy(() => import('@/components/onboarding/SupportButton').then((m) => ({ default: m.SupportButton })));
+const SocialOnboarding = lazy(() => import('@/components/onboarding/SocialOnboarding').then((m) => ({ default: m.SocialOnboarding })));
+const FounderPopup = lazy(() => import('@/components/onboarding/FounderPopup').then((m) => ({ default: m.FounderPopup })));
+const GuidedTour = lazy(() => import('@/components/onboarding/GuidedTour').then((m) => ({ default: m.GuidedTour })));
+const WelcomePopup = lazy(() => import('@/components/onboarding/WelcomePopup').then((m) => ({ default: m.WelcomePopup })));
+const SoftSignupBanner = lazy(() => import('@/components/onboarding/SoftSignupBanner').then((m) => ({ default: m.SoftSignupBanner })));
+const ReportModal = lazy(() => import('@/components/report/ReportModal').then((m) => ({ default: m.ReportModal })));
+const MembershipReminderPopup = lazy(() => import('@/components/membership/MembershipReminderPopup').then((m) => ({ default: m.MembershipReminderPopup })));
+const AccountInactiveModal = lazy(() => import('@/components/membership/AccountInactiveModal').then((m) => ({ default: m.AccountInactiveModal })));
+const AccountReactivatedModal = lazy(() => import('@/components/membership/AccountReactivatedModal').then((m) => ({ default: m.AccountReactivatedModal })));
 import { setRefCode } from '@/hooks/useShop';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { SocialLinks } from './SocialLinks';
@@ -58,10 +78,21 @@ export function AppLayout() {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  // Splash de video: se muestra una vez por navegador.
+  // Splash de video: una vez por navegador y SOLO en escritorio.
+  //
+  // En móvil cubría la pantalla en negro ~5 s en la primera visita: era la causa
+  // del FCP de 4.4 s y el LCP de 5.1 s (la cadena de red era de solo 1.2 s).
+  // Quien llega desde el teléfono —la mayoría— ve el sitio de inmediato; la
+  // intro se conserva en pantallas grandes, donde la conexión suele ser mejor.
   const [showVideo, setShowVideo] = useState(() => {
     try {
-      return localStorage.getItem(INTRO_KEY) == null;
+      if (localStorage.getItem(INTRO_KEY) != null) return false;
+      // Coincide con el breakpoint md de Tailwind (768px).
+      const isDesktop =
+        typeof window !== 'undefined' &&
+        window.matchMedia('(min-width: 768px)').matches &&
+        !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      return isDesktop;
     } catch {
       return false;
     }
@@ -82,6 +113,9 @@ export function AppLayout() {
   // Recordatorios de cita 24 h antes (fallback del cliente para el destinatario).
   useAppointmentReminders();
   const [reportOpen, setReportOpen] = useState(false);
+  // Cuenta inactiva por cuota sin cubrir: apaga el panel y explica con cordialidad.
+  const { blocked, justReactivated, dismissReactivated } = useMembershipGate();
+  const [gateOpen, setGateOpen] = useState(false);
   const showMemberBanner =
     isAuthenticated && !isAdmin && (memStatus === 'pending' || memStatus === 'past_due');
 
@@ -103,15 +137,30 @@ export function AppLayout() {
     setShowTour(false);
   };
 
-  // Usuarios que ya vieron el video en una visita anterior pero aún no la guía:
-  // se les muestra una vez (sin volver a reproducir el video).
+  // Guía rápida para quien no está viendo el video: o ya lo vio en una visita
+  // anterior, o entró desde móvil (donde el splash no se reproduce).
+  //
+  // Se APLAZA a propósito: montarla durante la carga inicial metía su DOM y su
+  // trabajo en el momento más caro de la página (subió el TBT de 30 a 160 ms).
+  // Esperamos a que el navegador quede ocioso; además da tiempo a que la
+  // persona vea el sitio antes de que le aparezca un modal encima.
   useEffect(() => {
     if (showVideo) return;
-    try {
-      if (localStorage.getItem(INTRO_KEY) != null && localStorage.getItem(TOUR_KEY) == null) {
-        setShowTour(true);
-      }
-    } catch { /* noop */ }
+    let cancelled = false;
+    const offer = () => {
+      if (cancelled) return;
+      try {
+        if (localStorage.getItem(TOUR_KEY) == null) setShowTour(true);
+      } catch { /* noop */ }
+    };
+    const w = window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number };
+    const id = w.requestIdleCallback
+      ? w.requestIdleCallback(offer, { timeout: 4000 })
+      : window.setTimeout(offer, 2500);
+    return () => {
+      cancelled = true;
+      if (!w.requestIdleCallback) window.clearTimeout(id);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showVideo]);
 
@@ -185,6 +234,18 @@ export function AppLayout() {
     setAuthView('membership');
   }, [showVideo, authView, memStatus, isAdmin]);
 
+  // Aviso de cuenta inactiva: una vez por sesión, sin acosar al usuario.
+  useEffect(() => {
+    if (!blocked) return;
+    try {
+      if (sessionStorage.getItem('neuro.gatePrompted') != null) return;
+      sessionStorage.setItem('neuro.gatePrompted', '1');
+    } catch {
+      /* noop */
+    }
+    setGateOpen(true);
+  }, [blocked]);
+
   const handleSignOut = async () => {
     await signOut();
     navigate('/');
@@ -193,77 +254,119 @@ export function AppLayout() {
   // BARRERA OBLIGATORIA: si el usuario entró por login social y aún no completó
   // su perfil, la app NO se renderiza. Solo puede completar el registro o salir.
   if (needsOnboarding) {
-    return <SocialOnboarding />;
+    return (
+      <Suspense fallback={null}>
+        <SocialOnboarding />
+      </Suspense>
+    );
   }
 
   return (
     <div className="min-h-screen bg-surface">
-      {showVideo && <WelcomeVideo onDone={dismissVideo} />}
-      {showWelcome && <WelcomePopup onClose={() => setShowWelcome(false)} />}
-      {showTour && <GuidedTour onClose={closeTour} />}
-      {showFounder && <FounderPopup onClose={closeFounder} />}
-      {isAuthenticated && <MembershipReminderPopup />}
-      {reportOpen && <ReportModal onClose={() => setReportOpen(false)} />}
-      <AuthModals view={authView} onChangeView={setAuthView} onAuthenticated={() => navigate('/panel')} />
-      <SoftSignupBanner onSignup={() => navigate('/crear-cuenta')} />
+      {/* Todo lo emergente va aquí, perezoso y condicionado: nada de esto se ve
+          en el primer pintado, así que tampoco tiene por qué descargarse antes.
+          El fallback es `null` a propósito — un spinner de un modal que aún no
+          existe sería ruido. */}
+      <Suspense fallback={null}>
+        {showVideo && <WelcomeVideo onDone={dismissVideo} />}
+        {showWelcome && <WelcomePopup onClose={() => setShowWelcome(false)} />}
+        {showTour && <GuidedTour onClose={closeTour} />}
+        {showFounder && <FounderPopup onClose={closeFounder} />}
+        {isAuthenticated && <MembershipReminderPopup />}
+        {reportOpen && <ReportModal onClose={() => setReportOpen(false)} />}
+        {gateOpen && blocked && (
+          <AccountInactiveModal open onClose={() => setGateOpen(false)} />
+        )}
+        {justReactivated && (
+          <AccountReactivatedModal
+            open
+            onClose={dismissReactivated}
+            onGoToPanel={() => { dismissReactivated(); navigate('/panel'); }}
+          />
+        )}
+        {/* Se monta solo cuando hay un modal de acceso abierto: así el chunk con
+            react-hook-form + zod se descarga al pulsar "Entrar", no al llegar. */}
+        {authView !== 'none' && (
+          <AuthModals view={authView} onChangeView={setAuthView} onAuthenticated={() => navigate('/panel')} />
+        )}
+        <SoftSignupBanner onSignup={() => navigate('/crear-cuenta')} />
+      </Suspense>
       <header className="sticky top-0 z-30 border-b border-slate-100 bg-white/90 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-          <NavLink to="/" className="inline-flex flex-col leading-none">
-            <span className="text-[1.6875rem] font-extrabold text-[#E8C45A]">{t('common.appName')}</span>
-            <span className="mt-0.5 block w-full whitespace-nowrap text-center text-[0.66rem] font-semibold tracking-[0.04em] text-[#1e3a5f]">
-              {t('common.tagline')}
-            </span>
-          </NavLink>
-          <nav className="hidden items-center gap-x-2 gap-y-1.5 md:flex md:flex-wrap md:justify-end" aria-label={t('nav.directory')}>
-            {/* Enlaces principales */}
-            <NavPill to="/directorio" label={t('nav.directory')} colorClass="bg-brand-600" />
-            <NavPill to="/inclusion-escolar" label={t('nav.school')} colorClass="bg-gradient-to-br from-amber-600 via-orange-500 to-rose-500" />
-            <NavPill to="/academy" label={t('lms.tab')} colorClass="bg-gradient-to-br from-brand-600 via-brand-500 to-evs-5" />
-            <NavPill to="/kit" label={t('nav.kit')} colorClass="bg-gradient-to-br from-brand-500 via-brand-600 to-brand-800" />
-            <NavPill to="/blog" label={t('nav.blog')} colorClass="bg-gradient-to-br from-brand-600 via-indigo-600 to-indigo-800" />
-            <NavPill to="/eventos" label={t('nav.events')} colorClass="bg-gradient-to-br from-indigo-600 via-indigo-700 to-brand-700" />
-            <NavPill to="/tienda" label={t('shop.title')} colorClass="bg-gradient-to-br from-fuchsia-600 via-purple-600 to-indigo-600" />
-            {/* Secundarios agrupados para no saturar la barra */}
-            <NavMoreMenu
-              label={t('nav.more')}
-              items={[
-                { to: '/proteccion-datos', label: t('nav.dataProtection'), icon: <ShieldCheck className="h-4 w-4" /> },
-                { to: '/pregunta-al-experto', label: t('nav.askExpert'), icon: <MessageCircleQuestion className="h-4 w-4" /> },
-              ]}
-            />
+        <div className="mx-auto max-w-6xl px-4 py-3">
+          <div className="flex items-center justify-between">
+            <NavLink to="/" className="inline-flex items-center gap-2 leading-none">
+              <img
+                src="/logo-header.png"
+                alt=""
+                width={48}
+                height={48}
+                decoding="async"
+                className="h-11 w-11 shrink-0 object-contain"
+              />
+              <span className="inline-flex flex-col">
+                <span className="text-[1.6875rem] font-extrabold text-[#8C6D1F]">{t('common.appName')}</span>
+                <span className="mt-0.5 block w-full whitespace-nowrap text-center text-[0.66rem] font-semibold tracking-[0.04em] text-[#1e3a5f]">
+                  {t('common.tagline')}
+                </span>
+              </span>
+            </NavLink>
+            <nav className="hidden items-center gap-x-2 gap-y-1.5 md:flex md:flex-wrap md:justify-end" aria-label={t('nav.directory')}>
+              {/* Enlaces principales */}
+              <NavPill to="/directorio" label={t('nav.directory')} colorClass="bg-brand-600" />
+              <NavPill to="/inclusion-escolar" label={t('nav.school')} colorClass="bg-gradient-to-br from-amber-600 via-orange-500 to-rose-500" />
+              <NavPill to="/academy" label={t('lms.tab')} colorClass="bg-gradient-to-br from-brand-600 via-brand-500 to-evs-5" />
+              <NavPill to="/kit" label={t('nav.kit')} colorClass="bg-gradient-to-br from-brand-500 via-brand-600 to-brand-800" />
+              <NavPill to="/blog" label={t('nav.blog')} colorClass="bg-gradient-to-br from-brand-600 via-indigo-600 to-indigo-800" />
+              <NavPill to="/eventos" label={t('nav.events')} colorClass="bg-gradient-to-br from-indigo-600 via-indigo-700 to-brand-700" />
+              <NavPill to="/tienda" label={t('shop.title')} colorClass="bg-gradient-to-br from-fuchsia-600 via-purple-600 to-indigo-600" />
+              {/* Secundarios agrupados para no saturar la barra */}
+              <NavMoreMenu
+                label={t('nav.more')}
+                items={[
+                  { to: '/proteccion-datos', label: t('nav.dataProtection'), icon: <ShieldCheck className="h-4 w-4" /> },
+                  { to: '/pregunta-al-experto', label: t('nav.askExpert'), icon: <MessageCircleQuestion className="h-4 w-4" /> },
+                ]}
+              />
 
-            {/* Separador visual entre navegación y controles de cuenta */}
-            <span className="mx-1 hidden h-6 w-px bg-slate-200 lg:block" aria-hidden="true" />
+              {/* Separador visual entre navegación y controles de cuenta */}
+              <span className="mx-1 hidden h-6 w-px bg-slate-200 lg:block" aria-hidden="true" />
 
-            {isAuthenticated && (
-              <>
-                <NavPill to="/panel" label={t('nav.dashboard')} colorClass="bg-slate-700" />
-                <NavPill to="/calendario" label={t('nav.calendar')} colorClass="bg-slate-600" />
-                <NavPill to="/mensajes" label={t('nav.messages')} colorClass="bg-slate-600" />
-                <NavPill to="/ajustes" label={t('nav.settings')} colorClass="bg-slate-600" />
-              </>
-            )}
-            {isAuthenticated && <NotificationsBell />}
-            <AccessibilityMenu />
-            <LanguageSwitcher className="ml-1" />
-            {isAuthenticated ? (
-              <Button size="sm" variant="ghost" onClick={handleSignOut} leadingIcon={<LogOut className="h-4 w-4" />}>
-                {t('nav.logout')}
-              </Button>
-            ) : (
-              <Button size="sm" onClick={() => navigate('/crear-cuenta')} leadingIcon={<LogIn className="h-4 w-4" />}>
-                {t('nav.login')}
-              </Button>
-            )}
-          </nav>
-          {/* Controles siempre visibles en móvil: accesibilidad (control visual) e idioma. */}
-          <div className="flex items-center gap-1 md:hidden">
-            {isAuthenticated && fullName && (
-              <span className="mr-1 max-w-[6.5rem] truncate text-sm text-muted">{t('nav.greeting', { name: fullName.split(' ')[0] })}</span>
-            )}
-            <AccessibilityMenu />
-            <LanguageSwitcher />
+              {isAuthenticated && <NotificationsBell />}
+              <AccessibilityMenu />
+              <LanguageSwitcher className="ml-1" />
+              {isAuthenticated ? (
+                <Button size="sm" variant="ghost" onClick={handleSignOut} leadingIcon={<LogOut className="h-4 w-4" />}>
+                  {t('nav.logout')}
+                </Button>
+              ) : (
+                <Button size="sm" onClick={() => navigate('/crear-cuenta')} leadingIcon={<LogIn className="h-4 w-4" />}>
+                  {t('nav.login')}
+                </Button>
+              )}
+            </nav>
+            {/* Controles siempre visibles en móvil: accesibilidad (control visual) e idioma. */}
+            <div className="flex items-center gap-1 md:hidden">
+              {isAuthenticated && fullName && (
+                <span className="mr-1 max-w-[6.5rem] truncate text-sm text-muted">{t('nav.greeting', { name: fullName.split(' ')[0] })}</span>
+              )}
+              <AccessibilityMenu />
+              <LanguageSwitcher />
+            </div>
           </div>
+
+          {/* Segunda fila: panel del usuario, separada de la navegación general */}
+          {isAuthenticated && (
+            <nav
+              className="mt-2 hidden flex-wrap items-center justify-start gap-2 border-t border-slate-100 pt-2 md:flex"
+              aria-label={t('nav.myPanel')}
+            >
+              <NavPill to="/panel" label={t('nav.dashboard')} colorClass="bg-slate-700" disabled={blocked} onDisabledClick={() => setGateOpen(true)} />
+              <NavPill to="/calendario" label={t('nav.calendar')} colorClass="bg-slate-600" disabled={blocked} onDisabledClick={() => setGateOpen(true)} />
+              <NavPill to="/mensajes" label={t('nav.messages')} colorClass="bg-slate-600" disabled={blocked} onDisabledClick={() => setGateOpen(true)} />
+              {/* Mi Perfil sigue accesible: ahí puede pagar y gestionar su cuenta. */}
+              <NavPill to="/ajustes" label={t('nav.settings')} colorClass="bg-slate-600" />
+            </nav>
+          )}
         </div>
       </header>
 
@@ -405,7 +508,9 @@ export function AppLayout() {
         )}
       </nav>
 
-      <SupportButton />
+      <Suspense fallback={null}>
+        <SupportButton />
+      </Suspense>
     </div>
   );
 }

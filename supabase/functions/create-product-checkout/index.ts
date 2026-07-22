@@ -1,9 +1,18 @@
 // ============================================================================
 // Supabase Edge Function: create-product-checkout
 // Mini-tienda transaccional. Crea una sesión de Stripe Checkout (pago único) con
-// "destination charge" al vendedor. Si viene un código de afiliado, se calcula la
-// comisión y se cobra como application_fee a la plataforma (que luego liquida al
-// afiliado). El servidor no toca tarjetas.
+// "destination charge" al vendedor. El servidor no toca tarjetas.
+//
+// DINERO: la plataforma NO retiene nada. El vendedor recibe el 100% de su venta
+// (menos la comisión de Stripe) y es él quien le paga a su promotor. Si viene un
+// código de afiliado solo se CALCULA y REGISTRA la comisión en el pedido; de ahí
+// la recoge el libro de comisiones (migración 0043) para que el vendedor la
+// administre y la liquide.
+//
+// Antes esto mandaba `application_fee_amount` con la comisión, lo que la desviaba
+// al balance de Stripe de Neuromundi y obligaba a liquidarla desde la plataforma.
+// Se quitó a propósito: NO lo vuelvas a poner sin cambiar también el libro de
+// comisiones, o el promotor quedaría cobrando dos veces.
 //
 // body: { productId, affiliateCode? }
 // Secrets: STRIPE_SECRET_KEY
@@ -89,8 +98,9 @@ Deno.serve(async (req) => {
     mode: 'payment',
     line_items: [{ quantity: 1, price_data: { currency, unit_amount: unitAmount, product_data: { name: product.name } } }],
     payment_intent_data: {
+      // Sin application_fee: el importe íntegro va al vendedor. La comisión del
+      // promotor se registra en `orders.commission_cents` y la paga el vendedor.
       transfer_data: { destination: vendor.stripe_connect_id },
-      ...(commissionCents > 0 ? { application_fee_amount: commissionCents } : {}),
     },
     metadata,
     success_url: `${origin}/tienda?buy=ok`,

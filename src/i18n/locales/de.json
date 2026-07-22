@@ -19,7 +19,7 @@
   "nav": {
     "directory": "Verzeichnis",
     "dashboard": "Bereich",
-    "settings": "Einstellungen",
+    "settings": "Mein Profil",
     "login": "Anmelden",
     "logout": "Abmelden",
     "greeting": "Hallo, {{name}}",
@@ -32,7 +32,8 @@
     "blog": "Blog",
     "events": "Veranstaltungen",
     "calendar": "Kalender",
-    "messages": "Nachrichten"
+    "messages": "Nachrichten",
+    "myPanel": "Mein Bereich"
   },
   "home": {
     "title": "Die erste globale Community, die Patienten, Familien, Fachkräfte und Anbieter in Neuroentwicklung und Neurodivergenz verbindet.",
@@ -645,7 +646,9 @@
     "secMessages": "Nachrichten",
     "credential": "Berufsnachweis",
     "noCredential": "Kein Berufsnachweis",
-    "viewDoc": "Dokument {{n}} ansehen"
+    "viewDoc": "Dokument {{n}} ansehen",
+    "secReferrals": "Empfehlungen",
+    "secFees": "Beiträge"
   },
   "reg": {
     "typePatient": "Patient",
@@ -860,7 +863,12 @@
     "bannerPending": "Du hast noch {{days}} Tage, um deinen Beitrag zu zahlen.",
     "bannerPastDue": "Dein Profil erhält keine Anfragen und kann nicht interagieren, bis die Zahlung abgeschlossen ist.",
     "bannerCta": "Zahlung abschließen",
-    "founderDiscount": "Als Gründer erhältst du 50 % lebenslangen Rabatt auf den Mitgliedsbeitrag; es gilt nur die jährliche Erhöhung entsprechend der Inflation deines Landes."
+    "founderDiscount": "Als Gründer erhältst du 50 % lebenslangen Rabatt auf den Mitgliedsbeitrag; es gilt nur die jährliche Erhöhung entsprechend der Inflation deines Landes.",
+    "monthly": "Monatlich",
+    "perMonth": "/ Monat",
+    "choosePeriod": "Zahlungsweise wählen",
+    "savingBadge": "12 Monate zum Preis von 10",
+    "founderPrice": "Du hast den Gründungsmitglied-Preis"
   },
   "rules": {
     "version": "Version",
@@ -996,7 +1004,8 @@
     "rfc": "Deine Steuer-ID (für Rechnungen)",
     "rfcHint": "Optional. Wird bei der Zahlung verwendet.",
     "kindConsultation": "Sitzung",
-    "kindTherapy": "Therapie"
+    "kindTherapy": "Therapie",
+    "discountApplied": "Rabatt angewendet: {{pct}}%"
   },
   "content": {
     "tab": "Inhalte",
@@ -1083,6 +1092,13 @@
     "waitlist": {
       "title": "Ein Platz ist frei",
       "join": "Warteliste"
+    },
+    "referral": {
+      "title": "Dein Link wurde benutzt",
+      "reward": "Du hast einen Rabatt verdient"
+    },
+    "commission": {
+      "title": "Ihnen wurde eine Provision gezahlt"
     }
   },
   "clin": {
@@ -1233,9 +1249,9 @@
     "corporateHint": "Produkte, die Neuromundi direkt anbietet."
   },
   "affil": {
-    "tab": "Affiliate",
-    "title": "Affiliate-Programm",
-    "help": "Teile deinen Link und verdiene Provision, wenn jemand darüber kauft.",
+    "tab": "Meine Partner",
+    "title": "Partnerprogramm für meine Produkte",
+    "help": "Belohne, wer DEINE Produkte bewirbt: Wer diesen Link teilt und einen Verkauf erzielt, erhält die von dir festgelegte Provision, die von diesem Verkauf abgezogen wird.",
     "code": "Dein Code",
     "commission": "Provision (%)",
     "create": "Code speichern",
@@ -2085,9 +2101,10 @@
       "Veröffentliche ihn, damit er in Academy erscheint."
     ],
     "affiliate": [
-      "Kopiere deinen einzigartigen Affiliate-Link.",
-      "Teile ihn; kauft jemand darüber, wird deine Provision erfasst.",
-      "Sieh hier deine Verkäufe und aufgelaufenen Provisionen."
+      "Dieses Programm belohnt alle, die DEINE Shop-Produkte bewerben.",
+      "Lege deinen Code und den Provisionssatz fest, den du pro Verkauf zahlst.",
+      "Teile den Link: Wer darüber kauft, löst die Provision aus.",
+      "Hier siehst du die erzielten Verkäufe und die aufgelaufene Provision; die Abrechnung erfolgt außerhalb der App."
     ],
     "network": [
       "Suche und vernetze dich mit anderen Fachkräften oder Anbietern.",
@@ -2113,6 +2130,23 @@
       "Wähle oder suche den/die Empfänger-Patient/Familie.",
       "Füge Produkte oder Hinweise und Anwendungsnotizen hinzu.",
       "Sende die Verordnung; der Patient sieht sie im Konto und kann sie als bestellt markieren."
+    ],
+    "history": [
+      "Filtere nach Status oder Angebot, um die Suche einzugrenzen.",
+      "Jede Zeile ist eine Einlösung: Datum, Angebot und Status.",
+      "Mit „Exportieren“ lädst du den Verlauf als CSV herunter."
+    ],
+    "waitlist": [
+      "Füge Patienten per Mitglieds-Nr. (NM-000123) und optionaler Notiz hinzu.",
+      "Wird ein Termin abgelehnt oder storniert, benachrichtigt die Plattform die Wartenden automatisch.",
+      "Für andere Fälle nutze „Freien Platz ankündigen“.",
+      "Wenn jemand untergebracht ist, markiere ihn als Zugewiesen."
+    ],
+    "campaigns": [
+      "Schreibe einen kurzen, klaren Betreff und Text.",
+      "Wähle die Empfänger: deine Warteliste oder deine Patienten.",
+      "Wähle die Kanäle: App-Benachrichtigung, E-Mail und/oder SMS (SMS kostet pro Nachricht).",
+      "Auf Senden drücken; unten siehst du, wie viele es erhalten haben."
     ]
   },
   "recommend": {
@@ -2135,7 +2169,10 @@
       "facebook": "Auf Facebook teilen",
       "x": "Auf X teilen",
       "linkedin": "Auf LinkedIn teilen"
-    }
+    },
+    "accrued": "Du hast {{pct}}% für deine nächste Zahlung angesammelt (max. {{max}}%).",
+    "rules": "Dein Link gilt {{days}} Tage ab Erhalt. Wer damit abschließt, erhält 5% auf die erste Zahlung, und du bekommst {{step}}% pro zahlender Empfehlung. Patienten und Familien treten kostenlos bei: kein Rabatt, keine Prämie, aber die Nutzung wird erfasst.",
+    "creditLive": "Dein Rabatt gilt nur für die nächste Rechnung; bei aktivem Abo wird er automatisch angewendet."
   },
   "renewal": {
     "title": "Deine Mitgliedschaft steht zur Verlängerung an",
@@ -2538,6 +2575,154 @@
     "err": {
       "generic": "Kampagne konnte nicht gesendet werden.",
       "no_channels": "Wähle mindestens einen Kanal."
+    }
+  },
+  "ref": {
+    "totalUses": "Link-Nutzungen",
+    "payingUses": "Zahlend",
+    "rewardsDue": "Zu gewährende Prämien",
+    "searchPlaceholder": "Nach Name oder Mitglieds-Nr. suchen…",
+    "onlyRewards": "Nur mit Prämie",
+    "emptyTitle": "Noch keine Empfehlungen",
+    "empty": "Anmeldungen über Empfehlungslinks erscheinen hier.",
+    "typePaying": "Kostenpflichtige Mitgliedschaft",
+    "typeFree": "Kostenlose Mitgliedschaft",
+    "paidUntil": "bezahlt bis",
+    "rewardDue": "Prämie ausstehend",
+    "awaitingPayment": "Wartet auf Zahlung",
+    "noReward": "Keine Prämie",
+    "linkValid": "Link noch gültig",
+    "adminHint": "Die 5 % gelten nur für die erste Zahlung einer Person, die mit einem gültigen Link kommt und einen Beitrag zahlt. Bei Patienten oder Eltern gibt es weder Rabatt noch Prämie, die Nutzung wird aber erfasst. Prämien werden hier gewährt.",
+    "cfgTitle": "Programm-Einstellungen",
+    "cfgDiscount": "Rabatt für Geworbene",
+    "cfgStep": "Provision je Empfehlung",
+    "cfgMax": "Obergrenze",
+    "cfgDays": "Link-Gültigkeit",
+    "days": "Tage",
+    "cfgSave": "Speichern",
+    "cfgSaved": "Einstellungen aktualisiert.",
+    "cfgError": "Speichern fehlgeschlagen.",
+    "cfgHint": "Nur der Admin ändert diese Werte. Nutzer können weder Provision noch Code bearbeiten: Der Code ist immer die Mitgliedsnummer.",
+    "referrerIs": "empfohlen von",
+    "roleProvider": "ein Anbieter",
+    "roleFamily": "ein Patient oder eine Familie",
+    "rewardManual": "Manuelle Prämie"
+  },
+  "fees": {
+    "hint": "Lege den Beitrag je Nutzertyp und Land in der jeweiligen Währung fest. Was du hier speicherst, hat Vorrang vor der automatischen Umrechnung.",
+    "country": "Land",
+    "amount": "Betrag",
+    "currency": "Währung",
+    "zeroDecimal": "Ohne Dezimalstellen",
+    "save": "Speichern",
+    "edit": "Bearbeiten",
+    "reset": "Zurücksetzen",
+    "explicit": "Festgelegt",
+    "auto": "Automatisch",
+    "saved": "Beitrag gespeichert.",
+    "cleared": "Zurück zur automatischen Berechnung.",
+    "saveError": "Speichern fehlgeschlagen.",
+    "typePatient": "Patient",
+    "typeParent": "Eltern oder Vormund",
+    "typeService": "Dienstleister",
+    "typeMerchant": "Händler",
+    "typeSchool": "Schule",
+    "typeOther": "Anderer Typ",
+    "freeNote": "Patienten und Familien treten kostenlos bei: Auch bei konfiguriertem Beitrag wird nichts berechnet.",
+    "defaultCountry": "Standard (restliche Welt)",
+    "groupConfigured": "Mit eigenem Beitrag",
+    "groupAll": "Alle Länder",
+    "defaultHint": "Gilt für jedes Land ohne eigenen Beitrag. Sollte gut konfiguriert sein.",
+    "countryHint": "Lege hier den Beitrag dieses Landes in seiner Währung fest; sonst gilt der Standard.",
+    "configuredCount": "{{count}} Typ(en) mit eigenem Beitrag in diesem Land",
+    "noTypes": "Keine aktiven Mitgliedstypen.",
+    "classFounder": "Gründer",
+    "classOrdinary": "Standard",
+    "monthly": "Monatlich",
+    "annual": "Jährlich (berechnet)",
+    "annualList": "Jährlicher Listenpreis",
+    "annualHint": "= 10 Monate",
+    "listHint": "= 12 Monate, durchgestrichen",
+    "savingNote": "12 Monate zum Preis von 10.",
+    "typeMedical": "Medizinische Fachkraft",
+    "typeNonMedical": "Nicht-medizinische Fachkraft",
+    "typeClinic": "Klinik"
+  },
+  "gate": {
+    "title": "Dein Konto pausiert",
+    "bodyFirst": "Fast geschafft! Zahle nur noch deinen Beitrag, um dein Profil zu aktivieren und Anfragen zu erhalten.",
+    "bodyRenewal": "Deine Verlängerung steht aus, daher pausiert dein Profil. Du machst genau dort weiter, sobald die Zahlung eingeht.",
+    "whatYouGet": "Nach der Aktivierung erhältst du zurück:",
+    "benefit1": "Deine Sichtbarkeit im Verzeichnis und Anfragen von Familien.",
+    "benefit2": "Deinen Kalender, Termine und Nachrichten mit Patienten.",
+    "benefit3": "Deinen Shop, Kampagnen und das Empfehlungsprogramm.",
+    "yourFee": "Dein Beitrag",
+    "payNow": "Konto jetzt aktivieren",
+    "havePromo": "Ich habe einen Aktionscode",
+    "promoPlaceholder": "Dein Code",
+    "promoApply": "Anwenden",
+    "promoOk": "Fertig! Dein Konto ist aktiv.",
+    "promoBad": "Dieser Code ist ungültig.",
+    "later": "Jetzt nicht",
+    "footer": "Deine Daten und dein Verlauf bleiben unterdessen erhalten."
+  },
+  "reactivated": {
+    "title": "Willkommen zurück!",
+    "thanks": "Danke für dein Vertrauen in Neuromundi. Deine Zahlung ist verbucht und dein Profil ist wieder aktiv – mit allen Funktionen.",
+    "motivation": "Familien, die dich suchen, finden dich wieder. Auf zum nächsten Patienten!",
+    "cta": "Zu meinem Bereich"
+  },
+  "csv": {
+    "title": "Beiträge im- und exportieren (CSV)",
+    "hint": "Viele Länder auf einmal konfigurieren: Bestand herunterladen, in Excel oder Google Sheets bearbeiten und wieder hochladen. Nichts wird gespeichert, bis du bestätigst.",
+    "download": "CSV herunterladen",
+    "upload": "CSV hochladen",
+    "exported": "{{count}} Beiträge heruntergeladen.",
+    "templateDownloaded": "Noch keine Beiträge festgelegt: Eine Beispielvorlage wurde heruntergeladen.",
+    "exportError": "Datei konnte nicht heruntergeladen werden.",
+    "importError": "Import konnte nicht gespeichert werden.",
+    "allInvalid": "Keine Zeile der Datei ist gültig.",
+    "previewTitle": "Bereit zum Import: {{count}} Zeile(n)",
+    "errorsTitle": "{{count}} Zeile(n) mit Problemen",
+    "errorsNote": "Diese Zeilen werden übersprungen; der Rest wird importiert.",
+    "line": "Zeile",
+    "colType": "Typ",
+    "colClass": "Klasse",
+    "replaceLabel": "Alles ersetzen",
+    "replaceHint": "Löscht Beiträge, die nicht in der Datei stehen. Nicht angehakt: nur hinzufügen und aktualisieren.",
+    "confirm": "{{count}} Zeile(n) importieren",
+    "imported": "Fertig: {{inserted}} neu, {{updated}} aktualisiert, {{deleted}} gelöscht.",
+    "formatTitle": "Dateiformat ansehen",
+    "formatBody": "Eine Zeile je Land, Mitgliedstyp und Klasse. Jährlich entspricht 10 Monaten, die Referenz 12; leer lassen, um sie aus dem Monatsbetrag abzuleiten.",
+    "formatNote": "Akzeptiert \";\" oder \",\" als Trennzeichen und Komma als Dezimaltrennzeichen. Das Land darf Akzente haben: „México“ und „Mexico“ sind gleich."
+  },
+  "comm": {
+    "title": "Vermittlungsprovisionen",
+    "help": "Hier werden die Provisionen aus Empfehlungen geführt. Neuromundi hält oder überweist dieses Geld nicht: Der Verkäufer zahlt den Vermittler direkt und trägt es hier ein.",
+    "tabEarned": "Mir geschuldet",
+    "tabOwed": "Ich schulde",
+    "pendingToReceive": "Zu erhalten",
+    "pendingToPay": "Zu zahlen",
+    "alreadySettled": "Bereits beglichen",
+    "download": "Kontoauszug herunterladen",
+    "pending": "Offen",
+    "settled": "Beglichen",
+    "registerPayment": "Zahlung eintragen",
+    "confirmBody": "Sie tragen ein, dass Sie {{amount}} an {{name}} bereits gezahlt haben. Es wird kein Geld bewegt: Es wird nur festgehalten und die Person benachrichtigt.",
+    "noteLabel": "Zahlungsreferenz (optional)",
+    "notePlaceholder": "Überweisungsnr., Datum, Weg…",
+    "confirm": "Bestätigen",
+    "marked": "{{count}} Provision(en) als bezahlt markiert",
+    "markError": "Die Zahlung konnte nicht eingetragen werden",
+    "refundAfterPaid": "Verkauf danach erstattet",
+    "emptyEarnedTitle": "Noch keine Provisionen",
+    "emptyEarned": "Teilen Sie Ihren Partnerlink: Sobald jemand darüber kauft, erscheint die Provision hier.",
+    "emptyOwedTitle": "Sie schulden keine Provisionen",
+    "emptyOwed": "Wenn jemand eines Ihrer Produkte über seinen Link verkauft, sehen Sie hier, was Sie ihm schulden.",
+    "status": {
+      "payable": "Zu zahlen",
+      "paid": "Bezahlt",
+      "reversed": "Storniert"
     }
   }
 }

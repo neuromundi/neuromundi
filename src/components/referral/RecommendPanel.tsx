@@ -6,10 +6,10 @@
  */
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Share2, Copy, Check, Users, MessageCircle, Mail, Facebook, Linkedin, Gift } from 'lucide-react';
+import { Share2, Copy, Check, Users, MessageCircle, Mail, Facebook, Linkedin, Gift, Percent, Clock } from 'lucide-react';
 import { Button, useToast, HowTo } from '@/components/ui';
 import { useAuthStore } from '@/stores/authStore';
-import { useReferralStats } from '@/hooks/useReferral';
+import { useReferralSummary } from '@/hooks/useReferralProgram';
 import { referralUrl, formatMemberNo } from '@/lib/referral';
 import { track } from '@/lib/track';
 
@@ -17,7 +17,7 @@ export function RecommendPanel() {
   const { t } = useTranslation();
   const toast = useToast();
   const profile = useAuthStore((s) => s.profile);
-  const { count } = useReferralStats();
+  const { summary } = useReferralSummary();
   const [copied, setCopied] = useState(false);
 
   if (!profile) return null;
@@ -85,11 +85,27 @@ export function RecommendPanel() {
         <p className="mt-1 max-w-xl text-sm text-white/90">{t('recommend.subtitle')}</p>
       </section>
 
-      <div className="flex items-center gap-3 rounded-2xl border border-brand-200 bg-brand-50 p-3">
-        <Users className="h-5 w-5 shrink-0 text-brand-700" aria-hidden="true" />
-        <p className="text-sm text-brand-800">
-          {t('recommend.count', { count: count ?? 0 })}
-        </p>
+      <div className="grid gap-2 sm:grid-cols-2">
+        <div className="flex items-center gap-3 rounded-2xl border border-brand-200 bg-brand-50 p-3">
+          <Users className="h-5 w-5 shrink-0 text-brand-700" aria-hidden="true" />
+          <p className="text-sm text-brand-800">
+            {t('recommend.count', { count: summary?.total_uses ?? 0 })}
+          </p>
+        </div>
+        <div className="flex items-center gap-3 rounded-2xl border border-sage-200 bg-sage-50 p-3">
+          <Percent className="h-5 w-5 shrink-0 text-sage-700" aria-hidden="true" />
+          <p className="text-sm text-sage-800">
+            {t('recommend.accrued', {
+              pct: summary?.accrued_pct ?? 0,
+              max: summary?.max_pct ?? 0,
+            })}
+          </p>
+        </div>
+      </div>
+
+      <div className="flex items-start gap-2 rounded-2xl border border-warm-200 bg-warm-50 p-3 text-sm text-warm-800">
+        <Clock className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+        <p>{t('recommend.rules', { days: summary?.validity_days ?? 7, step: summary?.step_pct ?? 5 })}</p>
       </div>
 
       <div className="rounded-2xl border border-slate-100 bg-white p-4 shadow-sm">

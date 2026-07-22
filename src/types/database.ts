@@ -106,6 +106,8 @@ export interface Database {
           provider_details: Record<string, unknown> | null;
           member_no: number | null;
           referred_by: number | null;
+          referred_at: string | null;
+          referral_credit_pct: number;
           wants_founder: boolean;
           created_at: string;
           updated_at: string;
@@ -186,6 +188,8 @@ export interface Database {
           provider_details?: Record<string, unknown> | null;
           member_no?: number | null;
           referred_by?: number | null;
+          referred_at?: string | null;
+          referral_credit_pct?: number;
           wants_founder?: boolean;
           created_at?: string;
           updated_at?: string;
@@ -1058,9 +1062,106 @@ export interface Database {
         Args: { p_limit?: number };
         Returns: Database['public']['Views']['blog_feed']['Row'][];
       };
+      my_membership_options: {
+        Args: Record<string, never>;
+        Returns: { affiliate_type: string; member_class: 'founder' | 'ordinary'; currency: string; monthly_amount: number | null; annual_amount: number | null; annual_list_amount: number | null; zero_decimal: boolean; is_founder: boolean }[];
+      };
+      affiliate_type_for: {
+        Args: { p_user: string };
+        Returns: string;
+      };
+      is_medical_profession: {
+        Args: { p_profession: string };
+        Returns: boolean | null;
+      };
+      membership_price_for: {
+        Args: { p_type: string; p_country: string; p_class?: string; p_period?: string };
+        Returns: { currency: string; amount: number; list_amount: number | null; monthly_amount: number | null; annual_amount: number | null; annual_list_amount: number | null; zero_decimal: boolean; is_override: boolean }[];
+      };
+      admin_membership_prices: {
+        Args: Record<string, never>;
+        Returns: { affiliate_type: string; country_label: string; currency: string; amount: number; zero_decimal: boolean; is_override: boolean }[];
+      };
+      admin_export_membership_prices: {
+        Args: Record<string, never>;
+        Returns: { country_label: string; affiliate_type: string; member_class: string; currency: string; monthly_amount: number | null; annual_amount: number | null; annual_list_amount: number | null; zero_decimal: boolean }[];
+      };
+      admin_import_membership_prices: {
+        Args: { p_rows: Json; p_replace?: boolean };
+        Returns: Json;
+      };
+      normalize_country: {
+        Args: { p: string };
+        Returns: string;
+      };
+      // ── Libro de comisiones de afiliados (migración 0043) ────────────────
+      my_commissions_earned: {
+        Args: Record<string, never>;
+        Returns: { id: string; order_id: string; counterpart_id: string; counterpart_name: string | null; counterpart_member_no: number | null; product_name: string | null; amount_cents: number; currency: string; status: string; refund_after_payment: boolean; paid_at: string | null; paid_note: string | null; created_at: string }[];
+      };
+      my_commissions_owed: {
+        Args: Record<string, never>;
+        Returns: { id: string; order_id: string; counterpart_id: string; counterpart_name: string | null; counterpart_member_no: number | null; product_name: string | null; amount_cents: number; currency: string; status: string; refund_after_payment: boolean; paid_at: string | null; paid_note: string | null; created_at: string }[];
+      };
+      mark_commissions_paid: {
+        Args: { p_ids: string[]; p_note?: string | null };
+        Returns: Json;
+      };
+      admin_commissions: {
+        Args: Record<string, never>;
+        Returns: { id: string; vendor_id: string; vendor_name: string | null; vendor_member_no: number | null; affiliate_id: string; affiliate_name: string | null; affiliate_member_no: number | null; product_name: string | null; amount_cents: number; currency: string; status: string; refund_after_payment: boolean; paid_at: string | null; created_at: string }[];
+      };
+      admin_country_prices: {
+        Args: { p_country: string };
+        Returns: { affiliate_type: string; member_class: string; currency: string; monthly_amount: number | null; annual_amount: number | null; annual_list_amount: number | null; zero_decimal: boolean; is_override: boolean }[];
+      };
+      admin_configured_countries: {
+        Args: Record<string, never>;
+        Returns: { country_label: string; types: number }[];
+      };
+      admin_set_membership_price: {
+        Args: { p_type: string; p_country: string; p_class: string; p_currency: string; p_monthly: number; p_annual: number; p_annual_list: number; p_zero_decimal?: boolean };
+        Returns: Json;
+      };
+      admin_clear_membership_price: {
+        Args: { p_type: string; p_country: string; p_class: string };
+        Returns: Json;
+      };
+      admin_referral_config: {
+        Args: Record<string, never>;
+        Returns: { discount_pct: number; validity_days: number; referrer_step_pct: number; referrer_max_pct: number }[];
+      };
+      admin_set_referral_config: {
+        Args: { p_discount_pct: number; p_validity_days: number; p_referrer_step_pct: number; p_referrer_max_pct: number };
+        Returns: Json;
+      };
+      grant_referral_credit: {
+        Args: { p_referred: string };
+        Returns: { referrer_id: string; credit_pct: number; subscription_id: string | null }[];
+      };
+      consume_referral_credit: {
+        Args: { p_user: string };
+        Returns: undefined;
+      };
+      my_referral_summary: {
+        Args: Record<string, never>;
+        Returns: { total_uses: number; paying_uses: number; rewarded_uses: number; accrued_pct: number; max_pct: number; step_pct: number; validity_days: number }[];
+      };
+      my_membership_discount: {
+        Args: Record<string, never>;
+        Returns: { referral_pct: number; referrer_pct: number; total_pct: number }[];
+      };
+      membership_discount: {
+        Args: { p_user: string };
+        Returns: { referral_pct: number; referrer_pct: number; total_pct: number }[];
+      };
+      admin_referrals: {
+        Args: Record<string, never>;
+        Returns: { id: string; used_at: string; referrer_id: string; referrer_name: string | null; referrer_member_no: number | null; referred_id: string; referred_name: string | null; referred_member_no: number | null; referred_role: string | null; is_paying_type: boolean; referred_has_paid: boolean; referred_paid_until: string | null; link_still_valid: boolean; reward_due: boolean; reward_manual: boolean; reward_counted: boolean; referrer_role: string | null }[];
+      };
       set_referrer: {
         Args: { p_member_no: number };
-        Returns: boolean;
+        Returns: Json;
       };
       my_referral_count: {
         Args: Record<string, never>;

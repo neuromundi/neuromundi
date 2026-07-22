@@ -45,7 +45,7 @@ export function InfoNeuromundi() {
         href={OFFICIAL_URL}
         target="_blank"
         rel="noopener noreferrer"
-        className="mt-6 inline-flex items-center justify-center gap-2 rounded-xl bg-brand-600 px-5 py-3 font-semibold text-white shadow-sm hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+        className="mt-6 inline-flex items-center justify-center gap-2 rounded-xl bg-brand-700 px-5 py-3 font-semibold text-white shadow-sm hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
       >
         {t('info.visit')}
         <ExternalLink className="h-4 w-4" aria-hidden="true" />

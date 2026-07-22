@@ -6,6 +6,11 @@
  * guarda el folio del referente para atribuirlo cuando la persona se registre.
  */
 const REF_KEY = 'nm_referrer';
+const REF_AT_KEY = 'nm_referrer_at';
+
+/** Vigencia del enlace de recomendación: 7 días desde que se recibe. */
+export const REFERRAL_VALIDITY_DAYS = 7;
+const REF_MAX_AGE_MS = REFERRAL_VALIDITY_DAYS * 24 * 60 * 60 * 1000;
 
 /** Formatea el folio como NM-000123. */
 export function formatMemberNo(memberNo: number): string {
@@ -33,17 +38,27 @@ export function captureRefFromUrl(): void {
   try {
     const params = new URLSearchParams(window.location.search);
     const ref = parseRefCode(params.get('ref'));
-    if (ref != null) window.localStorage.setItem(REF_KEY, String(ref));
+    if (ref != null) {
+      window.localStorage.setItem(REF_KEY, String(ref));
+      // Sella el momento de recepción para poder caducarlo a los 7 días.
+      window.localStorage.setItem(REF_AT_KEY, String(Date.now()));
+    }
   } catch {
     /* noop */
   }
 }
 
-/** Folio del referente guardado (o null). */
+/** Folio del referente guardado, o null si no hay o si el enlace ya caducó. */
 export function getStoredReferrer(): number | null {
   if (typeof window === 'undefined') return null;
   try {
-    return parseRefCode(window.localStorage.getItem(REF_KEY));
+    const ref = parseRefCode(window.localStorage.getItem(REF_KEY));
+    if (ref == null) return null;
+    const at = Number(window.localStorage.getItem(REF_AT_KEY));
+    // Sin sello (enlaces guardados antes de esta versión) se considera caducado.
+    if (!Number.isFinite(at) || at <= 0) { clearStoredReferrer(); return null; }
+    if (Date.now() - at > REF_MAX_AGE_MS) { clearStoredReferrer(); return null; }
+    return ref;
   } catch {
     return null;
   }
@@ -54,6 +69,7 @@ export function clearStoredReferrer(): void {
   if (typeof window === 'undefined') return;
   try {
     window.localStorage.removeItem(REF_KEY);
+    window.localStorage.removeItem(REF_AT_KEY);
   } catch {
     /* noop */
   }

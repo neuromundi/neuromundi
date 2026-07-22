@@ -185,7 +185,7 @@ export function Messages() {
                     const mine = m.sender_id === userId;
                     return (
                       <div key={m.id} className={`flex ${mine ? 'justify-end' : 'justify-start'}`}>
-                        <div className={`max-w-[80%] whitespace-pre-wrap break-words rounded-2xl px-3 py-2 text-sm ${mine ? 'bg-brand-600 text-white' : 'bg-slate-100 text-slate-900'}`}>
+                        <div className={`max-w-[80%] whitespace-pre-wrap break-words rounded-2xl px-3 py-2 text-sm ${mine ? 'bg-brand-700 text-white' : 'bg-slate-100 text-slate-900'}`}>
                           <Linkified text={m.body} />
                           <div className={`mt-1 text-[10px] ${mine ? 'text-white/70' : 'text-muted'}`}>{formatDate(m.created_at)}</div>
                         </div>

@@ -43,13 +43,19 @@ export function WelcomeVideo({ onDone }: { onDone: () => void }) {
       <video
         ref={videoRef}
         className="h-full w-full object-contain"
-        src="/neuromundi.mp4"
         autoPlay
         playsInline
-        preload="auto"
+        muted
+        preload="metadata"
         onEnded={finish}
         onError={finish}
-      />
+      >
+        {/* WebM primero (más ligero); MP4 como respaldo para Safari antiguo.
+            El sufijo -v2 es cache busting: el archivo anterior (5.2 MB) quedó
+            cacheado un mes en el CDN bajo el nombre viejo. */}
+        <source src="/neuromundi-v2.webm" type="video/webm" />
+        <source src="/neuromundi-v2.mp4" type="video/mp4" />
+      </video>
       <button
         type="button"
         onClick={finish}

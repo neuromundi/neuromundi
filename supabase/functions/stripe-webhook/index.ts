@@ -32,6 +32,38 @@ const admin = createClient(
 const toIso = (unixSeconds?: number | null) =>
   unixSeconds ? new Date(unixSeconds * 1000).toISOString() : null;
 
+/**
+ * Otorga al referente el crédito por un referido que acaba de pagar y, si ese
+ * referente ya tiene una suscripción activa, le aplica el descuento acumulado
+ * como cupón de un solo uso para que su PRÓXIMA factura salga rebajada.
+ * Nunca lanza: un fallo aquí no debe tumbar el webhook del pago.
+ */
+async function applyReferralReward(
+  admin: ReturnType<typeof createClient>,
+  stripe: Stripe,
+  referredUserId: string,
+) {
+  try {
+    const { data } = await admin.rpc('grant_referral_credit', { p_referred: referredUserId });
+    const row = Array.isArray(data) ? data[0] : data;
+    const referrerId = row?.referrer_id as string | undefined;
+    const creditPct = Number(row?.credit_pct ?? 0);
+    const subId = row?.subscription_id as string | null | undefined;
+    if (!referrerId || creditPct <= 0 || !subId) return;
+
+    const coupon = await stripe.coupons.create({
+      percent_off: Math.min(creditPct, 100),
+      duration: 'once',
+      name: `Recompensa por recomendar (-${creditPct}%)`,
+      metadata: { user_id: referrerId, kind: 'referral' },
+    });
+    // Reemplaza cualquier cupón previo: el crédito ya es el acumulado total.
+    await stripe.subscriptions.update(subId, { coupon: coupon.id });
+  } catch (e) {
+    console.error('applyReferralReward', e);
+  }
+}
+
 Deno.serve(async (req: Request) => {
   const sig = req.headers.get('Stripe-Signature');
   const secret = Deno.env.get('STRIPE_WEBHOOK_SECRET') ?? '';
@@ -100,7 +132,29 @@ Deno.serve(async (req: Request) => {
               membership_paid_until: paidUntil,
             })
             .eq('id', userId);
+          // El referente de este usuario gana su recompensa (si aplica).
+          await applyReferralReward(admin, stripe, userId);
         }
+        break;
+      }
+
+      // Reembolso de una compra: el pedido pasa a 'refunded' y el trigger
+      // `trg_sync_affiliate_commission` (migración 0043) revierte la comisión
+      // del promotor si aún no se le había pagado. Si ya se le pagó, la marca
+      // como `refund_after_payment` para que el vendedor lo resuelva con él.
+      case 'charge.refunded': {
+        const ch = event.data.object as Stripe.Charge;
+        const pi = typeof ch.payment_intent === 'string' ? ch.payment_intent : ch.payment_intent?.id;
+        if (!pi) break;
+        // El pedido se guarda con el id de la sesión, no del PaymentIntent, así
+        // que hay que localizar la sesión que originó este cobro.
+        const sessions = await stripe.checkout.sessions.list({ payment_intent: pi, limit: 1 });
+        const sessionId = sessions.data[0]?.id;
+        if (!sessionId) break;
+        await admin
+          .from('orders')
+          .update({ status: 'refunded' })
+          .eq('stripe_session_id', sessionId);
         break;
       }
 
@@ -122,6 +176,24 @@ Deno.serve(async (req: Request) => {
             .from('profiles')
             .update({ membership_status: 'active', membership_paid_until: paidUntil })
             .eq('stripe_customer_id', customerId);
+
+          const { data: payer } = await admin
+            .from('profiles')
+            .select('id')
+            .eq('stripe_customer_id', customerId)
+            .maybeSingle();
+          const payerId = payer?.id as string | undefined;
+          if (payerId) {
+            // Si esta factura se cobró con el cupón de recomendación, el
+            // crédito ya se usó: se pone a cero.
+            const usedReferralCoupon =
+              (inv.discount?.coupon?.metadata as Record<string, string> | undefined)?.kind === 'referral';
+            if (usedReferralCoupon) {
+              await admin.rpc('consume_referral_credit', { p_user: payerId });
+            }
+            // Y su propio referente cobra recompensa (solo la primera vez).
+            await applyReferralReward(admin, stripe, payerId);
+          }
         }
         break;
       }

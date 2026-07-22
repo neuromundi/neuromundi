@@ -105,7 +105,7 @@ export function Book() {
                 type="button"
                 disabled={!valid || busy}
                 onClick={submit}
-                className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-600 px-4 py-3 font-semibold text-white transition-colors hover:bg-brand-700 disabled:opacity-60"
+                className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-700 px-4 py-3 font-semibold text-white transition-colors hover:bg-brand-700 disabled:opacity-60"
               >
                 <Send className="h-4 w-4" aria-hidden="true" /> {busy ? t('book.sending') : t('book.send')}
               </button>

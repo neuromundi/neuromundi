@@ -24,6 +24,22 @@ const SCALE_PCT: Record<FontScale, number> = {
 const LS_FONT = 'neuromundi.a11y.fontScale';
 const LS_MOTION = 'neuromundi.a11y.reduceMotion';
 const LS_CALM = 'neuromundi.a11y.calm';
+/**
+ * La tipografía para dislexia (Atkinson Hyperlegible) solo la usa quien activa
+ * ese modo. Cargarla siempre costaba una petición a Google Fonts en la ruta
+ * crítica para el 100% de las visitas; ahora se inyecta la primera vez que
+ * alguien enciende el modo.
+ */
+let dyslexiaFontLoaded = false;
+function ensureDyslexiaFont(): void {
+  if (dyslexiaFontLoaded || typeof document === 'undefined') return;
+  dyslexiaFontLoaded = true;
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = 'https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap';
+  document.head.appendChild(link);
+}
+
 const LS_DYSLEXIA = 'neuromundi.a11y.dyslexia';
 const LS_CONTRAST = 'neuromundi.a11y.highContrast';
 
@@ -58,6 +74,7 @@ export function applyA11y(p: A11yPrefs): void {
   el.dataset.reduceMotion = p.reduceMotion ? 'true' : 'false';
   el.dataset.calm = p.calm ? 'true' : 'false';
   el.dataset.dyslexia = p.dyslexia ? 'true' : 'false';
+  if (p.dyslexia) ensureDyslexiaFont();
   el.dataset.contrast = p.highContrast ? 'true' : 'false';
 }
 

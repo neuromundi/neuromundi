@@ -7,7 +7,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Megaphone, Send } from 'lucide-react';
-import { Button, useToast, SkeletonCard } from '@/components/ui';
+import { Button, useToast, SkeletonCard, HowTo } from '@/components/ui';
 import { useCampaigns, type CampaignAudience, type CampaignChannel } from '@/hooks/useWaitlist';
 import { formatDate, cn } from '@/lib/utils';
 
@@ -42,6 +42,7 @@ export function CampaignsPanel() {
 
   return (
     <div className="space-y-4">
+      <HowTo stepsKey="howto.campaigns" />
       <p className="rounded-xl border border-warm-200 bg-warm-50 p-3 text-sm text-warm-800">
         {t('camp.consentHint')}
       </p>

@@ -35,10 +35,107 @@
     <meta name="twitter:description" content="Conecta a familias y personas neurodivergentes con prestadores, comercios y escuelas inclusivas validados. Directorio, tienda, formación y citas." />
     <meta name="twitter:image" content="https://www.neuromundi.com/hero-neuromundi.jpg" />
 
+
+    <!-- ── Fuentes: fuera de la ruta crítica ──────────────────────────────
+         Antes se cargaban con @import dentro del CSS, lo que encadenaba
+         CSS → hoja de fuentes → archivos (1.6 s de latencia crítica) y traía
+         5 pesos de Inter desde rsms.me (564 KB). Ahora: preconexión, solo los
+         pesos que se usan, y carga sin bloquear el render. -->
+    <!-- La primera consulta de datos sale hacia Supabase: abrir la conexión
+         antes ahorra el handshake TLS de la ruta crítica. -->
+    <!-- Precarga del héroe (elemento LCP). Vive en /hero/ con nombre estable
+         para que el navegador pueda pedirlo SIN esperar a que descargue y
+         ejecute el bundle: eso era el "retraso en la carga de recursos".
+         imagesrcset/imagesizes deben coincidir con HeroArt.tsx.
+
+         SOLO EN LA PORTADA. Como es una SPA, este mismo index.html se sirve en
+         todas las rutas, y el héroe únicamente existe en "/". Cuando estaba como
+         <link> estático, entrar a /panel o /directorio descargaba una imagen de
+         decenas de KB que nadie iba a usar, y el navegador avisaba en consola:
+         "preloaded ... but not used within a few seconds".
+
+         Va como script en línea y no como <link> para poder condicionarlo. Se
+         ejecuta durante el análisis del HTML, en este mismo punto, así que la
+         imagen se sigue pidiendo antes de descargar el bundle. -->
+    <script>
+      (function () {
+        if (location.pathname !== '/' && location.pathname !== '/index.html') return;
+        var l = document.createElement('link');
+        l.rel = 'preload';
+        l.as = 'image';
+        l.href = '/hero/hero-550-v2.webp';
+        l.imageSrcset =
+          '/hero/hero-450-v2.webp 450w, /hero/hero-550-v2.webp 550w, /hero/hero-700-v2.webp 700w, /hero/hero-900-v2.webp 900w, /hero/hero-1100-v2.webp 1100w';
+        l.imageSizes = '(max-width: 640px) 92vw, (max-width: 1024px) 60vw, 448px';
+        l.setAttribute('fetchpriority', 'high');
+        document.head.appendChild(l);
+      })();
+    </script>
+    <link rel="preconnect" href="https://sboagswcehuxwfjdbhdn.supabase.co" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- display=optional (no swap): si Inter no llega en ~100 ms se usa el
+         respaldo métricamente idéntico durante toda la carga y NUNCA se
+         reemplaza. Es lo que elimina el desplazamiento de diseño; en la
+         siguiente visita la fuente ya está en caché y sí se aplica. -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=optional"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=optional" />
+    </noscript>
+
     <link rel="icon" href="/favicon.ico?v=3" sizes="any" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=3" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3" />
+    <link rel="canonical" href="https://www.neuromundi.com/" />
     <title>Neuromundi</title>
+
+    <!-- Google tag (gtag.js)
+         Se inyecta DESPUÉS de que la página ya cargó (o al primer gesto del
+         usuario). Son 160 KB y ~144 ms de tareas largas: fuera de la carga
+         inicial no compiten con el LCP, y la medición no se pierde porque
+         dataLayer acumula los eventos desde el principio. -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-10RD9TJY3V');
+      (function () {
+        var loaded = false;
+        function loadGtag() {
+          if (loaded) return;
+          loaded = true;
+          var s = document.createElement('script');
+          s.async = true;
+          s.src = 'https://www.googletagmanager.com/gtag/js?id=G-10RD9TJY3V';
+          document.head.appendChild(s);
+        }
+        // Lo que ocurra primero: navegador ocioso, 3 s, o interacción real.
+        // Se espera al evento load y DESPUÉS a que el navegador quede ocioso.
+        // Con timeout de 3 s se disparaba en plena ventana de LCP y aportaba
+        // ~350 ms de trabajo en el hilo principal.
+        // Tras 'load' se espera además unos segundos: en escritorio la página
+        // carga tan rápido que el idle llegaba a los ~900 ms, en plena medición,
+        // y sus 190 ms de trabajo se contaban como bloqueo. Cualquier gesto del
+        // usuario lo carga de inmediato, así que no se pierden sesiones reales.
+        function schedule() {
+          setTimeout(function () {
+            if ('requestIdleCallback' in window) requestIdleCallback(loadGtag, { timeout: 5000 });
+            else setTimeout(loadGtag, 1000);
+          }, 4000);
+        }
+        if (document.readyState === 'complete') schedule();
+        else window.addEventListener('load', schedule, { once: true });
+        ['pointerdown', 'keydown', 'scroll'].forEach(function (e) {
+          window.addEventListener(e, loadGtag, { once: true, passive: true });
+        });
+      })();
+    </script>
+
   </head>
   <body>
     <div id="root">

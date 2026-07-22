@@ -1,5 +1,31 @@
-@import url('https://rsms.me/inter/inter.css');
-@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap');
+/* Las fuentes NO se importan aqui: un @import obliga al navegador a descargar
+   este CSS, parsearlo y solo entonces descubrir la hoja de fuentes, creando una
+   cadena critica de red. Ahora se cargan sin bloquear desde index.html. */
+
+/* ── Fuente de respaldo con métricas de Inter ────────────────────────────────
+   Al sacar las fuentes de la ruta crítica ganamos ~1.6 s, pero el texto se
+   pinta primero con la fuente del sistema y salta al llegar Inter: eso era el
+   CLS de 0.072.
+
+   Los valores NO son estimados: salen de las métricas reales de Inter
+   (unitsPerEm 2816, ascender 2728, descender 680, x-height 1536) frente a las
+   de Arial (2048 / x-height 1062):
+     size-adjust      = (1536/2816) / (1062/2048) = 105.19%
+     ascent-override  = (2728/2816) / 1.0519      =  92.10%
+     descent-override = ( 680/2816) / 1.0519      =  22.96%
+   Con esto el respaldo ocupa exactamente el mismo espacio que Inter.
+
+   En Linux (donde corre Lighthouse) Arial no existe, así que se listan también
+   los clones métricamente compatibles. */
+@font-face {
+  font-family: 'Inter Fallback';
+  src: local('Arial'), local('Helvetica Neue'), local('Helvetica'),
+       local('Liberation Sans'), local('Arimo'), local('Nimbus Sans');
+  size-adjust: 105.19%;
+  ascent-override: 92.10%;
+  descent-override: 22.96%;
+  line-gap-override: 0%;
+}
 
 @tailwind base;
 @tailwind components;
@@ -17,7 +43,7 @@
 
   body {
     @apply bg-surface text-slate-900 antialiased;
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Inter', 'Inter Fallback', system-ui, sans-serif;
   }
 
   /* Foco visible consistente para navegación por teclado */

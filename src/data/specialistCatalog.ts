@@ -16,12 +16,57 @@ export const PROFESSIONS: CatItem[] = [
   { value: 'neuropediatria', label: 'Neuropediatría' },
   { value: 'psicopedagogia', label: 'Psicopedagogía' },
   { value: 'psiquiatria', label: 'Psiquiatría' },
+  { value: 'paidopsiquiatria', label: 'Paidopsiquiatría (psiquiatría infantil)' },
+  { value: 'neurologia', label: 'Neurología' },
+  { value: 'pediatria', label: 'Pediatría' },
+  { value: 'genetica_medica', label: 'Genética Médica' },
+  { value: 'medicina_rehabilitacion', label: 'Medicina Física y Rehabilitación' },
   { value: 'neuropsicologia', label: 'Neuropsicología' },
   { value: 'educacion_especial', label: 'Educación Especial' },
   { value: 'nutricion', label: 'Nutrición' },
   { value: 'musicoterapia', label: 'Musicoterapia' },
   { value: 'otro', label: 'Otro' },
 ];
+
+/**
+ * Profesiones MÉDICAS, para efectos de cuota de afiliación.
+ *
+ * Criterio (el mismo que usan los estándares reconocidos):
+ *  · ISCO-08 (OIT/OMS) reserva "médicos" al grupo 221 —2211 generalistas y
+ *    2212 especialistas—; el resto del personal de salud (psicología 2634,
+ *    fisioterapia 2264, logopedia 2266, nutrición 2265, terapia ocupacional)
+ *    son "profesionales de la salud", pero NO médicos.
+ *  · En México, la Ley General de Salud (art. 79) enumera muchas profesiones
+ *    sanitarias que exigen título, pero distingue la medicina de las demás.
+ *
+ * En la práctica la línea divisoria es el título de médico cirujano y, con él,
+ * la facultad de diagnosticar enfermedades y prescribir medicamentos.
+ *
+ * Nota: psicología, neuropsicología, logopedia, fisioterapia, terapia
+ * ocupacional, psicopedagogía, educación especial, nutrición y musicoterapia
+ * son profesiones de la salud o de la educación, pero no médicas.
+ */
+export const MEDICAL_PROFESSIONS: ReadonlySet<string> = new Set([
+  'psiquiatria',
+  'paidopsiquiatria',
+  'neuropediatria',
+  'neurologia',
+  'pediatria',
+  'genetica_medica',
+  'medicina_rehabilitacion',
+]);
+
+/**
+ * ¿La profesión es médica? 'otro' y los valores desconocidos devuelven `null`:
+ * no se puede afirmar, así que los revisa el administrador al verificar la
+ * cédula profesional (que es la fuente autorizada).
+ */
+export function isMedicalProfession(value: string | null | undefined): boolean | null {
+  if (!value) return null;
+  if (value === 'otro') return null;
+  if (MEDICAL_PROFESSIONS.has(value)) return true;
+  return PROFESSIONS.some((p) => p.value === value) ? false : null;
+}
 
 export const SPECIALTIES: CatItem[] = [
   { value: 'tea', label: 'Trastorno del Espectro Autista (TEA)' },

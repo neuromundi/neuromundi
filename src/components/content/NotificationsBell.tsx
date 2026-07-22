@@ -5,7 +5,7 @@
  */
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Bell, Trophy, Award, CalendarClock, Megaphone, MessageSquare, Users } from 'lucide-react';
+import { Bell, Trophy, Award, CalendarClock, Megaphone, MessageSquare, Users, Gift, HandCoins } from 'lucide-react';
 import { useNotifications } from '@/hooks/useNotifications';
 
 export function NotificationsBell() {
@@ -64,11 +64,13 @@ export function NotificationsBell() {
                 const isWaitSlot = n.type === 'waitlist_slot';
                 const isWaitJoin = n.type === 'waitlist_join';
                 const isCampaign = n.type === 'campaign';
+                const isReferral = n.type === 'referral_use' || n.type === 'referral_reward';
+                const isCommission = n.type === 'commission_paid';
                 const ad = (n.data ?? {}) as { specialist_name?: string; recipient_name?: string; reason?: string; title?: string; from_name?: string };
                 const apptSuffix = n.type.replace('appt_', '');
                 const apptTitle = isAppt ? t(`notif.appt.${apptSuffix}.title`) : n.title;
                 const apptBody = isAppt ? t(`notif.appt.${apptSuffix}.body`, { name: ad.specialist_name || ad.recipient_name || '', title: ad.title || '', reason: ad.reason || '' }) : n.body;
-                const rowTitle = isBooking ? t('notif.booking.title') : isDM ? t('notif.dm.title') : isWaitSlot ? t('notif.waitlist.title') : isWaitJoin ? t('notif.waitlist.join') : apptTitle;
+                const rowTitle = isBooking ? t('notif.booking.title') : isDM ? t('notif.dm.title') : isWaitSlot ? t('notif.waitlist.title') : isWaitJoin ? t('notif.waitlist.join') : n.type === 'referral_reward' ? t('notif.referral.reward') : isReferral ? t('notif.referral.title') : isCommission ? t('notif.commission.title') : apptTitle;
                 const rowBody = isBooking ? t('notif.booking.body', { name: (n.data as { name?: string } | null)?.name ?? '' }) : isDM ? t('notif.dm.body', { name: ad.from_name || '' }) : apptBody;
                 return (
                   <li key={n.id}>
@@ -86,6 +88,8 @@ export function NotificationsBell() {
                         {isBooking && <CalendarClock className="h-4 w-4 shrink-0 text-brand-600" />}
                         {(isWaitSlot || isWaitJoin) && <Users className="h-4 w-4 shrink-0 text-brand-600" />}
                         {isCampaign && <Megaphone className="h-4 w-4 shrink-0 text-brand-600" />}
+                        {isReferral && <Gift className="h-4 w-4 shrink-0 text-brand-600" />}
+                        {isCommission && <HandCoins className="h-4 w-4 shrink-0 text-sage-600" />}
                         <span className="text-sm font-semibold text-slate-900">{rowTitle}</span>
                       </div>
                       {rowBody && <p className="mt-0.5 text-sm text-slate-600">{rowBody}</p>}

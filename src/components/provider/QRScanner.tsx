@@ -271,21 +271,25 @@ export function QRScanner({ providerId, activeOffers, onApplied }: QRScannerProp
     );
   }
 
-  // idle
+  // idle — aquí es donde el usuario entra, así que la guía debe verse ANTES
+  // de escanear (no solo después, al elegir la oferta).
   return (
-    <div className="flex flex-col items-center gap-4 py-8 text-center">
-      <span className="flex h-16 w-16 items-center justify-center rounded-full bg-brand-50 text-brand-700">
-        <Camera className="h-8 w-8" aria-hidden="true" />
-      </span>
-      <div>
-        <p className="text-lg font-semibold text-slate-900">{t('scan.idleTitle')}</p>
-        <p className="max-w-sm text-sm text-muted">
-          {t('scan.idleBody')}
-        </p>
+    <div className="space-y-4">
+      <HowTo stepsKey="howto.scan" />
+      <div className="flex flex-col items-center gap-4 py-6 text-center">
+        <span className="flex h-16 w-16 items-center justify-center rounded-full bg-brand-50 text-brand-700">
+          <Camera className="h-8 w-8" aria-hidden="true" />
+        </span>
+        <div>
+          <p className="text-lg font-semibold text-slate-900">{t('scan.idleTitle')}</p>
+          <p className="max-w-sm text-sm text-muted">
+            {t('scan.idleBody')}
+          </p>
+        </div>
+        <Button onClick={startScanning} leadingIcon={<ScanLine className="h-5 w-5" />}>
+          {t('scan.start')}
+        </Button>
       </div>
-      <Button onClick={startScanning} leadingIcon={<ScanLine className="h-5 w-5" />}>
-        {t('scan.start')}
-      </Button>
     </div>
   );
 }

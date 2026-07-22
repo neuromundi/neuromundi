@@ -12,6 +12,19 @@ import { toMessage } from '@/lib/utils';
 import type { Result } from '@/types/app';
 
 export type MembershipStatus = 'pending' | 'active' | 'past_due' | 'exempt';
+export type BillingPeriod = 'monthly' | 'annual';
+
+/** Las dos opciones que puede contratar el usuario, ya resueltas por la base. */
+export interface MembershipOptions {
+  affiliate_type: string;
+  member_class: 'founder' | 'ordinary';
+  currency: string;
+  monthly_amount: number | null;
+  annual_amount: number | null;
+  annual_list_amount: number | null;
+  zero_decimal: boolean;
+  is_founder: boolean;
+}
 
 export interface MembershipState {
   status: MembershipStatus | null;
@@ -19,6 +32,7 @@ export interface MembershipState {
   paidUntil: string | null;
   daysLeft: number | null;
   quote: { currency: string; amount: number } | null;
+  options: MembershipOptions | null;
   loading: boolean;
 }
 
@@ -30,6 +44,7 @@ export function useMembership() {
     paidUntil: null,
     daysLeft: null,
     quote: null,
+    options: null,
     loading: true,
   });
 
@@ -56,6 +71,15 @@ export function useMembership() {
       if (row) quote = { currency: row.currency, amount: Number(row.amount) };
     }
 
+    // Opciones reales de cobro: tipo (médico/no médico), clase (fundador) y
+    // ambas periodicidades. Es lo que decide cuánto paga esta persona.
+    let options: MembershipOptions | null = null;
+    if (p && p.membership_status !== 'exempt') {
+      const { data: opt } = await supabase.rpc('my_membership_options');
+      const row = Array.isArray(opt) ? opt[0] : opt;
+      if (row) options = row as MembershipOptions;
+    }
+
     const dueAt = p?.membership_due_at ?? null;
     const daysLeft =
       dueAt != null
@@ -68,6 +92,7 @@ export function useMembership() {
       paidUntil: p?.membership_paid_until ?? null,
       daysLeft,
       quote,
+      options,
       loading: false,
     });
   }, [userId, role, providerType]);
@@ -76,9 +101,11 @@ export function useMembership() {
     void load();
   }, [load]);
 
-  const startCheckout = useCallback(async (): Promise<Result<string>> => {
+  const startCheckout = useCallback(async (period: BillingPeriod = 'annual'): Promise<Result<string>> => {
     try {
-      const { data, error } = await supabase.functions.invoke('create-membership-checkout');
+      const { data, error } = await supabase.functions.invoke('create-membership-checkout', {
+        body: { period },
+      });
       if (error) throw error;
       const url = (data as { url?: string })?.url;
       if (!url) throw new Error('Sin URL de pago');

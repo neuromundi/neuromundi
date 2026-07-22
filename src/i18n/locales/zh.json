@@ -19,7 +19,7 @@
   "nav": {
     "directory": "目录",
     "dashboard": "面板",
-    "settings": "设置",
+    "settings": "我的资料",
     "login": "登录",
     "logout": "退出",
     "greeting": "你好，{{name}}",
@@ -32,7 +32,8 @@
     "blog": "博客",
     "events": "活动",
     "calendar": "日历",
-    "messages": "消息"
+    "messages": "消息",
+    "myPanel": "我的面板"
   },
   "home": {
     "title": "首个连接神经发育与神经多样性领域中患者、家庭、专家与服务方的全球社区。",
@@ -645,7 +646,9 @@
     "secMessages": "消息",
     "credential": "专业证件",
     "noCredential": "无专业证件",
-    "viewDoc": "查看文件{{n}}"
+    "viewDoc": "查看文件{{n}}",
+    "secReferrals": "推荐",
+    "secFees": "会费"
   },
   "reg": {
     "typePatient": "患者",
@@ -860,7 +863,12 @@
     "bannerPending": "你还有 {{days}} 天来支付会员费。",
     "bannerPastDue": "在完成付款之前，你的资料将无法接收咨询或互动。",
     "bannerCta": "完成付款",
-    "founderDiscount": "作为创始会员，你可终身享受会费五折优惠；仅按你所在国家的通胀进行年度调整。"
+    "founderDiscount": "作为创始会员，你可终身享受会费五折优惠；仅按你所在国家的通胀进行年度调整。",
+    "monthly": "月付",
+    "perMonth": "/月",
+    "choosePeriod": "选择付款方式",
+    "savingBadge": "签 12 个月，只付 10 个月",
+    "founderPrice": "你享有创始会员价"
   },
   "rules": {
     "version": "版本",
@@ -996,7 +1004,8 @@
     "rfc": "你的税号（用于开票）",
     "rfcHint": "可选。支付时使用。",
     "kindConsultation": "咨询",
-    "kindTherapy": "治疗"
+    "kindTherapy": "治疗",
+    "discountApplied": "已应用折扣：{{pct}}%"
   },
   "content": {
     "tab": "内容",
@@ -1083,6 +1092,13 @@
     "waitlist": {
       "title": "有空位",
       "join": "候补名单"
+    },
+    "referral": {
+      "title": "有人使用了你的链接",
+      "reward": "你获得了折扣"
+    },
+    "commission": {
+      "title": "您收到了一笔佣金"
     }
   },
   "clin": {
@@ -1233,9 +1249,9 @@
     "corporateHint": "由 Neuromundi 直接提供的商品。"
   },
   "affil": {
-    "tab": "推广",
-    "title": "推广联盟",
-    "help": "分享你的链接，他人通过它购买时你将获得佣金。",
+    "tab": "我的推广伙伴",
+    "title": "我的商品推广计划",
+    "help": "奖励推广你商品的人：分享此链接并促成销售的人可获得你设定的佣金，从该笔销售中扣除。",
     "code": "你的代码",
     "commission": "佣金（%）",
     "create": "保存代码",
@@ -2085,9 +2101,10 @@
       "发布后即会显示在 Academy 中。"
     ],
     "affiliate": [
-      "复制你的专属推广链接。",
-      "分享它；有人通过该链接购买时会记录你的佣金。",
-      "在此查看你的销售和累计佣金。"
+      "该计划奖励推广你商店商品的人。",
+      "设置你的代码和每笔销售支付的佣金比例。",
+      "分享链接：通过该链接购买即产生佣金。",
+      "这里可查看达成的销售与累计佣金；结算在应用外进行。"
     ],
     "network": [
       "搜索并与其他专业人士或提供者建立联系。",
@@ -2113,6 +2130,23 @@
       "选择或搜索目标患者/家庭。",
       "添加产品或指示以及使用说明。",
       "发送处方；患者可在其账户中查看并标记为已下单。"
+    ],
+    "history": [
+      "按状态或优惠筛选以缩小范围。",
+      "每一行代表一次核销：日期、所用优惠和状态。",
+      "使用“导出”可将历史记录下载为 CSV。"
+    ],
+    "waitlist": [
+      "通过会员编号（NM-000123）和可选备注添加患者。",
+      "预约被拒绝或取消时，平台会自动通知候补者。",
+      "其他情况下想告知空位，请使用“通知有空位”。",
+      "安排好后请标记为“已分配”，将其移出名单。"
+    ],
+    "campaigns": [
+      "写一个简洁明了的主题和消息。",
+      "选择收件人：你的候补名单或你的患者。",
+      "勾选渠道：应用内通知、邮件和／或短信（短信按条计费）。",
+      "点击发送；下方会记录有多少人收到。"
     ]
   },
   "recommend": {
@@ -2135,7 +2169,10 @@
       "facebook": "分享到 Facebook",
       "x": "分享到 X",
       "linkedin": "分享到 LinkedIn"
-    }
+    },
+    "accrued": "你已累积 {{pct}}% 用于下次付款（上限 {{max}}%）。",
+    "rules": "你的链接自收到起 {{days}} 天内有效。通过它订阅的人首次付款可享 5% 优惠，每有一位付费推荐你可获得 {{step}}%。患者与家庭免费加入：无折扣也无奖励，但会记录使用。",
+    "creditLive": "折扣仅适用于你的下一张账单；若已有有效订阅，会自动应用。"
   },
   "renewal": {
     "title": "你的会员资格即将续期",
@@ -2538,6 +2575,154 @@
     "err": {
       "generic": "无法发送活动。",
       "no_channels": "请至少选择一个渠道。"
+    }
+  },
+  "ref": {
+    "totalUses": "链接使用",
+    "payingUses": "付费",
+    "rewardsDue": "待发放奖励",
+    "searchPlaceholder": "按姓名或会员编号搜索…",
+    "onlyRewards": "仅含奖励",
+    "emptyTitle": "还没有推荐",
+    "empty": "通过推荐链接完成的注册将显示在这里。",
+    "typePaying": "付费会员",
+    "typeFree": "免费会员",
+    "paidUntil": "已付至",
+    "rewardDue": "奖励待发",
+    "awaitingPayment": "等待付款",
+    "noReward": "无奖励",
+    "linkValid": "链接有效",
+    "adminHint": "5% 仅适用于通过有效链接注册并缴纳会费者的首次付款。若为患者或家长，则无折扣也无奖励，但使用记录会保留。推荐奖励从这里发放。",
+    "cfgTitle": "项目参数",
+    "cfgDiscount": "被推荐人折扣",
+    "cfgStep": "每位推荐佣金",
+    "cfgMax": "累计上限",
+    "cfgDays": "链接有效期",
+    "days": "天",
+    "cfgSave": "保存设置",
+    "cfgSaved": "设置已更新。",
+    "cfgError": "保存失败。",
+    "cfgHint": "仅管理员可更改这些数值。用户无法编辑佣金或代码：代码始终是其会员编号。",
+    "referrerIs": "推荐人",
+    "roleProvider": "服务方",
+    "roleFamily": "患者或家庭",
+    "rewardManual": "手动奖励"
+  },
+  "fees": {
+    "hint": "按国家为每种用户类型设置本币会费。此处保存的金额优先于自动汇率计算。",
+    "country": "国家",
+    "amount": "金额",
+    "currency": "货币",
+    "zeroDecimal": "无小数",
+    "save": "保存",
+    "edit": "编辑",
+    "reset": "重置",
+    "explicit": "已设定",
+    "auto": "自动",
+    "saved": "会费已保存。",
+    "cleared": "已恢复自动计算。",
+    "saveError": "保存失败。",
+    "typePatient": "患者",
+    "typeParent": "家长或监护人",
+    "typeService": "服务提供者",
+    "typeMerchant": "商家",
+    "typeSchool": "学校",
+    "typeOther": "其他类型",
+    "freeNote": "患者与家庭免费加入：即使配置了会费也不会收取。",
+    "defaultCountry": "默认（其他国家）",
+    "groupConfigured": "已设置会费",
+    "groupAll": "所有国家",
+    "defaultHint": "适用于所有未单独设置会费的国家，建议认真配置。",
+    "countryHint": "在此设置该国本币会费；未设置则使用默认值。",
+    "configuredCount": "该国已有 {{count}} 种类型设置了会费",
+    "noTypes": "没有启用的会员类型。",
+    "classFounder": "创始会员",
+    "classOrdinary": "普通",
+    "monthly": "月费",
+    "annual": "年费（实收）",
+    "annualList": "年费（参考价）",
+    "annualHint": "＝10个月",
+    "listHint": "＝12个月，显示为划线价",
+    "savingNote": "签 12 个月，只付 10 个月。",
+    "typeMedical": "医疗专家",
+    "typeNonMedical": "非医疗专家",
+    "typeClinic": "诊所"
+  },
+  "gate": {
+    "title": "你的账户已暂停",
+    "bodyFirst": "就差一步！只需缴纳会费即可激活资料并开始接收咨询。",
+    "bodyRenewal": "你的续费尚未完成，我们暂时暂停了你的资料。付款到账后即可从中断处继续。",
+    "whatYouGet": "激活后你将恢复：",
+    "benefit1": "你在目录中的展示以及家庭的咨询。",
+    "benefit2": "你的日程、预约与患者消息。",
+    "benefit3": "你的商店、营销活动与推荐计划。",
+    "yourFee": "你的会费",
+    "payNow": "立即激活账户",
+    "havePromo": "我有promo代码",
+    "promoPlaceholder": "你的代码",
+    "promoApply": "应用",
+    "promoOk": "完成！你的账户已激活。",
+    "promoBad": "该代码无效。",
+    "later": "暂不",
+    "footer": "在此期间你的资料和记录会完整保留。"
+  },
+  "reactivated": {
+    "title": "欢迎回来！",
+    "thanks": "感谢你信任 Neuromundi。付款已确认，你的资料已重新启用，所有功能均可使用。",
+    "motivation": "正在寻找你的家庭又能找到你了。迎接下一位患者吧！",
+    "cta": "前往我的面板"
+  },
+  "csv": {
+    "title": "批量导入导出会费（CSV）",
+    "hint": "一次配置多个国家：下载现有内容，在 Excel 或 Google 表格中编辑后重新上传。确认前不会保存。",
+    "download": "下载 CSV",
+    "upload": "上传 CSV",
+    "exported": "已下载 {{count}} 条会费。",
+    "templateDownloaded": "尚未设置会费：已下载示例模板。",
+    "exportError": "无法下载文件。",
+    "importError": "导入保存失败。",
+    "allInvalid": "文件中没有有效的行。",
+    "previewTitle": "准备导入：{{count}} 行",
+    "errorsTitle": "{{count}} 行有问题",
+    "errorsNote": "这些行会被跳过，其余照常导入。",
+    "line": "行",
+    "colType": "类型",
+    "colClass": "等级",
+    "replaceLabel": "全部替换",
+    "replaceHint": "删除文件中不存在的会费。不勾选则仅新增和更新。",
+    "confirm": "导入 {{count}} 行",
+    "imported": "完成：新增 {{inserted}}，更新 {{updated}}，删除 {{deleted}}。",
+    "formatTitle": "查看文件格式",
+    "formatBody": "按国家、会员类型和等级各一行。年费等于10个月，参考价为12个月；留空则由月费自动推算。",
+    "formatNote": "分隔符可用 \";\" 或 \",\"，小数点也可用逗号。国家名是否带重音视为相同。"
+  },
+  "comm": {
+    "title": "推广佣金",
+    "help": "在这里管理推广佣金。Neuromundi 不代收也不转账这笔钱：由卖家直接付给推广者，并在此登记。",
+    "tabEarned": "应收",
+    "tabOwed": "应付",
+    "pendingToReceive": "待收",
+    "pendingToPay": "待付",
+    "alreadySettled": "已结清",
+    "download": "下载对账单",
+    "pending": "待处理",
+    "settled": "已结清",
+    "registerPayment": "登记付款",
+    "confirmBody": "您将登记已向 {{name}} 支付 {{amount}}。此操作不转移资金，仅留下记录并通知对方。",
+    "noteLabel": "付款参考（选填）",
+    "notePlaceholder": "转账单号、日期、方式…",
+    "confirm": "确认",
+    "marked": "已将 {{count}} 笔佣金标记为已付",
+    "markError": "无法登记付款",
+    "refundAfterPaid": "该笔销售事后已退款",
+    "emptyEarnedTitle": "暂无佣金",
+    "emptyEarned": "分享您的推广链接：有人通过它下单后，佣金会显示在这里。",
+    "emptyOwedTitle": "您没有待付佣金",
+    "emptyOwed": "当有人通过其链接售出您的商品时，这里会显示您应付的金额。",
+    "status": {
+      "payable": "待付",
+      "paid": "已付",
+      "reversed": "已撤销"
     }
   }
 }

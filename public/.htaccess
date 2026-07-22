@@ -41,8 +41,28 @@
 # index.html y el service worker NO deben cachearse, para que las
 # actualizaciones se vean de inmediato.
 <IfModule mod_headers.c>
-  # No cachear el HTML de entrada ni el service worker
-  <FilesMatch "(index\.html|sw\.js|registerSW\.js|manifest\.webmanifest)$">
+  # ORDEN IMPORTANTE: en Apache la última directiva que coincide gana, así que
+  # primero va la regla amplia y DESPUÉS las excepciones. Si se invirtiera,
+  # sw.js caería en la regla de un año y las actualizaciones de la PWA no
+  # llegarían nunca a los usuarios.
+
+  # 1) Estáticos con hash o versión en el nombre (-v2): un año es seguro,
+  #    porque si el contenido cambia, cambia la URL.
+  #    Se usa mod_headers y no solo mod_expires: si ese módulo no está activo en
+  #    el plan, su bloque se ignora EN SILENCIO y los archivos salen sin
+  #    Cache-Control (eso explicaba el "TTL: None" del video .webm).
+  <FilesMatch "\.(css|webp|png|jpe?g|svg|ico|woff2?|mp4|webm)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # 2) El JS con hash de Vite vive en /assets/ y también se cachea un año.
+  <FilesMatch "^.*\.js$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # 3) EXCEPCIONES (van al final para imponerse): lo que anuncia una versión
+  #    nueva de la app nunca debe cachearse.
+  <FilesMatch "(index\.html|sw\.js|registerSW\.js|push-sw\.js|manifest\.webmanifest)$">
     Header set Cache-Control "no-cache, no-store, must-revalidate"
     Header set Pragma "no-cache"
     Header set Expires "0"
@@ -59,7 +79,8 @@
   ExpiresByType image/webp "access plus 1 year"
   ExpiresByType image/svg+xml "access plus 1 year"
   ExpiresByType font/woff2 "access plus 1 year"
-  ExpiresByType video/mp4 "access plus 1 month"
+  ExpiresByType video/mp4 "access plus 1 year"
+  ExpiresByType video/webm "access plus 1 year"
   # HTML: sin caché (lo controla el bloque de Headers de arriba)
   ExpiresByType text/html "access plus 0 seconds"
 </IfModule>

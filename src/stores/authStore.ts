@@ -292,7 +292,24 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   },
 
   signOut: async () => {
-    await supabase.auth.signOut();
+    // `signOut()` usa por defecto scope 'global': le pide al servidor revocar
+    // TODAS las sesiones de la cuenta. Eso necesita un token de acceso vigente,
+    // y si ya venció —lo habitual cuando la pestaña estuvo abierta horas— el
+    // servidor responde 403 y la sesión guardada en el navegador se queda a
+    // medias: la persona "sale", recarga y vuelve a aparecer dentro.
+    //
+    // Plan B: cerrar solo en este dispositivo. 'local' no llama al servidor, así
+    // que funciona aunque el token esté vencido o no haya red.
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) await supabase.auth.signOut({ scope: 'local' });
+    } catch {
+      try {
+        await supabase.auth.signOut({ scope: 'local' });
+      } catch {
+        /* sin red y sin sesión válida: igual limpiamos el estado de la app */
+      }
+    }
     set({ status: 'unauthenticated', session: null, user: null, profile: null });
   },
 

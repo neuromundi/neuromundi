@@ -1,12 +1,17 @@
 /**
  * AffiliatePanel — el especialista crea su código de afiliado, copia su enlace y
- * ve sus ganancias acumuladas. La liquidación de comisiones es fuera de la app.
+ * administra las comisiones de quienes promueven sus productos.
+ *
+ * El pago del dinero ocurre FUERA de la app (la plataforma no retiene nada); lo
+ * que vive aquí es el libro: quién le debe a quién y qué se ha liquidado. Esa
+ * parte está en CommissionsPanel.
  */
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link2, Copy, Check } from 'lucide-react';
 import { Button, SkeletonCard, useToast, HowTo} from '@/components/ui';
 import { useAffiliate } from '@/hooks/useShop';
+import { CommissionsPanel } from './CommissionsPanel';
 
 const input = 'rounded-lg border border-slate-200 p-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500';
 
@@ -63,14 +68,13 @@ export function AffiliatePanel() {
         )}
       </section>
 
-      <section className="rounded-2xl border border-slate-100 bg-white p-4 shadow-sm">
-        <div className="flex items-center gap-2">
-          <Link2 className="h-4 w-4 text-brand-600" />
-          <h3 className="font-semibold text-slate-900">{t('affil.earned')}</h3>
-        </div>
-        {earnings.length === 0 ? (
-          <p className="mt-2 text-sm text-muted">—</p>
-        ) : (
+      {/* Resumen histórico rápido; el detalle y la liquidación van abajo. */}
+      {earnings.length > 0 && (
+        <section className="rounded-2xl border border-slate-100 bg-white p-4 shadow-sm">
+          <div className="flex items-center gap-2">
+            <Link2 className="h-4 w-4 text-brand-600" />
+            <h3 className="font-semibold text-slate-900">{t('affil.earned')}</h3>
+          </div>
           <ul className="mt-2 space-y-1 text-sm">
             {earnings.map((e, i) => (
               <li key={i} className="flex justify-between">
@@ -79,9 +83,11 @@ export function AffiliatePanel() {
               </li>
             ))}
           </ul>
-        )}
-        <p className="mt-3 text-xs text-muted">{t('affil.payoutNote')}</p>
-      </section>
+        </section>
+      )}
+
+      {/* Libro de comisiones: lo que me deben y lo que debo. */}
+      <CommissionsPanel />
     </div>
   );
 }

@@ -55,7 +55,7 @@ PY
   `drop policy if exists` + `create policy`, `insert ... on conflict do nothing`,
   `add column if not exists`. Backfills solo tocan filas nulas.
 - El usuario las aplica **a mano en el SQL Editor de Supabase**, en orden (no hay CLI de
-  migraciones en su flujo). Última en el repo: **0033**.
+  migraciones en su flujo). Última en el repo: **0044**.
 - Para verificar qué está aplicado en producción: `db/verificar_produccion.sql`.
 
 ### 3. Escribir a otros usuarios / notificaciones
@@ -66,7 +66,8 @@ PY
   `emit_*_appointment_reminders`, `send_message`, `waitlist_notify_slot`.
 - La campana (`NotificationsBell`) renderiza por `type`. Tipos vigentes: `post_achievement`,
   `badge`, `appt_*`, `admin_message`, `direct_message`, `booking_request`, `waitlist_slot`,
-  `waitlist_join`, `campaign`. **Al añadir un tipo, añade su icono y sus claves i18n.**
+  `waitlist_join`, `campaign`, `commission_paid`. **Al añadir un tipo, añade su icono y sus
+  claves i18n.**
 - **Todo insert en `notifications` dispara push nativo** vía el trigger `trg_notify_push`
   (migración 0030) → `pg_net` → Edge Function `send-push`. No hay que hacer nada extra.
 
@@ -74,17 +75,27 @@ PY
 - Es admin quien tenga `profiles.role = 'admin'` (lo valida `is_admin()`). Se asigna por
   SQL, no hay UI. Panel en `/panel` (Dashboard renderiza `AdminDashboard` si role=admin).
 - Secciones admin: metrics, messages, moderation, products, store, renewals, reports,
-  billing, other. Roles válidos por constraint: `parent | provider | admin`.
+  billing, fees (cuotas por país + carga/descarga CSV), referrals (programa de
+  recomendación), other. Roles válidos por constraint: `parent | provider | admin`.
 - Folio de miembro visible: `NM-000123` (= `profiles.member_no`).
 
 ### 5. Pagos (Stripe)
 - Edge Functions: `create-membership-checkout`, `create-product-checkout`,
   `create-consultation-checkout`, `connect-onboarding`, `stripe-webhook`.
-- Membresías las cobra la plataforma; productos/consultas van al prestador vía
-  **Stripe Connect (Express)** con comisión (application_fee) en productos.
+- **Quién cobra qué**: las **membresías** las cobra la plataforma (su propia cuenta
+  Stripe). Los **productos y las consultas** los cobra íntegros el prestador vía
+  **Stripe Connect (Express)** con `transfer_data.destination`, **SIN
+  `application_fee`**: Neuromundi no retiene nada de esas ventas. Si un producto se
+  vendió con código de promotor, la comisión solo se REGISTRA (ver el libro de
+  comisiones en las reglas de negocio) y la paga el vendedor por su cuenta.
+- Eventos del webhook que hay que tener suscritos: `checkout.session.completed`,
+  `invoice.paid`, `invoice.payment_failed`, `account.updated` y **`charge.refunded`**
+  (este último revierte la comisión del promotor; sin él, un reembolso no se entera).
 - Secrets (Supabase, NO en el front): `STRIPE_SECRET_KEY` **debe empezar con `sk_`**
   (no `pk_`), `STRIPE_WEBHOOK_SECRET` debe ser del webhook del **mismo modo** (test/live).
-- Los precios salen de `membership_fees` + `country_pricing` (sembrados en `db/membership.sql`).
+- Los precios de membresía salen de `membership_prices` (país × tipo de afiliado ×
+  clase de miembro, con importe mensual/anual/referencia), con `membership_fees` como
+  respaldo. `db/membership.sql` tiene la siembra histórica.
 - Las citas admiten cobro digital **opcional** (`appointment_requests.charge_total` /
   `charge_percent` / `payment_status`); el paciente paga con `create-consultation-checkout`
   (acepta importe personalizado) y el webhook marca `payment_status='paid'`.
@@ -108,16 +119,45 @@ PY
 - **git en el mount**: el sistema de archivos montado no soporta bien las operaciones de
   git (locks/objetos). El repo se inicializa, pero el `commit` conviene hacerlo en la
   máquina del usuario (Windows nativo).
+- **Cambiar el tipo de retorno de una función exige `DROP FUNCTION` primero**:
+  `create or replace` NO puede alterar las columnas de salida (`returns table`) ni el
+  tipo devuelto → `42P13 cannot change return type of existing function`. Si modificas
+  la firma de una RPC ya aplicada, antepón `drop function if exists public.fn(args);`
+  con los MISMOS tipos de argumento. Nos pasó con `set_referrer` y `admin_referrals`.
 - **`returns table` en PL/pgSQL**: las columnas de salida son VARIABLES dentro del cuerpo.
   Si una consulta usa esa misma columna sin calificar → `42702 column reference is
   ambiguous` y la RPC responde **400**. PL/pgSQL **no valida las consultas al crear la
   función**, así que la migración se aplica "sin errores" y falla en silencio al usarse.
   **Califica siempre con alias** (`a2.provider_id`) y considera `#variable_conflict
-  use_column`. Caso real: `admin_badge_inputs` (roto desde 0006, arreglado en 0033).
+  use_column`. Casos reales: `admin_badge_inputs` (roto desde 0006, arreglado en 0033) y su
+  gemela `my_badge_inputs` (rota desde 0007, arreglada en 0044 — al corregir una función,
+  **busca sus hermanas con el mismo cuerpo**; aquí se arregló una y la otra quedó rota un
+  mes más). Para barrer el repo: buscar funciones `returns table` en PL/pgSQL cuyas columnas
+  de salida aparezcan sin calificar en el cuerpo.
+- **`supabase.auth.signOut()` es 'global' por defecto**: pide al servidor revocar todas
+  las sesiones, lo que exige un token vigente. Con el token vencido responde **403** y la
+  sesión del navegador puede quedarse a medias (sales, recargas y vuelves a estar dentro).
+  `authStore.signOut` reintenta con `{ scope: 'local' }`. Tras borrar la cuenta hay que ir
+  directo a `'local'`: el usuario ya no existe y el global siempre daría 403.
 - **Variables `VITE_*` se incrustan en tiempo de BUILD**: si falta una, Vite la sustituye
   por `undefined` y el minificador **borra el código como muerto**. Pasó con el push: sin
   `VITE_VAPID_PUBLIC_KEY` el bundle sale sin `pushManager`. Tras compilar, verifica:
   `grep -l pushManager dist/assets/*.js`.
+- **La regla de idioma inicial está duplicada en dos sitios**: `resolveInitialLanguage()` y
+  `STORAGE_KEY` en `src/i18n/index.ts`, y una copia en el plugin `preloadLocaleChunk` de
+  `vite.config.ts` (corre en Node al compilar y no puede importar el TS de la app). Ese
+  plugin inyecta el `<link rel="modulepreload">` del diccionario para que se descargue EN
+  PARALELO al bundle; sin él la cadena es `index.js → xx.js → React monta` y el LCP se va
+  ~1.9 s en "retraso de renderización". Si cambias la regla, cámbiala en los dos.
+- **La precarga del héroe va condicionada a la portada**: `index.html` se sirve en TODAS
+  las rutas (es una SPA), pero el héroe solo existe en `/`. Con un `<link rel="preload">`
+  estático, entrar a `/panel` descargaba una imagen que nadie usaba y el navegador lo
+  avisaba en consola. Por eso se inyecta desde un script en línea que comprueba
+  `location.pathname`. Si mueves `HeroArt` a otra página, ajusta esa condición.
+- **Los modales del layout van con `lazy`**: `AppLayout` monta ~12 emergentes (AuthModals,
+  SocialOnboarding, GuidedTour…). Importarlos de forma estática mete react-hook-form, zod
+  y `mxStatesMunicipalities` (43 KB) en el bundle inicial aunque no se vean. Si añades un
+  modal al layout, añádelo con `lazy` + `<Suspense fallback={null}>` y condicionado.
 - **Desplegar Edge Functions**: usa `supabase functions deploy <nombre> --use-api` para no
   depender de Docker. El nombre debe coincidir EXACTO con la carpeta.
 - **vitest no corre en el sandbox** (el `node_modules` es de Windows y rollup usa binario
@@ -162,7 +202,10 @@ PY
 - **Eventos/calendario/citas**: `useEvents`, `useCalendar`, `useAppointmentRequests` (+ `useAppointmentReminders`), `useAgenda`
 - **Tienda**: `useShop`, `useProducts`, `useProductReviews`, `useProductModeration`
 - **Denuncias**: `useReports` (enviar) · `useMyReports` (seguimiento) · `useAdminReports` (admin)
-- **Admin**: `useAdmin`, `useAdminMessages`, `useAdminBilling`, `useAdminRenewals`, `useAdminOther`, `useAdminBadges`
+- **Admin**: `useAdmin`, `useAdminMessages`, `useAdminBilling`, `useAdminRenewals`, `useAdminOther`, `useAdminBadges`, `useAdminPricing` (cuotas por país/tipo/clase + config del programa de recomendación)
+- **Recomendación**: `useReferralProgram` (enlace propio, resumen, reporte admin)
+- **Comisiones de afiliados**: `useCommissions('earned' | 'owed')` (libro + marcar pagado)
+- **Portero de membresía**: `useMembershipGate` (apaga el panel si la cuota no está cubierta)
 - **Contenido/comunidad**: `useBlog`, `useContent`, `useAcademy`, `useToolkitProgress`
 - **Fundador/referidos**: `useFounder`, `useReferral`
 - **Clínico**: `useClinical`, `usePrescriptions`, `useSecureFiles`, `useSurvey`, `useTracker`
@@ -174,7 +217,8 @@ PY
 ### Componentes clave (`src/components`)
 - `layout/AppLayout` — navegación, pie, popups globales, disparo de recordatorios
 - `layout/AccessibilityMenu` — Modo calma, dislexia, contraste, tamaño de texto
-- `admin/AdminDashboard` — + `AdminMetrics`, `AdminMessages`, `AdminReports`, `AdminRenewals`, `AdminBilling`, `AdminProducts`, `AdminOtherValues`
+- `admin/AdminDashboard` — + `AdminMetrics`, `AdminMessages`, `AdminReports`, `AdminRenewals`, `AdminBilling`, `AdminProducts`, `AdminOtherValues`, `AdminFees` (+ `FeesCsvPanel`), `AdminReferrals`
+- `membership/AccountInactiveModal` · `membership/AccountReactivatedModal` — portero de cuota
 - `calendar/AppointmentRequests` · `report/ReportModal` + `report/MyReports` · `shop/ProductReviewsModal`
 - `provider/BookingWidgetPanel` (widget embebible) · `provider/WaitlistPanel` · `provider/CampaignsPanel`
 - `onboarding/GuidedTour` (6 pasos) · `pwa/InstallAppButton` · `ui/*` (`Button`, `Modal`, `PasswordInput`, `StarRating`…)
@@ -187,24 +231,115 @@ PY
 - **Lista de espera**: `waitlist_join`, `waitlist_add`, `my_waitlist`, `waitlist_set_status`,
   `waitlist_notify_slot` · **Campañas**: `campaign_recipients`
 - **Reservas**: `request_booking`, `booking_provider_name`
-- **Membresía**: `get_membership_quote`, `redeem_promo_code`
+- **Membresía**: `get_membership_quote`, `redeem_promo_code`, `my_membership_options`
+  (opciones mensual/anual del usuario), `membership_price_for`, `affiliate_type_for`
+- **Cuotas (admin)**: `admin_country_prices`, `admin_configured_countries`,
+  `admin_set_country_price`, `admin_export_membership_prices`,
+  `admin_import_membership_prices` (CSV), `normalize_country`
+- **Recomendación**: `set_referrer`, `my_referral_summary`, `admin_referrals`,
+  `admin_set_referral_config`, `grant_referral_credit`, `consume_referral_credit`
+- **Comisiones de afiliados**: `my_commissions_earned`, `my_commissions_owed`,
+  `mark_commissions_paid` (la autorización es el `where vendor_id = auth.uid()`),
+  `admin_commissions`, `resolve_affiliate`
+- **Distintivo**: `my_badge_inputs`, `admin_badge_inputs`, `refresh_all_badges`
 
 ### Edge Functions (`supabase/functions`)
 - **Pagos**: `create-membership-checkout`, `create-product-checkout`,
   `create-consultation-checkout`, `connect-onboarding`, `stripe-webhook`
 - **Avisos**: `send-reminders` (cola + email de citas aceptadas; la agenda `pg_cron`+`pg_net`),
   `send-push` (Web Push VAPID), `send-campaign` (lista de espera/pacientes por push+email+SMS),
-  `send-support`
+  `send-support`, `send-product-rejection`
+- **Mantenimiento**: `purge-expired-files`, `delete-account`
 - Despliegue: `supabase functions deploy <nombre> --use-api`.
+- **Las que NO invoca un usuario con sesión van con `--no-verify-jwt`**: `stripe-webhook`
+  (la llama Stripe), `send-push` y `send-reminders` (las llama la base por `pg_net`, sin
+  cabecera Authorization) y `purge-expired-files` (cron). Si se despliegan sin ese flag
+  responden **401** y el fallo es silencioso: el trigger `tg_notify_push` traga la excepción
+  a propósito para no bloquear el insert, así que la notificación in-app se ve y el push
+  simplemente no llega.
 
 ### Lógica pura testeable (`src/lib`, con unit tests)
 `calendarView` (filtro de eventos, agenda, cuadrícula del mes) · `calendar` (.ics / Google) ·
 `referral` (folio NM) · `email` (validación) · `badge` · `utils` · `schemas` (Zod) ·
-`meet` (salas Jitsi; valida host con `new URL`, no con regex de texto).
+`meet` (salas Jitsi; valida host con `new URL`, no con regex de texto) ·
+`pricing` (anual = 10 meses, referencia = 12) · `feesCsv` (lectura/escritura del CSV de cuotas) ·
+`commissions` (totales por moneda, agrupación por contraparte, estado de cuenta CSV;
+ojo con las monedas sin decimales: JPY no se divide entre 100).
 Al extraer lógica de una página a `src/lib`, **añade su test** (patrón: `*.test.ts`).
+
+## Migraciones recientes (referencia)
+| # | Qué añade |
+|---|---|
+| 0024 | Lectura admin del bucket `verification` |
+| 0025 | Productos corporativos destacados (auto `is_featured`) |
+| 0026 | Widget de reserva: `booking_requests` + `request_booking` |
+| 0027 | Citas: modalidad (presencial/en línea) + cobro opcional |
+| 0028 | Recordatorio por email + cron de `send-reminders` |
+| 0029 | Mensajería: `messages` + `send_message` + `message_threads` |
+| 0030 | Push: `push_subscriptions` + trigger `trg_notify_push` |
+| 0031 | Lista de espera automatizada + `campaigns` |
+| 0032 | Producto: `store_category_other` obligatorio si categoría = `otro` |
+| 0033 | Arregla `admin_badge_inputs` (ambigüedad `provider_id`) |
+| 0034 | Programa de recomendación: `referral_config`, `referrals`, `set_referrer` |
+| 0035 | Crédito de recomendación sobre la suscripción viva |
+| 0036 | `membership_prices` + cuotas por tipo/país editables por el admin |
+| 0037 | `admin_country_prices` + `admin_configured_countries` |
+| 0038 | Estructura de cuotas: mensual/anual/referencia × fundador/ordinaria |
+| 0039 | Clasificación médica: `is_medical_profession`, `affiliate_type_for` |
+| 0040 | `my_membership_options` (opciones de pago del usuario) |
+| 0041 | `normalize_country()` + deduplicación de países |
+| 0042 | Importación/exportación de cuotas en CSV |
+| 0043 | Libro de comisiones de afiliados (`affiliate_commissions`) |
+| 0044 | Arregla `my_badge_inputs` (misma ambigüedad que 0033) |
+
+## Reglas de producto/negocio ya implementadas
+- **Clasificación "Otro"**: si `products.store_category = 'otro'`, `store_category_other`
+  es **obligatorio** (Zod + CHECK en la base) y la Tienda muestra ese texto en su lugar.
+- **Denuncias**: la categoría "Otro" también exige detalle.
+- **Tienda**: control de dos opciones "Toda la tienda" / "Productos Neuromundi"
+  (filtra `is_featured`) bajo la portada. Neuromundi no cobra comisión (texto legal fijo).
+- **Prestadores** (todos menos pacientes/padres): widget de reserva, alertas
+  anti-ausentismo (email + in-app), citas presenciales/en línea con cobro opcional,
+  mensajería con enlaces de video, sala nativa Jitsi, lista de espera + campañas.
+- **Cuotas**: dos periodicidades que el usuario elige al pagar (mensual o anual) y dos
+  clases de miembro (fundador / ordinaria). **El anual siempre cobra 10 meses de 12**; el
+  importe de 12 se guarda como precio de referencia para mostrarlo tachado (`src/lib/pricing.ts`).
+  Sembrado solo México: fundador 1,000/10,000 (ref. 12,000) y ordinaria 1,500/15,000
+  (ref. 18,000) MXN, para **especialistas médicos**. El resto de tipos y países los captura
+  el admin en `/panel` → Cuotas, a mano o por CSV.
+- **Clasificación médica**: `affiliate_type_for()` decide si alguien paga como
+  `medical_specialist` o `nonmedical_specialist` a partir de su profesión (criterio ISCO-08
+  grupo 221 + Ley General de Salud art. 79). Ante la duda (`'otro'`, profesión desconocida)
+  cae a NO médico para no cobrar de más; el admin puede corregir con `is_medical_override`.
+- **Comisiones de promoción (afiliados de productos)**: cada prestador fija libremente su
+  código y su % en `affiliate_codes`. **La plataforma NO retiene el dinero**: el checkout de
+  productos ya NO manda `application_fee_amount`, el vendedor cobra el 100% y le paga al
+  promotor por su cuenta. `affiliate_commissions` (0043) es solo el libro: `payable` →
+  `paid` (lo marca el vendedor, que dispara aviso al promotor) o `reversed` (reembolso antes
+  de liquidar). Si el reembolso llega después del pago se marca `refund_after_payment` sin
+  tocar el estado, porque el dinero sí salió. **No vuelvas a poner el `application_fee` sin
+  cambiar el libro**, o el promotor cobraría dos veces. Sin retención: la comisión es
+  cobrable en cuanto el pedido se marca pagado; retener o no es decisión del vendedor.
+  Ojo, esto es DISTINTO del programa de recomendación de membresías de abajo.
+- **Programa de recomendación**: enlace único por usuario (su folio NM), 5% de descuento
+  adicional configurable, **solo sobre el primer pago** y el enlace **caduca a los 7 días**.
+  Si quien lo usa es paciente o padre no hay descuento ni recompensa (su membresía ya es
+  gratuita), pero **el uso sí se registra**. Los descuentos se acumulan sobre el precio ya
+  rebajado. El usuario NO puede editar su código ni su %: ambos son del admin.
+
+## Despliegue
+- El frontend vive en **Hostinger** (Apache). Se confirma con `curl -sI https://www.neuromundi.com`
+  → cabecera `Server: hcdn`. **No es Netlify ni Vercel**: `netlify.toml`, `vercel.json` y
+  `public/_redirects` son restos sin efecto. Lo que manda es **`public/.htaccess`**
+  (HTTPS, ruteo SPA, compresión y caché).
+- Tras cada despliegue hay que **purgar la caché del CDN** en hPanel; si no, los archivos
+  con nombre estable (video, héroe) siguen sirviéndose viejos.
+- Runbook completo de puesta en producción: **`PRODUCCION.md`**.
 
 ## Flujo al terminar un cambio
 1. `npm run build` en verde (tipos + bundle).
 2. Paridad i18n = 0 (script de arriba) si tocaste textos.
 3. Si añadiste tabla/RPC, crea su migración idempotente y avísale al usuario que la corra.
-4. Nunca commitees `.env`, `node_modules`, `dist`, `_archivo`, `backups`.
+4. Si tocaste el SW, la PWA o variables `VITE_*`, verifica el `dist` compilado
+   (`grep` de lo esperado en `dist/assets/*.js` y `dist/sw.js`).
+5. Nunca commitees `.env`, `node_modules`, `dist`, `_archivo`, `backups`.

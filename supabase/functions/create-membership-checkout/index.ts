@@ -38,6 +38,10 @@ Deno.serve(async (req: Request) => {
   const userClient = createClient(url, Deno.env.get('SUPABASE_ANON_KEY') ?? '', {
     global: { headers: { Authorization: authHeader } },
   });
+  // Periodicidad elegida por el usuario en el modal de pago.
+  const reqBody = await req.json().catch(() => ({}));
+  const period: 'monthly' | 'annual' = reqBody?.period === 'monthly' ? 'monthly' : 'annual';
+
   const { data: u } = await userClient.auth.getUser();
   if (!u?.user) return json(401, { error: 'Sesión inválida' });
 
@@ -53,29 +57,46 @@ Deno.serve(async (req: Request) => {
   if (!profile) return json(404, { error: 'Perfil no encontrado' });
   if (profile.membership_status === 'exempt') return json(400, { error: 'Tu cuenta está exenta de pago.' });
 
+  // El tipo NO se toma de provider_type: eso agrupaba a todos los especialistas
+  // como 'service_provider' e impedía cobrar la cuota médica. affiliate_type_for
+  // aplica la clasificación (profesión + override del admin).
+  const { data: typeData } = await admin.rpc('affiliate_type_for', { p_user: u.user.id });
   const affiliateType =
-    profile.role === 'provider' ? (profile.provider_type ?? 'service_provider') : profile.role;
+    (typeof typeData === 'string' && typeData) ||
+    (profile.role === 'provider' ? (profile.provider_type ?? 'nonmedical_specialist') : profile.role);
 
-  const { data: fee } = await admin
-    .from('membership_fees')
-    .select('base_usd')
-    .eq('affiliate_type', affiliateType)
-    .eq('is_active', true)
-    .maybeSingle();
-  if (!fee) return json(400, { error: 'No hay cuota configurada para este tipo de afiliado.' });
+  // Clase de miembro: los fundadores tienen su propia tarifa.
+  const { data: founderData } = await admin.rpc('is_founder', { p_id: u.user.id });
+  const memberClass = founderData === true ? 'founder' : 'ordinary';
 
-  const label = (profile.country ?? '').trim().toLowerCase();
-  const { data: pricingRows } = await admin
-    .from('country_pricing')
-    .select('country_label, currency, fx_per_usd, zero_decimal')
-    .in('country_label', [label, 'default']);
-  const pricing =
-    pricingRows?.find((r) => r.country_label === label) ??
-    pricingRows?.find((r) => r.country_label === 'default');
-  if (!pricing) return json(400, { error: 'No hay precio por país configurado.' });
-
-  const amountLocal = Number(fee.base_usd) * Number(pricing.fx_per_usd);
+  // Precio efectivo por tipo de afiliado y país: el explícito del panel manda;
+  // si no hay, cae al cálculo base_usd × FX. Misma fuente que ve el usuario.
+  const { data: priceRows } = await admin.rpc('membership_price_for', {
+    p_type: affiliateType,
+    p_country: profile.country ?? '',
+    p_class: memberClass,
+    p_period: period,
+  });
+  const price = Array.isArray(priceRows) ? priceRows[0] : priceRows;
+  if (!price?.currency || price.amount == null) {
+    return json(400, { error: 'No hay cuota configurada para este tipo de afiliado y país.' });
+  }
+  const pricing = { currency: String(price.currency), zero_decimal: price.zero_decimal === true };
+  const amountLocal = Number(price.amount);
   const unitAmount = pricing.zero_decimal ? Math.round(amountLocal) : Math.round(amountLocal * 100);
+
+  // ── Descuentos del programa de recomendación ──────────────────────────────
+  // referral_pct: 5% por llegar con un enlace vigente (solo el primer pago).
+  // referrer_pct: 5% acumulado por cada referido suyo que ya pagó (con tope).
+  // Se combinan de forma compuesta; el RPC ya devuelve el total equivalente.
+  let discountPct = 0;
+  try {
+    const { data: disc } = await admin.rpc('membership_discount', { p_user: u.user.id });
+    const row = Array.isArray(disc) ? disc[0] : disc;
+    discountPct = Math.min(Number(row?.total_pct ?? 0), 90);
+  } catch {
+    discountPct = 0; // nunca bloquear el cobro por un fallo del descuento
+  }
 
   const origin = req.headers.get('origin') ?? new URL(req.url).origin;
 
@@ -95,21 +116,42 @@ Deno.serve(async (req: Request) => {
     await admin.from('profiles').update({ stripe_customer_id: customerId }).eq('id', u.user.id);
   }
 
+  // El descuento aplica SOLO al primer pago: cupón `duration: 'once'`.
+  let discounts: Array<{ coupon: string }> | undefined;
+  if (discountPct > 0) {
+    const coupon = await stripe.coupons.create({
+      percent_off: discountPct,
+      duration: 'once',
+      name: `Recomendación Neuromundi (-${discountPct}%)`,
+      metadata: { user_id: u.user.id, kind: 'referral' },
+    });
+    discounts = [{ coupon: coupon.id }];
+  }
+
   const session = await stripe.checkout.sessions.create({
     mode: 'subscription',
     customer: customerId,
+    ...(discounts ? { discounts } : {}),
     line_items: [
       {
         quantity: 1,
         price_data: {
           currency: pricing.currency.toLowerCase(),
           unit_amount: unitAmount,
-          recurring: { interval: 'year' },
-          product_data: { name: `Cuota de afiliación Neuromundi (${affiliateType})` },
+          recurring: { interval: period === 'monthly' ? 'month' : 'year' },
+          product_data: {
+            name: `Cuota de afiliación Neuromundi — ${affiliateType} · ${memberClass === 'founder' ? 'fundador' : 'ordinaria'} · ${period === 'monthly' ? 'mensual' : 'anual'}`,
+          },
         },
       },
     ],
-    metadata: { user_id: u.user.id, affiliate_type: affiliateType },
+    metadata: {
+      user_id: u.user.id,
+      affiliate_type: affiliateType,
+      member_class: memberClass,
+      period,
+      discount_pct: String(discountPct),
+    },
     subscription_data: { metadata: { user_id: u.user.id } },
     success_url: `${origin}/panel?membership=ok`,
     cancel_url: `${origin}/panel?membership=cancel`,

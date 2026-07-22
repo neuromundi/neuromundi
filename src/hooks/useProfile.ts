@@ -161,7 +161,9 @@ export function useProfile(): UseProfileValue {
       // service_role (no se expone al cliente). Aquí invocamos esa función.
       const { error: err } = await supabase.functions.invoke('delete-account');
       if (err) throw err;
-      await supabase.auth.signOut();
+      // La cuenta ya no existe, así que el cierre 'global' contra el servidor
+      // devolvería 403. Se cierra en local, que es lo único que queda por hacer.
+      await supabase.auth.signOut({ scope: 'local' });
       return { ok: true, data: true };
     } catch (e) {
       const msg = toMessage(e, 'No se pudo eliminar la cuenta. Intenta más tarde.');

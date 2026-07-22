@@ -3,7 +3,7 @@
  */
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import '@/i18n';
+import { initI18n } from '@/i18n';
 import { AppProviders } from '@/AppProviders';
 import { App } from '@/App';
 import './styles/globals.css';
@@ -13,32 +13,72 @@ import { initTheme } from '@/stores/themeStore';
 initA11y();
 initTheme();
 
-// Tras un nuevo despliegue, una pestaña abierta puede tener referencias a chunks
-// con hash antiguo que ya no existen. Si un import dinámico falla, recargamos una
-// sola vez para tomar el index.html nuevo (con los hashes correctos).
-window.addEventListener('vite:preloadError', () => {
-  if (!sessionStorage.getItem('nm-chunk-reloaded')) {
-    sessionStorage.setItem('nm-chunk-reloaded', '1');
-    window.location.reload();
-  }
-});
+// ── Actualización de la PWA ────────────────────────────────────────────────
+// Objetivo: que el usuario SIEMPRE vea la versión recién publicada sin quedarse
+// con una copia vieja en caché, y sin recargas en bucle.
+//
+// Guarda anti-bucle compartida: permite recargar de nuevo si ha pasado tiempo
+// suficiente (un despliegue posterior en la misma sesión debe poder recargar),
+// pero nunca dos veces seguidas en pocos segundos.
+const RELOAD_KEY = 'nm-last-reload';
+const RELOAD_COOLDOWN_MS = 15000;
 
-// Registro del service worker con manejo de error. Algunos entornos (p. ej. el
-// robot de verificación de Google) bloquean los service workers; ahí el registro
-// falla y, si no se captura, queda como "Uncaught (in promise)" y puede hacer que
-// la página se considere fallida. Lo registramos de forma segura y silenciosa.
+function reloadOnce(reason: string): void {
+  try {
+    const last = Number(sessionStorage.getItem(RELOAD_KEY) ?? 0);
+    if (Number.isFinite(last) && Date.now() - last < RELOAD_COOLDOWN_MS) return;
+    sessionStorage.setItem(RELOAD_KEY, String(Date.now()));
+  } catch {
+    /* almacenamiento no disponible: recargamos igual, una vez */
+  }
+  console.info('[pwa] recargando:', reason);
+  window.location.reload();
+}
+
+// Tras un nuevo despliegue, una pestaña abierta puede referenciar chunks con
+// hash antiguo que ya no existen. Si un import dinámico falla, recargamos para
+// tomar el index.html nuevo (con los hashes correctos).
+window.addEventListener('vite:preloadError', () => reloadOnce('chunk no encontrado'));
+
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js').catch(() => {
-      /* entorno sin soporte/permite SW: ignorar sin romper la app */
+    navigator.serviceWorker
+      .register('/sw.js')
+      .then((reg) => {
+        // Busca versión nueva al abrir, cada 30 min y al volver a la pestaña.
+        // Sin esto, una pestaña abierta muchas horas nunca se entera.
+        const check = () => { void reg.update().catch(() => {}); };
+        check();
+        setInterval(check, 30 * 60 * 1000);
+        document.addEventListener('visibilitychange', () => {
+          if (document.visibilityState === 'visible') check();
+        });
+      })
+      .catch(() => {
+        /* entorno sin soporte/permiso de SW: ignorar sin romper la app */
+      });
+
+    // Cuando el SW nuevo toma el control (skipWaiting + clientsClaim), la página
+    // sigue ejecutando el código viejo. Recargamos para quedar coherentes: es
+    // una sola recarga limpia en vez de errores sueltos de chunks.
+    let refreshing = false;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (refreshing) return;
+      refreshing = true;
+      reloadOnce('service worker actualizado');
     });
   });
 }
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <AppProviders>
-      <App />
-    </AppProviders>
-  </StrictMode>,
-);
+// Se espera al diccionario del idioma detectado antes de montar: así nadie ve
+// claves sin traducir, y a cambio el bundle ya no carga los 8 idiomas (~900 KiB
+// de JSON) sino solo el que se usa.
+void initI18n().then(() => {
+  createRoot(document.getElementById('root')!).render(
+    <StrictMode>
+      <AppProviders>
+        <App />
+      </AppProviders>
+    </StrictMode>,
+  );
+});

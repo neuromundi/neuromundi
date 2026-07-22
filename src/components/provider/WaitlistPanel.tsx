@@ -6,7 +6,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Users, UserPlus, BellRing, Check, X } from 'lucide-react';
-import { Button, useToast, SkeletonCard, EmptyState } from '@/components/ui';
+import { Button, useToast, SkeletonCard, EmptyState, HowTo } from '@/components/ui';
 import { useWaitlist } from '@/hooks/useWaitlist';
 import { formatDate } from '@/lib/utils';
 
@@ -44,6 +44,7 @@ export function WaitlistPanel() {
 
   return (
     <div className="space-y-4">
+      <HowTo stepsKey="howto.waitlist" />
       <p className="rounded-xl border border-brand-200 bg-brand-50 p-3 text-sm text-brand-800">
         {t('wait.autoHint')}
       </p>

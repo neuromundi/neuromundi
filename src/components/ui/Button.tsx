@@ -32,7 +32,9 @@ const base =
   'focus-visible:ring-brand-500 disabled:opacity-50 disabled:cursor-not-allowed';
 
 const variants: Record<ButtonVariant, string> = {
-  primary: 'bg-brand-600 text-white hover:bg-brand-700 active:bg-brand-900',
+  // brand-600 sobre blanco da 4.1:1 y no alcanza el mínimo AA (4.5:1);
+  // brand-700 da 5.93:1 y mantiene el azul de marca.
+  primary: 'bg-brand-700 text-white hover:bg-brand-800 active:bg-brand-900',
   secondary:
     'bg-brand-50 text-brand-700 hover:bg-brand-100 border border-brand-100',
   ghost: 'bg-transparent text-brand-700 hover:bg-brand-50',

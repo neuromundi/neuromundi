@@ -63,7 +63,7 @@ export function SoftSignupBanner({ onSignup }: { onSignup: () => void }) {
       <div className="mt-3 flex items-center gap-2 md:mt-0">
         <button
           onClick={() => { dismiss(); onSignup(); }}
-          className="rounded-xl bg-brand-600 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700"
+          className="rounded-xl bg-brand-700 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-700"
         >
           {t('signup.banner.cta')}
         </button>

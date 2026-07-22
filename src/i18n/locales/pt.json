@@ -19,7 +19,7 @@
   "nav": {
     "directory": "Diretório",
     "dashboard": "Painel",
-    "settings": "Configurações",
+    "settings": "Meu perfil",
     "login": "Entrar",
     "logout": "Sair",
     "greeting": "Olá, {{name}}",
@@ -32,7 +32,8 @@
     "blog": "Blog",
     "events": "Eventos",
     "calendar": "Calendário",
-    "messages": "Mensagens"
+    "messages": "Mensagens",
+    "myPanel": "Meu painel"
   },
   "home": {
     "title": "A primeira comunidade global que conecta pacientes, famílias, especialistas e fornecedores em neurodesenvolvimento e neurodivergência.",
@@ -645,7 +646,9 @@
     "secMessages": "Mensagens",
     "credential": "Documento profissional",
     "noCredential": "Sem documento profissional",
-    "viewDoc": "Ver documento {{n}}"
+    "viewDoc": "Ver documento {{n}}",
+    "secReferrals": "Indicações",
+    "secFees": "Taxas"
   },
   "reg": {
     "typePatient": "Paciente",
@@ -860,7 +863,12 @@
     "bannerPending": "Você tem {{days}} dias para pagar sua cota de afiliação.",
     "bannerPastDue": "Seu perfil não receberá consultas nem poderá interagir até concluir o pagamento.",
     "bannerCta": "Concluir pagamento",
-    "founderDiscount": "Como Fundador você tem 50% de desconto vitalício na mensalidade; aplica-se apenas o aumento anual conforme a inflação do seu país."
+    "founderDiscount": "Como Fundador você tem 50% de desconto vitalício na mensalidade; aplica-se apenas o aumento anual conforme a inflação do seu país.",
+    "monthly": "Mensal",
+    "perMonth": "/ mês",
+    "choosePeriod": "Escolha como pagar",
+    "savingBadge": "12 meses pagando 10",
+    "founderPrice": "Você tem preço de Membro Fundador"
   },
   "rules": {
     "version": "Versão",
@@ -996,7 +1004,8 @@
     "rfc": "Seu CPF/CNPJ (para faturas)",
     "rfcHint": "Opcional. Usado no pagamento.",
     "kindConsultation": "Consulta",
-    "kindTherapy": "Terapia"
+    "kindTherapy": "Terapia",
+    "discountApplied": "Desconto aplicado: {{pct}}%"
   },
   "content": {
     "tab": "Conteúdo",
@@ -1083,6 +1092,13 @@
     "waitlist": {
       "title": "Há uma vaga disponível",
       "join": "Lista de espera"
+    },
+    "referral": {
+      "title": "Usaram seu link",
+      "reward": "Você ganhou um desconto"
+    },
+    "commission": {
+      "title": "Pagaram uma comissão a você"
     }
   },
   "clin": {
@@ -1233,9 +1249,9 @@
     "corporateHint": "Produtos oferecidos diretamente pela Neuromundi."
   },
   "affil": {
-    "tab": "Afiliados",
-    "title": "Programa de afiliados",
-    "help": "Compartilhe seu link e ganhe comissão quando alguém comprar por ele.",
+    "tab": "Meus afiliados",
+    "title": "Programa de afiliados dos meus produtos",
+    "help": "Recompense quem promove os SEUS produtos: quem compartilhar este link e gerar uma venda recebe a comissão que você definir, descontada dessa venda.",
     "code": "Seu código",
     "commission": "Comissão (%)",
     "create": "Salvar código",
@@ -2085,9 +2101,10 @@
       "Publique para aparecer no Academy."
     ],
     "affiliate": [
-      "Copie o seu link de afiliado exclusivo.",
-      "Compartilhe; quando alguém compra por ele, sua comissão é registrada.",
-      "Veja aqui suas vendas e comissões acumuladas."
+      "Este programa recompensa quem promove os SEUS produtos da Loja.",
+      "Defina seu código e a porcentagem de comissão que pagará por venda.",
+      "Compartilhe o link: quem comprar por ele gera a comissão.",
+      "Aqui você vê as vendas obtidas e a comissão acumulada; a liquidação é feita fora do aplicativo."
     ],
     "network": [
       "Busque e conecte-se com outros profissionais ou fornecedores.",
@@ -2113,6 +2130,23 @@
       "Escolha ou busque o paciente/família destinatária.",
       "Adicione os produtos ou indicações e as notas de uso.",
       "Envie a receita; o paciente a vê na conta e pode marcá-la como pedida."
+    ],
+    "history": [
+      "Filtre por status ou por oferta para restringir a busca.",
+      "Cada linha é um resgate: data, oferta aplicada e status.",
+      "Use “Exportar” para baixar o histórico em CSV."
+    ],
+    "waitlist": [
+      "Adicione pacientes pelo folio (NM-000123) e uma nota opcional.",
+      "Se uma consulta for recusada ou cancelada, a plataforma avisa sozinha quem está esperando.",
+      "Para oferecer uma vaga fora desse caso, use “Avisar de uma vaga”.",
+      "Ao encaixar alguém, marque como Atribuído."
+    ],
+    "campaigns": [
+      "Escreva um assunto e uma mensagem claros e breves.",
+      "Escolha os destinatários: sua lista de espera ou seus pacientes.",
+      "Marque os canais: notificação no app, e-mail e/ou SMS (o SMS tem custo por mensagem).",
+      "Toque em Enviar; abaixo fica o registro de quantas pessoas receberam."
     ]
   },
   "recommend": {
@@ -2135,7 +2169,10 @@
       "facebook": "Compartilhar no Facebook",
       "x": "Compartilhar no X",
       "linkedin": "Compartilhar no LinkedIn"
-    }
+    },
+    "accrued": "Você acumulou {{pct}}% para o próximo pagamento (limite {{max}}%).",
+    "rules": "Seu link vale {{days}} dias após ser recebido. Quem assinar com ele ganha 5% no primeiro pagamento, e você ganha {{step}}% por cada indicado que pagar. Pacientes e famílias entram grátis: sem desconto nem recompensa, mas o uso fica registrado.",
+    "creditLive": "Seu desconto vale apenas para a próxima fatura; se já tiver assinatura ativa, é aplicado automaticamente."
   },
   "renewal": {
     "title": "Sua associação está prestes a renovar",
@@ -2538,6 +2575,154 @@
     "err": {
       "generic": "Não foi possível enviar a campanha.",
       "no_channels": "Escolha pelo menos um canal."
+    }
+  },
+  "ref": {
+    "totalUses": "Usos do link",
+    "payingUses": "Pagantes",
+    "rewardsDue": "Recompensas a conceder",
+    "searchPlaceholder": "Buscar por nome ou folio…",
+    "onlyRewards": "Só com recompensa",
+    "emptyTitle": "Ainda sem indicações",
+    "empty": "Aqui aparecerão os cadastros feitos com links de indicação.",
+    "typePaying": "Assinatura paga",
+    "typeFree": "Assinatura gratuita",
+    "paidUntil": "pago até",
+    "rewardDue": "Recompensa pendente",
+    "awaitingPayment": "Aguardando pagamento",
+    "noReward": "Sem recompensa",
+    "linkValid": "Link ainda válido",
+    "adminHint": "Os 5% aplicam-se apenas ao primeiro pagamento de quem chega com um link válido e paga taxa. Se for paciente ou responsável não há desconto nem recompensa, mas o uso fica registrado. As recompensas são concedidas aqui.",
+    "cfgTitle": "Parâmetros do programa",
+    "cfgDiscount": "Desconto ao indicado",
+    "cfgStep": "Comissão por indicação",
+    "cfgMax": "Limite acumulado",
+    "cfgDays": "Validade do link",
+    "days": "dias",
+    "cfgSave": "Salvar",
+    "cfgSaved": "Parâmetros atualizados.",
+    "cfgError": "Não foi possível salvar.",
+    "cfgHint": "Apenas o administrador altera estes valores. O usuário nunca pode editar sua comissão nem seu código: o código é sempre seu número de afiliado.",
+    "referrerIs": "indicado por",
+    "roleProvider": "um prestador",
+    "roleFamily": "um paciente ou família",
+    "rewardManual": "Recompensa manual"
+  },
+  "fees": {
+    "hint": "Defina a taxa de cada tipo de usuário por país na moeda local. O que você salvar aqui prevalece sobre o cálculo automático.",
+    "country": "País",
+    "amount": "Valor",
+    "currency": "Moeda",
+    "zeroDecimal": "Sem centavos",
+    "save": "Salvar",
+    "edit": "Editar",
+    "reset": "Redefinir",
+    "explicit": "Fixado",
+    "auto": "Automático",
+    "saved": "Taxa salva.",
+    "cleared": "Volta ao cálculo automático.",
+    "saveError": "Não foi possível salvar.",
+    "typePatient": "Paciente",
+    "typeParent": "Pai ou responsável",
+    "typeService": "Prestador de serviços",
+    "typeMerchant": "Comércio",
+    "typeSchool": "Escola",
+    "typeOther": "Outro tipo",
+    "freeNote": "Pacientes e famílias afiliam-se grátis: mesmo com taxa configurada, não são cobrados.",
+    "defaultCountry": "Padrão (resto do mundo)",
+    "groupConfigured": "Com taxa própria",
+    "groupAll": "Todos os países",
+    "defaultHint": "Aplica-se a todo país sem taxa própria. Vale a pena configurá-lo bem.",
+    "countryHint": "Defina aqui a taxa deste país na sua moeda; se não, usa a padrão.",
+    "configuredCount": "{{count}} tipo(s) com taxa própria neste país",
+    "noTypes": "Nenhum tipo de afiliado ativo.",
+    "classFounder": "Fundador",
+    "classOrdinary": "Comum",
+    "monthly": "Mensal",
+    "annual": "Anual (cobrado)",
+    "annualList": "Anual de referência",
+    "annualHint": "= 10 meses",
+    "listHint": "= 12 meses, exibido riscado",
+    "savingNote": "12 meses pagando 10.",
+    "typeMedical": "Especialista médico",
+    "typeNonMedical": "Especialista não médico",
+    "typeClinic": "Clínica"
+  },
+  "gate": {
+    "title": "Sua conta está pausada",
+    "bodyFirst": "Você está quase lá! Falta apenas cobrir sua taxa para ativar seu perfil e começar a receber consultas.",
+    "bodyRenewal": "Sua renovação ficou pendente e pausamos seu perfil por ora. Você retoma de onde parou assim que o pagamento for registrado.",
+    "whatYouGet": "Ao ativar, você recupera:",
+    "benefit1": "Sua visibilidade no diretório e as consultas de famílias.",
+    "benefit2": "Sua agenda, consultas e mensagens com pacientes.",
+    "benefit3": "Sua loja, campanhas e programa de indicação.",
+    "yourFee": "Sua taxa",
+    "payNow": "Ativar minha conta agora",
+    "havePromo": "Tenho um código promocional",
+    "promoPlaceholder": "Seu código",
+    "promoApply": "Aplicar",
+    "promoOk": "Pronto! Sua conta está ativa.",
+    "promoBad": "Esse código não é válido.",
+    "later": "Agora não",
+    "footer": "Suas informações e histórico permanecem intactos enquanto isso."
+  },
+  "reactivated": {
+    "title": "Bem-vindo de volta!",
+    "thanks": "Obrigado por confiar na Neuromundi. Seu pagamento foi registrado e seu perfil está ativo novamente, com todas as funções disponíveis.",
+    "motivation": "As famílias que procuram você já podem encontrá-lo. Vamos ao próximo paciente!",
+    "cta": "Ir ao meu painel"
+  },
+  "csv": {
+    "title": "Importar e exportar taxas (CSV)",
+    "hint": "Configure vários países de uma vez: baixe o que existe, edite no Excel ou Google Sheets e envie de volta. Nada é salvo até você confirmar.",
+    "download": "Baixar CSV",
+    "upload": "Enviar CSV",
+    "exported": "{{count}} taxas baixadas.",
+    "templateDownloaded": "Ainda sem taxas definidas: foi baixado um modelo de exemplo.",
+    "exportError": "Não foi possível baixar o arquivo.",
+    "importError": "Não foi possível salvar a importação.",
+    "allInvalid": "Nenhuma linha do arquivo é válida.",
+    "previewTitle": "Pronto para importar: {{count}} linha(s)",
+    "errorsTitle": "{{count}} linha(s) com problemas",
+    "errorsNote": "Essas linhas são ignoradas; as demais são importadas.",
+    "line": "Linha",
+    "colType": "Tipo",
+    "colClass": "Classe",
+    "replaceLabel": "Substituir tudo",
+    "replaceHint": "Exclui as taxas que não estejam no arquivo. Deixe desmarcado para apenas adicionar e atualizar.",
+    "confirm": "Importar {{count}} linha(s)",
+    "imported": "Pronto: {{inserted}} novas, {{updated}} atualizadas, {{deleted}} excluídas.",
+    "formatTitle": "Ver o formato do arquivo",
+    "formatBody": "Uma linha por país, tipo de afiliado e classe. O anual equivale a 10 meses e a referência a 12; deixe vazios para derivá-los do mensal.",
+    "formatNote": "Aceita \";\" ou \",\" como separador e vírgula decimal. O país pode ter acentos: \"México\" e \"Mexico\" são o mesmo."
+  },
+  "comm": {
+    "title": "Comissões de divulgação",
+    "help": "Aqui você acompanha as comissões de divulgação. A Neuromundi não retém nem transfere esse dinheiro: o vendedor paga ao divulgador por conta própria e registra aqui.",
+    "tabEarned": "Me devem",
+    "tabOwed": "Eu devo",
+    "pendingToReceive": "A receber",
+    "pendingToPay": "A pagar",
+    "alreadySettled": "Já liquidado",
+    "download": "Baixar extrato",
+    "pending": "Pendente",
+    "settled": "Liquidado",
+    "registerPayment": "Registrar pagamento",
+    "confirmBody": "Você vai registrar que já pagou {{amount}} para {{name}}. Isso não movimenta dinheiro: apenas deixa registro e avisa a pessoa.",
+    "noteLabel": "Referência do pagamento (opcional)",
+    "notePlaceholder": "N.º da transferência, data, meio…",
+    "confirm": "Confirmar",
+    "marked": "{{count}} comissão(ões) marcadas como pagas",
+    "markError": "Não foi possível registrar o pagamento",
+    "refundAfterPaid": "Venda reembolsada depois",
+    "emptyEarnedTitle": "Ainda sem comissões",
+    "emptyEarned": "Compartilhe seu link de afiliado: quando alguém comprar por ele, a comissão aparecerá aqui.",
+    "emptyOwedTitle": "Você não deve comissões",
+    "emptyOwed": "Quando alguém vender um produto seu pelo link dele, você verá aqui quanto lhe deve.",
+    "status": {
+      "payable": "A pagar",
+      "paid": "Paga",
+      "reversed": "Revertida"
     }
   }
 }

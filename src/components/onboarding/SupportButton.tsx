@@ -81,7 +81,7 @@ export function SupportButton() {
         type="button"
         onClick={() => setOpen(true)}
         aria-label={t('support.button')}
-        className="fixed bottom-24 right-4 z-40 inline-flex items-center gap-2 rounded-full bg-brand-600 px-4 py-3 text-sm font-semibold text-white shadow-lg hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 md:bottom-6"
+        className="fixed bottom-24 right-4 z-40 inline-flex items-center gap-2 rounded-full bg-brand-700 px-4 py-3 text-sm font-semibold text-white shadow-lg hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 md:bottom-6"
       >
         <LifeBuoy className="h-5 w-5" aria-hidden="true" />
         <span className="hidden sm:inline">{t('support.button')}</span>

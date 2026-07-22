@@ -91,7 +91,7 @@ export function GuidedTour({ onClose }: { onClose: () => void }) {
             <button
               type="button"
               onClick={next}
-              className="rounded-xl bg-brand-600 px-5 py-2 text-sm font-semibold text-white hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+              className="rounded-xl bg-brand-700 px-5 py-2 text-sm font-semibold text-white hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
             >
               {step === last ? t('tour.done') : t('tour.next')}
             </button>
