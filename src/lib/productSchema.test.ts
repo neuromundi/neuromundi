@@ -43,4 +43,44 @@ describe('productSchema', () => {
     });
     expect(res.success).toBe(false);
   });
+
+  it('rechaza "otro" sin especificar la clasificación', () => {
+    const res = productSchema.safeParse({
+      ...defaultProductValues(),
+      name: 'Producto raro',
+      store_category: 'otro',
+      store_category_other: '',
+    });
+    expect(res.success).toBe(false);
+  });
+
+  it('rechaza "otro" con especificación de solo espacios', () => {
+    const res = productSchema.safeParse({
+      ...defaultProductValues(),
+      name: 'Producto raro',
+      store_category: 'otro',
+      store_category_other: '   ',
+    });
+    expect(res.success).toBe(false);
+  });
+
+  it('acepta "otro" con la clasificación especificada', () => {
+    const res = productSchema.safeParse({
+      ...defaultProductValues(),
+      name: 'Producto raro',
+      store_category: 'otro',
+      store_category_other: 'Mobiliario adaptado',
+    });
+    expect(res.success).toBe(true);
+  });
+
+  it('no exige especificación cuando la clasificación no es "otro"', () => {
+    const res = productSchema.safeParse({
+      ...defaultProductValues(),
+      name: 'Producto',
+      store_category: 'sensorial',
+      store_category_other: '',
+    });
+    expect(res.success).toBe(true);
+  });
 });

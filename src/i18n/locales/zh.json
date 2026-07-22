@@ -31,7 +31,8 @@
     "kit": "工具包",
     "blog": "博客",
     "events": "活动",
-    "calendar": "日历"
+    "calendar": "日历",
+    "messages": "消息"
   },
   "home": {
     "title": "首个连接神经发育与神经多样性领域中患者、家庭、专家与服务方的全球社区。",
@@ -293,7 +294,10 @@
       "history": "历史",
       "ratings": "我的评分",
       "prescribe": "开处方",
-      "products": "我的商品"
+      "products": "我的商品",
+      "widget": "预约小工具",
+      "waitlist": "候补名单",
+      "campaigns": "营销活动"
     },
     "offers": {
       "new": "新建优惠",
@@ -470,7 +474,11 @@
     "guide3": "通过后将自动在商店向家庭展示。",
     "moderationTip": "你的发布需经审核。通过后将自动展示。不允许\"神奇产品\"；Neuromundi 有权随时暂停或下架任何商品。",
     "reviewNote": "原因",
-    "storeCategory": "神经发育类别"
+    "storeCategory": "神经发育类别",
+    "storeCategoryOther": "请指定分类",
+    "storeCategoryOtherPlaceholder": "例：适配家具",
+    "storeCategoryOtherHint": "选择“其他”时，你必须提出你产品的分类。",
+    "errOtherRequired": "请填写分类（至少3个字符）。"
   },
   "lang": {
     "label": "语言"
@@ -634,7 +642,10 @@
     "secRenewals": "续期",
     "secReports": "举报",
     "secMetrics": "指标",
-    "secMessages": "消息"
+    "secMessages": "消息",
+    "credential": "专业证件",
+    "noCredential": "无专业证件",
+    "viewDoc": "查看文件{{n}}"
   },
   "reg": {
     "typePatient": "患者",
@@ -755,7 +766,8 @@
       "passwordMatch": "两次输入的密码必须一致",
       "manifesto": "接受社区宣言",
       "emailValid": "格式有效的电子邮箱",
-      "emailMatch": "两次输入的邮箱必须一致"
+      "emailMatch": "两次输入的邮箱必须一致",
+      "otherSpecify": "选择\"其他\"时请填写具体内容。"
     },
     "errManifesto": "你必须接受社区宣言。",
     "acceptManifestoPre": "我已阅读并认同",
@@ -1059,6 +1071,18 @@
         "title": "预约提醒",
         "body": "你的预约“{{title}}”将在24小时内开始。"
       }
+    },
+    "booking": {
+      "title": "新的预约请求",
+      "body": "{{name}} 想与你预约。"
+    },
+    "dm": {
+      "title": "新消息",
+      "body": "{{name}} 给你发来一条消息。"
+    },
+    "waitlist": {
+      "title": "有空位",
+      "join": "候补名单"
     }
   },
   "clin": {
@@ -1180,7 +1204,7 @@
     "categories": "类别",
     "featured": "精选优惠",
     "myStore": "我的商店",
-    "noCommission": "Neuromundi 不收取销售佣金，也不推广这些产品的交易。交易直接与卖方进行，由卖方和买方自行负责。",
+    "noCommission": "Neuromundi 不收取任何销售佣金，也不推广这些产品的销售。交易直接与提供产品的人进行，由其本人及购买者自行承担全部责任，Neuromundi 不承担任何责任。",
     "noResults": "没有符合这些筛选条件的产品。",
     "searchPlaceholder": "搜索产品和资源…",
     "verifiedSeller": "已认证卖家",
@@ -1201,7 +1225,12 @@
     "beFirst": "成为第一个评价此产品的人。",
     "reviewSaved": "感谢你的评价！",
     "reviewDeleted": "评价已删除。",
-    "reviewNeedStars": "请选择1到5星。"
+    "reviewNeedStars": "请选择1到5星。",
+    "corporate": "Neuromundi 官方商品",
+    "corporateOn": "查看整个商店",
+    "allProducts": "全部商品",
+    "scope": "显示哪些商品",
+    "corporateHint": "由 Neuromundi 直接提供的商品。"
   },
   "affil": {
     "tab": "推广",
@@ -2356,7 +2385,17 @@
       "consent": "同意",
       "prescription": "既往处方",
       "folio": "编号"
-    }
+    },
+    "createRoom": "创建视频房间",
+    "roomHint": "将生成私密房间；链接随预约一起发送。",
+    "mode": "形式",
+    "mode_in_person": "线下",
+    "mode_online": "线上",
+    "chargeEnable": "为此预约收费（可选）",
+    "chargeAmount": "总金额",
+    "chargeHint": "患者通过网关支付；百分比决定当前收取的金额。",
+    "toPay": "待支付",
+    "pay": "支付 {{amount}}"
   },
   "pwa": {
     "install": "安装应用",
@@ -2391,7 +2430,114 @@
       "forbidden": "只有管理员可以发送消息。",
       "empty": "请填写消息内容。",
       "bad_audience": "收件人无效。",
-      "recipient_not_found": "未找到该编号的用户。"
+      "recipient_not_found": "未找到该编号的用户。",
+      "generic": "发送失败。",
+      "not_allowed": "你无法发起此会话。",
+      "self": "不能给自己发消息。",
+      "auth": "请登录。"
+    },
+    "new": "新建消息",
+    "emptyThreads": "还没有会话。",
+    "someone": "某人",
+    "pickTitle": "选择一个会话",
+    "pickDesc": "选择一个聊天或新建一个。",
+    "toFolio": "收件人（会员编号）",
+    "threadEmpty": "还没有消息。",
+    "placeholder": "输入消息…（可粘贴视频链接）",
+    "hint": "专家可通过会员编号发起；任何平台的视频链接都会显示为链接。",
+    "room": "创建视频房间",
+    "roomPrefix": "视频房间：",
+    "badFolio": "会员编号无效。"
+  },
+  "book": {
+    "title": "预约",
+    "with": "与 {{name}}",
+    "name": "你的姓名",
+    "contact": "邮箱或电话",
+    "contactHint": "以便回复你",
+    "preferred": "期望日期时间（可选）",
+    "note": "事由或留言（可选）",
+    "send": "发送请求",
+    "sending": "发送中…",
+    "sentTitle": "请求已发送！",
+    "sentBody": "服务者将联系你确认预约。",
+    "error": "无法发送，请重试。",
+    "notFound": "未找到该服务者。",
+    "disclaimer": "这是一个请求；预约由服务者确认。"
+  },
+  "widget": {
+    "intro": "将预约小工具嵌入你的网站，或在社交平台分享链接。",
+    "link": "直接链接",
+    "copy": "复制",
+    "preview": "预览",
+    "embed": "网站代码（iframe）",
+    "copyCode": "复制代码",
+    "embedHint": "粘贴到你网页的 HTML 中。",
+    "requests": "收到的请求",
+    "noRequests": "暂无请求。",
+    "preferred": "期望",
+    "copied": "已复制",
+    "copyError": "复制失败"
+  },
+  "push": {
+    "title": "推送通知",
+    "on": "推送通知已开启",
+    "enable": "启用",
+    "blocked": "已被浏览器阻止"
+  },
+  "wait": {
+    "autoHint": "自动：如果预约被拒绝或取消，我们会自动通知候补者。",
+    "addTitle": "添加到名单",
+    "add": "添加",
+    "added": "已加入候补名单。",
+    "notePlaceholder": "备注（可选）",
+    "notifyTitle": "通知有空位",
+    "notifyPlaceholder": "消息（可选）",
+    "notify": "通知 {{count}} 位候补",
+    "notified": "已通知 {{count}} 人。",
+    "emptyTitle": "候补名单为空",
+    "empty": "可通过会员编号添加患者。",
+    "assign": "分配",
+    "remove": "移除",
+    "badFolio": "会员编号无效。",
+    "status": {
+      "waiting": "等待中",
+      "assigned": "已分配",
+      "declined": "已拒绝",
+      "cancelled": "已取消"
+    },
+    "err": {
+      "generic": "无法完成。",
+      "already": "已在名单中。",
+      "patient_not_found": "未找到该会员编号。",
+      "not_allowed": "你没有权限。"
+    }
+  },
+  "camp": {
+    "newTitle": "新建活动",
+    "subject": "主题",
+    "body": "消息",
+    "audience": "收件人",
+    "aud": {
+      "waitlist": "我的候补名单",
+      "patients": "我的患者"
+    },
+    "channels": "渠道",
+    "ch": {
+      "push": "推送／应用",
+      "email": "邮件",
+      "sms": "短信"
+    },
+    "send": "发送活动",
+    "sent": "已发送给 {{count}} 人。",
+    "sentCount": "已发送 {{count}}",
+    "empty": "你还没有发送过活动。",
+    "needText": "请填写主题和消息。",
+    "smsCost": "短信按条计费。",
+    "consentHint": "仅发送与你的服务相关的有用信息。请尊重对方的同意及所在国家的数据保护法。",
+    "err": {
+      "generic": "无法发送活动。",
+      "no_channels": "请至少选择一个渠道。"
     }
   }
 }

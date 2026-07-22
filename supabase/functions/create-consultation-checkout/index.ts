@@ -31,7 +31,7 @@ Deno.serve(async (req) => {
   const authHeader = req.headers.get('Authorization') ?? '';
   if (!authHeader) return json(401, { error: 'No autenticado' });
 
-  let body: { providerId?: string; appointmentId?: string; kind?: string; payerRfc?: string };
+  let body: { providerId?: string; appointmentId?: string; kind?: string; payerRfc?: string; amount?: number; currency?: string };
   try { body = await req.json(); } catch { return json(400, { error: 'Cuerpo inválido' }); }
   const kind = body.kind === 'therapy' ? 'therapy' : 'consultation';
   if (!body.providerId) return json(400, { error: 'Falta providerId' });
@@ -55,12 +55,14 @@ Deno.serve(async (req) => {
   if (!provider.accepts_payments || !provider.stripe_connect_id || !provider.stripe_charges_enabled) {
     return json(400, { error: 'El prestador aún no tiene pagos habilitados.' });
   }
-  if (!provider.consultation_amount || !provider.consultation_currency) {
+  if ((body.amount == null || Number(body.amount) <= 0) && (!provider.consultation_amount || !provider.consultation_currency)) {
     return json(400, { error: 'El prestador no configuró el precio de la consulta.' });
   }
 
-  const currency = String(provider.consultation_currency).toLowerCase();
-  const amount = Number(provider.consultation_amount);
+  // Importe: si el cuerpo trae un monto (cobro por cita con % del especialista) se usa
+  // ese; si no, el precio fijo de consulta del prestador.
+  const currency = String(body.currency || provider.consultation_currency).toLowerCase();
+  const amount = body.amount != null && Number(body.amount) > 0 ? Number(body.amount) : Number(provider.consultation_amount);
   const unitAmount = ZERO_DECIMAL.has(currency) ? Math.round(amount) : Math.round(amount * 100);
 
   // Datos del pagador para el reporte de facturación.

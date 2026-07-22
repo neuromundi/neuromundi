@@ -9,7 +9,8 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
-import { Camera, LogOut, Trash2, KeyRound, HelpCircle } from 'lucide-react';
+import { Camera, LogOut, Trash2, KeyRound, HelpCircle, BellRing } from 'lucide-react';
+import { usePushSubscribe } from '@/hooks/usePushSubscribe';
 import { Button, Modal, useToast, SkeletonCard, PasswordInput} from '@/components/ui';
 import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher';
 import { useAuth } from '@/hooks/useAuth';
@@ -26,6 +27,31 @@ import type { ProfileUpdate } from '@/hooks/useProfile';
 const inputCls =
   'w-full rounded-xl border border-slate-200 p-3 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500';
 const labelCls = 'mb-1 block font-semibold text-slate-900';
+
+function PushSection() {
+  const { t } = useTranslation();
+  const { state, enable } = usePushSubscribe();
+  if (state === 'unsupported' || state === 'unconfigured') return null;
+  return (
+    <section className="flex items-center justify-between gap-3 rounded-2xl border border-slate-100 p-4">
+      <span className="flex items-center gap-2 font-semibold text-slate-900">
+        <BellRing className="h-5 w-5 text-brand-600" aria-hidden="true" />
+        {state === 'granted' ? t('push.on') : t('push.title')}
+      </span>
+      {state !== 'granted' && (
+        <Button
+          variant="secondary"
+          size="sm"
+          loading={state === 'busy'}
+          disabled={state === 'denied'}
+          onClick={() => void enable()}
+        >
+          {state === 'denied' ? t('push.blocked') : t('push.enable')}
+        </Button>
+      )}
+    </section>
+  );
+}
 
 export function Settings() {
   const { isProvider, signOut } = useAuth();
@@ -368,6 +394,9 @@ export function Settings() {
           {t('settings.updatePassword')}
         </Button>
       </section>
+
+      {/* Notificaciones push nativas */}
+      <PushSection />
 
       {/* Seguimiento de denuncias del miembro */}
       <MyReports />

@@ -104,6 +104,7 @@ export function ProviderRegister({ onSuccess }: { onSuccess?: () => void }) {
     const miss: string[] = [];
     if (brand.trim().length < 2) miss.push(t('reg.miss.brand'));
     if (categories.length === 0) miss.push(t('reg.miss.category'));
+    if (categories.includes('otro') && !categoryOther.trim()) miss.push(t('reg.miss.otherSpecify'));
     if (!email.trim()) miss.push(t('reg.miss.email'));
     if (email.trim() && !isStrictEmail(email)) miss.push(t('reg.miss.emailValid'));
     if (email.trim().toLowerCase() !== confirmEmail.trim().toLowerCase()) miss.push(t('reg.miss.emailMatch'));

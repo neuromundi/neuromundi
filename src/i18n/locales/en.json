@@ -67,7 +67,8 @@
     "kit": "Toolkit",
     "blog": "Blog",
     "events": "Events",
-    "calendar": "Calendar"
+    "calendar": "Calendar",
+    "messages": "Messages"
   },
   "home": {
     "title": "The first global community connecting patients, families, specialists and providers in neurodevelopment and neurodivergence.",
@@ -329,7 +330,10 @@
       "history": "History",
       "ratings": "My ratings",
       "prescribe": "Prescribe",
-      "products": "My products"
+      "products": "My products",
+      "widget": "Booking widget",
+      "waitlist": "Waitlist",
+      "campaigns": "Campaigns"
     },
     "offers": {
       "new": "New offer",
@@ -506,7 +510,11 @@
     "guide3": "Once approved, it is shown automatically in the store for families.",
     "moderationTip": "Your listing is subject to review. Once approved, it is shown automatically. \"Miracle products\" are not allowed; Neuromundi may suspend or remove any product.",
     "reviewNote": "Reason",
-    "storeCategory": "Neurodevelopment category"
+    "storeCategory": "Neurodevelopment category",
+    "storeCategoryOther": "Specify the classification",
+    "storeCategoryOtherPlaceholder": "E.g. Adapted furniture",
+    "storeCategoryOtherHint": "If you pick “Other”, you must propose your product’s classification.",
+    "errOtherRequired": "Specify the classification (at least 3 characters)."
   },
   "lang": {
     "label": "Language"
@@ -670,7 +678,10 @@
     "secRenewals": "Renewals",
     "secReports": "Reports",
     "secMetrics": "Metrics",
-    "secMessages": "Messages"
+    "secMessages": "Messages",
+    "credential": "Professional credential",
+    "noCredential": "No professional credential",
+    "viewDoc": "View document {{n}}"
   },
   "reg": {
     "typePatient": "Patient",
@@ -791,7 +802,8 @@
       "passwordMatch": "Passwords must match",
       "manifesto": "Accept the Community Manifesto",
       "emailValid": "A valid email format",
-      "emailMatch": "Emails must match"
+      "emailMatch": "Emails must match",
+      "otherSpecify": "Please specify when you choose \"Other\"."
     },
     "errManifesto": "You must accept the Community Manifesto.",
     "acceptManifestoPre": "I have read and adhere to the",
@@ -1095,6 +1107,18 @@
         "title": "Appointment reminder",
         "body": "Your appointment \"{{title}}\" is in less than 24 hours."
       }
+    },
+    "booking": {
+      "title": "New booking request",
+      "body": "{{name}} wants to book with you."
+    },
+    "dm": {
+      "title": "New message",
+      "body": "{{name}} sent you a message."
+    },
+    "waitlist": {
+      "title": "A slot is available",
+      "join": "Waitlist"
     }
   },
   "clin": {
@@ -1212,7 +1236,7 @@
     "noPrice": "No price",
     "emptyTitle": "No products yet",
     "subtitle": "Products and resources validated by families, with trusted discounts.",
-    "noCommission": "Neuromundi charges no commission on sales and does not promote the trade of these products. The transaction happens directly with the seller, under the sole responsibility of the seller and the buyer.",
+    "noCommission": "Neuromundi does not charge any commission on sales nor promote the commercialization of these products. The transaction takes place directly with whoever offers the product, under their sole responsibility and that of the buyer, with no liability for Neuromundi.",
     "searchPlaceholder": "Search products and resources…",
     "categories": "Category",
     "allCategories": "All",
@@ -1237,7 +1261,12 @@
     "beFirst": "Be the first to review this product.",
     "reviewSaved": "Thanks for your review!",
     "reviewDeleted": "Review deleted.",
-    "reviewNeedStars": "Choose 1 to 5 stars."
+    "reviewNeedStars": "Choose 1 to 5 stars.",
+    "corporate": "Neuromundi Products",
+    "corporateOn": "View whole store",
+    "allProducts": "All products",
+    "scope": "Which products to show",
+    "corporateHint": "Products offered directly by Neuromundi."
   },
   "affil": {
     "tab": "Affiliates",
@@ -2356,7 +2385,17 @@
       "consent": "Consent",
       "prescription": "Previous prescription",
       "folio": "ID"
-    }
+    },
+    "createRoom": "Create video room",
+    "roomHint": "A private room is generated; the link goes with the appointment.",
+    "mode": "Modality",
+    "mode_in_person": "In person",
+    "mode_online": "Online",
+    "chargeEnable": "Charge for this appointment (optional)",
+    "chargeAmount": "Total amount",
+    "chargeHint": "The patient pays via the gateway; the % sets how much is charged now.",
+    "toPay": "To pay",
+    "pay": "Pay {{amount}}"
   },
   "pwa": {
     "install": "Install app",
@@ -2391,7 +2430,114 @@
       "forbidden": "Only the admin can send messages.",
       "empty": "Write the message.",
       "bad_audience": "Invalid audience.",
-      "recipient_not_found": "No user found with that ID."
+      "recipient_not_found": "No user found with that ID.",
+      "generic": "Couldn’t send.",
+      "not_allowed": "You can’t start this conversation.",
+      "self": "You can’t message yourself.",
+      "auth": "Please sign in."
+    },
+    "new": "New message",
+    "emptyThreads": "No conversations yet.",
+    "someone": "Someone",
+    "pickTitle": "Pick a conversation",
+    "pickDesc": "Select a chat or start a new one.",
+    "toFolio": "To (member ID)",
+    "threadEmpty": "No messages yet.",
+    "placeholder": "Type a message… (you can paste a video link)",
+    "hint": "Specialists can start by member ID; video links from any platform appear as links.",
+    "room": "Create video room",
+    "roomPrefix": "Video room:",
+    "badFolio": "Invalid member ID."
+  },
+  "book": {
+    "title": "Book your appointment",
+    "with": "With {{name}}",
+    "name": "Your name",
+    "contact": "Email or phone",
+    "contactHint": "So they can reply",
+    "preferred": "Preferred date and time (optional)",
+    "note": "Reason or message (optional)",
+    "send": "Send request",
+    "sending": "Sending…",
+    "sentTitle": "Request sent!",
+    "sentBody": "The provider will contact you to confirm the appointment.",
+    "error": "Could not send. Try again.",
+    "notFound": "We couldn't find this provider.",
+    "disclaimer": "This is a request; the appointment is confirmed by the provider."
+  },
+  "widget": {
+    "intro": "Install your booking widget on your website or share the link on your socials.",
+    "link": "Direct link",
+    "copy": "Copy",
+    "preview": "Preview",
+    "embed": "Code for your site (iframe)",
+    "copyCode": "Copy code",
+    "embedHint": "Paste it into your page's HTML.",
+    "requests": "Requests received",
+    "noRequests": "No requests yet.",
+    "preferred": "Preferred",
+    "copied": "Copied",
+    "copyError": "Couldn't copy"
+  },
+  "push": {
+    "title": "Push notifications",
+    "on": "Push notifications on",
+    "enable": "Enable",
+    "blocked": "Blocked in browser"
+  },
+  "wait": {
+    "autoHint": "Automatic: if an appointment is rejected or cancelled, we notify those waiting on our own.",
+    "addTitle": "Add to the list",
+    "add": "Add",
+    "added": "Added to the waitlist.",
+    "notePlaceholder": "Note (optional)",
+    "notifyTitle": "Announce a free slot",
+    "notifyPlaceholder": "Message (optional)",
+    "notify": "Notify {{count}} waiting",
+    "notified": "Notified {{count}} person(s).",
+    "emptyTitle": "Waitlist is empty",
+    "empty": "Add patients by their member ID.",
+    "assign": "Assign",
+    "remove": "Remove",
+    "badFolio": "Invalid member ID.",
+    "status": {
+      "waiting": "Waiting",
+      "assigned": "Assigned",
+      "declined": "Declined",
+      "cancelled": "Cancelled"
+    },
+    "err": {
+      "generic": "Couldn’t complete.",
+      "already": "Already on the list.",
+      "patient_not_found": "Member ID not found.",
+      "not_allowed": "You don’t have permission."
+    }
+  },
+  "camp": {
+    "newTitle": "New campaign",
+    "subject": "Subject",
+    "body": "Message",
+    "audience": "Audience",
+    "aud": {
+      "waitlist": "My waitlist",
+      "patients": "My patients"
+    },
+    "channels": "Channels",
+    "ch": {
+      "push": "Push / app",
+      "email": "Email",
+      "sms": "SMS"
+    },
+    "send": "Send campaign",
+    "sent": "Sent to {{count}} person(s).",
+    "sentCount": "{{count}} sent",
+    "empty": "You haven’t sent any campaigns yet.",
+    "needText": "Enter a subject and a message.",
+    "smsCost": "SMS has a per-message cost.",
+    "consentHint": "Send only useful information related to your service. Respect people’s consent and your country’s data protection law.",
+    "err": {
+      "generic": "Couldn’t send the campaign.",
+      "no_channels": "Pick at least one channel."
     }
   }
 }

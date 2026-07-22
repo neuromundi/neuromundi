@@ -26,7 +26,7 @@ export function setRefCode(code: string): void {
 }
 
 export interface ProductRating { avg: number; count: number }
-export interface SellerTrust { verified: boolean; memberNo: number | null }
+export interface SellerTrust { verified: boolean; memberNo: number | null; country: string | null }
 
 // ── Tienda ─────────────────────────────────────────────────────────────────────
 export function useStore() {
@@ -65,11 +65,11 @@ export function useStore() {
         // Confianza del vendedor (solo perfiles publicados son legibles por RLS).
         const { data: vs } = await supabase
           .from('profiles')
-          .select('id, is_verified, member_no')
+          .select('id, is_verified, member_no, country')
           .in('id', vendorIds);
         const smap: Record<string, SellerTrust> = {};
         for (const v of vs ?? []) {
-          smap[v.id] = { verified: !!v.is_verified, memberNo: v.member_no ?? null };
+          smap[v.id] = { verified: !!v.is_verified, memberNo: v.member_no ?? null, country: v.country ?? null };
         }
         setSellers(smap);
       }

@@ -24,6 +24,11 @@ export interface AppointmentRequest {
   note: string | null;
   status: 'pending' | 'accepted' | 'rejected';
   rejection_reason: string | null;
+  mode: string;
+  charge_total: number | null;
+  charge_percent: number;
+  charge_currency: string | null;
+  payment_status: string;
   created_at: string;
   otherName: string;
 }
@@ -35,6 +40,10 @@ export interface RequestPayload {
   location?: string | null;
   online_url?: string | null;
   note?: string | null;
+  mode?: 'in_person' | 'online';
+  charge_total?: number | null;
+  charge_percent?: number;
+  charge_currency?: string | null;
 }
 
 export interface PatientHit {
@@ -83,6 +92,23 @@ export function useAppointmentRequests() {
   const sent = useMemo(() => rows.filter((r) => r.specialist_id === userId), [rows, userId]);
   const received = useMemo(() => rows.filter((r) => r.recipient_id === userId), [rows, userId]);
   const pendingReceived = useMemo(() => received.filter((r) => r.status === 'pending'), [received]);
+  const payableReceived = useMemo(
+    () => received.filter((r) => r.status === 'accepted' && (r.charge_total ?? 0) > 0 && r.payment_status !== 'paid'),
+    [received],
+  );
+
+  const payAppointment = useCallback(async (r: AppointmentRequest): Promise<Result<true>> => {
+    const payable = (r.charge_total ?? 0) * ((r.charge_percent ?? 100) / 100);
+    if (payable <= 0) return { ok: false, error: 'no_charge' };
+    const { data, error } = await supabase.functions.invoke('create-consultation-checkout', {
+      body: { providerId: r.specialist_id, appointmentId: r.id, amount: payable, currency: r.charge_currency ?? 'MXN' },
+    });
+    if (error) return { ok: false, error: toMessage(error) };
+    const url = (data as { url?: string })?.url;
+    if (!url) return { ok: false, error: 'no_url' };
+    window.location.href = url;
+    return { ok: true, data: true };
+  }, []);
 
   const sendRequest = useCallback(
     async (memberNo: number, payload: RequestPayload): Promise<Result<true>> => {
@@ -95,6 +121,10 @@ export function useAppointmentRequests() {
         p_location: payload.location ?? null,
         p_online_url: payload.online_url ?? null,
         p_note: payload.note ?? null,
+        p_mode: payload.mode ?? 'in_person',
+        p_charge_total: payload.charge_total ?? null,
+        p_charge_percent: payload.charge_percent ?? 100,
+        p_charge_currency: payload.charge_currency ?? null,
       } as never);
       setBusy(false);
       if (error) return { ok: false, error: toMessage(error) };
@@ -130,7 +160,7 @@ export function useAppointmentRequests() {
     return (data ?? []) as unknown as PatientHit[];
   }, []);
 
-  return { sent, received, pendingReceived, loading, busy, sendRequest, respond, searchPatients, reload: load };
+  return { sent, received, pendingReceived, payableReceived, loading, busy, sendRequest, respond, payAppointment, searchPatients, reload: load };
 }
 
 /** Dispara los recordatorios de 24 h del usuario actual (fallback del cliente). */

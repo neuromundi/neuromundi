@@ -173,8 +173,13 @@ export const productSchema = z.object({
     .or(z.literal('')),
   category_id: z.number().int().nullable(),
   store_category: z.string().max(40).optional().default(''),
+  // Si la clasificación es "Otro", el oferente debe especificar cuál propone.
+  store_category_other: z.string().trim().max(60).optional().default(''),
   is_active: z.boolean(),
-});
+}).refine(
+  (v) => v.store_category !== 'otro' || (v.store_category_other ?? '').trim().length >= 3,
+  { path: ['store_category_other'], message: 'product.errOtherRequired' },
+);
 
 export type ProductFormValues = z.input<typeof productSchema>;
 
@@ -187,6 +192,7 @@ export function defaultProductValues(): ProductFormValues {
     purchase_url: '',
     category_id: null,
     store_category: '',
+    store_category_other: '',
     is_active: true,
   };
 }

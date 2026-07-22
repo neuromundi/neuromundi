@@ -107,6 +107,8 @@ export function SpecialistRegister({ onSuccess }: { onSuccess?: () => void }) {
     if (fullName.trim().length < 2) miss.push(t('reg.miss.name'));
     if (!profession) miss.push(t('reg.miss.profession'));
     if (!cedula.trim()) miss.push(t('reg.miss.cedula'));
+    if (specialties.includes('otro') && !specialtyOther.trim()) miss.push(t('reg.miss.otherSpecify'));
+    if (areas.includes('otro') && !areaOther.trim()) miss.push(t('reg.miss.otherSpecify'));
     if (!email.trim()) miss.push(t('reg.miss.email'));
     if (email.trim() && !isStrictEmail(email)) miss.push(t('reg.miss.emailValid'));
     if (email.trim().toLowerCase() !== confirmEmail.trim().toLowerCase()) miss.push(t('reg.miss.emailMatch'));

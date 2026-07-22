@@ -146,6 +146,7 @@ export function ClinicRegister() {
 
   const canNext = () => {
     if (step === 0) return name.trim().length >= 2 && categories.length > 0;
+    if (step === 2) return !(specialties.includes('otro') && !clinicSpecialtyOther.trim()) && !(services.includes('otro') && !clinicServiceOther.trim());
     if (step === 5) return isStrictEmail(email) && email.trim().toLowerCase() === confirmEmail.trim().toLowerCase() && password.length >= 8 && password === confirmPassword && acceptTerms && acceptRules && acceptManifesto;
     return true;
   };

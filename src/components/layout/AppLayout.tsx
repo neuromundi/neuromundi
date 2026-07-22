@@ -6,7 +6,7 @@
  * estado activo visible y labels claros (poca carga cognitiva).
  */
 import { NavLink, Outlet, useNavigate, Link } from 'react-router-dom';
-import { Compass, LayoutDashboard, Settings, LogIn, LogOut, ShieldCheck, MessageCircleQuestion, School, GraduationCap, Grid3x3, X, BookOpenCheck, BookOpen, ShieldAlert, CalendarDays } from 'lucide-react';
+import { Compass, LayoutDashboard, Settings, LogIn, LogOut, ShieldCheck, MessageCircleQuestion, School, GraduationCap, Grid3x3, X, BookOpenCheck, BookOpen, ShieldAlert, CalendarDays, ShoppingBag, MessageSquare } from 'lucide-react';
 import { Suspense, useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -54,7 +54,7 @@ function NavItem({ to, icon, label }: { to: string; icon: ReactNode; label: stri
 }
 
 export function AppLayout() {
-  const { isAuthenticated, fullName, signOut, needsOnboarding } = useAuth();
+  const { isAuthenticated, isAdmin, fullName, signOut, needsOnboarding } = useAuth();
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -83,7 +83,7 @@ export function AppLayout() {
   useAppointmentReminders();
   const [reportOpen, setReportOpen] = useState(false);
   const showMemberBanner =
-    isAuthenticated && (memStatus === 'pending' || memStatus === 'past_due');
+    isAuthenticated && !isAdmin && (memStatus === 'pending' || memStatus === 'past_due');
 
   const dismissVideo = () => {
     try {
@@ -174,7 +174,7 @@ export function AppLayout() {
   // Si el usuario ya tiene sesión pero su cuota está pendiente o vencida, le
   // mostramos el modal de pago una vez por sesión (también tras iniciar sesión).
   useEffect(() => {
-    if (showVideo || authView !== 'none') return;
+    if (showVideo || authView !== 'none' || isAdmin) return;
     if (memStatus !== 'pending' && memStatus !== 'past_due') return;
     try {
       if (sessionStorage.getItem('neuro.memPrompted') != null) return;
@@ -183,7 +183,7 @@ export function AppLayout() {
       /* noop */
     }
     setAuthView('membership');
-  }, [showVideo, authView, memStatus]);
+  }, [showVideo, authView, memStatus, isAdmin]);
 
   const handleSignOut = async () => {
     await signOut();
@@ -222,6 +222,7 @@ export function AppLayout() {
             <NavPill to="/kit" label={t('nav.kit')} colorClass="bg-gradient-to-br from-brand-500 via-brand-600 to-brand-800" />
             <NavPill to="/blog" label={t('nav.blog')} colorClass="bg-gradient-to-br from-brand-600 via-indigo-600 to-indigo-800" />
             <NavPill to="/eventos" label={t('nav.events')} colorClass="bg-gradient-to-br from-indigo-600 via-indigo-700 to-brand-700" />
+            <NavPill to="/tienda" label={t('shop.title')} colorClass="bg-gradient-to-br from-fuchsia-600 via-purple-600 to-indigo-600" />
             {/* Secundarios agrupados para no saturar la barra */}
             <NavMoreMenu
               label={t('nav.more')}
@@ -238,6 +239,7 @@ export function AppLayout() {
               <>
                 <NavPill to="/panel" label={t('nav.dashboard')} colorClass="bg-slate-700" />
                 <NavPill to="/calendario" label={t('nav.calendar')} colorClass="bg-slate-600" />
+                <NavPill to="/mensajes" label={t('nav.messages')} colorClass="bg-slate-600" />
                 <NavPill to="/ajustes" label={t('nav.settings')} colorClass="bg-slate-600" />
               </>
             )}
@@ -346,8 +348,8 @@ export function AppLayout() {
                 { to: '/blog', icon: <BookOpen className="h-6 w-6" />, label: t('nav.blog'), color: 'bg-gradient-to-br from-brand-600 via-indigo-600 to-indigo-800' },
                 { to: '/eventos', icon: <CalendarDays className="h-6 w-6" />, label: t('nav.events'), color: 'bg-gradient-to-br from-indigo-600 via-indigo-700 to-brand-700' },
                 ...(isAuthenticated ? [{ to: '/calendario', icon: <CalendarDays className="h-6 w-6" />, label: t('nav.calendar'), color: 'bg-slate-600' }] : []),
-                // Tienda oculta por ahora:
-                // { to: '/tienda', icon: <ShoppingBag className="h-6 w-6" />, label: t('shop.title'), color: 'bg-gradient-to-br from-fuchsia-600 via-purple-600 to-indigo-600' },
+                ...(isAuthenticated ? [{ to: '/mensajes', icon: <MessageSquare className="h-6 w-6" />, label: t('nav.messages'), color: 'bg-slate-600' }] : []),
+                { to: '/tienda', icon: <ShoppingBag className="h-6 w-6" />, label: t('shop.title'), color: 'bg-gradient-to-br from-fuchsia-600 via-purple-600 to-indigo-600' },
               ].map((it) => (
                 <button
                   key={it.to}

@@ -9,6 +9,7 @@ import { lazy } from 'react';
 import { AppLayout } from '@/components/layout/AppLayout';
 import { ProtectedRoute } from '@/components/layout/ProtectedRoute';
 import { Home } from '@/pages/Home';
+import { Book } from '@/pages/Book';
 
 // Carga diferida de las rutas pesadas (mapa, gráficas, escáner) para no inflar
 // el bundle inicial. El AppLayout provee el Suspense boundary.
@@ -41,6 +42,7 @@ const Author = lazy(() => import('@/pages/Author').then((m) => ({ default: m.Aut
 const Manifiesto = lazy(() => import('@/pages/Manifiesto').then((m) => ({ default: m.Manifiesto })));
 const Events = lazy(() => import('@/pages/Events').then((m) => ({ default: m.Events })));
 const CalendarPage = lazy(() => import('@/pages/Calendar').then((m) => ({ default: m.Calendar })));
+const Messages = lazy(() => import('@/pages/Messages').then((m) => ({ default: m.Messages })));
 
 const router = createBrowserRouter([
   {
@@ -75,11 +77,13 @@ const router = createBrowserRouter([
           { path: '/panel', element: <Dashboard /> },
           { path: '/ajustes', element: <Settings /> },
           { path: '/calendario', element: <CalendarPage /> },
+          { path: '/mensajes', element: <Messages /> },
         ],
       },
       { path: '*', element: <Navigate to="/" replace /> },
     ],
   },
+  { path: '/reservar/:memberNo', element: <Book /> },
 ]);
 
 export function App() {

@@ -7,7 +7,7 @@
  */
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ShieldCheck, ShieldOff, Eye, EyeOff, ExternalLink, RefreshCw } from 'lucide-react';
+import { ShieldCheck, ShieldOff, Eye, EyeOff, ExternalLink, RefreshCw, FileText } from 'lucide-react';
 import { Button, Tabs, SkeletonCard, useToast , Avatar, DistintivoBadge} from '@/components/ui';
 import { useAdmin, type AdminFilter } from '@/hooks/useAdmin';
 import { useAuth } from '@/hooks/useAuth';
@@ -43,6 +43,12 @@ function ProviderRow({
 }) {
   const { t } = useTranslation();
   const name = provider.business_name ?? provider.full_name;
+  const pd = (provider.provider_details ?? {}) as { verification_docs?: unknown };
+  const docs = Array.isArray(pd.verification_docs) ? (pd.verification_docs as string[]) : [];
+  const openDoc = async (path: string) => {
+    const { data } = await supabase.storage.from('verification').createSignedUrl(path, 300);
+    if (data?.signedUrl) window.open(data.signedUrl, '_blank', 'noopener');
+  };
   return (
     <li className="rounded-2xl border border-slate-100 bg-white p-4 shadow-sm">
       <div className="flex items-start gap-3">
@@ -62,6 +68,24 @@ function ProviderRow({
               {provider.is_published ? t('admin.published') : t('admin.unpublished')}
             </span>
           </div>
+          {provider.cedula_profesional ? (
+            <p className="mt-1 flex flex-wrap items-center gap-1 text-xs text-slate-700">
+              <FileText className="h-3.5 w-3.5 text-brand-600" aria-hidden="true" />
+              {t('admin.credential')}: <span className="font-semibold">{provider.cedula_profesional}</span>
+              {provider.country ? <span className="text-muted">· {provider.country}</span> : null}
+            </p>
+          ) : (
+            <p className="mt-1 text-xs text-warm-700">{t('admin.noCredential')}</p>
+          )}
+          {docs.length > 0 && (
+            <div className="mt-1 flex flex-wrap gap-2">
+              {docs.map((d, i) => (
+                <button key={i} type="button" onClick={() => openDoc(d)} className="inline-flex items-center gap-1 text-xs font-semibold text-brand-700 hover:underline">
+                  <FileText className="h-3.5 w-3.5" aria-hidden="true" /> {t('admin.viewDoc', { n: i + 1 })}
+                </button>
+              ))}
+            </div>
+          )}
           {badge && (
             <div className="mt-2 flex flex-wrap items-center gap-2">
               <DistintivoBadge badge={badge} size="sm" showReview />

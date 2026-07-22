@@ -37,6 +37,7 @@ import {
   GraduationCap,
   Store,
   Gift,
+  Megaphone,
 } from 'lucide-react';
 import {
   Tabs,
@@ -65,6 +66,9 @@ import { OfferForm } from './OfferForm';
 import { QRScanner } from './QRScanner';
 import { PrescriptionBuilder } from './PrescriptionBuilder';
 import { NetworkPanel } from './NetworkPanel';
+import { BookingWidgetPanel } from './BookingWidgetPanel';
+import { WaitlistPanel } from './WaitlistPanel';
+import { CampaignsPanel } from './CampaignsPanel';
 import { ProductManager } from '@/components/merchant/ProductManager';
 import { useFounderStatus } from '@/hooks/useFounder';
 import { FounderRequirements } from '@/components/founder/FounderRequirements';
@@ -518,6 +522,24 @@ export function ProviderDashboard() {
       label: t('provider.tabs.ratings'),
       icon: <Star className="h-4 w-4" aria-hidden="true" />,
       content: <RatingsTab providerId={userId} providerType={providerType} />,
+    },
+    {
+      id: 'widget',
+      label: t('provider.tabs.widget'),
+      icon: <Link2 className="h-4 w-4" aria-hidden="true" />,
+      content: <BookingWidgetPanel />,
+    },
+    {
+      id: 'waitlist',
+      label: t('provider.tabs.waitlist'),
+      icon: <Users className="h-4 w-4" aria-hidden="true" />,
+      content: <WaitlistPanel />,
+    },
+    {
+      id: 'campaigns',
+      label: t('provider.tabs.campaigns'),
+      icon: <Megaphone className="h-4 w-4" aria-hidden="true" />,
+      content: <CampaignsPanel />,
     },
   ];
 

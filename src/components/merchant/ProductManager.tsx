@@ -36,6 +36,7 @@ function toInsert(v: ProductFormValues): Omit<ProductInsert, 'vendor_id'> {
     purchase_url: orNull(v.purchase_url),
     category_id: v.category_id,
     store_category: orNull(v.store_category),
+    store_category_other: v.store_category === 'otro' ? orNull(v.store_category_other) : null,
     is_active: v.is_active,
   };
 }
@@ -52,11 +53,12 @@ export function ProductManager({ vendorId }: { vendorId: string }) {
   const [editing, setEditing] = useState<ProductWithVendor | null>(null);
   const [deleting, setDeleting] = useState<ProductWithVendor | null>(null);
 
-  const { register, handleSubmit, reset, formState: { errors, isSubmitting } } =
+  const { register, handleSubmit, reset, watch, formState: { errors, isSubmitting } } =
     useForm<ProductFormValues>({
       resolver: zodResolver(productSchema),
       defaultValues: defaultProductValues(),
     });
+  const isOtherCategory = watch('store_category') === 'otro';
 
   const openNew = () => {
     setEditing(null);
@@ -73,6 +75,7 @@ export function ProductManager({ vendorId }: { vendorId: string }) {
       purchase_url: p.purchase_url ?? '',
       category_id: p.category_id,
       store_category: p.store_category ?? '',
+      store_category_other: p.store_category_other ?? '',
       is_active: p.is_active,
     });
     setOpen(true);
@@ -213,6 +216,25 @@ export function ProductManager({ vendorId }: { vendorId: string }) {
                 <option key={c.value} value={c.value}>{catLabel(c.value, c.label)}</option>
               ))}
             </select>
+            {isOtherCategory && (
+              <div className="mt-2">
+                <label htmlFor="p-scat-other" className={labelCls}>
+                  {t('product.storeCategoryOther')} <span aria-hidden="true" className="text-evs-1">*</span>
+                </label>
+                <input
+                  id="p-scat-other"
+                  className={inputCls}
+                  required
+                  aria-required="true"
+                  placeholder={t('product.storeCategoryOtherPlaceholder')}
+                  {...register('store_category_other')}
+                />
+                <p className="mt-1 text-xs text-muted">{t('product.storeCategoryOtherHint')}</p>
+                {errors.store_category_other && (
+                  <p role="alert" className="mt-1 text-sm text-evs-1">{t(errors.store_category_other.message!)}</p>
+                )}
+              </div>
+            )}
           </div>
           <div>
             <label htmlFor="p-img" className={labelCls}>{t('product.imageUrl')}</label>

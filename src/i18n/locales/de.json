@@ -31,7 +31,8 @@
     "kit": "Toolkit",
     "blog": "Blog",
     "events": "Veranstaltungen",
-    "calendar": "Kalender"
+    "calendar": "Kalender",
+    "messages": "Nachrichten"
   },
   "home": {
     "title": "Die erste globale Community, die Patienten, Familien, Fachkräfte und Anbieter in Neuroentwicklung und Neurodivergenz verbindet.",
@@ -293,7 +294,10 @@
       "history": "Verlauf",
       "ratings": "Meine Bewertungen",
       "prescribe": "Verordnen",
-      "products": "Meine Produkte"
+      "products": "Meine Produkte",
+      "widget": "Buchungs-Widget",
+      "waitlist": "Warteliste",
+      "campaigns": "Kampagnen"
     },
     "offers": {
       "new": "Neues Angebot",
@@ -470,7 +474,11 @@
     "guide3": "Nach der Freigabe wird es automatisch im Shop für Familien angezeigt.",
     "moderationTip": "Dein Eintrag wird geprüft. Nach Freigabe wird er automatisch angezeigt. „Wunderprodukte“ sind nicht erlaubt; Neuromundi kann jedes Produkt sperren oder entfernen.",
     "reviewNote": "Grund",
-    "storeCategory": "Kategorie der Neuroentwicklung"
+    "storeCategory": "Kategorie der Neuroentwicklung",
+    "storeCategoryOther": "Klassifizierung angeben",
+    "storeCategoryOtherPlaceholder": "z. B. Angepasste Möbel",
+    "storeCategoryOtherHint": "Wenn du „Andere“ wählst, musst du die Klassifizierung deines Produkts vorschlagen.",
+    "errOtherRequired": "Gib die Klassifizierung an (mindestens 3 Zeichen)."
   },
   "lang": {
     "label": "Sprache"
@@ -634,7 +642,10 @@
     "secRenewals": "Verlängerungen",
     "secReports": "Meldungen",
     "secMetrics": "Kennzahlen",
-    "secMessages": "Nachrichten"
+    "secMessages": "Nachrichten",
+    "credential": "Berufsnachweis",
+    "noCredential": "Kein Berufsnachweis",
+    "viewDoc": "Dokument {{n}} ansehen"
   },
   "reg": {
     "typePatient": "Patient",
@@ -755,7 +766,8 @@
       "passwordMatch": "Die Passwörter müssen übereinstimmen",
       "manifesto": "Das Community-Manifest akzeptieren",
       "emailValid": "Eine E-Mail im gültigen Format",
-      "emailMatch": "Die E-Mails müssen übereinstimmen"
+      "emailMatch": "Die E-Mails müssen übereinstimmen",
+      "otherSpecify": "Bitte angeben, wenn du „Sonstiges\" wählst."
     },
     "errManifesto": "Du musst das Community-Manifest akzeptieren.",
     "acceptManifestoPre": "Ich habe das",
@@ -1059,6 +1071,18 @@
         "title": "Terminerinnerung",
         "body": "Dein Termin „{{title}}\" ist in weniger als 24 Stunden."
       }
+    },
+    "booking": {
+      "title": "Neue Buchungsanfrage",
+      "body": "{{name}} möchte einen Termin bei dir buchen."
+    },
+    "dm": {
+      "title": "Neue Nachricht",
+      "body": "{{name}} hat dir eine Nachricht gesendet."
+    },
+    "waitlist": {
+      "title": "Ein Platz ist frei",
+      "join": "Warteliste"
     }
   },
   "clin": {
@@ -1180,7 +1204,7 @@
     "categories": "Kategorie",
     "featured": "Empfohlene Angebote",
     "myStore": "Mein Shop",
-    "noCommission": "Neuromundi erhebt keine Verkaufsprovision und bewirbt den Handel mit diesen Produkten nicht. Die Transaktion erfolgt direkt mit dem Verkäufer, in alleiniger Verantwortung von Verkäufer und Käufer.",
+    "noCommission": "Neuromundi erhebt keine Verkaufsprovision und bewirbt den Verkauf dieser Produkte nicht. Die Transaktion erfolgt direkt mit der anbietenden Person, in deren alleiniger Verantwortung und der des Käufers, ohne jegliche Haftung für Neuromundi.",
     "noResults": "Keine Produkte entsprechen diesen Filtern.",
     "searchPlaceholder": "Produkte und Ressourcen suchen…",
     "verifiedSeller": "Verifizierter Verkäufer",
@@ -1201,7 +1225,12 @@
     "beFirst": "Sei der Erste, der dieses Produkt bewertet.",
     "reviewSaved": "Danke für deine Bewertung!",
     "reviewDeleted": "Bewertung gelöscht.",
-    "reviewNeedStars": "Wähle 1 bis 5 Sterne."
+    "reviewNeedStars": "Wähle 1 bis 5 Sterne.",
+    "corporate": "Neuromundi-Produkte",
+    "corporateOn": "Ganzen Shop ansehen",
+    "allProducts": "Ganzer Shop",
+    "scope": "Welche Produkte anzeigen",
+    "corporateHint": "Produkte, die Neuromundi direkt anbietet."
   },
   "affil": {
     "tab": "Affiliate",
@@ -2356,7 +2385,17 @@
       "consent": "Einwilligung",
       "prescription": "Früheres Rezept",
       "folio": "Kennung"
-    }
+    },
+    "createRoom": "Videoraum erstellen",
+    "roomHint": "Ein privater Raum wird erstellt; der Link wird mit dem Termin gesendet.",
+    "mode": "Modalität",
+    "mode_in_person": "Präsenz",
+    "mode_online": "Online",
+    "chargeEnable": "Für diesen Termin abrechnen (optional)",
+    "chargeAmount": "Gesamtbetrag",
+    "chargeHint": "Der Patient zahlt über das Gateway; der % legt fest, wie viel jetzt berechnet wird.",
+    "toPay": "Zu bezahlen",
+    "pay": "{{amount}} bezahlen"
   },
   "pwa": {
     "install": "App installieren",
@@ -2391,7 +2430,114 @@
       "forbidden": "Nur der Administrator kann Nachrichten senden.",
       "empty": "Schreibe die Nachricht.",
       "bad_audience": "Ungültige Zielgruppe.",
-      "recipient_not_found": "Kein Nutzer mit dieser Kennung gefunden."
+      "recipient_not_found": "Kein Nutzer mit dieser Kennung gefunden.",
+      "generic": "Senden fehlgeschlagen.",
+      "not_allowed": "Du kannst diese Unterhaltung nicht starten.",
+      "self": "Du kannst dir nicht selbst schreiben.",
+      "auth": "Bitte anmelden."
+    },
+    "new": "Neue Nachricht",
+    "emptyThreads": "Noch keine Unterhaltungen.",
+    "someone": "Jemand",
+    "pickTitle": "Unterhaltung auswählen",
+    "pickDesc": "Wähle einen Chat oder starte einen neuen.",
+    "toFolio": "An (Mitglieds-Nr.)",
+    "threadEmpty": "Noch keine Nachrichten.",
+    "placeholder": "Nachricht schreiben… (Video-Link einfügen möglich)",
+    "hint": "Fachkräfte können per Mitglieds-Nr. starten; Video-Links jeder Plattform erscheinen als Links.",
+    "room": "Videoraum erstellen",
+    "roomPrefix": "Videoraum:",
+    "badFolio": "Ungültige Mitglieds-Nr."
+  },
+  "book": {
+    "title": "Termin buchen",
+    "with": "Mit {{name}}",
+    "name": "Dein Name",
+    "contact": "E-Mail oder Telefon",
+    "contactHint": "Damit man dir antworten kann",
+    "preferred": "Wunschtermin (optional)",
+    "note": "Grund oder Nachricht (optional)",
+    "send": "Anfrage senden",
+    "sending": "Senden…",
+    "sentTitle": "Anfrage gesendet!",
+    "sentBody": "Der Anbieter meldet sich zur Bestätigung des Termins.",
+    "error": "Konnte nicht gesendet werden. Erneut versuchen.",
+    "notFound": "Anbieter nicht gefunden.",
+    "disclaimer": "Dies ist eine Anfrage; der Termin wird vom Anbieter bestätigt."
+  },
+  "widget": {
+    "intro": "Binde dein Buchungs-Widget auf deiner Website ein oder teile den Link.",
+    "link": "Direkter Link",
+    "copy": "Kopieren",
+    "preview": "Vorschau",
+    "embed": "Code für deine Website (iframe)",
+    "copyCode": "Code kopieren",
+    "embedHint": "Füge ihn in das HTML deiner Seite ein.",
+    "requests": "Erhaltene Anfragen",
+    "noRequests": "Noch keine Anfragen.",
+    "preferred": "Wunsch",
+    "copied": "Kopiert",
+    "copyError": "Kopieren fehlgeschlagen"
+  },
+  "push": {
+    "title": "Push-Benachrichtigungen",
+    "on": "Push-Benachrichtigungen aktiviert",
+    "enable": "Aktivieren",
+    "blocked": "Im Browser blockiert"
+  },
+  "wait": {
+    "autoHint": "Automatisch: Wird ein Termin abgelehnt oder storniert, benachrichtigen wir die Wartenden selbst.",
+    "addTitle": "Zur Liste hinzufügen",
+    "add": "Hinzufügen",
+    "added": "Zur Warteliste hinzugefügt.",
+    "notePlaceholder": "Notiz (optional)",
+    "notifyTitle": "Freien Platz ankündigen",
+    "notifyPlaceholder": "Nachricht (optional)",
+    "notify": "{{count}} Wartende benachrichtigen",
+    "notified": "{{count}} Person(en) benachrichtigt.",
+    "emptyTitle": "Warteliste ist leer",
+    "empty": "Füge Patienten per Mitglieds-Nr. hinzu.",
+    "assign": "Zuweisen",
+    "remove": "Entfernen",
+    "badFolio": "Ungültige Mitglieds-Nr.",
+    "status": {
+      "waiting": "Wartend",
+      "assigned": "Zugewiesen",
+      "declined": "Abgelehnt",
+      "cancelled": "Storniert"
+    },
+    "err": {
+      "generic": "Konnte nicht abgeschlossen werden.",
+      "already": "Steht bereits auf der Liste.",
+      "patient_not_found": "Mitglieds-Nr. nicht gefunden.",
+      "not_allowed": "Keine Berechtigung."
+    }
+  },
+  "camp": {
+    "newTitle": "Neue Kampagne",
+    "subject": "Betreff",
+    "body": "Nachricht",
+    "audience": "Empfänger",
+    "aud": {
+      "waitlist": "Meine Warteliste",
+      "patients": "Meine Patienten"
+    },
+    "channels": "Kanäle",
+    "ch": {
+      "push": "Push / App",
+      "email": "E-Mail",
+      "sms": "SMS"
+    },
+    "send": "Kampagne senden",
+    "sent": "An {{count}} Person(en) gesendet.",
+    "sentCount": "{{count}} gesendet",
+    "empty": "Du hast noch keine Kampagnen gesendet.",
+    "needText": "Betreff und Nachricht eingeben.",
+    "smsCost": "SMS verursacht Kosten pro Nachricht.",
+    "consentHint": "Sende nur nützliche, auf deinen Dienst bezogene Informationen. Respektiere die Einwilligung der Personen und das Datenschutzrecht deines Landes.",
+    "err": {
+      "generic": "Kampagne konnte nicht gesendet werden.",
+      "no_channels": "Wähle mindestens einen Kanal."
     }
   }
 }

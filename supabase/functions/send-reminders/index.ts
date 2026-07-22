@@ -88,7 +88,35 @@ Deno.serve(async () => {
     processed++;
   }
 
-  return new Response(JSON.stringify({ processed }), {
+  // ── Recordatorios por EMAIL de las citas aceptadas (appointment_requests) ──
+  // La notificación IN-APP 24 h antes la genera el cron SQL (emit_all_due_*).
+  let apptEmails = 0;
+  const nowIso = new Date().toISOString();
+  const soon = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
+  const { data: appts } = await admin
+    .from('appointment_requests')
+    .select('id, recipient_id, specialist_id, title, starts_at, mode, online_url, location')
+    .eq('status', 'accepted')
+    .is('email_reminded_at', null)
+    .gt('starts_at', nowIso)
+    .lte('starts_at', soon)
+    .limit(100);
+  for (const a of (appts ?? []) as Array<{ id: string; recipient_id: string; specialist_id: string; title: string; starts_at: string; mode: string; online_url: string | null; location: string | null }>) {
+    const { data: authUser } = await admin.auth.admin.getUserById(a.recipient_id);
+    const email = authUser?.user?.email ?? '';
+    const { data: spec } = await admin.from('profiles').select('full_name, business_name').eq('id', a.specialist_id).single();
+    const specName = spec?.business_name || spec?.full_name || 'tu especialista';
+    const when = new Date(a.starts_at).toLocaleString('es-MX');
+    const where = a.mode === 'online'
+      ? (a.online_url ? `\nSala de video: ${a.online_url}` : '\nModalidad: en línea')
+      : (a.location ? `\nLugar: ${a.location}` : '\nModalidad: presencial');
+    const body = `Recordatorio: tu cita "${a.title}" con ${specName} es el ${when}.${where}\n\nSi no puedes asistir, avísale al especialista con anticipación.`;
+    if (email) await sendEmail(email, 'Recordatorio de tu cita — Neuromundi', body);
+    await admin.from('appointment_requests').update({ email_reminded_at: new Date().toISOString() }).eq('id', a.id);
+    apptEmails++;
+  }
+
+  return new Response(JSON.stringify({ processed, apptEmails }), {
     status: 200,
     headers: { 'Content-Type': 'application/json' },
   });

@@ -98,6 +98,8 @@ export function SchoolRegister() {
   const submit = async () => {
     const miss: string[] = [];
     if (name.trim().length < 2) miss.push(t('reg.miss.institution'));
+    if (models.includes('otro') && !modelOther.trim()) miss.push(t('reg.miss.otherSpecify'));
+    if (services.includes('otro') && !serviceOther.trim()) miss.push(t('reg.miss.otherSpecify'));
     if (!email.trim()) miss.push(t('reg.miss.email'));
     if (email.trim() && !isStrictEmail(email)) miss.push(t('reg.miss.emailValid'));
     if (email.trim().toLowerCase() !== confirmEmail.trim().toLowerCase()) miss.push(t('reg.miss.emailMatch'));

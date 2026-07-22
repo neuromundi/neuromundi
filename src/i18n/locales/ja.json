@@ -31,7 +31,8 @@
     "kit": "ツールキット",
     "blog": "ブログ",
     "events": "イベント",
-    "calendar": "カレンダー"
+    "calendar": "カレンダー",
+    "messages": "メッセージ"
   },
   "home": {
     "title": "神経発達と神経多様性において、患者・家族・専門家・提供者をつなぐ世界初のグローバルコミュニティ。",
@@ -293,7 +294,10 @@
       "history": "履歴",
       "ratings": "評価",
       "prescribe": "処方する",
-      "products": "マイ商品"
+      "products": "マイ商品",
+      "widget": "予約ウィジェット",
+      "waitlist": "キャンセル待ち",
+      "campaigns": "キャンペーン"
     },
     "offers": {
       "new": "新しいオファー",
@@ -470,7 +474,11 @@
     "guide3": "承認されると、自動的にストアに表示され家族が見られます。",
     "moderationTip": "掲載は審査の対象です。承認されると自動的に表示されます。「奇跡の商品」は禁止。Neuromundiは任意の商品を停止・削除できます。",
     "reviewNote": "理由",
-    "storeCategory": "神経発達カテゴリ"
+    "storeCategory": "神経発達カテゴリ",
+    "storeCategoryOther": "分類を指定してください",
+    "storeCategoryOtherPlaceholder": "例：適応型家具",
+    "storeCategoryOtherHint": "「その他」を選んだ場合は、商品の分類を提案してください。",
+    "errOtherRequired": "分類を入力してください（3文字以上）。"
   },
   "lang": {
     "label": "言語"
@@ -634,7 +642,10 @@
     "secRenewals": "更新",
     "secReports": "通報",
     "secMetrics": "指標",
-    "secMessages": "メッセージ"
+    "secMessages": "メッセージ",
+    "credential": "専門資格",
+    "noCredential": "専門資格なし",
+    "viewDoc": "書類{{n}}を見る"
   },
   "reg": {
     "typePatient": "患者",
@@ -755,7 +766,8 @@
       "passwordMatch": "パスワードが一致している必要があります",
       "manifesto": "コミュニティ・マニフェストへの同意",
       "emailValid": "有効な形式のメールアドレス",
-      "emailMatch": "メールアドレスが一致している必要があります"
+      "emailMatch": "メールアドレスが一致している必要があります",
+      "otherSpecify": "「その他」を選んだ場合は内容を記入してください。"
     },
     "errManifesto": "コミュニティ・マニフェストに同意する必要があります。",
     "acceptManifestoPre": "私は次を読み、賛同します：",
@@ -1059,6 +1071,18 @@
         "title": "予約のリマインダー",
         "body": "予約「{{title}}」は24時間以内です。"
       }
+    },
+    "booking": {
+      "title": "新しい予約リクエスト",
+      "body": "{{name}}さんが予約を希望しています。"
+    },
+    "dm": {
+      "title": "新着メッセージ",
+      "body": "{{name}}さんからメッセージが届きました。"
+    },
+    "waitlist": {
+      "title": "空き枠があります",
+      "join": "キャンセル待ち"
     }
   },
   "clin": {
@@ -1180,7 +1204,7 @@
     "categories": "カテゴリ",
     "featured": "注目のセール",
     "myStore": "マイストア",
-    "noCommission": "Neuromundi は販売手数料を徴収せず、これらの商品の売買を推奨しません。取引は販売者と直接行われ、販売者と購入者の責任のもとで行われます。",
+    "noCommission": "Neuromundiは販売手数料を受け取らず、これらの商品の販売を促進しません。取引は商品を提供する人と直接行われ、その提供者と購入者の責任において行われます。Neuromundiは一切の責任を負いません。",
     "noResults": "条件に一致する商品はありません。",
     "searchPlaceholder": "商品やリソースを検索…",
     "verifiedSeller": "認証済み出品者",
@@ -1201,7 +1225,12 @@
     "beFirst": "この商品に最初のレビューを書きましょう。",
     "reviewSaved": "レビューありがとうございます！",
     "reviewDeleted": "レビューを削除しました。",
-    "reviewNeedStars": "1〜5の星を選んでください。"
+    "reviewNeedStars": "1〜5の星を選んでください。",
+    "corporate": "Neuromundi 公式商品",
+    "corporateOn": "ストア全体を見る",
+    "allProducts": "ストア全体",
+    "scope": "表示する商品",
+    "corporateHint": "Neuromundiが直接提供する商品です。"
   },
   "affil": {
     "tab": "アフィリエイト",
@@ -2356,7 +2385,17 @@
       "consent": "同意",
       "prescription": "過去の処方",
       "folio": "会員番号"
-    }
+    },
+    "createRoom": "ビデオルームを作成",
+    "roomHint": "非公開ルームが生成され、リンクは予約と共に送られます。",
+    "mode": "形式",
+    "mode_in_person": "対面",
+    "mode_online": "オンライン",
+    "chargeEnable": "この予約に課金（任意）",
+    "chargeAmount": "合計金額",
+    "chargeHint": "患者はゲートウェイで支払います。%が今回請求する割合を決めます。",
+    "toPay": "未払い",
+    "pay": "{{amount}} を支払う"
   },
   "pwa": {
     "install": "アプリをインストール",
@@ -2391,7 +2430,114 @@
       "forbidden": "管理者のみが送信できます。",
       "empty": "メッセージを入力してください。",
       "bad_audience": "宛先が無効です。",
-      "recipient_not_found": "その会員番号のユーザーが見つかりません。"
+      "recipient_not_found": "その会員番号のユーザーが見つかりません。",
+      "generic": "送信できませんでした。",
+      "not_allowed": "この会話を開始できません。",
+      "self": "自分自身には送信できません。",
+      "auth": "ログインしてください。"
+    },
+    "new": "新規メッセージ",
+    "emptyThreads": "まだ会話はありません。",
+    "someone": "誰か",
+    "pickTitle": "会話を選択",
+    "pickDesc": "チャットを選ぶか新規作成してください。",
+    "toFolio": "宛先（会員番号）",
+    "threadEmpty": "まだメッセージはありません。",
+    "placeholder": "メッセージを入力…（ビデオリンクを貼り付け可）",
+    "hint": "専門家は会員番号から開始できます。どのプラットフォームのビデオリンクもリンクとして表示されます。",
+    "room": "ビデオルームを作成",
+    "roomPrefix": "ビデオルーム：",
+    "badFolio": "会員番号が無効です。"
+  },
+  "book": {
+    "title": "予約する",
+    "with": "{{name}}さんと",
+    "name": "お名前",
+    "contact": "メールまたは電話",
+    "contactHint": "返信できるように",
+    "preferred": "希望日時（任意）",
+    "note": "用件・メッセージ（任意）",
+    "send": "リクエストを送信",
+    "sending": "送信中…",
+    "sentTitle": "リクエストを送信しました！",
+    "sentBody": "提供者が予約確認のため連絡します。",
+    "error": "送信できませんでした。再試行してください。",
+    "notFound": "提供者が見つかりません。",
+    "disclaimer": "これはリクエストです。予約は提供者が確定します。"
+  },
+  "widget": {
+    "intro": "予約ウィジェットをウェブサイトに設置するか、リンクをSNSで共有できます。",
+    "link": "直接リンク",
+    "copy": "コピー",
+    "preview": "プレビュー",
+    "embed": "サイト用コード（iframe）",
+    "copyCode": "コードをコピー",
+    "embedHint": "ページのHTMLに貼り付けてください。",
+    "requests": "受信したリクエスト",
+    "noRequests": "まだリクエストはありません。",
+    "preferred": "希望",
+    "copied": "コピーしました",
+    "copyError": "コピーできませんでした"
+  },
+  "push": {
+    "title": "プッシュ通知",
+    "on": "プッシュ通知は有効です",
+    "enable": "有効にする",
+    "blocked": "ブラウザでブロック中"
+  },
+  "wait": {
+    "autoHint": "自動：予約が拒否またはキャンセルされると、待機中の方へ自動で通知します。",
+    "addTitle": "リストに追加",
+    "add": "追加",
+    "added": "キャンセル待ちに追加しました。",
+    "notePlaceholder": "メモ（任意）",
+    "notifyTitle": "空き枠を知らせる",
+    "notifyPlaceholder": "メッセージ（任意）",
+    "notify": "待機中の{{count}}人に通知",
+    "notified": "{{count}}名に通知しました。",
+    "emptyTitle": "キャンセル待ちはありません",
+    "empty": "会員番号で患者を追加できます。",
+    "assign": "割り当て",
+    "remove": "削除",
+    "badFolio": "会員番号が無効です。",
+    "status": {
+      "waiting": "待機中",
+      "assigned": "割当済み",
+      "declined": "辞退",
+      "cancelled": "キャンセル"
+    },
+    "err": {
+      "generic": "完了できませんでした。",
+      "already": "すでにリストにあります。",
+      "patient_not_found": "会員番号が見つかりません。",
+      "not_allowed": "権限がありません。"
+    }
+  },
+  "camp": {
+    "newTitle": "新しいキャンペーン",
+    "subject": "件名",
+    "body": "メッセージ",
+    "audience": "宛先",
+    "aud": {
+      "waitlist": "キャンセル待ちの方",
+      "patients": "私の患者"
+    },
+    "channels": "チャネル",
+    "ch": {
+      "push": "プッシュ／アプリ",
+      "email": "メール",
+      "sms": "SMS"
+    },
+    "send": "キャンペーンを送信",
+    "sent": "{{count}}名に送信しました。",
+    "sentCount": "{{count}}件送信",
+    "empty": "まだキャンペーンを送信していません。",
+    "needText": "件名とメッセージを入力してください。",
+    "smsCost": "SMSは1通ごとに費用がかかります。",
+    "consentHint": "ご自身のサービスに関連する有用な情報のみを送信してください。相手の同意と各国のデータ保護法を尊重してください。",
+    "err": {
+      "generic": "キャンペーンを送信できませんでした。",
+      "no_channels": "チャネルを1つ以上選んでください。"
     }
   }
 }

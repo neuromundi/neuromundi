@@ -390,6 +390,7 @@ export interface Database {
           image_url: string | null;
           purchase_url: string | null;
           store_category: string | null;
+          store_category_other: string | null;
           is_featured: boolean;
           is_active: boolean;
           status: string;
@@ -409,6 +410,7 @@ export interface Database {
           image_url?: string | null;
           purchase_url?: string | null;
           store_category?: string | null;
+          store_category_other?: string | null;
           is_featured?: boolean;
           is_active?: boolean;
           status?: string;
@@ -929,6 +931,27 @@ export interface Database {
         Update: Partial<Database['public']['Tables']['lesson_completions']['Insert']>;
         Relationships: [];
       };
+
+      messages: {
+        Row: { id: string; sender_id: string; recipient_id: string; body: string; read_at: string | null; created_at: string };
+        Insert: { id?: string; sender_id: string; recipient_id: string; body: string; read_at?: string | null; created_at?: string };
+        Update: Partial<Database['public']['Tables']['messages']['Insert']>;
+        Relationships: [];
+      };
+
+      campaigns: {
+        Row: { id: string; owner_id: string; title: string; body: string; channels: string[]; audience: string; status: string; sent_count: number; created_at: string };
+        Insert: { id?: string; owner_id: string; title: string; body: string; channels?: string[]; audience?: string; status?: string; sent_count?: number; created_at?: string };
+        Update: Partial<Database['public']['Tables']['campaigns']['Insert']>;
+        Relationships: [];
+      };
+
+      push_subscriptions: {
+        Row: { id: string; user_id: string; endpoint: string; p256dh: string; auth: string; created_at: string };
+        Insert: { id?: string; user_id: string; endpoint: string; p256dh: string; auth: string; created_at?: string };
+        Update: Partial<Database['public']['Tables']['push_subscriptions']['Insert']>;
+        Relationships: [];
+      };
     };
 
     Views: {
@@ -994,6 +1017,38 @@ export interface Database {
       is_admin: {
         Args: Record<string, never>;
         Returns: boolean;
+      };
+      send_message: {
+        Args: { p_recipient_member_no: number; p_body: string };
+        Returns: Json;
+      };
+      my_waitlist: {
+        Args: Record<string, never>;
+        Returns: { id: string; patient_id: string; patient_name: string | null; patient_member_no: number | null; note: string | null; status: string; created_at: string }[];
+      };
+      waitlist_add: {
+        Args: { p_patient_member_no: number; p_note?: string };
+        Returns: Json;
+      };
+      waitlist_join: {
+        Args: { p_provider_member_no: number; p_note?: string };
+        Returns: Json;
+      };
+      waitlist_set_status: {
+        Args: { p_id: string; p_status: string };
+        Returns: Json;
+      };
+      waitlist_notify_slot: {
+        Args: { p_message?: string };
+        Returns: Json;
+      };
+      campaign_recipients: {
+        Args: { p_campaign_id: string };
+        Returns: { user_id: string; full_name: string | null; phone: string | null }[];
+      };
+      message_threads: {
+        Args: Record<string, never>;
+        Returns: { other_id: string; other_name: string | null; other_member_no: number | null; other_avatar: string | null; last_body: string | null; last_at: string; unread: number }[];
       };
       refresh_all_badges: {
         Args: Record<string, never>;

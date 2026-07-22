@@ -100,6 +100,59 @@ PY
 - `supabase/migrations` SQL · `supabase/functions` Edge Functions · `db` esquema base
 - `PRODUCCION.md` runbook de despliegue · `_archivo/` descartes · `backups/` respaldos
 
+## Mini-índice (dónde está cada cosa)
+
+### Rutas → página (`src/App.tsx`, todas lazy)
+| Ruta | Página | Nota |
+|---|---|---|
+| `/` | `Home` | |
+| `/directorio` · `/proveedor/:id` | `Directory` · `ProviderProfile` | mapa Leaflet |
+| `/buscar` | `SearchPage` | RPC `search_all` |
+| `/eventos` | `Events` | eventos curados por admin |
+| `/tienda` | `Store` | oculta en el menú móvil |
+| `/kit` | `Toolkit` | |
+| `/academy` · `/academy/:id` | `Academy` · `Course` | |
+| `/blog` · `/contenido/:id` · `/autor/:id` | `Blog` · `Post` · `Author` | |
+| `/inclusion-escolar` | `SchoolInclusion` | |
+| `/pregunta-al-experto` | `AskExpert` | |
+| `/crear-cuenta` · `/entrar` | `CreateAccount` · `Auth` | |
+| `/lista/:token` | `SharedList` | pública por token |
+| `/terminos` `/privacidad` `/proteccion-datos` `/reglamento` `/manifiesto` `/conocer-mas` | legales | |
+| **`/panel`** | `Dashboard` | **protegida**; renderiza `AdminDashboard`, `ProviderDashboard` o `ParentDashboard` según rol |
+| **`/ajustes`** | `Settings` | **protegida** |
+| **`/calendario`** | `Calendar` | **protegida** |
+
+### Hooks por dominio (`src/hooks`)
+- **Sesión/perfil**: `useAuth`, `useProfile` (+ `stores/authStore`)
+- **Membresía/pagos**: `useMembership`, `usePayments`, `useTransactions`
+- **Directorio/búsqueda**: `useDirectory`, `useSearch`, `useProviderProfile`, `useProviderLocations`, `useCategories`
+- **Eventos/calendario/citas**: `useEvents`, `useCalendar`, `useAppointmentRequests` (+ `useAppointmentReminders`), `useAgenda`
+- **Tienda**: `useShop`, `useProducts`, `useProductReviews`, `useProductModeration`
+- **Denuncias**: `useReports` (enviar) · `useMyReports` (seguimiento) · `useAdminReports` (admin)
+- **Admin**: `useAdmin`, `useAdminMessages`, `useAdminBilling`, `useAdminRenewals`, `useAdminOther`, `useAdminBadges`
+- **Contenido/comunidad**: `useBlog`, `useContent`, `useAcademy`, `useToolkitProgress`
+- **Fundador/referidos**: `useFounder`, `useReferral`
+- **Clínico**: `useClinical`, `usePrescriptions`, `useSecureFiles`, `useSurvey`, `useTracker`
+- **Notificaciones**: `useNotifications` (campana) · **PWA**: `usePwaInstall`
+
+### Componentes clave (`src/components`)
+- `layout/AppLayout` — navegación, pie, popups globales, disparo de recordatorios
+- `layout/AccessibilityMenu` — Modo calma, dislexia, contraste, tamaño de texto
+- `admin/AdminDashboard` — + `AdminMetrics`, `AdminMessages`, `AdminReports`, `AdminRenewals`, `AdminBilling`, `AdminProducts`, `AdminOtherValues`
+- `calendar/AppointmentRequests` · `report/ReportModal` + `report/MyReports` · `shop/ProductReviewsModal`
+- `onboarding/GuidedTour` (6 pasos) · `pwa/InstallAppButton` · `ui/*` (`Button`, `Modal`, `PasswordInput`, `StarRating`…)
+
+### RPC principales (todas `SECURITY DEFINER`)
+- **Admin**: `admin_metrics`, `admin_reports`, `admin_send_message`, `admin_membership_renewals`, `admin_set_verified/published`
+- **Citas**: `request_appointment`, `respond_appointment`, `emit_due_appointment_reminders`, `emit_all_due_appointment_reminders`, `search_patients`
+- **Fundador/referidos**: `claim_founder_slot`, `set_founder_optout`, `set_referrer`, `my_referral_count`
+- **Membresía**: `get_membership_quote`, `redeem_promo_code`
+
+### Lógica pura testeable (`src/lib`, con unit tests)
+`calendarView` (filtro de eventos, agenda, cuadrícula del mes) · `calendar` (.ics / Google) ·
+`referral` (folio NM) · `email` (validación) · `badge` · `utils` · `schemas` (Zod).
+Al extraer lógica de una página a `src/lib`, **añade su test** (patrón: `*.test.ts`).
+
 ## Flujo al terminar un cambio
 1. `npm run build` en verde (tipos + bundle).
 2. Paridad i18n = 0 (script de arriba) si tocaste textos.

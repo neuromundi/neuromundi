@@ -9,9 +9,10 @@
  */
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { CalendarClock, Send, Check, X, UserRound, Search } from 'lucide-react';
+import { CalendarClock, Send, Check, X, UserRound, Search, Video, CreditCard } from 'lucide-react';
 import { Button, Modal, useToast, Avatar } from '@/components/ui';
 import { useAuth } from '@/hooks/useAuth';
+import { jitsiRoomUrl } from '@/lib/meet';
 import {
   useAppointmentRequests,
   type AppointmentRequest,
@@ -30,7 +31,7 @@ export function AppointmentRequests() {
   const { t, i18n } = useTranslation();
   const toast = useToast();
   const { isProvider } = useAuth();
-  const { sent, pendingReceived, busy, sendRequest, respond, searchPatients } = useAppointmentRequests();
+  const { sent, pendingReceived, payableReceived, busy, sendRequest, respond, payAppointment, searchPatients } = useAppointmentRequests();
   const [sendOpen, setSendOpen] = useState(false);
   const [rejecting, setRejecting] = useState<AppointmentRequest | null>(null);
   const [reason, setReason] = useState('');
@@ -43,6 +44,10 @@ export function AppointmentRequests() {
   const onAccept = async (r: AppointmentRequest) => {
     const res = await respond(r.id, true);
     toast[res.ok ? 'success' : 'error'](res.ok ? t('appt.acceptedToast') : errMsg(res.error));
+  };
+  const onPay = async (r: AppointmentRequest) => {
+    const res = await payAppointment(r);
+    if (!res.ok && res.error !== 'no_charge') toast.error(res.error);
   };
   const onReject = async () => {
     if (!rejecting) return;
@@ -75,6 +80,7 @@ export function AppointmentRequests() {
                 <UserRound className="mr-1 inline h-3.5 w-3.5" aria-hidden="true" />
                 {r.otherName || t('appt.specialist')} · {fmt(r.starts_at, i18n.language)}
               </p>
+              <p className="text-xs text-slate-600">{t(`appt.mode_${r.mode === 'online' ? 'online' : 'in_person'}`)}{r.charge_total ? ` · ${r.charge_currency ?? ''} ${((r.charge_total) * ((r.charge_percent ?? 100) / 100)).toFixed(2)}` : ''}</p>
               {r.location && <p className="text-xs text-slate-600">{r.location}</p>}
               {r.note && <p className="mt-1 text-sm text-slate-600">{r.note}</p>}
               <div className="mt-2 flex gap-2">
@@ -84,6 +90,27 @@ export function AppointmentRequests() {
             </li>
           ))}
         </ul>
+      )}
+
+      {/* Citas aceptadas con cobro pendiente (paciente) */}
+      {payableReceived.length > 0 && (
+        <div className="space-y-2">
+          <p className="text-xs font-semibold uppercase tracking-wide text-muted">{t('appt.toPay')}</p>
+          <ul className="space-y-2">
+            {payableReceived.map((r) => {
+              const payable = (r.charge_total ?? 0) * ((r.charge_percent ?? 100) / 100);
+              return (
+                <li key={r.id} className="rounded-xl border border-slate-100 bg-white p-3">
+                  <p className="text-sm font-semibold text-slate-900">{r.title}</p>
+                  <p className="text-xs text-muted">{r.otherName} · {fmt(r.starts_at, i18n.language)}</p>
+                  <Button size="sm" className="mt-2" loading={busy} onClick={() => onPay(r)} leadingIcon={<CreditCard className="h-4 w-4" />}>
+                    {t('appt.pay', { amount: `${r.charge_currency ?? ''} ${payable.toFixed(2)}` })}
+                  </Button>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       )}
 
       {/* Estado de las solicitudes enviadas (especialista) */}
@@ -154,6 +181,11 @@ function SendModal({
   const [location, setLocation] = useState('');
   const [onlineUrl, setOnlineUrl] = useState('');
   const [note, setNote] = useState('');
+  const [mode, setMode] = useState<'in_person' | 'online'>('in_person');
+  const [chargeOn, setChargeOn] = useState(false);
+  const [amount, setAmount] = useState('');
+  const [percent, setPercent] = useState('100');
+  const [currency, setCurrency] = useState('MXN');
 
   // Búsqueda con pequeño retardo (debounce).
   useEffect(() => {
@@ -183,9 +215,13 @@ function SendModal({
       title: title.trim(),
       starts_at: new Date(starts).toISOString(),
       ends_at: ends ? new Date(ends).toISOString() : null,
-      location: location.trim() || null,
-      online_url: onlineUrl.trim() || null,
+      location: mode === 'in_person' ? (location.trim() || null) : null,
+      online_url: mode === 'online' ? (onlineUrl.trim() || null) : null,
       note: note.trim() || null,
+      mode,
+      charge_total: chargeOn && Number(amount) > 0 ? Number(amount) : null,
+      charge_percent: chargeOn ? Math.max(1, Math.min(100, Number(percent) || 100)) : 100,
+      charge_currency: chargeOn ? (currency.trim().toUpperCase() || null) : null,
     });
   };
 
@@ -244,8 +280,48 @@ function SendModal({
         <label className="block text-sm font-semibold text-slate-700">{t('appt.fEnds')}
           <input type="datetime-local" className={inputCls} value={ends} onChange={(e) => setEnds(e.target.value)} />
         </label>
-        <input className={inputCls} placeholder={t('appt.fLocation')} value={location} onChange={(e) => setLocation(e.target.value)} />
-        <input className={inputCls} placeholder={t('appt.fOnline')} value={onlineUrl} onChange={(e) => setOnlineUrl(e.target.value)} />
+        <div>
+          <label className="mb-1 block text-sm font-semibold text-slate-700">{t('appt.mode')}</label>
+          <div className="flex gap-1 rounded-xl bg-slate-100 p-1">
+            {(['in_person', 'online'] as const).map((m) => (
+              <button key={m} type="button" onClick={() => setMode(m)} aria-pressed={mode === m}
+                className={`flex-1 rounded-lg px-3 py-1.5 text-sm font-semibold ${mode === m ? 'bg-white text-slate-900 shadow-sm' : 'text-muted'}`}>
+                {t(`appt.mode_${m}`)}
+              </button>
+            ))}
+          </div>
+        </div>
+        {mode === 'in_person' ? (
+          <input className={inputCls} placeholder={t('appt.fLocation')} value={location} onChange={(e) => setLocation(e.target.value)} />
+        ) : (
+          <div>
+            <input className={inputCls} placeholder={t('appt.fOnline')} value={onlineUrl} onChange={(e) => setOnlineUrl(e.target.value)} />
+            <button type="button" onClick={() => setOnlineUrl(jitsiRoomUrl(title))} className="mt-1 inline-flex items-center gap-1 text-xs font-semibold text-brand-700 hover:underline">
+              <Video className="h-3.5 w-3.5" aria-hidden="true" /> {t('appt.createRoom')}
+            </button>
+            <p className="mt-0.5 text-xs text-muted">{t('appt.roomHint')}</p>
+          </div>
+        )}
+
+        <div className="rounded-xl border border-slate-100 p-3">
+          <label className="flex items-center gap-2 text-sm font-semibold text-slate-700">
+            <input type="checkbox" className="h-5 w-5" checked={chargeOn} onChange={(e) => setChargeOn(e.target.checked)} /> {t('appt.chargeEnable')}
+          </label>
+          {chargeOn && (
+            <div className="mt-2 space-y-2">
+              <div className="flex gap-2">
+                <input className={inputCls} type="number" min="0" step="0.01" placeholder={t('appt.chargeAmount')} value={amount} onChange={(e) => setAmount(e.target.value)} />
+                <input className={`${inputCls} w-24`} placeholder="MXN" value={currency} onChange={(e) => setCurrency(e.target.value)} />
+              </div>
+              <div className="flex items-center gap-2">
+                <input className={`${inputCls} w-24`} type="number" min="1" max="100" value={percent} onChange={(e) => setPercent(e.target.value)} />
+                <span className="text-sm text-muted">%</span>
+                <span className="text-sm font-semibold text-slate-700">= {currency} {((Number(amount) || 0) * (Math.max(1, Math.min(100, Number(percent) || 100)) / 100)).toFixed(2)}</span>
+              </div>
+              <p className="text-xs text-muted">{t('appt.chargeHint')}</p>
+            </div>
+          )}
+        </div>
         <textarea rows={2} className={inputCls} placeholder={t('appt.fNote')} value={note} onChange={(e) => setNote(e.target.value)} />
         <div className="flex justify-end gap-2 pt-1">
           <Button variant="ghost" onClick={onClose}>{t('common.cancel')}</Button>

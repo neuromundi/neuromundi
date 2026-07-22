@@ -10,6 +10,8 @@ import { ShoppingBag, Tag, Search, Star, ShieldCheck, MessageSquare } from 'luci
 import { Button, useToast, EmptyState, SkeletonCard, StarRating } from '@/components/ui';
 import { useStore, getRefCode, type Product } from '@/hooks/useShop';
 import { ProductReviewsModal } from '@/components/shop/ProductReviewsModal';
+import { CountryFilter } from '@/components/common/CountryFilter';
+import { useCountry } from '@/stores/countryStore';
 import { useCatLabel } from '@/lib/catLabel';
 import { STORE_CATEGORIES } from '@/data/storeCatalog';
 import { cn } from '@/lib/utils';
@@ -19,24 +21,28 @@ export function Store() {
   const toast = useToast();
   const catLabel = useCatLabel();
   const { products, ratings, sellers, loading, buy } = useStore();
+  const { country } = useCountry();
   const [busyId, setBusyId] = useState<string | null>(null);
   const [reviewsFor, setReviewsFor] = useState<Product | null>(null);
   const [q, setQ] = useState('');
   const [cat, setCat] = useState('');
+  const [corporate, setCorporate] = useState(false);
   const ref = getRefCode();
 
   const term = q.trim().toLowerCase();
   const filtered = useMemo(
     () =>
       products.filter((p) => {
+        if (corporate && !p.is_featured) return false;
         if (cat && p.store_category !== cat) return false;
+        if (country && sellers[p.vendor_id]?.country !== country) return false;
         if (term && !`${p.name} ${p.description ?? ''}`.toLowerCase().includes(term)) return false;
         return true;
       }),
-    [products, cat, term],
+    [products, cat, term, country, sellers, corporate],
   );
   const featured = useMemo(() => products.filter((p) => p.is_featured), [products]);
-  const showFeatured = featured.length > 0 && !term && !cat;
+  const showFeatured = featured.length > 0 && !term && !cat && !corporate;
 
   const onBuy = async (p: Product) => {
     setBusyId(p.id);
@@ -56,7 +62,11 @@ export function Store() {
       )}
       <h3 className="font-semibold text-slate-900">{p.name}</h3>
       {p.store_category ? (
-        <p className="mt-0.5 text-xs text-brand-700">{catLabel(p.store_category, p.store_category)}</p>
+        <p className="mt-0.5 text-xs text-brand-700">
+          {p.store_category === 'otro' && p.store_category_other
+            ? p.store_category_other
+            : catLabel(p.store_category, p.store_category)}
+        </p>
       ) : null}
       {p.description ? <p className="mt-1 line-clamp-2 text-sm text-muted">{p.description}</p> : null}
 
@@ -108,6 +118,38 @@ export function Store() {
         <p className="mt-2 max-w-xl text-white/90">{t('shop.subtitle')}</p>
       </section>
 
+      {/* Acceso directo a los productos propios de Neuromundi vs. toda la tienda */}
+      <div
+        className="flex gap-1 rounded-2xl border border-slate-200 bg-slate-100 p-1"
+        role="group"
+        aria-label={t('shop.scope')}
+      >
+        <button
+          type="button"
+          onClick={() => setCorporate(false)}
+          aria-pressed={!corporate}
+          className={cn(
+            'flex-1 rounded-xl px-3 py-2.5 text-sm font-bold transition-colors',
+            !corporate ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-600 hover:text-slate-900',
+          )}
+        >
+          {t('shop.allProducts')}
+        </button>
+        <button
+          type="button"
+          onClick={() => setCorporate(true)}
+          aria-pressed={corporate}
+          className={cn(
+            'flex flex-1 items-center justify-center gap-1.5 rounded-xl px-3 py-2.5 text-sm font-bold transition-colors',
+            corporate ? 'bg-white text-fuchsia-800 shadow-sm' : 'text-slate-600 hover:text-slate-900',
+          )}
+        >
+          <Star className={cn('h-4 w-4', corporate ? 'text-fuchsia-600' : 'text-slate-400')} aria-hidden="true" />
+          {t('shop.corporate')}
+        </button>
+      </div>
+      {corporate && <p className="text-xs text-muted">{t('shop.corporateHint')}</p>}
+
       <p className="rounded-xl border border-slate-200 bg-slate-50 p-3 text-xs leading-relaxed text-slate-600">
         {t('shop.noCommission')}
       </p>
@@ -117,6 +159,8 @@ export function Store() {
           <Tag className="h-4 w-4" /> {t('shop.refActive')}
         </p>
       ) : null}
+
+      <CountryFilter id="store-country" />
 
       <div className="space-y-3">
         <div className="relative">

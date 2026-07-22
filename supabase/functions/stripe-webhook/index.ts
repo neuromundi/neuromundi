@@ -74,6 +74,11 @@ Deno.serve(async (req: Request) => {
               stripe_subscription_id: subId ?? null,
             })
             .eq('stripe_session_id', s.id);
+          if (s.metadata?.appointment_id) {
+            await admin.from('appointment_requests')
+              .update({ payment_status: 'paid' })
+              .eq('id', s.metadata.appointment_id);
+          }
           break;
         }
 

@@ -17,5 +17,6 @@ export const STORE_CATEGORIES: CatItem[] = [
   { value: 'tecnologia', label: 'Tecnología de apoyo' },
   { value: 'vestimenta', label: 'Ropa y accesorios adaptados' },
   { value: 'alimentacion', label: 'Alimentación y utensilios adaptados' },
+  { value: 'eventos', label: 'Boletos y eventos' },
   { value: 'otro', label: 'Otro' },
 ];

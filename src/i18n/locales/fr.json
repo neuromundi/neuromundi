@@ -31,7 +31,8 @@
     "kit": "Boîte à outils",
     "blog": "Blog",
     "events": "Événements",
-    "calendar": "Calendrier"
+    "calendar": "Calendrier",
+    "messages": "Messages"
   },
   "home": {
     "title": "La première communauté mondiale qui relie patients, familles, spécialistes et prestataires du neurodéveloppement et de la neurodivergence.",
@@ -293,7 +294,10 @@
       "history": "Historique",
       "ratings": "Mes évaluations",
       "prescribe": "Prescrire",
-      "products": "Mes produits"
+      "products": "Mes produits",
+      "widget": "Widget de réservation",
+      "waitlist": "Liste d’attente",
+      "campaigns": "Campagnes"
     },
     "offers": {
       "new": "Nouvelle offre",
@@ -470,7 +474,11 @@
     "guide3": "Une fois approuvé, il s’affiche automatiquement dans la boutique pour les familles.",
     "moderationTip": "Votre annonce est soumise à révision. Une fois approuvée, elle s’affiche automatiquement. Les « produits miracles » sont interdits ; Neuromundi peut suspendre ou retirer tout produit.",
     "reviewNote": "Motif",
-    "storeCategory": "Catégorie de neurodéveloppement"
+    "storeCategory": "Catégorie de neurodéveloppement",
+    "storeCategoryOther": "Précisez la classification",
+    "storeCategoryOtherPlaceholder": "Ex. Mobilier adapté",
+    "storeCategoryOtherHint": "Si vous choisissez « Autre », vous devez proposer la classification de votre produit.",
+    "errOtherRequired": "Précisez la classification (3 caractères minimum)."
   },
   "lang": {
     "label": "Langue"
@@ -634,7 +642,10 @@
     "secRenewals": "Renouvellements",
     "secReports": "Signalements",
     "secMetrics": "Métriques",
-    "secMessages": "Messages"
+    "secMessages": "Messages",
+    "credential": "Titre professionnel",
+    "noCredential": "Aucun titre professionnel",
+    "viewDoc": "Voir le document {{n}}"
   },
   "reg": {
     "typePatient": "Patient",
@@ -755,7 +766,8 @@
       "passwordMatch": "Les mots de passe doivent correspondre",
       "manifesto": "Accepter le Manifeste de la communauté",
       "emailValid": "Un e-mail au format valide",
-      "emailMatch": "Les e-mails doivent correspondre"
+      "emailMatch": "Les e-mails doivent correspondre",
+      "otherSpecify": "Précisez lorsque vous choisissez « Autre »."
     },
     "errManifesto": "Vous devez accepter le Manifeste de la communauté.",
     "acceptManifestoPre": "J’ai lu et j’adhère au",
@@ -1059,6 +1071,18 @@
         "title": "Rappel de rendez-vous",
         "body": "Votre rendez-vous « {{title}} » a lieu dans moins de 24 heures."
       }
+    },
+    "booking": {
+      "title": "Nouvelle demande de réservation",
+      "body": "{{name}} souhaite prendre rendez-vous avec vous."
+    },
+    "dm": {
+      "title": "Nouveau message",
+      "body": "{{name}} vous a envoyé un message."
+    },
+    "waitlist": {
+      "title": "Une place est disponible",
+      "join": "Liste d’attente"
     }
   },
   "clin": {
@@ -1180,7 +1204,7 @@
     "categories": "Catégorie",
     "featured": "Offres en vedette",
     "myStore": "Ma boutique",
-    "noCommission": "Neuromundi ne prélève aucune commission sur les ventes et ne fait pas la promotion du commerce de ces produits. La transaction se fait directement avec le vendeur, sous la seule responsabilité du vendeur et de l’acheteur.",
+    "noCommission": "Neuromundi ne perçoit aucune commission sur les ventes et ne fait pas la promotion de la commercialisation de ces produits. La transaction s'effectue directement avec la personne qui propose le produit, sous sa seule responsabilité et celle de l'acheteur, sans aucune responsabilité pour Neuromundi.",
     "noResults": "Aucun produit ne correspond à ces filtres.",
     "searchPlaceholder": "Rechercher produits et ressources…",
     "verifiedSeller": "Vendeur vérifié",
@@ -1201,7 +1225,12 @@
     "beFirst": "Soyez le premier à donner un avis sur ce produit.",
     "reviewSaved": "Merci pour votre avis !",
     "reviewDeleted": "Avis supprimé.",
-    "reviewNeedStars": "Choisissez de 1 à 5 étoiles."
+    "reviewNeedStars": "Choisissez de 1 à 5 étoiles.",
+    "corporate": "Produits Neuromundi",
+    "corporateOn": "Voir toute la boutique",
+    "allProducts": "Toute la boutique",
+    "scope": "Quels produits afficher",
+    "corporateHint": "Produits proposés directement par Neuromundi."
   },
   "affil": {
     "tab": "Affiliés",
@@ -2356,7 +2385,17 @@
       "consent": "Consentement",
       "prescription": "Ordonnance antérieure",
       "folio": "Identifiant"
-    }
+    },
+    "createRoom": "Créer une salle vidéo",
+    "roomHint": "Une salle privée est générée ; le lien est envoyé avec le rendez-vous.",
+    "mode": "Modalité",
+    "mode_in_person": "En présentiel",
+    "mode_online": "En ligne",
+    "chargeEnable": "Facturer ce rendez-vous (facultatif)",
+    "chargeAmount": "Montant total",
+    "chargeHint": "Le patient paie via la passerelle ; le % définit le montant prélevé maintenant.",
+    "toPay": "À payer",
+    "pay": "Payer {{amount}}"
   },
   "pwa": {
     "install": "Installer l'app",
@@ -2391,7 +2430,114 @@
       "forbidden": "Seul l'administrateur peut envoyer des messages.",
       "empty": "Rédigez le message.",
       "bad_audience": "Audience non valide.",
-      "recipient_not_found": "Aucun utilisateur trouvé avec cet identifiant."
+      "recipient_not_found": "Aucun utilisateur trouvé avec cet identifiant.",
+      "generic": "Envoi impossible.",
+      "not_allowed": "Vous ne pouvez pas démarrer cette conversation.",
+      "self": "Vous ne pouvez pas vous écrire à vous-même.",
+      "auth": "Veuillez vous connecter."
+    },
+    "new": "Nouveau message",
+    "emptyThreads": "Pas encore de conversations.",
+    "someone": "Quelqu’un",
+    "pickTitle": "Choisissez une conversation",
+    "pickDesc": "Sélectionnez un chat ou démarrez-en un nouveau.",
+    "toFolio": "À (folio)",
+    "threadEmpty": "Aucun message pour l’instant.",
+    "placeholder": "Écrivez un message… (vous pouvez coller un lien vidéo)",
+    "hint": "Le spécialiste peut démarrer par folio ; les liens vidéo de toute plateforme apparaissent comme des liens.",
+    "room": "Créer une salle vidéo",
+    "roomPrefix": "Salle vidéo :",
+    "badFolio": "Folio invalide."
+  },
+  "book": {
+    "title": "Réservez votre rendez-vous",
+    "with": "Avec {{name}}",
+    "name": "Votre nom",
+    "contact": "E-mail ou téléphone",
+    "contactHint": "Pour qu'on puisse vous répondre",
+    "preferred": "Date et heure souhaitées (facultatif)",
+    "note": "Motif ou message (facultatif)",
+    "send": "Envoyer la demande",
+    "sending": "Envoi…",
+    "sentTitle": "Demande envoyée !",
+    "sentBody": "Le prestataire vous contactera pour confirmer le rendez-vous.",
+    "error": "Envoi impossible. Réessayez.",
+    "notFound": "Prestataire introuvable.",
+    "disclaimer": "Il s’agit d’une demande ; le rendez-vous est confirmé par le prestataire."
+  },
+  "widget": {
+    "intro": "Installez votre widget de réservation sur votre site ou partagez le lien sur vos réseaux.",
+    "link": "Lien direct",
+    "copy": "Copier",
+    "preview": "Aperçu",
+    "embed": "Code pour votre site (iframe)",
+    "copyCode": "Copier le code",
+    "embedHint": "Collez-le dans le HTML de votre page.",
+    "requests": "Demandes reçues",
+    "noRequests": "Aucune demande pour l'instant.",
+    "preferred": "Préféré",
+    "copied": "Copié",
+    "copyError": "Copie impossible"
+  },
+  "push": {
+    "title": "Notifications push",
+    "on": "Notifications push activées",
+    "enable": "Activer",
+    "blocked": "Bloquées dans le navigateur"
+  },
+  "wait": {
+    "autoHint": "Automatique : si un rendez-vous est refusé ou annulé, nous prévenons automatiquement les personnes en attente.",
+    "addTitle": "Ajouter à la liste",
+    "add": "Ajouter",
+    "added": "Ajouté à la liste d’attente.",
+    "notePlaceholder": "Note (facultatif)",
+    "notifyTitle": "Annoncer une place libre",
+    "notifyPlaceholder": "Message (facultatif)",
+    "notify": "Prévenir {{count}} en attente",
+    "notified": "{{count}} personne(s) prévenue(s).",
+    "emptyTitle": "Liste d’attente vide",
+    "empty": "Ajoutez des patients par leur folio.",
+    "assign": "Assigner",
+    "remove": "Retirer",
+    "badFolio": "Folio invalide.",
+    "status": {
+      "waiting": "En attente",
+      "assigned": "Assigné",
+      "declined": "Refusé",
+      "cancelled": "Annulé"
+    },
+    "err": {
+      "generic": "Impossible de terminer.",
+      "already": "Déjà sur la liste.",
+      "patient_not_found": "Folio introuvable.",
+      "not_allowed": "Vous n’avez pas la permission."
+    }
+  },
+  "camp": {
+    "newTitle": "Nouvelle campagne",
+    "subject": "Objet",
+    "body": "Message",
+    "audience": "Destinataires",
+    "aud": {
+      "waitlist": "Ma liste d’attente",
+      "patients": "Mes patients"
+    },
+    "channels": "Canaux",
+    "ch": {
+      "push": "Push / appli",
+      "email": "E-mail",
+      "sms": "SMS"
+    },
+    "send": "Envoyer la campagne",
+    "sent": "Envoyée à {{count}} personne(s).",
+    "sentCount": "{{count}} envoyés",
+    "empty": "Vous n’avez pas encore envoyé de campagnes.",
+    "needText": "Saisissez un objet et un message.",
+    "smsCost": "Le SMS a un coût par message.",
+    "consentHint": "N’envoyez que des informations utiles liées à votre service. Respectez le consentement des personnes et la loi sur les données de votre pays.",
+    "err": {
+      "generic": "Impossible d’envoyer la campagne.",
+      "no_channels": "Choisissez au moins un canal."
     }
   }
 }
