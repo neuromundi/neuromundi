@@ -698,3 +698,5 @@ Los cursos son **gratuitos en este MVP**; cobrar por curso puede reusar el check
 7. Neuromundi Academy (LMS).
 
 **Orden de SQL:** `00-base-schema` → `prescriptions` → `policies` → `networking` → `patients-and-locations` → `widen-consumer-policies` → `membership` → `phase1` … `phase7`.
+#   n e u r o m u n d i  
+ 
