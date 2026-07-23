@@ -26,6 +26,7 @@ import { FounderBadge } from '@/components/ui';
 import { useFounderStatus } from '@/hooks/useFounder';
 import { FounderRequirements } from '@/components/founder/FounderRequirements';
 import { RecommendPanel } from '@/components/referral/RecommendPanel';
+import { DonateCallout } from '@/components/donation/DonateCallout';
 import { formatDate } from '@/lib/utils';
 import type { Transaction, TransactionStatus } from '@/types/app';
 
@@ -131,6 +132,10 @@ export function ParentDashboard() {
       )}
       <div className="mb-4">
         <FounderRequirements />
+      </div>
+      {/* Recordatorio permanente y amable: Neuromundi vive de aportes. */}
+      <div className="mb-4">
+        <DonateCallout variant="dashboard" />
       </div>
       <Tabs
         value={tab}

@@ -69,7 +69,8 @@
     "events": "Events",
     "calendar": "Calendar",
     "messages": "Messages",
-    "myPanel": "My panel"
+    "myPanel": "My panel",
+    "donate": "Donate"
   },
   "home": {
     "title": "The first global community connecting patients, families, specialists and providers in neurodevelopment and neurodivergence.",
@@ -111,7 +112,15 @@
       "hint": "Choose your country to see nearby specialists, schools and providers.",
       "selected": "Showing the platform for {{country}}."
     },
-    "heroAlt": "Community of families, neurodivergent people and neurodevelopment specialists"
+    "heroAlt": "Community of families, neurodivergent people and neurodevelopment specialists",
+    "donors": {
+      "badge": "Gratitude",
+      "title": "Meet our donors",
+      "body": "People and organizations that make Neuromundi possible. Their support sustains the platform and helps families, specialists and children.",
+      "cta": "Meet our donors",
+      "donateCta": "Make a donation"
+    },
+    "donateHint": "Want to help keep Neuromundi free? See how to support us."
   },
   "auth": {
     "login": "Sign in",
@@ -684,7 +693,8 @@
     "noCredential": "No professional credential",
     "viewDoc": "View document {{n}}",
     "secReferrals": "Referrals",
-    "secFees": "Fees"
+    "secFees": "Fees",
+    "secDonations": "Donations"
   },
   "reg": {
     "typePatient": "Patient",
@@ -1135,6 +1145,9 @@
     },
     "commission": {
       "title": "You were paid a commission"
+    },
+    "donation": {
+      "title": "Thanks for your donation"
     }
   },
   "clin": {
@@ -2484,7 +2497,11 @@
     "hint": "Specialists can start by member ID; video links from any platform appear as links.",
     "room": "Create video room",
     "roomPrefix": "Video room:",
-    "badFolio": "Invalid member ID."
+    "badFolio": "Invalid member ID.",
+    "searchLabel": "Search member",
+    "searchPlaceholder": "Folio, first or last name…",
+    "searching": "Searching…",
+    "toName": "To: {{name}}"
   },
   "book": {
     "title": "Book your appointment",
@@ -2723,6 +2740,190 @@
       "payable": "To pay",
       "paid": "Paid",
       "reversed": "Reversed"
+    }
+  },
+  "donate": {
+    "badge": "Fuel inclusion",
+    "title": "Donate to Neuromundi",
+    "subtitle": "Your gift sustains and grows a support community for neurodivergence and neurodevelopment.",
+    "currency": {
+      "label": "Currency"
+    },
+    "amount": {
+      "label": "Choose an amount",
+      "other": "Other amount"
+    },
+    "belowMin": "The minimum amount to receive a reward is {{min}}.",
+    "waive": "I don't want physical rewards. I'd rather 100% of my donation go to Neuromundi.",
+    "cta": "Fuel inclusion",
+    "secureNote": "Secure payment with Stripe. We never store your card details.",
+    "level": {
+      "seed": {
+        "name": "Seed of Empathy",
+        "tagline": "The first step to sow inclusion."
+      },
+      "ally": {
+        "name": "Ally of Inclusion",
+        "tagline": "You walk with us toward a more accessible world."
+      },
+      "driver": {
+        "name": "Development Driver",
+        "tagline": "Your push reaches farther and more people."
+      },
+      "ambassador": {
+        "name": "Neuromundi Ambassador",
+        "tagline": "You're a face and voice of the cause."
+      }
+    },
+    "reward": {
+      "course": "Free course on neurodivergence and neurodevelopment",
+      "wall": "Mention on the donor wall",
+      "pin": "Official Neuromundi pin (domestic shipping)",
+      "mug": "Neuromundi mug",
+      "wallFeatured": "Featured mention on the wall (with logo or photo)",
+      "ambassadorExtra": "Profile badge (if you're a specialist) or group Q&A session (if you're a patient or family)"
+    },
+    "ship": {
+      "title": "Shipping details",
+      "useRegistered": "Use the address on my account",
+      "useOther": "Ship to another address",
+      "recipient": "Addressed to",
+      "address": "Address",
+      "city": "City",
+      "postal": "Postal code",
+      "country": "Country",
+      "registeredNote": "We'll ship to the address saved in your profile."
+    },
+    "who": {
+      "title": "Donor details",
+      "person": "Individual",
+      "company": "Company or organization",
+      "orgName": "Company or organization name",
+      "contactName": "Contact person's name",
+      "personName": "Your name",
+      "email": "Contact email"
+    },
+    "wall": {
+      "consent": "I authorize publishing my name (or my company's/organization's) on the donor wall.",
+      "publishAs": "Name to show on the wall",
+      "publishAsHint": "If left blank we'll use your name or your organization's."
+    },
+    "use": {
+      "title": "Where does your donation go?",
+      "platform": "Maintenance and improvement of the platform",
+      "outreach": "Spreading Neuromundi around the world",
+      "scholarships": "Training scholarships in neurodevelopment and neurodivergence for patients, families, specialists, caregivers and teachers",
+      "products": "Buying and donating products that help neurodivergent people and the neurodevelopment of low-income children and youth"
+    },
+    "err": {
+      "minAmount": "The minimum donation is {{min}}.",
+      "name": "Enter your name.",
+      "org": "Enter the company or organization name.",
+      "email": "Enter a valid email.",
+      "recipient": "Tell us who the shipment is addressed to.",
+      "address": "Complete the shipping address.",
+      "checkout": "Couldn't start the payment. Please try again."
+    },
+    "result": {
+      "ok": "Thank you for your donation! Your gift fuels inclusion.",
+      "cancel": "The donation was canceled. You can try again anytime."
+    }
+  },
+  "allies": {
+    "title": "Neuromundi allies"
+  },
+  "wall": {
+    "badge": "Donor wall",
+    "title": "Those who drive inclusion",
+    "intro": "These people, companies and organizations are featured for their contribution to Neuromundi: they sustain and grow the platform and help patients, families, specialists and the neurodevelopment of children and youth. They appear here with their consent.",
+    "emptyTitle": "No donors published yet",
+    "empty": "You'll soon see those who drive this cause here.",
+    "featuredTitle": "Ambassadors",
+    "othersTitle": "Donors",
+    "ctaTitle": "Join this community",
+    "ctaBody": "Your donation, of any amount, fuels inclusion and neurodevelopment.",
+    "cta": "Fuel inclusion"
+  },
+  "adm": {
+    "don": {
+      "statsTitle": "Statistics",
+      "noStats": "No donations yet.",
+      "count": "{{n}} donations",
+      "shipPending": "{{n}} pending shipments",
+      "listTitle": "Donations",
+      "emptyTitle": "No donations",
+      "empty": "When someone donates, it will show here.",
+      "consentYes": "Consents to appear on the wall",
+      "consentNo": "Doesn't consent to the wall",
+      "onWall": "on the wall",
+      "featured": "featured",
+      "unpublish": "Remove from wall",
+      "publish": "Publish on wall",
+      "unfeature": "Unfeature",
+      "feature": "Feature",
+      "edit": "Edit",
+      "publishAs": "Display name",
+      "note": "Note",
+      "logo": "Logo/photo URL",
+      "saveWall": "Save",
+      "useRegistered": "Uses the address on their account",
+      "noConsent": "This donor didn't consent to appear on the wall.",
+      "wallError": "Couldn't update the wall.",
+      "wallOk": "Wall updated.",
+      "status": {
+        "pending": "pending",
+        "paid": "paid",
+        "failed": "failed",
+        "refunded": "refunded"
+      }
+    },
+    "ally": {
+      "title": "Allies (home carousel)",
+      "hint": "Logos of allied institutions and companies shown on the home page.",
+      "name": "Name",
+      "logoUrl": "Logo URL",
+      "website": "Website (optional)",
+      "order": "Order",
+      "add": "Add ally",
+      "update": "Update",
+      "saved": "Ally saved",
+      "error": "Couldn't save.",
+      "need": "Name and logo URL are required.",
+      "hide": "Hide",
+      "show": "Show",
+      "edit": "Edit",
+      "del": "Delete",
+      "delTitle": "Delete ally",
+      "delBody": "Are you sure you want to remove this ally from the carousel?",
+      "deleted": "Ally deleted"
+    },
+    "tier": {
+      "title": "Donation amounts by currency",
+      "hint": "Set the amount of each level per currency. They must go from lowest to highest.",
+      "save": "Save",
+      "saved": "Amounts saved",
+      "error": "Couldn't save.",
+      "active": "Active",
+      "order": "Amounts must be in increasing order (Seed < Ally < Driver < Ambassador)."
+    }
+  },
+  "callout": {
+    "directory": {
+      "title": "Found the right specialist?",
+      "body": "Help us keep this directory free and accessible for more families."
+    },
+    "toolkit": {
+      "title": "Was this guide helpful?",
+      "body": "Your contribution helps us keep creating free resources for more families."
+    },
+    "dashboard": {
+      "title": "Neuromundi runs on community",
+      "body": "Your account is free. If you can, a contribution helps sustain the platform and more families."
+    },
+    "specialist": {
+      "title": "Become a Solidarity Specialist",
+      "body": "With an Ambassador-level donation you feature your profile and unlock a badge and courses, while fueling inclusion.",
+      "cta": "Feature my profile"
     }
   }
 }

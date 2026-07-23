@@ -72,6 +72,7 @@ import { CampaignsPanel } from './CampaignsPanel';
 import { ProductManager } from '@/components/merchant/ProductManager';
 import { useFounderStatus } from '@/hooks/useFounder';
 import { FounderRequirements } from '@/components/founder/FounderRequirements';
+import { DonateCallout } from '@/components/donation/DonateCallout';
 import { RecommendPanel } from '@/components/referral/RecommendPanel';
 import { defaultOfferValues, type OfferFormValues } from '@/lib/schemas';
 import { formatDate, formatDateTime, exportToCsv } from '@/lib/utils';
@@ -488,11 +489,23 @@ function RatingsTab({
 
 // ── Dashboard ────────────────────────────────────────────────────────────────
 
+const SOLIDARIO_KEY = 'nm-solidario-dismissed';
+
 export function ProviderDashboard() {
   const { userId, providerType } = useAuth();
   const { isFounder } = useFounderStatus(userId);
   const { t } = useTranslation();
   const [tab, setTab] = useState('offers');
+  // Invitación "Especialista Solidario": se muestra una vez (al llegar al panel
+  // tras el alta) y puede cerrarse. No compite con el pago de la cuota porque no
+  // es un modal: es una tarjeta que se descarta.
+  const [showSolidario, setShowSolidario] = useState(() => {
+    try { return localStorage.getItem(SOLIDARIO_KEY) == null; } catch { return false; }
+  });
+  const dismissSolidario = () => {
+    try { localStorage.setItem(SOLIDARIO_KEY, '1'); } catch { /* noop */ }
+    setShowSolidario(false);
+  };
   // Ofertas a nivel dashboard para compartir con escaneo e historial.
   const { offers } = useOffers(userId);
   const activeOffers = offers.filter((o) => o.status === 'active');
@@ -660,6 +673,11 @@ export function ProviderDashboard() {
       <div className="mb-4">
         <FounderRequirements />
       </div>
+      {showSolidario && (
+        <div className="mb-4">
+          <DonateCallout variant="specialist" onDismiss={dismissSolidario} />
+        </div>
+      )}
       <Tabs value={tab} onValueChange={setTab} tabs={tabs} />
     </div>
   );

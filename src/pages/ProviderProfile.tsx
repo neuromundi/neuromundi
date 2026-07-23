@@ -22,6 +22,7 @@ import { useFounderStatus } from '@/hooks/useFounder';
 import { useProviderRatings } from '@/hooks/useProviderRatings';
 import { useOffers } from '@/hooks/useOffers';
 import { useAuth } from '@/hooks/useAuth';
+import { DonateCallout } from '@/components/donation/DonateCallout';
 import { discountLabel } from '@/lib/utils';
 import { DIMENSION_LABEL_KEY } from '@/types/app';
 
@@ -100,6 +101,9 @@ export function ProviderProfile() {
           {isConsumer && profile.provider_type === 'school' && <BookAppointment providerId={id} label={t('school.tour')} />}
         </div>
       )}
+
+      {/* Gratitud contextual: a la familia que acaba de encontrar especialista. */}
+      {(isParent || isConsumer) && <DonateCallout variant="directory" />}
 
       {profile.bio && <p className="text-slate-700">{profile.bio}</p>}
 

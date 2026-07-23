@@ -71,7 +71,12 @@
         document.head.appendChild(l);
       })();
     </script>
-    <link rel="preconnect" href="https://sboagswcehuxwfjdbhdn.supabase.co" />
+    <!-- crossorigin es OBLIGATORIO aquí: las llamadas a la API de Supabase van
+         con cabeceras (apikey/Authorization), así que son peticiones CORS. Sin
+         crossorigin, el navegador abre una conexión que NO reutiliza para esos
+         fetch y el preconnect se desperdicia (Lighthouse lo marcaba como
+         "conexión previa no utilizada", ~300 ms de LCP perdidos). -->
+    <link rel="preconnect" href="https://sboagswcehuxwfjdbhdn.supabase.co" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <!-- display=optional (no swap): si Inter no llega en ~100 ms se usa el

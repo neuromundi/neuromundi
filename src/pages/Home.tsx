@@ -9,7 +9,9 @@ import { Globe, Compass, ShieldCheck, Heart, Lock, BookOpenCheck } from 'lucide-
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui';
 import { ContentCarousel } from '@/components/content/ContentCarousel';
+import { AlliesCarousel } from '@/components/donation/AlliesCarousel';
 import { HeroArt } from '@/components/home/HeroArt';
+import { HeartHandshake } from 'lucide-react';
 import { useCountry } from '@/stores/countryStore';
 import { COUNTRIES } from '@/data/countries';
 
@@ -82,6 +84,15 @@ export function Home() {
           </div>
 
           <p className="mt-3 text-sm text-muted">{t('home.search.free')}</p>
+          {/* Momento psicológico: acaba de leer que es gratis. Enlace secundario
+              y discreto (no compite con "Explorar directorio"). */}
+          <button
+            type="button"
+            onClick={() => navigate('/donar')}
+            className="mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-[#8C6D1F] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8C6D1F] focus-visible:ring-offset-2"
+          >
+            <Heart className="h-4 w-4" aria-hidden="true" /> {t('home.donateHint')}
+          </button>
         </div>
 
         <div className="order-first lg:order-last">
@@ -115,6 +126,32 @@ export function Home() {
             <Button className="mt-5 w-fit" size="lg" onClick={() => navigate('/kit')} leadingIcon={<BookOpenCheck className="h-5 w-5" />}>
               {t('kit.home.cta')}
             </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Aliados + donantes: misma estructura que la sección del Kit —
+          izquierda un bloque de texto (aquí el carrusel de aliados), derecha una
+          tarjeta con el mismo contenedor degradado. En móvil se apilan. */}
+      <section className="mt-16 grid items-stretch gap-8 lg:grid-cols-2">
+        <div className="flex flex-col justify-center">
+          {/* La leyenda es visible SIEMPRE, aunque aún no haya aliados cargados. */}
+          <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-muted">{t('allies.title')}</h2>
+          <AlliesCarousel showHeading={false} />
+        </div>
+
+        <div className="overflow-hidden rounded-3xl border border-brand-100 bg-gradient-to-br from-brand-50 to-white p-6 sm:p-8">
+          <div className="flex h-full flex-col justify-center">
+            <span className="inline-flex w-fit items-center gap-2 rounded-full bg-white px-3 py-1 text-sm font-semibold text-brand-700 shadow-sm">
+              <HeartHandshake className="h-4 w-4" aria-hidden="true" /> {t('home.donors.badge')}
+            </span>
+            <h2 className="mt-3 text-2xl font-bold text-slate-900">{t('home.donors.title')}</h2>
+            <p className="mt-2 leading-relaxed text-slate-700">{t('home.donors.body')}</p>
+            <div className="mt-5 flex flex-wrap gap-2">
+              <Button size="lg" onClick={() => navigate('/donantes')} leadingIcon={<HeartHandshake className="h-5 w-5" />}>
+                {t('home.donors.cta')}
+              </Button>
+            </div>
           </div>
         </div>
       </section>

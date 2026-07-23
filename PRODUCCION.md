@@ -29,11 +29,11 @@ manda es **`public/.htaccess`**, que debe quedar en `public_html/` junto al
 
 ## 1) 🔴 Base de datos — migraciones al día
 
-En el repo van de `0001` a **`0044`**. Se aplican **a mano, en orden**, en
+En el repo van de `0001` a **`0048`**. Se aplican **a mano, en orden**, en
 Supabase → SQL Editor. Son idempotentes: si dudas de alguna, la puedes reejecutar
 sin romper nada.
 
-1. [ ] Aplica todo lo que falte hasta `0044_fix_my_badge_inputs.sql`.
+1. [ ] Aplica todo lo que falte hasta `0047_donation_tiers.sql`.
    Las últimas y por qué importan:
 
    | # | Qué hace | Si falta… |
@@ -45,6 +45,10 @@ sin romper nada.
    | 0042 | Importar/exportar cuotas por CSV | los botones de CSV dan error |
    | 0043 | Libro de comisiones de afiliados | el panel de comisiones sale vacío |
    | 0044 | Arregla `my_badge_inputs` | el distintivo del prestador da 400 en consola |
+   | 0045 | Donaciones (`donations` + muro) | la página /donar no puede registrar donativos |
+   | 0046 | Donaciones etapa 2 (`allies` + admin) | el muro, el carrusel y el panel de donaciones fallan |
+   | 0047 | `donation_tiers` (importes por moneda) | la página de donación no encuentra los importes |
+   | 0048 | `search_members` (búsqueda admin en mensajería) | el admin no puede buscar por nombre al escribir |
 
 2. [ ] Comprueba qué quedó aplicado con `db/verificar_produccion.sql`.
 3. [ ] Si México sigue duplicado en Cuotas, es que **0041 no corrió**. Verifica con:
@@ -199,6 +203,7 @@ coincidir EXACTO con la carpeta.
 supabase functions deploy create-membership-checkout   --use-api
 supabase functions deploy create-product-checkout      --use-api
 supabase functions deploy create-consultation-checkout --use-api
+supabase functions deploy create-donation-checkout     --use-api
 supabase functions deploy connect-onboarding           --use-api
 supabase functions deploy send-support                 --use-api
 supabase functions deploy send-campaign                --use-api

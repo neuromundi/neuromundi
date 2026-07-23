@@ -8,12 +8,23 @@
  */
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { MessageSquare, Send, Video, ArrowLeft, Plus } from 'lucide-react';
+import { MessageSquare, Send, Video, ArrowLeft, Plus, Search } from 'lucide-react';
 import { Button, useToast, EmptyState, Avatar, SkeletonCard } from '@/components/ui';
 import { useMessages, type Message, type Thread } from '@/hooks/useMessages';
+import { useAuth } from '@/hooks/useAuth';
 import { jitsiRoomUrl } from '@/lib/meet';
 import { formatDate } from '@/lib/utils';
 import { supabase } from '@/lib/supabase';
+
+interface MemberHit {
+  member_no: number;
+  full_name: string;
+  business_name: string | null;
+  avatar_url: string | null;
+  role: string;
+}
+
+const folio6 = (n: number) => `NM-${String(n).padStart(6, '0')}`;
 
 const URL_RE = /(https?:\/\/[^\s]+)/g;
 
@@ -44,6 +55,7 @@ function folioToNumber(raw: string): number | null {
 export function Messages() {
   const { t } = useTranslation();
   const toast = useToast();
+  const { isAdmin } = useAuth();
   const { userId, threads, loading, reloadThreads, fetchThread, markThreadRead, send } = useMessages();
 
   const [active, setActive] = useState<Thread | null>(null);
@@ -52,7 +64,27 @@ export function Messages() {
   const [busy, setBusy] = useState(false);
   const [newOpen, setNewOpen] = useState(false);
   const [folio, setFolio] = useState('');
+  // Búsqueda de miembro (solo admin): por folio, nombre o apellido.
+  const [query, setQuery] = useState('');
+  const [hits, setHits] = useState<MemberHit[]>([]);
+  const [searching, setSearching] = useState(false);
+  const [picked, setPicked] = useState<MemberHit | null>(null);
   const endRef = useRef<HTMLDivElement>(null);
+
+  // Busca miembros mientras el admin escribe (con un pequeño retraso para no
+  // disparar una consulta por cada tecla).
+  useEffect(() => {
+    if (!isAdmin || !newOpen) return;
+    const q = query.trim();
+    if (q.length < 2) { setHits([]); return; }
+    let alive = true;
+    setSearching(true);
+    const id = window.setTimeout(async () => {
+      const { data } = await supabase.rpc('search_members', { p_query: q });
+      if (alive) { setHits((data as MemberHit[] | null) ?? []); setSearching(false); }
+    }, 300);
+    return () => { alive = false; window.clearTimeout(id); };
+  }, [query, isAdmin, newOpen]);
 
   const openThread = useCallback(async (th: Thread) => {
     setActive(th);
@@ -93,9 +125,28 @@ export function Messages() {
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (active?.other_member_no != null) { void doSend(active.other_member_no); return; }
+    // Admin que eligió a alguien de la búsqueda: se usa ese folio.
+    if (picked) { void doSend(picked.member_no); return; }
     const n = folioToNumber(folio);
     if (n == null) { toast.error(t('msg.badFolio')); return; }
     void doSend(n);
+  };
+
+  const openNew = () => {
+    setNewOpen(true);
+    setActive(null);
+    setMsgs([]);
+    setFolio('');
+    setQuery('');
+    setHits([]);
+    setPicked(null);
+  };
+
+  const pickMember = (m: MemberHit) => {
+    setPicked(m);
+    setFolio(String(m.member_no));
+    setHits([]);
+    setQuery('');
   };
 
   const insertRoom = () => {
@@ -112,7 +163,7 @@ export function Messages() {
       <div className="grid gap-4 md:grid-cols-[320px_1fr]">
         {/* Lista de conversaciones */}
         <aside className={active || newOpen ? 'hidden md:block' : 'block'}>
-          <Button fullWidth variant="secondary" onClick={() => { setNewOpen(true); setActive(null); setMsgs([]); }} leadingIcon={<Plus className="h-4 w-4" />}>
+          <Button fullWidth variant="secondary" onClick={openNew} leadingIcon={<Plus className="h-4 w-4" />}>
             {t('msg.new')}
           </Button>
           <div className="mt-3 space-y-1">
@@ -165,14 +216,68 @@ export function Messages() {
                     </div>
                   </>
                 ) : (
-                  <div className="flex-1">
-                    <label className="text-xs font-semibold text-slate-700">{t('msg.toFolio')}</label>
-                    <input
-                      value={folio}
-                      onChange={(e) => setFolio(e.target.value)}
-                      placeholder="NM-000123"
-                      className="mt-1 w-48 rounded-lg border border-slate-200 px-3 py-1.5 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
-                    />
+                  <div className="relative flex-1">
+                    {/* Búsqueda de miembro para el admin: por folio, nombre o
+                        apellido. Al elegir uno se fija su folio como destino. */}
+                    {isAdmin && (
+                      <div className="mb-2">
+                        <label className="text-xs font-semibold text-slate-700">{t('msg.searchLabel')}</label>
+                        <div className="relative mt-1">
+                          <Search className="pointer-events-none absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" aria-hidden="true" />
+                          <input
+                            value={query}
+                            onChange={(e) => { setQuery(e.target.value); setPicked(null); }}
+                            placeholder={t('msg.searchPlaceholder')}
+                            className="w-full rounded-lg border border-slate-200 py-1.5 pl-8 pr-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+                          />
+                        </div>
+                        {/* Resultados */}
+                        {(hits.length > 0 || searching) && (
+                          <ul className="absolute z-10 mt-1 max-h-64 w-full overflow-auto rounded-xl border border-slate-200 bg-white shadow-lg">
+                            {searching && hits.length === 0 ? (
+                              <li className="px-3 py-2 text-sm text-muted">{t('msg.searching')}</li>
+                            ) : (
+                              hits.map((m) => (
+                                <li key={m.member_no}>
+                                  <button
+                                    type="button"
+                                    onClick={() => pickMember(m)}
+                                    className="flex w-full items-center gap-2 px-3 py-2 text-left hover:bg-slate-50"
+                                  >
+                                    <Avatar name={m.business_name || m.full_name || '—'} src={m.avatar_url} size="sm" />
+                                    <span className="min-w-0 flex-1">
+                                      <span className="block truncate text-sm font-medium text-slate-900">
+                                        {m.business_name || m.full_name || t('msg.someone')}
+                                      </span>
+                                      <span className="block font-mono text-xs text-muted">{folio6(m.member_no)}</span>
+                                    </span>
+                                  </button>
+                                </li>
+                              ))
+                            )}
+                          </ul>
+                        )}
+                      </div>
+                    )}
+                    {/* El campo de folio manual es solo para quien NO tiene el
+                        buscador (especialistas). Para el admin, el buscador de
+                        arriba ya cubre el folio, así que no se repite. */}
+                    {!isAdmin && (
+                      <>
+                        <label className="text-xs font-semibold text-slate-700">{t('msg.toFolio')}</label>
+                        <input
+                          value={folio}
+                          onChange={(e) => { setFolio(e.target.value); setPicked(null); }}
+                          placeholder="NM-000123"
+                          className="mt-1 w-48 rounded-lg border border-slate-200 px-3 py-1.5 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+                        />
+                      </>
+                    )}
+                    {picked && (
+                      <p className="text-xs text-brand-700">
+                        {t('msg.toName', { name: picked.business_name || picked.full_name })}
+                      </p>
+                    )}
                   </div>
                 )}
               </header>

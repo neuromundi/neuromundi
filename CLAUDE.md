@@ -55,7 +55,7 @@ PY
   `drop policy if exists` + `create policy`, `insert ... on conflict do nothing`,
   `add column if not exists`. Backfills solo tocan filas nulas.
 - El usuario las aplica **a mano en el SQL Editor de Supabase**, en orden (no hay CLI de
-  migraciones en su flujo). Última en el repo: **0044**.
+  migraciones en su flujo). Última en el repo: **0048**.
 - Para verificar qué está aplicado en producción: `db/verificar_produccion.sql`.
 
 ### 3. Escribir a otros usuarios / notificaciones
@@ -158,6 +158,19 @@ PY
   SocialOnboarding, GuidedTour…). Importarlos de forma estática mete react-hook-form, zod
   y `mxStatesMunicipalities` (43 KB) en el bundle inicial aunque no se vean. Si añades un
   modal al layout, añádelo con `lazy` + `<Suspense fallback={null}>` y condicionado.
+- **UI no crítica aplazada con `deferUi`**: el banner de registro suave y el botón flotante
+  de soporte estaban SIEMPRE montados, así que sus chunks entraban en la cadena crítica del
+  LCP (se veían como nodos `SoftSignupBanner`/`SupportButton` en el árbol de red). Se montan
+  tras `requestIdleCallback` (estado `deferUi`). Si añades UI que no se ve en el primer
+  pintado, gátala igual.
+- **El preconnect a Supabase necesita `crossorigin`**: las llamadas a la API van con
+  cabeceras (`apikey`/`Authorization`) → son CORS. Sin `crossorigin`, el navegador abre una
+  conexión que NO reutiliza para esos fetch y el preconnect se desperdicia (~300 ms de LCP).
+- **`beforeinstallprompt` se captura a nivel de módulo**: el evento se dispara UNA vez al
+  cargar. `usePwaInstall` lo cachea en el módulo y notifica a los suscriptores, para que un
+  botón que monta tarde (el de instalar dentro del menú "Más" de móvil) no se lo pierda. Si
+  registraras el listener por instancia, ese botón nunca podría instalar. `InstallAppButton`
+  va en el pie Y en la hoja "Más" (en el pie queda bajo la barra inferior fija de móvil).
 - **Desplegar Edge Functions**: usa `supabase functions deploy <nombre> --use-api` para no
   depender de Docker. El nombre debe coincidir EXACTO con la carpeta.
 - **vitest no corre en el sandbox** (el `node_modules` es de Windows y rollup usa binario
@@ -165,7 +178,7 @@ PY
 - El `.env` (claves) está en `.gitignore`. Nunca lo versiones ni pongas secretos en el front.
 
 ## Estructura rápida
-- `src/pages` rutas · `src/components/{admin,provider,parent,onboarding,report,calendar,...}`
+- `src/pages` rutas · `src/components/{admin,provider,merchant,parent,onboarding,report,calendar,...}`
 - `src/hooks` lógica de datos (Supabase) · `src/stores` estado (Zustand)
 - `src/lib` utilidades puras (buenas para tests) · `src/i18n/locales` traducciones
 - `supabase/migrations` SQL · `supabase/functions` Edge Functions · `db` esquema base
@@ -193,6 +206,8 @@ PY
 | **`/ajustes`** | `Settings` | **protegida** |
 | **`/calendario`** | `Calendar` | **protegida** |
 | **`/mensajes`** | `Messages` | **protegida**; mensajería directa |
+| `/donar` | `Donate` | pública; donación con o sin cuenta (`DonationSection`) |
+| `/donantes` | `DonorWall` | pública; muro de donantes (`donor_wall()`) |
 | `/reservar/:memberNo` | `Book` | pública, sin layout (widget embebible) |
 
 ### Hooks por dominio (`src/hooks`)
@@ -209,7 +224,9 @@ PY
 - **Contenido/comunidad**: `useBlog`, `useContent`, `useAcademy`, `useToolkitProgress`
 - **Fundador/referidos**: `useFounder`, `useReferral`
 - **Clínico**: `useClinical`, `usePrescriptions`, `useSecureFiles`, `useSurvey`, `useTracker`
-- **Mensajería**: `useMessages` (hilos, envío, no leídos)
+- **Mensajería**: `useMessages` (hilos, envío, no leídos). En el compositor, el ADMIN ve un
+  buscador de miembro (folio/nombre/apellido vía `search_members`) que reemplaza el campo de
+  folio manual; los demás roles siguen escribiendo el folio a mano.
 - **Lista de espera / campañas**: `useWaitlist`, `useCampaigns` (en `useWaitlist.ts`)
 - **Notificaciones**: `useNotifications` (campana) · **PWA**: `usePwaInstall`
 - **Push nativo**: `usePushSubscribe` (permiso + suscripción)
@@ -219,15 +236,21 @@ PY
 - `layout/AccessibilityMenu` — Modo calma, dislexia, contraste, tamaño de texto
 - `admin/AdminDashboard` — + `AdminMetrics`, `AdminMessages`, `AdminReports`, `AdminRenewals`, `AdminBilling`, `AdminProducts`, `AdminOtherValues`, `AdminFees` (+ `FeesCsvPanel`), `AdminReferrals`
 - `membership/AccountInactiveModal` · `membership/AccountReactivatedModal` — portero de cuota
+- `donation/DonationSection` (embudo `/donar`) · `donation/AlliesCarousel` · `admin/AdminDonations`
+  (estadística + curación del muro + CRUD de aliados + **importes por moneda**) · página `DonorWall` (`/donantes`)
 - `calendar/AppointmentRequests` · `report/ReportModal` + `report/MyReports` · `shop/ProductReviewsModal`
 - `provider/BookingWidgetPanel` (widget embebible) · `provider/WaitlistPanel` · `provider/CampaignsPanel`
+- `merchant/AffiliatePanel` (código y enlace propios) + `merchant/CommissionsPanel`
+  (libro "me deben / yo debo", marcar liquidación, estado de cuenta CSV)
 - `onboarding/GuidedTour` (6 pasos) · `pwa/InstallAppButton` · `ui/*` (`Button`, `Modal`, `PasswordInput`, `StarRating`…)
 
 ### RPC principales (todas `SECURITY DEFINER`)
 - **Admin**: `admin_metrics`, `admin_reports`, `admin_send_message`, `admin_membership_renewals`, `admin_set_verified/published`
 - **Citas**: `request_appointment`, `respond_appointment`, `emit_due_appointment_reminders`, `emit_all_due_appointment_reminders`, `search_patients`
 - **Fundador/referidos**: `claim_founder_slot`, `set_founder_optout`, `set_referrer`, `my_referral_count`
-- **Mensajería**: `send_message` (valida permiso + notifica), `message_threads` (resumen de hilos)
+- **Mensajería**: `send_message` (valida permiso + notifica; admin/prestador pueden escribir a
+  cualquiera), `message_threads` (resumen de hilos), `search_members` (búsqueda admin por
+  folio/nombre/apellido), `search_patients` (búsqueda acotada del especialista)
 - **Lista de espera**: `waitlist_join`, `waitlist_add`, `my_waitlist`, `waitlist_set_status`,
   `waitlist_notify_slot` · **Campañas**: `campaign_recipients`
 - **Reservas**: `request_booking`, `booking_provider_name`
@@ -245,7 +268,7 @@ PY
 
 ### Edge Functions (`supabase/functions`)
 - **Pagos**: `create-membership-checkout`, `create-product-checkout`,
-  `create-consultation-checkout`, `connect-onboarding`, `stripe-webhook`
+  `create-consultation-checkout`, `create-donation-checkout`, `connect-onboarding`, `stripe-webhook`
 - **Avisos**: `send-reminders` (cola + email de citas aceptadas; la agenda `pg_cron`+`pg_net`),
   `send-push` (Web Push VAPID), `send-campaign` (lista de espera/pacientes por push+email+SMS),
   `send-support`, `send-product-rejection`
@@ -291,6 +314,10 @@ Al extraer lógica de una página a `src/lib`, **añade su test** (patrón: `*.t
 | 0042 | Importación/exportación de cuotas en CSV |
 | 0043 | Libro de comisiones de afiliados (`affiliate_commissions`) |
 | 0044 | Arregla `my_badge_inputs` (misma ambigüedad que 0033) |
+| 0045 | Donaciones: `donations` + `donor_wall()` (etapa 1: captura y cobro) |
+| 0046 | Donaciones etapa 2: `allies` + admin (stats, lista, curar muro) |
+| 0047 | `donation_tiers`: importes de donación por moneda, editables por admin |
+| 0048 | `search_members`: búsqueda de miembros para el admin (folio/nombre) |
 
 ## Reglas de producto/negocio ya implementadas
 - **Clasificación "Otro"**: si `products.store_category = 'otro'`, `store_category_other`
@@ -321,6 +348,26 @@ Al extraer lógica de una página a `src/lib`, **añade su test** (patrón: `*.t
   cambiar el libro**, o el promotor cobraría dos veces. Sin retención: la comisión es
   cobrable en cuanto el pedido se marca pagado; retener o no es decisión del vendedor.
   Ojo, esto es DISTINTO del programa de recomendación de membresías de abajo.
+- **Donaciones** (migración 0045, `src/lib/donation.ts`): embudo con 4 niveles por monto
+  (Semilla/Aliado/Impulsor/Embajador). Umbrales POR MONEDA (USD 10/50/100/150, MXN
+  200/1000/2000/3000; la moneda se decide por país del donante, USD por defecto). La física
+  aplica del nivel 2 en adelante → dispara la casilla de renuncia y el formulario de envío.
+  Puede donar cualquiera, con o sin cuenta (`create-donation-checkout` acepta invitado; el
+  monto y nivel se RECALCULAN en el servidor). El cobro lo hace la plataforma (pago único,
+  sin Connect). El webhook (`kind==='donation'`) marca pagada y, si es miembro, otorga curso
+  e insignia (`grant_course`/`grant_badge`) y avisa por la campana (`donation_thanks`). El
+  muro (`donor_wall()`, anónimo) solo muestra lo pagado + consentido + `wall_published`.
+  **Etapa 2 (migración 0046):** página pública `/donantes` (`DonorWall`, destacados primero),
+  carrusel de aliados en el home (`AlliesCarousel`, tabla `allies`, respeta
+  `prefers-reduced-motion` y se pausa al enfocar), y sección **Donaciones** en el panel admin
+  (`AdminDonations`): estadística por moneda, curación del muro (`admin_set_donation_wall`,
+  solo publica a quien consintió), CRUD de aliados e **importes por moneda**. Falta aún
+  atar `grant_course` a la inscripción real de Academy.
+- **Importes de donación** (migración 0047): los cuatro escalones por moneda (USD/MXN/EUR
+  sembradas) viven en `donation_tiers`, editables en `/panel` → Donaciones. La página los lee
+  con `useDonationTiers` y la Edge Function `create-donation-checkout` los **revalida** contra
+  esa tabla (con respaldo en código). `src/lib/donation.ts` da los valores por defecto y su
+  lógica de niveles es parametrizable por un mapa de monedas.
 - **Programa de recomendación**: enlace único por usuario (su folio NM), 5% de descuento
   adicional configurable, **solo sobre el primer pago** y el enlace **caduca a los 7 días**.
   Si quien lo usa es paciente o padre no hay descuento ni recompensa (su membresía ya es
@@ -342,4 +389,18 @@ Al extraer lógica de una página a `src/lib`, **añade su test** (patrón: `*.t
 3. Si añadiste tabla/RPC, crea su migración idempotente y avísale al usuario que la corra.
 4. Si tocaste el SW, la PWA o variables `VITE_*`, verifica el `dist` compilado
    (`grep` de lo esperado en `dist/assets/*.js` y `dist/sw.js`).
-5. Nunca commitees `.env`, `node_modules`, `dist`, `_archivo`, `backups`.
+5. Si el cambio afecta al despliegue o pide algo del usuario (correr SQL, redesplegar
+   una función, tocar Stripe), actualiza también **`PRODUCCION.md`**.
+6. Nunca commitees `.env`, `node_modules`, `dist`, `_archivo`, `backups`.
+
+## Cómo trabaja aquí el asistente
+- **No dejes temas pendientes**: si algo queda a medias hay que decirlo explícitamente,
+  no esconderlo en un "más adelante". Lo único que se difiere es lo que exige las manos
+  del usuario (correr SQL, desplegar, borrar archivos que el mount no deja borrar).
+- **Al corregir un fallo, busca sus hermanos.** El caso `admin_badge_inputs` /
+  `my_badge_inputs` costó semanas por arreglar solo una de las dos.
+- **Antes de afirmar cómo está configurado el entorno, verifícalo.** El hosting se
+  dedujo mal dos veces desde los archivos del repo (`netlify.toml`, `vercel.json`)
+  cuando bastaba un `curl -sI` para ver `Server: hcdn`.
+- Las pruebas de la lógica pura son la red de seguridad barata: `vitest` no corre en el
+  sandbox, así que el `npm run test` y el `npm run build` del usuario son el veredicto.

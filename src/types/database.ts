@@ -901,6 +901,20 @@ export interface Database {
         Relationships: [];
       };
 
+      allies: {
+        Row: { id: string; name: string; logo_url: string; website: string | null; sort_order: number; is_active: boolean; created_at: string };
+        Insert: { id?: string; name: string; logo_url: string; website?: string | null; sort_order?: number; is_active?: boolean; created_at?: string };
+        Update: Partial<Database['public']['Tables']['allies']['Insert']>;
+        Relationships: [];
+      };
+
+      donation_tiers: {
+        Row: { currency: string; symbol: string; zero_decimal: boolean; seed_amount: number; ally_amount: number; driver_amount: number; ambassador_amount: number; is_active: boolean; updated_at: string };
+        Insert: { currency: string; symbol?: string; zero_decimal?: boolean; seed_amount: number; ally_amount: number; driver_amount: number; ambassador_amount: number; is_active?: boolean; updated_at?: string };
+        Update: Partial<Database['public']['Tables']['donation_tiers']['Insert']>;
+        Relationships: [];
+      };
+
       courses: {
         Row: { id: string; author_id: string; title: string; description: string | null; cover_url: string | null; level: string | null; audience: string | null; country: string | null; is_published: boolean; created_at: string };
         Insert: { id?: string; author_id: string; title: string; description?: string | null; cover_url?: string | null; level?: string | null; audience?: string | null; country?: string | null; is_published?: boolean; created_at?: string };
@@ -1110,6 +1124,27 @@ export interface Database {
       admin_commissions: {
         Args: Record<string, never>;
         Returns: { id: string; vendor_id: string; vendor_name: string | null; vendor_member_no: number | null; affiliate_id: string; affiliate_name: string | null; affiliate_member_no: number | null; product_name: string | null; amount_cents: number; currency: string; status: string; refund_after_payment: boolean; paid_at: string | null; created_at: string }[];
+      };
+      // ── Donaciones (migraciones 0045 / 0046) ─────────────────────────────
+      donor_wall: {
+        Args: Record<string, never>;
+        Returns: { display_name: string; level: string; is_company: boolean; featured: boolean; note: string | null; logo_url: string | null; since: string | null }[];
+      };
+      admin_donation_stats: {
+        Args: Record<string, never>;
+        Returns: { currency: string; paid_count: number; paid_cents: number; wall_published: number; physical_pending: number }[];
+      };
+      admin_donations: {
+        Args: { p_status?: string | null };
+        Returns: { id: string; created_at: string; paid_at: string | null; status: string; level: string; amount_cents: number; currency: string; is_company: boolean; contact_name: string; org_name: string | null; email: string; publish_consent: boolean; publish_as: string | null; wall_published: boolean; wall_featured: boolean; wall_note: string | null; wall_logo_url: string | null; waive_physical: boolean; ship_use_registered: boolean; ship_recipient: string | null; ship_address: string | null; ship_city: string | null; ship_postal: string | null; ship_country: string | null }[];
+      };
+      admin_set_donation_wall: {
+        Args: { p_id: string; p_published: boolean; p_featured?: boolean; p_publish_as?: string | null; p_note?: string | null; p_logo_url?: string | null };
+        Returns: Json;
+      };
+      search_members: {
+        Args: { p_query: string };
+        Returns: { member_no: number; full_name: string; business_name: string | null; avatar_url: string | null; role: string }[];
       };
       admin_country_prices: {
         Args: { p_country: string };

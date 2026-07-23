@@ -33,7 +33,8 @@
     "events": "活动",
     "calendar": "日历",
     "messages": "消息",
-    "myPanel": "我的面板"
+    "myPanel": "我的面板",
+    "donate": "捐赠"
   },
   "home": {
     "title": "首个连接神经发育与神经多样性领域中患者、家庭、专家与服务方的全球社区。",
@@ -75,7 +76,15 @@
       "hint": "选择你的国家，查看附近的专家、学校和提供者。",
       "selected": "正在为 {{country}} 显示平台。"
     },
-    "heroAlt": "由家庭、神经多样性人士和神经发育专家组成的社区"
+    "heroAlt": "由家庭、神经多样性人士和神经发育专家组成的社区",
+    "donors": {
+      "badge": "感谢",
+      "title": "认识我们的捐赠者",
+      "body": "是他们让 Neuromundi 成为可能。他们的支持维系着平台，并帮助家庭、专业人士和儿童。",
+      "cta": "认识我们的捐赠者",
+      "donateCta": "我要捐赠"
+    },
+    "donateHint": "想帮助 Neuromundi 保持免费吗？了解如何支持。"
   },
   "auth": {
     "login": "登录",
@@ -648,7 +657,8 @@
     "noCredential": "无专业证件",
     "viewDoc": "查看文件{{n}}",
     "secReferrals": "推荐",
-    "secFees": "会费"
+    "secFees": "会费",
+    "secDonations": "捐赠"
   },
   "reg": {
     "typePatient": "患者",
@@ -1099,6 +1109,9 @@
     },
     "commission": {
       "title": "您收到了一笔佣金"
+    },
+    "donation": {
+      "title": "感谢您的捐赠"
     }
   },
   "clin": {
@@ -2484,7 +2497,11 @@
     "hint": "专家可通过会员编号发起；任何平台的视频链接都会显示为链接。",
     "room": "创建视频房间",
     "roomPrefix": "视频房间：",
-    "badFolio": "会员编号无效。"
+    "badFolio": "会员编号无效。",
+    "searchLabel": "搜索会员",
+    "searchPlaceholder": "编号、名或姓…",
+    "searching": "搜索中…",
+    "toName": "收件人：{{name}}"
   },
   "book": {
     "title": "预约",
@@ -2723,6 +2740,190 @@
       "payable": "待付",
       "paid": "已付",
       "reversed": "已撤销"
+    }
+  },
+  "donate": {
+    "badge": "助力包容",
+    "title": "向 Neuromundi 捐赠",
+    "subtitle": "您的捐助维系并壮大一个支持神经多样性与神经发育的社区。",
+    "currency": {
+      "label": "货币"
+    },
+    "amount": {
+      "label": "选择金额",
+      "other": "其他金额"
+    },
+    "belowMin": "可获得回馈的最低金额为 {{min}}。",
+    "waive": "我不需要实物回馈。我希望我的 100% 捐款都用于 Neuromundi。",
+    "cta": "助力包容",
+    "secureNote": "由 Stripe 提供安全支付。我们绝不保存您的银行卡信息。",
+    "level": {
+      "seed": {
+        "name": "共情之种",
+        "tagline": "播下包容的第一步。"
+      },
+      "ally": {
+        "name": "包容盟友",
+        "tagline": "与我们一同迈向更无障碍的世界。"
+      },
+      "driver": {
+        "name": "发展推动者",
+        "tagline": "您的助力抵达更远、惠及更多人。"
+      },
+      "ambassador": {
+        "name": "Neuromundi 大使",
+        "tagline": "您是这项事业的面孔与声音。"
+      }
+    },
+    "reward": {
+      "course": "神经多样性与神经发育免费课程",
+      "wall": "捐赠者墙留名",
+      "pin": "Neuromundi 官方徽章（国内寄送）",
+      "mug": "Neuromundi 马克杯",
+      "wallFeatured": "捐赠者墙重点展示（含标志或照片）",
+      "ambassadorExtra": "个人资料徽章（若为专业人士）或团体问答会（若为患者或家庭）"
+    },
+    "ship": {
+      "title": "寄送信息",
+      "useRegistered": "使用我账户中的地址",
+      "useOther": "寄往其他地址",
+      "recipient": "收件人",
+      "address": "地址",
+      "city": "城市",
+      "postal": "邮政编码",
+      "country": "国家",
+      "registeredNote": "我们将寄往您资料中保存的地址。"
+    },
+    "who": {
+      "title": "捐赠者信息",
+      "person": "个人",
+      "company": "企业或组织",
+      "orgName": "企业或组织名称",
+      "contactName": "联系人姓名",
+      "personName": "您的姓名",
+      "email": "联系邮箱"
+    },
+    "wall": {
+      "consent": "我授权在捐赠者墙上公布我的姓名（或我的企业/组织名称）。",
+      "publishAs": "墙上显示的名称",
+      "publishAsHint": "若留空，我们将使用您的姓名或组织名称。"
+    },
+    "use": {
+      "title": "您的捐款用于何处？",
+      "platform": "平台的维护与改进",
+      "outreach": "在全球推广 Neuromundi",
+      "scholarships": "为患者、家庭、专业人士、照护者和教师提供的神经发育与神经多样性培训奖学金",
+      "products": "购买并捐赠有助于神经多样人群，以及低收入儿童和青少年神经发育的产品"
+    },
+    "err": {
+      "minAmount": "最低捐款为 {{min}}。",
+      "name": "请填写您的姓名。",
+      "org": "请填写企业或组织名称。",
+      "email": "请填写有效邮箱。",
+      "recipient": "请指明寄送的收件人。",
+      "address": "请填写完整的寄送地址。",
+      "checkout": "无法发起支付，请重试。"
+    },
+    "result": {
+      "ok": "感谢您的捐赠！您的贡献助力包容。",
+      "cancel": "捐赠已取消。您可以随时重试。"
+    }
+  },
+  "allies": {
+    "title": "Neuromundi 伙伴"
+  },
+  "wall": {
+    "badge": "捐赠者墙",
+    "title": "推动包容的人们",
+    "intro": "这些个人、企业和组织因其对 Neuromundi 的贡献而受到展示：他们维系并壮大平台，帮助患者、家庭、专业人士，以及儿童和青少年的神经发育。他们在本人同意下展示于此。",
+    "emptyTitle": "暂无已公开的捐赠者",
+    "empty": "很快您将在此看到推动这项事业的人们。",
+    "featuredTitle": "大使",
+    "othersTitle": "捐赠者",
+    "ctaTitle": "加入这个社区",
+    "ctaBody": "无论金额多少，您的捐赠都助力包容与神经发育。",
+    "cta": "助力包容"
+  },
+  "adm": {
+    "don": {
+      "statsTitle": "统计",
+      "noStats": "暂无捐赠。",
+      "count": "{{n}} 笔捐赠",
+      "shipPending": "{{n}} 笔待寄送",
+      "listTitle": "捐赠",
+      "emptyTitle": "暂无捐赠",
+      "empty": "有人捐赠后将显示在此。",
+      "consentYes": "同意展示于墙",
+      "consentNo": "不同意上墙",
+      "onWall": "已上墙",
+      "featured": "重点展示",
+      "unpublish": "移出墙",
+      "publish": "发布到墙",
+      "unfeature": "取消重点",
+      "feature": "设为重点",
+      "edit": "编辑",
+      "publishAs": "显示名称",
+      "note": "备注",
+      "logo": "标志/照片网址",
+      "saveWall": "保存",
+      "useRegistered": "使用其账户中的地址",
+      "noConsent": "该捐赠者未同意展示于墙。",
+      "wallError": "无法更新墙。",
+      "wallOk": "墙已更新。",
+      "status": {
+        "pending": "待处理",
+        "paid": "已支付",
+        "failed": "失败",
+        "refunded": "已退款"
+      }
+    },
+    "ally": {
+      "title": "伙伴（首页轮播）",
+      "hint": "在首页展示的合作机构与企业标志。",
+      "name": "名称",
+      "logoUrl": "标志网址",
+      "website": "网站（选填）",
+      "order": "排序",
+      "add": "添加伙伴",
+      "update": "更新",
+      "saved": "伙伴已保存",
+      "error": "无法保存。",
+      "need": "名称与标志网址为必填。",
+      "hide": "隐藏",
+      "show": "显示",
+      "edit": "编辑",
+      "del": "删除",
+      "delTitle": "删除伙伴",
+      "delBody": "确定要将该伙伴从轮播中移除吗？",
+      "deleted": "伙伴已删除"
+    },
+    "tier": {
+      "title": "各币种的捐赠金额",
+      "hint": "设置每种货币下各等级的金额。须由小到大。",
+      "save": "保存",
+      "saved": "金额已保存",
+      "error": "无法保存。",
+      "active": "启用",
+      "order": "金额须递增（种子＜盟友＜推动者＜大使）。"
+    }
+  },
+  "callout": {
+    "directory": {
+      "title": "找到合适的专业人士了吗？",
+      "body": "帮助我们让这份目录保持免费，惠及更多家庭。"
+    },
+    "toolkit": {
+      "title": "这份指南对您有帮助吗？",
+      "body": "您的捐助让我们能持续为更多家庭创作免费资源。"
+    },
+    "dashboard": {
+      "title": "Neuromundi 依靠社区",
+      "body": "您的账户是免费的。若有余力，您的捐助有助于维系平台并帮助更多家庭。"
+    },
+    "specialist": {
+      "title": "成为团结专家",
+      "body": "通过大使级捐赠，您可让个人资料获得重点展示，并解锁徽章与课程，同时助力包容。",
+      "cta": "重点展示我的资料"
     }
   }
 }

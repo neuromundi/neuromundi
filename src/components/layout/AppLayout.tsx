@@ -6,7 +6,7 @@
  * estado activo visible y labels claros (poca carga cognitiva).
  */
 import { NavLink, Outlet, useNavigate, Link } from 'react-router-dom';
-import { Compass, LayoutDashboard, Settings, LogIn, LogOut, ShieldCheck, MessageCircleQuestion, School, GraduationCap, Grid3x3, X, BookOpenCheck, BookOpen, ShieldAlert, CalendarDays, ShoppingBag, MessageSquare } from 'lucide-react';
+import { Compass, LayoutDashboard, Settings, LogIn, LogOut, ShieldCheck, MessageCircleQuestion, School, GraduationCap, Grid3x3, X, BookOpenCheck, BookOpen, ShieldAlert, CalendarDays, ShoppingBag, MessageSquare, Heart } from 'lucide-react';
 import { Suspense, lazy, useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -99,6 +99,12 @@ export function AppLayout() {
   });
   const [authView, setAuthView] = useState<AuthView>('none');
   const [showWelcome, setShowWelcome] = useState(false);
+  // UI no crítica (banner de registro suave, botón flotante de soporte): sus
+  // chunks se descargaban durante el primer pintado y entraban en la cadena
+  // crítica del LCP (nodos SoftSignupBanner/SupportButton del árbol de red).
+  // No se ven en el instante inicial, así que se montan cuando el navegador
+  // queda ocioso; su descarga deja de competir con el héroe.
+  const [deferUi, setDeferUi] = useState(false);
   // Guía rápida: se muestra una vez, tras el video de introducción.
   const [showTour, setShowTour] = useState(false);
   const [showFounder, setShowFounder] = useState(false);
@@ -163,6 +169,15 @@ export function AppLayout() {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showVideo]);
+
+  // Monta la UI no crítica cuando el navegador queda ocioso (o, como respaldo,
+  // 2 s después). Así sus chunks no viajan en la ventana del LCP.
+  useEffect(() => {
+    const w = window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number };
+    const run = () => setDeferUi(true);
+    const id = w.requestIdleCallback ? w.requestIdleCallback(run, { timeout: 3000 }) : window.setTimeout(run, 2000);
+    return () => { if (!w.requestIdleCallback && typeof id === 'number') window.clearTimeout(id); };
+  }, []);
 
   // Captura el código de afiliado (?ref=CODE) para aplicarlo en la compra.
   useEffect(() => {
@@ -289,7 +304,7 @@ export function AppLayout() {
         {authView !== 'none' && (
           <AuthModals view={authView} onChangeView={setAuthView} onAuthenticated={() => navigate('/panel')} />
         )}
-        <SoftSignupBanner onSignup={() => navigate('/crear-cuenta')} />
+        {deferUi && <SoftSignupBanner onSignup={() => navigate('/crear-cuenta')} />}
       </Suspense>
       <header className="sticky top-0 z-30 border-b border-slate-100 bg-white/90 backdrop-blur">
         <div className="mx-auto max-w-6xl px-4 py-3">
@@ -330,6 +345,15 @@ export function AppLayout() {
 
               {/* Separador visual entre navegación y controles de cuenta */}
               <span className="mx-1 hidden h-6 w-px bg-slate-200 lg:block" aria-hidden="true" />
+
+              {/* Donación: botón sólido con color de acento (dorado de marca)
+                  para que destaque del resto de la navegación. */}
+              <NavLink
+                to="/donar"
+                className="inline-flex items-center gap-1.5 rounded-full bg-[#8C6D1F] px-3.5 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#75591a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8C6D1F] focus-visible:ring-offset-2"
+              >
+                <Heart className="h-4 w-4" aria-hidden="true" /> {t('nav.donate')}
+              </NavLink>
 
               {isAuthenticated && <NotificationsBell />}
               <AccessibilityMenu />
@@ -407,7 +431,13 @@ export function AppLayout() {
 
       <footer className="border-t border-slate-100 px-4 pt-6 pb-24 text-center text-sm text-muted md:pb-6">
         <p className="mb-3 font-semibold text-slate-700">{t('followUs.title')}</p>
-        <SocialLinks className="mb-5" />
+        <SocialLinks className="mb-4" />
+        {/* Instalar app: va JUSTO debajo de las redes, en la parte alta del pie,
+            para que la barra inferior fija de móvil no lo tape (al final del pie
+            sí quedaba cubierto). Devuelve null si no se puede instalar. */}
+        <div className="mb-5 flex justify-center">
+          <InstallAppButton />
+        </div>
         <Link to="/proteccion-datos" className="hover:text-brand-700">{t('nav.dataProtection')}</Link>
         <span className="mx-2">·</span>
         <Link to="/privacidad" className="hover:text-brand-700">{t('auth.privacy')}</Link>
@@ -415,9 +445,8 @@ export function AppLayout() {
         <Link to="/terminos" className="hover:text-brand-700">{t('auth.terms')}</Link>
         <span className="mx-2">·</span>
         <Link to="/manifiesto" className="hover:text-brand-700">{t('footer.manifesto')}</Link>
-        <div className="mt-4 flex justify-center">
-          <InstallAppButton />
-        </div>
+        <span className="mx-2">·</span>
+        <Link to="/donar" className="font-semibold text-[#8C6D1F] hover:underline">{t('nav.donate')}</Link>
         <div className="mt-4">
           <button
             type="button"
@@ -453,6 +482,7 @@ export function AppLayout() {
                 ...(isAuthenticated ? [{ to: '/calendario', icon: <CalendarDays className="h-6 w-6" />, label: t('nav.calendar'), color: 'bg-slate-600' }] : []),
                 ...(isAuthenticated ? [{ to: '/mensajes', icon: <MessageSquare className="h-6 w-6" />, label: t('nav.messages'), color: 'bg-slate-600' }] : []),
                 { to: '/tienda', icon: <ShoppingBag className="h-6 w-6" />, label: t('shop.title'), color: 'bg-gradient-to-br from-fuchsia-600 via-purple-600 to-indigo-600' },
+                { to: '/donar', icon: <Heart className="h-6 w-6" />, label: t('nav.donate'), color: 'bg-[#8C6D1F]' },
               ].map((it) => (
                 <button
                   key={it.to}
@@ -464,6 +494,13 @@ export function AppLayout() {
                   {it.label}
                 </button>
               ))}
+            </div>
+            {/* Instalar app: en el pie queda debajo de la barra inferior fija y
+                no se alcanza en móvil. Aquí, en el menú "Más", es accesible. Solo
+                se pinta si de verdad se puede instalar (el componente devuelve
+                null en caso contrario), así que no ocupa espacio de más. */}
+            <div className="mt-4 flex justify-center border-t border-slate-100 pt-4">
+              <InstallAppButton />
             </div>
             <div className="mt-4 flex items-center justify-between border-t border-slate-100 pt-4">
               <LanguageSwitcher />
@@ -508,9 +545,11 @@ export function AppLayout() {
         )}
       </nav>
 
-      <Suspense fallback={null}>
-        <SupportButton />
-      </Suspense>
+      {deferUi && (
+        <Suspense fallback={null}>
+          <SupportButton />
+        </Suspense>
+      )}
     </div>
   );
 }

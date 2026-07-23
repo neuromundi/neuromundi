@@ -40,6 +40,8 @@ const Toolkit = lazy(() => import('@/pages/Toolkit').then((m) => ({ default: m.T
 const Blog = lazy(() => import('@/pages/Blog').then((m) => ({ default: m.Blog })));
 const Author = lazy(() => import('@/pages/Author').then((m) => ({ default: m.Author })));
 const Manifiesto = lazy(() => import('@/pages/Manifiesto').then((m) => ({ default: m.Manifiesto })));
+const Donate = lazy(() => import('@/pages/Donate').then((m) => ({ default: m.Donate })));
+const DonorWall = lazy(() => import('@/pages/DonorWall').then((m) => ({ default: m.DonorWall })));
 const Events = lazy(() => import('@/pages/Events').then((m) => ({ default: m.Events })));
 const CalendarPage = lazy(() => import('@/pages/Calendar').then((m) => ({ default: m.Calendar })));
 const Messages = lazy(() => import('@/pages/Messages').then((m) => ({ default: m.Messages })));
@@ -70,6 +72,8 @@ const router = createBrowserRouter([
       { path: '/blog', element: <Blog /> },
       { path: '/autor/:id', element: <Author /> },
       { path: '/manifiesto', element: <Manifiesto /> },
+      { path: '/donar', element: <Donate /> },
+      { path: '/donantes', element: <DonorWall /> },
       { path: '/entrar', element: <Auth /> },
       {
         element: <ProtectedRoute />,

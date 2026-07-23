@@ -83,6 +83,35 @@ Deno.serve(async (req: Request) => {
         const s = event.data.object as Stripe.Checkout.Session;
         const kind = s.metadata?.kind;
 
+        // Donación (pago único). Marca pagada y otorga las recompensas
+        // digitales automáticas ya registradas en la fila (grant_course /
+        // grant_badge). El muro y las recompensas físicas los gestiona el admin.
+        if (kind === 'donation') {
+          const donationId = s.metadata?.donation_id;
+          if (donationId) {
+            await admin
+              .from('donations')
+              .update({ status: 'paid', paid_at: new Date().toISOString() })
+              .eq('id', donationId);
+            // Agradecimiento en la campana si el donante es miembro.
+            const { data: d } = await admin
+              .from('donations')
+              .select('donor_user_id, grant_badge')
+              .eq('id', donationId)
+              .single();
+            if (d?.donor_user_id) {
+              await admin.from('notifications').insert({
+                user_id: d.donor_user_id,
+                type: 'donation_thanks',
+                title: 'Gracias por tu donativo',
+                body: 'Tu aporte impulsa la inclusión. Revisa tus recompensas en tu perfil.',
+                data: { donation_id: donationId },
+              });
+            }
+          }
+          break;
+        }
+
         // Fase 6: compra de producto (mini-tienda).
         if (kind === 'product') {
           const pi = typeof s.payment_intent === 'string' ? s.payment_intent : s.payment_intent?.id;
@@ -154,6 +183,12 @@ Deno.serve(async (req: Request) => {
         await admin
           .from('orders')
           .update({ status: 'refunded' })
+          .eq('stripe_session_id', sessionId);
+        // Un donativo reembolsado también se marca, para que no siga contando en
+        // la estadística ni en el muro.
+        await admin
+          .from('donations')
+          .update({ status: 'refunded', wall_published: false })
           .eq('stripe_session_id', sessionId);
         break;
       }

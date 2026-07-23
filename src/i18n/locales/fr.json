@@ -33,7 +33,8 @@
     "events": "Événements",
     "calendar": "Calendrier",
     "messages": "Messages",
-    "myPanel": "Mon espace"
+    "myPanel": "Mon espace",
+    "donate": "Faire un don"
   },
   "home": {
     "title": "La première communauté mondiale qui relie patients, familles, spécialistes et prestataires du neurodéveloppement et de la neurodivergence.",
@@ -75,7 +76,15 @@
       "hint": "Choisissez votre pays pour voir les spécialistes, écoles et prestataires proches.",
       "selected": "Plateforme affichée pour {{country}}."
     },
-    "heroAlt": "Communauté de familles, de personnes neurodivergentes et de spécialistes du neurodéveloppement"
+    "heroAlt": "Communauté de familles, de personnes neurodivergentes et de spécialistes du neurodéveloppement",
+    "donors": {
+      "badge": "Gratitude",
+      "title": "Découvrez nos donateurs",
+      "body": "Des personnes et organisations qui rendent Neuromundi possible. Leur soutien fait vivre la plateforme et aide familles, spécialistes et enfants.",
+      "cta": "Découvrez nos donateurs",
+      "donateCta": "Faire un don"
+    },
+    "donateHint": "Envie d'aider à garder Neuromundi gratuit ? Découvrez comment soutenir."
   },
   "auth": {
     "login": "Se connecter",
@@ -648,7 +657,8 @@
     "noCredential": "Aucun titre professionnel",
     "viewDoc": "Voir le document {{n}}",
     "secReferrals": "Parrainages",
-    "secFees": "Cotisations"
+    "secFees": "Cotisations",
+    "secDonations": "Dons"
   },
   "reg": {
     "typePatient": "Patient",
@@ -1099,6 +1109,9 @@
     },
     "commission": {
       "title": "Une commission vous a été payée"
+    },
+    "donation": {
+      "title": "Merci pour votre don"
     }
   },
   "clin": {
@@ -2484,7 +2497,11 @@
     "hint": "Le spécialiste peut démarrer par folio ; les liens vidéo de toute plateforme apparaissent comme des liens.",
     "room": "Créer une salle vidéo",
     "roomPrefix": "Salle vidéo :",
-    "badFolio": "Folio invalide."
+    "badFolio": "Folio invalide.",
+    "searchLabel": "Rechercher un membre",
+    "searchPlaceholder": "Folio, nom ou prénom…",
+    "searching": "Recherche…",
+    "toName": "À : {{name}}"
   },
   "book": {
     "title": "Réservez votre rendez-vous",
@@ -2723,6 +2740,190 @@
       "payable": "À payer",
       "paid": "Payée",
       "reversed": "Annulée"
+    }
+  },
+  "donate": {
+    "badge": "Soutenez l'inclusion",
+    "title": "Faire un don à Neuromundi",
+    "subtitle": "Votre don soutient et fait grandir une communauté d'entraide pour la neurodivergence et le neurodéveloppement.",
+    "currency": {
+      "label": "Devise"
+    },
+    "amount": {
+      "label": "Choisissez un montant",
+      "other": "Autre montant"
+    },
+    "belowMin": "Le montant minimum pour recevoir une récompense est {{min}}.",
+    "waive": "Je ne souhaite pas de récompenses physiques. Je préfère que 100 % de mon don aille à Neuromundi.",
+    "cta": "Soutenez l'inclusion",
+    "secureNote": "Paiement sécurisé avec Stripe. Nous ne conservons jamais vos données bancaires.",
+    "level": {
+      "seed": {
+        "name": "Graine d'Empathie",
+        "tagline": "Le premier pas pour semer l'inclusion."
+      },
+      "ally": {
+        "name": "Allié de l'Inclusion",
+        "tagline": "Vous avancez avec nous vers un monde plus accessible."
+      },
+      "driver": {
+        "name": "Moteur du Développement",
+        "tagline": "Votre élan va plus loin et touche plus de personnes."
+      },
+      "ambassador": {
+        "name": "Ambassadeur Neuromundi",
+        "tagline": "Vous êtes un visage et une voix de la cause."
+      }
+    },
+    "reward": {
+      "course": "Cours gratuit sur la neurodivergence et le neurodéveloppement",
+      "wall": "Mention sur le mur des donateurs",
+      "pin": "Pin officiel Neuromundi (envoi national)",
+      "mug": "Tasse Neuromundi",
+      "wallFeatured": "Mention en vedette sur le mur (avec logo ou photo)",
+      "ambassadorExtra": "Badge de profil (si vous êtes spécialiste) ou séance de questions-réponses en groupe (si vous êtes patient ou famille)"
+    },
+    "ship": {
+      "title": "Informations de livraison",
+      "useRegistered": "Utiliser l'adresse de mon compte",
+      "useOther": "Livrer à une autre adresse",
+      "recipient": "À l'attention de",
+      "address": "Adresse",
+      "city": "Ville",
+      "postal": "Code postal",
+      "country": "Pays",
+      "registeredNote": "Nous livrerons à l'adresse enregistrée dans votre profil."
+    },
+    "who": {
+      "title": "Informations du donateur",
+      "person": "Particulier",
+      "company": "Entreprise ou organisation",
+      "orgName": "Nom de l'entreprise ou de l'organisation",
+      "contactName": "Nom de la personne de contact",
+      "personName": "Votre nom",
+      "email": "E-mail de contact"
+    },
+    "wall": {
+      "consent": "J'autorise la publication de mon nom (ou de celui de mon entreprise/organisation) sur le mur des donateurs.",
+      "publishAs": "Nom à afficher sur le mur",
+      "publishAsHint": "Si vide, nous utiliserons votre nom ou celui de votre organisation."
+    },
+    "use": {
+      "title": "Où va votre don ?",
+      "platform": "Maintenance et amélioration de la plateforme",
+      "outreach": "Diffusion de Neuromundi dans le monde",
+      "scholarships": "Bourses de formation en neurodéveloppement et neurodivergence pour patients, familles, spécialistes, aidants et enseignants",
+      "products": "Achat et don de produits qui aident les personnes neurodivergentes et le neurodéveloppement des enfants et jeunes défavorisés"
+    },
+    "err": {
+      "minAmount": "Le don minimum est {{min}}.",
+      "name": "Saisissez votre nom.",
+      "org": "Saisissez le nom de l'entreprise ou de l'organisation.",
+      "email": "Saisissez un e-mail valide.",
+      "recipient": "Indiquez à qui la livraison est adressée.",
+      "address": "Complétez l'adresse de livraison.",
+      "checkout": "Impossible de démarrer le paiement. Réessayez."
+    },
+    "result": {
+      "ok": "Merci pour votre don ! Votre geste soutient l'inclusion.",
+      "cancel": "Le don a été annulé. Vous pouvez réessayer à tout moment."
+    }
+  },
+  "allies": {
+    "title": "Alliés Neuromundi"
+  },
+  "wall": {
+    "badge": "Mur des donateurs",
+    "title": "Celles et ceux qui font avancer l'inclusion",
+    "intro": "Ces personnes, entreprises et organisations sont mises en avant pour leur contribution à Neuromundi : elles soutiennent et font grandir la plateforme et aident les patients, les familles, les spécialistes et le neurodéveloppement des enfants et des jeunes. Elles figurent ici avec leur consentement.",
+    "emptyTitle": "Aucun donateur publié pour l'instant",
+    "empty": "Vous verrez bientôt ici celles et ceux qui portent cette cause.",
+    "featuredTitle": "Ambassadeurs",
+    "othersTitle": "Donateurs",
+    "ctaTitle": "Rejoignez cette communauté",
+    "ctaBody": "Votre don, quel qu'en soit le montant, soutient l'inclusion et le neurodéveloppement.",
+    "cta": "Soutenez l'inclusion"
+  },
+  "adm": {
+    "don": {
+      "statsTitle": "Statistiques",
+      "noStats": "Aucun don pour l'instant.",
+      "count": "{{n}} dons",
+      "shipPending": "{{n}} envois en attente",
+      "listTitle": "Dons",
+      "emptyTitle": "Aucun don",
+      "empty": "Quand quelqu'un fait un don, il apparaîtra ici.",
+      "consentYes": "Autorise à figurer sur le mur",
+      "consentNo": "N'autorise pas le mur",
+      "onWall": "sur le mur",
+      "featured": "en vedette",
+      "unpublish": "Retirer du mur",
+      "publish": "Publier sur le mur",
+      "unfeature": "Retirer la mise en avant",
+      "feature": "Mettre en avant",
+      "edit": "Modifier",
+      "publishAs": "Nom affiché",
+      "note": "Note",
+      "logo": "URL du logo/photo",
+      "saveWall": "Enregistrer",
+      "useRegistered": "Utilise l'adresse de son compte",
+      "noConsent": "Ce donateur n'a pas autorisé à figurer sur le mur.",
+      "wallError": "Impossible de mettre à jour le mur.",
+      "wallOk": "Mur mis à jour.",
+      "status": {
+        "pending": "en attente",
+        "paid": "payé",
+        "failed": "échoué",
+        "refunded": "remboursé"
+      }
+    },
+    "ally": {
+      "title": "Alliés (carrousel d'accueil)",
+      "hint": "Logos des institutions et entreprises alliées affichés sur la page d'accueil.",
+      "name": "Nom",
+      "logoUrl": "URL du logo",
+      "website": "Site web (facultatif)",
+      "order": "Ordre",
+      "add": "Ajouter un allié",
+      "update": "Mettre à jour",
+      "saved": "Allié enregistré",
+      "error": "Impossible d'enregistrer.",
+      "need": "Le nom et l'URL du logo sont obligatoires.",
+      "hide": "Masquer",
+      "show": "Afficher",
+      "edit": "Modifier",
+      "del": "Supprimer",
+      "delTitle": "Supprimer l'allié",
+      "delBody": "Voulez-vous vraiment retirer cet allié du carrousel ?",
+      "deleted": "Allié supprimé"
+    },
+    "tier": {
+      "title": "Montants de don par devise",
+      "hint": "Définissez le montant de chaque niveau par devise. Ils doivent aller du plus petit au plus grand.",
+      "save": "Enregistrer",
+      "saved": "Montants enregistrés",
+      "error": "Impossible d'enregistrer.",
+      "active": "Active",
+      "order": "Les montants doivent être croissants (Graine < Allié < Moteur < Ambassadeur)."
+    }
+  },
+  "callout": {
+    "directory": {
+      "title": "Vous avez trouvé le bon spécialiste ?",
+      "body": "Aidez-nous à garder cet annuaire gratuit et accessible à plus de familles."
+    },
+    "toolkit": {
+      "title": "Ce guide vous a-t-il été utile ?",
+      "body": "Votre contribution nous aide à continuer de créer des ressources gratuites."
+    },
+    "dashboard": {
+      "title": "Neuromundi vit grâce à la communauté",
+      "body": "Votre compte est gratuit. Si vous le pouvez, un don aide à faire vivre la plateforme et plus de familles."
+    },
+    "specialist": {
+      "title": "Devenez Spécialiste Solidaire",
+      "body": "Avec un don de niveau Ambassadeur, mettez votre profil en avant et débloquez un badge et des cours, tout en soutenant l'inclusion.",
+      "cta": "Mettre mon profil en avant"
     }
   }
 }

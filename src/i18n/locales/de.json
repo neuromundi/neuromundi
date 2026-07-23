@@ -33,7 +33,8 @@
     "events": "Veranstaltungen",
     "calendar": "Kalender",
     "messages": "Nachrichten",
-    "myPanel": "Mein Bereich"
+    "myPanel": "Mein Bereich",
+    "donate": "Spenden"
   },
   "home": {
     "title": "Die erste globale Community, die Patienten, Familien, Fachkräfte und Anbieter in Neuroentwicklung und Neurodivergenz verbindet.",
@@ -75,7 +76,15 @@
       "hint": "Wählen Sie Ihr Land, um Fachkräfte, Schulen und Anbieter in der Nähe zu sehen.",
       "selected": "Plattform für {{country}} wird angezeigt."
     },
-    "heroAlt": "Gemeinschaft aus Familien, neurodivergenten Menschen und Fachleuten für Neuroentwicklung"
+    "heroAlt": "Gemeinschaft aus Familien, neurodivergenten Menschen und Fachleuten für Neuroentwicklung",
+    "donors": {
+      "badge": "Dankbarkeit",
+      "title": "Lerne unsere Spender kennen",
+      "body": "Menschen und Organisationen, die Neuromundi möglich machen. Ihre Unterstützung trägt die Plattform und hilft Familien, Fachkräften und Kindern.",
+      "cta": "Unsere Spender kennenlernen",
+      "donateCta": "Jetzt spenden"
+    },
+    "donateHint": "Möchtest du Neuromundi kostenlos halten? Erfahre, wie du unterstützen kannst."
   },
   "auth": {
     "login": "Anmelden",
@@ -648,7 +657,8 @@
     "noCredential": "Kein Berufsnachweis",
     "viewDoc": "Dokument {{n}} ansehen",
     "secReferrals": "Empfehlungen",
-    "secFees": "Beiträge"
+    "secFees": "Beiträge",
+    "secDonations": "Spenden"
   },
   "reg": {
     "typePatient": "Patient",
@@ -1099,6 +1109,9 @@
     },
     "commission": {
       "title": "Ihnen wurde eine Provision gezahlt"
+    },
+    "donation": {
+      "title": "Danke für deine Spende"
     }
   },
   "clin": {
@@ -2484,7 +2497,11 @@
     "hint": "Fachkräfte können per Mitglieds-Nr. starten; Video-Links jeder Plattform erscheinen als Links.",
     "room": "Videoraum erstellen",
     "roomPrefix": "Videoraum:",
-    "badFolio": "Ungültige Mitglieds-Nr."
+    "badFolio": "Ungültige Mitglieds-Nr.",
+    "searchLabel": "Mitglied suchen",
+    "searchPlaceholder": "Folio, Vor- oder Nachname…",
+    "searching": "Suche…",
+    "toName": "An: {{name}}"
   },
   "book": {
     "title": "Termin buchen",
@@ -2723,6 +2740,190 @@
       "payable": "Zu zahlen",
       "paid": "Bezahlt",
       "reversed": "Storniert"
+    }
+  },
+  "donate": {
+    "badge": "Inklusion fördern",
+    "title": "An Neuromundi spenden",
+    "subtitle": "Deine Spende trägt und stärkt eine Unterstützungsgemeinschaft für Neurodivergenz und Neuroentwicklung.",
+    "currency": {
+      "label": "Währung"
+    },
+    "amount": {
+      "label": "Betrag wählen",
+      "other": "Anderer Betrag"
+    },
+    "belowMin": "Der Mindestbetrag für eine Belohnung ist {{min}}.",
+    "waive": "Ich möchte keine physischen Belohnungen. Ich ziehe es vor, dass 100 % meiner Spende an Neuromundi gehen.",
+    "cta": "Inklusion fördern",
+    "secureNote": "Sichere Zahlung mit Stripe. Wir speichern deine Kartendaten nie.",
+    "level": {
+      "seed": {
+        "name": "Same der Empathie",
+        "tagline": "Der erste Schritt, um Inklusion zu säen."
+      },
+      "ally": {
+        "name": "Verbündeter der Inklusion",
+        "tagline": "Du gehst mit uns Richtung einer barrierefreieren Welt."
+      },
+      "driver": {
+        "name": "Motor der Entwicklung",
+        "tagline": "Dein Antrieb reicht weiter und erreicht mehr Menschen."
+      },
+      "ambassador": {
+        "name": "Neuromundi-Botschafter",
+        "tagline": "Du bist Gesicht und Stimme der Sache."
+      }
+    },
+    "reward": {
+      "course": "Kostenloser Kurs zu Neurodivergenz und Neuroentwicklung",
+      "wall": "Nennung an der Spenderwand",
+      "pin": "Offizieller Neuromundi-Pin (Inlandsversand)",
+      "mug": "Neuromundi-Tasse",
+      "wallFeatured": "Hervorgehobene Nennung an der Wand (mit Logo oder Foto)",
+      "ambassadorExtra": "Profilabzeichen (wenn du Fachkraft bist) oder Gruppen-Fragerunde (wenn du Patient oder Familie bist)"
+    },
+    "ship": {
+      "title": "Versanddaten",
+      "useRegistered": "Die Adresse aus meinem Konto verwenden",
+      "useOther": "An eine andere Adresse senden",
+      "recipient": "Zu Händen von",
+      "address": "Adresse",
+      "city": "Stadt",
+      "postal": "Postleitzahl",
+      "country": "Land",
+      "registeredNote": "Wir senden an die in deinem Profil gespeicherte Adresse."
+    },
+    "who": {
+      "title": "Angaben zum Spender",
+      "person": "Privatperson",
+      "company": "Unternehmen oder Organisation",
+      "orgName": "Name des Unternehmens oder der Organisation",
+      "contactName": "Name der Kontaktperson",
+      "personName": "Dein Name",
+      "email": "Kontakt-E-Mail"
+    },
+    "wall": {
+      "consent": "Ich erlaube die Veröffentlichung meines Namens (oder des meines Unternehmens/meiner Organisation) an der Spenderwand.",
+      "publishAs": "Anzuzeigender Name an der Wand",
+      "publishAsHint": "Wenn leer, verwenden wir deinen Namen oder den deiner Organisation."
+    },
+    "use": {
+      "title": "Wohin geht deine Spende?",
+      "platform": "Wartung und Verbesserung der Plattform",
+      "outreach": "Verbreitung von Neuromundi in der Welt",
+      "scholarships": "Ausbildungsstipendien zu Neuroentwicklung und Neurodivergenz für Patienten, Familien, Fachkräfte, Betreuende und Lehrkräfte",
+      "products": "Kauf und Spende von Produkten, die neurodivergenten Menschen und der Neuroentwicklung einkommensschwacher Kinder und Jugendlicher helfen"
+    },
+    "err": {
+      "minAmount": "Die Mindestspende beträgt {{min}}.",
+      "name": "Gib deinen Namen ein.",
+      "org": "Gib den Namen des Unternehmens oder der Organisation ein.",
+      "email": "Gib eine gültige E-Mail ein.",
+      "recipient": "Gib an, an wen der Versand gerichtet ist.",
+      "address": "Vervollständige die Versandadresse.",
+      "checkout": "Zahlung konnte nicht gestartet werden. Bitte erneut versuchen."
+    },
+    "result": {
+      "ok": "Danke für deine Spende! Dein Beitrag fördert Inklusion.",
+      "cancel": "Die Spende wurde abgebrochen. Du kannst es jederzeit erneut versuchen."
+    }
+  },
+  "allies": {
+    "title": "Neuromundi-Partner"
+  },
+  "wall": {
+    "badge": "Spenderwand",
+    "title": "Wer Inklusion vorantreibt",
+    "intro": "Diese Menschen, Unternehmen und Organisationen werden für ihren Beitrag zu Neuromundi hervorgehoben: Sie tragen und stärken die Plattform und helfen Patienten, Familien, Fachkräften und der Neuroentwicklung von Kindern und Jugendlichen. Sie erscheinen hier mit ihrer Zustimmung.",
+    "emptyTitle": "Noch keine Spender veröffentlicht",
+    "empty": "Bald siehst du hier, wer diese Sache vorantreibt.",
+    "featuredTitle": "Botschafter",
+    "othersTitle": "Spender",
+    "ctaTitle": "Werde Teil dieser Gemeinschaft",
+    "ctaBody": "Deine Spende, egal wie hoch, fördert Inklusion und Neuroentwicklung.",
+    "cta": "Inklusion fördern"
+  },
+  "adm": {
+    "don": {
+      "statsTitle": "Statistik",
+      "noStats": "Noch keine Spenden.",
+      "count": "{{n}} Spenden",
+      "shipPending": "{{n}} offene Versände",
+      "listTitle": "Spenden",
+      "emptyTitle": "Keine Spenden",
+      "empty": "Wenn jemand spendet, erscheint es hier.",
+      "consentYes": "Stimmt der Wand zu",
+      "consentNo": "Stimmt der Wand nicht zu",
+      "onWall": "an der Wand",
+      "featured": "hervorgehoben",
+      "unpublish": "Von der Wand entfernen",
+      "publish": "An der Wand veröffentlichen",
+      "unfeature": "Hervorhebung entfernen",
+      "feature": "Hervorheben",
+      "edit": "Bearbeiten",
+      "publishAs": "Anzeigename",
+      "note": "Notiz",
+      "logo": "Logo-/Foto-URL",
+      "saveWall": "Speichern",
+      "useRegistered": "Nutzt die Adresse aus dem Konto",
+      "noConsent": "Dieser Spender hat der Wand nicht zugestimmt.",
+      "wallError": "Wand konnte nicht aktualisiert werden.",
+      "wallOk": "Wand aktualisiert.",
+      "status": {
+        "pending": "ausstehend",
+        "paid": "bezahlt",
+        "failed": "fehlgeschlagen",
+        "refunded": "erstattet"
+      }
+    },
+    "ally": {
+      "title": "Partner (Startseiten-Karussell)",
+      "hint": "Logos verbündeter Institutionen und Unternehmen auf der Startseite.",
+      "name": "Name",
+      "logoUrl": "Logo-URL",
+      "website": "Website (optional)",
+      "order": "Reihenfolge",
+      "add": "Partner hinzufügen",
+      "update": "Aktualisieren",
+      "saved": "Partner gespeichert",
+      "error": "Konnte nicht gespeichert werden.",
+      "need": "Name und Logo-URL sind erforderlich.",
+      "hide": "Ausblenden",
+      "show": "Anzeigen",
+      "edit": "Bearbeiten",
+      "del": "Löschen",
+      "delTitle": "Partner löschen",
+      "delBody": "Möchtest du diesen Partner wirklich aus dem Karussell entfernen?",
+      "deleted": "Partner gelöscht"
+    },
+    "tier": {
+      "title": "Spendenbeträge nach Währung",
+      "hint": "Lege den Betrag jeder Stufe pro Währung fest. Sie müssen aufsteigend sein.",
+      "save": "Speichern",
+      "saved": "Beträge gespeichert",
+      "error": "Konnte nicht gespeichert werden.",
+      "active": "Aktiv",
+      "order": "Die Beträge müssen aufsteigend sein (Same < Verbündeter < Motor < Botschafter)."
+    }
+  },
+  "callout": {
+    "directory": {
+      "title": "Die passende Fachkraft gefunden?",
+      "body": "Hilf uns, dieses Verzeichnis kostenlos und für mehr Familien zugänglich zu halten."
+    },
+    "toolkit": {
+      "title": "War dieser Leitfaden hilfreich?",
+      "body": "Dein Beitrag hilft uns, weiter kostenlose Ressourcen für mehr Familien zu schaffen."
+    },
+    "dashboard": {
+      "title": "Neuromundi lebt von der Gemeinschaft",
+      "body": "Dein Konto ist kostenlos. Wenn du kannst, hilft ein Beitrag, die Plattform und mehr Familien zu tragen."
+    },
+    "specialist": {
+      "title": "Werde Solidaritäts-Fachkraft",
+      "body": "Mit einer Spende auf Botschafter-Niveau hebst du dein Profil hervor und schaltest Abzeichen und Kurse frei – und förderst Inklusion.",
+      "cta": "Mein Profil hervorheben"
     }
   }
 }

@@ -15,6 +15,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { useToolkitProgress } from '@/hooks/useToolkitProgress';
 import { getModules, getModule } from '@/data/toolkit';
 import { ContentRenderer, SpecialistMatcher, ToolkitNav, MODULE_ACCENTS, MODULE_ICONS } from '@/components/toolkit';
+import { DonateCallout } from '@/components/donation/DonateCallout';
 
 export function Toolkit() {
   const { t, i18n } = useTranslation();
@@ -123,6 +124,11 @@ export function Toolkit() {
         {/* CTA de especialistas */}
         <div className="mt-8">
           <SpecialistMatcher module={activeModule} accent={accent} />
+        </div>
+
+        {/* Gratitud contextual: al final de la guía. */}
+        <div className="mt-6">
+          <DonateCallout variant="toolkit" />
         </div>
       </section>
     </div>
