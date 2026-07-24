@@ -361,7 +361,14 @@
       "categoryAvg": "media della tua categoria",
       "comments": "Commenti recenti",
       "commentsUnavailable": "Per mostrare i commenti, crea la vista public_provider_comments (vedi README).",
-      "noComments": "Ancora nessun commento scritto."
+      "noComments": "Ancora nessun commento scritto.",
+      "reply": "Rispondi",
+      "replyEdit": "Modifica risposta",
+      "yourReply": "La tua risposta",
+      "replyPlaceholder": "Rispondi con cura ed empatia…",
+      "replySave": "Salva risposta",
+      "replySaved": "Risposta salvata",
+      "replyError": "Impossibile salvare la risposta."
     }
   },
   "survey": {
@@ -488,7 +495,13 @@
     "storeCategoryOther": "Specifica la classificazione",
     "storeCategoryOtherPlaceholder": "Es. Arredamento adattato",
     "storeCategoryOtherHint": "Se scegli “Altro”, devi proporre la classificazione del tuo prodotto.",
-    "errOtherRequired": "Specifica la classificazione (almeno 3 caratteri)."
+    "errOtherRequired": "Specifica la classificazione (almeno 3 caratteri).",
+    "stock": "Scorte",
+    "stockUnlimited": "Illimitato",
+    "stockHint": "Lascia vuoto per non gestire l'inventario.",
+    "soldOut": "Esaurito",
+    "inStock": "{{n}} disponibili",
+    "errStock": "Le scorte non possono essere negative."
   },
   "lang": {
     "label": "Lingua"
@@ -983,7 +996,21 @@
     "statusCancelled": "Annullato",
     "statusCompleted": "Completato",
     "statusNoShow": "Assente",
-    "remindersNote": "I promemoria vengono inviati 24 h e 4 h prima via email e WhatsApp (secondo configurazione)."
+    "remindersNote": "I promemoria vengono inviati 24 h e 4 h prima via email e WhatsApp (secondo configurazione).",
+    "addRange": "Aggiungi fascia",
+    "off": {
+      "title": "Ferie e blocchi",
+      "help": "Segna giorni o ore in cui non sarai disponibile; vengono tolti dai tuoi slot.",
+      "allDay": "Giorni interi",
+      "from": "Dal",
+      "to": "Al",
+      "start": "Ora inizio",
+      "end": "Ora fine",
+      "reason": "Motivo (facoltativo)",
+      "add": "Blocca",
+      "added": "Blocco aggiunto",
+      "badRange": "La fine deve essere dopo l'inizio."
+    }
   },
   "pay": {
     "tab": "Pagamenti",
@@ -1112,6 +1139,9 @@
     },
     "donation": {
       "title": "Grazie per la tua donazione"
+    },
+    "dirMatch": {
+      "title": "Un nuovo specialista per te"
     }
   },
   "clin": {
@@ -1259,7 +1289,8 @@
     "corporateOn": "Vedi tutto il negozio",
     "allProducts": "Tutto il negozio",
     "scope": "Quali prodotti mostrare",
-    "corporateHint": "Prodotti offerti direttamente da Neuromundi."
+    "corporateHint": "Prodotti offerti direttamente da Neuromundi.",
+    "soldOut": "Esaurito"
   },
   "affil": {
     "tab": "I miei affiliati",
@@ -2308,20 +2339,30 @@
     "app": {
       "title": "Installa l'app",
       "body": "Installa Neuromundi sul tuo dispositivo per aprirla come un'app, anche offline. Cerca \"Installa app\" nel piè di pagina."
+    },
+    "agenda": {
+      "title": "La tua agenda",
+      "body": "Imposta la disponibilità, segna le ferie e gestisci gli appuntamenti. I pazienti prenotano i tuoi slot liberi."
+    },
+    "messages": {
+      "title": "Messaggi",
+      "body": "Parla con pazienti e colleghi, invia link per videochiamate e usa modelli per rispondere più in fretta."
+    },
+    "metrics": {
+      "title": "La tua copertura",
+      "body": "Guarda quante persone vedono il tuo profilo e ti contattano, e come evolve il tuo distintivo."
     }
   },
   "metrics": {
-    "unavailable": "Metriche non disponibili. Applica la migrazione 0018 e riprova.",
-    "refresh": "Aggiorna",
-    "new7d": "Nuovi (7 giorni)",
-    "new30d": "Nuovi (30 giorni)",
-    "members": "Membri totali",
-    "verified": "Fornitori verificati",
-    "published": "Pubblicati in directory",
-    "founders": "Membri fondatori",
-    "products": "Prodotti attivi",
-    "referrals": "Raccomandazioni",
-    "reportsOpen": "Segnalazioni aperte"
+    "tab": "Metriche",
+    "title": "Copertura del tuo profilo",
+    "help": "Quante persone vedono il tuo profilo e quante premono un pulsante di contatto.",
+    "views": "Visualizzazioni",
+    "contacts": "Contatti",
+    "conversion": "Conversione",
+    "last30": "{{n}} in 30 giorni",
+    "conversionHelp": "contatti ÷ visualizzazioni",
+    "empty": "Ancora nessuna visualizzazione registrata. Condividi il tuo profilo per iniziare a misurare."
   },
   "events": {
     "title": "Eventi",
@@ -2925,5 +2966,94 @@
       "body": "Con una donazione di livello Ambasciatore metti in evidenza il tuo profilo e sblocchi distintivo e corsi, sostenendo l'inclusione.",
       "cta": "Metti in evidenza il mio profilo"
     }
+  },
+  "notifPrefs": {
+    "title": "Notifiche push",
+    "help": "Scegli quali avvisi arrivano al dispositivo. La campanella nell'app li conserva sempre.",
+    "master": "Ricevere notifiche push",
+    "error": "Impossibile salvare la preferenza.",
+    "footnote": "Silenziare una categoria ferma solo il push; l'avviso resta nella campanella.",
+    "cat": {
+      "citas": "Appuntamenti e prenotazioni",
+      "mensajes": "Messaggi",
+      "comunidad": "Comunità e traguardi",
+      "transacciones": "Pagamenti e commissioni",
+      "campanas": "Campagne e avvisi",
+      "otras": "Altro"
+    },
+    "catDesc": {
+      "citas": "Conferme, promemoria e posti in lista d'attesa.",
+      "mensajes": "Messaggi diretti e avvisi dell'amministratore.",
+      "comunidad": "Distintivi, traguardi e uso del tuo link di referral.",
+      "transacciones": "Commissioni pagate e ringraziamenti per donazioni.",
+      "campanas": "Campagne degli specialisti che segui.",
+      "otras": "Qualsiasi altro avviso."
+    }
+  },
+  "reviews": {
+    "title": "Cosa dicono le famiglie",
+    "replyBy": "Risposta di {{name}}",
+    "theProvider": "lo specialista",
+    "ratingLabel": "Valutazione: {{n}} su 5"
+  },
+  "guide": {
+    "title": "Tappe per età",
+    "help": "Cosa osservare nel neurosviluppo in base all'età. Tocca «Registra» per salvarlo nel tuo diario.",
+    "disclaimer": "È un orientamento generale, non una diagnosi. Ogni bambino ha il proprio ritmo. In caso di dubbi, consulta uno specialista.",
+    "ageBand": "Fascia d'età",
+    "rangeMonths": "{{from}}-{{to}} mesi",
+    "rangeYears": "{{from}}-{{to}} anni",
+    "log": "Registra",
+    "loggedShort": "Registrato",
+    "logged": "Tappa salvata nel tuo diario",
+    "area": {
+      "motor": "Motorio",
+      "lenguaje": "Linguaggio",
+      "social": "Sociale ed emotivo",
+      "cognitivo": "Cognitivo"
+    }
+  },
+  "tpl": {
+    "title": "Modelli",
+    "saveCurrent": "Salva il testo attuale",
+    "saved": "Modello salvato",
+    "error": "Impossibile salvare il modello.",
+    "empty": "Ancora nessun modello. Scrivi un messaggio e tocca «Salva il testo attuale»."
+  },
+  "alerts": {
+    "prompt": "Vuoi essere avvisato quando viene pubblicato uno specialista così?",
+    "save": "Avvisami",
+    "created": "Avviso salvato. Ti faremo sapere.",
+    "dup": "Hai già questo avviso.",
+    "needCriteria": "Scegli almeno paese, categoria o città.",
+    "any": "Qualsiasi"
+  },
+  "incl": {
+    "tab": "Inclusione",
+    "title": "Programma di inclusione",
+    "help": "Racconta alle famiglie come accompagni la neurodivergenza e se ci sono posti.",
+    "program": "Descrizione del programma",
+    "programPlaceholder": "Modello educativo, supporti, adattamenti, équipe…",
+    "admissions": "Ammissioni",
+    "capacity": "Posti / capienza",
+    "capacityPlaceholder": "es. 3 posti disponibili",
+    "save": "Salva",
+    "saved": "Programma salvato",
+    "error": "Impossibile salvare.",
+    "adm": {
+      "open": "Iscrizioni aperte",
+      "waitlist": "Lista d'attesa",
+      "closed": "Iscrizioni chiuse"
+    }
+  },
+  "continue": {
+    "start": "Inizia il Kit",
+    "resume": "Riprendi da dove eri",
+    "done": "Hai completato il Kit!",
+    "doneHelp": "Rivedi qualsiasi guida quando ti serve.",
+    "progress": "{{done}} di {{total}} guide",
+    "cta": "Continua",
+    "review": "Rivedi",
+    "start_cta": "Inizia"
   }
 }

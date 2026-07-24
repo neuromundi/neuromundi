@@ -30,6 +30,7 @@ import {
   Boxes,
   Users,
   CalendarClock,
+  BarChart3,
   CreditCard,
   FileText,
   FolderHeart,
@@ -59,9 +60,11 @@ import { AffiliatePanel } from '@/components/merchant/AffiliatePanel';
 import { CourseManager } from '@/components/academy/CourseManager';
 import { useOffers } from '@/hooks/useOffers';
 import { useTransactions, type TransactionFilters } from '@/hooks/useTransactions';
-import { useProviderRatings } from '@/hooks/useProviderRatings';
+import { useProviderRatings, type ProviderComment } from '@/hooks/useProviderRatings';
 import { useMyBadge } from '@/hooks/useMyBadge';
 import { BadgeProgress } from './BadgeProgress';
+import { ProviderMetricsPanel } from './ProviderMetricsPanel';
+import { SchoolInclusionPanel } from './SchoolInclusionPanel';
 import { OfferForm } from './OfferForm';
 import { QRScanner } from './QRScanner';
 import { PrescriptionBuilder } from './PrescriptionBuilder';
@@ -408,6 +411,61 @@ function HistoryTab({ providerId, offers }: { providerId: string; offers: Offer[
 
 // ── Pestaña: Calificaciones ──────────────────────────────────────────────────
 
+function ReviewItem({ c, onRespond }: { c: ProviderComment; onRespond: (id: string, text: string) => Promise<boolean> }) {
+  const { t } = useTranslation();
+  const toast = useToast();
+  const [editing, setEditing] = useState(false);
+  const [text, setText] = useState(c.provider_response ?? '');
+  const [busy, setBusy] = useState(false);
+
+  const save = async () => {
+    setBusy(true);
+    const ok = await onRespond(c.id, text);
+    setBusy(false);
+    if (ok) { toast.success(t('provider.ratings.replySaved')); setEditing(false); }
+    else toast.error(t('provider.ratings.replyError'));
+  };
+
+  return (
+    <li className="rounded-xl border border-slate-100 bg-white p-3">
+      <p className="text-sm text-slate-700">{c.comments}</p>
+      <p className="mt-1 text-xs text-muted">{formatDate(c.created_at)}</p>
+
+      {c.provider_response && !editing && (
+        <div className="mt-2 rounded-lg bg-brand-50/60 p-2">
+          <p className="text-xs font-semibold text-brand-800">{t('provider.ratings.yourReply')}</p>
+          <p className="mt-0.5 text-sm text-slate-700">{c.provider_response}</p>
+        </div>
+      )}
+
+      {editing ? (
+        <div className="mt-2">
+          <textarea
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            rows={2}
+            maxLength={1000}
+            placeholder={t('provider.ratings.replyPlaceholder')}
+            className="w-full resize-none rounded-lg border border-slate-200 px-2 py-1.5 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+          />
+          <div className="mt-1 flex gap-2">
+            <Button size="sm" loading={busy} onClick={() => void save()}>{t('provider.ratings.replySave')}</Button>
+            <Button size="sm" variant="ghost" onClick={() => { setText(c.provider_response ?? ''); setEditing(false); }}>{t('common.cancel')}</Button>
+          </div>
+        </div>
+      ) : (
+        <button
+          type="button"
+          onClick={() => setEditing(true)}
+          className="mt-2 text-xs font-semibold text-brand-700 hover:underline"
+        >
+          {c.provider_response ? t('provider.ratings.replyEdit') : t('provider.ratings.reply')}
+        </button>
+      )}
+    </li>
+  );
+}
+
 function RatingsTab({
   providerId,
   providerType,
@@ -415,7 +473,7 @@ function RatingsTab({
   providerId: string;
   providerType: ProviderType | null;
 }) {
-  const { loading, rating, radar, categoryAverageEvs, comments, commentsUnavailable } =
+  const { loading, rating, radar, categoryAverageEvs, comments, commentsUnavailable, respond } =
     useProviderRatings(providerId, providerType);
   const { t } = useTranslation();
   const { badge: myBadge, inputs: myInputs } = useMyBadge();
@@ -474,11 +532,8 @@ function RatingsTab({
           <p className="text-sm text-muted">{t('provider.ratings.noComments')}</p>
         ) : (
           <ul className="space-y-2">
-            {comments.map((c, i) => (
-              <li key={i} className="rounded-xl border border-slate-100 bg-white p-3">
-                <p className="text-sm text-slate-700">{c.comments}</p>
-                <p className="mt-1 text-xs text-muted">{formatDate(c.created_at)}</p>
-              </li>
+            {comments.map((c) => (
+              <ReviewItem key={c.id} c={c} onRespond={respond} />
             ))}
           </ul>
         )}
@@ -608,6 +663,24 @@ export function ProviderDashboard() {
     content: <ProviderAgenda />,
   };
 
+  const metricsTab = {
+    id: 'metrics',
+    label: t('metrics.tab'),
+    icon: <BarChart3 className="h-4 w-4" aria-hidden="true" />,
+    content: <ProviderMetricsPanel />,
+  };
+
+  // Programa de inclusión: solo para escuelas y clínicas.
+  const inclusionTab =
+    providerType === 'school' || providerType === 'clinic'
+      ? {
+          id: 'inclusion',
+          label: t('incl.tab'),
+          icon: <GraduationCap className="h-4 w-4" aria-hidden="true" />,
+          content: <SchoolInclusionPanel />,
+        }
+      : null;
+
   const paymentsTab = {
     id: 'payments',
     label: t('pay.tab'),
@@ -647,6 +720,8 @@ export function ProviderDashboard() {
   // catálogo propio y enseguida quién puede promoverlo y ganar comisión.
   const tabs = [
     ...baseTabs,
+    ...(inclusionTab ? [inclusionTab] : []),
+    metricsTab,
     agendaTab,
     paymentsTab,
     contentTab,

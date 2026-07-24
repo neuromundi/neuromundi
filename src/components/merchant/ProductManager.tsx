@@ -37,6 +37,7 @@ function toInsert(v: ProductFormValues): Omit<ProductInsert, 'vendor_id'> {
     category_id: v.category_id,
     store_category: orNull(v.store_category),
     store_category_other: v.store_category === 'otro' ? orNull(v.store_category_other) : null,
+    stock: v.stock ?? null,
     is_active: v.is_active,
   };
 }
@@ -76,6 +77,7 @@ export function ProductManager({ vendorId }: { vendorId: string }) {
       category_id: p.category_id,
       store_category: p.store_category ?? '',
       store_category_other: p.store_category_other ?? '',
+      stock: p.stock ?? null,
       is_active: p.is_active,
     });
     setOpen(true);
@@ -144,6 +146,7 @@ export function ProductManager({ vendorId }: { vendorId: string }) {
                 </div>
                 <p className="text-sm text-muted">
                   {p.price != null ? `$${p.price.toLocaleString()} ${p.currency}` : t('product.noPrice')}
+                  {p.stock != null && ` · ${p.stock === 0 ? t('product.soldOut') : t('product.inStock', { n: p.stock })}`}
                   {!p.is_active && ` · ${t('product.hidden')}`}
                 </p>
                 {p.status === 'rejected' && p.review_note && (
@@ -193,6 +196,19 @@ export function ProductManager({ vendorId }: { vendorId: string }) {
                 className={inputCls}
                 {...register('price', { setValueAs: (v) => (v === '' || v == null ? null : Number(v)) })}
               />
+            </div>
+            <div>
+              <label htmlFor="p-stock" className={labelCls}>{t('product.stock')}</label>
+              <input
+                id="p-stock"
+                type="number"
+                min={0}
+                step={1}
+                placeholder={t('product.stockUnlimited')}
+                className={inputCls}
+                {...register('stock', { setValueAs: (v) => (v === '' || v == null ? null : Number(v)) })}
+              />
+              <p className="mt-0.5 text-[11px] text-muted">{t('product.stockHint')}</p>
             </div>
             <div>
               <label htmlFor="p-cat" className={labelCls}>{t('product.category')}</label>

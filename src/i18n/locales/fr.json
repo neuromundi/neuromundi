@@ -361,7 +361,14 @@
       "categoryAvg": "moyenne de votre catégorie",
       "comments": "Commentaires récents",
       "commentsUnavailable": "Pour afficher les commentaires, créez la vue public_provider_comments (voir README).",
-      "noComments": "Aucun commentaire écrit pour l'instant."
+      "noComments": "Aucun commentaire écrit pour l'instant.",
+      "reply": "Répondre",
+      "replyEdit": "Modifier la réponse",
+      "yourReply": "Votre réponse",
+      "replyPlaceholder": "Répondez avec soin et empathie…",
+      "replySave": "Enregistrer la réponse",
+      "replySaved": "Réponse enregistrée",
+      "replyError": "Impossible d'enregistrer la réponse."
     }
   },
   "survey": {
@@ -488,7 +495,13 @@
     "storeCategoryOther": "Précisez la classification",
     "storeCategoryOtherPlaceholder": "Ex. Mobilier adapté",
     "storeCategoryOtherHint": "Si vous choisissez « Autre », vous devez proposer la classification de votre produit.",
-    "errOtherRequired": "Précisez la classification (3 caractères minimum)."
+    "errOtherRequired": "Précisez la classification (3 caractères minimum).",
+    "stock": "Stock",
+    "stockUnlimited": "Illimité",
+    "stockHint": "Laissez vide pour ne pas gérer l'inventaire.",
+    "soldOut": "Épuisé",
+    "inStock": "{{n}} en stock",
+    "errStock": "Le stock ne peut pas être négatif."
   },
   "lang": {
     "label": "Langue"
@@ -983,7 +996,21 @@
     "statusCancelled": "Annulé",
     "statusCompleted": "Terminé",
     "statusNoShow": "Absent",
-    "remindersNote": "Des rappels sont envoyés 24 h et 4 h avant par e-mail et WhatsApp (selon configuration)."
+    "remindersNote": "Des rappels sont envoyés 24 h et 4 h avant par e-mail et WhatsApp (selon configuration).",
+    "addRange": "Ajouter une plage",
+    "off": {
+      "title": "Congés et blocages",
+      "help": "Indiquez les jours ou heures d'indisponibilité ; ils sont retirés de vos créneaux.",
+      "allDay": "Journées entières",
+      "from": "Du",
+      "to": "Au",
+      "start": "Heure de début",
+      "end": "Heure de fin",
+      "reason": "Motif (facultatif)",
+      "add": "Bloquer",
+      "added": "Blocage ajouté",
+      "badRange": "La fin doit être après le début."
+    }
   },
   "pay": {
     "tab": "Paiements",
@@ -1112,6 +1139,9 @@
     },
     "donation": {
       "title": "Merci pour votre don"
+    },
+    "dirMatch": {
+      "title": "Un nouveau spécialiste pour vous"
     }
   },
   "clin": {
@@ -1259,7 +1289,8 @@
     "corporateOn": "Voir toute la boutique",
     "allProducts": "Toute la boutique",
     "scope": "Quels produits afficher",
-    "corporateHint": "Produits proposés directement par Neuromundi."
+    "corporateHint": "Produits proposés directement par Neuromundi.",
+    "soldOut": "Épuisé"
   },
   "affil": {
     "tab": "Mes affiliés",
@@ -2308,20 +2339,30 @@
     "app": {
       "title": "Installez l'application",
       "body": "Installez Neuromundi sur votre appareil pour l'ouvrir comme une application, même hors ligne. Cherchez « Installer l'app » en bas de page."
+    },
+    "agenda": {
+      "title": "Votre agenda",
+      "body": "Définissez vos disponibilités, indiquez vos congés et gérez vos rendez-vous. Les patients réservent vos créneaux."
+    },
+    "messages": {
+      "title": "Messagerie",
+      "body": "Échangez avec patients et collègues, envoyez des liens de visio et utilisez des modèles pour répondre plus vite."
+    },
+    "metrics": {
+      "title": "Votre portée",
+      "body": "Voyez combien de personnes consultent votre profil et vous contactent, et l'évolution de votre badge."
     }
   },
   "metrics": {
-    "unavailable": "Métriques indisponibles. Appliquez la migration 0018 et réessayez.",
-    "refresh": "Actualiser",
-    "new7d": "Inscriptions (7 jours)",
-    "new30d": "Inscriptions (30 jours)",
-    "members": "Membres au total",
-    "verified": "Prestataires vérifiés",
-    "published": "Publiés dans l'annuaire",
-    "founders": "Membres fondateurs",
-    "products": "Produits actifs",
-    "referrals": "Recommandations",
-    "reportsOpen": "Signalements ouverts"
+    "tab": "Statistiques",
+    "title": "Portée de votre profil",
+    "help": "Combien de personnes voient votre profil et combien cliquent sur un bouton de contact.",
+    "views": "Vues",
+    "contacts": "Contacts",
+    "conversion": "Conversion",
+    "last30": "{{n}} en 30 jours",
+    "conversionHelp": "contacts ÷ vues",
+    "empty": "Aucune vue enregistrée pour l'instant. Partagez votre profil pour commencer à mesurer."
   },
   "events": {
     "title": "Événements",
@@ -2925,5 +2966,94 @@
       "body": "Avec un don de niveau Ambassadeur, mettez votre profil en avant et débloquez un badge et des cours, tout en soutenant l'inclusion.",
       "cta": "Mettre mon profil en avant"
     }
+  },
+  "notifPrefs": {
+    "title": "Notifications push",
+    "help": "Choisissez les alertes envoyées à votre appareil. La cloche de l'app les conserve toujours.",
+    "master": "Recevoir les notifications push",
+    "error": "Impossible d'enregistrer la préférence.",
+    "footnote": "Couper une catégorie n'arrête que le push ; l'alerte reste dans la cloche.",
+    "cat": {
+      "citas": "Rendez-vous et réservations",
+      "mensajes": "Messages",
+      "comunidad": "Communauté et réussites",
+      "transacciones": "Paiements et commissions",
+      "campanas": "Campagnes et annonces",
+      "otras": "Autres"
+    },
+    "catDesc": {
+      "citas": "Confirmations, rappels et places en liste d'attente.",
+      "mensajes": "Messages directs et avis de l'administrateur.",
+      "comunidad": "Badges, réussites et usage de votre lien de parrainage.",
+      "transacciones": "Commissions payées et remerciements de don.",
+      "campanas": "Campagnes des spécialistes que vous suivez.",
+      "otras": "Toute autre alerte."
+    }
+  },
+  "reviews": {
+    "title": "Ce que disent les familles",
+    "replyBy": "Réponse de {{name}}",
+    "theProvider": "le spécialiste",
+    "ratingLabel": "Note : {{n}} sur 5"
+  },
+  "guide": {
+    "title": "Étapes par âge",
+    "help": "Quoi observer dans le neurodéveloppement selon l'âge. Touchez « Enregistrer » pour l'ajouter à votre suivi.",
+    "disclaimer": "Il s'agit d'une orientation générale, pas d'un diagnostic. Chaque enfant a son propre rythme. En cas de doute, consultez un spécialiste.",
+    "ageBand": "Tranche d'âge",
+    "rangeMonths": "{{from}} à {{to}} mois",
+    "rangeYears": "{{from}} à {{to}} ans",
+    "log": "Enregistrer",
+    "loggedShort": "Enregistré",
+    "logged": "Étape ajoutée à votre suivi",
+    "area": {
+      "motor": "Motricité",
+      "lenguaje": "Langage",
+      "social": "Social et émotionnel",
+      "cognitivo": "Cognitif"
+    }
+  },
+  "tpl": {
+    "title": "Modèles",
+    "saveCurrent": "Enregistrer le texte actuel",
+    "saved": "Modèle enregistré",
+    "error": "Impossible d'enregistrer le modèle.",
+    "empty": "Aucun modèle pour l'instant. Écrivez un message et touchez « Enregistrer le texte actuel »."
+  },
+  "alerts": {
+    "prompt": "Voulez-vous être averti quand un spécialiste correspondant est publié ?",
+    "save": "M'avertir",
+    "created": "Alerte enregistrée. Nous vous préviendrons.",
+    "dup": "Vous avez déjà cette alerte.",
+    "needCriteria": "Choisissez au moins pays, catégorie ou ville.",
+    "any": "Tout"
+  },
+  "incl": {
+    "tab": "Inclusion",
+    "title": "Programme d'inclusion",
+    "help": "Expliquez aux familles comment vous accompagnez la neurodivergence et s'il reste de la place.",
+    "program": "Description du programme",
+    "programPlaceholder": "Modèle éducatif, soutiens, aménagements, équipe…",
+    "admissions": "Admissions",
+    "capacity": "Places / capacité",
+    "capacityPlaceholder": "ex. 3 places disponibles",
+    "save": "Enregistrer",
+    "saved": "Programme enregistré",
+    "error": "Impossible d'enregistrer.",
+    "adm": {
+      "open": "Inscriptions ouvertes",
+      "waitlist": "Liste d'attente",
+      "closed": "Inscriptions fermées"
+    }
+  },
+  "continue": {
+    "start": "Commencez le Kit",
+    "resume": "Reprenez où vous en étiez",
+    "done": "Vous avez terminé le Kit !",
+    "doneHelp": "Revoyez un guide dès que nécessaire.",
+    "progress": "{{done}} sur {{total}} guides",
+    "cta": "Continuer",
+    "review": "Revoir",
+    "start_cta": "Commencer"
   }
 }

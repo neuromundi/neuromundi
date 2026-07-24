@@ -361,7 +361,14 @@
       "categoryAvg": "カテゴリ平均",
       "comments": "最近のコメント",
       "commentsUnavailable": "コメントを表示するには、public_provider_comments ビューを作成してください（READMEを参照）。",
-      "noComments": "まだ書かれたコメントはありません。"
+      "noComments": "まだ書かれたコメントはありません。",
+      "reply": "返信する",
+      "replyEdit": "返信を編集",
+      "yourReply": "あなたの返信",
+      "replyPlaceholder": "思いやりと共感をもって返信しましょう…",
+      "replySave": "返信を保存",
+      "replySaved": "返信を保存しました",
+      "replyError": "返信を保存できませんでした。"
     }
   },
   "survey": {
@@ -488,7 +495,13 @@
     "storeCategoryOther": "分類を指定してください",
     "storeCategoryOtherPlaceholder": "例：適応型家具",
     "storeCategoryOtherHint": "「その他」を選んだ場合は、商品の分類を提案してください。",
-    "errOtherRequired": "分類を入力してください（3文字以上）。"
+    "errOtherRequired": "分類を入力してください（3文字以上）。",
+    "stock": "在庫",
+    "stockUnlimited": "無制限",
+    "stockHint": "在庫を管理しない場合は空欄に。",
+    "soldOut": "売り切れ",
+    "inStock": "在庫{{n}}",
+    "errStock": "在庫を負の数にはできません。"
   },
   "lang": {
     "label": "言語"
@@ -983,7 +996,21 @@
     "statusCancelled": "キャンセル",
     "statusCompleted": "完了",
     "statusNoShow": "未来院",
-    "remindersNote": "リマインダーは24時間前と4時間前にメールとWhatsAppで送信されます（設定に応じて）。"
+    "remindersNote": "リマインダーは24時間前と4時間前にメールとWhatsAppで送信されます（設定に応じて）。",
+    "addRange": "時間帯を追加",
+    "off": {
+      "title": "休暇・ブロック",
+      "help": "対応しない日や時間を指定します。空き枠から差し引かれます。",
+      "allDay": "終日",
+      "from": "開始日",
+      "to": "終了日",
+      "start": "開始時刻",
+      "end": "終了時刻",
+      "reason": "理由（任意）",
+      "add": "ブロック",
+      "added": "ブロックを追加しました",
+      "badRange": "終了は開始より後にしてください。"
+    }
   },
   "pay": {
     "tab": "支払い",
@@ -1112,6 +1139,9 @@
     },
     "donation": {
       "title": "ご寄付ありがとうございます"
+    },
+    "dirMatch": {
+      "title": "あなたへの新しい専門家"
     }
   },
   "clin": {
@@ -1259,7 +1289,8 @@
     "corporateOn": "ストア全体を見る",
     "allProducts": "ストア全体",
     "scope": "表示する商品",
-    "corporateHint": "Neuromundiが直接提供する商品です。"
+    "corporateHint": "Neuromundiが直接提供する商品です。",
+    "soldOut": "売り切れ"
   },
   "affil": {
     "tab": "マイアフィリエイト",
@@ -2308,20 +2339,30 @@
     "app": {
       "title": "アプリをインストール",
       "body": "Neuromundiを端末にインストールすると、オフラインでもアプリのように使えます。ページ下部の「アプリをインストール」を探してください。"
+    },
+    "agenda": {
+      "title": "あなたのスケジュール",
+      "body": "対応可能な時間を設定し、休暇を登録し、予約を管理します。患者は空き枠を予約できます。"
+    },
+    "messages": {
+      "title": "メッセージ",
+      "body": "患者や同僚とやり取りし、ビデオ通話リンクを送り、テンプレートで素早く返信できます。"
+    },
+    "metrics": {
+      "title": "あなたのリーチ",
+      "body": "プロフィールの閲覧数や連絡数、バッジの推移を確認できます。"
     }
   },
   "metrics": {
-    "unavailable": "指標を取得できません。マイグレーション0018を適用して再試行してください。",
-    "refresh": "更新",
-    "new7d": "新規（7日）",
-    "new30d": "新規（30日）",
-    "members": "会員総数",
-    "verified": "認証済み提供者",
-    "published": "ディレクトリ掲載",
-    "founders": "創設メンバー",
-    "products": "有効な商品",
-    "referrals": "紹介",
-    "reportsOpen": "未対応の通報"
+    "tab": "指標",
+    "title": "プロフィールのリーチ",
+    "help": "何人がプロフィールを見て、何人が連絡ボタンを押したか。",
+    "views": "閲覧数",
+    "contacts": "連絡",
+    "conversion": "コンバージョン",
+    "last30": "30日で{{n}}",
+    "conversionHelp": "連絡 ÷ 閲覧",
+    "empty": "まだ閲覧が記録されていません。プロフィールを共有して計測を始めましょう。"
   },
   "events": {
     "title": "イベント",
@@ -2925,5 +2966,94 @@
       "body": "アンバサダー相当のご寄付でプロフィールが目立ち、バッジとコースが解放され、インクルージョンを後押しします。",
       "cta": "プロフィールを目立たせる"
     }
+  },
+  "notifPrefs": {
+    "title": "プッシュ通知",
+    "help": "デバイスに届く通知を選べます。アプリ内のベルには常にすべて残ります。",
+    "master": "プッシュ通知を受け取る",
+    "error": "設定を保存できませんでした。",
+    "footnote": "カテゴリをミュートしてもプッシュが止まるだけで、通知はベルに残ります。",
+    "cat": {
+      "citas": "予約",
+      "mensajes": "メッセージ",
+      "comunidad": "コミュニティと実績",
+      "transacciones": "支払いと手数料",
+      "campanas": "キャンペーンとお知らせ",
+      "otras": "その他"
+    },
+    "catDesc": {
+      "citas": "確認・リマインダー・キャンセル待ちの空き。",
+      "mensajes": "ダイレクトメッセージと管理者のお知らせ。",
+      "comunidad": "バッジ・実績・紹介リンクの利用。",
+      "transacciones": "支払われた手数料と寄付のお礼。",
+      "campanas": "フォロー中の専門家からのキャンペーン。",
+      "otras": "その他の通知。"
+    }
+  },
+  "reviews": {
+    "title": "ご家族の声",
+    "replyBy": "{{name}}からの返信",
+    "theProvider": "専門家",
+    "ratingLabel": "評価: 5段階中{{n}}"
+  },
+  "guide": {
+    "title": "年齢別の発達の目安",
+    "help": "年齢ごとに神経発達で見ておきたいこと。「記録」を押すとトラッカーに保存します。",
+    "disclaimer": "これは一般的な目安であり、診断ではありません。子どもにはそれぞれのペースがあります。心配な場合は専門家にご相談ください。",
+    "ageBand": "年齢の範囲",
+    "rangeMonths": "{{from}}〜{{to}}か月",
+    "rangeYears": "{{from}}〜{{to}}歳",
+    "log": "記録",
+    "loggedShort": "記録済み",
+    "logged": "目安をトラッカーに保存しました",
+    "area": {
+      "motor": "運動",
+      "lenguaje": "ことば",
+      "social": "社会性・情緒",
+      "cognitivo": "認知"
+    }
+  },
+  "tpl": {
+    "title": "テンプレート",
+    "saveCurrent": "現在の文面を保存",
+    "saved": "テンプレートを保存しました",
+    "error": "テンプレートを保存できませんでした。",
+    "empty": "テンプレートはまだありません。メッセージを書いて「現在の文面を保存」を押してください。"
+  },
+  "alerts": {
+    "prompt": "条件に合う専門家が公開されたらお知らせしますか？",
+    "save": "通知する",
+    "created": "アラートを保存しました。お知らせします。",
+    "dup": "そのアラートは既にあります。",
+    "needCriteria": "国・カテゴリ・市のいずれかを選んでください。",
+    "any": "すべて"
+  },
+  "incl": {
+    "tab": "インクルージョン",
+    "title": "インクルージョン・プログラム",
+    "help": "神経多様性への支援内容と空き状況を家族に伝えましょう。",
+    "program": "プログラムの説明",
+    "programPlaceholder": "教育モデル、支援、配慮、チームなど",
+    "admissions": "募集",
+    "capacity": "定員・空き",
+    "capacityPlaceholder": "例：空き3名",
+    "save": "保存",
+    "saved": "プログラムを保存しました",
+    "error": "保存できませんでした。",
+    "adm": {
+      "open": "募集中",
+      "waitlist": "キャンセル待ち",
+      "closed": "募集終了"
+    }
+  },
+  "continue": {
+    "start": "ツールキットを始める",
+    "resume": "続きから再開",
+    "done": "ツールキットを修了しました！",
+    "doneHelp": "必要なときにいつでも読み返せます。",
+    "progress": "{{total}}件中{{done}}件",
+    "cta": "続ける",
+    "review": "見直す",
+    "start_cta": "始める"
   }
 }

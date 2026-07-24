@@ -175,6 +175,8 @@ export const productSchema = z.object({
   store_category: z.string().max(40).optional().default(''),
   // Si la clasificación es "Otro", el oferente debe especificar cuál propone.
   store_category_other: z.string().trim().max(60).optional().default(''),
+  // Inventario: null = sin control (ilimitado); entero >= 0 = unidades.
+  stock: z.number().int().min(0, 'product.errStock').nullable(),
   is_active: z.boolean(),
 }).refine(
   (v) => v.store_category !== 'otro' || (v.store_category_other ?? '').trim().length >= 3,
@@ -193,6 +195,7 @@ export function defaultProductValues(): ProductFormValues {
     category_id: null,
     store_category: '',
     store_category_other: '',
+    stock: null,
     is_active: true,
   };
 }

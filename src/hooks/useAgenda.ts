@@ -16,6 +16,7 @@ import type { Result } from '@/types/app';
 export type Availability = Tables<'provider_availability'>;
 export type Appointment = Tables<'appointments'>;
 export type WaitlistEntry = Tables<'waitlist'>;
+export type TimeOff = Tables<'provider_time_off'>;
 
 export interface Slot {
   startsAt: string; // ISO
@@ -25,13 +26,23 @@ export interface Slot {
 const DAY_MS = 86400000;
 
 /** Genera huecos para los próximos `days` días a partir de la disponibilidad
- *  semanal, excluyendo los que chocan con citas ya reservadas o ya pasaron. */
-export function generateSlots(avail: Availability[], booked: Appointment[], days = 14): Slot[] {
+ *  semanal, excluyendo los que chocan con citas ya reservadas, con bloqueos de
+ *  vacaciones/horas (time_off) o que ya pasaron. Soporta VARIOS rangos por día
+ *  (varias reglas para el mismo weekday). */
+export function generateSlots(
+  avail: Availability[],
+  booked: Appointment[],
+  timeOff: TimeOff[] = [],
+  days = 14,
+): Slot[] {
   const slots: Slot[] = [];
   const now = Date.now();
   const taken = booked
     .filter((a) => a.status === 'booked')
     .map((a) => [new Date(a.starts_at).getTime(), new Date(a.ends_at).getTime()] as const);
+  const blocks = timeOff.map(
+    (b) => [new Date(b.starts_at).getTime(), new Date(b.ends_at).getTime()] as const,
+  );
 
   for (let d = 0; d < days; d++) {
     const day = new Date(now + d * DAY_MS);
@@ -48,8 +59,8 @@ export function generateSlots(avail: Availability[], booked: Appointment[], days
         const start = t;
         const end = t + rule.slot_minutes * 60000;
         if (start <= now) continue;
-        const overlaps = taken.some(([bs, be]) => start < be && end > bs);
-        if (overlaps) continue;
+        if (taken.some(([bs, be]) => start < be && end > bs)) continue;
+        if (blocks.some(([bs, be]) => start < be && end > bs)) continue;
         slots.push({ startsAt: new Date(start).toISOString(), endsAt: new Date(end).toISOString() });
       }
     }
@@ -63,19 +74,22 @@ export function useProviderAgenda() {
   const [availability, setAvailability] = useState<Availability[]>([]);
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [waitlist, setWaitlist] = useState<WaitlistEntry[]>([]);
+  const [timeOff, setTimeOff] = useState<TimeOff[]>([]);
   const [loading, setLoading] = useState(true);
 
   const load = useCallback(async () => {
     if (!userId) return;
     setLoading(true);
-    const [a, c, w] = await Promise.all([
+    const [a, c, w, o] = await Promise.all([
       supabase.from('provider_availability').select('*').eq('provider_id', userId).order('weekday'),
       supabase.from('appointments').select('*').eq('provider_id', userId).gte('starts_at', new Date(Date.now() - DAY_MS).toISOString()).order('starts_at'),
       supabase.from('waitlist').select('*').eq('provider_id', userId).eq('status', 'waiting').order('created_at'),
+      supabase.from('provider_time_off').select('*').eq('provider_id', userId).gte('ends_at', new Date().toISOString()).order('starts_at'),
     ]);
     setAvailability(a.data ?? []);
     setAppointments(c.data ?? []);
     setWaitlist(w.data ?? []);
+    setTimeOff(o.data ?? []);
     setLoading(false);
   }, [userId]);
 
@@ -92,6 +106,27 @@ export function useProviderAgenda() {
     await load();
     return { ok: true, data: true };
   }, [userId, load]);
+
+  /** Añade un bloqueo (vacaciones = todo el día; o franja de horas). */
+  const addTimeOff = useCallback(
+    async (startsAt: string, endsAt: string, allDay: boolean, reason?: string): Promise<Result<true>> => {
+      if (!userId) return { ok: false, error: 'Sin sesión' };
+      const { error } = await supabase.from('provider_time_off').insert({
+        provider_id: userId, starts_at: startsAt, ends_at: endsAt, all_day: allDay, reason: reason || null,
+      });
+      if (error) return { ok: false, error: toMessage(error) };
+      await load();
+      return { ok: true, data: true };
+    },
+    [userId, load],
+  );
+
+  const removeTimeOff = useCallback(async (id: string): Promise<Result<true>> => {
+    const { error } = await supabase.from('provider_time_off').delete().eq('id', id);
+    if (error) return { ok: false, error: toMessage(error) };
+    await load();
+    return { ok: true, data: true };
+  }, [load]);
 
   const cancelAppointment = useCallback(async (id: string): Promise<Result<true>> => {
     const { error } = await supabase.from('appointments').update({ status: 'cancelled' }).eq('id', id);
@@ -130,7 +165,7 @@ export function useProviderAgenda() {
     [userId, load],
   );
 
-  return { availability, appointments, waitlist, loading, reload: load, saveAvailability, cancelAppointment, setVideoLink, assignFromWaitlist };
+  return { availability, appointments, waitlist, timeOff, loading, reload: load, saveAvailability, addTimeOff, removeTimeOff, cancelAppointment, setVideoLink, assignFromWaitlist };
 }
 
 // ── Consumidor ───────────────────────────────────────────────────────────────
@@ -142,11 +177,12 @@ export function useConsumerAgenda(providerId: string) {
   const load = useCallback(async () => {
     if (!providerId) return;
     setLoading(true);
-    const [a, c] = await Promise.all([
+    const [a, c, o] = await Promise.all([
       supabase.from('provider_availability').select('*').eq('provider_id', providerId).eq('is_active', true),
       supabase.from('appointments').select('*').eq('provider_id', providerId).eq('status', 'booked').gte('starts_at', new Date().toISOString()),
+      supabase.from('provider_time_off').select('*').eq('provider_id', providerId).gte('ends_at', new Date().toISOString()),
     ]);
-    setSlots(generateSlots(a.data ?? [], c.data ?? []));
+    setSlots(generateSlots(a.data ?? [], c.data ?? [], o.data ?? []));
     setLoading(false);
   }, [providerId]);
 

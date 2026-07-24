@@ -19,6 +19,7 @@ import { supabase } from '@/lib/supabase';
 import { ProviderLocations } from '@/components/provider';
 import { FiscalSchoolFields } from '@/components/provider/FiscalSchoolFields';
 import { MyReports } from '@/components/report/MyReports';
+import { NotificationPrefs } from '@/components/membership/NotificationPrefs';
 import { GuidedTour } from '@/components/onboarding';
 import { PasswordStrength } from '@/components/auth/PasswordStrength';
 import { profileSchema, type ProfileFormValues } from '@/lib/schemas';
@@ -397,6 +398,9 @@ export function Settings() {
 
       {/* Notificaciones push nativas */}
       <PushSection />
+
+      {/* Preferencias de notificación (qué se empuja al dispositivo) */}
+      <NotificationPrefs />
 
       {/* Seguimiento de denuncias del miembro */}
       <MyReports />

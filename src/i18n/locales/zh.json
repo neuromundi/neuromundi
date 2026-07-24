@@ -361,7 +361,14 @@
       "categoryAvg": "你所在类别的平均分",
       "comments": "最新评论",
       "commentsUnavailable": "要显示评论，请创建 public_provider_comments 视图（见 README）。",
-      "noComments": "暂无文字评论。"
+      "noComments": "暂无文字评论。",
+      "reply": "回复",
+      "replyEdit": "编辑回复",
+      "yourReply": "您的回复",
+      "replyPlaceholder": "请以关怀和同理心回复……",
+      "replySave": "保存回复",
+      "replySaved": "回复已保存",
+      "replyError": "无法保存回复。"
     }
   },
   "survey": {
@@ -488,7 +495,13 @@
     "storeCategoryOther": "请指定分类",
     "storeCategoryOtherPlaceholder": "例：适配家具",
     "storeCategoryOtherHint": "选择“其他”时，你必须提出你产品的分类。",
-    "errOtherRequired": "请填写分类（至少3个字符）。"
+    "errOtherRequired": "请填写分类（至少3个字符）。",
+    "stock": "库存",
+    "stockUnlimited": "不限",
+    "stockHint": "留空则不管理库存。",
+    "soldOut": "售罄",
+    "inStock": "库存 {{n}}",
+    "errStock": "库存不能为负。"
   },
   "lang": {
     "label": "语言"
@@ -983,7 +996,21 @@
     "statusCancelled": "已取消",
     "statusCompleted": "已完成",
     "statusNoShow": "未到",
-    "remindersNote": "将在预约前 24 小时和 4 小时通过邮件和 WhatsApp 发送提醒（取决于配置）。"
+    "remindersNote": "将在预约前 24 小时和 4 小时通过邮件和 WhatsApp 发送提醒（取决于配置）。",
+    "addRange": "添加时段",
+    "off": {
+      "title": "休假与屏蔽",
+      "help": "标记您不接诊的日期或时间；将从可预约时段中扣除。",
+      "allDay": "整天",
+      "from": "从",
+      "to": "到",
+      "start": "开始时间",
+      "end": "结束时间",
+      "reason": "原因（选填）",
+      "add": "屏蔽",
+      "added": "已添加屏蔽",
+      "badRange": "结束须晚于开始。"
+    }
   },
   "pay": {
     "tab": "支付",
@@ -1112,6 +1139,9 @@
     },
     "donation": {
       "title": "感谢您的捐赠"
+    },
+    "dirMatch": {
+      "title": "为您推荐的新专业人士"
     }
   },
   "clin": {
@@ -1259,7 +1289,8 @@
     "corporateOn": "查看整个商店",
     "allProducts": "全部商品",
     "scope": "显示哪些商品",
-    "corporateHint": "由 Neuromundi 直接提供的商品。"
+    "corporateHint": "由 Neuromundi 直接提供的商品。",
+    "soldOut": "售罄"
   },
   "affil": {
     "tab": "我的推广伙伴",
@@ -2308,20 +2339,30 @@
     "app": {
       "title": "安装应用",
       "body": "将 Neuromundi 安装到设备上，即可像应用一样打开，甚至可离线使用。在页脚查找\"安装应用\"。"
+    },
+    "agenda": {
+      "title": "你的日程",
+      "body": "设置可预约时间、标记休假并管理预约。患者可预约你的空闲时段。"
+    },
+    "messages": {
+      "title": "消息",
+      "body": "与患者和同行交流、发送视频通话链接，并使用模板更快回复。"
+    },
+    "metrics": {
+      "title": "你的触达",
+      "body": "查看有多少人浏览你的主页并与你联系，以及徽章的变化。"
     }
   },
   "metrics": {
-    "unavailable": "指标不可用。请应用迁移0018后重试。",
-    "refresh": "刷新",
-    "new7d": "新增（7天）",
-    "new30d": "新增（30天）",
-    "members": "会员总数",
-    "verified": "已认证服务者",
-    "published": "已在目录发布",
-    "founders": "创始会员",
-    "products": "有效产品",
-    "referrals": "推荐",
-    "reportsOpen": "待处理举报"
+    "tab": "数据",
+    "title": "您的主页触达",
+    "help": "有多少人查看您的主页，有多少人点击联系按钮。",
+    "views": "浏览",
+    "contacts": "联系",
+    "conversion": "转化率",
+    "last30": "30天内{{n}}",
+    "conversionHelp": "联系 ÷ 浏览",
+    "empty": "暂无浏览记录。分享您的主页以开始统计。"
   },
   "events": {
     "title": "活动",
@@ -2925,5 +2966,94 @@
       "body": "通过大使级捐赠，您可让个人资料获得重点展示，并解锁徽章与课程，同时助力包容。",
       "cta": "重点展示我的资料"
     }
+  },
+  "notifPrefs": {
+    "title": "推送通知",
+    "help": "选择哪些提醒送达您的设备。应用内的铃铛始终保留全部。",
+    "master": "接收推送通知",
+    "error": "无法保存偏好设置。",
+    "footnote": "静音某类别只会停止推送；提醒仍会留在铃铛中。",
+    "cat": {
+      "citas": "预约与预订",
+      "mensajes": "消息",
+      "comunidad": "社区与成就",
+      "transacciones": "付款与佣金",
+      "campanas": "活动与公告",
+      "otras": "其他"
+    },
+    "catDesc": {
+      "citas": "确认、提醒与候补名额。",
+      "mensajes": "私信与管理员通知。",
+      "comunidad": "徽章、成就与推荐链接的使用。",
+      "transacciones": "已付佣金与捐赠致谢。",
+      "campanas": "您关注的专业人士的活动。",
+      "otras": "其他任何提醒。"
+    }
+  },
+  "reviews": {
+    "title": "家庭的评价",
+    "replyBy": "来自{{name}}的回复",
+    "theProvider": "该专业人士",
+    "ratingLabel": "评分：5分中的{{n}}"
+  },
+  "guide": {
+    "title": "按年龄的发展里程碑",
+    "help": "按年龄了解神经发育中值得关注的方面。点按“记录”即可保存到您的追踪器。",
+    "disclaimer": "这是一般性指引，并非诊断。每个孩子都有自己的节奏。如有疑虑，请咨询专业人士。",
+    "ageBand": "年龄段",
+    "rangeMonths": "{{from}}–{{to}}个月",
+    "rangeYears": "{{from}}–{{to}}岁",
+    "log": "记录",
+    "loggedShort": "已记录",
+    "logged": "里程碑已保存到您的追踪器",
+    "area": {
+      "motor": "运动",
+      "lenguaje": "语言",
+      "social": "社交与情绪",
+      "cognitivo": "认知"
+    }
+  },
+  "tpl": {
+    "title": "模板",
+    "saveCurrent": "保存当前文本",
+    "saved": "模板已保存",
+    "error": "无法保存模板。",
+    "empty": "暂无模板。写一条消息并点按“保存当前文本”。"
+  },
+  "alerts": {
+    "prompt": "当有符合条件的专业人士上线时通知您吗？",
+    "save": "通知我",
+    "created": "提醒已保存。我们会通知您。",
+    "dup": "您已有该提醒。",
+    "needCriteria": "请至少选择国家、类别或城市。",
+    "any": "任意"
+  },
+  "incl": {
+    "tab": "融合",
+    "title": "融合项目",
+    "help": "向家庭介绍您如何支持神经多样性，以及是否有名额。",
+    "program": "项目介绍",
+    "programPlaceholder": "教育模式、支持、调整、团队……",
+    "admissions": "招生",
+    "capacity": "名额 / 容量",
+    "capacityPlaceholder": "例如：剩余3个名额",
+    "save": "保存",
+    "saved": "项目已保存",
+    "error": "无法保存。",
+    "adm": {
+      "open": "招生中",
+      "waitlist": "候补名单",
+      "closed": "已停止招生"
+    }
+  },
+  "continue": {
+    "start": "开始工具包",
+    "resume": "从上次的地方继续",
+    "done": "您已完成工具包！",
+    "doneHelp": "随时可以回顾任意指南。",
+    "progress": "{{total}}篇中的{{done}}篇",
+    "cta": "继续",
+    "review": "回顾",
+    "start_cta": "开始"
   }
 }

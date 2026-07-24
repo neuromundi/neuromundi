@@ -29,11 +29,11 @@ manda es **`public/.htaccess`**, que debe quedar en `public_html/` junto al
 
 ## 1) 🔴 Base de datos — migraciones al día
 
-En el repo van de `0001` a **`0048`**. Se aplican **a mano, en orden**, en
+En el repo van de `0001` a **`0055`**. Se aplican **a mano, en orden**, en
 Supabase → SQL Editor. Son idempotentes: si dudas de alguna, la puedes reejecutar
 sin romper nada.
 
-1. [ ] Aplica todo lo que falte hasta `0047_donation_tiers.sql`.
+1. [ ] Aplica todo lo que falte hasta `0055_product_stock.sql`.
    Las últimas y por qué importan:
 
    | # | Qué hace | Si falta… |
@@ -49,6 +49,13 @@ sin romper nada.
    | 0046 | Donaciones etapa 2 (`allies` + admin) | el muro, el carrusel y el panel de donaciones fallan |
    | 0047 | `donation_tiers` (importes por moneda) | la página de donación no encuentra los importes |
    | 0048 | `search_members` (búsqueda admin en mensajería) | el admin no puede buscar por nombre al escribir |
+   | 0049 | `notification_prefs` + push por categoría | las preferencias de notificación no guardan |
+   | 0050 | Reseñas públicas + respuesta del prestador | no se ven reseñas en el perfil ni se pueden responder |
+   | 0051 | Métricas de perfil (vistas/contactos) | la pestaña Métricas del prestador sale vacía |
+   | 0052 | Plantillas de mensaje | el botón de plantillas en mensajería falla |
+   | 0053 | Bloqueos de agenda (vacaciones/horas) | el prestador no puede bloquear fechas |
+   | 0054 | Alertas de búsqueda del directorio | no se guardan alertas ni llega el aviso |
+   | 0055 | Inventario de productos (`stock`) | el control de existencias y "agotado" no funcionan |
 
 2. [ ] Comprueba qué quedó aplicado con `db/verificar_produccion.sql`.
 3. [ ] Si México sigue duplicado en Cuotas, es que **0041 no corrió**. Verifica con:

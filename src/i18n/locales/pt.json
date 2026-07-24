@@ -361,7 +361,14 @@
       "categoryAvg": "média da sua categoria",
       "comments": "Comentários recentes",
       "commentsUnavailable": "Para mostrar comentários, crie a view public_provider_comments (ver README).",
-      "noComments": "Ainda não há comentários escritos."
+      "noComments": "Ainda não há comentários escritos.",
+      "reply": "Responder",
+      "replyEdit": "Editar resposta",
+      "yourReply": "Sua resposta",
+      "replyPlaceholder": "Responda com cuidado e empatia…",
+      "replySave": "Salvar resposta",
+      "replySaved": "Resposta salva",
+      "replyError": "Não foi possível salvar a resposta."
     }
   },
   "survey": {
@@ -488,7 +495,13 @@
     "storeCategoryOther": "Especifique a classificação",
     "storeCategoryOtherPlaceholder": "Ex. Mobiliário adaptado",
     "storeCategoryOtherHint": "Ao escolher “Outro”, você deve propor a classificação do seu produto.",
-    "errOtherRequired": "Especifique a classificação (mínimo 3 caracteres)."
+    "errOtherRequired": "Especifique a classificação (mínimo 3 caracteres).",
+    "stock": "Estoque",
+    "stockUnlimited": "Ilimitado",
+    "stockHint": "Deixe vazio para não controlar estoque.",
+    "soldOut": "Esgotado",
+    "inStock": "{{n}} em estoque",
+    "errStock": "O estoque não pode ser negativo."
   },
   "lang": {
     "label": "Idioma"
@@ -983,7 +996,21 @@
     "statusCancelled": "Cancelada",
     "statusCompleted": "Concluída",
     "statusNoShow": "Não compareceu",
-    "remindersNote": "Lembretes são enviados 24 h e 4 h antes por e-mail e WhatsApp (conforme configuração)."
+    "remindersNote": "Lembretes são enviados 24 h e 4 h antes por e-mail e WhatsApp (conforme configuração).",
+    "addRange": "Adicionar intervalo",
+    "off": {
+      "title": "Férias e bloqueios",
+      "help": "Marque dias ou horas em que não atenderá; são retirados dos seus horários.",
+      "allDay": "Dias completos",
+      "from": "De",
+      "to": "Até",
+      "start": "Hora início",
+      "end": "Hora fim",
+      "reason": "Motivo (opcional)",
+      "add": "Bloquear",
+      "added": "Bloqueio adicionado",
+      "badRange": "O fim deve ser depois do início."
+    }
   },
   "pay": {
     "tab": "Pagamentos",
@@ -1112,6 +1139,9 @@
     },
     "donation": {
       "title": "Obrigado pela sua doação"
+    },
+    "dirMatch": {
+      "title": "Um novo especialista para você"
     }
   },
   "clin": {
@@ -1259,7 +1289,8 @@
     "corporateOn": "Ver toda a loja",
     "allProducts": "Toda a loja",
     "scope": "Quais produtos exibir",
-    "corporateHint": "Produtos oferecidos diretamente pela Neuromundi."
+    "corporateHint": "Produtos oferecidos diretamente pela Neuromundi.",
+    "soldOut": "Esgotado"
   },
   "affil": {
     "tab": "Meus afiliados",
@@ -2308,20 +2339,30 @@
     "app": {
       "title": "Instale o app",
       "body": "Instale o Neuromundi no seu dispositivo para abri-lo como um app, até offline. Procure \"Instalar app\" no rodapé."
+    },
+    "agenda": {
+      "title": "Sua agenda",
+      "body": "Defina sua disponibilidade, marque férias e gerencie consultas. Os pacientes reservam seus horários livres."
+    },
+    "messages": {
+      "title": "Mensagens",
+      "body": "Converse com pacientes e colegas, envie links de videochamada e use modelos para responder mais rápido."
+    },
+    "metrics": {
+      "title": "Seu alcance",
+      "body": "Veja quantas pessoas veem seu perfil e entram em contato, e como sua insígnia evolui."
     }
   },
   "metrics": {
-    "unavailable": "Métricas indisponíveis. Aplique a migração 0018 e tente novamente.",
-    "refresh": "Atualizar",
-    "new7d": "Novos (7 dias)",
-    "new30d": "Novos (30 dias)",
-    "members": "Total de membros",
-    "verified": "Prestadores verificados",
-    "published": "Publicados no diretório",
-    "founders": "Membros fundadores",
-    "products": "Produtos ativos",
-    "referrals": "Recomendações",
-    "reportsOpen": "Denúncias abertas"
+    "tab": "Métricas",
+    "title": "Alcance do seu perfil",
+    "help": "Quantas pessoas veem seu perfil e quantas clicam em um botão de contato.",
+    "views": "Visualizações",
+    "contacts": "Contatos",
+    "conversion": "Conversão",
+    "last30": "{{n}} em 30 dias",
+    "conversionHelp": "contatos ÷ visualizações",
+    "empty": "Ainda não há visualizações registradas. Compartilhe seu perfil para começar a medir."
   },
   "events": {
     "title": "Eventos",
@@ -2925,5 +2966,94 @@
       "body": "Com uma doação de nível Embaixador você destaca seu perfil e desbloqueia insígnia e cursos, impulsionando a inclusão.",
       "cta": "Destacar meu perfil"
     }
+  },
+  "notifPrefs": {
+    "title": "Notificações push",
+    "help": "Escolha quais avisos chegam ao seu dispositivo. O sino do app sempre os mantém.",
+    "master": "Receber notificações push",
+    "error": "Não foi possível salvar a preferência.",
+    "footnote": "Silenciar uma categoria só interrompe o push; o aviso permanece no sino.",
+    "cat": {
+      "citas": "Consultas e reservas",
+      "mensajes": "Mensagens",
+      "comunidad": "Comunidade e conquistas",
+      "transacciones": "Pagamentos e comissões",
+      "campanas": "Campanhas e avisos",
+      "otras": "Outros"
+    },
+    "catDesc": {
+      "citas": "Confirmações, lembretes e vagas de lista de espera.",
+      "mensajes": "Mensagens diretas e avisos do administrador.",
+      "comunidad": "Insígnias, conquistas e uso do seu link de indicação.",
+      "transacciones": "Comissões pagas e agradecimentos de doação.",
+      "campanas": "Campanhas de especialistas que você segue.",
+      "otras": "Qualquer outro aviso."
+    }
+  },
+  "reviews": {
+    "title": "O que as famílias dizem",
+    "replyBy": "Resposta de {{name}}",
+    "theProvider": "o especialista",
+    "ratingLabel": "Avaliação: {{n}} de 5"
+  },
+  "guide": {
+    "title": "Marcos por idade",
+    "help": "O que observar no neurodesenvolvimento conforme a idade. Toque em «Registrar» para salvar no seu acompanhamento.",
+    "disclaimer": "É uma orientação geral, não um diagnóstico. Cada criança tem seu próprio ritmo. Em caso de dúvida, consulte um especialista.",
+    "ageBand": "Faixa etária",
+    "rangeMonths": "{{from}} a {{to}} meses",
+    "rangeYears": "{{from}} a {{to}} anos",
+    "log": "Registrar",
+    "loggedShort": "Registrado",
+    "logged": "Marco salvo no seu acompanhamento",
+    "area": {
+      "motor": "Motor",
+      "lenguaje": "Linguagem",
+      "social": "Social e emocional",
+      "cognitivo": "Cognitivo"
+    }
+  },
+  "tpl": {
+    "title": "Modelos",
+    "saveCurrent": "Salvar o texto atual",
+    "saved": "Modelo salvo",
+    "error": "Não foi possível salvar o modelo.",
+    "empty": "Ainda sem modelos. Escreva uma mensagem e toque em «Salvar o texto atual»."
+  },
+  "alerts": {
+    "prompt": "Quer que a gente avise quando um especialista assim for publicado?",
+    "save": "Avise-me",
+    "created": "Alerta salvo. Avisaremos você.",
+    "dup": "Você já tem esse alerta.",
+    "needCriteria": "Escolha pelo menos país, categoria ou cidade.",
+    "any": "Qualquer"
+  },
+  "incl": {
+    "tab": "Inclusão",
+    "title": "Programa de inclusão",
+    "help": "Conte às famílias como você acompanha a neurodivergência e se há vagas.",
+    "program": "Descrição do programa",
+    "programPlaceholder": "Modelo educacional, apoios, adaptações, equipe…",
+    "admissions": "Admissões",
+    "capacity": "Vagas / capacidade",
+    "capacityPlaceholder": "ex. 3 vagas disponíveis",
+    "save": "Salvar",
+    "saved": "Programa salvo",
+    "error": "Não foi possível salvar.",
+    "adm": {
+      "open": "Inscrições abertas",
+      "waitlist": "Lista de espera",
+      "closed": "Inscrições encerradas"
+    }
+  },
+  "continue": {
+    "start": "Comece o Kit",
+    "resume": "Continue de onde parou",
+    "done": "Você concluiu o Kit!",
+    "doneHelp": "Revise qualquer guia quando precisar.",
+    "progress": "{{done}} de {{total}} guias",
+    "cta": "Continuar",
+    "review": "Revisar",
+    "start_cta": "Começar"
   }
 }

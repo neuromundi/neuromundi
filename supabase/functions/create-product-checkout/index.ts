@@ -55,11 +55,13 @@ Deno.serve(async (req) => {
 
   const { data: product } = await admin
     .from('products')
-    .select('id, name, price, currency, vendor_id, is_active')
+    .select('id, name, price, currency, vendor_id, is_active, stock')
     .eq('id', body.productId)
     .single();
   if (!product || !product.is_active) return json(404, { error: 'Producto no disponible' });
   if (!product.price) return json(400, { error: 'El producto no tiene precio.' });
+  // Inventario: stock null = sin control; 0 = agotado.
+  if (product.stock != null && product.stock <= 0) return json(409, { error: 'Producto agotado.' });
 
   const { data: vendor } = await admin
     .from('profiles')

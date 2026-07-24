@@ -9,6 +9,7 @@ import { HowTo } from '@/components/ui';
 import { useAuth } from '@/hooks/useAuth';
 import { ConsentManager } from './ConsentManager';
 import { ClinicalRecord } from './ClinicalRecord';
+import { MilestoneGuide } from './MilestoneGuide';
 import { MilestoneTracker } from './MilestoneTracker';
 
 export function FamilyClinicalPanel() {
@@ -30,6 +31,7 @@ export function FamilyClinicalPanel() {
         <p className="text-sm text-muted">{t('clin.pickSpecialist')}</p>
       )}
 
+      <MilestoneGuide />
       <MilestoneTracker />
     </div>
   );

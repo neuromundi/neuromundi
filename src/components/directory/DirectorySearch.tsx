@@ -7,11 +7,13 @@
  */
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Search, List, MapPin, Globe } from 'lucide-react';
+import { Search, List, MapPin, Globe, BellPlus, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { ProviderCard } from './ProviderCard';
 import { MapView } from './MapView';
-import { SkeletonCard } from '@/components/ui';
+import { SkeletonCard, useToast } from '@/components/ui';
+import { useAuth } from '@/hooks/useAuth';
+import { useSearchAlerts } from '@/hooks/useSearchAlerts';
 import { useDirectory, type DirectoryFilters } from '@/hooks/useDirectory';
 import { SPECIALTIES, INTERVENTION_AREAS, MODALITIES, AGE_RANGES } from '@/data/specialistCatalog';
 import { PRODUCT_CATEGORIES } from '@/data/providerCatalog';
@@ -31,6 +33,9 @@ export interface DirectorySearchProps {
 export function DirectorySearch({ onViewProfile }: DirectorySearchProps) {
   const { categories } = useCategories();
   const { country, setCountry } = useCountry();
+  const { isAuthenticated } = useAuth();
+  const toast = useToast();
+  const { alerts, create: createAlert, remove: removeAlert } = useSearchAlerts();
   const { t, i18n } = useTranslation();
   const catLabel = useCatLabel();
   const [searchParams] = useSearchParams();
@@ -248,6 +253,44 @@ export function DirectorySearch({ onViewProfile }: DirectorySearchProps) {
             </span>
           )}
         </div>
+
+        {/* Alertas de búsqueda: avísame cuando se publique un especialista que
+            coincida con estos filtros. Solo con sesión (hay que saber a quién). */}
+        {isAuthenticated && (
+          <div className="rounded-xl border border-brand-100 bg-brand-50/60 p-3">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <span className="text-sm text-slate-700">{t('alerts.prompt')}</span>
+              <button
+                type="button"
+                onClick={async () => {
+                  const r = await createAlert({ country: country || undefined, categoryId, city });
+                  toast[r === 'ok' ? 'success' : r === 'dup' ? 'info' : 'error'](
+                    r === 'ok' ? t('alerts.created') : r === 'dup' ? t('alerts.dup') : t('alerts.needCriteria'),
+                  );
+                }}
+                className="inline-flex items-center gap-1.5 rounded-full bg-brand-600 px-3.5 py-1.5 text-sm font-semibold text-white hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+              >
+                <BellPlus className="h-4 w-4" aria-hidden="true" /> {t('alerts.save')}
+              </button>
+            </div>
+            {alerts.length > 0 && (
+              <ul className="mt-2 flex flex-wrap gap-2">
+                {alerts.map((a) => {
+                  const cat = a.category_id != null ? categories.find((c) => c.id === a.category_id) : null;
+                  const parts = [a.country, cat ? catLabel(cat.slug, cat.name) : null, a.city].filter(Boolean);
+                  return (
+                    <li key={a.id} className="inline-flex items-center gap-1.5 rounded-full border border-brand-200 bg-white px-2.5 py-1 text-xs text-slate-700">
+                      <span>{parts.join(' · ') || t('alerts.any')}</span>
+                      <button type="button" onClick={() => void removeAlert(a.id)} aria-label={t('common.delete')} className="text-slate-400 hover:text-evs-1">
+                        <X className="h-3.5 w-3.5" />
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+          </div>
+        )}
 
         {/* Alternancia móvil */}
         <div className="flex gap-1 rounded-xl bg-slate-100 p-1 md:hidden" role="tablist" aria-label={t('directory.viewList')}>

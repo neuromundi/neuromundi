@@ -397,7 +397,14 @@
       "categoryAvg": "your category average",
       "comments": "Recent comments",
       "commentsUnavailable": "To show comments, create the public_provider_comments view (see README).",
-      "noComments": "No written comments yet."
+      "noComments": "No written comments yet.",
+      "reply": "Reply",
+      "replyEdit": "Edit reply",
+      "yourReply": "Your reply",
+      "replyPlaceholder": "Reply with care and empathy…",
+      "replySave": "Save reply",
+      "replySaved": "Reply saved",
+      "replyError": "Couldn't save the reply."
     }
   },
   "survey": {
@@ -524,7 +531,13 @@
     "storeCategoryOther": "Specify the classification",
     "storeCategoryOtherPlaceholder": "E.g. Adapted furniture",
     "storeCategoryOtherHint": "If you pick “Other”, you must propose your product’s classification.",
-    "errOtherRequired": "Specify the classification (at least 3 characters)."
+    "errOtherRequired": "Specify the classification (at least 3 characters).",
+    "stock": "Stock",
+    "stockUnlimited": "Unlimited",
+    "stockHint": "Leave empty to not track inventory.",
+    "soldOut": "Sold out",
+    "inStock": "{{n}} in stock",
+    "errStock": "Stock can't be negative."
   },
   "lang": {
     "label": "Language"
@@ -1019,7 +1032,21 @@
     "statusCancelled": "Cancelled",
     "statusCompleted": "Completed",
     "statusNoShow": "No-show",
-    "remindersNote": "Reminders are sent 24 h and 4 h before by email and WhatsApp (per configuration)."
+    "remindersNote": "Reminders are sent 24 h and 4 h before by email and WhatsApp (per configuration).",
+    "addRange": "Add range",
+    "off": {
+      "title": "Time off & blocks",
+      "help": "Mark days or hours you won't be available; they're removed from your open slots.",
+      "allDay": "Full days",
+      "from": "From",
+      "to": "To",
+      "start": "Start time",
+      "end": "End time",
+      "reason": "Reason (optional)",
+      "add": "Block",
+      "added": "Block added",
+      "badRange": "The end must be after the start."
+    }
   },
   "pay": {
     "tab": "Payments",
@@ -1148,6 +1175,9 @@
     },
     "donation": {
       "title": "Thanks for your donation"
+    },
+    "dirMatch": {
+      "title": "A new specialist for you"
     }
   },
   "clin": {
@@ -1295,7 +1325,8 @@
     "corporateOn": "View whole store",
     "allProducts": "All products",
     "scope": "Which products to show",
-    "corporateHint": "Products offered directly by Neuromundi."
+    "corporateHint": "Products offered directly by Neuromundi.",
+    "soldOut": "Sold out"
   },
   "affil": {
     "tab": "My Affiliates",
@@ -2308,20 +2339,30 @@
     "app": {
       "title": "Install the app",
       "body": "Install Neuromundi on your device to open it like an app, even offline. Look for \"Install app\" in the footer."
+    },
+    "agenda": {
+      "title": "Your agenda",
+      "body": "Set your availability, mark time off and manage appointments. Patients book your open slots."
+    },
+    "messages": {
+      "title": "Messaging",
+      "body": "Chat with patients and colleagues, send video-call links and use templates to reply faster."
+    },
+    "metrics": {
+      "title": "Your reach",
+      "body": "See how many people view your profile and contact you, and how your badge evolves."
     }
   },
   "metrics": {
-    "unavailable": "Metrics unavailable. Apply migration 0018 and try again.",
-    "refresh": "Refresh",
-    "new7d": "New (7 days)",
-    "new30d": "New (30 days)",
-    "members": "Total members",
-    "verified": "Verified providers",
-    "published": "Published in directory",
-    "founders": "Founding members",
-    "products": "Active products",
-    "referrals": "Referrals",
-    "reportsOpen": "Open reports"
+    "tab": "Metrics",
+    "title": "Your profile reach",
+    "help": "How many people view your profile and how many click a contact button.",
+    "views": "Views",
+    "contacts": "Contacts",
+    "conversion": "Conversion",
+    "last30": "{{n}} in 30 days",
+    "conversionHelp": "contacts ÷ views",
+    "empty": "No views recorded yet. Share your profile to start measuring."
   },
   "events": {
     "title": "Events",
@@ -2925,5 +2966,94 @@
       "body": "With an Ambassador-level donation you feature your profile and unlock a badge and courses, while fueling inclusion.",
       "cta": "Feature my profile"
     }
+  },
+  "notifPrefs": {
+    "title": "Push notifications",
+    "help": "Choose which alerts reach your device. The in-app bell always keeps them all.",
+    "master": "Receive push notifications",
+    "error": "Couldn't save the preference.",
+    "footnote": "Muting a category only stops the push; the alert stays in your bell.",
+    "cat": {
+      "citas": "Appointments & bookings",
+      "mensajes": "Messages",
+      "comunidad": "Community & achievements",
+      "transacciones": "Payments & commissions",
+      "campanas": "Campaigns & announcements",
+      "otras": "Other"
+    },
+    "catDesc": {
+      "citas": "Confirmations, reminders and waitlist slots.",
+      "mensajes": "Direct messages and admin notices.",
+      "comunidad": "Badges, achievements and referral-link usage.",
+      "transacciones": "Paid commissions and donation thank-yous.",
+      "campanas": "Campaigns from specialists you follow.",
+      "otras": "Any other alert."
+    }
+  },
+  "reviews": {
+    "title": "What families say",
+    "replyBy": "Reply from {{name}}",
+    "theProvider": "the specialist",
+    "ratingLabel": "Rating: {{n}} of 5"
+  },
+  "guide": {
+    "title": "Milestones by age",
+    "help": "What to watch in neurodevelopment by age. Tap “Log” to save it to your tracker.",
+    "disclaimer": "This is general guidance, not a diagnosis. Every child has their own pace. If in doubt, consult a specialist.",
+    "ageBand": "Age range",
+    "rangeMonths": "{{from}}–{{to}} months",
+    "rangeYears": "{{from}}–{{to}} years",
+    "log": "Log",
+    "loggedShort": "Logged",
+    "logged": "Milestone saved to your tracker",
+    "area": {
+      "motor": "Motor",
+      "lenguaje": "Language",
+      "social": "Social & emotional",
+      "cognitivo": "Cognitive"
+    }
+  },
+  "tpl": {
+    "title": "Templates",
+    "saveCurrent": "Save current text",
+    "saved": "Template saved",
+    "error": "Couldn't save the template.",
+    "empty": "No templates yet. Write a message and tap “Save current text”."
+  },
+  "alerts": {
+    "prompt": "Want us to notify you when a matching specialist is published?",
+    "save": "Notify me",
+    "created": "Alert saved. We'll let you know.",
+    "dup": "You already have that alert.",
+    "needCriteria": "Pick at least country, category or city.",
+    "any": "Any"
+  },
+  "incl": {
+    "tab": "Inclusion",
+    "title": "Inclusion program",
+    "help": "Tell families how you support neurodivergence and whether there's space.",
+    "program": "Program description",
+    "programPlaceholder": "Educational model, supports, accommodations, team…",
+    "admissions": "Admissions",
+    "capacity": "Spots / capacity",
+    "capacityPlaceholder": "e.g. 3 spots available",
+    "save": "Save",
+    "saved": "Program saved",
+    "error": "Couldn't save.",
+    "adm": {
+      "open": "Enrollment open",
+      "waitlist": "Waitlist",
+      "closed": "Enrollment closed"
+    }
+  },
+  "continue": {
+    "start": "Start the Toolkit",
+    "resume": "Continue where you left off",
+    "done": "You finished the Toolkit!",
+    "doneHelp": "Revisit any guide whenever you need it.",
+    "progress": "{{done}} of {{total}} guides",
+    "cta": "Continue",
+    "review": "Review",
+    "start_cta": "Start"
   }
 }

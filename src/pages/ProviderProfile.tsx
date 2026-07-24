@@ -1,6 +1,7 @@
 /**
  * ProviderProfile — perfil público de un proveedor (internacionalizado).
  */
+import { useEffect, useRef } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import {
   Radar,
@@ -23,6 +24,9 @@ import { useProviderRatings } from '@/hooks/useProviderRatings';
 import { useOffers } from '@/hooks/useOffers';
 import { useAuth } from '@/hooks/useAuth';
 import { DonateCallout } from '@/components/donation/DonateCallout';
+import { ProviderReviews } from '@/components/directory/ProviderReviews';
+import { SchoolInclusionInfo } from '@/components/directory/SchoolInclusionInfo';
+import { trackProfileEvent } from '@/hooks/useProviderMetrics';
 import { discountLabel } from '@/lib/utils';
 import { DIMENSION_LABEL_KEY } from '@/types/app';
 
@@ -38,6 +42,23 @@ export function ProviderProfile() {
   const { rating, radar } = useProviderRatings(id, profile?.provider_type ?? null);
   const { offers } = useOffers(id);
   const activeOffers = offers.filter((o) => o.status === 'active');
+
+  // Métrica de perfil: cuenta una VISTA al abrir el perfil de otro (la base
+  // ignora la autovisita del propio prestador). Best-effort, no bloquea.
+  const viewedRef = useRef(false);
+  useEffect(() => {
+    if (!id || viewedRef.current) return;
+    viewedRef.current = true;
+    void trackProfileEvent(id, 'view');
+  }, [id]);
+
+  // Cuenta el contacto una sola vez por carga de perfil.
+  const contactedRef = useRef(false);
+  const trackContactOnce = (providerId: string) => {
+    if (contactedRef.current) return;
+    contactedRef.current = true;
+    void trackProfileEvent(providerId, 'contact');
+  };
 
   if (loading) {
     return (
@@ -94,7 +115,9 @@ export function ProviderProfile() {
       </header>
 
       {(isParent || isConsumer || (isProvider && userId !== id)) && (
-        <div className="flex flex-wrap gap-2">
+        // onClickCapture cuenta un CONTACTO al pulsar cualquier botón de esta
+        // fila (conectar, reservar, guardar). Una vez por carga de perfil.
+        <div className="flex flex-wrap gap-2" onClickCapture={() => trackContactOnce(id)}>
           {isProvider && userId !== id && <ConnectButton providerId={id} />}
           {isParent && <SaveToListButton providerId={id} />}
           {isConsumer && profile.provider_type === 'service_provider' && <BookAppointment providerId={id} />}
@@ -106,6 +129,11 @@ export function ProviderProfile() {
       {(isParent || isConsumer) && <DonateCallout variant="directory" />}
 
       {profile.bio && <p className="text-slate-700">{profile.bio}</p>}
+
+      {/* Programa de inclusión (escuelas y clínicas). */}
+      {(profile.provider_type === 'school' || profile.provider_type === 'clinic') && (
+        <SchoolInclusionInfo details={profile.provider_details as Record<string, unknown> | null} grades={profile.school_grades} />
+      )}
 
       {categories.length > 0 && (
         <div className="flex flex-wrap gap-2">
@@ -132,6 +160,9 @@ export function ProviderProfile() {
           </div>
         </section>
       )}
+
+      {/* Reseñas de familias (públicas). */}
+      <ProviderReviews providerId={id} providerName={name} />
 
       <section>
         <h2 className="mb-2 font-semibold text-slate-900">{t('profile.activeOffers')}</h2>

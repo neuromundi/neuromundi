@@ -361,7 +361,14 @@
       "categoryAvg": "Durchschnitt deiner Kategorie",
       "comments": "Neueste Kommentare",
       "commentsUnavailable": "Um Kommentare anzuzeigen, erstelle die Ansicht public_provider_comments (siehe README).",
-      "noComments": "Noch keine geschriebenen Kommentare."
+      "noComments": "Noch keine geschriebenen Kommentare.",
+      "reply": "Antworten",
+      "replyEdit": "Antwort bearbeiten",
+      "yourReply": "Deine Antwort",
+      "replyPlaceholder": "Antworte achtsam und einfühlsam…",
+      "replySave": "Antwort speichern",
+      "replySaved": "Antwort gespeichert",
+      "replyError": "Antwort konnte nicht gespeichert werden."
     }
   },
   "survey": {
@@ -488,7 +495,13 @@
     "storeCategoryOther": "Klassifizierung angeben",
     "storeCategoryOtherPlaceholder": "z. B. Angepasste Möbel",
     "storeCategoryOtherHint": "Wenn du „Andere“ wählst, musst du die Klassifizierung deines Produkts vorschlagen.",
-    "errOtherRequired": "Gib die Klassifizierung an (mindestens 3 Zeichen)."
+    "errOtherRequired": "Gib die Klassifizierung an (mindestens 3 Zeichen).",
+    "stock": "Bestand",
+    "stockUnlimited": "Unbegrenzt",
+    "stockHint": "Leer lassen, um keinen Bestand zu führen.",
+    "soldOut": "Ausverkauft",
+    "inStock": "{{n}} auf Lager",
+    "errStock": "Der Bestand darf nicht negativ sein."
   },
   "lang": {
     "label": "Sprache"
@@ -983,7 +996,21 @@
     "statusCancelled": "Abgesagt",
     "statusCompleted": "Abgeschlossen",
     "statusNoShow": "Nicht erschienen",
-    "remindersNote": "Erinnerungen werden 24 h und 4 h vorher per E-Mail und WhatsApp gesendet (je nach Konfiguration)."
+    "remindersNote": "Erinnerungen werden 24 h und 4 h vorher per E-Mail und WhatsApp gesendet (je nach Konfiguration).",
+    "addRange": "Zeitraum hinzufügen",
+    "off": {
+      "title": "Abwesenheit & Sperren",
+      "help": "Markiere Tage oder Stunden ohne Verfügbarkeit; sie werden aus deinen freien Slots entfernt.",
+      "allDay": "Ganze Tage",
+      "from": "Von",
+      "to": "Bis",
+      "start": "Startzeit",
+      "end": "Endzeit",
+      "reason": "Grund (optional)",
+      "add": "Sperren",
+      "added": "Sperre hinzugefügt",
+      "badRange": "Das Ende muss nach dem Start liegen."
+    }
   },
   "pay": {
     "tab": "Zahlungen",
@@ -1112,6 +1139,9 @@
     },
     "donation": {
       "title": "Danke für deine Spende"
+    },
+    "dirMatch": {
+      "title": "Eine neue Fachkraft für dich"
     }
   },
   "clin": {
@@ -1259,7 +1289,8 @@
     "corporateOn": "Ganzen Shop ansehen",
     "allProducts": "Ganzer Shop",
     "scope": "Welche Produkte anzeigen",
-    "corporateHint": "Produkte, die Neuromundi direkt anbietet."
+    "corporateHint": "Produkte, die Neuromundi direkt anbietet.",
+    "soldOut": "Ausverkauft"
   },
   "affil": {
     "tab": "Meine Partner",
@@ -2308,20 +2339,30 @@
     "app": {
       "title": "App installieren",
       "body": "Installiere Neuromundi auf deinem Gerät, um es wie eine App zu öffnen – auch offline. Suche „App installieren\" im Fußbereich."
+    },
+    "agenda": {
+      "title": "Dein Kalender",
+      "body": "Lege Verfügbarkeit fest, trage Abwesenheiten ein und verwalte Termine. Patienten buchen deine freien Slots."
+    },
+    "messages": {
+      "title": "Nachrichten",
+      "body": "Schreibe mit Patienten und Kolleg:innen, sende Videolinks und antworte schneller mit Vorlagen."
+    },
+    "metrics": {
+      "title": "Deine Reichweite",
+      "body": "Sieh, wie viele dein Profil ansehen und dich kontaktieren, und wie sich dein Abzeichen entwickelt."
     }
   },
   "metrics": {
-    "unavailable": "Kennzahlen nicht verfügbar. Migration 0018 anwenden und erneut versuchen.",
-    "refresh": "Aktualisieren",
-    "new7d": "Neu (7 Tage)",
-    "new30d": "Neu (30 Tage)",
-    "members": "Mitglieder gesamt",
-    "verified": "Verifizierte Anbieter",
-    "published": "Im Verzeichnis veröffentlicht",
-    "founders": "Gründungsmitglieder",
-    "products": "Aktive Produkte",
-    "referrals": "Empfehlungen",
-    "reportsOpen": "Offene Meldungen"
+    "tab": "Kennzahlen",
+    "title": "Reichweite deines Profils",
+    "help": "Wie viele Menschen dein Profil ansehen und wie viele einen Kontakt-Button klicken.",
+    "views": "Aufrufe",
+    "contacts": "Kontakte",
+    "conversion": "Konversion",
+    "last30": "{{n}} in 30 Tagen",
+    "conversionHelp": "Kontakte ÷ Aufrufe",
+    "empty": "Noch keine Aufrufe erfasst. Teile dein Profil, um mit dem Messen zu beginnen."
   },
   "events": {
     "title": "Veranstaltungen",
@@ -2925,5 +2966,94 @@
       "body": "Mit einer Spende auf Botschafter-Niveau hebst du dein Profil hervor und schaltest Abzeichen und Kurse frei – und förderst Inklusion.",
       "cta": "Mein Profil hervorheben"
     }
+  },
+  "notifPrefs": {
+    "title": "Push-Benachrichtigungen",
+    "help": "Wähle, welche Hinweise dein Gerät erreichen. Die Glocke in der App behält immer alle.",
+    "master": "Push-Benachrichtigungen erhalten",
+    "error": "Einstellung konnte nicht gespeichert werden.",
+    "footnote": "Eine Kategorie stummzuschalten stoppt nur den Push; der Hinweis bleibt in der Glocke.",
+    "cat": {
+      "citas": "Termine & Buchungen",
+      "mensajes": "Nachrichten",
+      "comunidad": "Community & Erfolge",
+      "transacciones": "Zahlungen & Provisionen",
+      "campanas": "Kampagnen & Ankündigungen",
+      "otras": "Sonstiges"
+    },
+    "catDesc": {
+      "citas": "Bestätigungen, Erinnerungen und Warteplätze.",
+      "mensajes": "Direktnachrichten und Admin-Hinweise.",
+      "comunidad": "Abzeichen, Erfolge und Nutzung deines Empfehlungslinks.",
+      "transacciones": "Bezahlte Provisionen und Spenden-Dankeschöns.",
+      "campanas": "Kampagnen von Fachkräften, denen du folgst.",
+      "otras": "Jeder andere Hinweis."
+    }
+  },
+  "reviews": {
+    "title": "Was Familien sagen",
+    "replyBy": "Antwort von {{name}}",
+    "theProvider": "die Fachkraft",
+    "ratingLabel": "Bewertung: {{n}} von 5"
+  },
+  "guide": {
+    "title": "Meilensteine nach Alter",
+    "help": "Worauf du in der Neuroentwicklung je nach Alter achten kannst. Tippe auf „Erfassen“, um es im Tracker zu speichern.",
+    "disclaimer": "Dies ist eine allgemeine Orientierung, keine Diagnose. Jedes Kind hat sein eigenes Tempo. Im Zweifel eine Fachkraft konsultieren.",
+    "ageBand": "Altersspanne",
+    "rangeMonths": "{{from}}–{{to}} Monate",
+    "rangeYears": "{{from}}–{{to}} Jahre",
+    "log": "Erfassen",
+    "loggedShort": "Erfasst",
+    "logged": "Meilenstein im Tracker gespeichert",
+    "area": {
+      "motor": "Motorik",
+      "lenguaje": "Sprache",
+      "social": "Sozial & emotional",
+      "cognitivo": "Kognitiv"
+    }
+  },
+  "tpl": {
+    "title": "Vorlagen",
+    "saveCurrent": "Aktuellen Text speichern",
+    "saved": "Vorlage gespeichert",
+    "error": "Vorlage konnte nicht gespeichert werden.",
+    "empty": "Noch keine Vorlagen. Schreibe eine Nachricht und tippe auf „Aktuellen Text speichern“."
+  },
+  "alerts": {
+    "prompt": "Sollen wir dich benachrichtigen, wenn eine passende Fachkraft veröffentlicht wird?",
+    "save": "Benachrichtigen",
+    "created": "Alarm gespeichert. Wir sagen dir Bescheid.",
+    "dup": "Diesen Alarm hast du bereits.",
+    "needCriteria": "Wähle mindestens Land, Kategorie oder Stadt.",
+    "any": "Beliebig"
+  },
+  "incl": {
+    "tab": "Inklusion",
+    "title": "Inklusionsprogramm",
+    "help": "Erkläre Familien, wie du Neurodivergenz begleitest und ob Plätze frei sind.",
+    "program": "Programmbeschreibung",
+    "programPlaceholder": "Bildungsmodell, Unterstützung, Anpassungen, Team…",
+    "admissions": "Aufnahme",
+    "capacity": "Plätze / Kapazität",
+    "capacityPlaceholder": "z. B. 3 Plätze frei",
+    "save": "Speichern",
+    "saved": "Programm gespeichert",
+    "error": "Konnte nicht gespeichert werden.",
+    "adm": {
+      "open": "Anmeldung offen",
+      "waitlist": "Warteliste",
+      "closed": "Anmeldung geschlossen"
+    }
+  },
+  "continue": {
+    "start": "Starte das Toolkit",
+    "resume": "Mach dort weiter, wo du warst",
+    "done": "Du hast das Toolkit abgeschlossen!",
+    "doneHelp": "Sieh dir jede Anleitung bei Bedarf erneut an.",
+    "progress": "{{done}} von {{total}} Leitfäden",
+    "cta": "Weiter",
+    "review": "Wiederholen",
+    "start_cta": "Starten"
   }
 }

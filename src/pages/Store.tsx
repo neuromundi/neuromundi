@@ -98,10 +98,11 @@ export function Store() {
 
       <p className="mt-2 font-bold text-slate-900">
         {p.price != null ? `$${Number(p.price).toLocaleString()} ${p.currency}` : t('shop.noPrice')}
+        {p.stock === 0 && <span className="ml-2 rounded-full bg-slate-100 px-2 py-0.5 text-xs font-semibold text-muted">{t('shop.soldOut')}</span>}
       </p>
       <div className="mt-auto space-y-2 pt-3">
-        <Button fullWidth loading={busyId === p.id} onClick={() => onBuy(p)} leadingIcon={<ShoppingBag className="h-4 w-4" />}>
-          {t('shop.buy')}
+        <Button fullWidth loading={busyId === p.id} disabled={p.stock === 0} onClick={() => onBuy(p)} leadingIcon={<ShoppingBag className="h-4 w-4" />}>
+          {p.stock === 0 ? t('shop.soldOut') : t('shop.buy')}
         </Button>
         <Button fullWidth variant="ghost" size="sm" onClick={() => setReviewsFor(p)} leadingIcon={<MessageSquare className="h-4 w-4" />}>
           {ratings[p.id]?.count ? t('shop.seeReviews') : t('shop.beFirstShort')}

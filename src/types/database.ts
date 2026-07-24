@@ -395,6 +395,7 @@ export interface Database {
           purchase_url: string | null;
           store_category: string | null;
           store_category_other: string | null;
+          stock: number | null;
           is_featured: boolean;
           is_active: boolean;
           status: string;
@@ -415,6 +416,7 @@ export interface Database {
           purchase_url?: string | null;
           store_category?: string | null;
           store_category_other?: string | null;
+          stock?: number | null;
           is_featured?: boolean;
           is_active?: boolean;
           status?: string;
@@ -915,6 +917,34 @@ export interface Database {
         Relationships: [];
       };
 
+      message_templates: {
+        Row: { id: string; owner_id: string; title: string; body: string; sort_order: number; created_at: string };
+        Insert: { id?: string; owner_id: string; title: string; body: string; sort_order?: number; created_at?: string };
+        Update: Partial<Database['public']['Tables']['message_templates']['Insert']>;
+        Relationships: [];
+      };
+
+      provider_time_off: {
+        Row: { id: string; provider_id: string; starts_at: string; ends_at: string; all_day: boolean; reason: string | null; created_at: string };
+        Insert: { id?: string; provider_id: string; starts_at: string; ends_at: string; all_day?: boolean; reason?: string | null; created_at?: string };
+        Update: Partial<Database['public']['Tables']['provider_time_off']['Insert']>;
+        Relationships: [];
+      };
+
+      search_alerts: {
+        Row: { id: string; user_id: string; country: string | null; category_id: number | null; city: string | null; created_at: string };
+        Insert: { id?: string; user_id: string; country?: string | null; category_id?: number | null; city?: string | null; created_at?: string };
+        Update: Partial<Database['public']['Tables']['search_alerts']['Insert']>;
+        Relationships: [];
+      };
+
+      notification_prefs: {
+        Row: { user_id: string; push_enabled: boolean; muted_categories: string[]; updated_at: string };
+        Insert: { user_id: string; push_enabled?: boolean; muted_categories?: string[]; updated_at?: string };
+        Update: Partial<Database['public']['Tables']['notification_prefs']['Insert']>;
+        Relationships: [];
+      };
+
       courses: {
         Row: { id: string; author_id: string; title: string; description: string | null; cover_url: string | null; level: string | null; audience: string | null; country: string | null; is_published: boolean; created_at: string };
         Insert: { id?: string; author_id: string; title: string; description?: string | null; cover_url?: string | null; level?: string | null; audience?: string | null; country?: string | null; is_published?: boolean; created_at?: string };
@@ -1145,6 +1175,18 @@ export interface Database {
       search_members: {
         Args: { p_query: string };
         Returns: { member_no: number; full_name: string; business_name: string | null; avatar_url: string | null; role: string }[];
+      };
+      respond_review: {
+        Args: { p_survey_id: string; p_text: string };
+        Returns: Json;
+      };
+      track_profile_event: {
+        Args: { p_provider_id: string; p_kind: string };
+        Returns: undefined;
+      };
+      provider_metrics: {
+        Args: Record<string, never>;
+        Returns: { views_total: number; views_30d: number; contacts_total: number; contacts_30d: number }[];
       };
       admin_country_prices: {
         Args: { p_country: string };

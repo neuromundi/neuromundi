@@ -119,6 +119,11 @@ Deno.serve(async (req: Request) => {
             .from('orders')
             .update({ status: 'paid', paid_at: new Date().toISOString(), stripe_session_id: s.id })
             .eq('stripe_session_id', s.id);
+          // Inventario: descuenta una unidad si el producto lleva control de stock.
+          // decrement_stock es atómico y no baja de cero ni toca stock null.
+          if (s.metadata?.product_id) {
+            await admin.rpc('decrement_stock', { p_product_id: s.metadata.product_id });
+          }
           void pi;
           break;
         }

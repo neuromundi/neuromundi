@@ -55,7 +55,7 @@ PY
   `drop policy if exists` + `create policy`, `insert ... on conflict do nothing`,
   `add column if not exists`. Backfills solo tocan filas nulas.
 - El usuario las aplica **a mano en el SQL Editor de Supabase**, en orden (no hay CLI de
-  migraciones en su flujo). Última en el repo: **0048**.
+  migraciones en su flujo). Última en el repo: **0055**.
 - Para verificar qué está aplicado en producción: `db/verificar_produccion.sql`.
 
 ### 3. Escribir a otros usuarios / notificaciones
@@ -66,10 +66,15 @@ PY
   `emit_*_appointment_reminders`, `send_message`, `waitlist_notify_slot`.
 - La campana (`NotificationsBell`) renderiza por `type`. Tipos vigentes: `post_achievement`,
   `badge`, `appt_*`, `admin_message`, `direct_message`, `booking_request`, `waitlist_slot`,
-  `waitlist_join`, `campaign`, `commission_paid`. **Al añadir un tipo, añade su icono y sus
-  claves i18n.**
+  `waitlist_join`, `campaign`, `commission_paid`, `directory_match`. **Al añadir un tipo,
+  añade su icono y sus claves i18n.**
 - **Todo insert en `notifications` dispara push nativo** vía el trigger `trg_notify_push`
   (migración 0030) → `pg_net` → Edge Function `send-push`. No hay que hacer nada extra.
+- **Preferencias de push** (migración 0049): `notification_prefs` (push_enabled +
+  `muted_categories[]`). El trigger consulta esa tabla y NO empuja si el push está apagado o
+  la categoría está silenciada; la campana in-app SIEMPRE guarda todo. Las categorías las
+  define `notif_category()` en SQL y `src/lib/notificationPrefs.ts` en el front: **si añades
+  un tipo nuevo, clasifícalo en AMBOS** o caerá en "otras". UI en `Ajustes`.
 
 ### 4. Administrador
 - Es admin quien tenga `profiles.role = 'admin'` (lo valida `is_admin()`). Se asigna por
@@ -99,6 +104,9 @@ PY
 - Las citas admiten cobro digital **opcional** (`appointment_requests.charge_total` /
   `charge_percent` / `payment_status`); el paciente paga con `create-consultation-checkout`
   (acepta importe personalizado) y el webhook marca `payment_status='paid'`.
+- **Inventario** (migración 0055): `products.stock` (NULL = sin control; 0 = agotado). El
+  checkout de producto rechaza si stock ≤ 0 y el webhook llama `decrement_stock` (atómico,
+  nunca baja de cero) al confirmarse el pago. La Tienda marca "Agotado" y deshabilita comprar.
 
 ### 6. Push nativo (VAPID)
 - Claves: `VITE_VAPID_PUBLIC_KEY` (front, **en tiempo de build**) debe ser IDÉNTICA a
@@ -124,6 +132,10 @@ PY
   tipo devuelto → `42P13 cannot change return type of existing function`. Si modificas
   la firma de una RPC ya aplicada, antepón `drop function if exists public.fn(args);`
   con los MISMOS tipos de argumento. Nos pasó con `set_referrer` y `admin_referrals`.
+- **`create or replace VIEW` no reordena ni renombra columnas**: solo puede AÑADIR columnas
+  al final. Si antepones o renombras una columna existente → `42P16 cannot change name of
+  view column`. Hay que `drop view if exists` primero (las vistas hoja se pueden dropear sin
+  riesgo). Nos pasó en 0050 al anteponer `id` a `provider_id` en `public_provider_comments`.
 - **`returns table` en PL/pgSQL**: las columnas de salida son VARIABLES dentro del cuerpo.
   Si una consulta usa esa misma columna sin calificar → `42702 column reference is
   ambiguous` y la RPC responde **400**. PL/pgSQL **no valida las consultas al crear la
@@ -243,6 +255,11 @@ PY
 - `merchant/AffiliatePanel` (código y enlace propios) + `merchant/CommissionsPanel`
   (libro "me deben / yo debo", marcar liquidación, estado de cuenta CSV)
 - `onboarding/GuidedTour` (6 pasos) · `pwa/InstallAppButton` · `ui/*` (`Button`, `Modal`, `PasswordInput`, `StarRating`…)
+- `provider/SchoolInclusionPanel` (editor del programa de inclusión, escuelas/clínicas; guarda
+  en `provider_details` jsonb) · `directory/SchoolInclusionInfo` (muestra programa/admisiones/grados
+  en el perfil público)
+- `clinical/MilestoneGuide` (guía de hitos por edad, datos en `src/data/milestonesGuide.ts`,
+  orientación NO diagnóstico; botón "registrar" alimenta el rastreador local `MilestoneTracker`)
 
 ### RPC principales (todas `SECURITY DEFINER`)
 - **Admin**: `admin_metrics`, `admin_reports`, `admin_send_message`, `admin_membership_renewals`, `admin_set_verified/published`
@@ -265,6 +282,13 @@ PY
   `mark_commissions_paid` (la autorización es el `where vendor_id = auth.uid()`),
   `admin_commissions`, `resolve_affiliate`
 - **Distintivo**: `my_badge_inputs`, `admin_badge_inputs`, `refresh_all_badges`
+- **Métricas de perfil**: `track_profile_event(provider, 'view'|'contact')` (anon+auth, sin
+  autoconteo, dedupe diario del miembro) · `provider_metrics()` (resumen del propio prestador).
+  `ProviderProfile` registra vista al abrir y contacto al pulsar; panel en pestaña "Métricas".
+- **Reseñas**: vista pública `public_provider_comments` (id + comentario + promedio + respuesta,
+  sin datos del padre; ahora ESTÁNDAR, no opcional) · `respond_review(survey_id, texto)`
+  (solo el prestador dueño responde). Se muestran en `ProviderProfile` (`ProviderReviews`) y
+  se responden en la pestaña "Mis Calificaciones" del panel.
 
 ### Edge Functions (`supabase/functions`)
 - **Pagos**: `create-membership-checkout`, `create-product-checkout`,
@@ -318,6 +342,13 @@ Al extraer lógica de una página a `src/lib`, **añade su test** (patrón: `*.t
 | 0046 | Donaciones etapa 2: `allies` + admin (stats, lista, curar muro) |
 | 0047 | `donation_tiers`: importes de donación por moneda, editables por admin |
 | 0048 | `search_members`: búsqueda de miembros para el admin (folio/nombre) |
+| 0049 | `notification_prefs` + push por categoría (el trigger las respeta) |
+| 0050 | Reseñas públicas (`public_provider_comments` estándar) + `respond_review` |
+| 0051 | Métricas de perfil: `profile_events` + `track_profile_event` + `provider_metrics` |
+| 0052 | Plantillas de mensaje (`message_templates`, privadas por dueño) |
+| 0053 | Bloqueos de agenda (`provider_time_off`); `generateSlots` los resta |
+| 0054 | Alertas de búsqueda (`search_alerts`) + aviso al publicar perfil |
+| 0055 | Inventario de productos (`stock` + `decrement_stock` en el webhook) |
 
 ## Reglas de producto/negocio ya implementadas
 - **Clasificación "Otro"**: si `products.store_category = 'otro'`, `store_category_other`

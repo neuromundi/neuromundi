@@ -27,6 +27,7 @@ import { useFounderStatus } from '@/hooks/useFounder';
 import { FounderRequirements } from '@/components/founder/FounderRequirements';
 import { RecommendPanel } from '@/components/referral/RecommendPanel';
 import { DonateCallout } from '@/components/donation/DonateCallout';
+import { ContinueLearning } from '@/components/toolkit/ContinueLearning';
 import { formatDate } from '@/lib/utils';
 import type { Transaction, TransactionStatus } from '@/types/app';
 
@@ -132,6 +133,10 @@ export function ParentDashboard() {
       )}
       <div className="mb-4">
         <FounderRequirements />
+      </div>
+      {/* Continuar donde me quedé (Kit de Herramientas). */}
+      <div className="mb-4">
+        <ContinueLearning />
       </div>
       {/* Recordatorio permanente y amable: Neuromundi vive de aportes. */}
       <div className="mb-4">

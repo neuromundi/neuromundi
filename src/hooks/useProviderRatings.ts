@@ -27,9 +27,12 @@ export interface RadarDatum {
 }
 
 export interface ProviderComment {
+  id: string;
   comments: string;
   created_at: string;
   overall: number | null;
+  provider_response: string | null;
+  provider_response_at: string | null;
 }
 
 export interface UseProviderRatingsValue {
@@ -41,6 +44,8 @@ export interface UseProviderRatingsValue {
   comments: ProviderComment[];
   commentsUnavailable: boolean;
   refetch: () => Promise<void>;
+  /** Guarda/edita/borra la respuesta del prestador a una reseña. */
+  respond: (surveyId: string, text: string) => Promise<boolean>;
 }
 
 export function useProviderRatings(
@@ -119,10 +124,10 @@ export function useProviderRatings(
         setCategoryAverageEvs(null);
       }
 
-      // 4) Comentarios (vista opcional, degrada con gracia).
+      // 4) Comentarios públicos (id + respuesta del prestador).
       const { data: cmts, error: cmtErr } = await supabase
         .from('public_provider_comments' as never)
-        .select('comments, created_at, overall')
+        .select('id, comments, created_at, overall, provider_response, provider_response_at')
         .eq('provider_id', providerId)
         .order('created_at', { ascending: false })
         .limit(10);
@@ -140,6 +145,19 @@ export function useProviderRatings(
     }
   }, [providerId, providerType]);
 
+  const respond = useCallback(
+    async (surveyId: string, text: string): Promise<boolean> => {
+      const { data, error: rErr } = await supabase.rpc('respond_review', {
+        p_survey_id: surveyId,
+        p_text: text,
+      });
+      const ok = !rErr && (data as { ok?: boolean } | null)?.ok === true;
+      if (ok) await refetch();
+      return ok;
+    },
+    [refetch],
+  );
+
   useEffect(() => {
     void refetch();
   }, [refetch]);
@@ -153,5 +171,6 @@ export function useProviderRatings(
     comments,
     commentsUnavailable,
     refetch,
+    respond,
   };
 }

@@ -1,36 +1,53 @@
 /**
  * GuidedTour — guía rápida de bienvenida (baja carga cognitiva).
  *
- * Presenta en 6 pasos las áreas principales de Neuromundi con lenguaje literal y
- * claro. Se muestra una sola vez (el disparo y el "una sola vez" los controla
- * quien lo monta) y puede reabrirse desde Ajustes. Respeta "reducir movimiento":
- * si está activo, no hay animación de entrada. Navegación por teclado accesible.
+ * Presenta en pocos pasos las áreas principales de Neuromundi con lenguaje
+ * literal y claro. Los pasos se ADAPTAN AL ROL: quien atiende (prestador) ve su
+ * agenda, mensajería y métricas; una familia/paciente ve el kit, la formación y
+ * los eventos. Se muestra una sola vez (el disparo lo controla quien lo monta) y
+ * puede reabrirse desde Ajustes. Respeta "reducir movimiento" y es accesible por
+ * teclado.
  */
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
-import { Compass, CalendarDays, BookOpenCheck, GraduationCap, ShieldAlert, Smartphone, Accessibility, X } from 'lucide-react';
+import { Compass, CalendarDays, BookOpenCheck, GraduationCap, ShieldAlert, Smartphone, Accessibility, CalendarClock, MessageSquare, BarChart3, X } from 'lucide-react';
 import { useA11y } from '@/stores/a11yStore';
+import { useAuth } from '@/hooks/useAuth';
 
-const STEPS = [
+// Pasos por rol. La familia/paciente descubre lo que consume; el prestador, lo
+// que gestiona. Los pasos comunes (directorio, seguridad, app) van en ambos.
+const FAMILY_STEPS = [
   { icon: Compass, key: 'directory' },
-  { icon: CalendarDays, key: 'events' },
   { icon: BookOpenCheck, key: 'kit' },
   { icon: GraduationCap, key: 'academy' },
+  { icon: CalendarDays, key: 'events' },
+  { icon: ShieldAlert, key: 'safety' },
+  { icon: Smartphone, key: 'app' },
+] as const;
+
+const PROVIDER_STEPS = [
+  { icon: Compass, key: 'directory' },
+  { icon: CalendarClock, key: 'agenda' },
+  { icon: MessageSquare, key: 'messages' },
+  { icon: BarChart3, key: 'metrics' },
   { icon: ShieldAlert, key: 'safety' },
   { icon: Smartphone, key: 'app' },
 ] as const;
 
 export function GuidedTour({ onClose }: { onClose: () => void }) {
   const { t } = useTranslation();
+  const { isProvider } = useAuth();
   const reduceMotion = useA11y((s) => s.reduceMotion);
   const [step, setStep] = useState(0);
+  const STEPS = useMemo(() => (isProvider ? PROVIDER_STEPS : FAMILY_STEPS), [isProvider]);
   const last = STEPS.length - 1;
-  const Icon = STEPS[step].icon;
-  const k = STEPS[step].key;
+  const safeStep = Math.min(step, last);
+  const Icon = STEPS[safeStep].icon;
+  const k = STEPS[safeStep].key;
 
-  const next = () => (step < last ? setStep((s) => s + 1) : onClose());
-  const prev = () => setStep((s) => Math.max(0, s - 1));
+  const next = () => (safeStep < last ? setStep(safeStep + 1) : onClose());
+  const prev = () => setStep(Math.max(0, safeStep - 1));
 
   return createPortal(
     <div className="fixed inset-0 z-[70] flex items-center justify-center bg-slate-900/60 p-4">
@@ -65,7 +82,7 @@ export function GuidedTour({ onClose }: { onClose: () => void }) {
           {STEPS.map((s, i) => (
             <span
               key={s.key}
-              className={`h-2 rounded-full transition-all ${i === step ? 'w-6 bg-brand-500' : 'w-2 bg-slate-200'}`}
+              className={`h-2 rounded-full transition-all ${i === safeStep ? 'w-6 bg-brand-500' : 'w-2 bg-slate-200'}`}
             />
           ))}
         </div>
@@ -79,7 +96,7 @@ export function GuidedTour({ onClose }: { onClose: () => void }) {
             {t('tour.skip')}
           </button>
           <div className="flex gap-2">
-            {step > 0 && (
+            {safeStep > 0 && (
               <button
                 type="button"
                 onClick={prev}
@@ -93,7 +110,7 @@ export function GuidedTour({ onClose }: { onClose: () => void }) {
               onClick={next}
               className="rounded-xl bg-brand-700 px-5 py-2 text-sm font-semibold text-white hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
             >
-              {step === last ? t('tour.done') : t('tour.next')}
+              {safeStep === last ? t('tour.done') : t('tour.next')}
             </button>
           </div>
         </div>

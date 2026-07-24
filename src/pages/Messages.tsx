@@ -8,9 +8,10 @@
  */
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { MessageSquare, Send, Video, ArrowLeft, Plus, Search } from 'lucide-react';
+import { MessageSquare, Send, Video, ArrowLeft, Plus, Search, FileText, Trash2 } from 'lucide-react';
 import { Button, useToast, EmptyState, Avatar, SkeletonCard } from '@/components/ui';
 import { useMessages, type Message, type Thread } from '@/hooks/useMessages';
+import { useMessageTemplates } from '@/hooks/useMessageTemplates';
 import { useAuth } from '@/hooks/useAuth';
 import { jitsiRoomUrl } from '@/lib/meet';
 import { formatDate } from '@/lib/utils';
@@ -55,8 +56,24 @@ function folioToNumber(raw: string): number | null {
 export function Messages() {
   const { t } = useTranslation();
   const toast = useToast();
-  const { isAdmin } = useAuth();
+  const { isAdmin, isProvider } = useAuth();
   const { userId, threads, loading, reloadThreads, fetchThread, markThreadRead, send } = useMessages();
+
+  // Plantillas de respuesta rápida: para quien escribe mucho (prestador/admin).
+  const canTemplate = isProvider || isAdmin;
+  const { templates, create: createTpl, remove: removeTpl } = useMessageTemplates(canTemplate);
+  const [tplOpen, setTplOpen] = useState(false);
+
+  const createTemplate = async (body: string) => {
+    if (!body.trim()) return;
+    // El título es la primera línea recortada; suficiente para reconocerla.
+    const ok = await createTpl(body.split('\n')[0].slice(0, 40), body);
+    toast[ok ? 'success' : 'error'](ok ? t('tpl.saved') : t('tpl.error'));
+  };
+  const removeTemplate = async (id: string) => {
+    const ok = await removeTpl(id);
+    if (!ok) toast.error(t('tpl.error'));
+  };
 
   const [active, setActive] = useState<Thread | null>(null);
   const [msgs, setMsgs] = useState<Message[]>([]);
@@ -302,10 +319,58 @@ export function Messages() {
               </div>
 
               <form onSubmit={onSubmit} className="border-t border-slate-100 p-3">
+                {/* Plantillas de respuesta rápida (solo prestador/admin). */}
+                {canTemplate && tplOpen && (
+                  <div className="mb-2 rounded-xl border border-slate-200 bg-white p-2 shadow-sm">
+                    <div className="mb-1 flex items-center justify-between">
+                      <span className="text-xs font-semibold text-slate-700">{t('tpl.title')}</span>
+                      <button
+                        type="button"
+                        onClick={() => { void createTemplate(text); }}
+                        disabled={!text.trim()}
+                        className="text-xs font-semibold text-brand-700 hover:underline disabled:text-muted"
+                      >
+                        {t('tpl.saveCurrent')}
+                      </button>
+                    </div>
+                    {templates.length === 0 ? (
+                      <p className="px-1 py-2 text-xs text-muted">{t('tpl.empty')}</p>
+                    ) : (
+                      <ul className="max-h-48 space-y-1 overflow-auto">
+                        {templates.map((tp) => (
+                          <li key={tp.id} className="flex items-center gap-2">
+                            <button
+                              type="button"
+                              onClick={() => { setText((v) => (v ? `${v}\n${tp.body}` : tp.body)); setTplOpen(false); }}
+                              className="min-w-0 flex-1 truncate rounded-lg px-2 py-1.5 text-left text-sm hover:bg-slate-50"
+                              title={tp.body}
+                            >
+                              <span className="font-medium text-slate-900">{tp.title}</span>
+                            </button>
+                            <button type="button" onClick={() => void removeTemplate(tp.id)} aria-label={t('common.delete')} className="text-evs-1 hover:opacity-80">
+                              <Trash2 className="h-4 w-4" />
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                )}
                 <div className="flex items-end gap-2">
                   <button type="button" onClick={insertRoom} title={t('msg.room')} className="rounded-full p-2 text-brand-600 hover:bg-brand-50">
                     <Video className="h-5 w-5" />
                   </button>
+                  {canTemplate && (
+                    <button
+                      type="button"
+                      onClick={() => setTplOpen((v) => !v)}
+                      title={t('tpl.title')}
+                      aria-pressed={tplOpen}
+                      className={`rounded-full p-2 ${tplOpen ? 'bg-brand-50 text-brand-700' : 'text-brand-600 hover:bg-brand-50'}`}
+                    >
+                      <FileText className="h-5 w-5" />
+                    </button>
+                  )}
                   <textarea
                     value={text}
                     onChange={(e) => setText(e.target.value)}
