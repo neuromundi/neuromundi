@@ -26,13 +26,13 @@ export const HERO_SIZES = '(max-width: 640px) 92vw, (max-width: 1024px) 60vw, 44
 
 /** Debe coincidir con `imagesrcset` del preload en index.html. */
 export const HERO_SRCSET =
-  '/hero/hero-450-v2.webp 450w, /hero/hero-550-v2.webp 550w, /hero/hero-700-v2.webp 700w, /hero/hero-900-v2.webp 900w, /hero/hero-1100-v2.webp 1100w';
+  '/hero/hero-450-v4.webp 450w, /hero/hero-550-v4.webp 550w, /hero/hero-700-v4.webp 700w, /hero/hero-900-v4.webp 900w, /hero/hero-1100-v4.webp 1100w';
 
 export function HeroArt({ className }: { className?: string }) {
   const { t } = useTranslation();
   return (
     <img
-      src="/hero/hero-550-v2.webp"
+      src="/hero/hero-550-v4.webp"
       srcSet={HERO_SRCSET}
       sizes={HERO_SIZES}
       className={className}

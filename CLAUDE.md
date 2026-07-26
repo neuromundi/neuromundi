@@ -55,7 +55,7 @@ PY
   `drop policy if exists` + `create policy`, `insert ... on conflict do nothing`,
   `add column if not exists`. Backfills solo tocan filas nulas.
 - El usuario las aplica **a mano en el SQL Editor de Supabase**, en orden (no hay CLI de
-  migraciones en su flujo). Última en el repo: **0055**.
+  migraciones en su flujo). Última en el repo: **0057**.
 - Para verificar qué está aplicado en producción: `db/verificar_produccion.sql`.
 
 ### 3. Escribir a otros usuarios / notificaciones
@@ -66,8 +66,9 @@ PY
   `emit_*_appointment_reminders`, `send_message`, `waitlist_notify_slot`.
 - La campana (`NotificationsBell`) renderiza por `type`. Tipos vigentes: `post_achievement`,
   `badge`, `appt_*`, `admin_message`, `direct_message`, `booking_request`, `waitlist_slot`,
-  `waitlist_join`, `campaign`, `commission_paid`, `directory_match`. **Al añadir un tipo,
-  añade su icono y sus claves i18n.**
+  `waitlist_join`, `campaign`, `commission_paid`, `directory_match`, `suspension_reminder`
+  (aviso al usuario de eliminación próxima), `account_costo` (aviso al admin de cancelación
+  por costo). **Al añadir un tipo, añade su icono y sus claves i18n.**
 - **Todo insert en `notifications` dispara push nativo** vía el trigger `trg_notify_push`
   (migración 0030) → `pg_net` → Edge Function `send-push`. No hay que hacer nada extra.
 - **Preferencias de push** (migración 0049): `notification_prefs` (push_enabled +
@@ -80,8 +81,10 @@ PY
 - Es admin quien tenga `profiles.role = 'admin'` (lo valida `is_admin()`). Se asigna por
   SQL, no hay UI. Panel en `/panel` (Dashboard renderiza `AdminDashboard` si role=admin).
 - Secciones admin: metrics, messages, moderation, products, store, renewals, reports,
-  billing, fees (cuotas por país + carga/descarga CSV), referrals (programa de
-  recomendación), other. Roles válidos por constraint: `parent | provider | admin`.
+  fees (cuotas por país + carga/descarga CSV + **códigos promocionales**), referrals (programa de
+  recomendación), donations, **accounts** (bajas/suspensiones: estadística + ID/correo,
+  sin aprobación), **improve** (sugerencias del público "Ayúdanos a mejorar"), other.
+  Roles válidos por constraint: `parent | provider | admin`.
 - Folio de miembro visible: `NM-000123` (= `profiles.member_no`).
 
 ### 5. Pagos (Stripe)
@@ -174,7 +177,12 @@ PY
   de soporte estaban SIEMPRE montados, así que sus chunks entraban en la cadena crítica del
   LCP (se veían como nodos `SoftSignupBanner`/`SupportButton` en el árbol de red). Se montan
   tras `requestIdleCallback` (estado `deferUi`). Si añades UI que no se ve en el primer
-  pintado, gátala igual.
+  pintado, gátala igual. El mismo patrón está extraído en el hook **`useIdleReady()`**
+  (`src/hooks/useIdleReady.ts`): devuelve `false` en el primer pintado y `true` al quedar el
+  navegador ocioso. En `Home` gatea el montaje de `AlliesCarousel` y `ContentCarousel`
+  (`{idleReady && <…/>}`) porque cada uno dispara una consulta a Supabase al montar (allies /
+  content_posts) que Lighthouse veía en la cadena crítica del LCP (~1 s). Si añades a la
+  portada un componente debajo del pliegue que consulta la base, gátalo con `useIdleReady`.
 - **El preconnect a Supabase necesita `crossorigin`**: las llamadas a la API van con
   cabeceras (`apikey`/`Authorization`) → son CORS. Sin `crossorigin`, el navegador abre una
   conexión que NO reutiliza para esos fetch y el preconnect se desperdicia (~300 ms de LCP).
@@ -193,6 +201,11 @@ PY
 - `src/pages` rutas · `src/components/{admin,provider,merchant,parent,onboarding,report,calendar,...}`
 - `src/hooks` lógica de datos (Supabase) · `src/stores` estado (Zustand)
 - `src/lib` utilidades puras (buenas para tests) · `src/i18n/locales` traducciones
+- **Catálogos de registro/búsqueda** en `src/data` (`specialistCatalog`, `clinicCatalog`,
+  `providerCatalog`): etiquetas EN ESPAÑOL, NO pasan por i18n (añadir entradas no afecta la
+  paridad). Ampliados con la taxonomía Neuromundi (ver `PROPUESTA_TAXONOMIA_v2.md`): perinatal,
+  neurosensorial, funciones ejecutivas, animales (dominio nuevo dentro de `PROFESSIONS`), etc.
+  Los *chips* de filtro del directorio son la tabla DB `categories` (curada, aparte).
 - `supabase/migrations` SQL · `supabase/functions` Edge Functions · `db` esquema base
 - `PRODUCCION.md` runbook de despliegue · `_archivo/` descartes · `backups/` respaldos
 
@@ -250,16 +263,40 @@ PY
 - `membership/AccountInactiveModal` · `membership/AccountReactivatedModal` — portero de cuota
 - `donation/DonationSection` (embudo `/donar`) · `donation/AlliesCarousel` · `admin/AdminDonations`
   (estadística + curación del muro + CRUD de aliados + **importes por moneda**) · página `DonorWall` (`/donantes`)
+- `directory/DirectorySearch` — filtros del directorio. Se quitaron los *chips* de la
+  tabla `categories` (redundantes con la taxonomía nueva). Ahora: `directory/SearchableSelect`
+  (typeahead para especialidad/área), filtros plegables en móvil ("Filtros (N)"), y accesos
+  rápidos por dominio (Terapias, Animales/TAA, Perinatal, Educación/F. Ejecutivas, Productos)
+  vía el filtro `anyOf` de `useDirectory` (cruza profesión + especialidades + áreas + categorías
+  de producto). El `DOMAINS` con los valores canónicos vive en `DirectorySearch.tsx`.
 - `calendar/AppointmentRequests` · `report/ReportModal` + `report/MyReports` · `shop/ProductReviewsModal`
 - `provider/BookingWidgetPanel` (widget embebible) · `provider/WaitlistPanel` · `provider/CampaignsPanel`
 - `merchant/AffiliatePanel` (código y enlace propios) + `merchant/CommissionsPanel`
   (libro "me deben / yo debo", marcar liquidación, estado de cuenta CSV)
-- `onboarding/GuidedTour` (6 pasos) · `pwa/InstallAppButton` · `ui/*` (`Button`, `Modal`, `PasswordInput`, `StarRating`…)
+- `onboarding/GuidedTour` — guía de bienvenida **por rol** (`useAuth().isProvider`): la
+  familia/paciente ve directorio · kit · academy · eventos · seguridad · app; el prestador
+  ve directorio · agenda · mensajería · métricas · seguridad · app. Pasos comunes en ambos.
+  `safeStep = Math.min(step, last)` acota el índice si el rol se resuelve tras el primer
+  render. Si cambias los pasos de un rol, añade sus claves `tour.*.{title,body}` en los 8
+  idiomas · `pwa/InstallAppButton` · `ui/*` (`Button`, `Modal`, `PasswordInput`, `StarRating`…)
+- `toolkit/ContinueLearning` — "continuar donde me quedé" del Kit; lee `useToolkitProgress`,
+  enlaza al siguiente módulo sin leer (`/kit?m=<id>`). Montado en `ParentDashboard`.
 - `provider/SchoolInclusionPanel` (editor del programa de inclusión, escuelas/clínicas; guarda
   en `provider_details` jsonb) · `directory/SchoolInclusionInfo` (muestra programa/admisiones/grados
   en el perfil público)
 - `clinical/MilestoneGuide` (guía de hitos por edad, datos en `src/data/milestonesGuide.ts`,
   orientación NO diagnóstico; botón "registrar" alimenta el rastreador local `MilestoneTracker`)
+- `provider/AliadoCertificateCard` — cuando el distintivo llega a nivel `aliado` (o
+  `embajador`), ofrece descargar el reconocimiento "Aliado Destacado" en PDF tamaño carta.
+  Lo genera `src/lib/aliadoCertificate.ts` SIN dependencias: abre un HTML `@page size:letter`
+  y lanza imprimir→guardar como PDF (texto localizado desde la UI). El distintivo lo habilita
+  solo el sistema de badge; esto es únicamente el diploma. Montado en la pestaña "Mis
+  Calificaciones" del `ProviderDashboard`.
+- `layout/ImproveModal` + `admin/AdminImprovements` — "Ayúdanos a mejorar" (migración 0057):
+  botón público en el pie junto a "Denuncia"; envía por `submit_improvement` (anónimo o con
+  sesión); el admin lee en la sección "Mejoras".
+- `membership/AccountFlowModal` (baja/suspensión guiada) · `membership/SuspendedAccountModal`
+  (aviso de reactivación al entrar) · `admin/AdminAccountActions` (estadística de bajas).
 
 ### RPC principales (todas `SECURITY DEFINER`)
 - **Admin**: `admin_metrics`, `admin_reports`, `admin_send_message`, `admin_membership_renewals`, `admin_set_verified/published`
@@ -282,6 +319,14 @@ PY
   `mark_commissions_paid` (la autorización es el `where vendor_id = auth.uid()`),
   `admin_commissions`, `resolve_affiliate`
 - **Distintivo**: `my_badge_inputs`, `admin_badge_inputs`, `refresh_all_badges`
+- **Ciclo de vida de cuenta** (0056): `suspend_my_account` (6 meses, oculta el perfil
+  guardando `pre_suspend_published`), `reactivate_my_account`, `cancel_my_account(reason,
+  detail)` (registra motivo; 'costo' → retención 24 h + `notify_admins`, NO borra; otros →
+  el cliente llama a la Edge Function `delete-account`), `admin_account_actions` (estadística,
+  is_admin). Cron: `emit_suspension_reminders` (semanal, últimos 31 días) y
+  `purge_expired_suspensions` (borra auth.users a los 6 meses). Helper `notify_admins`
+  (revocado a clientes). El aviso de reactivación se muestra en `AppLayout` con
+  `SuspendedAccountModal` cuando `profiles.suspended_at` está puesto.
 - **Métricas de perfil**: `track_profile_event(provider, 'view'|'contact')` (anon+auth, sin
   autoconteo, dedupe diario del miembro) · `provider_metrics()` (resumen del propio prestador).
   `ProviderProfile` registra vista al abrir y contacto al pulsar; panel en pestaña "Métricas".
@@ -349,6 +394,8 @@ Al extraer lógica de una página a `src/lib`, **añade su test** (patrón: `*.t
 | 0053 | Bloqueos de agenda (`provider_time_off`); `generateSlots` los resta |
 | 0054 | Alertas de búsqueda (`search_alerts`) + aviso al publicar perfil |
 | 0055 | Inventario de productos (`stock` + `decrement_stock` en el webhook) |
+| 0056 | Ciclo de vida de cuenta: suspensión 6m, retención por 'costo', bitácora `account_actions`, estadística admin, cron recordatorio+purga |
+| 0057 | "Ayúdanos a mejorar": `improvement_suggestions` + `submit_improvement` (público) + `admin_improvement_suggestions` |
 
 ## Reglas de producto/negocio ya implementadas
 - **Clasificación "Otro"**: si `products.store_category = 'otro'`, `store_category_other`

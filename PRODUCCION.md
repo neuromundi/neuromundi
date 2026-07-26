@@ -29,11 +29,11 @@ manda es **`public/.htaccess`**, que debe quedar en `public_html/` junto al
 
 ## 1) 🔴 Base de datos — migraciones al día
 
-En el repo van de `0001` a **`0055`**. Se aplican **a mano, en orden**, en
+En el repo van de `0001` a **`0057`**. Se aplican **a mano, en orden**, en
 Supabase → SQL Editor. Son idempotentes: si dudas de alguna, la puedes reejecutar
 sin romper nada.
 
-1. [ ] Aplica todo lo que falte hasta `0055_product_stock.sql`.
+1. [ ] Aplica todo lo que falte hasta `0057_improvement_suggestions.sql`.
    Las últimas y por qué importan:
 
    | # | Qué hace | Si falta… |
@@ -56,6 +56,8 @@ sin romper nada.
    | 0053 | Bloqueos de agenda (vacaciones/horas) | el prestador no puede bloquear fechas |
    | 0054 | Alertas de búsqueda del directorio | no se guardan alertas ni llega el aviso |
    | 0055 | Inventario de productos (`stock`) | el control de existencias y "agotado" no funcionan |
+   | 0056 | Ciclo de vida de cuenta (suspender/eliminar + estadística admin) | no se puede suspender ni ver bajas; **programa 2 cron** (recordatorio semanal + purga a 6 meses) |
+   | 0057 | "Ayúdanos a mejorar" (sugerencias del público) | el botón del pie y el panel de Mejoras fallan |
 
 2. [ ] Comprueba qué quedó aplicado con `db/verificar_produccion.sql`.
 3. [ ] Si México sigue duplicado en Cuotas, es que **0041 no corrió**. Verifica con:
@@ -309,6 +311,20 @@ en **Edge Functions → Logs**.
 2. [ ] Deja **Confirm email** activado.
 3. [ ] SMTP propio configurado (paso 2).
 4. [ ] Revisa las plantillas de confirmación y recuperación, y su idioma.
+5. [ ] **Inicio de sesión social (Google / Microsoft / LinkedIn).** Cada proveedor
+   se habilita en **Authentication → Providers** con su Client ID + Secret, y en la
+   app del proveedor hay que **registrar la Callback URL de Supabase**
+   (`https://sboagswcehuxwfjdbhdn.supabase.co/auth/v1/callback`), idéntica carácter
+   por carácter. Si falta, sale `invalid_request: redirect_uri is not valid`.
+   - **Microsoft (Azure)**: App registration → Authentication → Web → Redirect URIs
+     (pega la callback); Certificates & secrets → client secret; API permissions
+     `openid email profile User.Read` + grant admin consent. En Supabase, Azure Tenant
+     URL = `https://login.microsoftonline.com/common`.
+   - **LinkedIn**: producto "Sign In with LinkedIn using OpenID Connect", scopes
+     `openid profile email`, y la misma callback en Authorized redirect URLs.
+   - **Google**: OAuth consent screen + credenciales OAuth; misma callback.
+   - Los mensajes de consola tipo `BSSO … bssoNotSupported` / `msLaunchUri` (Microsoft)
+     son telemetría de su página, NO bloquean el login.
 
 ---
 
@@ -397,7 +413,8 @@ Recorrido real, con importe mínimo y luego reembolso:
 Archivos que ya no hacen falta y que el entorno de trabajo no puede borrar
 (hay que hacerlo desde Windows):
 
-- `public/hero/hero-*-v1.webp` (5 archivos) — sustituidos por `-v2`
+- `public/hero/hero-*-v1.webp`, `-v2.webp` y `-v3.webp` (huérfanos) — la versión
+  vigente del héroe es **`-v4`** (fondo transparente); las anteriores ya no se usan.
 - `NEUROMUNDI LOGO HEADER.png` — ya está como `public/logo-header.png`
 - `456`, `tsconfig.tsbuildinfo` — basura de compilación
 - `netlify.toml`, `vercel.json`, `public/_redirects`, `public/_headers` — sin
@@ -407,8 +424,8 @@ Archivos que ya no hacen falta y que el entorno de trabajo no puede borrar
 
 ### Resumen de qué toca a quién
 
-- **Supabase**: migraciones 0001–0042, pg_cron + pg_net, buckets, Auth (Site URL +
-  SMTP), secrets, deploy de funciones (cuatro con `--no-verify-jwt`).
+- **Supabase**: migraciones 0001–0057, pg_cron + pg_net, buckets, Auth (Site URL +
+  SMTP + **login social**), secrets, deploy de funciones (cuatro con `--no-verify-jwt`).
 - **Resend**: dominio verificado por DNS en Hostinger, API key, remitente.
 - **Stripe (Live)**: cuenta activa, Connect Express, `sk_live`, webhook + `whsec`.
 - **Hostinger**: subir `dist/` + `.htaccess`, purgar CDN, HTTPS.

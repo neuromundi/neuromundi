@@ -189,7 +189,18 @@
     "countryActive": "显示 {{country}} 的结果",
     "countryClear": "更改国家",
     "countryLabel": "国家",
-    "countryAll": "所有国家"
+    "countryAll": "所有国家",
+    "quickTitle": "快速筛选",
+    "moreFilters": "筛选",
+    "filterSearchPh": "搜索专业或领域…",
+    "noMatches": "无匹配结果",
+    "quick": {
+      "therapies": "疗法",
+      "animals": "动物 / 动物辅助治疗",
+      "perinatal": "围产期",
+      "executive": "教育与执行功能",
+      "products": "辅助产品"
+    }
   },
   "card": {
     "evs": "EVS",
@@ -368,7 +379,19 @@
       "replyPlaceholder": "请以关怀和同理心回复……",
       "replySave": "保存回复",
       "replySaved": "回复已保存",
-      "replyError": "无法保存回复。"
+      "replyError": "无法保存回复。",
+      "certTitle": "杰出伙伴表彰",
+      "certDesc": "您已获得杰出伙伴称号。下载您的官方表彰证书。",
+      "certDownload": "下载表彰（PDF）",
+      "certHeading": "表彰",
+      "certAward": "杰出伙伴",
+      "certAwardedTo": "特此表彰",
+      "certMember": "会员",
+      "certSpecialty": "专业 / 领域",
+      "certJustification": "因获得用户最高评价，达到Neuromundi社区的最高荣誉，彰显卓越服务。",
+      "certDate": "签发日期",
+      "certFile": "杰出伙伴表彰 — Neuromundi",
+      "certSpecialtyFallback": "社区伙伴"
     }
   },
   "survey": {
@@ -671,7 +694,27 @@
     "viewDoc": "查看文件{{n}}",
     "secReferrals": "推荐",
     "secFees": "会费",
-    "secDonations": "捐赠"
+    "secDonations": "捐赠",
+    "secAccounts": "流失",
+    "accounts": {
+      "suspends": "暂停数",
+      "cancels": "注销数",
+      "reactivations": "重新启用数",
+      "costoPending": "因费用",
+      "costoTitle": "因费用注销 — 提出方案",
+      "costoHelp": "请在24小时内联系他们并提供方案，避免他们离开社区。",
+      "byReason": "按原因的注销",
+      "recent": "近期活动",
+      "empty": "暂无注销或暂停记录。",
+      "noEmail": "无邮箱",
+      "act": {
+        "suspend": "暂停",
+        "cancel": "注销",
+        "reactivate": "重新启用",
+        "winback": "注销（费用）"
+      }
+    },
+    "secImprove": "改进"
   },
   "reg": {
     "typePatient": "患者",
@@ -2090,7 +2133,42 @@
     }
   },
   "account": {
-    "memberNo": "注册编号"
+    "memberNo": "注册编号",
+    "flow": {
+      "title": "注销账户",
+      "introTitle": "您即将删除账户",
+      "introBody": "如果删除，您将永久失去在平台上的历史记录和进度。此操作无法撤销。",
+      "introSuggest": "在离开之前：您可以改为暂停账户。您仍将保持注册，不会失去历史记录或进度，并可随时回来。",
+      "chooseSuspend": "暂停我的账户（推荐）",
+      "chooseDelete": "继续删除",
+      "keep": "我还是留下",
+      "reasonTitle": "您为什么要注销？",
+      "reasonHelp": "您的回答有助于我们改进。请选择一项。",
+      "otherPlaceholder": "请告诉我们原因……",
+      "back": "返回",
+      "confirmDelete": "删除我的账户",
+      "costoTitle": "我们很希望您留下",
+      "costoBody": "我们将审核您的资料，并在24小时内为您提供量身定制的方案，让您不会失去在社区中的位置。在此期间，您的资料将被暂停。",
+      "suspendTitle": "您的账户已暂停",
+      "suspendBody": "您的资料将暂停6个月（至{{date}}），不会失去历史记录或进度，您可以随时重新启用。从第五个月起，我们会每周提醒您删除即将到来。",
+      "gotIt": "知道了"
+    },
+    "reasons": {
+      "costo": "费用",
+      "dificultad": "难以使用",
+      "defectos": "功能缺陷",
+      "no_util": "对我没用",
+      "tiempo": "没有时间",
+      "privacidad": "隐私或安全",
+      "otro": "其他"
+    },
+    "suspended": {
+      "title": "您的账户已暂停",
+      "body": "您的账户已暂停，并将于{{date}}被永久删除。请重新启用以保留您的历史记录和进度。",
+      "bodyNoDate": "您的账户已暂停。请重新启用以保留您的历史记录和进度。",
+      "reactivate": "重新启用我的账户",
+      "exit": "退出登录"
+    }
   },
   "howto": {
     "title": "如何使用此工具",
@@ -3055,5 +3133,19 @@
     "cta": "继续",
     "review": "回顾",
     "start_cta": "开始"
+  },
+  "improve": {
+    "title": "帮助我们改进",
+    "help": "您想更改或增加什么？您的想法有助于我们为大家打造更好的平台。",
+    "messageLabel": "您的建议",
+    "messagePlaceholder": "写下您的想法或意见……",
+    "emailLabel": "邮箱（可选）",
+    "emailPlaceholder": "如愿意，方便我们回复您",
+    "send": "提交建议",
+    "thanks": "谢谢！我们会阅读每一条建议。",
+    "footerButton": "帮助我们改进",
+    "adminCount": "{{n}} 条建议",
+    "adminEmpty": "暂无建议。",
+    "anon": "匿名"
   }
 }

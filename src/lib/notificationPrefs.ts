@@ -22,14 +22,15 @@ export const NOTIF_CATEGORIES: NotifCategory[] = [
 /** Devuelve la categoría de un tipo de notificación. */
 export function notifCategory(type: string): NotifCategory {
   if (type.startsWith('appt_') || type === 'booking_request' || type === 'waitlist_slot') return 'citas';
-  if (type === 'direct_message' || type === 'admin_message') return 'mensajes';
+  if (type === 'direct_message' || type === 'admin_message' || type === 'account_costo') return 'mensajes';
   if (
     type === 'post_achievement' ||
     type === 'badge' ||
     type === 'waitlist_join' ||
     type === 'referral_use' ||
     type === 'referral_reward' ||
-    type === 'directory_match'
+    type === 'directory_match' ||
+    type === 'suspension_reminder'
   )
     return 'comunidad';
   if (type === 'commission_paid' || type === 'donation_thanks') return 'transacciones';

@@ -6,7 +6,7 @@
  * estado activo visible y labels claros (poca carga cognitiva).
  */
 import { NavLink, Outlet, useNavigate, Link } from 'react-router-dom';
-import { Compass, LayoutDashboard, Settings, LogIn, LogOut, ShieldCheck, MessageCircleQuestion, School, GraduationCap, Grid3x3, X, BookOpenCheck, BookOpen, ShieldAlert, CalendarDays, ShoppingBag, MessageSquare, Heart } from 'lucide-react';
+import { Compass, LayoutDashboard, Settings, LogIn, LogOut, ShieldCheck, MessageCircleQuestion, School, GraduationCap, Grid3x3, X, BookOpenCheck, BookOpen, ShieldAlert, CalendarDays, ShoppingBag, MessageSquare, Heart, Lightbulb } from 'lucide-react';
 import { Suspense, lazy, useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -44,6 +44,9 @@ const ReportModal = lazy(() => import('@/components/report/ReportModal').then((m
 const MembershipReminderPopup = lazy(() => import('@/components/membership/MembershipReminderPopup').then((m) => ({ default: m.MembershipReminderPopup })));
 const AccountInactiveModal = lazy(() => import('@/components/membership/AccountInactiveModal').then((m) => ({ default: m.AccountInactiveModal })));
 const AccountReactivatedModal = lazy(() => import('@/components/membership/AccountReactivatedModal').then((m) => ({ default: m.AccountReactivatedModal })));
+const SuspendedAccountModal = lazy(() => import('@/components/membership/SuspendedAccountModal').then((m) => ({ default: m.SuspendedAccountModal })));
+const ImproveModal = lazy(() => import('@/components/layout/ImproveModal').then((m) => ({ default: m.ImproveModal })));
+import { useAuthStore } from '@/stores/authStore';
 import { setRefCode } from '@/hooks/useShop';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { SocialLinks } from './SocialLinks';
@@ -77,6 +80,9 @@ export function AppLayout() {
   const { isAuthenticated, isAdmin, fullName, signOut, needsOnboarding } = useAuth();
   const { t } = useTranslation();
   const navigate = useNavigate();
+  // Perfil suspendido: bloquea con un aviso de reactivación al iniciar sesión.
+  const suspendedAt = useAuthStore((s) => s.profile?.suspended_at ?? null);
+  const suspendUntil = useAuthStore((s) => s.profile?.suspend_until ?? null);
 
   // Splash de video: una vez por navegador y SOLO en escritorio.
   //
@@ -119,6 +125,7 @@ export function AppLayout() {
   // Recordatorios de cita 24 h antes (fallback del cliente para el destinatario).
   useAppointmentReminders();
   const [reportOpen, setReportOpen] = useState(false);
+  const [improveOpen, setImproveOpen] = useState(false);
   // Cuenta inactiva por cuota sin cubrir: apaga el panel y explica con cordialidad.
   const { blocked, justReactivated, dismissReactivated } = useMembershipGate();
   const [gateOpen, setGateOpen] = useState(false);
@@ -287,8 +294,15 @@ export function AppLayout() {
         {showWelcome && <WelcomePopup onClose={() => setShowWelcome(false)} />}
         {showTour && <GuidedTour onClose={closeTour} />}
         {showFounder && <FounderPopup onClose={closeFounder} />}
+        {isAuthenticated && suspendedAt && (
+          <SuspendedAccountModal
+            until={suspendUntil}
+            onExit={async () => { await signOut(); navigate('/'); }}
+          />
+        )}
         {isAuthenticated && <MembershipReminderPopup />}
         {reportOpen && <ReportModal onClose={() => setReportOpen(false)} />}
+        {improveOpen && <ImproveModal onClose={() => setImproveOpen(false)} />}
         {gateOpen && blocked && (
           <AccountInactiveModal open onClose={() => setGateOpen(false)} />
         )}
@@ -429,7 +443,7 @@ export function AppLayout() {
         </Suspense>
       </main>
 
-      <footer className="border-t border-slate-100 px-4 pt-6 pb-24 text-center text-sm text-muted md:pb-6">
+      <footer className="border-t border-slate-100 px-4 pt-4 pb-24 text-center text-sm text-muted md:pb-6">
         <p className="mb-3 font-semibold text-slate-700">{t('followUs.title')}</p>
         <SocialLinks className="mb-4" />
         {/* Instalar app: va JUSTO debajo de las redes, en la parte alta del pie,
@@ -447,13 +461,20 @@ export function AppLayout() {
         <Link to="/manifiesto" className="hover:text-brand-700">{t('footer.manifesto')}</Link>
         <span className="mx-2">·</span>
         <Link to="/donar" className="font-semibold text-[#8C6D1F] hover:underline">{t('nav.donate')}</Link>
-        <div className="mt-4">
+        <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
           <button
             type="button"
             onClick={() => setReportOpen(true)}
             className="inline-flex items-center gap-1.5 rounded-full bg-red-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-red-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
           >
             <ShieldAlert className="h-4 w-4" aria-hidden="true" /> {t('report.footerButton')}
+          </button>
+          <button
+            type="button"
+            onClick={() => setImproveOpen(true)}
+            className="inline-flex items-center gap-1.5 rounded-full border border-green-300 bg-green-100 px-4 py-2 text-sm font-semibold text-green-800 transition-colors hover:bg-green-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2"
+          >
+            <Lightbulb className="h-4 w-4" aria-hidden="true" /> {t('improve.footerButton')}
           </button>
         </div>
       </footer>

@@ -189,7 +189,18 @@
     "countryActive": "Risultati per {{country}}",
     "countryClear": "Cambia paese",
     "countryLabel": "Paese",
-    "countryAll": "Tutti i paesi"
+    "countryAll": "Tutti i paesi",
+    "quickTitle": "Accesso rapido",
+    "moreFilters": "Filtri",
+    "filterSearchPh": "Cerca specialità o area…",
+    "noMatches": "Nessun risultato",
+    "quick": {
+      "therapies": "Terapie",
+      "animals": "Animali / TAA",
+      "perinatal": "Perinatale",
+      "executive": "Educazione e Funz. Esecutive",
+      "products": "Prodotti di supporto"
+    }
   },
   "card": {
     "evs": "EVS",
@@ -368,7 +379,19 @@
       "replyPlaceholder": "Rispondi con cura ed empatia…",
       "replySave": "Salva risposta",
       "replySaved": "Risposta salvata",
-      "replyError": "Impossibile salvare la risposta."
+      "replyError": "Impossibile salvare la risposta.",
+      "certTitle": "Riconoscimento Alleato in evidenza",
+      "certDesc": "Hai raggiunto la distinzione Alleato in evidenza. Scarica il tuo riconoscimento ufficiale.",
+      "certDownload": "Scarica il riconoscimento (PDF)",
+      "certHeading": "Riconoscimento",
+      "certAward": "Alleato in evidenza",
+      "certAwardedTo": "Questo riconoscimento è conferito a",
+      "certMember": "Membro",
+      "certSpecialty": "Specialità / Settore",
+      "certJustification": "Per aver raggiunto la massima distinzione della community Neuromundi ottenendo la valutazione più alta dai suoi utenti, riflesso di un servizio eccezionale.",
+      "certDate": "Data di emissione",
+      "certFile": "Riconoscimento Alleato in evidenza — Neuromundi",
+      "certSpecialtyFallback": "Alleato della community"
     }
   },
   "survey": {
@@ -671,7 +694,27 @@
     "viewDoc": "Vedi documento {{n}}",
     "secReferrals": "Referral",
     "secFees": "Quote",
-    "secDonations": "Donazioni"
+    "secDonations": "Donazioni",
+    "secAccounts": "Abbandoni",
+    "accounts": {
+      "suspends": "Sospensioni",
+      "cancels": "Cancellazioni",
+      "reactivations": "Riattivazioni",
+      "costoPending": "Per costo",
+      "costoTitle": "Cancellazioni per costo — fai una proposta",
+      "costoHelp": "Contattali entro 24 h con una proposta così da non farli lasciare la community.",
+      "byReason": "Cancellazioni per motivo",
+      "recent": "Attività recente",
+      "empty": "Ancora nessuna cancellazione o sospensione.",
+      "noEmail": "Senza email",
+      "act": {
+        "suspend": "Sospensione",
+        "cancel": "Cancellazione",
+        "reactivate": "Riattivazione",
+        "winback": "Cancellazione (costo)"
+      }
+    },
+    "secImprove": "Miglioramenti"
   },
   "reg": {
     "typePatient": "Paziente",
@@ -2090,7 +2133,42 @@
     }
   },
   "account": {
-    "memberNo": "Numero di registrazione"
+    "memberNo": "Numero di registrazione",
+    "flow": {
+      "title": "Chiusura account",
+      "introTitle": "Stai per eliminare il tuo account",
+      "introBody": "Se lo elimini perderai in modo permanente la tua cronologia e i tuoi progressi sulla piattaforma. Questa azione non può essere annullata.",
+      "introSuggest": "Prima di andartene: puoi sospendere il tuo account. Resterai registrato senza perdere la cronologia né i progressi, e potrai tornare quando vuoi.",
+      "chooseSuspend": "Sospendi il mio account (consigliato)",
+      "chooseDelete": "Continua con l'eliminazione",
+      "keep": "Preferisco restare",
+      "reasonTitle": "Perché vuoi cancellarti?",
+      "reasonHelp": "La tua risposta ci aiuta a migliorare. Scegli un'opzione.",
+      "otherPlaceholder": "Dicci il motivo…",
+      "back": "Indietro",
+      "confirmDelete": "Elimina il mio account",
+      "costoTitle": "Ci piacerebbe che restassi",
+      "costoBody": "Esamineremo il tuo profilo e ti faremo una proposta su misura entro 24 ore così da non perdere il tuo posto nella community. Nel frattempo il tuo profilo verrà messo in pausa.",
+      "suspendTitle": "Il tuo account è sospeso",
+      "suspendBody": "Il tuo profilo resterà sospeso per 6 mesi (fino al {{date}}) senza perdere la cronologia né i progressi, e potrai riattivarlo quando vuoi. Dal quinto mese ti ricorderemo ogni settimana che l'eliminazione è vicina.",
+      "gotIt": "Ho capito"
+    },
+    "reasons": {
+      "costo": "Costo",
+      "dificultad": "Difficile da usare",
+      "defectos": "Difetti nelle funzioni",
+      "no_util": "Non mi è utile",
+      "tiempo": "Mancanza di tempo",
+      "privacidad": "Privacy o sicurezza",
+      "otro": "Altro"
+    },
+    "suspended": {
+      "title": "Il tuo account è sospeso",
+      "body": "Il tuo account è sospeso e verrà eliminato definitivamente il {{date}}. Riattivalo per conservare la cronologia e i progressi.",
+      "bodyNoDate": "Il tuo account è sospeso. Riattivalo per conservare la cronologia e i progressi.",
+      "reactivate": "Riattiva il mio account",
+      "exit": "Esci"
+    }
   },
   "howto": {
     "title": "Come usare questo strumento",
@@ -3055,5 +3133,19 @@
     "cta": "Continua",
     "review": "Rivedi",
     "start_cta": "Inizia"
+  },
+  "improve": {
+    "title": "Aiutaci a migliorare",
+    "help": "Cosa cambieresti o aggiungeresti? La tua idea ci aiuta a costruire una piattaforma migliore per tutti.",
+    "messageLabel": "Il tuo suggerimento",
+    "messagePlaceholder": "Scrivi la tua idea o il tuo commento…",
+    "emailLabel": "Email (facoltativa)",
+    "emailPlaceholder": "Per risponderti, se vuoi",
+    "send": "Invia suggerimento",
+    "thanks": "Grazie! Leggiamo ogni suggerimento.",
+    "footerButton": "Aiutaci a migliorare",
+    "adminCount": "{{n}} suggerimenti",
+    "adminEmpty": "Ancora nessun suggerimento.",
+    "anon": "Anonimo"
   }
 }

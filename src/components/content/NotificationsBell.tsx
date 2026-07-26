@@ -5,7 +5,7 @@
  */
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Bell, Trophy, Award, CalendarClock, Megaphone, MessageSquare, Users, Gift, HandCoins, Compass } from 'lucide-react';
+import { Bell, Trophy, Award, CalendarClock, Megaphone, MessageSquare, Users, Gift, HandCoins, Compass, PauseCircle, AlertTriangle } from 'lucide-react';
 import { useNotifications } from '@/hooks/useNotifications';
 
 export function NotificationsBell() {
@@ -67,6 +67,8 @@ export function NotificationsBell() {
                 const isReferral = n.type === 'referral_use' || n.type === 'referral_reward';
                 const isCommission = n.type === 'commission_paid';
                 const isDirMatch = n.type === 'directory_match';
+                const isSuspReminder = n.type === 'suspension_reminder';
+                const isCosto = n.type === 'account_costo';
                 const ad = (n.data ?? {}) as { specialist_name?: string; recipient_name?: string; reason?: string; title?: string; from_name?: string };
                 const apptSuffix = n.type.replace('appt_', '');
                 const apptTitle = isAppt ? t(`notif.appt.${apptSuffix}.title`) : n.title;
@@ -92,6 +94,8 @@ export function NotificationsBell() {
                         {isReferral && <Gift className="h-4 w-4 shrink-0 text-brand-600" />}
                         {isCommission && <HandCoins className="h-4 w-4 shrink-0 text-sage-600" />}
                         {isDirMatch && <Compass className="h-4 w-4 shrink-0 text-brand-600" />}
+                        {isSuspReminder && <PauseCircle className="h-4 w-4 shrink-0 text-amber-600" />}
+                        {isCosto && <AlertTriangle className="h-4 w-4 shrink-0 text-amber-600" />}
                         <span className="text-sm font-semibold text-slate-900">{rowTitle}</span>
                       </div>
                       {rowBody && <p className="mt-0.5 text-sm text-slate-600">{rowBody}</p>}

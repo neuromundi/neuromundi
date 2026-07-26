@@ -189,7 +189,18 @@
     "countryActive": "{{country}} の結果を表示中",
     "countryClear": "国を変更",
     "countryLabel": "国",
-    "countryAll": "すべての国"
+    "countryAll": "すべての国",
+    "quickTitle": "クイックアクセス",
+    "moreFilters": "フィルター",
+    "filterSearchPh": "専門分野・領域で検索…",
+    "noMatches": "該当なし",
+    "quick": {
+      "therapies": "セラピー",
+      "animals": "動物 / 動物介在療法",
+      "perinatal": "周産期",
+      "executive": "教育・実行機能",
+      "products": "支援製品"
+    }
   },
   "card": {
     "evs": "EVS",
@@ -368,7 +379,19 @@
       "replyPlaceholder": "思いやりと共感をもって返信しましょう…",
       "replySave": "返信を保存",
       "replySaved": "返信を保存しました",
-      "replyError": "返信を保存できませんでした。"
+      "replyError": "返信を保存できませんでした。",
+      "certTitle": "特別アライ表彰",
+      "certDesc": "特別アライの称号を獲得しました。公式の表彰状をダウンロードできます。",
+      "certDownload": "表彰状をダウンロード（PDF）",
+      "certHeading": "表彰",
+      "certAward": "特別アライ",
+      "certAwardedTo": "この表彰を次の方へ贈ります",
+      "certMember": "会員",
+      "certSpecialty": "専門分野 / 業種",
+      "certJustification": "利用者から最高評価を獲得し、Neuromundiコミュニティで最高の栄誉に達したことを称え、卓越したサービスの証として。",
+      "certDate": "発行日",
+      "certFile": "特別アライ表彰 — Neuromundi",
+      "certSpecialtyFallback": "コミュニティのアライ"
     }
   },
   "survey": {
@@ -671,7 +694,27 @@
     "viewDoc": "書類{{n}}を見る",
     "secReferrals": "紹介",
     "secFees": "会費",
-    "secDonations": "寄付"
+    "secDonations": "寄付",
+    "secAccounts": "解約・停止",
+    "accounts": {
+      "suspends": "一時停止",
+      "cancels": "解約",
+      "reactivations": "再開",
+      "costoPending": "費用が理由",
+      "costoTitle": "費用による解約 — 提案する",
+      "costoHelp": "24時間以内に提案を送り、コミュニティから離れないようにしましょう。",
+      "byReason": "理由別の解約",
+      "recent": "最近の動き",
+      "empty": "まだ解約や一時停止はありません。",
+      "noEmail": "メールなし",
+      "act": {
+        "suspend": "一時停止",
+        "cancel": "解約",
+        "reactivate": "再開",
+        "winback": "解約（費用）"
+      }
+    },
+    "secImprove": "改善"
   },
   "reg": {
     "typePatient": "患者",
@@ -2090,7 +2133,42 @@
     }
   },
   "account": {
-    "memberNo": "登録番号"
+    "memberNo": "登録番号",
+    "flow": {
+      "title": "アカウントの解約",
+      "introTitle": "アカウントを削除しようとしています",
+      "introBody": "削除すると、プラットフォーム上の履歴と進捗が完全に失われます。この操作は取り消せません。",
+      "introSuggest": "その前に、アカウントを一時停止することもできます。登録は維持され、履歴や進捗を失うことなく、いつでも戻れます。",
+      "chooseSuspend": "アカウントを一時停止する（推奨）",
+      "chooseDelete": "削除を続ける",
+      "keep": "やめておく",
+      "reasonTitle": "解約の理由を教えてください",
+      "reasonHelp": "ご回答は改善に役立ちます。1つ選んでください。",
+      "otherPlaceholder": "理由をお聞かせください…",
+      "back": "戻る",
+      "confirmDelete": "アカウントを削除する",
+      "costoTitle": "ぜひ続けていただきたいです",
+      "costoBody": "あなたのプロフィールを確認し、24時間以内にコミュニティでの居場所を失わないためのご提案をお送りします。それまでの間、プロフィールは一時停止されます。",
+      "suspendTitle": "アカウントを一時停止しました",
+      "suspendBody": "プロフィールは6か月間（{{date}}まで）一時停止され、履歴や進捗は失われません。いつでも再開できます。5か月目からは、削除が近いことを毎週お知らせします。",
+      "gotIt": "了解しました"
+    },
+    "reasons": {
+      "costo": "費用",
+      "dificultad": "使いにくい",
+      "defectos": "機能の不具合",
+      "no_util": "役に立たない",
+      "tiempo": "時間がない",
+      "privacidad": "プライバシーまたはセキュリティ",
+      "otro": "その他"
+    },
+    "suspended": {
+      "title": "アカウントは一時停止中です",
+      "body": "アカウントは一時停止中で、{{date}}に完全に削除されます。履歴と進捗を残すには再開してください。",
+      "bodyNoDate": "アカウントは一時停止中です。履歴と進捗を残すには再開してください。",
+      "reactivate": "アカウントを再開する",
+      "exit": "ログアウト"
+    }
   },
   "howto": {
     "title": "このツールの使い方",
@@ -3055,5 +3133,19 @@
     "cta": "続ける",
     "review": "見直す",
     "start_cta": "始める"
+  },
+  "improve": {
+    "title": "改善にご協力ください",
+    "help": "何を変えたい、または加えたいですか？あなたのアイデアが、みんなにとってより良いプラットフォームづくりに役立ちます。",
+    "messageLabel": "ご提案",
+    "messagePlaceholder": "アイデアやご意見をお書きください…",
+    "emailLabel": "メール（任意）",
+    "emailPlaceholder": "ご希望であれば返信します",
+    "send": "提案を送る",
+    "thanks": "ありがとうございます！すべての提案を読んでいます。",
+    "footerButton": "改善にご協力ください",
+    "adminCount": "{{n}}件の提案",
+    "adminEmpty": "まだ提案はありません。",
+    "anon": "匿名"
   }
 }

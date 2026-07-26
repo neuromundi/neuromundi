@@ -19,6 +19,7 @@ import { COUNTRIES } from '@/data/countries';
 import { annualFromMonthly, listFromMonthly } from '@/lib/pricing';
 import { cn } from '@/lib/utils';
 import { FeesCsvPanel } from './FeesCsvPanel';
+import { AdminPromoCodes } from './AdminPromoCodes';
 
 const TYPE_KEY: Record<string, string> = {
   patient: 'fees.typePatient',
@@ -311,6 +312,9 @@ export function AdminFees() {
         <Coins className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
         {t('fees.freeNote')}
       </p>
+
+      {/* Códigos promocionales (antes en "Facturación"). */}
+      <AdminPromoCodes />
     </div>
   );
 }

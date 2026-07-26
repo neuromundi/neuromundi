@@ -32,7 +32,10 @@ function Logo({ name, logo, website }: { name: string; logo: string; website: st
       alt={name}
       title={name}
       loading="lazy"
-      className="h-24 w-auto max-w-[280px] object-contain opacity-80 grayscale transition hover:opacity-100 hover:grayscale-0"
+      decoding="async"
+      width={240}
+      height={96}
+      className="h-24 w-auto max-w-[280px] object-contain transition hover:scale-105"
     />
   );
   return website ? (

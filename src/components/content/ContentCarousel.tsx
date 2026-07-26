@@ -16,7 +16,7 @@ export function ContentCarousel() {
   if (loading || items.length === 0) return null;
 
   return (
-    <section className="space-y-3">
+    <section className="mt-14 space-y-3">
       <h2 className="text-lg font-bold text-slate-900">{t('content.carouselTitle')}</h2>
       <div className="-mx-4 flex snap-x gap-3 overflow-x-auto px-4 pb-2">
         {items.map((p) => {

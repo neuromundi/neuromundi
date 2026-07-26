@@ -29,6 +29,19 @@ export const PRODUCT_CATEGORIES: CatItem[] = [
     value: 'social_emocional', label: 'Habilidades Sociales y Educación Emocional',
     sub: ['Inteligencia emocional', 'Juego cooperativo', 'Libros y cuentos adaptados'],
   },
+  // ── Ampliación (taxonomía Neuromundi) ──────────────────────────────────────
+  {
+    value: 'perinatal', label: 'Perinatal y Alimentación Temprana',
+    sub: ['Soporte y posicionamiento (biberones terapéuticos, cojines)', 'Transición a sólidos (cucharas texturizadas, vasos con válvula)', 'Exploración oral (mordedores médicos, cepillos dedales)'],
+  },
+  {
+    value: 'neurosensorial_tech', label: 'Tecnología Neurosensorial',
+    sub: ['Hardware de regulación (auriculares óseos: Forbrain, Soundsory)', 'Software y biofeedback (SSP/Unyte, HeartMath)', 'Relojes visuales (Time Timers) y apps de rutinas'],
+  },
+  {
+    value: 'mascotas_nf', label: 'Mascotas Neuro-Friendly',
+    sub: ['Accesorios sensoriales (placas de silicona, correas sin ruido)', 'Apoyo ejecutivo (entregas automatizadas, areneros autolimpiables)', 'Seguridad (correas manos libres)'],
+  },
   { value: 'otro', label: 'Otro' },
 ];
 

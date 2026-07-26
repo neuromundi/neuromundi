@@ -189,7 +189,18 @@
     "countryActive": "Ergebnisse für {{country}}",
     "countryClear": "Land ändern",
     "countryLabel": "Land",
-    "countryAll": "Alle Länder"
+    "countryAll": "Alle Länder",
+    "quickTitle": "Schnellzugriff",
+    "moreFilters": "Filter",
+    "filterSearchPh": "Fachgebiet oder Bereich suchen…",
+    "noMatches": "Keine Treffer",
+    "quick": {
+      "therapies": "Therapien",
+      "animals": "Tiere / TGI",
+      "perinatal": "Perinatal",
+      "executive": "Bildung & exek. Funktionen",
+      "products": "Hilfsprodukte"
+    }
   },
   "card": {
     "evs": "EVS",
@@ -368,7 +379,19 @@
       "replyPlaceholder": "Antworte achtsam und einfühlsam…",
       "replySave": "Antwort speichern",
       "replySaved": "Antwort gespeichert",
-      "replyError": "Antwort konnte nicht gespeichert werden."
+      "replyError": "Antwort konnte nicht gespeichert werden.",
+      "certTitle": "Auszeichnung Herausragender Partner",
+      "certDesc": "Sie haben die Auszeichnung Herausragender Partner erreicht. Laden Sie Ihre offizielle Anerkennung herunter.",
+      "certDownload": "Anerkennung herunterladen (PDF)",
+      "certHeading": "Auszeichnung",
+      "certAward": "Herausragender Partner",
+      "certAwardedTo": "Diese Auszeichnung wird verliehen an",
+      "certMember": "Mitglied",
+      "certSpecialty": "Fachgebiet / Bereich",
+      "certJustification": "Für das Erreichen der höchsten Auszeichnung der Neuromundi-Community durch die beste Bewertung ihrer Nutzer – Ausdruck eines außergewöhnlichen Service.",
+      "certDate": "Ausstellungsdatum",
+      "certFile": "Auszeichnung Herausragender Partner — Neuromundi",
+      "certSpecialtyFallback": "Partner der Community"
     }
   },
   "survey": {
@@ -671,7 +694,27 @@
     "viewDoc": "Dokument {{n}} ansehen",
     "secReferrals": "Empfehlungen",
     "secFees": "Beiträge",
-    "secDonations": "Spenden"
+    "secDonations": "Spenden",
+    "secAccounts": "Abgänge",
+    "accounts": {
+      "suspends": "Pausierungen",
+      "cancels": "Kündigungen",
+      "reactivations": "Reaktivierungen",
+      "costoPending": "Wegen Kosten",
+      "costoTitle": "Kündigungen wegen Kosten — Angebot machen",
+      "costoHelp": "Kontaktieren Sie sie innerhalb von 24 Std. mit einem Angebot, damit sie die Community nicht verlassen.",
+      "byReason": "Kündigungen nach Grund",
+      "recent": "Letzte Aktivität",
+      "empty": "Noch keine Kündigungen oder Pausierungen.",
+      "noEmail": "Keine E-Mail",
+      "act": {
+        "suspend": "Pausierung",
+        "cancel": "Kündigung",
+        "reactivate": "Reaktivierung",
+        "winback": "Kündigung (Kosten)"
+      }
+    },
+    "secImprove": "Verbesserungen"
   },
   "reg": {
     "typePatient": "Patient",
@@ -2090,7 +2133,42 @@
     }
   },
   "account": {
-    "memberNo": "Registrierungsnummer"
+    "memberNo": "Registrierungsnummer",
+    "flow": {
+      "title": "Konto schließen",
+      "introTitle": "Sie sind dabei, Ihr Konto zu löschen",
+      "introBody": "Wenn Sie es löschen, verlieren Sie dauerhaft Ihren Verlauf und Ihren Fortschritt auf der Plattform. Diese Aktion kann nicht rückgängig gemacht werden.",
+      "introSuggest": "Bevor Sie gehen: Sie können Ihr Konto stattdessen pausieren. Sie bleiben registriert, ohne Ihren Verlauf oder Fortschritt zu verlieren, und können jederzeit zurückkehren.",
+      "chooseSuspend": "Mein Konto pausieren (empfohlen)",
+      "chooseDelete": "Mit dem Löschen fortfahren",
+      "keep": "Ich bleibe lieber",
+      "reasonTitle": "Warum möchten Sie kündigen?",
+      "reasonHelp": "Ihre Antwort hilft uns, besser zu werden. Wählen Sie eine Option.",
+      "otherPlaceholder": "Nennen Sie uns den Grund…",
+      "back": "Zurück",
+      "confirmDelete": "Mein Konto löschen",
+      "costoTitle": "Wir würden uns freuen, wenn Sie bleiben",
+      "costoBody": "Wir prüfen Ihr Profil und unterbreiten Ihnen innerhalb von 24 Stunden ein maßgeschneidertes Angebot, damit Sie Ihren Platz in der Community nicht verlieren. In der Zwischenzeit wird Ihr Profil pausiert.",
+      "suspendTitle": "Ihr Konto ist pausiert",
+      "suspendBody": "Ihr Profil bleibt 6 Monate lang pausiert (bis zum {{date}}), ohne Ihren Verlauf oder Fortschritt zu verlieren, und Sie können es jederzeit wieder aktivieren. Ab dem fünften Monat erinnern wir Sie wöchentlich daran, dass die Löschung bevorsteht.",
+      "gotIt": "Verstanden"
+    },
+    "reasons": {
+      "costo": "Kosten",
+      "dificultad": "Schwer zu bedienen",
+      "defectos": "Fehler in den Funktionen",
+      "no_util": "Für mich nicht nützlich",
+      "tiempo": "Zeitmangel",
+      "privacidad": "Datenschutz oder Sicherheit",
+      "otro": "Sonstiges"
+    },
+    "suspended": {
+      "title": "Ihr Konto ist pausiert",
+      "body": "Ihr Konto ist pausiert und wird am {{date}} endgültig gelöscht. Reaktivieren Sie es, um Ihren Verlauf und Fortschritt zu behalten.",
+      "bodyNoDate": "Ihr Konto ist pausiert. Reaktivieren Sie es, um Ihren Verlauf und Fortschritt zu behalten.",
+      "reactivate": "Mein Konto reaktivieren",
+      "exit": "Abmelden"
+    }
   },
   "howto": {
     "title": "So verwendest du dieses Werkzeug",
@@ -3055,5 +3133,19 @@
     "cta": "Weiter",
     "review": "Wiederholen",
     "start_cta": "Starten"
+  },
+  "improve": {
+    "title": "Hilf uns, besser zu werden",
+    "help": "Was würdest du ändern oder ergänzen? Deine Idee hilft uns, eine bessere Plattform für alle zu bauen.",
+    "messageLabel": "Dein Vorschlag",
+    "messagePlaceholder": "Schreibe deine Idee oder deinen Kommentar…",
+    "emailLabel": "E-Mail (optional)",
+    "emailPlaceholder": "Damit wir antworten können, wenn du möchtest",
+    "send": "Vorschlag senden",
+    "thanks": "Danke! Wir lesen jeden Vorschlag.",
+    "footerButton": "Hilf uns, besser zu werden",
+    "adminCount": "{{n}} Vorschläge",
+    "adminEmpty": "Noch keine Vorschläge.",
+    "anon": "Anonym"
   }
 }

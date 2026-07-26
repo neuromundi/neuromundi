@@ -11,7 +11,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { Camera, LogOut, Trash2, KeyRound, HelpCircle, BellRing } from 'lucide-react';
 import { usePushSubscribe } from '@/hooks/usePushSubscribe';
-import { Button, Modal, useToast, SkeletonCard, PasswordInput} from '@/components/ui';
+import { Button, useToast, SkeletonCard, PasswordInput} from '@/components/ui';
 import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher';
 import { useAuth } from '@/hooks/useAuth';
 import { useProfile } from '@/hooks/useProfile';
@@ -20,6 +20,7 @@ import { ProviderLocations } from '@/components/provider';
 import { FiscalSchoolFields } from '@/components/provider/FiscalSchoolFields';
 import { MyReports } from '@/components/report/MyReports';
 import { NotificationPrefs } from '@/components/membership/NotificationPrefs';
+import { AccountFlowModal } from '@/components/membership/AccountFlowModal';
 import { GuidedTour } from '@/components/onboarding';
 import { PasswordStrength } from '@/components/auth/PasswordStrength';
 import { profileSchema, type ProfileFormValues } from '@/lib/schemas';
@@ -62,7 +63,7 @@ export function Settings() {
   const navigate = useNavigate();
   const fileRef = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState<string | null>(null);
-  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [showAccountFlow, setShowAccountFlow] = useState(false);
   const [searchParams] = useSearchParams();
   const recovery = searchParams.get('recovery') === '1';
   const [newPassword, setNewPassword] = useState('');
@@ -216,15 +217,10 @@ export function Settings() {
     toast[res.ok ? 'success' : 'error'](res.ok ? t('settings.photoToast') : res.error);
   };
 
-  const handleDelete = async () => {
-    const res = await deleteAccount();
-    setConfirmDelete(false);
-    if (res.ok) {
-      toast.success(t('settings.deletedToast'));
-      navigate('/');
-    } else {
-      toast.error(res.error);
-    }
+  const finishAccountFlow = async () => {
+    setShowAccountFlow(false);
+    await signOut();
+    navigate('/');
   };
 
   return (
@@ -420,23 +416,18 @@ export function Settings() {
         <Button variant="ghost" onClick={async () => { await signOut(); navigate('/'); }} leadingIcon={<LogOut className="h-5 w-5" />}>
           {t('settings.signOut')}
         </Button>
-        <Button variant="danger" onClick={() => setConfirmDelete(true)} leadingIcon={<Trash2 className="h-5 w-5" />}>
+        <Button variant="danger" onClick={() => setShowAccountFlow(true)} leadingIcon={<Trash2 className="h-5 w-5" />}>
           {t('settings.deleteAccount')}
         </Button>
       </section>
 
-      <Modal
-        open={confirmDelete}
-        onClose={() => setConfirmDelete(false)}
-        title={t('settings.deleteTitle')}
-      >
-        <p className="text-sm text-slate-700">{t('settings.deleteDesc')}</p>
-        <p className="mt-1 text-sm text-muted">{t('settings.deleteBody')}</p>
-        <div className="mt-4 flex justify-end gap-2">
-          <Button variant="ghost" onClick={() => setConfirmDelete(false)}>{t('common.cancel')}</Button>
-          <Button variant="danger" loading={saving} onClick={handleDelete}>{t('settings.deleteConfirm')}</Button>
-        </div>
-      </Modal>
+      <AccountFlowModal
+        open={showAccountFlow}
+        isPaid={isProvider}
+        onClose={() => setShowAccountFlow(false)}
+        onHardDelete={deleteAccount}
+        onFinished={finishAccountFlow}
+      />
     </div>
   );
 }

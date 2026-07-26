@@ -14,11 +14,17 @@ import { HeroArt } from '@/components/home/HeroArt';
 import { HeartHandshake } from 'lucide-react';
 import { useCountry } from '@/stores/countryStore';
 import { COUNTRIES } from '@/data/countries';
+import { useIdleReady } from '@/hooks/useIdleReady';
 
 export function Home() {
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
   const { country, setCountry } = useCountry();
+  // Los carruseles de aliados y contenido están debajo del pliegue pero
+  // disparan una consulta a Supabase cada uno al montar, colándose en la cadena
+  // crítica del LCP (~1 s en Lighthouse). Se montan cuando el navegador queda
+  // ocioso: sus consultas dejan de competir con el héroe.
+  const idleReady = useIdleReady();
 
   // Nombre del país localizado para mostrar; el `value` sigue siendo el nombre
   // canónico (español) para que coincida con `profiles.country` al filtrar.
@@ -43,7 +49,7 @@ export function Home() {
           <h1 className="text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl">
             {t('home.title')}
           </h1>
-          <ul className="mt-4 max-w-xl space-y-2">
+          <ul className="mt-4 max-w-xl space-y-2 rounded-2xl border border-slate-100 bg-slate-50 p-4">
             <li className="flex gap-2 text-sm leading-relaxed text-slate-700">
               <span aria-hidden="true">✅</span>
               <span>{t('home.subtitle')}</span>
@@ -84,15 +90,6 @@ export function Home() {
           </div>
 
           <p className="mt-3 text-sm text-muted">{t('home.search.free')}</p>
-          {/* Momento psicológico: acaba de leer que es gratis. Enlace secundario
-              y discreto (no compite con "Explorar directorio"). */}
-          <button
-            type="button"
-            onClick={() => navigate('/donar')}
-            className="mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-[#8C6D1F] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8C6D1F] focus-visible:ring-offset-2"
-          >
-            <Heart className="h-4 w-4" aria-hidden="true" /> {t('home.donateHint')}
-          </button>
         </div>
 
         <div className="order-first lg:order-last">
@@ -137,7 +134,7 @@ export function Home() {
         <div className="flex flex-col justify-center">
           {/* La leyenda es visible SIEMPRE, aunque aún no haya aliados cargados. */}
           <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-muted">{t('allies.title')}</h2>
-          <AlliesCarousel showHeading={false} />
+          {idleReady && <AlliesCarousel showHeading={false} />}
         </div>
 
         <div className="overflow-hidden rounded-3xl border border-brand-100 bg-gradient-to-br from-brand-50 to-white p-6 sm:p-8">
@@ -156,9 +153,7 @@ export function Home() {
         </div>
       </section>
 
-      <div className="mt-14">
-        <ContentCarousel />
-      </div>
+      {idleReady && <ContentCarousel />}
     </div>
   );
 }

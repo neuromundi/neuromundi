@@ -41,6 +41,9 @@ export interface DirectoryFilters {
   productCategory?: string;
   /** Rango de edad atendido. */
   ageRange?: string;
+  /** Acceso rápido por dominio: pasa si la profesión, alguna especialidad, área
+   *  o categoría de producto del proveedor está en esta lista. */
+  anyOf?: string[];
   /** Modalidad de atención. */
   modality?: string;
   city?: string;
@@ -142,7 +145,7 @@ export function useDirectory(filters: DirectoryFilters): UseDirectoryValue {
     [providers],
   );
 
-  const { query, categoryId, specialty, productCategory, ageRange, modality, city, center, radiusKm } = filters;
+  const { query, categoryId, specialty, productCategory, ageRange, modality, city, center, radiusKm, anyOf } = filters;
 
   const filtered = useMemo(() => {
     const q = query?.trim().toLowerCase();
@@ -163,6 +166,15 @@ export function useDirectory(filters: DirectoryFilters): UseDirectoryValue {
         if (!inSpec && !inArea) return false;
       }
       if (productCategory && !(p.product_categories ?? []).includes(productCategory)) return false;
+      if (anyOf && anyOf.length > 0) {
+        const pool = [
+          p.profession ?? '',
+          ...(p.specialties ?? []),
+          ...(p.intervention_areas ?? []),
+          ...(p.product_categories ?? []),
+        ];
+        if (!anyOf.some((v) => pool.includes(v))) return false;
+      }
       if (ageRange && !(p.age_ranges ?? []).includes(ageRange)) return false;
       if (modality && !(p.modalities ?? []).includes(modality)) return false;
       if (city && p.city !== city) return false;
@@ -172,7 +184,7 @@ export function useDirectory(filters: DirectoryFilters): UseDirectoryValue {
       }
       return true;
     });
-  }, [providers, query, categoryId, specialty, productCategory, ageRange, modality, city, center, radiusKm]);
+  }, [providers, query, categoryId, specialty, productCategory, ageRange, modality, city, center, radiusKm, anyOf]);
 
   return { providers, filtered, cities, loading, error, refetch };
 }

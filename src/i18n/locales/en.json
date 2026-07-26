@@ -225,7 +225,18 @@
     "countryActive": "Showing results in {{country}}",
     "countryClear": "Change country",
     "countryLabel": "Country",
-    "countryAll": "All countries"
+    "countryAll": "All countries",
+    "quickTitle": "Quick access",
+    "moreFilters": "Filters",
+    "filterSearchPh": "Search specialty or area…",
+    "noMatches": "No matches",
+    "quick": {
+      "therapies": "Therapies",
+      "animals": "Animals / AAT",
+      "perinatal": "Perinatal",
+      "executive": "Education & Exec. Function",
+      "products": "Support products"
+    }
   },
   "card": {
     "evs": "EVS",
@@ -404,7 +415,19 @@
       "replyPlaceholder": "Reply with care and empathy…",
       "replySave": "Save reply",
       "replySaved": "Reply saved",
-      "replyError": "Couldn't save the reply."
+      "replyError": "Couldn't save the reply.",
+      "certTitle": "Featured Ally recognition",
+      "certDesc": "You've reached the Featured Ally distinction. Download your official recognition.",
+      "certDownload": "Download recognition (PDF)",
+      "certHeading": "Recognition",
+      "certAward": "Featured Ally",
+      "certAwardedTo": "This recognition is awarded to",
+      "certMember": "Member",
+      "certSpecialty": "Specialty / Field",
+      "certJustification": "For reaching the highest distinction of the Neuromundi community by achieving the top rating from its users, a reflection of exceptional service.",
+      "certDate": "Issue date",
+      "certFile": "Featured Ally Recognition — Neuromundi",
+      "certSpecialtyFallback": "Community ally"
     }
   },
   "survey": {
@@ -707,7 +730,27 @@
     "viewDoc": "View document {{n}}",
     "secReferrals": "Referrals",
     "secFees": "Fees",
-    "secDonations": "Donations"
+    "secDonations": "Donations",
+    "secAccounts": "Churn",
+    "accounts": {
+      "suspends": "Suspensions",
+      "cancels": "Cancellations",
+      "reactivations": "Reactivations",
+      "costoPending": "By cost",
+      "costoTitle": "Cost cancellations — make an offer",
+      "costoHelp": "Reach out within 24 h with an offer so they don't leave the community.",
+      "byReason": "Cancellations by reason",
+      "recent": "Recent activity",
+      "empty": "No cancellations or suspensions yet.",
+      "noEmail": "No email",
+      "act": {
+        "suspend": "Suspension",
+        "cancel": "Cancellation",
+        "reactivate": "Reactivation",
+        "winback": "Cancellation (cost)"
+      }
+    },
+    "secImprove": "Improvements"
   },
   "reg": {
     "typePatient": "Patient",
@@ -2090,7 +2133,42 @@
     }
   },
   "account": {
-    "memberNo": "Registration number"
+    "memberNo": "Registration number",
+    "flow": {
+      "title": "Close account",
+      "introTitle": "You're about to delete your account",
+      "introBody": "If you delete it, you'll permanently lose your history and progress on the platform. This action can't be undone.",
+      "introSuggest": "Before you go: you can suspend your account instead. You'll stay registered without losing your history or progress, and you can come back whenever you want.",
+      "chooseSuspend": "Suspend my account (recommended)",
+      "chooseDelete": "Continue with deletion",
+      "keep": "I'll stay",
+      "reasonTitle": "Why do you want to cancel?",
+      "reasonHelp": "Your answer helps us improve. Pick one option.",
+      "otherPlaceholder": "Tell us the reason…",
+      "back": "Back",
+      "confirmDelete": "Delete my account",
+      "costoTitle": "We'd love for you to stay",
+      "costoBody": "We'll review your profile and send you a tailored offer within 24 hours so you don't lose your place in the community. In the meantime, your profile will be paused.",
+      "suspendTitle": "Your account is suspended",
+      "suspendBody": "Your profile will stay suspended for 6 months (until {{date}}) without losing your history or progress, and you can reactivate it whenever you want. From the fifth month we'll remind you each week that deletion is near.",
+      "gotIt": "Got it"
+    },
+    "reasons": {
+      "costo": "Cost",
+      "dificultad": "Hard to use",
+      "defectos": "Bugs in the features",
+      "no_util": "Not useful for me",
+      "tiempo": "Lack of time",
+      "privacidad": "Privacy or security",
+      "otro": "Other"
+    },
+    "suspended": {
+      "title": "Your account is suspended",
+      "body": "Your account is suspended and will be permanently deleted on {{date}}. Reactivate it to keep your history and progress.",
+      "bodyNoDate": "Your account is suspended. Reactivate it to keep your history and progress.",
+      "reactivate": "Reactivate my account",
+      "exit": "Sign out"
+    }
   },
   "howto": {
     "title": "How to use this tool",
@@ -3055,5 +3133,19 @@
     "cta": "Continue",
     "review": "Review",
     "start_cta": "Start"
+  },
+  "improve": {
+    "title": "Help us improve",
+    "help": "What would you change or add? Your idea helps us build a better platform for everyone.",
+    "messageLabel": "Your suggestion",
+    "messagePlaceholder": "Write your idea or comment…",
+    "emailLabel": "Email (optional)",
+    "emailPlaceholder": "So we can reply, if you'd like",
+    "send": "Send suggestion",
+    "thanks": "Thank you! We read every suggestion.",
+    "footerButton": "Help us improve",
+    "adminCount": "{{n}} suggestions",
+    "adminEmpty": "No suggestions yet.",
+    "anon": "Anonymous"
   }
 }

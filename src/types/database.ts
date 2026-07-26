@@ -109,6 +109,10 @@ export interface Database {
           referred_at: string | null;
           referral_credit_pct: number;
           wants_founder: boolean;
+          suspended_at: string | null;
+          suspend_until: string | null;
+          pre_suspend_published: boolean | null;
+          winback_until: string | null;
           created_at: string;
           updated_at: string;
         };
@@ -1187,6 +1191,30 @@ export interface Database {
       provider_metrics: {
         Args: Record<string, never>;
         Returns: { views_total: number; views_30d: number; contacts_total: number; contacts_30d: number }[];
+      };
+      suspend_my_account: {
+        Args: Record<string, never>;
+        Returns: string | null;
+      };
+      reactivate_my_account: {
+        Args: Record<string, never>;
+        Returns: undefined;
+      };
+      cancel_my_account: {
+        Args: { p_reason: string; p_detail?: string | null };
+        Returns: Json;
+      };
+      admin_account_actions: {
+        Args: Record<string, never>;
+        Returns: { id: string; user_id: string | null; email: string | null; member_no: number | null; role: string | null; action: string; reason: string | null; reason_detail: string | null; is_paid: boolean; created_at: string }[];
+      };
+      submit_improvement: {
+        Args: { p_message: string; p_email?: string | null; p_page?: string | null };
+        Returns: undefined;
+      };
+      admin_improvement_suggestions: {
+        Args: Record<string, never>;
+        Returns: { id: string; user_id: string | null; email: string | null; message: string; page: string | null; created_at: string }[];
       };
       admin_country_prices: {
         Args: { p_country: string };

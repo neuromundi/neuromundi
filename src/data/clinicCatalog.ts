@@ -20,6 +20,15 @@ export const CLINIC_SPECIALTIES: CatItem[] = [
   { value: 'terapia_ocupacional', label: 'Terapia Ocupacional' },
   { value: 'psicopedagogia', label: 'Psicopedagogía' },
   { value: 'psiquiatria', label: 'Psiquiatría' },
+  // ── Ampliación (taxonomía Neuromundi) ──────────────────────────────────────
+  { value: 'neuropsicologia', label: 'Neuropsicología' },
+  { value: 'neuropediatria_genetica', label: 'Neuropediatría y Genética' },
+  { value: 'psicomotricidad', label: 'Psicomotricidad' },
+  { value: 'optometria_comportamental', label: 'Optometría Comportamental / Terapia Visual' },
+  { value: 'neurofeedback', label: 'Neurofeedback / Biofeedback' },
+  { value: 'terapia_neurosensorial', label: 'Terapia Neurosensorial (Tomatis / Bérard / SSP)' },
+  { value: 'nutricion', label: 'Nutrición Especializada' },
+  { value: 'terapia_familiar', label: 'Terapia Familiar y Sistémica' },
   { value: 'otro', label: 'Otro' },
 ];
 
@@ -28,6 +37,13 @@ export const CLINIC_SERVICES: CatItem[] = [
   { value: 'terapia', label: 'Terapia regular' },
   { value: 'grupos_sociales', label: 'Grupos de habilidades sociales' },
   { value: 'asesoria_padres', label: 'Asesoramiento a padres' },
+  // ── Ampliación (taxonomía Neuromundi) ──────────────────────────────────────
+  { value: 'lactancia_alimentacion', label: 'Lactancia y alimentación temprana' },
+  { value: 'sueno', label: 'Consultoría de sueño infantil' },
+  { value: 'saac', label: 'Comunicación aumentativa (SAAC)' },
+  { value: 'acompanamiento_escolar', label: 'Acompañamiento e inclusión escolar' },
+  { value: 'vida_independiente', label: 'Programa de vida independiente / transición' },
+  { value: 'teleterapia', label: 'Teleterapia' },
   { value: 'otro', label: 'Otro' },
 ];
 

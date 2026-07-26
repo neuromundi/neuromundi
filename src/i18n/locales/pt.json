@@ -189,7 +189,18 @@
     "countryActive": "Mostrando resultados em {{country}}",
     "countryClear": "Mudar país",
     "countryLabel": "País",
-    "countryAll": "Todos os países"
+    "countryAll": "Todos os países",
+    "quickTitle": "Acesso rápido",
+    "moreFilters": "Filtros",
+    "filterSearchPh": "Buscar especialidade ou área…",
+    "noMatches": "Sem resultados",
+    "quick": {
+      "therapies": "Terapias",
+      "animals": "Animais / TAA",
+      "perinatal": "Perinatal",
+      "executive": "Educação e Funções Executivas",
+      "products": "Produtos de apoio"
+    }
   },
   "card": {
     "evs": "EVS",
@@ -368,7 +379,19 @@
       "replyPlaceholder": "Responda com cuidado e empatia…",
       "replySave": "Salvar resposta",
       "replySaved": "Resposta salva",
-      "replyError": "Não foi possível salvar a resposta."
+      "replyError": "Não foi possível salvar a resposta.",
+      "certTitle": "Reconhecimento Aliado Destaque",
+      "certDesc": "Você alcançou a distinção Aliado Destaque. Baixe seu reconhecimento oficial.",
+      "certDownload": "Baixar reconhecimento (PDF)",
+      "certHeading": "Reconhecimento",
+      "certAward": "Aliado Destaque",
+      "certAwardedTo": "Este reconhecimento é concedido a",
+      "certMember": "Afiliado",
+      "certSpecialty": "Especialidade / Ramo",
+      "certJustification": "Por alcançar a mais alta distinção da comunidade Neuromundi ao obter a melhor avaliação de seus usuários, reflexo de um serviço excepcional.",
+      "certDate": "Data de emissão",
+      "certFile": "Reconhecimento Aliado Destaque — Neuromundi",
+      "certSpecialtyFallback": "Aliado da comunidade"
     }
   },
   "survey": {
@@ -671,7 +694,27 @@
     "viewDoc": "Ver documento {{n}}",
     "secReferrals": "Indicações",
     "secFees": "Taxas",
-    "secDonations": "Doações"
+    "secDonations": "Doações",
+    "secAccounts": "Saídas",
+    "accounts": {
+      "suspends": "Suspensões",
+      "cancels": "Cancelamentos",
+      "reactivations": "Reativações",
+      "costoPending": "Por custo",
+      "costoTitle": "Cancelamentos por custo — fazer proposta",
+      "costoHelp": "Entre em contato em 24 h com uma proposta para que não abandonem a comunidade.",
+      "byReason": "Cancelamentos por motivo",
+      "recent": "Atividade recente",
+      "empty": "Ainda não há cancelamentos nem suspensões.",
+      "noEmail": "Sem e-mail",
+      "act": {
+        "suspend": "Suspensão",
+        "cancel": "Cancelamento",
+        "reactivate": "Reativação",
+        "winback": "Cancelamento (custo)"
+      }
+    },
+    "secImprove": "Melhorias"
   },
   "reg": {
     "typePatient": "Paciente",
@@ -2090,7 +2133,42 @@
     }
   },
   "account": {
-    "memberNo": "Número de registro"
+    "memberNo": "Número de registro",
+    "flow": {
+      "title": "Encerrar conta",
+      "introTitle": "Você vai excluir sua conta",
+      "introBody": "Se excluí-la, você perderá permanentemente seu histórico e seu progresso na plataforma. Esta ação não pode ser desfeita.",
+      "introSuggest": "Antes de sair: você pode suspender sua conta. Continuará registrado sem perder seu histórico nem seu progresso, e poderá voltar quando quiser.",
+      "chooseSuspend": "Suspender minha conta (recomendado)",
+      "chooseDelete": "Continuar com a exclusão",
+      "keep": "Prefiro ficar",
+      "reasonTitle": "Por que você quer cancelar?",
+      "reasonHelp": "Sua resposta nos ajuda a melhorar. Escolha uma opção.",
+      "otherPlaceholder": "Conte-nos o motivo…",
+      "back": "Voltar",
+      "confirmDelete": "Excluir minha conta",
+      "costoTitle": "Adoraríamos que você ficasse",
+      "costoBody": "Vamos analisar seu perfil e fazer uma proposta sob medida em até 24 horas para que você não perca seu lugar na comunidade. Enquanto isso, seu perfil ficará pausado.",
+      "suspendTitle": "Sua conta está suspensa",
+      "suspendBody": "Seu perfil ficará suspenso por 6 meses (até {{date}}) sem perder seu histórico nem seu progresso, e você poderá reativá-lo quando quiser. A partir do quinto mês, avisaremos você toda semana de que a exclusão está próxima.",
+      "gotIt": "Entendi"
+    },
+    "reasons": {
+      "costo": "Custo",
+      "dificultad": "Difícil de usar",
+      "defectos": "Defeitos nas funções",
+      "no_util": "Não me é útil",
+      "tiempo": "Falta de tempo",
+      "privacidad": "Privacidade ou segurança",
+      "otro": "Outro"
+    },
+    "suspended": {
+      "title": "Sua conta está suspensa",
+      "body": "Sua conta está suspensa e será excluída definitivamente em {{date}}. Reative-a para manter seu histórico e progresso.",
+      "bodyNoDate": "Sua conta está suspensa. Reative-a para manter seu histórico e progresso.",
+      "reactivate": "Reativar minha conta",
+      "exit": "Sair"
+    }
   },
   "howto": {
     "title": "Como usar esta ferramenta",
@@ -3055,5 +3133,19 @@
     "cta": "Continuar",
     "review": "Revisar",
     "start_cta": "Começar"
+  },
+  "improve": {
+    "title": "Ajude-nos a melhorar",
+    "help": "O que você mudaria ou acrescentaria? Sua ideia nos ajuda a construir uma plataforma melhor para todos.",
+    "messageLabel": "Sua sugestão",
+    "messagePlaceholder": "Escreva sua ideia ou comentário…",
+    "emailLabel": "E-mail (opcional)",
+    "emailPlaceholder": "Para responder a você, se quiser",
+    "send": "Enviar sugestão",
+    "thanks": "Obrigado! Lemos todas as sugestões.",
+    "footerButton": "Ajude-nos a melhorar",
+    "adminCount": "{{n}} sugestões",
+    "adminEmpty": "Ainda não há sugestões.",
+    "anon": "Anônimo"
   }
 }

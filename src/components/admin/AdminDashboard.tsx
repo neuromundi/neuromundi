@@ -12,7 +12,6 @@ import { Button, Tabs, SkeletonCard, useToast , Avatar, DistintivoBadge} from '@
 import { useAdmin, type AdminFilter } from '@/hooks/useAdmin';
 import { useAuth } from '@/hooks/useAuth';
 import { ProductManager } from '@/components/merchant/ProductManager';
-import { AdminBilling } from './AdminBilling';
 import { AdminProducts } from './AdminProducts';
 import { AdminOtherValues } from './AdminOtherValues';
 import { AdminRenewals } from './AdminRenewals';
@@ -22,6 +21,8 @@ import { AdminMessages } from './AdminMessages';
 import { AdminReferrals } from './AdminReferrals';
 import { AdminFees } from './AdminFees';
 import { AdminDonations } from './AdminDonations';
+import { AdminAccountActions } from './AdminAccountActions';
+import { AdminImprovements } from './AdminImprovements';
 import { formatDate, cn } from '@/lib/utils';
 import type { Profile } from '@/types/app';
 import { useAdminBadges } from '@/hooks/useAdminBadges';
@@ -170,7 +171,7 @@ export function AdminDashboard() {
   const toast = useToast();
   const { userId } = useAuth();
   const [tab, setTab] = useState<AdminFilter>('pending');
-  const [section, setSection] = useState<'metrics' | 'messages' | 'moderation' | 'products' | 'store' | 'renewals' | 'referrals' | 'fees' | 'donations' | 'reports' | 'billing' | 'other'>('metrics');
+  const [section, setSection] = useState<'metrics' | 'messages' | 'moderation' | 'products' | 'store' | 'renewals' | 'referrals' | 'fees' | 'donations' | 'accounts' | 'improve' | 'reports' | 'other'>('metrics');
   const [recalcBusy, setRecalcBusy] = useState(false);
 
   const recalcBadges = async () => {
@@ -186,7 +187,7 @@ export function AdminDashboard() {
       <h1 className="mb-4 text-2xl font-bold text-slate-900">{t('admin.title')}</h1>
 
       <div className="mb-4 inline-flex flex-wrap rounded-xl bg-slate-100 p-1">
-        {(['metrics', 'messages', 'moderation', 'products', 'store', 'renewals', 'referrals', 'fees', 'donations', 'reports', 'billing', 'other'] as const).map((s) => (
+        {(['metrics', 'messages', 'moderation', 'products', 'store', 'renewals', 'referrals', 'fees', 'donations', 'accounts', 'improve', 'reports', 'other'] as const).map((s) => (
           <button
             key={s}
             type="button"
@@ -196,7 +197,7 @@ export function AdminDashboard() {
               section === s ? 'bg-white text-slate-900 shadow-sm' : 'text-muted',
             )}
           >
-            {t(s === 'metrics' ? 'admin.secMetrics' : s === 'messages' ? 'admin.secMessages' : s === 'moderation' ? 'admin.secModeration' : s === 'products' ? 'admin.secProducts' : s === 'store' ? 'admin.secStore' : s === 'renewals' ? 'admin.secRenewals' : s === 'referrals' ? 'admin.secReferrals' : s === 'fees' ? 'admin.secFees' : s === 'donations' ? 'admin.secDonations' : s === 'reports' ? 'admin.secReports' : s === 'billing' ? 'admin.secBilling' : 'admin.secOther')}
+            {t(s === 'metrics' ? 'admin.secMetrics' : s === 'messages' ? 'admin.secMessages' : s === 'moderation' ? 'admin.secModeration' : s === 'products' ? 'admin.secProducts' : s === 'store' ? 'admin.secStore' : s === 'renewals' ? 'admin.secRenewals' : s === 'referrals' ? 'admin.secReferrals' : s === 'fees' ? 'admin.secFees' : s === 'donations' ? 'admin.secDonations' : s === 'accounts' ? 'admin.secAccounts' : s === 'improve' ? 'admin.secImprove' : s === 'reports' ? 'admin.secReports' : 'admin.secOther')}
           </button>
         ))}
       </div>
@@ -239,10 +240,12 @@ export function AdminDashboard() {
         <AdminFees />
       ) : section === 'donations' ? (
         <AdminDonations />
+      ) : section === 'accounts' ? (
+        <AdminAccountActions />
+      ) : section === 'improve' ? (
+        <AdminImprovements />
       ) : section === 'reports' ? (
         <AdminReports />
-      ) : section === 'billing' ? (
-        <AdminBilling />
       ) : (
         <AdminOtherValues />
       )}

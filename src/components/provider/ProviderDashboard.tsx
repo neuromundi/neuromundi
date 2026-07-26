@@ -63,6 +63,7 @@ import { useTransactions, type TransactionFilters } from '@/hooks/useTransaction
 import { useProviderRatings, type ProviderComment } from '@/hooks/useProviderRatings';
 import { useMyBadge } from '@/hooks/useMyBadge';
 import { BadgeProgress } from './BadgeProgress';
+import { AliadoCertificateCard } from './AliadoCertificateCard';
 import { ProviderMetricsPanel } from './ProviderMetricsPanel';
 import { SchoolInclusionPanel } from './SchoolInclusionPanel';
 import { OfferForm } from './OfferForm';
@@ -485,6 +486,7 @@ function RatingsTab({
     return (
       <div className="space-y-6">
         <BadgeProgress badge={myBadge} inputs={myInputs} />
+        <AliadoCertificateCard badge={myBadge} />
         <div className="rounded-2xl border border-dashed border-slate-200 p-8 text-center text-muted">
           {t('provider.ratings.empty')}
         </div>
@@ -495,6 +497,7 @@ function RatingsTab({
   return (
     <div className="space-y-6">
       <BadgeProgress badge={myBadge} inputs={myInputs} />
+      <AliadoCertificateCard badge={myBadge} />
       <div className="flex flex-col items-center gap-2">
         <EVSBadge score={rating.evs_score} totalReviews={rating.total_reviews} size="lg" />
         <p className="text-sm text-muted">{t('card.reviews', { count: rating.total_reviews ?? 0 })}</p>

@@ -7,10 +7,11 @@
  */
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Search, List, MapPin, Globe, BellPlus, X } from 'lucide-react';
+import { Search, List, MapPin, Globe, BellPlus, X, SlidersHorizontal, HeartPulse, PawPrint, Baby, GraduationCap, Package } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { ProviderCard } from './ProviderCard';
 import { MapView } from './MapView';
+import { SearchableSelect, type Option } from './SearchableSelect';
 import { SkeletonCard, useToast } from '@/components/ui';
 import { useAuth } from '@/hooks/useAuth';
 import { useSearchAlerts } from '@/hooks/useSearchAlerts';
@@ -25,6 +26,33 @@ import { COUNTRIES } from '@/data/countries';
 import { cn } from '@/lib/utils';
 
 const RADII = [5, 10, 25, 50] as const;
+
+/**
+ * Accesos rápidos por dominio: cada uno apunta a valores REALES de la taxonomía
+ * (profesión, especialidad, área o categoría de producto) vía el filtro `anyOf`.
+ */
+const DOMAINS: Record<string, { icon: typeof HeartPulse; labelKey: string; values: string[] }> = {
+  therapies: {
+    icon: HeartPulse, labelKey: 'directory.quick.therapies',
+    values: ['integracion_sensorial', 'modificacion_conducta', 'lenguaje_habla', 'saac', 'motricidad', 'regulacion_emocional', 'terapia_ocupacional', 'logopedia', 'psicomotricidad', 'fisioterapia', 'musicoterapia', 'arteterapia', 'neurofeedback', 'terapia_neurosensorial', 'estimulacion_auditiva', 'regulacion_polivagal', 'procesamiento_visual', 'optometria_comportamental'],
+  },
+  animals: {
+    icon: PawPrint, labelKey: 'directory.quick.animals',
+    values: ['taa_equinoterapia', 'taa_perros', 'taa_granja', 'entrenador_psaa', 'certificador_aae', 'adiestramiento_positivo', 'veterinaria_neurofriendly', 'cuidado_mascotas_nf', 'mascotas_nf'],
+  },
+  perinatal: {
+    icon: Baby, labelKey: 'directory.quick.perinatal',
+    values: ['lactancia', 'lactancia_motricidad_oral', 'consultoria_sueno', 'asesoria_porteo', 'terapia_miofuncional', 'perinatal'],
+  },
+  executive: {
+    icon: GraduationCap, labelKey: 'directory.quick.executive',
+    values: ['funciones_ejecutivas', 'adaptacion_curricular', 'coaching_ejecutivo', 'acompanante_terapeutico', 'vida_independiente', 'psicopedagogia', 'educacion_especial'],
+  },
+  products: {
+    icon: Package, labelKey: 'directory.quick.products',
+    values: ['sensorial', 'cognitivo', 'comunicacion', 'autonomia', 'social_emocional', 'neurosensorial_tech', 'mascotas_nf', 'perinatal'],
+  },
+};
 
 export interface DirectorySearchProps {
   onViewProfile?: (id: string) => void;
@@ -54,9 +82,9 @@ export function DirectorySearch({ onViewProfile }: DirectorySearchProps) {
 
   const [searchInput, setSearchInput] = useState(searchParams.get('q') ?? '');
   const [query, setQuery] = useState(searchParams.get('q') ?? '');
-  const [categoryId, setCategoryId] = useState<number | undefined>(
-    searchParams.get('cat') ? Number(searchParams.get('cat')) : undefined,
-  );
+  // Categoría de alto nivel: se retiraron los chips del directorio; se conserva
+  // solo por compatibilidad con enlaces profundos (?cat=) y con las alertas.
+  const categoryId = searchParams.get('cat') ? Number(searchParams.get('cat')) : undefined;
   const [specialty, setSpecialty] = useState<string>(searchParams.get('spec') ?? '');
   const [productCategory, setProductCategory] = useState<string>(searchParams.get('pcat') ?? '');
   const [ageRange, setAgeRange] = useState<string>(searchParams.get('age') ?? '');
@@ -66,6 +94,20 @@ export function DirectorySearch({ onViewProfile }: DirectorySearchProps) {
   const [radiusKm, setRadiusKm] = useState<number>(25);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [view, setView] = useState<'list' | 'map'>('list');
+  const [domain, setDomain] = useState<string | null>(null);
+  const [filtersOpen, setFiltersOpen] = useState(false);
+
+  // Opciones del selector con búsqueda: condiciones + áreas de intervención.
+  const specialtyOptions = useMemo<Option[]>(
+    () => [
+      ...SPECIALTIES.filter((s) => s.value !== 'otro').map((s) => ({ value: s.value, label: catLabel(s.value, s.label), group: t('directory.grpSpecialties') })),
+      ...INTERVENTION_AREAS.filter((a) => a.value !== 'otro').map((a) => ({ value: a.value, label: catLabel(a.value, a.label), group: t('directory.grpAreas') })),
+    ],
+    [catLabel, t],
+  );
+
+  const activeCount =
+    (specialty ? 1 : 0) + (productCategory ? 1 : 0) + (ageRange ? 1 : 0) + (modality ? 1 : 0) + (city ? 1 : 0) + (center ? 1 : 0);
 
   // Debounce de 300ms en el texto de búsqueda.
   useEffect(() => {
@@ -81,12 +123,13 @@ export function DirectorySearch({ onViewProfile }: DirectorySearchProps) {
       productCategory: productCategory || undefined,
       ageRange: ageRange || undefined,
       modality: modality || undefined,
+      anyOf: domain ? DOMAINS[domain].values : undefined,
       city,
       country: country || undefined,
       center: center ?? undefined,
       radiusKm: center ? radiusKm : undefined,
     }),
-    [query, categoryId, specialty, productCategory, ageRange, modality, city, country, center, radiusKm],
+    [query, categoryId, specialty, productCategory, ageRange, modality, domain, city, country, center, radiusKm],
   );
 
   const { filtered, cities, loading } = useDirectory(filters);
@@ -137,49 +180,50 @@ export function DirectorySearch({ onViewProfile }: DirectorySearchProps) {
           />
         </div>
 
-        {categories.length > 0 && (
-          <div className="flex flex-wrap gap-2" role="group" aria-label={t('directory.categories')}>
-            {categories.map((cat) => {
-              const active = cat.id === categoryId;
-              return (
-                <button
-                  key={cat.id}
-                  type="button"
-                  aria-pressed={active}
-                  onClick={() => setCategoryId(active ? undefined : cat.id)}
-                  className={cn(
-                    'rounded-full border px-3 py-1.5 text-sm font-medium transition-colors',
-                    active
-                      ? 'border-brand-500 bg-brand-500 text-white'
-                      : 'border-slate-200 text-slate-700 hover:bg-slate-50',
-                  )}
-                >
-                  {catLabel(cat.slug, cat.name)}
-                </button>
-              );
-            })}
-          </div>
-        )}
+        {/* Accesos rápidos por dominio (apuntan a la taxonomía real) */}
+        <div className="flex flex-wrap gap-2" role="group" aria-label={t('directory.quickTitle')}>
+          {Object.entries(DOMAINS).map(([key, d]) => {
+            const Icon = d.icon;
+            const active = domain === key;
+            return (
+              <button
+                key={key}
+                type="button"
+                aria-pressed={active}
+                onClick={() => setDomain(active ? null : key)}
+                className={cn(
+                  'inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm font-medium transition-colors',
+                  active ? 'border-brand-500 bg-brand-500 text-white' : 'border-slate-200 text-slate-700 hover:bg-slate-50',
+                )}
+              >
+                <Icon className="h-4 w-4" aria-hidden="true" /> {t(d.labelKey)}
+              </button>
+            );
+          })}
+        </div>
 
-        <div className="flex flex-wrap items-center gap-3">
-          <select
-            aria-label={t('directory.specialtyAria')}
+        {/* En móvil, los filtros finos se pliegan tras este botón. */}
+        <button
+          type="button"
+          onClick={() => setFiltersOpen((o) => !o)}
+          aria-expanded={filtersOpen}
+          className="inline-flex w-fit items-center gap-1.5 rounded-xl border border-slate-200 px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50 md:hidden"
+        >
+          <SlidersHorizontal className="h-4 w-4" aria-hidden="true" />
+          {t('directory.moreFilters')}{activeCount > 0 ? ` (${activeCount})` : ''}
+        </button>
+
+        <div className={cn('flex-wrap items-center gap-3', filtersOpen ? 'flex' : 'hidden md:flex')}>
+          <SearchableSelect
+            options={specialtyOptions}
             value={specialty}
-            onChange={(e) => setSpecialty(e.target.value)}
-            className="rounded-xl border border-slate-200 p-2.5 text-sm"
-          >
-            <option value="">{t('directory.allSpecialties')}</option>
-            <optgroup label={t('directory.grpSpecialties')}>
-              {SPECIALTIES.filter((s) => s.value !== 'otro').map((s) => (
-                <option key={s.value} value={s.value}>{catLabel(s.value, s.label)}</option>
-              ))}
-            </optgroup>
-            <optgroup label={t('directory.grpAreas')}>
-              {INTERVENTION_AREAS.filter((a) => a.value !== 'otro').map((a) => (
-                <option key={a.value} value={a.value}>{catLabel(a.value, a.label)}</option>
-              ))}
-            </optgroup>
-          </select>
+            onChange={setSpecialty}
+            placeholder={t('directory.allSpecialties')}
+            searchPlaceholder={t('directory.filterSearchPh')}
+            noMatches={t('directory.noMatches')}
+            ariaLabel={t('directory.specialtyAria')}
+            className="min-w-[14rem] flex-1"
+          />
 
           <select
             aria-label={t('directory.productAria')}

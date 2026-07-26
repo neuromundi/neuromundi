@@ -25,6 +25,32 @@ export const PROFESSIONS: CatItem[] = [
   { value: 'educacion_especial', label: 'Educación Especial' },
   { value: 'nutricion', label: 'Nutrición' },
   { value: 'musicoterapia', label: 'Musicoterapia' },
+  // ── Ampliación (taxonomía Neuromundi) ──────────────────────────────────────
+  { value: 'psicomotricidad', label: 'Psicomotricidad' },
+  { value: 'lactancia', label: 'Consultoría de Lactancia (IBCLC)' },
+  { value: 'consultoria_sueno', label: 'Consultoría de Sueño Infantil' },
+  { value: 'asesoria_porteo', label: 'Asesoría de Porteo' },
+  { value: 'terapia_miofuncional', label: 'Terapia Miofuncional Orofacial' },
+  { value: 'optometria_comportamental', label: 'Optometría Comportamental / Terapia Visual' },
+  { value: 'neurofeedback', label: 'Neurofeedback / Biofeedback' },
+  { value: 'terapia_neurosensorial', label: 'Terapia Neurosensorial (Tomatis, Bérard, SSP)' },
+  { value: 'arteterapia', label: 'Arteterapia' },
+  { value: 'coaching_ejecutivo', label: 'Coaching de Funciones Ejecutivas' },
+  { value: 'acompanante_terapeutico', label: 'Acompañante Terapéutico (Maestro/a Sombra)' },
+  { value: 'transicion_vida_independiente', label: 'Especialista en Transición / Vida Independiente' },
+  { value: 'terapia_familiar', label: 'Terapia Familiar y Sistémica' },
+  { value: 'trabajo_social', label: 'Trabajo Social' },
+  { value: 'accesibilidad_cognitiva', label: 'Consultoría en Accesibilidad Cognitiva (B2B)' },
+  { value: 'odontologia_inclusiva', label: 'Odontología para pacientes neurodivergentes' },
+  // ── Dominio: Terapia y Asistencia con Animales (Neuro-Friendly) ─────────────
+  { value: 'taa_equinoterapia', label: 'Equinoterapia / Hipoterapia' },
+  { value: 'taa_perros', label: 'Terapia Asistida con Perros' },
+  { value: 'taa_granja', label: 'Granja Terapéutica' },
+  { value: 'entrenador_psaa', label: 'Entrenador de Perros de Asistencia (PSAA)' },
+  { value: 'certificador_aae', label: 'Evaluador / Certificador de Animales de Apoyo Emocional' },
+  { value: 'adiestramiento_positivo', label: 'Adiestramiento Canino Positivo' },
+  { value: 'veterinaria_neurofriendly', label: 'Veterinaria de Baja Estimulación (Neuro-Friendly)' },
+  { value: 'cuidado_mascotas_nf', label: 'Cuidado y Paseo de Mascotas (Neuro-Friendly)' },
   { value: 'otro', label: 'Otro' },
 ];
 
@@ -81,6 +107,19 @@ export const SPECIALTIES: CatItem[] = [
   { value: 'funciones_ejecutivas', label: 'Funciones Ejecutivas' },
   { value: 'sindrome_down', label: 'Síndrome de Down' },
   { value: 'paralisis_cerebral', label: 'Parálisis Cerebral' },
+  // ── Ampliación (taxonomía Neuromundi) ──────────────────────────────────────
+  { value: 'arfid_selectividad', label: 'Selectividad alimentaria / ARFID' },
+  { value: 'mutismo_selectivo', label: 'Mutismo Selectivo' },
+  { value: 'dislexia', label: 'Dislexia' },
+  { value: 'discalculia', label: 'Discalculia' },
+  { value: 'disgrafia', label: 'Disgrafía' },
+  { value: 'dispraxia', label: 'Dispraxia / Trastorno del Desarrollo de la Coordinación' },
+  { value: 'altas_capacidades', label: 'Altas Capacidades / Doble Excepcionalidad (2e)' },
+  { value: 'tourette', label: 'Síndrome de Tourette / Tics' },
+  { value: 'tpac', label: 'Trastorno del Procesamiento Auditivo Central (TPAC)' },
+  { value: 'sordoceguera', label: 'Discapacidad múltiple / Sordoceguera' },
+  { value: 'trastornos_sueno', label: 'Trastornos del Sueño' },
+  { value: 'trauma_tept', label: 'Trauma / TEPT' },
   { value: 'otro', label: 'Otro' },
 ];
 
@@ -108,9 +147,25 @@ export const INTERVENTION_AREAS: CatItem[] = [
   { value: 'motricidad', label: 'Motricidad y Psicomotricidad' },
   { value: 'funciones_ejecutivas', label: 'Funciones Ejecutivas' },
   { value: 'autonomia', label: 'Autonomía y AVD' },
+  // ── Ampliación (taxonomía Neuromundi) ──────────────────────────────────────
+  { value: 'saac', label: 'Comunicación Aumentativa (SAAC)' },
+  { value: 'adaptacion_curricular', label: 'Adaptación Curricular / Ajustes Razonables' },
+  { value: 'vida_independiente', label: 'Vida Independiente / Transición' },
+  { value: 'psicoeducacion_familia', label: 'Psicoeducación / Escuela para Familias' },
+  { value: 'grupos_pares', label: 'Grupos de Apoyo entre Pares' },
+  { value: 'regulacion_emocional', label: 'Regulación Emocional' },
+  { value: 'terapia_miofuncional', label: 'Terapia Miofuncional' },
+  { value: 'estimulacion_auditiva', label: 'Estimulación Auditiva (Tomatis / Bérard)' },
+  { value: 'regulacion_polivagal', label: 'Regulación Polivagal (SSP)' },
+  { value: 'procesamiento_visual', label: 'Procesamiento Visual / Terapia Visual' },
+  { value: 'lactancia_motricidad_oral', label: 'Lactancia y Motricidad Oral' },
   { value: 'otro', label: 'Otro' },
 ];
 
 export const CERTIFICATIONS: string[] = [
   'ADOS-2', 'DIR/Floortime', 'PECS', 'Método Denver (ESDM)', 'Integración Sensorial de Ayres', 'ABA', 'TEACCH', 'Hanen',
+  // ── Ampliación (taxonomía Neuromundi) ──
+  'Modelo Neuroafirmante', 'TCC adaptada', 'ACT', 'SCERTS', 'PROMPT', 'Terapia Miofuncional',
+  'Método Tomatis', 'Método Bérard (AIT)', 'Safe & Sound Protocol (SSP)', 'Interactive Metronome',
+  'HeartMath', 'WISC-V', 'IBCLC',
 ];
