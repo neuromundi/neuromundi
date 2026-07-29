@@ -9,6 +9,7 @@ import type { Session, User } from '@supabase/supabase-js';
 import { supabase } from '@/lib/supabase';
 import { logger, toMessage } from '@/lib/utils';
 import type { Profile, Result, UserRole } from '@/types/app';
+import type { TablesUpdate } from '@/types/database';
 
 export type AuthStatus = 'loading' | 'authenticated' | 'unauthenticated';
 
@@ -88,6 +89,11 @@ interface AuthState {
   initialize: () => () => void;
   signIn: (email: string, password: string) => Promise<Result<User>>;
   signUp: (input: SignUpInput) => Promise<Result<User | null>>;
+  /** Completa el perfil de un usuario YA autenticado (login social) con TODOS los
+   *  datos propios de su tipo, reusando el mismo `SignUpInput` de los formularios
+   *  dedicados. No crea cuenta (ya existe): hace UPDATE. El rol se permite fijar
+   *  aquí porque el trigger anti-escalada lo habilita durante el alta (0061). */
+  completeProfile: (input: SignUpInput) => Promise<Result<true>>;
   /** Inicia OAuth con un proveedor social (redirige fuera de la app). */
   signInWithProvider: (provider: 'google' | 'facebook' | 'apple' | 'linkedin_oidc' | 'azure') => Promise<Result<true>>;
   /** Completa el perfil de un usuario que entró por login social. */
@@ -102,6 +108,10 @@ interface AuthState {
     rulesVersion: string;
   }) => Promise<Result<true>>;
   signOut: () => Promise<void>;
+  /** Limpia la sesión SOLO en el cliente, sin llamar a `/auth/v1/logout`. Se usa
+   *  tras borrar la cuenta: el usuario ya no existe, así que el logout contra el
+   *  servidor devolvería 403. Borra el token persistido y resetea el estado. */
+  forgetLocalSession: () => void;
   /** Vuelve a leer el perfil del usuario actual desde la base. */
   refreshProfile: () => Promise<void>;
   /** Permite a otros hooks (useProfile) sincronizar el perfil tras editar. */
@@ -291,6 +301,86 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     return { ok: true, data: data.user };
   },
 
+  completeProfile: async (input) => {
+    const userId = get().user?.id;
+    if (!userId) return { ok: false, error: 'Sesión no disponible.' };
+    const role = input.role ?? 'provider';
+    const patch: TablesUpdate<'profiles'> = {
+      role,
+      provider_type: role === 'provider' ? (input.providerType ?? null) : null,
+      full_name: input.fullName?.trim() || undefined,
+      is_company: input.isCompany ?? undefined,
+      business_name: input.businessName ?? null,
+      birth_date: input.birthDate ?? null,
+      gender: input.gender ?? null,
+      condition: input.condition ?? null,
+      country: input.country ?? null,
+      state: input.state ?? null,
+      municipality: input.municipality ?? null,
+      address: input.address ?? null,
+      phone: input.phone ?? null,
+      services_offered: input.servicesOffered ?? null,
+      website: input.website ?? null,
+      instagram: input.instagram ?? null,
+      tiktok: input.tiktok ?? null,
+      facebook: input.facebook ?? null,
+      cedula_profesional: input.cedulaProfesional ?? null,
+      title_prefix: input.titlePrefix ?? null,
+      profession: input.profession ?? null,
+      bio: input.bio ?? null,
+      whatsapp: input.whatsapp ?? null,
+      booking_url: input.bookingUrl ?? null,
+      linkedin: input.linkedin ?? null,
+      rfc: input.rfc ?? null,
+      specialties: input.specialties ?? undefined,
+      modalities: input.modalities ?? undefined,
+      age_ranges: input.ageRanges ?? undefined,
+      intervention_areas: input.interventionAreas ?? undefined,
+      provider_details: input.providerDetails ?? undefined,
+      product_categories: input.productCategories ?? undefined,
+      products_offered: input.productsOffered ?? undefined,
+      sales_channels: input.salesChannels ?? undefined,
+      shipping_coverage: input.shippingCoverage ?? undefined,
+      price_range: input.priceRange ?? null,
+      school_grades: input.schoolGrades ?? undefined,
+      account_type: input.accountType ?? null,
+      life_stage: input.lifeStage ?? null,
+      interests: input.interests ?? undefined,
+      comms_opt_in: input.commsOptIn ?? undefined,
+      membership_status: role === 'parent' || role === 'patient' ? 'exempt' : 'pending',
+      rules_version_accepted: input.rulesVersion ?? undefined,
+      rules_accepted_at: input.rulesVersion ? new Date().toISOString() : undefined,
+    };
+    const { error } = await supabase.from('profiles').update(patch).eq('id', userId);
+    if (error) return { ok: false, error: toMessage(error) };
+
+    // Sucursales (proveedores): se insertan aparte, igual que en signUp.
+    if (input.locations && input.locations.length > 0) {
+      const rows = input.locations
+        .filter((l) => l.address && l.address.trim() !== '')
+        .map((l, i) => ({
+          provider_id: userId,
+          label: l.label ?? null,
+          address: l.address,
+          country: l.country ?? null,
+          state: l.state ?? null,
+          municipality: l.municipality ?? null,
+          latitude: l.latitude ?? null,
+          longitude: l.longitude ?? null,
+          phone: l.phone ?? null,
+          hours: l.hours ?? null,
+          sort_order: i,
+        }));
+      if (rows.length > 0) {
+        const { error: locErr } = await supabase.from('provider_locations').insert(rows);
+        if (locErr) logger.error('No se pudieron guardar las sucursales', locErr);
+      }
+    }
+
+    await get().refreshProfile();
+    return { ok: true, data: true };
+  },
+
   signOut: async () => {
     // `signOut()` usa por defecto scope 'global': le pide al servidor revocar
     // TODAS las sesiones de la cuenta. Eso necesita un token de acceso vigente,
@@ -309,6 +399,19 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       } catch {
         /* sin red y sin sesión válida: igual limpiamos el estado de la app */
       }
+    }
+    set({ status: 'unauthenticated', session: null, user: null, profile: null });
+  },
+
+  forgetLocalSession: () => {
+    // Borra el/los token(s) persistidos de Supabase (clave `sb-<ref>-auth-token`)
+    // para que la sesión NO se restaure al recargar, sin tocar el servidor.
+    try {
+      for (const k of Object.keys(localStorage)) {
+        if (k.startsWith('sb-') && k.includes('-auth-token')) localStorage.removeItem(k);
+      }
+    } catch {
+      /* almacenamiento no disponible */
     }
     set({ status: 'unauthenticated', session: null, user: null, profile: null });
   },
@@ -334,8 +437,19 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       p_school_grades: input.schoolGrades ?? [],
     });
     if (error) return { ok: false, error: toMessage(error) };
+    // `complete_onboarding` devuelve FALSE si el candado anti-reuso no actualizó
+    // ninguna fila (el perfil ya se había completado antes). Sin esta guarda, el
+    // front decía "listo" pero el rol NO cambiaba, dejando al usuario con el tipo
+    // por defecto ('parent'/paciente) aunque hubiera elegido especialista.
+    if (data === false) {
+      await get().refreshProfile();
+      return {
+        ok: false,
+        error:
+          'Este perfil ya se había completado antes, así que el tipo elegido no se aplicó. Si tu cuenta quedó con el tipo equivocado, hay que corregirla desde la base de datos.',
+      };
+    }
     await get().refreshProfile();
-    void data;
     return { ok: true, data: true };
   },
 

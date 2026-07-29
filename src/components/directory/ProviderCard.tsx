@@ -6,7 +6,7 @@
  * y "Nuevo". Emite eventos para ver el perfil o centrar el mapa.
  */
 import { useMemo, useState } from 'react';
-import { MapPin, Tag, MessageCircle, ShieldCheck, ChevronDown, Map as MapIcon } from 'lucide-react';
+import { MapPin, Tag, MessageCircle, ShieldCheck, ChevronDown, Map as MapIcon, Sparkles } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Button, EVSBadge, ProgressBar , Avatar, DistintivoBadge } from '@/components/ui';
 import { cn, evsColor } from '@/lib/utils';
@@ -75,6 +75,11 @@ export function ProviderCard({
             {provider.is_verified && (
               <span title={t('card.verifiedTip')}>
                 <ShieldCheck className="h-4 w-4 shrink-0 text-brand-500" aria-label={t('card.verified')} />
+              </span>
+            )}
+            {provider.neuroaffirming && (
+              <span title={t('neuro.sealHint')}>
+                <Sparkles className="h-4 w-4 shrink-0 text-violet-500" aria-label={t('neuro.seal')} />
               </span>
             )}
           </div>

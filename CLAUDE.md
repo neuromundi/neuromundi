@@ -55,7 +55,7 @@ PY
   `drop policy if exists` + `create policy`, `insert ... on conflict do nothing`,
   `add column if not exists`. Backfills solo tocan filas nulas.
 - El usuario las aplica **a mano en el SQL Editor de Supabase**, en orden (no hay CLI de
-  migraciones en su flujo). Última en el repo: **0057**.
+  migraciones en su flujo). Última en el repo: **0062**.
 - Para verificar qué está aplicado en producción: `db/verificar_produccion.sql`.
 
 ### 3. Escribir a otros usuarios / notificaciones
@@ -149,6 +149,28 @@ PY
   **busca sus hermanas con el mismo cuerpo**; aquí se arregló una y la otra quedó rota un
   mes más). Para barrer el repo: buscar funciones `returns table` en PL/pgSQL cuyas columnas
   de salida aparezcan sin calificar en el cuerpo.
+- **Alta social = formulario RICO por tipo (modo "completar")**: quien entra por login
+  social no trae tipo ni datos. `SocialOnboarding` primero hace elegir el tipo; si es
+  PRESTADOR (especialista/comercio/escuela) monta el MISMO formulario dedicado
+  (`SpecialistRegister`/`ProviderRegister`/`SchoolRegister`) con la prop `complete`, que
+  oculta email/contraseña (la cuenta ya existe) y, en vez de `signUp`, llama a
+  `authStore.completeProfile(input)` — un UPDATE tipado (`TablesUpdate<'profiles'>`) del
+  perfil propio con TODOS los campos (cédula, especialidades, áreas, modalidades, etc.).
+  Los CONSUMIDORES (paciente/familia) usan `RegisterForm` con la misma prop `complete`
+  (trae su propio panel de beneficios); en modo completar rellena email/contraseña con
+  valores de relleno válidos —ocultos— para que el esquema no bloquee, y llama a
+  `completeProfile`. `completeProfile` fija el rol durante el alta gracias a 0061 (el
+  trigger lo permite mientras `rules_version_accepted IS NULL`). Si añades un campo al
+  formulario dedicado, mapea su columna también en `completeProfile`.
+- **El trigger `protect_profile_columns` revierte `role` en TODO UPDATE de no-admin**:
+  es la protección anti-escalada (`NEW.role := OLD.role`). Ojo: también intercepta los
+  UPDATE de funciones `SECURITY DEFINER` como `complete_onboarding`, porque `auth.uid()`
+  sigue siendo el usuario, no el dueño de la función. Eso rompía el alta social (fijaba
+  `provider_type` pero el rol volvía a 'parent'). Desde 0061 el trigger permite fijar el rol
+  UNA vez, mientras `OLD.rules_version_accepted IS NULL` (onboarding inicial), y lo bloquea
+  después. El alta por correo no se veía afectada porque fija el rol en el INSERT
+  (`handle_new_user`), que este trigger BEFORE UPDATE no toca. Si añades una RPC que deba
+  tocar `role`/`is_verified`, recuerda este candado.
 - **`supabase.auth.signOut()` es 'global' por defecto**: pide al servidor revocar todas
   las sesiones, lo que exige un token vigente. Con el token vencido responde **403** y la
   sesión del navegador puede quedarse a medias (sales, recargas y vuelves a estar dentro).
@@ -202,10 +224,21 @@ PY
 - `src/hooks` lógica de datos (Supabase) · `src/stores` estado (Zustand)
 - `src/lib` utilidades puras (buenas para tests) · `src/i18n/locales` traducciones
 - **Catálogos de registro/búsqueda** en `src/data` (`specialistCatalog`, `clinicCatalog`,
-  `providerCatalog`): etiquetas EN ESPAÑOL, NO pasan por i18n (añadir entradas no afecta la
-  paridad). Ampliados con la taxonomía Neuromundi (ver `PROPUESTA_TAXONOMIA_v2.md`): perinatal,
-  neurosensorial, funciones ejecutivas, animales (dominio nuevo dentro de `PROFESSIONS`), etc.
-  Los *chips* de filtro del directorio son la tabla DB `categories` (curada, aparte).
+  `providerCatalog`, `kCatalog`, `storeCatalog`, `blogTopics`): el `label` es el RESPALDO en
+  español; la **localización a los 8 idiomas** se hace por i18n con la clave `cat.<value>`
+  (helper `useCatLabel()` en `src/lib/catLabel.ts`, que hace `t('cat.'+value, { defaultValue: label })`).
+  **REQUISITO: toda entrada nueva de cualquier catálogo debe llevar su `cat.<value>` en los 8
+  locales** (plataforma de alcance global; si falta, cae al español y rompe la UX). Ya están
+  localizados: profesiones, especialidades, áreas, modalidades, certificaciones… NO —`CERTIFICATIONS`
+  son nombres propios internacionales (ADOS-2, PECS, TEACCH…) y se dejan igual—, `TITLE_PREFIXES`
+  (SÍ se traducen con el equivalente más cercano por idioma: Dr./Dra./Lic./Mtro…), catálogos de
+  clínica (imagenología/laboratorio), temas del blog, y la Tienda (`STORE_CATEGORIES` con
+  subcategorías `sub[]`, incluidas **Arte** y **Artesanía**). La **guía de hitos** vive en i18n
+  bajo `milestones.<banda>.<area>` y `roleFeatures` bajo `roleFeatures.<tipo>`. Se amplió con el
+  dominio **Arte, Música y Expresión (neuroafirmativo)**: nuevas profesiones (danzaterapia,
+  profesor de música adaptada, coach de teatro, mentor de artistas…), áreas (expresión creativa,
+  movimiento/danza…) y la categoría de producto `arte_musica`. Los *chips* de filtro del directorio
+  son la tabla DB `categories` (curada, aparte).
 - `supabase/migrations` SQL · `supabase/functions` Edge Functions · `db` esquema base
 - `PRODUCCION.md` runbook de despliegue · `_archivo/` descartes · `backups/` respaldos
 
@@ -249,9 +282,12 @@ PY
 - **Contenido/comunidad**: `useBlog`, `useContent`, `useAcademy`, `useToolkitProgress`
 - **Fundador/referidos**: `useFounder`, `useReferral`
 - **Clínico**: `useClinical`, `usePrescriptions`, `useSecureFiles`, `useSurvey`, `useTracker`
-- **Mensajería**: `useMessages` (hilos, envío, no leídos). En el compositor, el ADMIN ve un
-  buscador de miembro (folio/nombre/apellido vía `search_members`) que reemplaza el campo de
-  folio manual; los demás roles siguen escribiendo el folio a mano.
+- **Mensajería**: `useMessages` (hilos, envío, no leídos). En el compositor, TODOS los usuarios
+  tienen un buscador por folio/nombre/apellido (RPC `search_contacts`, 0058) + campo de folio
+  manual. `search_contacts` devuelve tus contactos y, si eres profesional/admin, también a los
+  profesionales publicados. El envío (`send_message`): admin a cualquiera; profesional↔profesional
+  libre; si interviene un consumidor, solo con relación previa (no hay contacto en frío hacia
+  familias/pacientes). El admin conserva `search_members` (todo el padrón) en su propia búsqueda.
 - **Lista de espera / campañas**: `useWaitlist`, `useCampaigns` (en `useWaitlist.ts`)
 - **Notificaciones**: `useNotifications` (campana) · **PWA**: `usePwaInstall`
 - **Push nativo**: `usePushSubscribe` (permiso + suscripción)
@@ -266,9 +302,13 @@ PY
 - `directory/DirectorySearch` — filtros del directorio. Se quitaron los *chips* de la
   tabla `categories` (redundantes con la taxonomía nueva). Ahora: `directory/SearchableSelect`
   (typeahead para especialidad/área), filtros plegables en móvil ("Filtros (N)"), y accesos
-  rápidos por dominio (Terapias, Animales/TAA, Perinatal, Educación/F. Ejecutivas, Productos)
-  vía el filtro `anyOf` de `useDirectory` (cruza profesión + especialidades + áreas + categorías
-  de producto). El `DOMAINS` con los valores canónicos vive en `DirectorySearch.tsx`.
+  rápidos por dominio (Terapias, Animales/TAA, Perinatal, Educación/F. Ejecutivas, **Arte y
+  Música**, Productos) vía el filtro `anyOf` de `useDirectory` (cruza profesión + especialidades
+  + áreas + categorías de producto). El `DOMAINS` con los valores canónicos vive en
+  `DirectorySearch.tsx`. Además un toggle **"Neuroafirmativo"** filtra por `profiles.neuroaffirming`
+  (sello 0060 que otorga el admin). El perfil público muestra un panel "Perfil neuroafirmativo"
+  con las 3 dimensiones de reseña que lo sustentan (adaptación sensorial, flexibilidad, trato
+  humano) desde `public_provider_ratings`, y el sello violeta junto al verificado.
 - `calendar/AppointmentRequests` · `report/ReportModal` + `report/MyReports` · `shop/ProductReviewsModal`
 - `provider/BookingWidgetPanel` (widget embebible) · `provider/WaitlistPanel` · `provider/CampaignsPanel`
 - `merchant/AffiliatePanel` (código y enlace propios) + `merchant/CommissionsPanel`
@@ -301,10 +341,22 @@ PY
 ### RPC principales (todas `SECURITY DEFINER`)
 - **Admin**: `admin_metrics`, `admin_reports`, `admin_send_message`, `admin_membership_renewals`, `admin_set_verified/published`
 - **Citas**: `request_appointment`, `respond_appointment`, `emit_due_appointment_reminders`, `emit_all_due_appointment_reminders`, `search_patients`
-- **Fundador/referidos**: `claim_founder_slot`, `set_founder_optout`, `set_referrer`, `my_referral_count`
-- **Mensajería**: `send_message` (valida permiso + notifica; admin/prestador pueden escribir a
-  cualquiera), `message_threads` (resumen de hilos), `search_members` (búsqueda admin por
-  folio/nombre/apellido), `search_patients` (búsqueda acotada del especialista)
+- **Fundador/referidos**: `claim_founder_slot` (fija `grace_until` = 3 meses), `set_founder_optout`,
+  `purge_lapsed_founders` (cron diario `nm-purge-lapsed-founders`: revoca el distintivo si al
+  vencer los 3 meses NO se cumplen requisitos OBJETIVOS —foto+bio+teléfono y, si es prestador,
+  cuota cubierta—; los blandos como foro/blog/recomendaciones NO revocan), `set_referrer`,
+  `my_referral_count`. El distintivo se AUTO-reclama (`useFounderAutoClaim`) al entrar quien
+  califica y no optó por salir; al reclamarse por primera vez dispara `FounderCongratsPopup`
+  (aviso de los 3 meses). El popup público de invitación (`FounderPopup`) es solo informativo
+  (lista única de beneficios + recuadro que remite a los requisitos del formulario de registro).
+- **Mensajería**: `send_message` (**0058**: permitido si eres admin, si AMBOS son profesionales
+  (`role='provider'`: especialistas/comercios/escuelas, libre entre sí), o si YA existe relación
+  cuando interviene un consumidor —hilo previo, cita `appointment_requests`, pedido `orders` o
+  descuento `discount_transactions`—; NO hay contacto en frío hacia familias/pacientes),
+  `message_threads` (resumen de hilos),
+  `search_contacts` (**0058**: busca TUS contactos por folio/nombre/apellido, para todos los
+  usuarios), `search_members` (búsqueda admin de TODO el padrón, solo `is_admin`),
+  `search_patients` (búsqueda acotada del especialista)
 - **Lista de espera**: `waitlist_join`, `waitlist_add`, `my_waitlist`, `waitlist_set_status`,
   `waitlist_notify_slot` · **Campañas**: `campaign_recipients`
 - **Reservas**: `request_booking`, `booking_provider_name`
@@ -396,6 +448,11 @@ Al extraer lógica de una página a `src/lib`, **añade su test** (patrón: `*.t
 | 0055 | Inventario de productos (`stock` + `decrement_stock` en el webhook) |
 | 0056 | Ciclo de vida de cuenta: suspensión 6m, retención por 'costo', bitácora `account_actions`, estadística admin, cron recordatorio+purga |
 | 0057 | "Ayúdanos a mejorar": `improvement_suggestions` + `submit_improvement` (público) + `admin_improvement_suggestions` |
+| 0058 | Mensajería por relación previa: `send_message` solo si hay contacto (hilo/cita/pedido/descuento) o admin; `search_contacts` (busca tus contactos por nombre/folio) |
+| 0059 | Subcategoría de producto en la Tienda (`products.store_subcategory`) |
+| 0060 | Sello Neuroafirmativo: `profiles.neuroaffirming` + `admin_set_neuroaffirming` (lo otorga el admin; filtro en directorio y sello en el perfil) |
+| 0061 | Arregla el onboarding social: `protect_profile_columns` revertía el rol a 'parent' (dejaba `provider_type`); ahora permite fijarlo durante el alta + repara filas rotas |
+| 0062 | Fundador condicional: `founder_members.grace_until` (3 meses) + `purge_lapsed_founders` (revoca por requisitos objetivos: foto+bio+teléfono, y cuota cubierta si es prestador) + cron diario |
 
 ## Reglas de producto/negocio ya implementadas
 - **Clasificación "Otro"**: si `products.store_category = 'otro'`, `store_category_other`
@@ -459,6 +516,18 @@ Al extraer lógica de una página a `src/lib`, **añade su test** (patrón: `*.t
   (HTTPS, ruteo SPA, compresión y caché).
 - Tras cada despliegue hay que **purgar la caché del CDN** en hPanel; si no, los archivos
   con nombre estable (video, héroe) siguen sirviéndose viejos.
+- **Dominio canónico = `www.neuromundi.com`**: el `.htaccess` redirige el apex
+  `neuromundi.com` → `www` (301, acotado al apex exacto para no tocar `admin.*`). CLAVE
+  para el login social: con PKCE, el `code_verifier` de Supabase vive en el `localStorage`
+  del host donde inicia el login y debe leerse en el MISMO host; si el usuario saltara entre
+  apex y www a mitad del flujo, la sesión no se crea. El Site URL de Supabase también es `www`.
+- **OAuth social (Azure/Google/LinkedIn)** — dos trampas ya resueltas, recordar si se
+  reconfigura: (1) el URI de redirección en el proveedor debe ser el **callback de Supabase**
+  (`https://<ref>.supabase.co/auth/v1/callback`) bajo plataforma **Web**, NO "SPA" (SPA exige
+  PKCE cross-origin y Supabase canjea con secret → error `invalid_request: Proof Key...`).
+  (2) El *Secret Value* (no el Secret ID) y, para apps de un solo inquilino, la Azure Tenant
+  URL `https://login.microsoftonline.com/<tenant>`. Los errores de OAuth se ven ahora en la
+  app: `AppLayout` lee `error_description` del hash/URL al volver y lo muestra en un toast.
 - Runbook completo de puesta en producción: **`PRODUCCION.md`**.
 
 ## Flujo al terminar un cambio

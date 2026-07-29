@@ -29,11 +29,11 @@ manda es **`public/.htaccess`**, que debe quedar en `public_html/` junto al
 
 ## 1) 🔴 Base de datos — migraciones al día
 
-En el repo van de `0001` a **`0057`**. Se aplican **a mano, en orden**, en
+En el repo van de `0001` a **`0061`**. Se aplican **a mano, en orden**, en
 Supabase → SQL Editor. Son idempotentes: si dudas de alguna, la puedes reejecutar
 sin romper nada.
 
-1. [ ] Aplica todo lo que falte hasta `0057_improvement_suggestions.sql`.
+1. [ ] Aplica todo lo que falte hasta `0062_founder_grace_period.sql`.
    Las últimas y por qué importan:
 
    | # | Qué hace | Si falta… |
@@ -58,6 +58,10 @@ sin romper nada.
    | 0055 | Inventario de productos (`stock`) | el control de existencias y "agotado" no funcionan |
    | 0056 | Ciclo de vida de cuenta (suspender/eliminar + estadística admin) | no se puede suspender ni ver bajas; **programa 2 cron** (recordatorio semanal + purga a 6 meses) |
    | 0057 | "Ayúdanos a mejorar" (sugerencias del público) | el botón del pie y el panel de Mejoras fallan |
+   | 0058 | Mensajería por relación previa + `search_contacts` | el buscador de la mensajería y las reglas de quién puede escribir a quién fallan |
+   | 0059 | Subcategoría de producto (`store_subcategory`) | el selector de subcategoría en la Tienda no guarda |
+   | 0060 | Sello Neuroafirmativo (`neuroaffirming` + `admin_set_neuroaffirming`) | el botón "Otorgar sello" del admin y el filtro neuroafirmativo del directorio fallan |
+   | 0061 | Arreglo del rol en el alta social (`protect_profile_columns`) | quien se registra con Microsoft/Google como prestador queda como 'parent' (paciente) |
 
 2. [ ] Comprueba qué quedó aplicado con `db/verificar_produccion.sql`.
 3. [ ] Si México sigue duplicado en Cuotas, es que **0041 no corrió**. Verifica con:

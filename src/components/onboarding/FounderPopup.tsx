@@ -1,37 +1,25 @@
 /**
- * FounderPopup — modal global de conversión a "Miembro Fundador".
+ * FounderPopup — modal global de invitación a "Miembro Fundador".
  *
  * Disparo: primer scroll de un visitante sin sesión (lo controla AppLayout).
  * Frecuencia: si se cierra, no reaparece por 24h (localStorage, en AppLayout).
- * Diseño de marca, responsive, con 3 grupos (Familias, Profesionales,
- * Prestadores) y sus beneficios/requisitos en pestañas para no sobrecargar.
- * CTA con evento de tracking para medir conversión.
+ *
+ * Diseño: una ÚNICA lista de beneficios (cada uno indica entre paréntesis a quién
+ * aplica) y un recuadro que remite a consultar los requisitos específicos de cada
+ * perfil en el formulario de registro. No hay pestañas por tipo ni botones de
+ * acción: el usuario cierra con la X. La adhesión al programa se hace luego desde
+ * el recuadro "Programa Fundador" del propio formulario de registro.
  */
-import { useState } from 'react';
 import { createPortal } from 'react-dom';
-import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { X, Award, Check, Sparkles, UserPlus } from 'lucide-react';
-import { Button } from '@/components/ui';
-import { track } from '@/lib/track';
-
-type Group = 'families' | 'professionals' | 'providers';
-const GROUPS: Group[] = ['families', 'professionals', 'providers'];
+import { X, Award, Check, Sparkles, ClipboardList } from 'lucide-react';
+import { useState } from 'react';
 
 export function FounderPopup({ onClose }: { onClose: (reason: 'cta' | 'later' | 'close') => void }) {
   const { t } = useTranslation();
-  const navigate = useNavigate();
-  const [group, setGroup] = useState<Group>('families');
   const [imgOk, setImgOk] = useState(true);
 
-  const benefits = t(`founder.groups.${group}.benefits`, { returnObjects: true }) as string[];
-  const reqs = t(`founder.groups.${group}.reqs`, { returnObjects: true }) as string[];
-
-  const onCta = () => {
-    track('founder_popup_cta_click', { group });
-    onClose('cta');
-    navigate('/crear-cuenta');
-  };
+  const benefits = t('founder.allBenefits', { returnObjects: true, defaultValue: [] }) as string[];
 
   return createPortal(
     <div
@@ -45,7 +33,7 @@ export function FounderPopup({ onClose }: { onClose: (reason: 'cta' | 'later' | 
         className="relative flex max-h-[90vh] w-full max-w-2xl flex-col overflow-hidden rounded-3xl bg-white shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Cierre rápido */}
+        {/* Cierre (única acción) */}
         <button
           type="button"
           onClick={() => onClose('close')}
@@ -86,59 +74,29 @@ export function FounderPopup({ onClose }: { onClose: (reason: 'cta' | 'later' | 
         <div className="flex-1 overflow-y-auto px-6 py-5 sm:px-8">
           <p className="rounded-xl bg-brand-50 px-3 py-2 text-sm text-brand-800">{t('founder.persuasive')}</p>
 
-          {/* Pestañas por grupo */}
-          <div role="tablist" aria-label={t('founder.chooseProfile')} className="mt-4 flex gap-2 overflow-x-auto pb-1">
-            {GROUPS.map((g) => (
-              <button
-                key={g}
-                type="button"
-                role="tab"
-                aria-selected={group === g}
-                onClick={() => setGroup(g)}
-                className={`shrink-0 rounded-full border px-3 py-1.5 text-sm font-semibold transition-colors ${
-                  group === g ? 'border-brand-500 bg-brand-500 text-white' : 'border-slate-200 text-slate-700 hover:bg-slate-50'
-                }`}
-              >
-                {t(`founder.tabs.${g}`)}
-              </button>
-            ))}
-          </div>
+          {/* Lista única de beneficios (cada uno indica a quién aplica). */}
+          <section className="mt-4">
+            <h3 className="mb-2 flex items-center gap-1.5 font-bold text-slate-900">
+              <Award className="h-4 w-4 text-brand-600" aria-hidden="true" /> {t('founder.benefitsTitle')}
+            </h3>
+            <ul className="space-y-1.5">
+              {benefits.map((b, i) => (
+                <li key={i} className="flex gap-2 text-sm leading-snug text-slate-700">
+                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-sage-600" aria-hidden="true" />
+                  <span>{b}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
 
-          {/* Beneficios y requisitos (columnas en escritorio, apiladas en móvil) */}
-          <div className="mt-4 grid gap-4 sm:grid-cols-2">
-            <section>
-              <h3 className="mb-2 flex items-center gap-1.5 font-bold text-slate-900">
-                <Award className="h-4 w-4 text-brand-600" aria-hidden="true" /> {t('founder.benefitsTitle')}
-              </h3>
-              <ul className="space-y-1.5">
-                {benefits.map((b, i) => (
-                  <li key={i} className="flex gap-2 text-sm leading-snug text-slate-700">
-                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-sage-600" aria-hidden="true" />
-                    <span>{b}</span>
-                  </li>
-                ))}
-              </ul>
-            </section>
-            <section>
-              <h3 className="mb-2 font-bold text-slate-900">{t('founder.reqsTitle')}</h3>
-              <ul className="space-y-1.5">
-                {reqs.map((r, i) => (
-                  <li key={i} className="flex gap-2 text-sm leading-snug text-slate-700">
-                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-400" aria-hidden="true" />
-                    <span>{r}</span>
-                  </li>
-                ))}
-              </ul>
-            </section>
+          {/* Recuadro: los requisitos se consultan al registrarse. */}
+          <div className="mt-4 flex gap-3 rounded-2xl border border-brand-100 bg-brand-50 p-4">
+            <ClipboardList className="mt-0.5 h-5 w-5 shrink-0 text-brand-600" aria-hidden="true" />
+            <div>
+              <p className="font-semibold text-slate-900">{t('founder.reqsBoxTitle')}</p>
+              <p className="mt-1 text-sm text-slate-700">{t('founder.reqsBox')}</p>
+            </div>
           </div>
-        </div>
-
-        {/* Acciones */}
-        <div className="flex flex-col-reverse gap-2 border-t border-slate-100 px-6 py-4 sm:flex-row sm:justify-end sm:px-8">
-          <Button variant="ghost" onClick={() => onClose('later')}>{t('founder.later')}</Button>
-          <Button size="lg" onClick={onCta} leadingIcon={<UserPlus className="h-5 w-5" />}>
-            {t('founder.cta')}
-          </Button>
         </div>
       </div>
     </div>,

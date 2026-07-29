@@ -46,6 +46,7 @@ export interface Database {
           country: string | null;
           is_verified: boolean;
           is_published: boolean;
+          neuroaffirming: boolean;
           latitude: number | null;
           longitude: number | null;
           birth_date: string | null;
@@ -132,6 +133,7 @@ export interface Database {
           country?: string | null;
           is_verified?: boolean;
           is_published?: boolean;
+          neuroaffirming?: boolean;
           latitude?: number | null;
           longitude?: number | null;
           birth_date?: string | null;
@@ -398,6 +400,7 @@ export interface Database {
           image_url: string | null;
           purchase_url: string | null;
           store_category: string | null;
+          store_subcategory: string | null;
           store_category_other: string | null;
           stock: number | null;
           is_featured: boolean;
@@ -419,6 +422,7 @@ export interface Database {
           image_url?: string | null;
           purchase_url?: string | null;
           store_category?: string | null;
+          store_subcategory?: string | null;
           store_category_other?: string | null;
           stock?: number | null;
           is_featured?: boolean;
@@ -1216,6 +1220,10 @@ export interface Database {
         Args: Record<string, never>;
         Returns: { id: string; user_id: string | null; email: string | null; message: string; page: string | null; created_at: string }[];
       };
+      search_contacts: {
+        Args: { p_query: string };
+        Returns: { member_no: number; full_name: string; business_name: string | null; avatar_url: string | null; role: string; country: string | null }[];
+      };
       admin_country_prices: {
         Args: { p_country: string };
         Returns: { affiliate_type: string; member_class: string; currency: string; monthly_amount: number | null; annual_amount: number | null; annual_list_amount: number | null; zero_decimal: boolean; is_override: boolean }[];
@@ -1313,6 +1321,10 @@ export interface Database {
         Returns: undefined;
       };
       admin_set_published: {
+        Args: { p_id: string; p_value: boolean };
+        Returns: undefined;
+      };
+      admin_set_neuroaffirming: {
         Args: { p_id: string; p_value: boolean };
         Returns: undefined;
       };

@@ -59,7 +59,8 @@ function preloadLocaleChunk(): Plugin {
             children:
               `(function(){var M=${JSON.stringify(map)};var s=null;` +
               `try{s=localStorage.getItem('neuro.lang')}catch(e){}` +
-              `var l=(s&&M[s])?s:((navigator.language||'en').toLowerCase().indexOf('es')===0?'es':'en');` +
+              `var b=(navigator.language||'en').toLowerCase().split('-')[0];` +
+              `var l=(s&&M[s])?s:(M[b]?b:'en');` +
               `var h=M[l];if(!h)return;` +
               `var k=document.createElement('link');k.rel='modulepreload';k.href=h;` +
               `document.head.appendChild(k)})();`,

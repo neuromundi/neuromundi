@@ -2,9 +2,10 @@
  * Configuración de internacionalización.
  *
  * Regla de arranque (según requisito):
- *  - Si el navegador está en español → español.
- *  - Si NO está en español → inglés.
- * Los 8 idiomas se pueden elegir manualmente; la elección se recuerda.
+ *  - Elección guardada en el selector → esa.
+ *  - Si no, el idioma del navegador si es uno de los 8 soportados → ese.
+ *  - Si el navegador no está en ninguno de los 8 → inglés.
+ * La elección manual del selector se recuerda.
  *
  * RENDIMIENTO: los diccionarios pesan ~900 KiB entre los 8 idiomas y antes
  * entraban TODOS al bundle principal, aunque cada persona use uno solo. Ahora
@@ -46,12 +47,13 @@ const LOCALE_MAP: Record<LanguageCode, string> = {
 /**
  * Regla de idioma inicial (pura, testeable):
  *  - elección guardada válida → esa.
- *  - navegador en español → 'es'.
- *  - cualquier otro idioma → 'en'.
+ *  - idioma del navegador si es uno de los 8 soportados → ese.
+ *  - cualquier otro → 'en'.
  */
 export function resolveInitialLanguage(navLang: string, stored: string | null): LanguageCode {
   if (stored && CODES.includes(stored)) return stored as LanguageCode;
-  return navLang.toLowerCase().startsWith('es') ? 'es' : 'en';
+  const base = (navLang || 'en').toLowerCase().split('-')[0];
+  return (CODES.includes(base) ? base : 'en') as LanguageCode;
 }
 
 function detectInitial(): LanguageCode {

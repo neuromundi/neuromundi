@@ -199,8 +199,11 @@
       "animals": "Animali / TAA",
       "perinatal": "Perinatale",
       "executive": "Educazione e Funz. Esecutive",
-      "products": "Prodotti di supporto"
-    }
+      "products": "Prodotti di supporto",
+      "arts": "Arte e musica"
+    },
+    "neuroFilter": "Neuroaffermativo",
+    "neuroHint": "Mostra solo i fornitori con il Sigillo Neuroaffermativo di Neuromundi."
   },
   "card": {
     "evs": "EVS",
@@ -524,7 +527,9 @@
     "stockHint": "Lascia vuoto per non gestire l'inventario.",
     "soldOut": "Esaurito",
     "inStock": "{{n}} disponibili",
-    "errStock": "Le scorte non possono essere negative."
+    "errStock": "Le scorte non possono essere negative.",
+    "storeSubcategory": "Sottocategoria",
+    "noSubcategory": "Nessuna sottocategoria"
   },
   "lang": {
     "label": "Lingua"
@@ -714,7 +719,10 @@
         "winback": "Cancellazione (costo)"
       }
     },
-    "secImprove": "Miglioramenti"
+    "secImprove": "Miglioramenti",
+    "neuroOn": "Neuroaffermativo",
+    "neuroGrant": "Assegna sigillo",
+    "neuroRevoke": "Revoca sigillo"
   },
   "reg": {
     "typePatient": "Paziente",
@@ -868,7 +876,9 @@
     "bodyNote": "Il contenuto seguente è in spagnolo come base; sostituiscilo con il tuo testo legale definitivo."
   },
   "intro": {
-    "skip": "Salta intro"
+    "skip": "Salta intro",
+    "mute": "Disattiva audio",
+    "unmute": "Attiva audio"
   },
   "access": {
     "title": "Benvenuto su Neuromundi",
@@ -1512,7 +1522,8 @@
     "acceptTerms": "Accetto i Termini e la Privacy Policy.",
     "acceptRules": "Ho letto e accetto il Regolamento e il disclaimer.",
     "finish": "Completa la registrazione",
-    "cancel": "Annulla ed esci"
+    "cancel": "Annulla ed esci",
+    "pickRequired": "Scegli il tuo tipo di account per continuare."
   },
   "a11y": {
     "title": "Accessibilità",
@@ -1847,9 +1858,9 @@
     "errComplete": "Completa i campi obbligatori (nome, email e password)."
   },
   "cat": {
-    "tea": "Spettro autistico (ASD)",
+    "tea": "Disturbo dello spettro autistico (ASD)",
     "tdah": "ADHD",
-    "lenguaje": "Disturbi del linguaggio",
+    "lenguaje": "Disturbi del linguaggio e del linguaggio",
     "aprendizaje": "Difficoltà di apprendimento",
     "sensorial": "Elaborazione sensoriale",
     "discapacidad_intelectual": "Disabilità intellettiva",
@@ -1861,8 +1872,8 @@
     "paralisis_cerebral": "Paralisi cerebrale",
     "otro": "Altro",
     "integracion_sensorial": "Integrazione sensoriale",
-    "modificacion_conducta": "Modificazione del comportamento",
-    "lenguaje_habla": "Linguaggio e parola",
+    "modificacion_conducta": "Modifica del comportamento",
+    "lenguaje_habla": "Linguaggio e linguaggio",
     "motricidad": "Motricità e psicomotricità",
     "autonomia": "Autonomia e AVQ",
     "consultorio": "Studio privato",
@@ -1893,8 +1904,8 @@
     "experiencias_calma": "Esperienze a bassa stimolazione",
     "derechos_discapacidad": "Disabilità e diritti",
     "tutela_curatela": "Tutela / curatela",
-    "educacion_inclusiva": "Diritto all’educazione inclusiva",
-    "seguridad_social": "Previdenza / pensioni",
+    "educacion_inclusiva": "Diritto all’istruzione inclusiva",
+    "seguridad_social": "Previdenza sociale / pensioni",
     "laboral_inclusivo": "Inclusione lavorativa",
     "apoyo_familias": "Supporto alle famiglie",
     "grupos_padres": "Gruppi di genitori",
@@ -1904,8 +1915,8 @@
     "defensa_derechos": "Difesa dei diritti",
     "acompanamiento_casa": "Accompagnamento a casa",
     "respiro_familiar": "Sollievo familiare",
-    "sombra_escolar": "Ombra scolastica",
-    "cuidado_adultos": "Cura degli adulti",
+    "sombra_escolar": "Supporto scolastico (ombra)",
+    "cuidado_adultos": "Assistenza agli adulti",
     "traslados": "Trasporti e accompagnamento",
     "presencial": "In presenza",
     "hibrido": "Ibrido",
@@ -1928,7 +1939,7 @@
     "aula_recursos": "Aula risorse",
     "grupos_reducidos": "Gruppi ridotti",
     "curriculo_adaptado": "Curricolo adattato (UDL)",
-    "terapias": "Terapie in sede",
+    "terapias": "Terapie e intervento",
     "sombra": "Insegnante ombra",
     "adecuaciones": "Adattamenti curricolari",
     "sensorial_school": "Spazi a bassa stimolazione",
@@ -1940,7 +1951,7 @@
     "emocional": "Benessere emotivo",
     "historias": "Storie e testimonianze",
     "investigacion": "Ricerca e scienza",
-    "juego": "Gioco e tempo libero inclusivi",
+    "juego": "Gioco e tempo libero inclusivo",
     "libros": "Libri e risorse",
     "socioemocional": "Abilità sociali ed emotive",
     "tecnologia": "Tecnologia assistiva",
@@ -1948,7 +1959,169 @@
     "salud": "Salute",
     "recreacion": "Ricreazione e tempo libero",
     "productos": "Prodotti e materiali",
-    "servicios": "Servizi professionali"
+    "servicios": "Servizi professionali",
+    "psicologia_infantil": "Psicologia infantile",
+    "paidopsiquiatria": "Neuropsichiatria infantile",
+    "neurologia": "Neurologia",
+    "pediatria": "Pediatria",
+    "genetica_medica": "Genetica medica",
+    "medicina_rehabilitacion": "Medicina fisica e riabilitativa",
+    "neuropsicologia": "Neuropsicologia",
+    "nutricion": "Nutrizione",
+    "musicoterapia": "Musicoterapia",
+    "psicomotricidad": "Psicomotricità",
+    "lactancia": "Consulenza sull’allattamento (IBCLC)",
+    "consultoria_sueno": "Consulenza sul sonno infantile",
+    "asesoria_porteo": "Consulenza sul babywearing",
+    "terapia_miofuncional": "Terapia miofunzionale",
+    "optometria_comportamental": "Optometria comportamentale / terapia visiva",
+    "neurofeedback": "Neurofeedback / biofeedback",
+    "terapia_neurosensorial": "Terapia neurosensoriale (Tomatis, Bérard, SSP)",
+    "arteterapia": "Arteterapia",
+    "coaching_ejecutivo": "Coaching delle funzioni esecutive",
+    "acompanante_terapeutico": "Accompagnatore terapeutico (ombra)",
+    "transicion_vida_independiente": "Specialista in transizione / vita indipendente",
+    "terapia_familiar": "Terapia familiare e sistemica",
+    "trabajo_social": "Servizio sociale",
+    "accesibilidad_cognitiva": "Consulenza sull’accessibilità cognitiva (B2B)",
+    "odontologia_inclusiva": "Odontoiatria per pazienti neurodivergenti",
+    "taa_equinoterapia": "Ippoterapia",
+    "taa_perros": "Terapia assistita con i cani",
+    "taa_granja": "Fattoria terapeutica",
+    "entrenador_psaa": "Addestratore di cani di assistenza (PSAA)",
+    "certificador_aae": "Valutatore / certificatore di animali di supporto emotivo",
+    "adiestramiento_positivo": "Addestramento cinofilo positivo",
+    "veterinaria_neurofriendly": "Veterinario a bassa stimolazione (neuro-friendly)",
+    "cuidado_mascotas_nf": "Cura e passeggiate per animali (neuro-friendly)",
+    "arfid_selectividad": "Selettività alimentare / ARFID",
+    "mutismo_selectivo": "Mutismo selettivo",
+    "dislexia": "Dislessia",
+    "discalculia": "Discalculia",
+    "disgrafia": "Disgrafia",
+    "dispraxia": "Disprassia / disturbo della coordinazione",
+    "altas_capacidades": "Plusdotazione / doppia eccezionalità (2e)",
+    "tourette": "Sindrome di Tourette / tic",
+    "tpac": "Disturbo dell’elaborazione uditiva centrale",
+    "sordoceguera": "Disabilità multipla / sordocecità",
+    "trastornos_sueno": "Disturbi del sonno",
+    "trauma_tept": "Trauma / PTSD",
+    "saac": "Comunicazione aumentativa (CAA)",
+    "adaptacion_curricular": "Adattamento curricolare / accomodamenti ragionevoli",
+    "vida_independiente": "Vita indipendente / transizione",
+    "psicoeducacion_familia": "Psicoeducazione / scuola per famiglie",
+    "grupos_pares": "Gruppi di supporto tra pari",
+    "regulacion_emocional": "Regolazione emotiva",
+    "estimulacion_auditiva": "Stimolazione uditiva (Tomatis / Bérard)",
+    "regulacion_polivagal": "Regolazione polivagale (SSP)",
+    "procesamiento_visual": "Elaborazione visiva / terapia visiva",
+    "lactancia_motricidad_oral": "Allattamento e motricità orale",
+    "neuropediatria_genetica": "Neuropediatria e genetica",
+    "lactancia_alimentacion": "Allattamento e alimentazione precoce",
+    "sueno": "Consulenza sul sonno infantile",
+    "acompanamiento_escolar": "Accompagnamento e inclusione scolastica",
+    "teleterapia": "Teleterapia",
+    "clinic": "Clinica / centro terapeutico",
+    "gabinete": "Centro di imaging",
+    "laboratorio": "Laboratorio di analisi",
+    "perinatal": "Perinatale e alimentazione precoce",
+    "neurosensorial_tech": "Tecnologia neurosensoriale",
+    "mascotas_nf": "Animali neuro-friendly",
+    "fisica": "Negozio fisico",
+    "whatsapp": "Vendite via WhatsApp",
+    "distribuidores": "Distributori autorizzati",
+    "local": "Locale",
+    "nacional": "Nazionale",
+    "internacional": "Internazionale",
+    "qr_fisica": "Negozio fisico (scansione QR alla cassa)",
+    "cupon_online": "Negozio online (coupon dinamico al checkout)",
+    "dr": "Dott.",
+    "dra": "Dott.ssa",
+    "lic": "Dott.",
+    "mtro": "Dott. Mag.",
+    "mtra": "Dott.ssa Mag.",
+    "ing": "Ing.",
+    "psic": "Dott. Psic.",
+    "to": "T.O.",
+    "fga": "Logop.",
+    "fgo": "Logop.",
+    "ss_regulacion": "Regolazione e calma sensoriale",
+    "ss_propiocepcion": "Propriocezione e pressione profonda",
+    "ss_auditivo": "Regolazione uditiva",
+    "ss_visual": "Regolazione visiva e filtri",
+    "com_saac": "Sistemi aumentativi (CAA)",
+    "com_pecs": "Supporti visivi (PECS)",
+    "com_logopedico": "Materiale logopedico",
+    "cog_organizacion": "Organizzazione e gestione del tempo",
+    "cog_estimulacion": "Stimolazione cognitiva",
+    "cog_software": "Software e tecnologia di supporto",
+    "mot_fina": "Motricità fine e grafo-motricità",
+    "mot_gruesa": "Motricità grossolana",
+    "mot_ergonomia": "Posizionamento ed ergonomia",
+    "aut_alimentacion": "Alimentazione adattata",
+    "aut_higiene": "Igiene e cura personale",
+    "aut_vestido": "Vestirsi e autonomia",
+    "soc_emocional": "Intelligenza emotiva",
+    "soc_cooperativo": "Gioco cooperativo",
+    "soc_cuentos": "Storie socio-emotive",
+    "jue_sensorial": "Gioco sensoriale",
+    "jue_construccion": "Costruzioni e incastri",
+    "jue_exterior": "Gioco all’aperto",
+    "apr_lectoescritura": "Letto-scrittura",
+    "apr_matematicas": "Matematica",
+    "apr_manipulativo": "Materiale manipolativo",
+    "lib_infantil": "Libri per bambini",
+    "lib_familias": "Guide per le famiglie",
+    "lib_profesional": "Materiale professionale",
+    "tec_saac": "Dispositivi CAA",
+    "tec_apps": "App e licenze",
+    "tec_temporizadores": "Timer visivi",
+    "ves_sensorial": "Abbigliamento sensoriale (senza cuciture)",
+    "ves_seguridad": "Sicurezza e localizzazione",
+    "ves_calzado": "Calzature adattate",
+    "ali_utensilios": "Utensili adattati",
+    "ali_texturas": "Texture e transizione",
+    "ali_suplementos": "Integratori e nutrizione",
+    "eve_talleres": "Laboratori",
+    "eve_campamentos": "Campi",
+    "eve_recreativos": "Eventi ricreativi",
+    "eventos": "Biglietti ed eventi",
+    "eeg": "Elettroencefalogramma (EEG)",
+    "qeeg": "Mappatura cerebrale (QEEG)",
+    "rmn": "Risonanza magnetica (RM)",
+    "tac": "TAC",
+    "radiografia": "Radiografia convenzionale",
+    "sangre": "Analisi del sangue / biochimica generale",
+    "multicorte": "TAC multistrato",
+    "helicoidal": "TAC elicoidale",
+    "ambas": "In studio e a domicilio",
+    "propio": "Laboratorio proprio",
+    "externo": "Elaborazione esterna (in outsourcing)",
+    "arte": "Arte",
+    "artesania": "Artigianato",
+    "art_materiales": "Materiali artistici",
+    "art_pintura": "Pittura e disegno",
+    "art_modelado": "Modellazione e scultura",
+    "art_expresivo": "Arte terapeutica ed espressiva",
+    "art_musica": "Musica e strumenti",
+    "craft_textil": "Tessile (maglia e ricamo)",
+    "craft_ceramica": "Ceramica e modellato",
+    "craft_joyeria": "Gioielli e bigiotteria",
+    "craft_madera": "Lavorazione del legno",
+    "craft_hechomano": "Prodotti fatti a mano",
+    "danzaterapia": "Danzaterapia / Terapia del movimento",
+    "profesor_musica_adaptada": "Insegnante di strumento e canto adattato",
+    "instructor_artes_visuales": "Istruttore di arti visive e digitali",
+    "coach_teatro": "Coach di teatro ed espressione corporea",
+    "organizador_eventos_sensory": "Organizzatore di eventi sensory-friendly",
+    "director_ensamble_nd": "Direttore di cori / ensemble neurodivergenti",
+    "gestor_colectivo_artistico": "Gestore di collettivi artistici",
+    "mentor_artistas": "Mentore di artisti e creativi",
+    "agente_talento_inclusivo": "Agente di talenti inclusivo",
+    "expresion_creativa": "Espressione artistica e creativa",
+    "movimiento_danza": "Movimento e danza terapeutica",
+    "teatro_rol": "Teatro e giochi di ruolo sociali",
+    "ocio_sensorial": "Tempo libero ed eventi sensory-friendly",
+    "arte_musica": "Arte e musica adattate"
   },
   "kit": {
     "badge": "Kit di strumenti",
@@ -2056,7 +2229,7 @@
     "tabs": {
       "families": "Famiglie e pazienti",
       "professionals": "Professionisti",
-      "providers": "Fornitori di servizi"
+      "providers": "Fornitori di prodotti"
     },
     "title": "Unisciti all’origine! Diventa Membro Fondatore Neuromundi",
     "groups": {
@@ -2107,7 +2280,19 @@
           "Consiglia Neuromundi ad almeno 10 persone."
         ]
       }
-    }
+    },
+    "allBenefits": [
+      "Distintivo \"Soy Fundador Neuromundi\" sul tuo profilo. (tutti)",
+      "Profilo in evidenza e rilevante nelle ricerche. (specialisti, negozi e scuole)",
+      "Quota preferenziale a vita. (specialisti, negozi e scuole)",
+      "Sconti e prime consulenze gratuite con i fondatori. (famiglie e pazienti)",
+      "Accesso gratuito o prioritario a webinar, laboratori e conferenze. (tutti)",
+      "Accesso anticipato agli articoli del blog. (tutti)",
+      "Le tue domande o storie possono essere fissate nel forum per più supporto. (famiglie e pazienti)",
+      "Estrazioni esclusive per i fondatori. (tutti)"
+    ],
+    "reqsBox": "I requisiti per ottenere e mantenere il distintivo variano in base al profilo. Li troverai durante la registrazione, nel riquadro \"Programma Fondatore\" del tuo modulo.",
+    "reqsBoxTitle": "Requisiti per profilo"
   },
   "founderBadge": {
     "label": "Membro fondatore",
@@ -3147,5 +3332,278 @@
     "adminCount": "{{n}} suggerimenti",
     "adminEmpty": "Ancora nessun suggerimento.",
     "anon": "Anonimo"
+  },
+  "roleFeatures": {
+    "patient": {
+      "title": "Con il tuo account (gratuito, per sempre) puoi:",
+      "features": [
+        "Esplorare una directory di specialisti e negozi validati dalla community",
+        "Leggere recensioni e valutazioni reali di altre persone",
+        "Prenotare appuntamenti in presenza o online con videochiamata integrata",
+        "Scrivere direttamente ai professionisti tramite messaggistica",
+        "Usare il Kit di strumenti e la formazione di Academy",
+        "Ricevere avvisi quando viene pubblicato uno specialista che cerchi",
+        "Acquistare prodotti di supporto con sconti nel negozio",
+        "Installare l’app e ricevere notifiche"
+      ]
+    },
+    "parent": {
+      "title": "Con il tuo account famiglia (gratuito, per sempre) puoi:",
+      "features": [
+        "Esplorare una directory di specialisti e negozi validati dalla community",
+        "Leggere recensioni e valutazioni reali di altre famiglie",
+        "Prenotare appuntamenti in presenza o online con videochiamata integrata",
+        "Scrivere direttamente ai professionisti tramite messaggistica",
+        "Seguire la guida delle tappe dello sviluppo per età",
+        "Salvare liste per organizzare la tua ricerca",
+        "Ricevere promemoria degli appuntamenti e avvisi di nuovi specialisti",
+        "Acquistare prodotti di supporto con sconti e installare l’app"
+      ]
+    },
+    "service_provider": {
+      "title": "Con il tuo account professionista puoi:",
+      "features": [
+        "Avere un profilo nella directory con la tua posizione sulla mappa",
+        "Ottenere il distintivo ufficiale e il riconoscimento «Alleato in evidenza» scaricabile",
+        "Ricevere prenotazioni con un widget incorporabile e un’agenda con blocchi e ferie",
+        "Gestire appuntamenti in presenza o online con videochiamata e pagamento opzionale",
+        "Comunicare via messaggistica con modelli e link video",
+        "Vedere le metriche del tuo profilo (visite e contatti)",
+        "Gestire lista d’attesa e campagne via push, email e SMS",
+        "Partecipare al programma di segnalazione ed essere pagato direttamente con Stripe Connect"
+      ]
+    },
+    "merchant": {
+      "title": "Con il tuo account negozio puoi:",
+      "features": [
+        "Pubblicare i tuoi prodotti nel negozio con controllo dell’inventario",
+        "Incassare il 100% delle vendite con Stripe Connect (la piattaforma non trattiene commissioni)",
+        "Offrire un codice promotore e tenere il tuo libro delle commissioni",
+        "Ricevere recensioni sui prodotti e apparire tra gli in evidenza",
+        "Avere un profilo nella directory e messaggistica con i clienti"
+      ]
+    },
+    "school": {
+      "title": "Con il tuo account scuola puoi:",
+      "features": [
+        "Pubblicare il tuo programma di inclusione scolastica: ammissioni e classi che segui",
+        "Apparire nella directory con la tua posizione sulla mappa",
+        "Pianificare e comunicare con le famiglie via messaggistica",
+        "Ottenere il distintivo e le recensioni della community",
+        "Addebitare servizi opzionali direttamente con Stripe Connect"
+      ]
+    },
+    "clinic": {
+      "title": "Con il tuo account clinica / centro puoi:",
+      "features": [
+        "Pubblicare la tua clinica o centro nella directory con posizione sulla mappa",
+        "Offrire agenda e prenotazioni per il tuo team, con blocchi e ferie",
+        "Gestire appuntamenti in presenza o online con videochiamata e pagamento opzionale",
+        "Pubblicare i tuoi servizi (valutazione, terapia, imaging, laboratorio)",
+        "Comunicare con famiglie e pazienti via messaggistica",
+        "Ottenere il distintivo, le metriche e le recensioni della community",
+        "Essere pagato direttamente sul tuo conto con Stripe Connect"
+      ]
+    },
+    "wellness": {
+      "title": "Con il tuo account benessere e attività adattata puoi:",
+      "features": [
+        "Apparire nella directory con le tue attività (nuoto, ippoterapia, yoga…)",
+        "Ricevere prenotazioni e gestire la tua agenda",
+        "Comunicare con le famiglie via messaggistica",
+        "Ottenere il distintivo e le recensioni della community",
+        "Essere pagato direttamente sul tuo conto con Stripe Connect"
+      ]
+    },
+    "tourism": {
+      "title": "Con il tuo account turismo accessibile puoi:",
+      "features": [
+        "Pubblicare esperienze sensory-friendly, tour e campi inclusivi",
+        "Apparire nella directory con la tua posizione sulla mappa",
+        "Ricevere prenotazioni e messaggi dalle famiglie",
+        "Ottenere recensioni della community",
+        "Essere pagato direttamente sul tuo conto con Stripe Connect"
+      ]
+    },
+    "legal": {
+      "title": "Con il tuo account servizi legali puoi:",
+      "features": [
+        "Apparire nella directory per le tue aree (diritti, tutela, inclusione…)",
+        "Pianificare consulenze in presenza o online con videochiamata",
+        "Comunicare con le famiglie via messaggistica",
+        "Ottenere recensioni della community",
+        "Essere pagato direttamente sul tuo conto con Stripe Connect"
+      ]
+    },
+    "ngo": {
+      "title": "Con il tuo account organizzazione / ONG puoi:",
+      "features": [
+        "Diffondere i tuoi aiuti, borse, gruppi e attività nella directory",
+        "Comunicare con le famiglie via messaggistica",
+        "Unirti al muro degli alleati e ricevere donazioni",
+        "Ottenere recensioni e visibilità nella community"
+      ]
+    },
+    "caregiver": {
+      "title": "Con il tuo account caregiver / accompagnatore puoi:",
+      "features": [
+        "Apparire nella directory per i tuoi servizi (accompagnamento, sollievo, ombra scolastica…)",
+        "Ricevere prenotazioni e gestire la tua agenda",
+        "Comunicare con le famiglie via messaggistica",
+        "Ottenere il distintivo e le recensioni della community",
+        "Essere pagato direttamente sul tuo conto con Stripe Connect"
+      ]
+    }
+  },
+  "milestones": {
+    "0-6m": {
+      "motor": [
+        "Tiene su la testa a pancia in giù",
+        "Segue gli oggetti con lo sguardo",
+        "Porta le mani alla bocca"
+      ],
+      "lenguaje": [
+        "Reagisce a suoni e voci",
+        "Emette suoni (vocalizzi, gorgheggi)",
+        "Sorride in risposta agli altri"
+      ],
+      "social": [
+        "Cerca il contatto visivo",
+        "Si calma con la voce di chi si prende cura di lui",
+        "Mostra interesse per i volti"
+      ],
+      "cognitivo": [
+        "Esplora gli oggetti con la bocca",
+        "Mostra curiosità per ciò che lo circonda"
+      ]
+    },
+    "6-12m": {
+      "motor": [
+        "Sta seduto senza sostegno",
+        "Passa gli oggetti da una mano all’altra",
+        "Gattona o si sposta",
+        "Si alza in piedi con sostegno"
+      ],
+      "lenguaje": [
+        "Balbetta sillabe (ba-ba, da-da)",
+        "Risponde al proprio nome",
+        "Capisce un semplice « no »"
+      ],
+      "social": [
+        "Gioca a cucù",
+        "Mostra attaccamento a chi si prende cura di lui",
+        "Imita gesti semplici"
+      ],
+      "cognitivo": [
+        "Cerca un oggetto nascosto",
+        "Esplora gli oggetti battendoli o scuotendoli"
+      ]
+    },
+    "12-24m": {
+      "motor": [
+        "Cammina senza aiuto",
+        "Sale i gradini con sostegno",
+        "Impila cubi",
+        "Scarabocchia"
+      ],
+      "lenguaje": [
+        "Dice diverse parole singole",
+        "Indica ciò che vuole",
+        "Segue istruzioni semplici",
+        "Combina due parole"
+      ],
+      "social": [
+        "Imita le faccende domestiche",
+        "Gioca vicino ad altri bambini",
+        "Mostra affetto"
+      ],
+      "cognitivo": [
+        "Riconosce oggetti e persone familiari",
+        "Inizia il gioco simbolico (dar da mangiare a una bambola)"
+      ]
+    },
+    "2-3a": {
+      "motor": [
+        "Corre e salta",
+        "Calcia una palla",
+        "Mangia da solo con il cucchiaio",
+        "Aiuta a vestirsi"
+      ],
+      "lenguaje": [
+        "Forma frasi di 2-3 parole",
+        "Viene capito gran parte delle volte",
+        "Nomina oggetti comuni"
+      ],
+      "social": [
+        "Gioca accanto ad altri bambini",
+        "Esprime emozioni di base",
+        "Inizia ad aspettare il proprio turno"
+      ],
+      "cognitivo": [
+        "Ordina per forma o colore",
+        "Completa giochi semplici",
+        "Segue istruzioni in due passaggi"
+      ]
+    },
+    "3-4a": {
+      "motor": [
+        "Sale e scende le scale alternando i piedi",
+        "Disegna cerchi",
+        "Usa le forbici sotto supervisione"
+      ],
+      "lenguaje": [
+        "Racconta ciò che ha fatto",
+        "Fa domande (« perché? »)",
+        "Viene capito quasi sempre"
+      ],
+      "social": [
+        "Gioca in modo cooperativo con gli altri",
+        "Condivide a tratti",
+        "Segue le regole di giochi semplici"
+      ],
+      "cognitivo": [
+        "Capisce concetti di quantità (« più », « meno »)",
+        "Nomina alcuni colori",
+        "Assembla puzzle semplici"
+      ]
+    },
+    "4-6a": {
+      "motor": [
+        "Salta su un piede",
+        "Si veste da solo",
+        "Disegna figure riconoscibili",
+        "Usa bene matita e forbici"
+      ],
+      "lenguaje": [
+        "Racconta storie",
+        "Usa frasi complete e ben formate",
+        "Riconosce alcune lettere o numeri"
+      ],
+      "social": [
+        "Fa amicizia",
+        "Capisce regole e turni",
+        "Esprime e nomina le emozioni"
+      ],
+      "cognitivo": [
+        "Conta oggetti",
+        "Capisce il tempo (prima/dopo)",
+        "Risolve problemi semplici"
+      ]
+    }
+  },
+  "neuro": {
+    "seal": "Neuroaffermativo",
+    "sealHint": "Convalidato da Neuromundi come fornitore neuroaffermativo: flessibile, empatico e adattato a livello sensoriale.",
+    "profileTitle": "Profilo neuroaffermativo",
+    "sensory": "Ambiente sensoriale",
+    "flexibility": "Flessibilità",
+    "empathy": "Trattamento empatico",
+    "profileNote": "Media delle recensioni delle famiglie su queste dimensioni."
+  },
+  "founderCongrats": {
+    "title": "Congratulazioni, sei Membro Fondatore!",
+    "body": "Il tuo profilo mostra ora il distintivo \"Soy Fundador Neuromundi\". Hai 3 mesi per soddisfare i requisiti del tuo profilo e mantenerlo; in caso contrario il distintivo verrà rimosso automaticamente.",
+    "reqs": "Vedi i miei requisiti",
+    "ok": "Ho capito"
   }
 }

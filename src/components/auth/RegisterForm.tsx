@@ -6,7 +6,7 @@
  * proveedores pueden agregar varias sucursales con dirección, coordenadas,
  * teléfono y horarios para ubicarse en el mapa.
  */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { PasswordStrength } from './PasswordStrength';
 import { GeoFields } from './GeoFields';
@@ -14,6 +14,7 @@ import { SCHOOL_GRADES } from '@/data/satCatalogs';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { Plus, Trash2, Gift, Globe, Instagram, Facebook } from 'lucide-react';
+import { RoleFeaturesPanel } from './RoleFeaturesPanel';
 import { Button, PasswordInput} from '@/components/ui';
 import { useAuth } from '@/hooks/useAuth';
 import { registerSchema, REG_TYPES, type RegisterValues, type RegType } from '@/lib/schemas';
@@ -42,8 +43,12 @@ const INTEREST_OPTIONS = [
   'autism', 'adhd', 'executive', 'work', 'late_dx', 'sensory', 'no_label',
 ] as const;
 
-export function RegisterForm({ onSuccess, initialType }: { onSuccess?: (regType: RegType) => void; initialType?: RegType }) {
-  const { signUp } = useAuth();
+export function RegisterForm({ onSuccess, initialType, complete = false }: { onSuccess?: (regType: RegType) => void; initialType?: RegType; complete?: boolean }) {
+  // `complete`: usuario ya autenticado (login social) → se ACTUALIZA su perfil en
+  // vez de crear cuenta. Se ocultan email/contraseña y, para que el esquema (que
+  // los exige) no bloquee, se rellenan con valores válidos de relleno que
+  // `completeProfile` ignora.
+  const { signUp, completeProfile, fullName: authName } = useAuth();
   const { t } = useTranslation();
   const [formError, setFormError] = useState<string | null>(null);
   const [checkEmail, setCheckEmail] = useState(false);
@@ -65,6 +70,15 @@ export function RegisterForm({ onSuccess, initialType }: { onSuccess?: (regType:
       accept_rules: false,
       accept_manifesto: false,
       wants_founder: true,
+      ...(complete
+        ? {
+            full_name: authName ?? '',
+            email: 'social-login@neuromundi.app',
+            confirm_email: 'social-login@neuromundi.app',
+            password: 'SocialLogin1',
+            confirm_password: 'SocialLogin1',
+          }
+        : {}),
     },
   });
 
@@ -84,15 +98,25 @@ export function RegisterForm({ onSuccess, initialType }: { onSuccess?: (regType:
   const showBirthDate = isParent || (isProvider && !isCompany);
   const isMexico = /m[eé]xico/i.test(country ?? '');
 
+  // Los prestadores necesitan al menos una sucursal; arrancamos con una visible
+  // para que no parezca que falta un paso escondido (antes había que pulsar
+  // "Agregar sucursal" o la validación fallaba en silencio).
+  useEffect(() => {
+    if (isProvider && fields.length === 0) {
+      append({ label: '', address: '', phone: '', hours: '', latitude: null, longitude: null });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isProvider]);
+
   const onSubmit = async (values: RegisterValues) => {
     setFormError(null);
     setFounderOptoutFlag(!values.wants_founder); // registro ordinario si desmarcó Fundador
     const provider = values.regType === 'service_provider' || values.regType === 'merchant' || values.regType === 'school';
-    const res = await signUp({
+    const payload = {
       email: values.email,
       password: values.password,
       fullName: (provider && values.is_company ? values.business_name : values.full_name) ?? '',
-      role: provider ? 'provider' : (values.regType as 'patient' | 'parent'),
+      role: (provider ? 'provider' : (values.regType as 'patient' | 'parent')) as 'provider' | 'patient' | 'parent',
       providerType: provider ? (values.regType as 'service_provider' | 'merchant' | 'school') : null,
       isCompany: values.is_company,
       businessName: values.business_name || null,
@@ -111,12 +135,13 @@ export function RegisterForm({ onSuccess, initialType }: { onSuccess?: (regType:
       cedulaProfesional: values.cedula_profesional || null,
       rulesVersion: RULES_VERSION,
       schoolGrades: values.regType === 'school' ? (values.school_grades ?? []) : [],
-      accountType: values.regType === 'patient' ? 'adulto_independiente' : values.regType === 'parent' ? 'padre_tutor' : null,
+      accountType: (values.regType === 'patient' ? 'adulto_independiente' : values.regType === 'parent' ? 'padre_tutor' : null) as 'adulto_independiente' | 'padre_tutor' | null,
       lifeStage: values.regType === 'patient' ? (values.life_stage || null) : null,
       interests: values.regType === 'patient' ? (values.interests ?? []) : [],
       commsOptIn: values.regType === 'patient' ? !!values.comms_opt_in : false,
       locations: provider ? (values.locations ?? []) : [],
-    });
+    };
+    const res = complete ? await completeProfile(payload) : await signUp(payload);
     if (!res.ok) {
       setFormError(res.error);
       return;
@@ -124,6 +149,9 @@ export function RegisterForm({ onSuccess, initialType }: { onSuccess?: (regType:
     // Marca que, al confirmar el correo y volver, se muestre la bienvenida (1 vez).
     try { localStorage.setItem('neuromundi.pendingWelcome', '1'); } catch { /* ignore */ }
     setTimeout(() => onSuccess?.(values.regType), 0);
+    // En modo "completar" (login social) no hay confirmación por correo: al
+    // guardar, el perfil queda listo y la app se muestra.
+    if (complete) return;
     setCheckEmail(true);
   };
 
@@ -214,6 +242,9 @@ export function RegisterForm({ onSuccess, initialType }: { onSuccess?: (regType:
           </div>
         </div>
       )}
+
+      {/* Qué incluye la cuenta según el tipo elegido (informativo). */}
+      <RoleFeaturesPanel type={regType} />
 
       {/* Identidad */}
       <section className="space-y-4">
@@ -375,6 +406,8 @@ export function RegisterForm({ onSuccess, initialType }: { onSuccess?: (regType:
           labelCls={labelCls}
         />
         {errors.country && <p role="alert" className={errCls}>{t(errors.country.message!)}</p>}
+        {errors.state && <p role="alert" className={errCls}>{t(errors.state.message!)}</p>}
+        {errors.municipality && <p role="alert" className={errCls}>{t(errors.municipality.message!)}</p>}
 
         {isProvider && isMexico && (
           <div>
@@ -487,41 +520,44 @@ export function RegisterForm({ onSuccess, initialType }: { onSuccess?: (regType:
         </section>
       )}
 
-      {/* Cuenta */}
-      <section className="space-y-4">
-        <h3 className="text-sm font-semibold uppercase tracking-wide text-muted">{t('reg.account')}</h3>
-        <div>
-          <label htmlFor="reg-email" className={labelCls}>{t('auth.email')}</label>
-          <input id="reg-email" type="email" inputMode="email" autoComplete="email" className={inputCls} {...register('email')} />
-          {errors.email && <p role="alert" className={errCls}>{t(errors.email.message!)}</p>}
-        </div>
-        <div>
-          <label htmlFor="reg-confirm-email" className={labelCls}>{t('auth.confirmEmail')}</label>
-          <input id="reg-confirm-email" type="email" inputMode="email" autoComplete="off" onPaste={(e) => e.preventDefault()} className={inputCls} {...register('confirm_email')} />
-          {errors.confirm_email && <p role="alert" className={errCls}>{t(errors.confirm_email.message!)}</p>}
-        </div>
-        <div>
-          <label htmlFor="reg-password" className={labelCls}>{t('auth.password')}</label>
-          <PasswordInput
-            id="reg-password"
-            autoComplete="new-password"
-            className={inputCls}
-            {...register('password')}
-          />
-          <PasswordStrength value={watch('password') ?? ''} />
-          {errors.password && <p role="alert" className={errCls}>{t(errors.password.message!)}</p>}
-        </div>
-        <div>
-          <label htmlFor="reg-confirm-password" className={labelCls}>{t('auth.confirmPassword')}</label>
-          <PasswordInput
-            id="reg-confirm-password"
-            autoComplete="new-password"
-            className={inputCls}
-            {...register('confirm_password')}
-          />
-          {errors.confirm_password && <p role="alert" className={errCls}>{t(errors.confirm_password.message!)}</p>}
-        </div>
-      </section>
+      {/* Cuenta — solo al crear cuenta nueva. En modo "completar" (login social)
+          la cuenta ya existe, así que se omite email/contraseña. */}
+      {!complete && (
+        <section className="space-y-4">
+          <h3 className="text-sm font-semibold uppercase tracking-wide text-muted">{t('reg.account')}</h3>
+          <div>
+            <label htmlFor="reg-email" className={labelCls}>{t('auth.email')}</label>
+            <input id="reg-email" type="email" inputMode="email" autoComplete="email" className={inputCls} {...register('email')} />
+            {errors.email && <p role="alert" className={errCls}>{t(errors.email.message!)}</p>}
+          </div>
+          <div>
+            <label htmlFor="reg-confirm-email" className={labelCls}>{t('auth.confirmEmail')}</label>
+            <input id="reg-confirm-email" type="email" inputMode="email" autoComplete="off" onPaste={(e) => e.preventDefault()} className={inputCls} {...register('confirm_email')} />
+            {errors.confirm_email && <p role="alert" className={errCls}>{t(errors.confirm_email.message!)}</p>}
+          </div>
+          <div>
+            <label htmlFor="reg-password" className={labelCls}>{t('auth.password')}</label>
+            <PasswordInput
+              id="reg-password"
+              autoComplete="new-password"
+              className={inputCls}
+              {...register('password')}
+            />
+            <PasswordStrength value={watch('password') ?? ''} />
+            {errors.password && <p role="alert" className={errCls}>{t(errors.password.message!)}</p>}
+          </div>
+          <div>
+            <label htmlFor="reg-confirm-password" className={labelCls}>{t('auth.confirmPassword')}</label>
+            <PasswordInput
+              id="reg-confirm-password"
+              autoComplete="new-password"
+              className={inputCls}
+              {...register('confirm_password')}
+            />
+            {errors.confirm_password && <p role="alert" className={errCls}>{t(errors.confirm_password.message!)}</p>}
+          </div>
+        </section>
+      )}
 
       {/* Aceptación obligatoria de Términos y Aviso de Privacidad */}
       <div>
@@ -622,7 +658,7 @@ export function RegisterForm({ onSuccess, initialType }: { onSuccess?: (regType:
       {!acceptRules && <p className={errCls}>• {t('reg.miss.rules')}</p>}
       {!acceptManifesto && <p className={errCls}>• {t('reg.miss.manifesto')}</p>}
       <Button type="submit" loading={isSubmitting} fullWidth>
-        {t('auth.createAccount')}
+        {complete ? t('onb.finish') : t('auth.createAccount')}
       </Button>
     </form>
   );

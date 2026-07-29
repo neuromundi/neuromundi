@@ -46,6 +46,8 @@ export interface DirectoryFilters {
   anyOf?: string[];
   /** Modalidad de atención. */
   modality?: string;
+  /** Solo proveedores con el Sello Neuromundi Neuroafirmativo. */
+  neuroaffirming?: boolean;
   city?: string;
   /** País (nombre) para segmentar el directorio a un solo país. */
   country?: string;
@@ -145,7 +147,7 @@ export function useDirectory(filters: DirectoryFilters): UseDirectoryValue {
     [providers],
   );
 
-  const { query, categoryId, specialty, productCategory, ageRange, modality, city, center, radiusKm, anyOf } = filters;
+  const { query, categoryId, specialty, productCategory, ageRange, modality, neuroaffirming, city, center, radiusKm, anyOf } = filters;
 
   const filtered = useMemo(() => {
     const q = query?.trim().toLowerCase();
@@ -177,6 +179,7 @@ export function useDirectory(filters: DirectoryFilters): UseDirectoryValue {
       }
       if (ageRange && !(p.age_ranges ?? []).includes(ageRange)) return false;
       if (modality && !(p.modalities ?? []).includes(modality)) return false;
+      if (neuroaffirming && !p.neuroaffirming) return false;
       if (city && p.city !== city) return false;
       if (center && radiusKm && p.latitude != null && p.longitude != null) {
         const dist = haversineKm(center, { lat: p.latitude, lng: p.longitude });
@@ -184,7 +187,7 @@ export function useDirectory(filters: DirectoryFilters): UseDirectoryValue {
       }
       return true;
     });
-  }, [providers, query, categoryId, specialty, productCategory, ageRange, modality, city, center, radiusKm, anyOf]);
+  }, [providers, query, categoryId, specialty, productCategory, ageRange, modality, neuroaffirming, city, center, radiusKm, anyOf]);
 
   return { providers, filtered, cities, loading, error, refetch };
 }

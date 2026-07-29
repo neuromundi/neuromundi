@@ -36,6 +36,7 @@ function toInsert(v: ProductFormValues): Omit<ProductInsert, 'vendor_id'> {
     purchase_url: orNull(v.purchase_url),
     category_id: v.category_id,
     store_category: orNull(v.store_category),
+    store_subcategory: v.store_category && v.store_category !== 'otro' ? orNull(v.store_subcategory) : null,
     store_category_other: v.store_category === 'otro' ? orNull(v.store_category_other) : null,
     stock: v.stock ?? null,
     is_active: v.is_active,
@@ -54,12 +55,14 @@ export function ProductManager({ vendorId }: { vendorId: string }) {
   const [editing, setEditing] = useState<ProductWithVendor | null>(null);
   const [deleting, setDeleting] = useState<ProductWithVendor | null>(null);
 
-  const { register, handleSubmit, reset, watch, formState: { errors, isSubmitting } } =
+  const { register, handleSubmit, reset, watch, setValue, formState: { errors, isSubmitting } } =
     useForm<ProductFormValues>({
       resolver: zodResolver(productSchema),
       defaultValues: defaultProductValues(),
     });
-  const isOtherCategory = watch('store_category') === 'otro';
+  const selectedCat = watch('store_category');
+  const isOtherCategory = selectedCat === 'otro';
+  const subOptions = STORE_CATEGORIES.find((c) => c.value === selectedCat)?.sub ?? [];
 
   const openNew = () => {
     setEditing(null);
@@ -76,6 +79,7 @@ export function ProductManager({ vendorId }: { vendorId: string }) {
       purchase_url: p.purchase_url ?? '',
       category_id: p.category_id,
       store_category: p.store_category ?? '',
+      store_subcategory: p.store_subcategory ?? '',
       store_category_other: p.store_category_other ?? '',
       stock: p.stock ?? null,
       is_active: p.is_active,
@@ -226,12 +230,23 @@ export function ProductManager({ vendorId }: { vendorId: string }) {
           </div>
           <div>
             <label htmlFor="p-scat" className={labelCls}>{t('product.storeCategory')}</label>
-            <select id="p-scat" className={inputCls} {...register('store_category')}>
+            <select id="p-scat" className={inputCls} {...register('store_category', { onChange: () => setValue('store_subcategory', '') })}>
               <option value="">{t('product.noCategory')}</option>
               {STORE_CATEGORIES.map((c) => (
                 <option key={c.value} value={c.value}>{catLabel(c.value, c.label)}</option>
               ))}
             </select>
+            {subOptions.length > 0 && (
+              <div className="mt-2">
+                <label htmlFor="p-ssub" className={labelCls}>{t('product.storeSubcategory')}</label>
+                <select id="p-ssub" className={inputCls} {...register('store_subcategory')}>
+                  <option value="">{t('product.noSubcategory')}</option>
+                  {subOptions.map((s) => (
+                    <option key={s.value} value={s.value}>{catLabel(s.value, s.label)}</option>
+                  ))}
+                </select>
+              </div>
+            )}
             {isOtherCategory && (
               <div className="mt-2">
                 <label htmlFor="p-scat-other" className={labelCls}>

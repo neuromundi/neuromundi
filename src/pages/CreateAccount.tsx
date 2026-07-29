@@ -9,6 +9,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { User, Users, Stethoscope, Building2, Store, School, ArrowLeft, LogIn, HeartPulse, Plane, Scale, HeartHandshake, HandHeart } from 'lucide-react';
 import { RegisterForm } from '@/components/auth/RegisterForm';
+import { RoleFeaturesPanel } from '@/components/auth/RoleFeaturesPanel';
 import { SpecialistRegister } from '@/pages/SpecialistRegister';
 import { ProviderRegister } from '@/pages/ProviderRegister';
 import { ClinicRegister } from '@/pages/ClinicRegister';
@@ -65,6 +66,13 @@ export function CreateAccount() {
           <ArrowLeft className="h-4 w-4" /> {t('create.back')}
         </button>
         <h1 className="text-2xl font-bold text-slate-900">{t(`create.cards.${selected}.title`)}</h1>
+        {/* Paciente/familia ya traen el panel dentro de RegisterForm; para el
+            resto de tipos lo mostramos aquí, encima de su formulario. */}
+        {selected !== 'patient' && selected !== 'parent' && (
+          <div className="mt-4">
+            <RoleFeaturesPanel type={selected} />
+          </div>
+        )}
         <div className="mt-4">
           {isSpecialist ? (
             <SpecialistRegister />

@@ -5,7 +5,20 @@
  */
 export interface CatItem { value: string; label: string }
 
-export const TITLE_PREFIXES: string[] = ['Dr.', 'Dra.', 'Lic.', 'Mtro.', 'Mtra.', 'Ing.', 'Psic.', 'T.O.', 'Fga.', 'Fgo.'];
+/** Prefijos de título. `value` = clave estable (se guarda); `label` = respaldo es.
+ *  Se localizan con `cat.<value>` (equivalentes más cercanos por idioma). */
+export const TITLE_PREFIXES: CatItem[] = [
+  { value: 'dr', label: 'Dr.' },
+  { value: 'dra', label: 'Dra.' },
+  { value: 'lic', label: 'Lic.' },
+  { value: 'mtro', label: 'Mtro.' },
+  { value: 'mtra', label: 'Mtra.' },
+  { value: 'ing', label: 'Ing.' },
+  { value: 'psic', label: 'Psic.' },
+  { value: 'to', label: 'T.O.' },
+  { value: 'fga', label: 'Fga.' },
+  { value: 'fgo', label: 'Fgo.' },
+];
 
 export const PROFESSIONS: CatItem[] = [
   { value: 'psicologia_clinica', label: 'Psicología Clínica' },
@@ -51,6 +64,16 @@ export const PROFESSIONS: CatItem[] = [
   { value: 'adiestramiento_positivo', label: 'Adiestramiento Canino Positivo' },
   { value: 'veterinaria_neurofriendly', label: 'Veterinaria de Baja Estimulación (Neuro-Friendly)' },
   { value: 'cuidado_mascotas_nf', label: 'Cuidado y Paseo de Mascotas (Neuro-Friendly)' },
+  // ── Dominio: Arte, Música y Expresión (neuroafirmativo) ─────────────────────
+  { value: 'danzaterapia', label: 'Danzaterapia / Terapia de Movimiento' },
+  { value: 'profesor_musica_adaptada', label: 'Profesor de Instrumento y Canto Adaptado' },
+  { value: 'instructor_artes_visuales', label: 'Instructor de Artes Visuales y Digitales' },
+  { value: 'coach_teatro', label: 'Coach de Teatro y Expresión Corporal' },
+  { value: 'organizador_eventos_sensory', label: 'Organizador de Eventos Sensory-Friendly' },
+  { value: 'director_ensamble_nd', label: 'Director de Coros / Ensambles Neurodivergentes' },
+  { value: 'gestor_colectivo_artistico', label: 'Gestor de Colectivos Artísticos' },
+  { value: 'mentor_artistas', label: 'Mentor de Artistas y Creativos' },
+  { value: 'agente_talento_inclusivo', label: 'Agente de Talento Inclusivo' },
   { value: 'otro', label: 'Otro' },
 ];
 
@@ -159,6 +182,11 @@ export const INTERVENTION_AREAS: CatItem[] = [
   { value: 'regulacion_polivagal', label: 'Regulación Polivagal (SSP)' },
   { value: 'procesamiento_visual', label: 'Procesamiento Visual / Terapia Visual' },
   { value: 'lactancia_motricidad_oral', label: 'Lactancia y Motricidad Oral' },
+  // ── Arte, Música y Expresión ────────────────────────────────────────────────
+  { value: 'expresion_creativa', label: 'Expresión Artística y Creativa' },
+  { value: 'movimiento_danza', label: 'Movimiento y Danza Terapéutica' },
+  { value: 'teatro_rol', label: 'Teatro y Juego de Roles Sociales' },
+  { value: 'ocio_sensorial', label: 'Ocio y Eventos Sensory-Friendly' },
   { value: 'otro', label: 'Otro' },
 ];
 

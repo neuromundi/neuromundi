@@ -26,6 +26,7 @@ export interface UseAuthValue {
   needsOnboarding: boolean;
   signIn: ReturnType<typeof useAuthStore.getState>['signIn'];
   signUp: ReturnType<typeof useAuthStore.getState>['signUp'];
+  completeProfile: ReturnType<typeof useAuthStore.getState>['completeProfile'];
   signInWithProvider: ReturnType<typeof useAuthStore.getState>['signInWithProvider'];
   completeOnboarding: ReturnType<typeof useAuthStore.getState>['completeOnboarding'];
   signOut: ReturnType<typeof useAuthStore.getState>['signOut'];
@@ -38,6 +39,7 @@ export function useAuth(): UseAuthValue {
   const profile = useAuthStore((s) => s.profile);
   const signIn = useAuthStore((s) => s.signIn);
   const signUp = useAuthStore((s) => s.signUp);
+  const completeProfile = useAuthStore((s) => s.completeProfile);
   const signInWithProvider = useAuthStore((s) => s.signInWithProvider);
   const completeOnboarding = useAuthStore((s) => s.completeOnboarding);
   const signOut = useAuthStore((s) => s.signOut);
@@ -63,6 +65,7 @@ export function useAuth(): UseAuthValue {
     needsOnboarding: status === 'authenticated' && !!profile && !profile.rules_version_accepted,
     signIn,
     signUp,
+    completeProfile,
     signInWithProvider,
     completeOnboarding,
     signOut,

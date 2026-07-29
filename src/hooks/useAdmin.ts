@@ -18,6 +18,7 @@ export interface UseAdminValue {
   refetch: () => Promise<void>;
   setVerified: (id: string, value: boolean) => Promise<Result<true>>;
   setPublished: (id: string, value: boolean) => Promise<Result<true>>;
+  setNeuroaffirming: (id: string, value: boolean) => Promise<Result<true>>;
 }
 
 export function useAdmin(filter: AdminFilter): UseAdminValue {
@@ -72,6 +73,17 @@ export function useAdmin(filter: AdminFilter): UseAdminValue {
     return { ok: true, data: true };
   }, [all]);
 
+  const setNeuroaffirming = useCallback<UseAdminValue['setNeuroaffirming']>(async (id, value) => {
+    const previous = all;
+    patchLocal(id, { neuroaffirming: value });
+    const { error: err } = await supabase.rpc('admin_set_neuroaffirming', { p_id: id, p_value: value });
+    if (err) {
+      setAll(previous);
+      return { ok: false, error: toMessage(err, 'No se pudo actualizar.') };
+    }
+    return { ok: true, data: true };
+  }, [all]);
+
   const providers = useMemo(() => {
     switch (filter) {
       case 'pending':
@@ -83,5 +95,5 @@ export function useAdmin(filter: AdminFilter): UseAdminValue {
     }
   }, [all, filter]);
 
-  return { providers, loading, error, refetch, setVerified, setPublished };
+  return { providers, loading, error, refetch, setVerified, setPublished, setNeuroaffirming };
 }

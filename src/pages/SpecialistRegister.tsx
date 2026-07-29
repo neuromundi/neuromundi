@@ -36,16 +36,18 @@ function useToggleList(initial: string[] = []) {
   return [list, toggle] as const;
 }
 
-export function SpecialistRegister({ onSuccess }: { onSuccess?: () => void }) {
+export function SpecialistRegister({ onSuccess, complete = false }: { onSuccess?: () => void; complete?: boolean }) {
   const { t } = useTranslation();
   const countryLabel = useCountryLabel();
   const catLabel = useCatLabel();
-  const { signUp } = useAuth();
+  // `complete`: el usuario YA existe (entró por login social) → se ACTUALIZA su
+  // perfil en vez de crear cuenta. Se ocultan email/contraseña.
+  const { signUp, completeProfile, fullName: authName } = useAuth();
   const toast = useToast();
 
   // Perfil
   const [titlePrefix, setTitlePrefix] = useState('');
-  const [fullName, setFullName] = useState('');
+  const [fullName, setFullName] = useState(complete ? (authName ?? '') : '');
   const [profession, setProfession] = useState('');
   const [bio, setBio] = useState('');
   const [photoUrl, setPhotoUrl] = useState<string | null>(null);
@@ -56,6 +58,8 @@ export function SpecialistRegister({ onSuccess }: { onSuccess?: () => void }) {
   const [bookingUrl, setBookingUrl] = useState('');
   const [linkedin, setLinkedin] = useState('');
   const [instagram, setInstagram] = useState('');
+  const [tiktok, setTiktok] = useState('');
+  const [facebook, setFacebook] = useState('');
   const [country, setCountry] = useState('');
   const [stateName, setStateName] = useState('');
   const [municipality, setMunicipality] = useState('');
@@ -109,11 +113,15 @@ export function SpecialistRegister({ onSuccess }: { onSuccess?: () => void }) {
     if (!cedula.trim()) miss.push(t('reg.miss.cedula'));
     if (specialties.includes('otro') && !specialtyOther.trim()) miss.push(t('reg.miss.otherSpecify'));
     if (areas.includes('otro') && !areaOther.trim()) miss.push(t('reg.miss.otherSpecify'));
-    if (!email.trim()) miss.push(t('reg.miss.email'));
-    if (email.trim() && !isStrictEmail(email)) miss.push(t('reg.miss.emailValid'));
-    if (email.trim().toLowerCase() !== confirmEmail.trim().toLowerCase()) miss.push(t('reg.miss.emailMatch'));
-    if (password.length < 8) miss.push(t('reg.miss.password'));
-    if (password !== confirmPassword) miss.push(t('reg.miss.passwordMatch'));
+    // En modo "completar" (login social) NO se piden email ni contraseña: la
+    // cuenta ya existe.
+    if (!complete) {
+      if (!email.trim()) miss.push(t('reg.miss.email'));
+      if (email.trim() && !isStrictEmail(email)) miss.push(t('reg.miss.emailValid'));
+      if (email.trim().toLowerCase() !== confirmEmail.trim().toLowerCase()) miss.push(t('reg.miss.emailMatch'));
+      if (password.length < 8) miss.push(t('reg.miss.password'));
+      if (password !== confirmPassword) miss.push(t('reg.miss.passwordMatch'));
+    }
     if (!acceptTerms) miss.push(t('reg.miss.terms'));
     if (!acceptRules) miss.push(t('reg.miss.rules'));
     if (!acceptManifesto) miss.push(t('reg.miss.manifesto'));
@@ -132,21 +140,25 @@ export function SpecialistRegister({ onSuccess }: { onSuccess?: () => void }) {
     if (benefitTerms.trim()) details.benefit_terms = benefitTerms.trim();
     if (benefitValidator.trim()) details.benefit_validator = benefitValidator.trim();
 
-    const res = await signUp({
+    const payload = {
       email, password, fullName: fullName.trim(),
-      role: 'provider', providerType: 'service_provider', isCompany: false,
+      role: 'provider' as const, providerType: 'service_provider' as const, isCompany: false,
       country: country || null, state: isMexico ? stateName : null, municipality: isMexico ? municipality : null,
       address: onlineOnly ? null : (address || null),
       titlePrefix: titlePrefix || null, profession: profession || null, bio: bio || null,
       whatsapp: whatsapp || null, bookingUrl: bookingUrl || null, linkedin: linkedin || null,
-      instagram: instagram || null, cedulaProfesional: cedula || null, rfc: isMexico ? (rfc || null) : null,
+      instagram: instagram || null, tiktok: tiktok || null, facebook: facebook || null,
+      cedulaProfesional: cedula || null, rfc: isMexico ? (rfc || null) : null,
       specialties, modalities, ageRanges, interventionAreas: areas, providerDetails: details,
       rulesVersion: RULES_VERSION,
-    });
+    };
+    const res = complete ? await completeProfile(payload) : await signUp(payload);
     setBusy(false);
     if (!res.ok) { toast.error(res.error); return; }
     if (photoUrl) toast.success(t('spec.photoLater'));
     try { localStorage.setItem('neuromundi.pendingWelcome', '1'); } catch { /* ignore */ }
+    // En modo "completar" no hay confirmación por correo: se entra directo.
+    if (complete) { onSuccess?.(); return; }
     setDone(true);
     onSuccess?.();
   };
@@ -170,7 +182,7 @@ export function SpecialistRegister({ onSuccess }: { onSuccess?: () => void }) {
           {photoUrl ? <img src={photoUrl} alt="" className="h-full w-full object-cover" /> : <Stethoscope className="h-7 w-7" />}
         </div>
         <div className="min-w-0">
-          <p className="truncate font-bold text-slate-900">{[titlePrefix, fullName].filter(Boolean).join(' ') || t('spec.yourName')}</p>
+          <p className="truncate font-bold text-slate-900">{[titlePrefix ? catLabel(titlePrefix, titlePrefix) : '', fullName].filter(Boolean).join(' ') || t('spec.yourName')}</p>
           {professionLabel && <p className="text-sm text-brand-700">{professionLabel}</p>}
           {(municipality || stateName) && (
             <p className="flex items-center gap-1 text-xs text-muted"><MapPin className="h-3 w-3" /> {[municipality, stateName].filter(Boolean).join(', ')}</p>
@@ -223,7 +235,7 @@ export function SpecialistRegister({ onSuccess }: { onSuccess?: () => void }) {
               <label className={labelCls}>{t('spec.title')}</label>
               <select className={inputCls} value={titlePrefix} onChange={(e) => setTitlePrefix(e.target.value)}>
                 <option value="">—</option>
-                {TITLE_PREFIXES.map((p) => <option key={p} value={p}>{p}</option>)}
+                {TITLE_PREFIXES.map((p) => <option key={p.value} value={p.value}>{catLabel(p.value, p.label)}</option>)}
               </select>
             </div>
             <div>
@@ -259,9 +271,7 @@ export function SpecialistRegister({ onSuccess }: { onSuccess?: () => void }) {
           <div className="grid gap-3 sm:grid-cols-2">
             <div><label className={labelCls}>{t('spec.whatsapp')}</label><input className={inputCls} value={whatsapp} onChange={(e) => setWhatsapp(e.target.value)} placeholder="+52 55…" /></div>
             <div><label className={labelCls}>{t('spec.contactEmail')}</label><input type="email" className={inputCls} value={contactEmail} onChange={(e) => setContactEmail(e.target.value)} /></div>
-            <div><label className={labelCls}>{t('spec.booking')}</label><input type="url" className={inputCls} value={bookingUrl} onChange={(e) => setBookingUrl(e.target.value)} placeholder="https://calendly.com/…" /></div>
-            <div><label className={labelCls}>LinkedIn</label><input className={inputCls} value={linkedin} onChange={(e) => setLinkedin(e.target.value)} placeholder="https://linkedin.com/in/…" /></div>
-            <div className="sm:col-span-2"><label className={labelCls}>Instagram</label><input className={inputCls} value={instagram} onChange={(e) => setInstagram(e.target.value)} placeholder="@usuario" /></div>
+            <div className="sm:col-span-2"><label className={labelCls}>{t('spec.booking')}</label><input type="url" className={inputCls} value={bookingUrl} onChange={(e) => setBookingUrl(e.target.value)} placeholder="https://calendly.com/…" /></div>
           </div>
           <div className="grid gap-3 sm:grid-cols-3">
             <div>
@@ -293,6 +303,17 @@ export function SpecialistRegister({ onSuccess }: { onSuccess?: () => void }) {
           {!onlineOnly && (
             <div><label className={labelCls}>{t('spec.address')}</label><input className={inputCls} value={address} onChange={(e) => setAddress(e.target.value)} /></div>
           )}
+        </section>
+
+        {/* Redes sociales (opcional) */}
+        <section className="space-y-4">
+          <h3 className={sectionTitle}>{t('reg.socialOptional')}</h3>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <div><label className={labelCls}>{t('reg.instagram')}</label><input className={inputCls} value={instagram} onChange={(e) => setInstagram(e.target.value)} placeholder="@usuario" /></div>
+            <div><label className={labelCls}>{t('reg.tiktok')}</label><input className={inputCls} value={tiktok} onChange={(e) => setTiktok(e.target.value)} placeholder="@usuario" /></div>
+            <div><label className={labelCls}>{t('reg.facebook')}</label><input className={inputCls} value={facebook} onChange={(e) => setFacebook(e.target.value)} placeholder="https://facebook.com/…" /></div>
+            <div><label className={labelCls}>LinkedIn</label><input className={inputCls} value={linkedin} onChange={(e) => setLinkedin(e.target.value)} placeholder="https://linkedin.com/in/…" /></div>
+          </div>
         </section>
 
         {/* 3. Especialización */}
@@ -357,14 +378,17 @@ export function SpecialistRegister({ onSuccess }: { onSuccess?: () => void }) {
           <div><label className={labelCls}>{t('spec.validator')}</label><input className={inputCls} placeholder={t('spec.validatorPlaceholder')} value={benefitValidator} onChange={(e) => setBenefitValidator(e.target.value)} /></div>
         </section>
 
-        {/* 6. Cuenta */}
-        <section className="space-y-4">
-          <h3 className={sectionTitle}>{t('reg.account')}</h3>
-          <div><label className={labelCls}>{t('auth.email')}</label><input type="email" className={inputCls} value={email} onChange={(e) => setEmail(e.target.value)} /></div>
-          <div><label className={labelCls}>{t('auth.confirmEmail')}</label><input type="email" inputMode="email" autoComplete="off" onPaste={(e) => e.preventDefault()} className={inputCls} value={confirmEmail} onChange={(e) => setConfirmEmail(e.target.value)} /></div>
-          <div><label className={labelCls}>{t('auth.password')}</label><PasswordInput className={inputCls} value={password} onChange={(e) => setPassword(e.target.value)} /></div>
-          <div><label className={labelCls}>{t('auth.confirmPassword')}</label><PasswordInput className={inputCls} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} /></div>
-        </section>
+        {/* 6. Cuenta — solo al crear cuenta nueva; en modo "completar" (login
+            social) la cuenta ya existe, así que se omite. */}
+        {!complete && (
+          <section className="space-y-4">
+            <h3 className={sectionTitle}>{t('reg.account')}</h3>
+            <div><label className={labelCls}>{t('auth.email')}</label><input type="email" className={inputCls} value={email} onChange={(e) => setEmail(e.target.value)} /></div>
+            <div><label className={labelCls}>{t('auth.confirmEmail')}</label><input type="email" inputMode="email" autoComplete="off" onPaste={(e) => e.preventDefault()} className={inputCls} value={confirmEmail} onChange={(e) => setConfirmEmail(e.target.value)} /></div>
+            <div><label className={labelCls}>{t('auth.password')}</label><PasswordInput className={inputCls} value={password} onChange={(e) => setPassword(e.target.value)} /></div>
+            <div><label className={labelCls}>{t('auth.confirmPassword')}</label><PasswordInput className={inputCls} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} /></div>
+          </section>
+        )}
 
         <label className="flex items-start gap-3 text-sm text-slate-700">
           <input type="checkbox" className="mt-0.5 h-5 w-5 rounded border-slate-300 text-brand-500" checked={acceptTerms} onChange={(e) => setAcceptTerms(e.target.checked)} />
@@ -391,7 +415,7 @@ export function SpecialistRegister({ onSuccess }: { onSuccess?: () => void }) {
             </ul>
           </div>
         )}
-        <Button type="submit" loading={busy} fullWidth>{t('auth.createAccount')}</Button>
+        <Button type="submit" loading={busy} fullWidth>{complete ? t('onb.finish') : t('auth.createAccount')}</Button>
       </form>
 
       {/* Vista previa: escritorio sticky, móvil plegable */}

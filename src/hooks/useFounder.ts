@@ -101,6 +101,9 @@ export function useFounderAutoClaim() {
   const { userId, role } = useAuth();
   const profile = useAuthStore((s) => s.profile);
   const [isFounder, setIsFounder] = useState(false);
+  // `justClaimed`: acaba de obtener el cupo AHORA (no lo tenía antes) → dispara
+  // el popup de felicitación con el aviso de los 3 meses.
+  const [justClaimed, setJustClaimed] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -138,12 +141,12 @@ export function useFounderAutoClaim() {
         p_kind: kind,
         p_country: profile.country ?? null,
       });
-      if (!cancelled && claimed) setIsFounder(true);
+      if (!cancelled && claimed) { setIsFounder(true); setJustClaimed(true); }
     })();
     return () => { cancelled = true; };
   }, [userId, role, profile]);
 
-  return { isFounder };
+  return { isFounder, justClaimed };
 }
 
 /**
@@ -203,18 +206,21 @@ export function useFounderProgress() {
  * Seguro de llamar globalmente: no hace nada para usuarios no elegibles.
  */
 export function useFounderProgressNotice() {
-  const { userId } = useAuth();
+  const { userId, needsOnboarding } = useAuth();
   const { progress } = useFounderProgress();
   const toast = useToast();
   const { t } = useTranslation();
   const shown = useRef(false);
 
   useEffect(() => {
+    // No mostrar el aviso mientras el usuario aún no termina su registro (login
+    // social en curso): el porcentaje no tiene sentido antes de completar el alta.
+    if (needsOnboarding) return;
     if (!userId || !progress || shown.current) return;
     const key = `nm_founder_notice_${userId}`;
     if (typeof sessionStorage !== 'undefined' && sessionStorage.getItem(key)) { shown.current = true; return; }
     shown.current = true;
     try { sessionStorage.setItem(key, '1'); } catch { /* ignore */ }
     toast.info(t('founderReq.notice', { pct: progress.pct }));
-  }, [userId, progress, toast, t]);
+  }, [userId, needsOnboarding, progress, toast, t]);
 }

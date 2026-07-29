@@ -91,17 +91,17 @@ export function Messages() {
   // Busca miembros mientras el admin escribe (con un pequeño retraso para no
   // disparar una consulta por cada tecla).
   useEffect(() => {
-    if (!isAdmin || !newOpen) return;
+    if (!newOpen) return;
     const q = query.trim();
     if (q.length < 2) { setHits([]); return; }
     let alive = true;
     setSearching(true);
     const id = window.setTimeout(async () => {
-      const { data } = await supabase.rpc('search_members', { p_query: q });
+      const { data } = await supabase.rpc('search_contacts', { p_query: q });
       if (alive) { setHits((data as MemberHit[] | null) ?? []); setSearching(false); }
     }, 300);
     return () => { alive = false; window.clearTimeout(id); };
-  }, [query, isAdmin, newOpen]);
+  }, [query, newOpen]);
 
   const openThread = useCallback(async (th: Thread) => {
     setActive(th);
@@ -234,9 +234,9 @@ export function Messages() {
                   </>
                 ) : (
                   <div className="relative flex-1">
-                    {/* Búsqueda de miembro para el admin: por folio, nombre o
-                        apellido. Al elegir uno se fija su folio como destino. */}
-                    {isAdmin && (
+                    {/* Búsqueda entre TUS contactos (con quienes ya tienes
+                        relación previa): por folio, nombre o apellido. */}
+                    {(
                       <div className="mb-2">
                         <label className="text-xs font-semibold text-slate-700">{t('msg.searchLabel')}</label>
                         <div className="relative mt-1">
@@ -276,10 +276,8 @@ export function Messages() {
                         )}
                       </div>
                     )}
-                    {/* El campo de folio manual es solo para quien NO tiene el
-                        buscador (especialistas). Para el admin, el buscador de
-                        arriba ya cubre el folio, así que no se repite. */}
-                    {!isAdmin && (
+                    {/* Alternativa: escribir el folio exacto directamente. */}
+                    {(
                       <>
                         <label className="text-xs font-semibold text-slate-700">{t('msg.toFolio')}</label>
                         <input

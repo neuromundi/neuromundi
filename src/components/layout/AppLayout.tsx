@@ -7,12 +7,12 @@
  */
 import { NavLink, Outlet, useNavigate, Link } from 'react-router-dom';
 import { Compass, LayoutDashboard, Settings, LogIn, LogOut, ShieldCheck, MessageCircleQuestion, School, GraduationCap, Grid3x3, X, BookOpenCheck, BookOpen, ShieldAlert, CalendarDays, ShoppingBag, MessageSquare, Heart, Lightbulb } from 'lucide-react';
-import { Suspense, lazy, useEffect, useState } from 'react';
+import { Suspense, lazy, useEffect, useState, type ComponentType } from 'react';
 import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '@/hooks/useAuth';
 import { useMembership } from '@/hooks/useMembership';
-import { Button, SkeletonCard } from '@/components/ui';
+import { Button, SkeletonCard, useToast } from '@/components/ui';
 import type { AuthView } from '@/components/onboarding/AuthModals';
 import { track } from '@/lib/track';
 import { NotificationsBell } from '@/components/content/NotificationsBell';
@@ -32,20 +32,31 @@ import { useAppointmentReminders } from '@/hooks/useAppointmentRequests';
 // Todas se renderizan condicionalmente y envueltas en <Suspense fallback={null}>:
 // mientras llega el chunk simplemente no hay modal, que es justo lo que había
 // un instante antes.
-const WelcomeVideo = lazy(() => import('@/components/onboarding/WelcomeVideo').then((m) => ({ default: m.WelcomeVideo })));
+// `lazyOptional`: para overlays NO críticos (video, popups, banners). Si el chunk
+// falla al cargar —p. ej. un 404 tras un despliegue en el que no se subió todo el
+// `assets/` o no se purgó el CDN— renderiza null en vez de propagar el error y
+// tumbar TODA la app (antes: "Failed to fetch dynamically imported module"). Los
+// modales FUNCIONALES (barrera de onboarding, portero de cuota, auth) siguen con
+// `lazy` normal para que `vite:preloadError` recargue y tome el index nuevo.
+function lazyOptional<T extends ComponentType<any>>(factory: () => Promise<{ default: T }>) {
+  return lazy(() => factory().catch(() => ({ default: (() => null) as unknown as T })));
+}
+
+const WelcomeVideo = lazyOptional(() => import('@/components/onboarding/WelcomeVideo').then((m) => ({ default: m.WelcomeVideo })));
 const AuthModals = lazy(() => import('@/components/onboarding/AuthModals').then((m) => ({ default: m.AuthModals })));
-const SupportButton = lazy(() => import('@/components/onboarding/SupportButton').then((m) => ({ default: m.SupportButton })));
+const SupportButton = lazyOptional(() => import('@/components/onboarding/SupportButton').then((m) => ({ default: m.SupportButton })));
 const SocialOnboarding = lazy(() => import('@/components/onboarding/SocialOnboarding').then((m) => ({ default: m.SocialOnboarding })));
-const FounderPopup = lazy(() => import('@/components/onboarding/FounderPopup').then((m) => ({ default: m.FounderPopup })));
-const GuidedTour = lazy(() => import('@/components/onboarding/GuidedTour').then((m) => ({ default: m.GuidedTour })));
-const WelcomePopup = lazy(() => import('@/components/onboarding/WelcomePopup').then((m) => ({ default: m.WelcomePopup })));
-const SoftSignupBanner = lazy(() => import('@/components/onboarding/SoftSignupBanner').then((m) => ({ default: m.SoftSignupBanner })));
-const ReportModal = lazy(() => import('@/components/report/ReportModal').then((m) => ({ default: m.ReportModal })));
-const MembershipReminderPopup = lazy(() => import('@/components/membership/MembershipReminderPopup').then((m) => ({ default: m.MembershipReminderPopup })));
+const FounderPopup = lazyOptional(() => import('@/components/onboarding/FounderPopup').then((m) => ({ default: m.FounderPopup })));
+const FounderCongratsPopup = lazyOptional(() => import('@/components/onboarding/FounderCongratsPopup').then((m) => ({ default: m.FounderCongratsPopup })));
+const GuidedTour = lazyOptional(() => import('@/components/onboarding/GuidedTour').then((m) => ({ default: m.GuidedTour })));
+const WelcomePopup = lazyOptional(() => import('@/components/onboarding/WelcomePopup').then((m) => ({ default: m.WelcomePopup })));
+const SoftSignupBanner = lazyOptional(() => import('@/components/onboarding/SoftSignupBanner').then((m) => ({ default: m.SoftSignupBanner })));
+const ReportModal = lazyOptional(() => import('@/components/report/ReportModal').then((m) => ({ default: m.ReportModal })));
+const MembershipReminderPopup = lazyOptional(() => import('@/components/membership/MembershipReminderPopup').then((m) => ({ default: m.MembershipReminderPopup })));
 const AccountInactiveModal = lazy(() => import('@/components/membership/AccountInactiveModal').then((m) => ({ default: m.AccountInactiveModal })));
 const AccountReactivatedModal = lazy(() => import('@/components/membership/AccountReactivatedModal').then((m) => ({ default: m.AccountReactivatedModal })));
 const SuspendedAccountModal = lazy(() => import('@/components/membership/SuspendedAccountModal').then((m) => ({ default: m.SuspendedAccountModal })));
-const ImproveModal = lazy(() => import('@/components/layout/ImproveModal').then((m) => ({ default: m.ImproveModal })));
+const ImproveModal = lazyOptional(() => import('@/components/layout/ImproveModal').then((m) => ({ default: m.ImproveModal })));
 import { useAuthStore } from '@/stores/authStore';
 import { setRefCode } from '@/hooks/useShop';
 import { LanguageSwitcher } from './LanguageSwitcher';
@@ -79,6 +90,7 @@ function NavItem({ to, icon, label }: { to: string; icon: ReactNode; label: stri
 export function AppLayout() {
   const { isAuthenticated, isAdmin, fullName, signOut, needsOnboarding } = useAuth();
   const { t } = useTranslation();
+  const toast = useToast();
   const navigate = useNavigate();
   // Perfil suspendido: bloquea con un aviso de reactivación al iniciar sesión.
   const suspendedAt = useAuthStore((s) => s.profile?.suspended_at ?? null);
@@ -117,7 +129,8 @@ export function AppLayout() {
   const [moreOpen, setMoreOpen] = useState(false);
   const { status: memStatus, daysLeft: memDays } = useMembership();
   // Detección automática de Miembro Fundador (reclama cupo si el usuario califica).
-  useFounderAutoClaim();
+  const { justClaimed: founderJustClaimed } = useFounderAutoClaim();
+  const [founderCongratsDismissed, setFounderCongratsDismissed] = useState(false);
   // Aviso al inicio de sesión con el % de cumplimiento de requisitos de Fundador.
   useFounderProgressNotice();
   // Captura ?ref= y atribuye la recomendación (programa Recomienda Neuromundi).
@@ -131,6 +144,14 @@ export function AppLayout() {
   const [gateOpen, setGateOpen] = useState(false);
   const showMemberBanner =
     isAuthenticated && !isAdmin && (memStatus === 'pending' || memStatus === 'past_due');
+
+  // Marca el intro como VISTO en cuanto se muestra (no solo al terminarlo). Si el
+  // service worker se actualiza a mitad del video tras un despliegue, `main.tsx`
+  // recarga; sin esta marca temprana el video se reproduciría de nuevo.
+  useEffect(() => {
+    if (!showVideo) return;
+    try { localStorage.setItem(INTRO_KEY, '1'); } catch { /* almacenamiento no disponible */ }
+  }, [showVideo]);
 
   const dismissVideo = () => {
     try {
@@ -191,6 +212,31 @@ export function AppLayout() {
     const ref = new URLSearchParams(window.location.search).get('ref');
     if (ref) setRefCode(ref);
   }, []);
+
+  // Errores de OAuth (Google/LinkedIn/Microsoft): cuando el proveedor rechaza el
+  // inicio de sesión, Supabase regresa con `error`/`error_description` en el hash
+  // (o en la query) SIN crear sesión. Antes esto se veía como "se abre y se
+  // cierra de golpe" sin nada en consola. Aquí lo leemos, lo mostramos y
+  // limpiamos la URL para que no reaparezca al recargar.
+  useEffect(() => {
+    try {
+      const hashParams = new URLSearchParams((window.location.hash || '').replace(/^#/, ''));
+      const queryParams = new URLSearchParams(window.location.search || '');
+      const err = hashParams.get('error') || queryParams.get('error');
+      if (!err) return;
+      const desc =
+        hashParams.get('error_description') ||
+        queryParams.get('error_description') ||
+        err;
+      // Log explícito para diagnóstico + aviso visible al usuario.
+      console.error('[OAuth]', err, '·', desc);
+      toast.error(decodeURIComponent(desc.replace(/\+/g, ' ')));
+      // Limpia error de la URL (conserva la ruta).
+      window.history.replaceState(null, '', window.location.pathname);
+    } catch {
+      /* nada que hacer */
+    }
+  }, [toast]);
 
   // Bienvenida (1 sola vez): al volver del enlace de confirmación del correo
   // (Supabase añade `type=signup` al hash) o si quedó marcada al registrarse.
@@ -294,6 +340,9 @@ export function AppLayout() {
         {showWelcome && <WelcomePopup onClose={() => setShowWelcome(false)} />}
         {showTour && <GuidedTour onClose={closeTour} />}
         {showFounder && <FounderPopup onClose={closeFounder} />}
+        {founderJustClaimed && !founderCongratsDismissed && (
+          <FounderCongratsPopup onClose={() => setFounderCongratsDismissed(true)} />
+        )}
         {isAuthenticated && suspendedAt && (
           <SuspendedAccountModal
             until={suspendUntil}
@@ -341,10 +390,10 @@ export function AppLayout() {
             </NavLink>
             <nav className="hidden items-center gap-x-2 gap-y-1.5 md:flex md:flex-wrap md:justify-end" aria-label={t('nav.directory')}>
               {/* Enlaces principales */}
+              <NavPill to="/kit" label={t('nav.kit')} colorClass="bg-gradient-to-br from-brand-500 via-brand-600 to-brand-800" />
               <NavPill to="/directorio" label={t('nav.directory')} colorClass="bg-brand-600" />
               <NavPill to="/inclusion-escolar" label={t('nav.school')} colorClass="bg-gradient-to-br from-amber-600 via-orange-500 to-rose-500" />
               <NavPill to="/academy" label={t('lms.tab')} colorClass="bg-gradient-to-br from-brand-600 via-brand-500 to-evs-5" />
-              <NavPill to="/kit" label={t('nav.kit')} colorClass="bg-gradient-to-br from-brand-500 via-brand-600 to-brand-800" />
               <NavPill to="/blog" label={t('nav.blog')} colorClass="bg-gradient-to-br from-brand-600 via-indigo-600 to-indigo-800" />
               <NavPill to="/eventos" label={t('nav.events')} colorClass="bg-gradient-to-br from-indigo-600 via-indigo-700 to-brand-700" />
               <NavPill to="/tienda" label={t('shop.title')} colorClass="bg-gradient-to-br from-fuchsia-600 via-purple-600 to-indigo-600" />
@@ -493,11 +542,11 @@ export function AppLayout() {
             </div>
             <div className="grid grid-cols-3 gap-3">
               {[
+                { to: '/kit', icon: <BookOpenCheck className="h-6 w-6" />, label: t('nav.kit'), color: 'bg-gradient-to-br from-brand-500 via-brand-600 to-brand-800' },
                 { to: '/proteccion-datos', icon: <ShieldCheck className="h-6 w-6" />, label: t('nav.dataProtection'), color: 'bg-teal-600' },
                 { to: '/pregunta-al-experto', icon: <MessageCircleQuestion className="h-6 w-6" />, label: t('nav.askExpert'), color: 'bg-cyan-600' },
                 { to: '/inclusion-escolar', icon: <School className="h-6 w-6" />, label: t('school.title'), color: 'bg-gradient-to-br from-amber-600 via-orange-500 to-rose-500' },
                 { to: '/academy', icon: <GraduationCap className="h-6 w-6" />, label: t('lms.tab'), color: 'bg-gradient-to-br from-brand-600 via-brand-500 to-evs-5' },
-                { to: '/kit', icon: <BookOpenCheck className="h-6 w-6" />, label: t('nav.kit'), color: 'bg-gradient-to-br from-brand-500 via-brand-600 to-brand-800' },
                 { to: '/blog', icon: <BookOpen className="h-6 w-6" />, label: t('nav.blog'), color: 'bg-gradient-to-br from-brand-600 via-indigo-600 to-indigo-800' },
                 { to: '/eventos', icon: <CalendarDays className="h-6 w-6" />, label: t('nav.events'), color: 'bg-gradient-to-br from-indigo-600 via-indigo-700 to-brand-700' },
                 ...(isAuthenticated ? [{ to: '/calendario', icon: <CalendarDays className="h-6 w-6" />, label: t('nav.calendar'), color: 'bg-slate-600' }] : []),

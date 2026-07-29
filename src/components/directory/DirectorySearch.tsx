@@ -7,7 +7,7 @@
  */
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Search, List, MapPin, Globe, BellPlus, X, SlidersHorizontal, HeartPulse, PawPrint, Baby, GraduationCap, Package } from 'lucide-react';
+import { Search, List, MapPin, Globe, BellPlus, X, SlidersHorizontal, HeartPulse, PawPrint, Baby, GraduationCap, Package, Palette, Sparkles } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { ProviderCard } from './ProviderCard';
 import { MapView } from './MapView';
@@ -47,6 +47,10 @@ const DOMAINS: Record<string, { icon: typeof HeartPulse; labelKey: string; value
   executive: {
     icon: GraduationCap, labelKey: 'directory.quick.executive',
     values: ['funciones_ejecutivas', 'adaptacion_curricular', 'coaching_ejecutivo', 'acompanante_terapeutico', 'vida_independiente', 'psicopedagogia', 'educacion_especial'],
+  },
+  arts: {
+    icon: Palette, labelKey: 'directory.quick.arts',
+    values: ['musicoterapia', 'arteterapia', 'danzaterapia', 'profesor_musica_adaptada', 'instructor_artes_visuales', 'coach_teatro', 'organizador_eventos_sensory', 'director_ensamble_nd', 'gestor_colectivo_artistico', 'mentor_artistas', 'agente_talento_inclusivo', 'expresion_creativa', 'movimiento_danza', 'teatro_rol', 'ocio_sensorial', 'arte_musica'],
   },
   products: {
     icon: Package, labelKey: 'directory.quick.products',
@@ -95,6 +99,7 @@ export function DirectorySearch({ onViewProfile }: DirectorySearchProps) {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [view, setView] = useState<'list' | 'map'>('list');
   const [domain, setDomain] = useState<string | null>(null);
+  const [neuro, setNeuro] = useState(false);
   const [filtersOpen, setFiltersOpen] = useState(false);
 
   // Opciones del selector con búsqueda: condiciones + áreas de intervención.
@@ -124,12 +129,13 @@ export function DirectorySearch({ onViewProfile }: DirectorySearchProps) {
       ageRange: ageRange || undefined,
       modality: modality || undefined,
       anyOf: domain ? DOMAINS[domain].values : undefined,
+      neuroaffirming: neuro || undefined,
       city,
       country: country || undefined,
       center: center ?? undefined,
       radiusKm: center ? radiusKm : undefined,
     }),
-    [query, categoryId, specialty, productCategory, ageRange, modality, domain, city, country, center, radiusKm],
+    [query, categoryId, specialty, productCategory, ageRange, modality, domain, neuro, city, country, center, radiusKm],
   );
 
   const { filtered, cities, loading } = useDirectory(filters);
@@ -200,6 +206,19 @@ export function DirectorySearch({ onViewProfile }: DirectorySearchProps) {
               </button>
             );
           })}
+          {/* Sello Neuromundi: solo proveedores neuroafirmativos. */}
+          <button
+            type="button"
+            aria-pressed={neuro}
+            onClick={() => setNeuro((v) => !v)}
+            title={t('directory.neuroHint')}
+            className={cn(
+              'inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm font-medium transition-colors',
+              neuro ? 'border-violet-500 bg-violet-500 text-white' : 'border-violet-200 text-violet-700 hover:bg-violet-50',
+            )}
+          >
+            <Sparkles className="h-4 w-4" aria-hidden="true" /> {t('directory.neuroFilter')}
+          </button>
         </div>
 
         {/* En móvil, los filtros finos se pliegan tras este botón. */}

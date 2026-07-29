@@ -7,7 +7,7 @@
  */
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ShieldCheck, ShieldOff, Eye, EyeOff, ExternalLink, RefreshCw, FileText } from 'lucide-react';
+import { ShieldCheck, ShieldOff, Eye, EyeOff, ExternalLink, RefreshCw, FileText, Sparkles } from 'lucide-react';
 import { Button, Tabs, SkeletonCard, useToast , Avatar, DistintivoBadge} from '@/components/ui';
 import { useAdmin, type AdminFilter } from '@/hooks/useAdmin';
 import { useAuth } from '@/hooks/useAuth';
@@ -38,11 +38,13 @@ function ProviderRow({
   provider,
   onVerify,
   onPublish,
+  onNeuro,
   badge,
 }: {
   provider: Profile;
   onVerify: (id: string, value: boolean) => void;
   onPublish: (id: string, value: boolean) => void;
+  onNeuro: (id: string, value: boolean) => void;
   badge?: BadgeResult | null;
 }) {
   const { t } = useTranslation();
@@ -71,6 +73,14 @@ function ProviderRow({
             <span className={provider.is_published ? 'text-brand-700' : 'text-muted'}>
               {provider.is_published ? t('admin.published') : t('admin.unpublished')}
             </span>
+            {provider.neuroaffirming && (
+              <>
+                <span aria-hidden="true">·</span>
+                <span className="inline-flex items-center gap-1 text-violet-700">
+                  <Sparkles className="h-3.5 w-3.5" aria-hidden="true" /> {t('admin.neuroOn')}
+                </span>
+              </>
+            )}
           </div>
           {provider.cedula_profesional ? (
             <p className="mt-1 flex flex-wrap items-center gap-1 text-xs text-slate-700">
@@ -119,6 +129,14 @@ function ProviderRow({
         >
           {provider.is_published ? t('admin.unpublish') : t('admin.publish')}
         </Button>
+        <Button
+          size="sm"
+          variant={provider.neuroaffirming ? 'ghost' : 'secondary'}
+          onClick={() => onNeuro(provider.id, !provider.neuroaffirming)}
+          leadingIcon={<Sparkles className="h-4 w-4" />}
+        >
+          {provider.neuroaffirming ? t('admin.neuroRevoke') : t('admin.neuroGrant')}
+        </Button>
         {provider.website_url && (
           <a
             href={provider.website_url}
@@ -135,7 +153,7 @@ function ProviderRow({
 }
 
 function ProviderList({ filter }: { filter: AdminFilter }) {
-  const { providers, loading, setVerified, setPublished } = useAdmin(filter);
+  const { providers, loading, setVerified, setPublished, setNeuroaffirming } = useAdmin(filter);
   const badges = useAdminBadges();
   const toast = useToast();
   const { t } = useTranslation();
@@ -146,6 +164,10 @@ function ProviderList({ filter }: { filter: AdminFilter }) {
   };
   const onPublish = async (id: string, value: boolean) => {
     const res = await setPublished(id, value);
+    if (!res.ok) toast.error(res.error);
+  };
+  const onNeuro = async (id: string, value: boolean) => {
+    const res = await setNeuroaffirming(id, value);
     if (!res.ok) toast.error(res.error);
   };
 
@@ -160,7 +182,7 @@ function ProviderList({ filter }: { filter: AdminFilter }) {
   return (
     <ul className="space-y-3">
       {providers.map((p) => (
-        <ProviderRow key={p.id} provider={p} onVerify={onVerify} onPublish={onPublish} badge={badges.get(p.id) ?? null} />
+        <ProviderRow key={p.id} provider={p} onVerify={onVerify} onPublish={onPublish} onNeuro={onNeuro} badge={badges.get(p.id) ?? null} />
       ))}
     </ul>
   );

@@ -173,6 +173,8 @@ export const productSchema = z.object({
     .or(z.literal('')),
   category_id: z.number().int().nullable(),
   store_category: z.string().max(40).optional().default(''),
+  // Subcategoría opcional (clave del catálogo de la tienda).
+  store_subcategory: z.string().max(40).optional().default(''),
   // Si la clasificación es "Otro", el oferente debe especificar cuál propone.
   store_category_other: z.string().trim().max(60).optional().default(''),
   // Inventario: null = sin control (ilimitado); entero >= 0 = unidades.
@@ -194,6 +196,7 @@ export function defaultProductValues(): ProductFormValues {
     purchase_url: '',
     category_id: null,
     store_category: '',
+    store_subcategory: '',
     store_category_other: '',
     stock: null,
     is_active: true,
@@ -262,7 +265,6 @@ export const registerSchema = z
     wants_founder: z.boolean().optional().default(true),
   })
   .superRefine((d, ctx) => {
-    const consumer = d.regType === 'patient' || d.regType === 'parent';
     const provider = d.regType === 'service_provider' || d.regType === 'merchant' || d.regType === 'school';
     const req = (path: (string | number)[], message: string) =>
       ctx.addIssue({ code: z.ZodIssueCode.custom, path, message });
@@ -279,18 +281,25 @@ export const registerSchema = z
       req(['full_name'], 'val.nameMin');
     }
 
-    // Fecha de nacimiento: consumidores siempre; proveedores solo si son persona física.
-    if (consumer || (provider && !d.is_company)) {
+    // Fecha de nacimiento: solo padre/tutor y proveedores persona física. El adulto
+    // independiente NO la captura (usa etapa de vida + intereses), así que exigirla
+    // aquí bloqueaba su registro en un campo sin input visible.
+    if (d.regType === 'parent' || (provider && !d.is_company)) {
       if (!d.birth_date) req(['birth_date'], 'reg.errBirth');
     }
 
-    // Neurodivergencia / padecimiento: obligatorio para consumidores.
-    if (consumer && (!d.condition || d.condition.trim() === '')) req(['condition'], 'reg.errCondition');
+    // Neurodivergencia / padecimiento del menor: obligatorio solo para padre/tutor
+    // (el adulto no tiene este campo en el formulario).
+    if (d.regType === 'parent' && (!d.condition || d.condition.trim() === '')) req(['condition'], 'reg.errCondition');
 
     // País / estado / municipalidad: obligatorios para todos los tipos.
     if (!d.country || d.country.trim() === '') req(['country'], 'reg.errRequired');
     if (!d.state || d.state.trim() === '') req(['state'], 'reg.errRequired');
-    if (!d.municipality || d.municipality.trim() === '') req(['municipality'], 'reg.errRequired');
+    // Municipio: obligatorio SOLO en México (cascada Estado→Municipio). Fuera de
+    // México el concepto no siempre aplica, así que es opcional.
+    if (/m[eé]xico/i.test(d.country ?? '') && (!d.municipality || d.municipality.trim() === '')) {
+      req(['municipality'], 'reg.errRequired');
+    }
 
     // Proveedores: servicio(s)/producto(s) y al menos una sucursal con teléfono y horarios.
     if (provider) {

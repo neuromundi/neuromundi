@@ -4,6 +4,7 @@
  * banner inferior descartable. No tapa la pantalla ni interrumpe la lectura.
  */
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { X, UserPlus } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
@@ -13,10 +14,13 @@ const DISMISS_KEY = 'neuro.softSignupDismissed';
 export function SoftSignupBanner({ onSignup }: { onSignup: () => void }) {
   const { t } = useTranslation();
   const { isAuthenticated, needsOnboarding } = useAuth();
+  const { pathname } = useLocation();
+  // No estorbar cuando el usuario ya está en el flujo de registro/acceso.
+  const onAuthFlow = /^\/(crear-cuenta|entrar|auth)/.test(pathname);
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    if (isAuthenticated || needsOnboarding) return;
+    if (isAuthenticated || needsOnboarding || onAuthFlow) return;
     try {
       if (sessionStorage.getItem(DISMISS_KEY) != null) return;
     } catch { /* noop */ }
@@ -38,14 +42,14 @@ export function SoftSignupBanner({ onSignup }: { onSignup: () => void }) {
       window.removeEventListener('scroll', onScroll);
       window.clearTimeout(timer);
     };
-  }, [isAuthenticated, needsOnboarding]);
+  }, [isAuthenticated, needsOnboarding, onAuthFlow]);
 
   const dismiss = () => {
     setShow(false);
     try { sessionStorage.setItem(DISMISS_KEY, '1'); } catch { /* noop */ }
   };
 
-  if (!show || isAuthenticated || needsOnboarding) return null;
+  if (!show || isAuthenticated || needsOnboarding || onAuthFlow) return null;
 
   return (
     <div

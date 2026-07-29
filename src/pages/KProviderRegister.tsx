@@ -33,11 +33,11 @@ function useToggleList(initial: string[] = []) {
   return [list, toggle] as const;
 }
 
-export function KProviderRegister({ typeKey }: { typeKey: KType }) {
+export function KProviderRegister({ typeKey, onSuccess, complete = false }: { typeKey: KType; onSuccess?: () => void; complete?: boolean }) {
   const { t } = useTranslation();
   const countryLabel = useCountryLabel();
   const catLabel = useCatLabel();
-  const { signUp } = useAuth();
+  const { signUp, completeProfile } = useAuth();
   const toast = useToast();
   const Icon = ICONS[typeKey];
   const cfg = K_CONFIG[typeKey];
@@ -50,6 +50,10 @@ export function KProviderRegister({ typeKey }: { typeKey: KType }) {
   const [otherOffering, setOtherOffering] = useState('');
   // Contacto
   const [whatsapp, setWhatsapp] = useState('');
+  const [instagram, setInstagram] = useState('');
+  const [tiktok, setTiktok] = useState('');
+  const [facebook, setFacebook] = useState('');
+  const [linkedin, setLinkedin] = useState('');
   const [contactEmail, setContactEmail] = useState('');
   const [website, setWebsite] = useState('');
   const [country, setCountry] = useState('');
@@ -94,11 +98,13 @@ export function KProviderRegister({ typeKey }: { typeKey: KType }) {
     const miss: string[] = [];
     if (name.trim().length < 2) miss.push(t('reg.miss.institution'));
     if (picked.includes('otro') && !otherOffering.trim()) miss.push(t('reg.miss.otherSpecify'));
-    if (!email.trim()) miss.push(t('reg.miss.email'));
-    if (email.trim() && !isStrictEmail(email)) miss.push(t('reg.miss.emailValid'));
-    if (email.trim().toLowerCase() !== confirmEmail.trim().toLowerCase()) miss.push(t('reg.miss.emailMatch'));
-    if (password.length < 8) miss.push(t('reg.miss.password'));
-    if (password !== confirmPassword) miss.push(t('reg.miss.passwordMatch'));
+    if (!complete) {
+      if (!email.trim()) miss.push(t('reg.miss.email'));
+      if (email.trim() && !isStrictEmail(email)) miss.push(t('reg.miss.emailValid'));
+      if (email.trim().toLowerCase() !== confirmEmail.trim().toLowerCase()) miss.push(t('reg.miss.emailMatch'));
+      if (password.length < 8) miss.push(t('reg.miss.password'));
+      if (password !== confirmPassword) miss.push(t('reg.miss.passwordMatch'));
+    }
     if (!acceptTerms) miss.push(t('reg.miss.terms'));
     if (!acceptRules) miss.push(t('reg.miss.rules'));
     if (!acceptManifesto) miss.push(t('reg.miss.manifesto'));
@@ -117,20 +123,23 @@ export function KProviderRegister({ typeKey }: { typeKey: KType }) {
     if (benefitTerms.trim()) details.benefit_terms = benefitTerms.trim();
     if (benefitValidator.trim()) details.benefit_validator = benefitValidator.trim();
 
-    const res = await signUp({
+    const payload = {
       email, password, fullName: name.trim(),
-      role: 'provider', providerType: typeKey, isCompany: true, businessName: name.trim(),
+      role: 'provider' as const, providerType: typeKey, isCompany: true, businessName: name.trim(),
       bio: description || null, website: website || null, whatsapp: whatsapp || null, rfc: isMexico ? (rfc || null) : null,
+      instagram: instagram || null, tiktok: tiktok || null, facebook: facebook || null, linkedin: linkedin || null,
       country: country || null, state: isMexico ? stateName : null, municipality: isMexico ? municipality : null,
       address: address || null,
       specialties: picked, // indexable para el buscador
       providerDetails: details,
       rulesVersion: RULES_VERSION,
-    });
+    };
+    const res = complete ? await completeProfile(payload) : await signUp(payload);
     setBusy(false);
     if (!res.ok) { toast.error(res.error); return; }
     if (logoUrl) toast.success(t('k.logoLater'));
     try { localStorage.setItem('neuromundi.pendingWelcome', '1'); } catch { /* ignore */ }
+    if (complete) { onSuccess?.(); return; }
     setDone(true);
   };
 
@@ -270,14 +279,29 @@ export function KProviderRegister({ typeKey }: { typeKey: KType }) {
           <div><label className={labelCls}>{t('k.validator')}</label><input className={inputCls} value={benefitValidator} onChange={(e) => setBenefitValidator(e.target.value)} /></div>
         </section>
 
+        {/* Redes sociales (opcional) */}
+        <section className="space-y-4">
+          <h3 className={sectionTitle}>{t('reg.socialOptional')}</h3>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <div><label className={labelCls}>{t('reg.instagram')}</label><input className={inputCls} value={instagram} onChange={(e) => setInstagram(e.target.value)} placeholder="@usuario" /></div>
+            <div><label className={labelCls}>{t('reg.tiktok')}</label><input className={inputCls} value={tiktok} onChange={(e) => setTiktok(e.target.value)} placeholder="@usuario" /></div>
+            <div><label className={labelCls}>{t('reg.facebook')}</label><input className={inputCls} value={facebook} onChange={(e) => setFacebook(e.target.value)} placeholder="https://facebook.com/…" /></div>
+            <div><label className={labelCls}>LinkedIn</label><input className={inputCls} value={linkedin} onChange={(e) => setLinkedin(e.target.value)} placeholder="https://linkedin.com/…" /></div>
+          </div>
+        </section>
+
         {/* 6. Cuenta */}
         <section className="space-y-4">
           <h3 className={sectionTitle}>{t('k.s6')}</h3>
           <div><label className={labelCls}>{t('k.contactName')}</label><input className={inputCls} value={contactName} onChange={(e) => setContactName(e.target.value)} /></div>
-          <div><label className={labelCls}>{t('auth.email')}</label><input type="email" className={inputCls} value={email} onChange={(e) => setEmail(e.target.value)} /></div>
-          <div><label className={labelCls}>{t('auth.confirmEmail')}</label><input type="email" inputMode="email" autoComplete="off" onPaste={(e) => e.preventDefault()} className={inputCls} value={confirmEmail} onChange={(e) => setConfirmEmail(e.target.value)} /></div>
-          <div><label className={labelCls}>{t('auth.password')}</label><PasswordInput className={inputCls} value={password} onChange={(e) => setPassword(e.target.value)} /></div>
-          <div><label className={labelCls}>{t('auth.confirmPassword')}</label><PasswordInput className={inputCls} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} /></div>
+          {!complete && (
+            <>
+              <div><label className={labelCls}>{t('auth.email')}</label><input type="email" className={inputCls} value={email} onChange={(e) => setEmail(e.target.value)} /></div>
+              <div><label className={labelCls}>{t('auth.confirmEmail')}</label><input type="email" inputMode="email" autoComplete="off" onPaste={(e) => e.preventDefault()} className={inputCls} value={confirmEmail} onChange={(e) => setConfirmEmail(e.target.value)} /></div>
+              <div><label className={labelCls}>{t('auth.password')}</label><PasswordInput className={inputCls} value={password} onChange={(e) => setPassword(e.target.value)} /></div>
+              <div><label className={labelCls}>{t('auth.confirmPassword')}</label><PasswordInput className={inputCls} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} /></div>
+            </>
+          )}
         </section>
 
         <label className="flex items-start gap-3 text-sm text-slate-700">
@@ -305,7 +329,7 @@ export function KProviderRegister({ typeKey }: { typeKey: KType }) {
             </ul>
           </div>
         )}
-        <Button type="submit" loading={busy} fullWidth>{t('auth.createAccount')}</Button>
+        <Button type="submit" loading={busy} fullWidth>{complete ? t('onb.finish') : t('auth.createAccount')}</Button>
       </form>
 
       <aside className="hidden lg:block">

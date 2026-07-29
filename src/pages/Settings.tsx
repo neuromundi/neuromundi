@@ -33,24 +33,26 @@ const labelCls = 'mb-1 block font-semibold text-slate-900';
 function PushSection() {
   const { t } = useTranslation();
   const { state, enable } = usePushSubscribe();
-  if (state === 'unsupported' || state === 'unconfigured') return null;
+  // Cuando ya está concedido, esta tarjeta solo repetía "activadas" (sin acción)
+  // y duplicaba a la sección "Notificaciones push" (NotificationPrefs), que ya
+  // gestiona el estado y las categorías. Se muestra únicamente cuando falta
+  // activarlo o está bloqueado en el navegador.
+  if (state === 'unsupported' || state === 'unconfigured' || state === 'granted') return null;
   return (
     <section className="flex items-center justify-between gap-3 rounded-2xl border border-slate-100 p-4">
       <span className="flex items-center gap-2 font-semibold text-slate-900">
         <BellRing className="h-5 w-5 text-brand-600" aria-hidden="true" />
-        {state === 'granted' ? t('push.on') : t('push.title')}
+        {t('push.title')}
       </span>
-      {state !== 'granted' && (
-        <Button
-          variant="secondary"
-          size="sm"
-          loading={state === 'busy'}
-          disabled={state === 'denied'}
-          onClick={() => void enable()}
-        >
-          {state === 'denied' ? t('push.blocked') : t('push.enable')}
-        </Button>
-      )}
+      <Button
+        variant="secondary"
+        size="sm"
+        loading={state === 'busy'}
+        disabled={state === 'denied'}
+        onClick={() => void enable()}
+      >
+        {state === 'denied' ? t('push.blocked') : t('push.enable')}
+      </Button>
     </section>
   );
 }
@@ -217,10 +219,13 @@ export function Settings() {
     toast[res.ok ? 'success' : 'error'](res.ok ? t('settings.photoToast') : res.error);
   };
 
-  const finishAccountFlow = async () => {
+  const finishAccountFlow = () => {
+    // La cuenta ya fue borrada y `deleteAccount` limpió la sesión SOLO en el
+    // cliente (sin llamar a `/auth/v1/logout`, que daría 403 porque el usuario
+    // ya no existe). Recargamos en la home con `assign` para reiniciar el
+    // cliente de Supabase sin rastro del token. NO llamamos signOut aquí.
     setShowAccountFlow(false);
-    await signOut();
-    navigate('/');
+    window.location.assign('/');
   };
 
   return (

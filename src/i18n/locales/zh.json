@@ -199,8 +199,11 @@
       "animals": "动物 / 动物辅助治疗",
       "perinatal": "围产期",
       "executive": "教育与执行功能",
-      "products": "辅助产品"
-    }
+      "products": "辅助产品",
+      "arts": "艺术与音乐"
+    },
+    "neuroFilter": "神经肯定",
+    "neuroHint": "仅显示获得 Neuromundi 神经肯定认证的服务者。"
   },
   "card": {
     "evs": "EVS",
@@ -524,7 +527,9 @@
     "stockHint": "留空则不管理库存。",
     "soldOut": "售罄",
     "inStock": "库存 {{n}}",
-    "errStock": "库存不能为负。"
+    "errStock": "库存不能为负。",
+    "storeSubcategory": "子类别",
+    "noSubcategory": "无子类别"
   },
   "lang": {
     "label": "语言"
@@ -714,7 +719,10 @@
         "winback": "注销（费用）"
       }
     },
-    "secImprove": "改进"
+    "secImprove": "改进",
+    "neuroOn": "神经肯定",
+    "neuroGrant": "授予认证",
+    "neuroRevoke": "撤销认证"
   },
   "reg": {
     "typePatient": "患者",
@@ -868,7 +876,9 @@
     "bodyNote": "以下内容以西班牙语作为基础提供；请替换为你最终的法律文本。"
   },
   "intro": {
-    "skip": "跳过介绍"
+    "skip": "跳过介绍",
+    "mute": "静音",
+    "unmute": "取消静音"
   },
   "access": {
     "title": "欢迎来到 Neuromundi",
@@ -1512,7 +1522,8 @@
     "acceptTerms": "我接受条款与隐私政策。",
     "acceptRules": "我已阅读并接受规则与免责声明。",
     "finish": "完成注册",
-    "cancel": "取消并退出"
+    "cancel": "取消并退出",
+    "pickRequired": "请选择你的账户类型以继续。"
   },
   "a11y": {
     "title": "无障碍",
@@ -1847,8 +1858,8 @@
     "errComplete": "请完成必填项（名称、邮箱和密码）。"
   },
   "cat": {
-    "tea": "自闭症谱系（ASD）",
-    "tdah": "多动症",
+    "tea": "自闭症谱系障碍（ASD）",
+    "tdah": "注意缺陷多动障碍（ADHD）",
     "lenguaje": "语言与言语障碍",
     "aprendizaje": "学习困难",
     "sensorial": "感觉处理",
@@ -1863,12 +1874,12 @@
     "integracion_sensorial": "感觉统合",
     "modificacion_conducta": "行为矫正",
     "lenguaje_habla": "语言与言语",
-    "motricidad": "运动与心理运动",
-    "autonomia": "自主与日常生活",
-    "consultorio": "私人诊室",
+    "motricidad": "运动与精神运动",
+    "autonomia": "自主与日常生活活动",
+    "consultorio": "私人诊所",
     "online": "线上",
     "domicilio": "上门",
-    "escuelas": "在校",
+    "escuelas": "校内服务",
     "0_3": "0–3岁",
     "3_6": "3–6岁",
     "6_12": "6–12岁",
@@ -1884,27 +1895,27 @@
     "equinoterapia": "马术治疗",
     "yoga_adaptado": "适应性瑜伽",
     "artes_marciales": "武术",
-    "danza_movimiento": "舞蹈与运动",
+    "danza_movimiento": "舞蹈与律动",
     "acondicionamiento": "体能训练",
     "hoteles_sensory": "感官友好酒店",
-    "tours_adaptados": "适应性旅游",
-    "campamentos": "融合营地",
+    "tours_adaptados": "适应性行程",
+    "campamentos": "包容性营地",
     "transporte_accesible": "无障碍交通",
-    "experiencias_calma": "低感官体验",
+    "experiencias_calma": "低感官负荷体验",
     "derechos_discapacidad": "残障与权利",
-    "tutela_curatela": "监护",
+    "tutela_curatela": "监护/保佐",
     "educacion_inclusiva": "融合教育权利",
-    "seguridad_social": "社会保障／养老金",
-    "laboral_inclusivo": "职场融合",
+    "seguridad_social": "社会保障/养老金",
+    "laboral_inclusivo": "就业融合",
     "apoyo_familias": "家庭支持",
     "grupos_padres": "家长小组",
-    "becas": "奖学金与援助",
+    "becas": "奖助金",
     "sensibilizacion": "宣传倡导",
     "voluntariado": "志愿服务",
-    "defensa_derechos": "权益倡导",
+    "defensa_derechos": "权利倡导",
     "acompanamiento_casa": "居家陪伴",
-    "respiro_familiar": "家庭喘息",
-    "sombra_escolar": "校园陪读",
+    "respiro_familiar": "家庭喘息服务",
+    "sombra_escolar": "校园支持（影随）",
     "cuidado_adultos": "成人照护",
     "traslados": "接送与陪同",
     "presencial": "面对面",
@@ -1914,7 +1925,7 @@
     "logopedia": "言语治疗",
     "fisioterapia": "物理治疗",
     "terapia_ocupacional": "职业治疗",
-    "psicopedagogia": "心理教育学",
+    "psicopedagogia": "教育心理/学习辅导",
     "psiquiatria": "精神科",
     "evaluacion": "评估与诊断",
     "terapia": "常规治疗",
@@ -1928,14 +1939,14 @@
     "aula_recursos": "资源教室",
     "grupos_reducidos": "小组",
     "curriculo_adaptado": "适应性课程（UDL）",
-    "terapias": "校内治疗",
+    "terapias": "治疗与干预",
     "sombra": "影子老师",
     "adecuaciones": "课程调整",
     "sensorial_school": "低感官负荷空间",
-    "alimentacion": "喂养与适配餐具",
+    "alimentacion": "饮食与适应餐具",
     "crianza": "养育与家庭",
     "derechos": "权利与手续",
-    "diagnostico": "诊断与早期识别",
+    "diagnostico": "诊断与早期发现",
     "educacion": "教育与校园融合",
     "emocional": "情绪健康",
     "historias": "故事与见证",
@@ -1944,11 +1955,173 @@
     "libros": "图书与资源",
     "socioemocional": "社交与情绪技能",
     "tecnologia": "辅助技术",
-    "vestimenta": "适配服装与配饰",
+    "vestimenta": "适应性服饰与配件",
     "salud": "健康",
     "recreacion": "娱乐与休闲",
     "productos": "产品与材料",
-    "servicios": "专业服务"
+    "servicios": "专业服务",
+    "psicologia_infantil": "儿童心理学",
+    "paidopsiquiatria": "儿童精神科",
+    "neurologia": "神经内科",
+    "pediatria": "儿科",
+    "genetica_medica": "医学遗传学",
+    "medicina_rehabilitacion": "康复医学",
+    "neuropsicologia": "神经心理学",
+    "nutricion": "营养",
+    "musicoterapia": "音乐治疗",
+    "psicomotricidad": "精神运动疗法",
+    "lactancia": "哺乳咨询（IBCLC）",
+    "consultoria_sueno": "儿童睡眠咨询",
+    "asesoria_porteo": "背巾咨询",
+    "terapia_miofuncional": "口肌功能治疗",
+    "optometria_comportamental": "行为视光/视觉训练",
+    "neurofeedback": "神经反馈/生物反馈",
+    "terapia_neurosensorial": "神经感觉治疗（Tomatis、Bérard、SSP）",
+    "arteterapia": "艺术治疗",
+    "coaching_ejecutivo": "执行功能辅导",
+    "acompanante_terapeutico": "治疗陪伴（影随支持）",
+    "transicion_vida_independiente": "过渡/独立生活专家",
+    "terapia_familiar": "家庭与系统治疗",
+    "trabajo_social": "社会工作",
+    "accesibilidad_cognitiva": "认知无障碍咨询（B2B）",
+    "odontologia_inclusiva": "神经多样性患者牙科",
+    "taa_equinoterapia": "马术治疗/骑马疗法",
+    "taa_perros": "犬辅助治疗",
+    "taa_granja": "治疗农场",
+    "entrenador_psaa": "辅助犬训练师（PSAA）",
+    "certificador_aae": "情感支持动物评估/认证师",
+    "adiestramiento_positivo": "正向犬训练",
+    "veterinaria_neurofriendly": "低刺激（神经友好）兽医",
+    "cuidado_mascotas_nf": "宠物照护与遛狗（神经友好）",
+    "arfid_selectividad": "进食选择性/ARFID",
+    "mutismo_selectivo": "选择性缄默",
+    "dislexia": "阅读障碍",
+    "discalculia": "计算障碍",
+    "disgrafia": "书写障碍",
+    "dispraxia": "运动协调障碍",
+    "altas_capacidades": "高天赋/双重特殊（2e）",
+    "tourette": "图雷特综合征/抽动",
+    "tpac": "中枢听觉处理障碍",
+    "sordoceguera": "多重障碍/聋盲",
+    "trastornos_sueno": "睡眠障碍",
+    "trauma_tept": "创伤/创伤后应激障碍",
+    "saac": "扩大与替代沟通（AAC）",
+    "adaptacion_curricular": "课程调整/合理便利",
+    "vida_independiente": "独立生活/过渡",
+    "psicoeducacion_familia": "心理教育/家庭学堂",
+    "grupos_pares": "同伴支持小组",
+    "regulacion_emocional": "情绪调节",
+    "estimulacion_auditiva": "听觉刺激（Tomatis / Bérard）",
+    "regulacion_polivagal": "多迷走调节（SSP）",
+    "procesamiento_visual": "视觉处理/视觉训练",
+    "lactancia_motricidad_oral": "哺乳与口腔运动",
+    "neuropediatria_genetica": "小儿神经与遗传",
+    "lactancia_alimentacion": "哺乳与早期喂养",
+    "sueno": "儿童睡眠咨询",
+    "acompanamiento_escolar": "校园陪伴与融合",
+    "teleterapia": "远程治疗",
+    "clinic": "诊所/治疗中心",
+    "gabinete": "影像中心",
+    "laboratorio": "化验室",
+    "perinatal": "围产期与早期喂养",
+    "neurosensorial_tech": "神经感觉科技",
+    "mascotas_nf": "神经友好宠物",
+    "fisica": "实体店",
+    "whatsapp": "WhatsApp 销售",
+    "distribuidores": "授权经销商",
+    "local": "本地",
+    "nacional": "全国",
+    "internacional": "国际",
+    "qr_fisica": "实体店（柜台扫码）",
+    "cupon_online": "线上商店（结账动态优惠券）",
+    "dr": "博士",
+    "dra": "博士",
+    "lic": "学士",
+    "mtro": "硕士",
+    "mtra": "硕士",
+    "ing": "工程师",
+    "psic": "心理师",
+    "to": "职能治疗师",
+    "fga": "言语治疗师",
+    "fgo": "言语治疗师",
+    "ss_regulacion": "感觉调节与安抚",
+    "ss_propiocepcion": "本体觉与深压",
+    "ss_auditivo": "听觉调节",
+    "ss_visual": "视觉调节与滤光",
+    "com_saac": "扩大替代（AAC）系统",
+    "com_pecs": "视觉支持（PECS）",
+    "com_logopedico": "言语治疗材料",
+    "cog_organizacion": "组织与时间管理",
+    "cog_estimulacion": "认知刺激",
+    "cog_software": "辅助软件与技术",
+    "mot_fina": "精细动作与书写",
+    "mot_gruesa": "大动作",
+    "mot_ergonomia": "定位与人体工学",
+    "aut_alimentacion": "适应性喂食",
+    "aut_higiene": "卫生与个人护理",
+    "aut_vestido": "穿衣与自理",
+    "soc_emocional": "情绪智力",
+    "soc_cooperativo": "合作游戏",
+    "soc_cuentos": "社交情绪绘本",
+    "jue_sensorial": "感官游戏",
+    "jue_construccion": "搭建与拼插",
+    "jue_exterior": "户外游戏",
+    "apr_lectoescritura": "读写",
+    "apr_matematicas": "数学",
+    "apr_manipulativo": "操作教具",
+    "lib_infantil": "儿童读物",
+    "lib_familias": "家庭指南",
+    "lib_profesional": "专业资料",
+    "tec_saac": "AAC设备",
+    "tec_apps": "应用与许可",
+    "tec_temporizadores": "视觉计时器",
+    "ves_sensorial": "感官友好衣物（无缝）",
+    "ves_seguridad": "安全与定位",
+    "ves_calzado": "适应性鞋履",
+    "ali_utensilios": "适应性餐具",
+    "ali_texturas": "质地与过渡",
+    "ali_suplementos": "补充剂与营养",
+    "eve_talleres": "工作坊",
+    "eve_campamentos": "营地",
+    "eve_recreativos": "娱乐活动",
+    "eventos": "门票与活动",
+    "eeg": "脑电图（EEG）",
+    "qeeg": "脑电地形图（QEEG）",
+    "rmn": "磁共振（MRI）",
+    "tac": "CT（计算机断层）",
+    "radiografia": "常规X光",
+    "sangre": "血液检查/一般生化",
+    "multicorte": "多层CT",
+    "helicoidal": "螺旋CT",
+    "ambas": "门诊与上门",
+    "propio": "自有实验室",
+    "externo": "外部处理（外包）",
+    "arte": "艺术",
+    "artesania": "手工艺",
+    "art_materiales": "美术用品",
+    "art_pintura": "绘画",
+    "art_modelado": "造型与雕塑",
+    "art_expresivo": "治疗性与表达性艺术",
+    "art_musica": "音乐与乐器",
+    "craft_textil": "纺织（编织与刺绣）",
+    "craft_ceramica": "陶艺",
+    "craft_joyeria": "首饰与饰品",
+    "craft_madera": "木工",
+    "craft_hechomano": "手工制品",
+    "danzaterapia": "舞动治疗",
+    "profesor_musica_adaptada": "适性乐器与声乐教师",
+    "instructor_artes_visuales": "视觉与数字艺术导师",
+    "coach_teatro": "戏剧与形体表达教练",
+    "organizador_eventos_sensory": "感官友好活动策划者",
+    "director_ensamble_nd": "神经多样性合唱团/乐团指挥",
+    "gestor_colectivo_artistico": "艺术团体负责人",
+    "mentor_artistas": "艺术家与创意人才导师",
+    "agente_talento_inclusivo": "包容性人才经纪人",
+    "expresion_creativa": "艺术与创意表达",
+    "movimiento_danza": "运动与治疗性舞蹈",
+    "teatro_rol": "戏剧与社交角色扮演",
+    "ocio_sensorial": "感官友好休闲与活动",
+    "arte_musica": "适性艺术与音乐"
   },
   "kit": {
     "badge": "工具包",
@@ -2056,7 +2229,7 @@
     "tabs": {
       "families": "家庭与患者",
       "professionals": "专业人士",
-      "providers": "服务提供者"
+      "providers": "产品供应商"
     },
     "title": "加入起点！成为 Neuromundi 创始会员",
     "groups": {
@@ -2107,7 +2280,19 @@
           "至少向 10 人推荐 Neuromundi。"
         ]
       }
-    }
+    },
+    "allBenefits": [
+      "个人主页显示“Soy Fundador Neuromundi”徽章。（所有人）",
+      "在搜索中获得推荐与优先展示。（专家、商家与学校）",
+      "终身优惠会费。（专家、商家与学校）",
+      "与创始成员的折扣及首次免费咨询。（家庭与当事人）",
+      "免费或优先参加网络研讨会、工作坊与讲座。（所有人）",
+      "抢先阅读博客文章。（所有人）",
+      "你的问题或故事可在论坛置顶以获得更多支持。（家庭与当事人）",
+      "创始成员专属抽奖。（所有人）"
+    ],
+    "reqsBox": "获得并保持徽章的要求因身份而异。注册时可在表单的“创始计划”框中查看。",
+    "reqsBoxTitle": "各身份的要求"
   },
   "founderBadge": {
     "label": "创始会员",
@@ -3147,5 +3332,278 @@
     "adminCount": "{{n}} 条建议",
     "adminEmpty": "暂无建议。",
     "anon": "匿名"
+  },
+  "roleFeatures": {
+    "patient": {
+      "title": "使用您的账户（免费，永久）可以：",
+      "features": [
+        "浏览由社区验证的专家和商家目录",
+        "阅读其他人的真实评价和评分",
+        "预约线下或线上（内置视频通话）的服务",
+        "通过站内信直接联系服务方",
+        "使用工具包和 Academy 培训",
+        "当您寻找的专家上线时收到提醒",
+        "在商店以折扣购买支持类产品",
+        "安装应用并接收通知"
+      ]
+    },
+    "parent": {
+      "title": "使用您的家庭账户（免费，永久）可以：",
+      "features": [
+        "浏览由社区验证的专家和商家目录",
+        "阅读其他家庭的真实评价和评分",
+        "预约线下或线上（内置视频通话）的服务",
+        "通过站内信直接联系服务方",
+        "按年龄跟踪发展里程碑指南",
+        "保存清单以整理您的搜索",
+        "接收预约提醒和新专家提醒",
+        "以折扣购买支持类产品并安装应用"
+      ]
+    },
+    "service_provider": {
+      "title": "使用您的服务方账户可以：",
+      "features": [
+        "在目录中拥有带地图定位的资料页",
+        "获得官方徽章和可下载的“杰出伙伴”表彰",
+        "通过可嵌入的小组件和带停用/休假的日程接受预约",
+        "以视频通话和可选收费处理线下或线上预约",
+        "使用模板和视频链接通过站内信沟通",
+        "查看资料页的数据（浏览与联系）",
+        "通过推送、邮件和短信管理候补名单和活动",
+        "参与推荐计划并通过 Stripe Connect 直接收款"
+      ]
+    },
+    "merchant": {
+      "title": "使用您的商家账户可以：",
+      "features": [
+        "在商店上架产品并进行库存管理",
+        "通过 Stripe Connect 获得 100% 销售额（平台不收取佣金）",
+        "提供推广码并管理您的佣金台账",
+        "获得产品评价并出现在精选中",
+        "拥有目录资料页并与客户站内沟通"
+      ]
+    },
+    "school": {
+      "title": "使用您的学校账户可以：",
+      "features": [
+        "发布学校融合方案：招生与所服务的年级",
+        "在目录中显示带地图定位的资料",
+        "通过站内信与家庭安排和沟通",
+        "获得徽章和社区评价",
+        "通过 Stripe Connect 直接收取可选服务费"
+      ]
+    },
+    "clinic": {
+      "title": "使用您的诊所／中心账户可以：",
+      "features": [
+        "在目录中发布带地图定位的诊所或中心",
+        "为团队提供带停用/休假的日程与预约",
+        "以视频通话和可选收费处理线下或线上预约",
+        "发布您的服务（评估、治疗、影像、检验）",
+        "通过站内信与家庭和患者沟通",
+        "获得徽章、数据和社区评价",
+        "通过 Stripe Connect 直接收款到账户"
+      ]
+    },
+    "wellness": {
+      "title": "使用您的适应性健康与活动账户可以：",
+      "features": [
+        "在目录中展示您的活动（游泳、马术治疗、瑜伽等）",
+        "接受预约并管理日程",
+        "通过站内信与家庭沟通",
+        "获得徽章和社区评价",
+        "通过 Stripe Connect 直接收款到账户"
+      ]
+    },
+    "tourism": {
+      "title": "使用您的无障碍旅游账户可以：",
+      "features": [
+        "发布感官友好体验、行程和包容性营地",
+        "在目录中显示带地图定位的资料",
+        "接受家庭的预约和消息",
+        "获得社区评价",
+        "通过 Stripe Connect 直接收款到账户"
+      ]
+    },
+    "legal": {
+      "title": "使用您的法律服务账户可以：",
+      "features": [
+        "按领域（权利、监护、融合等）在目录中展示",
+        "预约线下或线上（视频通话）咨询",
+        "通过站内信与家庭沟通",
+        "获得社区评价",
+        "通过 Stripe Connect 直接收款到账户"
+      ]
+    },
+    "ngo": {
+      "title": "使用您的机构／NGO 账户可以：",
+      "features": [
+        "在目录中传播您的支持、奖学金、团体和活动",
+        "通过站内信与家庭沟通",
+        "加入伙伴墙并接收捐赠",
+        "在社区获得评价和曝光"
+      ]
+    },
+    "caregiver": {
+      "title": "使用您的照护者／陪伴者账户可以：",
+      "features": [
+        "按您的服务（陪伴、喘息、校园影随等）在目录中展示",
+        "接受预约并管理日程",
+        "通过站内信与家庭沟通",
+        "获得徽章和社区评价",
+        "通过 Stripe Connect 直接收款到账户"
+      ]
+    }
+  },
+  "milestones": {
+    "0-6m": {
+      "motor": [
+        "俯卧时抬头",
+        "用眼睛追随物体",
+        "把手放到嘴边"
+      ],
+      "lenguaje": [
+        "对声音和话语有反应",
+        "发出声音（咕咕声）",
+        "对人回以微笑"
+      ],
+      "social": [
+        "寻求目光接触",
+        "听到照护者的声音会安静",
+        "对面孔感兴趣"
+      ],
+      "cognitivo": [
+        "用嘴探索物体",
+        "对周围事物表现出好奇"
+      ]
+    },
+    "6-12m": {
+      "motor": [
+        "无支撑独坐",
+        "把物体在两手间传递",
+        "爬行或移动",
+        "扶着站起来"
+      ],
+      "lenguaje": [
+        "发出音节（ba-ba、da-da）",
+        "对自己的名字有反应",
+        "理解简单的“不”"
+      ],
+      "social": [
+        "玩躲猫猫",
+        "对照护者表现出依恋",
+        "模仿简单动作"
+      ],
+      "cognitivo": [
+        "寻找被藏起来的物体",
+        "通过敲打或摇晃探索物体"
+      ]
+    },
+    "12-24m": {
+      "motor": [
+        "独立行走",
+        "扶着上台阶",
+        "叠积木",
+        "涂鸦"
+      ],
+      "lenguaje": [
+        "说出若干单词",
+        "指出想要的东西",
+        "听从简单指令",
+        "把两个词组合"
+      ],
+      "social": [
+        "模仿家务",
+        "在其他孩子旁边玩",
+        "表现出感情"
+      ],
+      "cognitivo": [
+        "认识熟悉的物体和人",
+        "开始假装游戏（喂娃娃）"
+      ]
+    },
+    "2-3a": {
+      "motor": [
+        "奔跑和跳跃",
+        "踢球",
+        "自己用勺子吃饭",
+        "帮忙穿衣"
+      ],
+      "lenguaje": [
+        "组成2-3个词的短句",
+        "大部分话能被听懂",
+        "说出常见物体的名称"
+      ],
+      "social": [
+        "与其他孩子并肩玩耍",
+        "表达基本情绪",
+        "开始轮流"
+      ],
+      "cognitivo": [
+        "按形状或颜色分类",
+        "完成简单拼图",
+        "听从两步指令"
+      ]
+    },
+    "3-4a": {
+      "motor": [
+        "交替双脚上下楼梯",
+        "画圆",
+        "在监督下使用剪刀"
+      ],
+      "lenguaje": [
+        "讲述自己做过的事",
+        "提问（“为什么？”）",
+        "几乎都能被听懂"
+      ],
+      "social": [
+        "与他人合作游戏",
+        "有时会分享",
+        "遵守简单游戏规则"
+      ],
+      "cognitivo": [
+        "理解数量概念（“多”“少”）",
+        "说出一些颜色",
+        "拼简单的拼图"
+      ]
+    },
+    "4-6a": {
+      "motor": [
+        "单脚跳",
+        "自己穿衣",
+        "画出可辨认的图形",
+        "熟练使用铅笔和剪刀"
+      ],
+      "lenguaje": [
+        "讲故事",
+        "使用完整、通顺的句子",
+        "认识一些字母或数字"
+      ],
+      "social": [
+        "结交朋友",
+        "理解规则和轮流",
+        "表达并说出情绪"
+      ],
+      "cognitivo": [
+        "数物体",
+        "理解时间（之前/之后）",
+        "解决简单问题"
+      ]
+    }
+  },
+  "neuro": {
+    "seal": "神经肯定",
+    "sealHint": "经 Neuromundi 认证为神经肯定型服务者：灵活、有同理心、感官友好。",
+    "profileTitle": "神经肯定档案",
+    "sensory": "感官环境",
+    "flexibility": "灵活性",
+    "empathy": "同理心对待",
+    "profileNote": "家庭在这些维度上的评价平均分。"
+  },
+  "founderCongrats": {
+    "title": "恭喜，你已成为创始成员！",
+    "body": "你的个人主页现已显示“Soy Fundador Neuromundi”徽章。你有3个月时间满足身份要求以保留它；否则徽章将被自动移除。",
+    "reqs": "查看我的要求",
+    "ok": "明白了"
   }
 }

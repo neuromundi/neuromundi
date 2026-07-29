@@ -8,12 +8,19 @@ describe('resolveInitialLanguage', () => {
     expect(resolveInitialLanguage('es-ES', null)).toBe('es');
   });
 
-  it('cualquier otro idioma del navegador → inglés (regla del requisito)', () => {
-    expect(resolveInitialLanguage('fr-FR', null)).toBe('en');
-    expect(resolveInitialLanguage('de', null)).toBe('en');
-    expect(resolveInitialLanguage('ja', null)).toBe('en');
-    expect(resolveInitialLanguage('zh-CN', null)).toBe('en');
-    expect(resolveInitialLanguage('pt-BR', null)).toBe('en');
+  it('idioma del navegador soportado → ese idioma', () => {
+    expect(resolveInitialLanguage('fr-FR', null)).toBe('fr');
+    expect(resolveInitialLanguage('de', null)).toBe('de');
+    expect(resolveInitialLanguage('ja', null)).toBe('ja');
+    expect(resolveInitialLanguage('zh-CN', null)).toBe('zh');
+    expect(resolveInitialLanguage('pt-BR', null)).toBe('pt');
+    expect(resolveInitialLanguage('it', null)).toBe('it');
+  });
+
+  it('idioma del navegador NO soportado → inglés', () => {
+    expect(resolveInitialLanguage('ru-RU', null)).toBe('en');
+    expect(resolveInitialLanguage('ko', null)).toBe('en');
+    expect(resolveInitialLanguage('', null)).toBe('en');
   });
 
   it('una elección guardada válida tiene prioridad sobre el navegador', () => {
@@ -21,7 +28,8 @@ describe('resolveInitialLanguage', () => {
     expect(resolveInitialLanguage('es-MX', 'de')).toBe('de');
   });
 
-  it('una elección guardada inválida se ignora', () => {
-    expect(resolveInitialLanguage('fr-FR', 'xx')).toBe('en');
+  it('una elección guardada inválida se ignora (usa el navegador)', () => {
+    expect(resolveInitialLanguage('fr-FR', 'xx')).toBe('fr');
+    expect(resolveInitialLanguage('ru-RU', 'xx')).toBe('en');
   });
 });

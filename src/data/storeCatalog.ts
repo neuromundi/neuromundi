@@ -1,22 +1,142 @@
 /**
  * storeCatalog — clasificación de la Tienda Neuromundi, orientada al
  * neurodesarrollo y la neurodiversidad. `value` = clave canónica indexable.
+ * Cada categoría tiene subcategorías (`sub`); ambas se localizan por i18n con
+ * `cat.<value>` (respaldo en español en el `label`).
  */
 import type { CatItem } from '@/data/specialistCatalog';
 
-export const STORE_CATEGORIES: CatItem[] = [
-  { value: 'sensorial', label: 'Regulación y procesamiento sensorial' },
-  { value: 'comunicacion', label: 'Comunicación y lenguaje (CAA/SAAC)' },
-  { value: 'cognitivo', label: 'Cognición y funciones ejecutivas' },
-  { value: 'motricidad', label: 'Motricidad y psicomotricidad' },
-  { value: 'autonomia', label: 'Autonomía y vida diaria' },
-  { value: 'socioemocional', label: 'Habilidades sociales y emocionales' },
-  { value: 'juego', label: 'Juego y ocio inclusivo' },
-  { value: 'aprendizaje', label: 'Aprendizaje y material educativo' },
-  { value: 'libros', label: 'Libros y recursos' },
-  { value: 'tecnologia', label: 'Tecnología de apoyo' },
-  { value: 'vestimenta', label: 'Ropa y accesorios adaptados' },
-  { value: 'alimentacion', label: 'Alimentación y utensilios adaptados' },
-  { value: 'eventos', label: 'Boletos y eventos' },
+export interface StoreCategory {
+  value: string;
+  label: string;
+  sub?: CatItem[];
+}
+
+export const STORE_CATEGORIES: StoreCategory[] = [
+  {
+    value: 'sensorial', label: 'Regulación y procesamiento sensorial',
+    sub: [
+      { value: 'ss_regulacion', label: 'Regulación y calma sensorial' },
+      { value: 'ss_propiocepcion', label: 'Propiocepción y presión profunda' },
+      { value: 'ss_auditivo', label: 'Regulación auditiva' },
+      { value: 'ss_visual', label: 'Regulación visual y filtros' },
+    ],
+  },
+  {
+    value: 'comunicacion', label: 'Comunicación y lenguaje (CAA/SAAC)',
+    sub: [
+      { value: 'com_saac', label: 'Sistemas aumentativos (SAAC)' },
+      { value: 'com_pecs', label: 'Recursos visuales (PECS)' },
+      { value: 'com_logopedico', label: 'Material logopédico' },
+    ],
+  },
+  {
+    value: 'cognitivo', label: 'Cognición y funciones ejecutivas',
+    sub: [
+      { value: 'cog_organizacion', label: 'Organización y gestión del tiempo' },
+      { value: 'cog_estimulacion', label: 'Estimulación cognitiva' },
+      { value: 'cog_software', label: 'Software y tecnología de apoyo' },
+    ],
+  },
+  {
+    value: 'motricidad', label: 'Motricidad y psicomotricidad',
+    sub: [
+      { value: 'mot_fina', label: 'Motricidad fina y grafomotricidad' },
+      { value: 'mot_gruesa', label: 'Motricidad gruesa' },
+      { value: 'mot_ergonomia', label: 'Posicionamiento y ergonomía' },
+    ],
+  },
+  {
+    value: 'autonomia', label: 'Autonomía y vida diaria',
+    sub: [
+      { value: 'aut_alimentacion', label: 'Alimentación adaptada' },
+      { value: 'aut_higiene', label: 'Higiene y cuidado personal' },
+      { value: 'aut_vestido', label: 'Vestido y autonomía' },
+    ],
+  },
+  {
+    value: 'socioemocional', label: 'Habilidades sociales y emocionales',
+    sub: [
+      { value: 'soc_emocional', label: 'Inteligencia emocional' },
+      { value: 'soc_cooperativo', label: 'Juego cooperativo' },
+      { value: 'soc_cuentos', label: 'Cuentos socioemocionales' },
+    ],
+  },
+  {
+    value: 'juego', label: 'Juego y ocio inclusivo',
+    sub: [
+      { value: 'jue_sensorial', label: 'Juego sensorial' },
+      { value: 'jue_construccion', label: 'Construcción y encaje' },
+      { value: 'jue_exterior', label: 'Juego al aire libre' },
+    ],
+  },
+  {
+    value: 'aprendizaje', label: 'Aprendizaje y material educativo',
+    sub: [
+      { value: 'apr_lectoescritura', label: 'Lectoescritura' },
+      { value: 'apr_matematicas', label: 'Matemáticas' },
+      { value: 'apr_manipulativo', label: 'Material manipulativo' },
+    ],
+  },
+  {
+    value: 'libros', label: 'Libros y recursos',
+    sub: [
+      { value: 'lib_infantil', label: 'Cuentos infantiles' },
+      { value: 'lib_familias', label: 'Guías para familias' },
+      { value: 'lib_profesional', label: 'Material profesional' },
+    ],
+  },
+  {
+    value: 'tecnologia', label: 'Tecnología de apoyo',
+    sub: [
+      { value: 'tec_saac', label: 'Dispositivos SAAC' },
+      { value: 'tec_apps', label: 'Apps y licencias' },
+      { value: 'tec_temporizadores', label: 'Temporizadores visuales' },
+    ],
+  },
+  {
+    value: 'vestimenta', label: 'Ropa y accesorios adaptados',
+    sub: [
+      { value: 'ves_sensorial', label: 'Ropa sensorial (sin costuras)' },
+      { value: 'ves_seguridad', label: 'Seguridad y localización' },
+      { value: 'ves_calzado', label: 'Calzado adaptado' },
+    ],
+  },
+  {
+    value: 'alimentacion', label: 'Alimentación y utensilios adaptados',
+    sub: [
+      { value: 'ali_utensilios', label: 'Utensilios adaptados' },
+      { value: 'ali_texturas', label: 'Texturas y transición' },
+      { value: 'ali_suplementos', label: 'Suplementos y nutrición' },
+    ],
+  },
+  {
+    value: 'eventos', label: 'Boletos y eventos',
+    sub: [
+      { value: 'eve_talleres', label: 'Talleres' },
+      { value: 'eve_campamentos', label: 'Campamentos' },
+      { value: 'eve_recreativos', label: 'Eventos recreativos' },
+    ],
+  },
+  {
+    value: 'arte', label: 'Arte',
+    sub: [
+      { value: 'art_materiales', label: 'Materiales de arte' },
+      { value: 'art_pintura', label: 'Pintura y dibujo' },
+      { value: 'art_modelado', label: 'Modelado y escultura' },
+      { value: 'art_expresivo', label: 'Arte terapéutico y expresivo' },
+      { value: 'art_musica', label: 'Música e instrumentos' },
+    ],
+  },
+  {
+    value: 'artesania', label: 'Artesanía',
+    sub: [
+      { value: 'craft_textil', label: 'Textil (tejido y bordado)' },
+      { value: 'craft_ceramica', label: 'Cerámica y modelado' },
+      { value: 'craft_joyeria', label: 'Joyería y bisutería' },
+      { value: 'craft_madera', label: 'Trabajo en madera' },
+      { value: 'craft_hechomano', label: 'Productos hechos a mano' },
+    ],
+  },
   { value: 'otro', label: 'Otro' },
 ];

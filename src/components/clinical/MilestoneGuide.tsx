@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { Sparkles, Info, Plus, Check } from 'lucide-react';
 import { useToast } from '@/components/ui';
 import { useTracker } from '@/hooks/useTracker';
-import { MILESTONE_BANDS, MILESTONE_AREAS, milestoneLang, type MilestoneArea } from '@/data/milestonesGuide';
+import { MILESTONE_BANDS, MILESTONE_AREAS, type MilestoneArea } from '@/data/milestonesGuide';
 import { cn } from '@/lib/utils';
 
 const AREA_KEY: Record<MilestoneArea, string> = {
@@ -20,14 +20,12 @@ const AREA_KEY: Record<MilestoneArea, string> = {
 };
 
 export function MilestoneGuide() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const toast = useToast();
   const { add } = useTracker();
   const [bandId, setBandId] = useState(MILESTONE_BANDS[0].id);
   const [logged, setLogged] = useState<Set<string>>(new Set());
 
-  // Español si la app está en español; inglés en cualquier otro idioma.
-  const lang = milestoneLang(i18n.language);
   const band = useMemo(() => MILESTONE_BANDS.find((b) => b.id === bandId) ?? MILESTONE_BANDS[0], [bandId]);
 
   /** Etiqueta traducida del rango: meses hasta 24, luego años. */
@@ -77,11 +75,14 @@ export function MilestoneGuide() {
 
       {/* Hitos por área */}
       <div className="space-y-4">
-        {MILESTONE_AREAS.map((area) => (
+        {MILESTONE_AREAS.map((area) => {
+          const raw = t(`milestones.${band.id}.${area}`, { returnObjects: true, defaultValue: [] });
+          const texts = Array.isArray(raw) ? (raw as string[]) : [];
+          return (
           <div key={area}>
             <h4 className="mb-1.5 text-sm font-semibold text-slate-900">{t(AREA_KEY[area])}</h4>
             <ul className="space-y-1.5">
-              {band.items[area][lang].map((text) => {
+              {texts.map((text) => {
                 const done = logged.has(text);
                 return (
                   <li key={text} className="flex items-start justify-between gap-2 rounded-lg border border-slate-100 p-2">
@@ -103,7 +104,8 @@ export function MilestoneGuide() {
               })}
             </ul>
           </div>
-        ))}
+          );
+        })}
       </div>
     </section>
   );

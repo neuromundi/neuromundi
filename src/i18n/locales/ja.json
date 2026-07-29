@@ -199,8 +199,11 @@
       "animals": "動物 / 動物介在療法",
       "perinatal": "周産期",
       "executive": "教育・実行機能",
-      "products": "支援製品"
-    }
+      "products": "支援製品",
+      "arts": "アート・音楽"
+    },
+    "neuroFilter": "ニューロアファーミング",
+    "neuroHint": "Neuromundiのニューロアファーミング認証を持つ提供者のみ表示。"
   },
   "card": {
     "evs": "EVS",
@@ -524,7 +527,9 @@
     "stockHint": "在庫を管理しない場合は空欄に。",
     "soldOut": "売り切れ",
     "inStock": "在庫{{n}}",
-    "errStock": "在庫を負の数にはできません。"
+    "errStock": "在庫を負の数にはできません。",
+    "storeSubcategory": "サブカテゴリ",
+    "noSubcategory": "サブカテゴリなし"
   },
   "lang": {
     "label": "言語"
@@ -714,7 +719,10 @@
         "winback": "解約（費用）"
       }
     },
-    "secImprove": "改善"
+    "secImprove": "改善",
+    "neuroOn": "ニューロアファーミング",
+    "neuroGrant": "認証を付与",
+    "neuroRevoke": "認証を取消"
   },
   "reg": {
     "typePatient": "患者",
@@ -868,7 +876,9 @@
     "bodyNote": "以下の内容はベースとしてスペイン語で記載しています。最終的な法務テキストに置き換えてください。"
   },
   "intro": {
-    "skip": "イントロをスキップ"
+    "skip": "イントロをスキップ",
+    "mute": "ミュート",
+    "unmute": "音を出す"
   },
   "access": {
     "title": "Neuromundi へようこそ",
@@ -1512,7 +1522,8 @@
     "acceptTerms": "利用規約とプライバシーポリシーに同意します。",
     "acceptRules": "規約と免責事項を読み、同意します。",
     "finish": "登録を完了",
-    "cancel": "キャンセルしてログアウト"
+    "cancel": "キャンセルしてログアウト",
+    "pickRequired": "続けるにはアカウントの種類を選んでください。"
   },
   "a11y": {
     "title": "アクセシビリティ",
@@ -1854,43 +1865,43 @@
     "sensorial": "感覚処理",
     "discapacidad_intelectual": "知的障害",
     "estimulacion_temprana": "早期療育",
-    "conducta": "行動管理",
-    "habilidades_sociales": "社会的スキル",
+    "conducta": "行動マネジメント",
+    "habilidades_sociales": "ソーシャルスキル",
     "funciones_ejecutivas": "実行機能",
     "sindrome_down": "ダウン症",
     "paralisis_cerebral": "脳性まひ",
     "otro": "その他",
     "integracion_sensorial": "感覚統合",
-    "modificacion_conducta": "行動変容",
-    "lenguaje_habla": "言語と発話",
+    "modificacion_conducta": "行動修正",
+    "lenguaje_habla": "言語・発話",
     "motricidad": "運動・精神運動",
-    "autonomia": "自立と日常生活",
-    "consultorio": "プライベート診療所",
+    "autonomia": "自立・日常生活動作",
+    "consultorio": "個人診療所",
     "online": "オンライン",
     "domicilio": "訪問",
-    "escuelas": "学校で",
+    "escuelas": "学校での対応",
     "0_3": "0〜3歳",
     "3_6": "3〜6歳",
     "6_12": "6〜12歳",
     "adolescentes": "思春期",
     "adultos": "成人",
     "sensorial_cat": "感覚調整・処理",
-    "cognitivo": "認知発達と実行機能",
-    "comunicacion": "コミュニケーションと言語",
+    "cognitivo": "認知発達・実行機能",
+    "comunicacion": "コミュニケーション・言語",
     "autonomia_cat": "自立・日常生活",
     "motricidad_cat": "運動・精神運動",
-    "social_emocional": "社会的スキルと情動教育",
+    "social_emocional": "ソーシャルスキル・感情教育",
     "natacion_adaptada": "適応水泳",
     "equinoterapia": "乗馬療法",
     "yoga_adaptado": "適応ヨガ",
     "artes_marciales": "武道",
-    "danza_movimiento": "ダンスと動き",
+    "danza_movimiento": "ダンス・ムーブメント",
     "acondicionamiento": "体力づくり",
-    "hoteles_sensory": "感覚配慮ホテル",
+    "hoteles_sensory": "感覚に優しいホテル",
     "tours_adaptados": "適応ツアー",
-    "campamentos": "インクルーシブキャンプ",
+    "campamentos": "インクルーシブ・キャンプ",
     "transporte_accesible": "アクセシブルな交通",
-    "experiencias_calma": "低刺激の体験",
+    "experiencias_calma": "低感覚負荷の体験",
     "derechos_discapacidad": "障害と権利",
     "tutela_curatela": "後見・保佐",
     "educacion_inclusiva": "インクルーシブ教育の権利",
@@ -1898,27 +1909,27 @@
     "laboral_inclusivo": "就労インクルージョン",
     "apoyo_familias": "家族支援",
     "grupos_padres": "保護者グループ",
-    "becas": "奨学金・支援",
+    "becas": "奨学金・助成",
     "sensibilizacion": "啓発",
     "voluntariado": "ボランティア",
     "defensa_derechos": "権利擁護",
-    "acompanamiento_casa": "在宅付き添い",
+    "acompanamiento_casa": "在宅付添",
     "respiro_familiar": "家族レスパイト",
-    "sombra_escolar": "学校付き添い",
+    "sombra_escolar": "就学支援（シャドー）",
     "cuidado_adultos": "成人ケア",
-    "traslados": "送迎・付き添い",
+    "traslados": "送迎・付添",
     "presencial": "対面",
     "hibrido": "ハイブリッド",
     "neuropediatria": "小児神経科",
     "psicologia_clinica": "臨床心理学",
-    "logopedia": "言語聴覚療法",
+    "logopedia": "言語療法",
     "fisioterapia": "理学療法",
     "terapia_ocupacional": "作業療法",
-    "psicopedagogia": "心理教育",
-    "psiquiatria": "精神科",
-    "evaluacion": "評価と診断",
+    "psicopedagogia": "教育心理・学習支援",
+    "psiquiatria": "精神医学",
+    "evaluacion": "評価・診断",
     "terapia": "定期セラピー",
-    "grupos_sociales": "社会的スキルのグループ",
+    "grupos_sociales": "ソーシャルスキルグループ",
     "asesoria_padres": "保護者相談",
     "regular_inclusiva": "インクルージョン付き通常校",
     "educacion_especial": "特別支援教育",
@@ -1928,27 +1939,189 @@
     "aula_recursos": "リソースルーム",
     "grupos_reducidos": "少人数グループ",
     "curriculo_adaptado": "適応カリキュラム（UDL）",
-    "terapias": "施設内セラピー",
+    "terapias": "セラピー・支援",
     "sombra": "シャドーティーチャー",
     "adecuaciones": "カリキュラム調整",
     "sensorial_school": "低刺激スペース",
-    "alimentacion": "食事と適応食器",
-    "crianza": "子育てと家族",
-    "derechos": "権利と手続き",
-    "diagnostico": "診断と早期発見",
-    "educacion": "教育と学校でのインクルージョン",
-    "emocional": "情緒的ウェルビーイング",
-    "historias": "物語と体験談",
-    "investigacion": "研究と科学",
-    "juego": "インクルーシブな遊びと余暇",
-    "libros": "書籍とリソース",
-    "socioemocional": "社会性と情動のスキル",
+    "alimentacion": "食事・適応食器",
+    "crianza": "子育て・家族",
+    "derechos": "権利・手続き",
+    "diagnostico": "診断・早期発見",
+    "educacion": "教育・学校インクルージョン",
+    "emocional": "心の健康",
+    "historias": "体験談・声",
+    "investigacion": "研究・科学",
+    "juego": "インクルーシブな遊び・余暇",
+    "libros": "書籍・資料",
+    "socioemocional": "社会的・感情スキル",
     "tecnologia": "支援技術",
-    "vestimenta": "適応服とアクセサリー",
+    "vestimenta": "適応衣類・アクセサリー",
     "salud": "健康",
     "recreacion": "レクリエーションと余暇",
     "productos": "製品と教材",
-    "servicios": "専門サービス"
+    "servicios": "専門サービス",
+    "psicologia_infantil": "児童心理学",
+    "paidopsiquiatria": "児童精神科",
+    "neurologia": "神経内科",
+    "pediatria": "小児科",
+    "genetica_medica": "臨床遺伝学",
+    "medicina_rehabilitacion": "リハビリテーション科",
+    "neuropsicologia": "神経心理学",
+    "nutricion": "栄養",
+    "musicoterapia": "音楽療法",
+    "psicomotricidad": "精神運動療法",
+    "lactancia": "授乳コンサルティング（IBCLC）",
+    "consultoria_sueno": "子どもの睡眠コンサルティング",
+    "asesoria_porteo": "抱っこ・おんぶ相談",
+    "terapia_miofuncional": "口腔筋機能療法",
+    "optometria_comportamental": "行動オプトメトリー／ビジョンセラピー",
+    "neurofeedback": "ニューロフィードバック／バイオフィードバック",
+    "terapia_neurosensorial": "神経感覚療法（トマティス、ベラール、SSP）",
+    "arteterapia": "芸術療法",
+    "coaching_ejecutivo": "実行機能コーチング",
+    "acompanante_terapeutico": "セラピー付添（シャドー支援）",
+    "transicion_vida_independiente": "移行・自立生活の専門家",
+    "terapia_familiar": "家族・システム療法",
+    "trabajo_social": "ソーシャルワーク",
+    "accesibilidad_cognitiva": "認知的アクセシビリティ・コンサルティング（B2B）",
+    "odontologia_inclusiva": "ニューロダイバージェント向け歯科",
+    "taa_equinoterapia": "乗馬療法／ヒポセラピー",
+    "taa_perros": "犬介在療法",
+    "taa_granja": "セラピー牧場",
+    "entrenador_psaa": "介助犬トレーナー（PSAA）",
+    "certificador_aae": "情緒支援動物の評価・認定者",
+    "adiestramiento_positivo": "ポジティブ犬トレーニング",
+    "veterinaria_neurofriendly": "低刺激（ニューロフレンドリー）動物病院",
+    "cuidado_mascotas_nf": "ペットケア・散歩（ニューロフレンドリー）",
+    "arfid_selectividad": "偏食／ARFID",
+    "mutismo_selectivo": "場面緘黙",
+    "dislexia": "ディスレクシア",
+    "discalculia": "算数障害",
+    "disgrafia": "書字障害",
+    "dispraxia": "発達性協調運動症",
+    "altas_capacidades": "ギフテッド／2E",
+    "tourette": "トゥレット症／チック",
+    "tpac": "中枢聴覚処理障害",
+    "sordoceguera": "重複障害／盲ろう",
+    "trastornos_sueno": "睡眠障害",
+    "trauma_tept": "トラウマ／PTSD",
+    "saac": "拡大代替コミュニケーション（AAC）",
+    "adaptacion_curricular": "カリキュラム調整／合理的配慮",
+    "vida_independiente": "自立生活／移行",
+    "psicoeducacion_familia": "心理教育／家族向け講座",
+    "grupos_pares": "ピアサポートグループ",
+    "regulacion_emocional": "感情調整",
+    "estimulacion_auditiva": "聴覚刺激（トマティス／ベラール）",
+    "regulacion_polivagal": "ポリヴェーガル調整（SSP）",
+    "procesamiento_visual": "視覚処理／ビジョンセラピー",
+    "lactancia_motricidad_oral": "授乳・口腔運動",
+    "neuropediatria_genetica": "小児神経科・遺伝",
+    "lactancia_alimentacion": "授乳・早期食支援",
+    "sueno": "子どもの睡眠相談",
+    "acompanamiento_escolar": "就学支援・インクルージョン",
+    "teleterapia": "遠隔セラピー",
+    "clinic": "クリニック／療育センター",
+    "gabinete": "画像診断室",
+    "laboratorio": "検査ラボ",
+    "perinatal": "周産期・早期食",
+    "neurosensorial_tech": "神経感覚テクノロジー",
+    "mascotas_nf": "ニューロフレンドリーなペット",
+    "fisica": "実店舗",
+    "whatsapp": "WhatsApp販売",
+    "distribuidores": "正規販売店",
+    "local": "地域内",
+    "nacional": "全国",
+    "internacional": "国際",
+    "qr_fisica": "店頭（レジでQRスキャン）",
+    "cupon_online": "オンラインストア（決済時に動的クーポン）",
+    "dr": "博士",
+    "dra": "博士",
+    "lic": "学士",
+    "mtro": "修士",
+    "mtra": "修士",
+    "ing": "技術者",
+    "psic": "心理士",
+    "to": "OT",
+    "fga": "ST",
+    "fgo": "ST",
+    "ss_regulacion": "感覚調整・落ち着き",
+    "ss_propiocepcion": "固有受容・深部圧",
+    "ss_auditivo": "聴覚調整",
+    "ss_visual": "視覚調整・フィルター",
+    "com_saac": "拡大代替（AAC）機器",
+    "com_pecs": "視覚支援（PECS）",
+    "com_logopedico": "言語療法教材",
+    "cog_organizacion": "整理・時間管理",
+    "cog_estimulacion": "認知刺激",
+    "cog_software": "支援ソフト・技術",
+    "mot_fina": "微細運動・書字",
+    "mot_gruesa": "粗大運動",
+    "mot_ergonomia": "姿勢・エルゴノミクス",
+    "aut_alimentacion": "食事の工夫",
+    "aut_higiene": "衛生・身だしなみ",
+    "aut_vestido": "着替え・自立",
+    "soc_emocional": "感情の知性",
+    "soc_cooperativo": "協力遊び",
+    "soc_cuentos": "社会性・感情の絵本",
+    "jue_sensorial": "感覚遊び",
+    "jue_construccion": "ブロック・はめ込み",
+    "jue_exterior": "屋外遊び",
+    "apr_lectoescritura": "読み書き",
+    "apr_matematicas": "算数",
+    "apr_manipulativo": "操作教具",
+    "lib_infantil": "児童書",
+    "lib_familias": "家族向けガイド",
+    "lib_profesional": "専門資料",
+    "tec_saac": "AAC機器",
+    "tec_apps": "アプリ・ライセンス",
+    "tec_temporizadores": "視覚タイマー",
+    "ves_sensorial": "感覚配慮の衣類（縫い目なし）",
+    "ves_seguridad": "安全・位置確認",
+    "ves_calzado": "適応靴",
+    "ali_utensilios": "適応食器",
+    "ali_texturas": "食感・移行",
+    "ali_suplementos": "サプリ・栄養",
+    "eve_talleres": "ワークショップ",
+    "eve_campamentos": "キャンプ",
+    "eve_recreativos": "レクリエーション行事",
+    "eventos": "チケット・イベント",
+    "eeg": "脳波検査（EEG）",
+    "qeeg": "脳マッピング（QEEG）",
+    "rmn": "MRI",
+    "tac": "CT",
+    "radiografia": "一般X線撮影",
+    "sangre": "血液検査・一般生化学",
+    "multicorte": "マルチスライスCT",
+    "helicoidal": "ヘリカルCT",
+    "ambas": "施設・訪問の両方",
+    "propio": "自社ラボ",
+    "externo": "外部処理（委託）",
+    "arte": "アート",
+    "artesania": "手工芸",
+    "art_materiales": "画材",
+    "art_pintura": "絵画・デッサン",
+    "art_modelado": "造形・彫刻",
+    "art_expresivo": "芸術療法・表現アート",
+    "art_musica": "音楽・楽器",
+    "craft_textil": "テキスタイル（編み・刺繍）",
+    "craft_ceramica": "陶芸",
+    "craft_joyeria": "アクセサリー",
+    "craft_madera": "木工",
+    "craft_hechomano": "手作り製品",
+    "danzaterapia": "ダンス・ムーブメントセラピー",
+    "profesor_musica_adaptada": "適応型 楽器・声楽講師",
+    "instructor_artes_visuales": "ビジュアル・デジタルアート講師",
+    "coach_teatro": "演劇・身体表現コーチ",
+    "organizador_eventos_sensory": "センサリーフレンドリー・イベント主催者",
+    "director_ensamble_nd": "ニューロダイバージェント合唱・アンサンブル指揮者",
+    "gestor_colectivo_artistico": "アート・コレクティブ運営者",
+    "mentor_artistas": "アーティスト・クリエイター向けメンター",
+    "agente_talento_inclusivo": "インクルーシブ・タレントエージェント",
+    "expresion_creativa": "芸術的・創造的表現",
+    "movimiento_danza": "ムーブメント・治療的ダンス",
+    "teatro_rol": "演劇・社会的ロールプレイ",
+    "ocio_sensorial": "センサリーフレンドリーな余暇・イベント",
+    "arte_musica": "適応型アート・音楽"
   },
   "kit": {
     "badge": "ツールキット",
@@ -2056,7 +2229,7 @@
     "tabs": {
       "families": "家族・患者",
       "professionals": "専門家",
-      "providers": "サービス提供者"
+      "providers": "商品プロバイダー"
     },
     "title": "はじまりに参加しよう！Neuromundi 創設メンバーになる",
     "groups": {
@@ -2107,7 +2280,19 @@
           "少なくとも10人に Neuromundi を紹介する。"
         ]
       }
-    }
+    },
+    "allBenefits": [
+      "プロフィールに「Soy Fundador Neuromundi」バッジ。（全員）",
+      "検索で目立つ・関連性の高いプロフィール。（専門家・店舗・学校）",
+      "生涯優待料金。（専門家・店舗・学校）",
+      "創設メンバーによる割引・初回無料相談。（家族・当事者）",
+      "ウェビナー・ワークショップ・講演への無料/優先アクセス。（全員）",
+      "ブログ記事への早期アクセス。（全員）",
+      "フォーラムで質問や体験談を固定表示でき、より多くの支援を得られます。（家族・当事者）",
+      "創設メンバー限定の抽選。（全員）"
+    ],
+    "reqsBox": "バッジの取得・維持の要件はプロフィールによって異なります。登録時、フォームの「創設プログラム」欄で確認できます。",
+    "reqsBoxTitle": "プロフィール別の要件"
   },
   "founderBadge": {
     "label": "創設メンバー",
@@ -3147,5 +3332,278 @@
     "adminCount": "{{n}}件の提案",
     "adminEmpty": "まだ提案はありません。",
     "anon": "匿名"
+  },
+  "roleFeatures": {
+    "patient": {
+      "title": "アカウント（無料・ずっと）でできること:",
+      "features": [
+        "コミュニティが検証した専門家や店舗のディレクトリを閲覧",
+        "他の人の本当のレビューや評価を読む",
+        "ビデオ通話付きで対面またはオンラインの予約を取る",
+        "メッセージで事業者に直接連絡",
+        "ツールキットとAcademyの学習を利用",
+        "探している専門家が公開されたら通知を受け取る",
+        "ストアで支援用品を割引で購入",
+        "アプリをインストールして通知を受け取る"
+      ]
+    },
+    "parent": {
+      "title": "家族アカウント（無料・ずっと）でできること:",
+      "features": [
+        "コミュニティが検証した専門家や店舗のディレクトリを閲覧",
+        "他の家族の本当のレビューや評価を読む",
+        "ビデオ通話付きで対面またはオンラインの予約を取る",
+        "メッセージで事業者に直接連絡",
+        "年齢別の発達マイルストーンガイドを活用",
+        "リストを保存して検索を整理",
+        "予約のリマインダーや新しい専門家の通知を受け取る",
+        "支援用品を割引で購入し、アプリをインストール"
+      ]
+    },
+    "service_provider": {
+      "title": "事業者アカウントでできること:",
+      "features": [
+        "地図上に位置を示すディレクトリのプロフィールを持つ",
+        "公式バッジと「特別アライ」表彰（ダウンロード可）を獲得",
+        "埋め込み可能なウィジェットと、休止・休暇に対応した予約表で予約を受ける",
+        "対面またはオンラインの予約をビデオ通話と任意の課金で対応",
+        "テンプレートとビデオリンク付きのメッセージで連絡",
+        "プロフィールの指標（閲覧・連絡数）を確認",
+        "キャンセル待ちとキャンペーン（プッシュ・メール・SMS）を管理",
+        "紹介プログラムに参加し、Stripe Connectで直接受け取る"
+      ]
+    },
+    "merchant": {
+      "title": "ショップアカウントでできること:",
+      "features": [
+        "在庫管理付きでストアに商品を掲載",
+        "Stripe Connectで売上の100%を受け取る（プラットフォームは手数料を取りません）",
+        "プロモーターコードを提供し、コミッション台帳を管理",
+        "商品レビューを受け取り、注目商品に掲載",
+        "ディレクトリのプロフィールと顧客とのメッセージを持つ"
+      ]
+    },
+    "school": {
+      "title": "学校アカウントでできること:",
+      "features": [
+        "学校のインクルージョンプログラム（入学・対応学年）を公開",
+        "地図上に位置を示してディレクトリに掲載",
+        "メッセージで家族と予定調整・連絡",
+        "バッジとコミュニティのレビューを獲得",
+        "任意のサービスをStripe Connectで直接課金"
+      ]
+    },
+    "clinic": {
+      "title": "クリニック／センターのアカウントでできること:",
+      "features": [
+        "地図上に位置を示してクリニックやセンターをディレクトリに掲載",
+        "チーム向けの予約表（休止・休暇対応）と予約を提供",
+        "対面またはオンラインの予約をビデオ通話と任意の課金で対応",
+        "サービス（評価、療育、画像、検査）を掲載",
+        "メッセージで家族や患者と連絡",
+        "バッジ、指標、コミュニティのレビューを獲得",
+        "Stripe Connectで口座に直接受け取る"
+      ]
+    },
+    "wellness": {
+      "title": "適応型ウェルネス・活動のアカウントでできること:",
+      "features": [
+        "活動（水泳、ホースセラピー、ヨガなど）とともにディレクトリに掲載",
+        "予約を受け、予定を管理",
+        "メッセージで家族と連絡",
+        "バッジとコミュニティのレビューを獲得",
+        "Stripe Connectで口座に直接受け取る"
+      ]
+    },
+    "tourism": {
+      "title": "アクセシブル観光のアカウントでできること:",
+      "features": [
+        "感覚に優しい体験、ツアー、インクルーシブなキャンプを掲載",
+        "地図上に位置を示してディレクトリに掲載",
+        "家族からの予約やメッセージを受け取る",
+        "コミュニティのレビューを獲得",
+        "Stripe Connectで口座に直接受け取る"
+      ]
+    },
+    "legal": {
+      "title": "法律サービスのアカウントでできること:",
+      "features": [
+        "分野（権利、後見、インクルージョンなど）でディレクトリに掲載",
+        "対面またはオンラインの相談をビデオ通話で予約",
+        "メッセージで家族と連絡",
+        "コミュニティのレビューを獲得",
+        "Stripe Connectで口座に直接受け取る"
+      ]
+    },
+    "ngo": {
+      "title": "団体／NGOのアカウントでできること:",
+      "features": [
+        "支援、奨学金、グループ、活動をディレクトリで発信",
+        "メッセージで家族と連絡",
+        "アライの壁に参加し、寄付を受け取る",
+        "コミュニティでレビューと露出を得る"
+      ]
+    },
+    "caregiver": {
+      "title": "ケアラー／付添のアカウントでできること:",
+      "features": [
+        "サービス（付添、レスパイト、学校でのシャドーなど）でディレクトリに掲載",
+        "予約を受け、予定を管理",
+        "メッセージで家族と連絡",
+        "バッジとコミュニティのレビューを獲得",
+        "Stripe Connectで口座に直接受け取る"
+      ]
+    }
+  },
+  "milestones": {
+    "0-6m": {
+      "motor": [
+        "うつ伏せで頭を持ち上げる",
+        "目で物を追う",
+        "手を口に持っていく"
+      ],
+      "lenguaje": [
+        "音や声に反応する",
+        "声を出す（クーイング、喉を鳴らす）",
+        "人に笑い返す"
+      ],
+      "social": [
+        "視線を合わせようとする",
+        "養育者の声で落ち着く",
+        "顔に興味を示す"
+      ],
+      "cognitivo": [
+        "物を口に入れて探る",
+        "周囲に好奇心を示す"
+      ]
+    },
+    "6-12m": {
+      "motor": [
+        "支えなしで座る",
+        "物を手から手へ持ち替える",
+        "はいはいや移動をする",
+        "支えて立ち上がる"
+      ],
+      "lenguaje": [
+        "音節で喃語を話す（ばーばー、だーだー）",
+        "自分の名前に反応する",
+        "簡単な「だめ」を理解する"
+      ],
+      "social": [
+        "いないいないばあで遊ぶ",
+        "養育者に愛着を示す",
+        "簡単な身ぶりをまねる"
+      ],
+      "cognitivo": [
+        "隠れた物を探す",
+        "物をたたいたり振ったりして探る"
+      ]
+    },
+    "12-24m": {
+      "motor": [
+        "助けなしで歩く",
+        "支えて段を上る",
+        "積み木を積む",
+        "なぐり書きをする"
+      ],
+      "lenguaje": [
+        "単語をいくつか言う",
+        "欲しい物を指さす",
+        "簡単な指示に従う",
+        "二語をつなげる"
+      ],
+      "social": [
+        "家事のまねをする",
+        "他の子のそばで遊ぶ",
+        "愛情を示す"
+      ],
+      "cognitivo": [
+        "見慣れた物や人がわかる",
+        "ごっこ遊びを始める（人形に食べさせる）"
+      ]
+    },
+    "2-3a": {
+      "motor": [
+        "走ったり跳んだりする",
+        "ボールを蹴る",
+        "スプーンで一人で食べる",
+        "着替えを手伝う"
+      ],
+      "lenguaje": [
+        "2〜3語の文を作る",
+        "話の多くが理解される",
+        "身近な物の名前を言う"
+      ],
+      "social": [
+        "他の子のそばで遊ぶ",
+        "基本的な感情を表す",
+        "順番を待ち始める"
+      ],
+      "cognitivo": [
+        "形や色で分ける",
+        "簡単なパズルを完成させる",
+        "2段階の指示に従う"
+      ]
+    },
+    "3-4a": {
+      "motor": [
+        "足を交互にして階段を上り下りする",
+        "丸を描く",
+        "見守りのもとはさみを使う"
+      ],
+      "lenguaje": [
+        "したことを話す",
+        "質問をする（「なぜ？」）",
+        "ほとんど理解される"
+      ],
+      "social": [
+        "協力して遊ぶ",
+        "時々分け合う",
+        "簡単なゲームのルールに従う"
+      ],
+      "cognitivo": [
+        "量の概念（「多い」「少ない」）を理解する",
+        "いくつかの色の名前を言う",
+        "簡単なパズルを組む"
+      ]
+    },
+    "4-6a": {
+      "motor": [
+        "片足で跳ぶ",
+        "一人で着替える",
+        "わかる形を描く",
+        "鉛筆やはさみを上手に使う"
+      ],
+      "lenguaje": [
+        "お話をする",
+        "完全で整った文を使う",
+        "いくつかの文字や数字がわかる"
+      ],
+      "social": [
+        "友だちを作る",
+        "ルールや順番を理解する",
+        "感情を表して名づける"
+      ],
+      "cognitivo": [
+        "物を数える",
+        "時間（前／後）を理解する",
+        "簡単な問題を解く"
+      ]
+    }
+  },
+  "neuro": {
+    "seal": "ニューロアファーミング",
+    "sealHint": "Neuromundiが「柔軟・共感的・感覚に配慮した」ニューロアファーミング提供者として認証。",
+    "profileTitle": "ニューロアファーミング・プロフィール",
+    "sensory": "感覚環境",
+    "flexibility": "柔軟性",
+    "empathy": "共感的な対応",
+    "profileNote": "これらの項目における家族のレビュー平均。"
+  },
+  "founderCongrats": {
+    "title": "おめでとうございます、あなたは創設メンバーです！",
+    "body": "プロフィールに「Soy Fundador Neuromundi」バッジが表示されました。維持するにはプロフィールの要件を3か月以内に満たす必要があります。満たさない場合、バッジは自動的に取り消されます。",
+    "reqs": "要件を確認する",
+    "ok": "了解しました"
   }
 }

@@ -8,6 +8,15 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
+  # Canonicaliza el dominio a www (neuromundi.com -> www.neuromundi.com).
+  # CLAVE para el login social (OAuth/PKCE): Supabase guarda el `code_verifier`
+  # en el localStorage del host donde INICIA el login y debe leerlo en el MISMO
+  # host al volver. Si el usuario saltara entre apex y www a mitad del flujo, la
+  # sesión no se crea (síntoma: "acepto en Microsoft pero no queda la sesión").
+  # Se acota al apex exacto para no tocar otros subdominios (p. ej. admin.*).
+  RewriteCond %{HTTP_HOST} ^neuromundi\.com$ [NC]
+  RewriteRule ^ https://www.neuromundi.com%{REQUEST_URI} [L,R=301]
+
   # Redirige http -> https
   RewriteCond %{HTTPS} !=on
   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]

@@ -42,6 +42,10 @@ export const PRODUCT_CATEGORIES: CatItem[] = [
     value: 'mascotas_nf', label: 'Mascotas Neuro-Friendly',
     sub: ['Accesorios sensoriales (placas de silicona, correas sin ruido)', 'Apoyo ejecutivo (entregas automatizadas, areneros autolimpiables)', 'Seguridad (correas manos libres)'],
   },
+  {
+    value: 'arte_musica', label: 'Arte y Música Adaptados',
+    sub: ['Instrumentos adaptados (tambores de lengüetas, kalimbas, pentatónicos)', 'Materiales de arte sensoriales (arcillas, pinturas texturizadas)', 'Herramientas sin desorden (mess-free)', 'Cancelación de ruido para músicos'],
+  },
   { value: 'otro', label: 'Otro' },
 ];
 

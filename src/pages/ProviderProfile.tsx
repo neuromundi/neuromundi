@@ -11,7 +11,7 @@ import {
   PolarRadiusAxis,
   ResponsiveContainer,
 } from 'recharts';
-import { ArrowLeft, MapPin, ShieldCheck, Tag, Users } from 'lucide-react';
+import { ArrowLeft, MapPin, ShieldCheck, Tag, Users, Sparkles, Waves, LifeBuoy, Heart, Star } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useCatLabel } from '@/lib/catLabel';
 import { Button, EVSBadge, SkeletonCard, DistintivoBadge, FounderBadge } from '@/components/ui';
@@ -97,10 +97,18 @@ export function ProviderProfile() {
           </span>
         )}
         <div className="min-w-0 flex-1">
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <h1 className="text-xl font-bold text-slate-900">{name}</h1>
             {profile.is_verified && <ShieldCheck className="h-5 w-5 text-brand-500" aria-label={t('card.verified')} />}
             <FounderBadge isFounder={isFounder} size="sm" />
+            {profile.neuroaffirming && (
+              <span
+                className="inline-flex items-center gap-1 rounded-full bg-violet-100 px-2.5 py-0.5 text-xs font-semibold text-violet-700"
+                title={t('neuro.sealHint')}
+              >
+                <Sparkles className="h-3.5 w-3.5" aria-hidden="true" /> {t('neuro.seal')}
+              </span>
+            )}
           </div>
           {profile.city && (
             <p className="flex items-center gap-1 text-sm text-muted">
@@ -143,6 +151,35 @@ export function ProviderProfile() {
             </span>
           ))}
         </div>
+      )}
+
+      {/* Perfil neuroafirmativo: las 3 dimensiones que definen el Sello. */}
+      {rating && (rating.total_reviews ?? 0) > 0 && (
+        <section className="rounded-2xl border border-violet-100 bg-violet-50/60 p-4">
+          <h2 className="mb-3 flex items-center gap-1.5 font-semibold text-violet-900">
+            <Sparkles className="h-4 w-4" aria-hidden="true" /> {t('neuro.profileTitle')}
+          </h2>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+            {([
+              { icon: Waves, key: 'neuro.sensory', v: rating.avg_sensory_adaptation },
+              { icon: LifeBuoy, key: 'neuro.flexibility', v: rating.avg_flexibility_crisis },
+              { icon: Heart, key: 'neuro.empathy', v: rating.avg_human_treatment },
+            ] as const).map(({ icon: Icon, key, v }) => (
+              <div key={key} className="flex items-center gap-2 rounded-xl bg-white p-3">
+                <Icon className="h-5 w-5 shrink-0 text-violet-500" aria-hidden="true" />
+                <div className="min-w-0">
+                  <p className="truncate text-sm text-slate-600">{t(key)}</p>
+                  <p className="flex items-center gap-1 font-semibold text-slate-900">
+                    <Star className="h-4 w-4 fill-amber-400 text-amber-400" aria-hidden="true" />
+                    {v != null ? Number(v).toFixed(1) : '—'}
+                    <span className="text-xs font-normal text-muted">/5</span>
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <p className="mt-2 text-xs text-violet-700/80">{t('neuro.profileNote')}</p>
+        </section>
       )}
 
       {radarData.length >= 3 && (

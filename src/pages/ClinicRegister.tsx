@@ -25,17 +25,23 @@ import {
 const inputCls = 'w-full rounded-xl border border-slate-200 p-3 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500';
 const labelCls = 'mb-1 block font-semibold text-slate-900';
 
+// Valores centinela para el chip "Otro" de gabinete y laboratorio (así no chocan
+// entre sí ni con los servicios reales). Al activarlos se abre un campo de texto.
+const IMG_OTHER = 'img_otro';
+const LAB_OTHER = 'lab_otro';
+
 function useToggleList(initial: string[] = []) {
   const [list, setList] = useState<string[]>(initial);
   const toggle = (v: string) => setList((p) => (p.includes(v) ? p.filter((x) => x !== v) : [...p, v]));
-  return [list, toggle] as const;
+  return [list, toggle, setList] as const;
 }
 
-export function ClinicRegister() {
+export function ClinicRegister({ onSuccess, complete = false }: { onSuccess?: () => void; complete?: boolean }) {
   const { t } = useTranslation();
   const countryLabel = useCountryLabel();
   const catLabel = useCatLabel();
-  const { signUp } = useAuth();
+  // `complete`: usuario ya autenticado (login social) → ACTUALIZA su perfil.
+  const { signUp, completeProfile } = useAuth();
   const toast = useToast();
 
   const STEPS = [t('clin.s1'), t('clin.s2'), t('clin.s3'), t('clin.s4'), t('clin.s5'), t('clin.s6')];
@@ -59,11 +65,15 @@ export function ClinicRegister() {
   const [whatsapp, setWhatsapp] = useState('');
   const [publicEmail, setPublicEmail] = useState('');
   const [website, setWebsite] = useState('');
+  const [instagram, setInstagram] = useState('');
+  const [tiktok, setTiktok] = useState('');
+  const [facebook, setFacebook] = useState('');
+  const [linkedin, setLinkedin] = useState('');
   // 3. Especialidades y servicios
-  const [specialties, toggleSpecialty] = useToggleList();
+  const [specialties, toggleSpecialty, setSpecialties] = useToggleList();
   const [clinicSpecialtyOther, setClinicSpecialtyOther] = useState('');
   const [ageRanges, toggleAge] = useToggleList();
-  const [services, toggleService] = useToggleList();
+  const [services, toggleService, setServices] = useToggleList();
   const [clinicServiceOther, setClinicServiceOther] = useState('');
   // 3b. Servicios diagnósticos (gabinete / laboratorio) + indicaciones automatizadas
   const [diagServices, setDiagServices] = useState<string[]>([]);
@@ -85,6 +95,9 @@ export function ClinicRegister() {
   const [bloodSampling, setBloodSampling] = useState('');
   const [labCerts, setLabCerts] = useState('');
   const [labProcessing, setLabProcessing] = useState('');
+  // "Otro" servicio especificado por gabinete / laboratorio (texto libre).
+  const [imagingOther, setImagingOther] = useState('');
+  const [labOther, setLabOther] = useState('');
   // Sección desplegable de laboratorio
   const [homeSampling, setHomeSampling] = useState<'' | 'si' | 'no'>('');
   const [urgentResults, setUrgentResults] = useState<'' | 'si' | 'no'>('');
@@ -95,8 +108,8 @@ export function ClinicRegister() {
     setCategories((prev) => {
       const has = prev.includes(v);
       if (has) {
-        const owned = v === 'gabinete' ? IMAGING_SERVICES.map((s) => s.value)
-          : v === 'laboratorio' ? LAB_SERVICES.map((s) => s.value) : [];
+        const owned = v === 'gabinete' ? [...IMAGING_SERVICES.map((s) => s.value), IMG_OTHER]
+          : v === 'laboratorio' ? [...LAB_SERVICES.map((s) => s.value), LAB_OTHER] : [];
         if (owned.length) {
           setDiagServices((ds) => ds.filter((x) => !owned.includes(x)));
           setIndications((ind) => {
@@ -105,10 +118,16 @@ export function ClinicRegister() {
             return next;
           });
         }
-        if (v === 'gabinete') { setTacEquipment(''); setTacContrast(''); setTacDelivery(''); }
+        if (v === 'gabinete') { setTacEquipment(''); setTacContrast(''); setTacDelivery(''); setImagingOther(''); }
         if (v === 'laboratorio') {
           setBloodSampling(''); setLabCerts(''); setLabProcessing('');
-          setHomeSampling(''); setUrgentResults('');
+          setHomeSampling(''); setUrgentResults(''); setLabOther('');
+        }
+        // Al desmarcar "clínica" limpiamos sus especialidades y servicios propios
+        // para no persistir datos que ya no corresponden al subperfil.
+        if (v === 'clinic') {
+          setSpecialties([]); setServices([]);
+          setClinicSpecialtyOther(''); setClinicServiceOther('');
         }
         return prev.filter((x) => x !== v);
       }
@@ -139,6 +158,7 @@ export function ClinicRegister() {
   const municipios = useMemo(() => (isMexico && stateName ? MX_MUNICIPIOS[stateName] ?? [] : []), [isMexico, stateName]);
 
   // Flags de categoría para la lógica condicional del formulario
+  const isClinic = categories.includes('clinic');
   const isGabinete = categories.includes('gabinete');
   const isLab = categories.includes('laboratorio');
   const hasTac = isGabinete && diagServices.includes('tac');
@@ -147,7 +167,10 @@ export function ClinicRegister() {
   const canNext = () => {
     if (step === 0) return name.trim().length >= 2 && categories.length > 0;
     if (step === 2) return !(specialties.includes('otro') && !clinicSpecialtyOther.trim()) && !(services.includes('otro') && !clinicServiceOther.trim());
-    if (step === 5) return isStrictEmail(email) && email.trim().toLowerCase() === confirmEmail.trim().toLowerCase() && password.length >= 8 && password === confirmPassword && acceptTerms && acceptRules && acceptManifesto;
+    if (step === 5) {
+      const accountOk = complete || (isStrictEmail(email) && email.trim().toLowerCase() === confirmEmail.trim().toLowerCase() && password.length >= 8 && password === confirmPassword);
+      return accountOk && acceptTerms && acceptRules && acceptManifesto;
+    }
     return true;
   };
 
@@ -158,11 +181,13 @@ export function ClinicRegister() {
       if (categories.length === 0) m.push(t('reg.miss.category'));
     }
     if (step === 5) {
-      if (!email.trim()) m.push(t('reg.miss.email'));
-    if (email.trim() && !isStrictEmail(email)) m.push(t('reg.miss.emailValid'));
-    if (email.trim().toLowerCase() !== confirmEmail.trim().toLowerCase()) m.push(t('reg.miss.emailMatch'));
-      if (password.length < 8) m.push(t('reg.miss.password'));
-    if (password !== confirmPassword) m.push(t('reg.miss.passwordMatch'));
+      if (!complete) {
+        if (!email.trim()) m.push(t('reg.miss.email'));
+        if (email.trim() && !isStrictEmail(email)) m.push(t('reg.miss.emailValid'));
+        if (email.trim().toLowerCase() !== confirmEmail.trim().toLowerCase()) m.push(t('reg.miss.emailMatch'));
+        if (password.length < 8) m.push(t('reg.miss.password'));
+        if (password !== confirmPassword) m.push(t('reg.miss.passwordMatch'));
+      }
       if (!acceptTerms) m.push(t('reg.miss.terms'));
       if (!acceptRules) m.push(t('reg.miss.rules'));
     if (!acceptManifesto) m.push(t('reg.miss.manifesto'));
@@ -185,6 +210,8 @@ export function ClinicRegister() {
       diagServices.forEach((s) => { if (indications[s]?.trim()) notes[s] = indications[s].trim(); });
       if (Object.keys(notes).length) details.patient_indications = notes;
     }
+    if (imagingOther.trim()) details.imaging_other = imagingOther.trim();
+    if (labOther.trim()) details.lab_other = labOther.trim();
     if (hasTac) {
       details.tac = {
         equipment: tacEquipment || null,
@@ -217,18 +244,21 @@ export function ClinicRegister() {
     if (benefitTerms.trim()) details.benefit_terms = benefitTerms.trim();
     if (benefitValidator.trim()) details.benefit_validator = benefitValidator.trim();
 
-    const res = await signUp({
+    const payload = {
       email, password, fullName: name.trim(),
-      role: 'provider', providerType: 'clinic', isCompany: true, businessName: name.trim(),
+      role: 'provider' as const, providerType: 'clinic' as const, isCompany: true, businessName: name.trim(),
       bio: description || null, website: website || null, whatsapp: whatsapp || null, rfc: isMexico ? (rfc || null) : null,
+      instagram: instagram || null, tiktok: tiktok || null, facebook: facebook || null, linkedin: linkedin || null,
       country: country || null, state: isMexico ? stateName : null, municipality: isMexico ? municipality : null,
       address: address || null,
       specialties, ageRanges, modalities, providerDetails: details,
       rulesVersion: RULES_VERSION,
-    });
+    };
+    const res = complete ? await completeProfile(payload) : await signUp(payload);
     setBusy(false);
     if (!res.ok) { toast.error(res.error); return; }
     try { localStorage.setItem('neuromundi.pendingWelcome', '1'); } catch { /* ignore */ }
+    if (complete) { onSuccess?.(); return; }
     setDone(true);
   };
 
@@ -263,6 +293,15 @@ export function ClinicRegister() {
 
         {step === 0 && (
           <div className="space-y-4">
+            {/* Tipo de establecimiento PRIMERO: define qué secciones se muestran
+                después (gabinete / laboratorio), así que va al inicio. */}
+            <div>
+              <label className={labelCls}>{t('clin.categories')}</label>
+              <p className="mb-2 text-xs text-muted">{t('clin.categoriesHint')}</p>
+              <div className="flex flex-wrap gap-2">
+                {CLINIC_CATEGORIES.map((c) => <button type="button" key={c.value} onClick={() => toggleCategory(c.value)} className={chip(categories.includes(c.value))}>{catLabel(c.value, c.label)}</button>)}
+              </div>
+            </div>
             <div><label className={labelCls}>{t('clin.name')} *</label><input className={inputCls} value={name} onChange={(e) => setName(e.target.value)} /></div>
             <div><label className={labelCls}>{t('clin.razonSocial')}</label><input className={inputCls} value={razonSocial} onChange={(e) => setRazonSocial(e.target.value)} /></div>
             <div>
@@ -274,13 +313,6 @@ export function ClinicRegister() {
               <label className={labelCls}>{t('clin.modalities')}</label>
               <div className="flex flex-wrap gap-2">
                 {CLINIC_MODALITIES.map((m) => <button type="button" key={m.value} onClick={() => toggleModality(m.value)} className={chip(modalities.includes(m.value))}>{catLabel(m.value, m.label)}</button>)}
-              </div>
-            </div>
-            <div>
-              <label className={labelCls}>{t('clin.categories')}</label>
-              <p className="mb-2 text-xs text-muted">{t('clin.categoriesHint')}</p>
-              <div className="flex flex-wrap gap-2">
-                {CLINIC_CATEGORIES.map((c) => <button type="button" key={c.value} onClick={() => toggleCategory(c.value)} className={chip(categories.includes(c.value))}>{catLabel(c.value, c.label)}</button>)}
               </div>
             </div>
           </div>
@@ -322,37 +354,66 @@ export function ClinicRegister() {
               <div><label className={labelCls}>{t('clin.publicEmail')}</label><input type="email" className={inputCls} value={publicEmail} onChange={(e) => setPublicEmail(e.target.value)} /></div>
               <div><label className={labelCls}>{t('clin.website')}</label><input className={inputCls} value={website} onChange={(e) => setWebsite(e.target.value)} placeholder="https://" /></div>
             </div>
+            {/* Redes sociales (opcional) */}
+            <div>
+              <p className="mb-2 text-sm font-semibold uppercase tracking-wide text-muted">{t('reg.socialOptional')}</p>
+              <div className="grid gap-3 sm:grid-cols-2">
+                <div><label className={labelCls}>{t('reg.instagram')}</label><input className={inputCls} value={instagram} onChange={(e) => setInstagram(e.target.value)} placeholder="@usuario" /></div>
+                <div><label className={labelCls}>{t('reg.tiktok')}</label><input className={inputCls} value={tiktok} onChange={(e) => setTiktok(e.target.value)} placeholder="@usuario" /></div>
+                <div><label className={labelCls}>{t('reg.facebook')}</label><input className={inputCls} value={facebook} onChange={(e) => setFacebook(e.target.value)} placeholder="https://facebook.com/…" /></div>
+                <div><label className={labelCls}>LinkedIn</label><input className={inputCls} value={linkedin} onChange={(e) => setLinkedin(e.target.value)} placeholder="https://linkedin.com/…" /></div>
+              </div>
+            </div>
           </div>
         )}
 
         {step === 2 && (
           <div className="space-y-4">
-            <div>
-              <label className={labelCls}>{t('clin.specialties')}</label>
-              <div className="flex flex-wrap gap-2">{CLINIC_SPECIALTIES.map((s) => <button type="button" key={s.value} onClick={() => toggleSpecialty(s.value)} className={chip(specialties.includes(s.value))}>{catLabel(s.value, s.label)}</button>)}</div>
-              {specialties.includes('otro') && <input className={`${inputCls} mt-2`} placeholder={t('reg.otherPlaceholder')} value={clinicSpecialtyOther} onChange={(e) => setClinicSpecialtyOther(e.target.value)} />}
-            </div>
+            {/* Especialidades y servicios PROPIOS de la clínica / centro
+                terapéutico: solo se muestran si ese subperfil está seleccionado.
+                El gabinete y el laboratorio tienen su propio listado más abajo. */}
+            {isClinic && (
+              <div>
+                <label className={labelCls}>{t('clin.specialties')}</label>
+                <div className="flex flex-wrap gap-2">{CLINIC_SPECIALTIES.map((s) => <button type="button" key={s.value} onClick={() => toggleSpecialty(s.value)} className={chip(specialties.includes(s.value))}>{catLabel(s.value, s.label)}</button>)}</div>
+                {specialties.includes('otro') && <input className={`${inputCls} mt-2`} placeholder={t('reg.otherPlaceholder')} value={clinicSpecialtyOther} onChange={(e) => setClinicSpecialtyOther(e.target.value)} />}
+              </div>
+            )}
             <div>
               <label className={labelCls}>{t('clin.population')}</label>
               <div className="flex flex-wrap gap-2">{AGE_RANGES.map((a) => <button type="button" key={a.value} onClick={() => toggleAge(a.value)} className={chip(ageRanges.includes(a.value))}>{catLabel(a.value, a.label)}</button>)}</div>
             </div>
-            <div>
-              <label className={labelCls}>{t('clin.services')}</label>
-              <div className="flex flex-wrap gap-2">{CLINIC_SERVICES.map((s) => <button type="button" key={s.value} onClick={() => toggleService(s.value)} className={chip(services.includes(s.value))}>{catLabel(s.value, s.label)}</button>)}</div>
-              {services.includes('otro') && <input className={`${inputCls} mt-2`} placeholder={t('reg.otherPlaceholder')} value={clinicServiceOther} onChange={(e) => setClinicServiceOther(e.target.value)} />}
-            </div>
+            {isClinic && (
+              <div>
+                <label className={labelCls}>{t('clin.services')}</label>
+                <div className="flex flex-wrap gap-2">{CLINIC_SERVICES.map((s) => <button type="button" key={s.value} onClick={() => toggleService(s.value)} className={chip(services.includes(s.value))}>{catLabel(s.value, s.label)}</button>)}</div>
+                {services.includes('otro') && <input className={`${inputCls} mt-2`} placeholder={t('reg.otherPlaceholder')} value={clinicServiceOther} onChange={(e) => setClinicServiceOther(e.target.value)} />}
+              </div>
+            )}
 
             {isGabinete && (
               <div>
                 <label className={labelCls}>{t('clin.imagingServices')}</label>
-                <div className="flex flex-wrap gap-2">{IMAGING_SERVICES.map((s) => <button type="button" key={s.value} onClick={() => toggleDiag(s.value)} className={chip(diagServices.includes(s.value))}>{catLabel(s.value, s.label)}</button>)}</div>
+                <div className="flex flex-wrap gap-2">
+                  {IMAGING_SERVICES.map((s) => <button type="button" key={s.value} onClick={() => toggleDiag(s.value)} className={chip(diagServices.includes(s.value))}>{catLabel(s.value, s.label)}</button>)}
+                  <button type="button" onClick={() => toggleDiag(IMG_OTHER)} className={chip(diagServices.includes(IMG_OTHER))}>{t('cat.otro')}</button>
+                </div>
+                {diagServices.includes(IMG_OTHER) && (
+                  <input className={`${inputCls} mt-2`} placeholder={t('reg.otherPlaceholder')} value={imagingOther} onChange={(e) => setImagingOther(e.target.value)} />
+                )}
               </div>
             )}
 
             {isLab && (
               <div>
                 <label className={labelCls}>{t('clin.labServices')}</label>
-                <div className="flex flex-wrap gap-2">{LAB_SERVICES.map((s) => <button type="button" key={s.value} onClick={() => toggleDiag(s.value)} className={chip(diagServices.includes(s.value))}>{catLabel(s.value, s.label)}</button>)}</div>
+                <div className="flex flex-wrap gap-2">
+                  {LAB_SERVICES.map((s) => <button type="button" key={s.value} onClick={() => toggleDiag(s.value)} className={chip(diagServices.includes(s.value))}>{catLabel(s.value, s.label)}</button>)}
+                  <button type="button" onClick={() => toggleDiag(LAB_OTHER)} className={chip(diagServices.includes(LAB_OTHER))}>{t('cat.otro')}</button>
+                </div>
+                {diagServices.includes(LAB_OTHER) && (
+                  <input className={`${inputCls} mt-2`} placeholder={t('reg.otherPlaceholder')} value={labOther} onChange={(e) => setLabOther(e.target.value)} />
+                )}
               </div>
             )}
 
@@ -425,9 +486,12 @@ export function ClinicRegister() {
                 <div className="space-y-3">
                   {diagServices.map((s) => {
                     const item = [...IMAGING_SERVICES, ...LAB_SERVICES].find((x) => x.value === s);
+                    const label = s === IMG_OTHER ? (imagingOther.trim() || t('cat.otro'))
+                      : s === LAB_OTHER ? (labOther.trim() || t('cat.otro'))
+                      : catLabel(s, item?.label ?? s);
                     return (
                       <div key={s}>
-                        <label className="mb-1 block text-sm font-medium text-slate-700">{catLabel(s, item?.label ?? s)}</label>
+                        <label className="mb-1 block text-sm font-medium text-slate-700">{label}</label>
                         <textarea rows={2} className={inputCls} value={indications[s] ?? ''} onChange={(e) => setIndications((ind) => ({ ...ind, [s]: e.target.value }))} placeholder={t('clin.indicationsPlaceholder')} />
                       </div>
                     );
@@ -459,10 +523,14 @@ export function ClinicRegister() {
         {step === 5 && (
           <div className="space-y-4">
             <div><label className={labelCls}>{t('clin.adminName')}</label><input className={inputCls} value={adminName} onChange={(e) => setAdminName(e.target.value)} /></div>
-            <div><label className={labelCls}>{t('auth.email')}</label><input type="email" className={inputCls} value={email} onChange={(e) => setEmail(e.target.value)} /></div>
-          <div><label className={labelCls}>{t('auth.confirmEmail')}</label><input type="email" inputMode="email" autoComplete="off" onPaste={(e) => e.preventDefault()} className={inputCls} value={confirmEmail} onChange={(e) => setConfirmEmail(e.target.value)} /></div>
-            <div><label className={labelCls}>{t('auth.password')}</label><PasswordInput className={inputCls} value={password} onChange={(e) => setPassword(e.target.value)} /></div>
-          <div><label className={labelCls}>{t('auth.confirmPassword')}</label><PasswordInput className={inputCls} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} /></div>
+            {!complete && (
+              <>
+                <div><label className={labelCls}>{t('auth.email')}</label><input type="email" className={inputCls} value={email} onChange={(e) => setEmail(e.target.value)} /></div>
+                <div><label className={labelCls}>{t('auth.confirmEmail')}</label><input type="email" inputMode="email" autoComplete="off" onPaste={(e) => e.preventDefault()} className={inputCls} value={confirmEmail} onChange={(e) => setConfirmEmail(e.target.value)} /></div>
+                <div><label className={labelCls}>{t('auth.password')}</label><PasswordInput className={inputCls} value={password} onChange={(e) => setPassword(e.target.value)} /></div>
+                <div><label className={labelCls}>{t('auth.confirmPassword')}</label><PasswordInput className={inputCls} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} /></div>
+              </>
+            )}
             <label className="flex items-start gap-3 text-sm text-slate-700">
               <input type="checkbox" className="mt-0.5 h-5 w-5 rounded border-slate-300 text-brand-500" checked={acceptTerms} onChange={(e) => setAcceptTerms(e.target.checked)} />
               <span>{t('onb.acceptTerms')}</span>
@@ -498,7 +566,7 @@ export function ClinicRegister() {
             {t('clin.next')} <ArrowRight className="ml-1 h-4 w-4" />
           </Button>
         ) : (
-          <Button loading={busy} onClick={submit}>{t('auth.createAccount')}</Button>
+          <Button loading={busy} onClick={submit}>{complete ? t('onb.finish') : t('auth.createAccount')}</Button>
         )}      </div>
     </div>
   );
