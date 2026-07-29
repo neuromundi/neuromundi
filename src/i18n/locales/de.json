@@ -1523,7 +1523,11 @@
     "acceptRules": "Ich habe die Regeln und den Haftungsausschluss gelesen und akzeptiert.",
     "finish": "Registrierung abschließen",
     "cancel": "Abbrechen und abmelden",
-    "pickRequired": "Wähle deinen Kontotyp, um fortzufahren."
+    "pickRequired": "Wähle deinen Kontotyp, um fortzufahren.",
+    "cancelConfirmTitle": "Registrierung abbrechen?",
+    "cancelConfirmBody": "Wenn du bestätigst, wird deine Registrierung annulliert und dein Konto von der Plattform gelöscht. Du musst den Registrierungsprozess erneut beginnen.",
+    "cancelConfirmBtn": "Abbruch bestätigen",
+    "cancelBack": "Zurück"
   },
   "a11y": {
     "title": "Barrierefreiheit",
@@ -2625,7 +2629,8 @@
     "conversion": "Konversion",
     "last30": "{{n}} in 30 Tagen",
     "conversionHelp": "Kontakte ÷ Aufrufe",
-    "empty": "Noch keine Aufrufe erfasst. Teile dein Profil, um mit dem Messen zu beginnen."
+    "empty": "Noch keine Aufrufe erfasst. Teile dein Profil, um mit dem Messen zu beginnen.",
+    "incomplete": "Unvollständige Registrierungen"
   },
   "events": {
     "title": "Veranstaltungen",
@@ -3096,7 +3101,8 @@
       "city": "Stadt",
       "postal": "Postleitzahl",
       "country": "Land",
-      "registeredNote": "Wir senden an die in deinem Profil gespeicherte Adresse."
+      "registeredNote": "Wir senden an die in deinem Profil gespeicherte Adresse.",
+      "costNote": "Manche Sendungen können je nach Ziel zusätzliche Kosten verursachen. Falls zutreffend, informieren wir dich, bevor wir deine Belohnung versenden."
     },
     "who": {
       "title": "Angaben zum Spender",
@@ -3105,7 +3111,8 @@
       "orgName": "Name des Unternehmens oder der Organisation",
       "contactName": "Name der Kontaktperson",
       "personName": "Dein Name",
-      "email": "Kontakt-E-Mail"
+      "email": "Kontakt-E-Mail",
+      "confirmEmail": "E-Mail bestätigen"
     },
     "wall": {
       "consent": "Ich erlaube die Veröffentlichung meines Namens (oder des meines Unternehmens/meiner Organisation) an der Spenderwand.",
@@ -3126,7 +3133,8 @@
       "email": "Gib eine gültige E-Mail ein.",
       "recipient": "Gib an, an wen der Versand gerichtet ist.",
       "address": "Vervollständige die Versandadresse.",
-      "checkout": "Zahlung konnte nicht gestartet werden. Bitte erneut versuchen."
+      "checkout": "Zahlung konnte nicht gestartet werden. Bitte erneut versuchen.",
+      "emailMatch": "Die E-Mails stimmen nicht überein."
     },
     "result": {
       "ok": "Danke für deine Spende! Dein Beitrag fördert Inklusion.",

@@ -1523,7 +1523,11 @@
     "acceptRules": "J’ai lu et j’accepte le Règlement et la clause de non-responsabilité.",
     "finish": "Terminer l’inscription",
     "cancel": "Annuler et se déconnecter",
-    "pickRequired": "Choisis ton type de compte pour continuer."
+    "pickRequired": "Choisis ton type de compte pour continuer.",
+    "cancelConfirmTitle": "Annuler ton inscription ?",
+    "cancelConfirmBody": "Si tu confirmes, ton inscription sera annulée et ton compte sera supprimé de la plateforme. Tu devras recommencer le processus d'inscription.",
+    "cancelConfirmBtn": "Confirmer l'annulation",
+    "cancelBack": "Retour"
   },
   "a11y": {
     "title": "Accessibilité",
@@ -2625,7 +2629,8 @@
     "conversion": "Conversion",
     "last30": "{{n}} en 30 jours",
     "conversionHelp": "contacts ÷ vues",
-    "empty": "Aucune vue enregistrée pour l'instant. Partagez votre profil pour commencer à mesurer."
+    "empty": "Aucune vue enregistrée pour l'instant. Partagez votre profil pour commencer à mesurer.",
+    "incomplete": "Inscriptions non terminées"
   },
   "events": {
     "title": "Événements",
@@ -3096,7 +3101,8 @@
       "city": "Ville",
       "postal": "Code postal",
       "country": "Pays",
-      "registeredNote": "Nous livrerons à l'adresse enregistrée dans votre profil."
+      "registeredNote": "Nous livrerons à l'adresse enregistrée dans votre profil.",
+      "costNote": "Certains envois peuvent entraîner des frais supplémentaires selon la destination. Le cas échéant, nous te préviendrons avant d'envoyer ta récompense."
     },
     "who": {
       "title": "Informations du donateur",
@@ -3105,7 +3111,8 @@
       "orgName": "Nom de l'entreprise ou de l'organisation",
       "contactName": "Nom de la personne de contact",
       "personName": "Votre nom",
-      "email": "E-mail de contact"
+      "email": "E-mail de contact",
+      "confirmEmail": "Confirme ton e-mail"
     },
     "wall": {
       "consent": "J'autorise la publication de mon nom (ou de celui de mon entreprise/organisation) sur le mur des donateurs.",
@@ -3126,7 +3133,8 @@
       "email": "Saisissez un e-mail valide.",
       "recipient": "Indiquez à qui la livraison est adressée.",
       "address": "Complétez l'adresse de livraison.",
-      "checkout": "Impossible de démarrer le paiement. Réessayez."
+      "checkout": "Impossible de démarrer le paiement. Réessayez.",
+      "emailMatch": "Les e-mails ne correspondent pas."
     },
     "result": {
       "ok": "Merci pour votre don ! Votre geste soutient l'inclusion.",

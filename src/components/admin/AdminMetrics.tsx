@@ -5,7 +5,7 @@
  */
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Users, ShieldCheck, Eye, Crown, ShoppingBag, ShieldAlert, Share2, TrendingUp, RefreshCw } from 'lucide-react';
+import { Users, ShieldCheck, Eye, Crown, ShoppingBag, ShieldAlert, Share2, TrendingUp, RefreshCw, UserX } from 'lucide-react';
 import { Button, SkeletonCard } from '@/components/ui';
 import { supabase } from '@/lib/supabase';
 
@@ -18,6 +18,7 @@ interface Metrics {
   products_active: number;
   reports_open: number;
   referrals_total: number;
+  incomplete_registrations: number;
   new_7d: number;
   new_30d: number;
 }
@@ -58,6 +59,7 @@ export function AdminMetrics() {
     { icon: ShoppingBag, label: 'metrics.products', value: m.products_active, tone: 'text-slate-900' },
     { icon: Share2, label: 'metrics.referrals', value: m.referrals_total, tone: 'text-brand-700' },
     { icon: ShieldAlert, label: 'metrics.reportsOpen', value: m.reports_open, tone: m.reports_open > 0 ? 'text-red-600' : 'text-slate-900' },
+    { icon: UserX, label: 'metrics.incomplete', value: m.incomplete_registrations ?? 0, tone: (m.incomplete_registrations ?? 0) > 0 ? 'text-warm-700' : 'text-slate-900' },
   ];
 
   return (

@@ -1523,7 +1523,11 @@
     "acceptRules": "Li e aceito o Regulamento e o aviso de isenção.",
     "finish": "Concluir cadastro",
     "cancel": "Cancelar e sair",
-    "pickRequired": "Escolhe o teu tipo de conta para continuar."
+    "pickRequired": "Escolhe o teu tipo de conta para continuar.",
+    "cancelConfirmTitle": "Cancelar o teu registo?",
+    "cancelConfirmBody": "Se confirmares, o teu registo será anulado e a tua conta será eliminada da plataforma. Terás de iniciar o processo de registo novamente.",
+    "cancelConfirmBtn": "Confirmar cancelamento",
+    "cancelBack": "Voltar"
   },
   "a11y": {
     "title": "Acessibilidade",
@@ -2625,7 +2629,8 @@
     "conversion": "Conversão",
     "last30": "{{n}} em 30 dias",
     "conversionHelp": "contatos ÷ visualizações",
-    "empty": "Ainda não há visualizações registradas. Compartilhe seu perfil para começar a medir."
+    "empty": "Ainda não há visualizações registradas. Compartilhe seu perfil para começar a medir.",
+    "incomplete": "Registos não concluídos"
   },
   "events": {
     "title": "Eventos",
@@ -3096,7 +3101,8 @@
       "city": "Cidade",
       "postal": "Código postal",
       "country": "País",
-      "registeredNote": "Enviaremos para o endereço salvo no seu perfil."
+      "registeredNote": "Enviaremos para o endereço salvo no seu perfil.",
+      "costNote": "Alguns envios podem ter custos adicionais consoante o destino. Se aplicável, avisamos-te antes de enviar a tua recompensa."
     },
     "who": {
       "title": "Dados do doador",
@@ -3105,7 +3111,8 @@
       "orgName": "Nome da empresa ou organização",
       "contactName": "Nome da pessoa de contato",
       "personName": "Seu nome",
-      "email": "E-mail de contato"
+      "email": "E-mail de contato",
+      "confirmEmail": "Confirma o teu email"
     },
     "wall": {
       "consent": "Autorizo a publicação do meu nome (ou o da minha empresa/organização) no mural de doadores.",
@@ -3126,7 +3133,8 @@
       "email": "Escreva um e-mail válido.",
       "recipient": "Indique a quem o envio é dirigido.",
       "address": "Complete o endereço de envio.",
-      "checkout": "Não foi possível iniciar o pagamento. Tente novamente."
+      "checkout": "Não foi possível iniciar o pagamento. Tente novamente.",
+      "emailMatch": "Os emails não coincidem."
     },
     "result": {
       "ok": "Obrigado pela sua doação! Sua contribuição impulsiona a inclusão.",

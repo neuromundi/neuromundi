@@ -98,7 +98,7 @@ export function useFounderStatus(profileId: string | null | undefined) {
  * una sola vez por sesión. Seguro de llamar siempre (sale temprano si no aplica).
  */
 export function useFounderAutoClaim() {
-  const { userId, role } = useAuth();
+  const { userId, role, needsOnboarding } = useAuth();
   const profile = useAuthStore((s) => s.profile);
   const [isFounder, setIsFounder] = useState(false);
   // `justClaimed`: acaba de obtener el cupo AHORA (no lo tenía antes) → dispara
@@ -108,6 +108,10 @@ export function useFounderAutoClaim() {
   useEffect(() => {
     let cancelled = false;
     if (!userId || !profile) return;
+    // NO reclamar mientras el usuario aún no termina su registro (login social en
+    // curso): si lo hiciéramos, alguien que entra con Google y luego pulsa
+    // "Cancelar y cerrar sesión" igual recibiría el distintivo y la felicitación.
+    if (needsOnboarding) return;
     const kind = founderKindFor(role, profile.provider_type ?? null);
     if (!kind) return; // admin u otros
 
@@ -144,7 +148,7 @@ export function useFounderAutoClaim() {
       if (!cancelled && claimed) { setIsFounder(true); setJustClaimed(true); }
     })();
     return () => { cancelled = true; };
-  }, [userId, role, profile]);
+  }, [userId, role, profile, needsOnboarding]);
 
   return { isFounder, justClaimed };
 }

@@ -64,6 +64,10 @@ export function DonationSection() {
   const [contactName, setContactName] = useState(profile?.full_name ?? '');
   const [orgName, setOrgName] = useState(profile?.business_name ?? '');
   const [email, setEmail] = useState(useAuthStore.getState().user?.email ?? '');
+  // El invitado escribe su correo a mano → segundo campo para evitar typos. El
+  // usuario con sesión trae su correo verificado de la cuenta (no se le pide).
+  const authed = !!useAuthStore.getState().user;
+  const [confirmEmail, setConfirmEmail] = useState('');
 
   // Muro.
   const [publishConsent, setPublishConsent] = useState(false);
@@ -96,6 +100,7 @@ export function DonationSection() {
     if (!contactName.trim()) return t('donate.err.name');
     if (isCompany && !orgName.trim()) return t('donate.err.org');
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email.trim())) return t('donate.err.email');
+    if (!authed && email.trim().toLowerCase() !== confirmEmail.trim().toLowerCase()) return t('donate.err.emailMatch');
     if (needsShipping) {
       if (isMember && shipUseRegistered) {
         if (!shipRecipient.trim()) return t('donate.err.recipient');
@@ -250,6 +255,8 @@ export function DonationSection() {
             <Truck className="h-4 w-4 text-brand-600" aria-hidden="true" /> {t('donate.ship.title')}
           </legend>
 
+          <p className="mb-3 rounded-lg bg-amber-50 p-2 text-xs text-amber-800">{t('donate.ship.costNote')}</p>
+
           {isMember && (
             <div className="mb-3 space-y-2" role="radiogroup" aria-label={t('donate.ship.title')}>
               <label className="flex items-center gap-2 text-sm text-slate-700">
@@ -333,6 +340,13 @@ export function DonationSection() {
           <label htmlFor="don-email" className="mb-1 block text-sm text-muted">{t('donate.who.email')}</label>
           <input id="don-email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} className={inputCls} />
         </div>
+
+        {!authed && (
+          <div className="mb-3">
+            <label htmlFor="don-email-confirm" className="mb-1 block text-sm text-muted">{t('donate.who.confirmEmail')}</label>
+            <input id="don-email-confirm" type="email" inputMode="email" autoComplete="off" onPaste={(e) => e.preventDefault()} value={confirmEmail} onChange={(e) => setConfirmEmail(e.target.value)} className={inputCls} />
+          </div>
+        )}
 
         <label className="flex items-start gap-3">
           <input type="checkbox" checked={publishConsent} onChange={(e) => setPublishConsent(e.target.checked)} className="mt-0.5 h-5 w-5 rounded border-slate-300" />

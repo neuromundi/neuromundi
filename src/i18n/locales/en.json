@@ -1559,7 +1559,11 @@
     "acceptRules": "I have read and accept the Rules and the disclaimer.",
     "finish": "Finish sign-up",
     "cancel": "Cancel and sign out",
-    "pickRequired": "Choose your account type to continue."
+    "pickRequired": "Choose your account type to continue.",
+    "cancelConfirmTitle": "Cancel your registration?",
+    "cancelConfirmBody": "If you confirm, your registration will be voided and your account will be deleted from the platform. You will have to start the registration process again.",
+    "cancelConfirmBtn": "Confirm cancellation",
+    "cancelBack": "Go back"
   },
   "a11y": {
     "title": "Accessibility",
@@ -2625,7 +2629,8 @@
     "conversion": "Conversion",
     "last30": "{{n}} in 30 days",
     "conversionHelp": "contacts ÷ views",
-    "empty": "No views recorded yet. Share your profile to start measuring."
+    "empty": "No views recorded yet. Share your profile to start measuring.",
+    "incomplete": "Incomplete registrations"
   },
   "events": {
     "title": "Events",
@@ -3096,7 +3101,8 @@
       "city": "City",
       "postal": "Postal code",
       "country": "Country",
-      "registeredNote": "We'll ship to the address saved in your profile."
+      "registeredNote": "We'll ship to the address saved in your profile.",
+      "costNote": "Some shipments may have additional costs depending on the destination. If so, we'll let you know before sending your reward."
     },
     "who": {
       "title": "Donor details",
@@ -3105,7 +3111,8 @@
       "orgName": "Company or organization name",
       "contactName": "Contact person's name",
       "personName": "Your name",
-      "email": "Contact email"
+      "email": "Contact email",
+      "confirmEmail": "Confirm your email"
     },
     "wall": {
       "consent": "I authorize publishing my name (or my company's/organization's) on the donor wall.",
@@ -3126,7 +3133,8 @@
       "email": "Enter a valid email.",
       "recipient": "Tell us who the shipment is addressed to.",
       "address": "Complete the shipping address.",
-      "checkout": "Couldn't start the payment. Please try again."
+      "checkout": "Couldn't start the payment. Please try again.",
+      "emailMatch": "The emails do not match."
     },
     "result": {
       "ok": "Thank you for your donation! Your gift fuels inclusion.",

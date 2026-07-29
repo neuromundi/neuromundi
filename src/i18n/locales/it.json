@@ -1523,7 +1523,11 @@
     "acceptRules": "Ho letto e accetto il Regolamento e il disclaimer.",
     "finish": "Completa la registrazione",
     "cancel": "Annulla ed esci",
-    "pickRequired": "Scegli il tuo tipo di account per continuare."
+    "pickRequired": "Scegli il tuo tipo di account per continuare.",
+    "cancelConfirmTitle": "Annullare la registrazione?",
+    "cancelConfirmBody": "Se confermi, la tua registrazione verrà annullata e il tuo account verrà eliminato dalla piattaforma. Dovrai ricominciare la registrazione.",
+    "cancelConfirmBtn": "Conferma annullamento",
+    "cancelBack": "Indietro"
   },
   "a11y": {
     "title": "Accessibilità",
@@ -2625,7 +2629,8 @@
     "conversion": "Conversione",
     "last30": "{{n}} in 30 giorni",
     "conversionHelp": "contatti ÷ visualizzazioni",
-    "empty": "Ancora nessuna visualizzazione registrata. Condividi il tuo profilo per iniziare a misurare."
+    "empty": "Ancora nessuna visualizzazione registrata. Condividi il tuo profilo per iniziare a misurare.",
+    "incomplete": "Registrazioni incomplete"
   },
   "events": {
     "title": "Eventi",
@@ -3096,7 +3101,8 @@
       "city": "Città",
       "postal": "Codice postale",
       "country": "Paese",
-      "registeredNote": "Spediremo all'indirizzo salvato nel tuo profilo."
+      "registeredNote": "Spediremo all'indirizzo salvato nel tuo profilo.",
+      "costNote": "Alcune spedizioni possono avere costi aggiuntivi a seconda della destinazione. Se applicabile, te lo comunicheremo prima di inviare la tua ricompensa."
     },
     "who": {
       "title": "Dati del donatore",
@@ -3105,7 +3111,8 @@
       "orgName": "Nome dell'azienda o organizzazione",
       "contactName": "Nome della persona di contatto",
       "personName": "Il tuo nome",
-      "email": "Email di contatto"
+      "email": "Email di contatto",
+      "confirmEmail": "Conferma la tua email"
     },
     "wall": {
       "consent": "Autorizzo la pubblicazione del mio nome (o di quello della mia azienda/organizzazione) nel muro dei donatori.",
@@ -3126,7 +3133,8 @@
       "email": "Inserisci un'email valida.",
       "recipient": "Indica a chi è intestata la spedizione.",
       "address": "Completa l'indirizzo di spedizione.",
-      "checkout": "Impossibile avviare il pagamento. Riprova."
+      "checkout": "Impossibile avviare il pagamento. Riprova.",
+      "emailMatch": "Le email non corrispondono."
     },
     "result": {
       "ok": "Grazie per la tua donazione! Il tuo contributo sostiene l'inclusione.",

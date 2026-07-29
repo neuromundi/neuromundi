@@ -17,6 +17,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { createPortal } from 'react-dom';
 import { useAuth } from '@/hooks/useAuth';
+import { useProfile } from '@/hooks/useProfile';
 import { RegisterForm } from '@/components/auth/RegisterForm';
 import { RoleFeaturesPanel } from '@/components/auth/RoleFeaturesPanel';
 import { SpecialistRegister } from '@/pages/SpecialistRegister';
@@ -49,16 +50,36 @@ const TYPES: { role: Role; ptype?: PType; key: string }[] = [
 export function SocialOnboarding() {
   const { t } = useTranslation();
   const { signOut } = useAuth();
+  // Borrado duro para quien cancela el registro social sin terminarlo: así no
+  // quedan cuentas incompletas en Supabase que el admin tenga que limpiar.
+  const { deleteAccount } = useProfile();
 
   // Sin tipo preseleccionado: OBLIGA a elegir. Antes arrancaba en 0 ('parent'),
   // y quien enviaba sin tocar la selección se creaba como consumidor aunque
   // hubiera entrado como especialista/comercio/escuela.
   const [sel, setSel] = useState<number | null>(null);
+  const [confirming, setConfirming] = useState(false);
+  const [deleting, setDeleting] = useState(false);
   const choice = sel === null ? null : TYPES[sel];
   const isProvider = choice?.role === 'provider';
 
+  // "Confirmar cancelar": elimina la cuenta (no solo cierra sesión) y recarga en
+  // la portada. Si el borrado fallara, al menos se cierra sesión para no dejar
+  // al usuario atrapado en la barrera de onboarding.
+  const confirmCancel = async () => {
+    setDeleting(true);
+    const res = await deleteAccount();
+    if (!res.ok) {
+      setDeleting(false);
+      setConfirming(false);
+      await signOut();
+      return;
+    }
+    window.location.assign('/');
+  };
+
   const cancel = (
-    <button type="button" onClick={() => void signOut()} className="text-xs text-muted hover:underline">
+    <button type="button" onClick={() => setConfirming(true)} className="text-xs text-muted hover:underline">
       {t('onb.cancel')}
     </button>
   );
@@ -119,6 +140,35 @@ export function SocialOnboarding() {
           {!choice && <div>{cancel}</div>}
         </div>
       </div>
+
+      {/* Confirmación de cancelación: borra la cuenta para no dejar registros
+          incompletos. */}
+      {confirming && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-slate-900/70 p-4">
+          <div role="alertdialog" aria-modal="true" className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-2xl">
+            <h3 className="text-lg font-bold text-slate-900">{t('onb.cancelConfirmTitle')}</h3>
+            <p className="mt-2 text-sm text-slate-700">{t('onb.cancelConfirmBody')}</p>
+            <div className="mt-5 flex flex-col gap-2">
+              <button
+                type="button"
+                onClick={() => void confirmCancel()}
+                disabled={deleting}
+                className="w-full rounded-xl bg-red-600 px-4 py-3 text-sm font-semibold text-white hover:bg-red-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 disabled:opacity-60"
+              >
+                {deleting ? '…' : t('onb.cancelConfirmBtn')}
+              </button>
+              <button
+                type="button"
+                onClick={() => setConfirming(false)}
+                disabled={deleting}
+                className="text-sm font-semibold text-muted hover:underline disabled:opacity-60"
+              >
+                {t('onb.cancelBack')}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>,
     document.body,
   );

@@ -1559,7 +1559,11 @@
     "acceptRules": "He leído y acepto el Reglamento y el descargo de responsabilidad.",
     "finish": "Finalizar registro",
     "cancel": "Cancelar y cerrar sesión",
-    "pickRequired": "Elige tu tipo de cuenta para continuar."
+    "pickRequired": "Elige tu tipo de cuenta para continuar.",
+    "cancelConfirmTitle": "¿Cancelar tu registro?",
+    "cancelConfirmBody": "Si confirmas, tu registro se anulará y tu cuenta se eliminará de la plataforma. Tendrás que iniciar el proceso de registro de nuevo.",
+    "cancelConfirmBtn": "Confirmar cancelar",
+    "cancelBack": "Volver"
   },
   "a11y": {
     "title": "Accesibilidad",
@@ -2625,7 +2629,8 @@
     "conversion": "Conversión",
     "last30": "{{n}} en 30 días",
     "conversionHelp": "contactos ÷ vistas",
-    "empty": "Aún no hay vistas registradas. Comparte tu perfil para empezar a medir."
+    "empty": "Aún no hay vistas registradas. Comparte tu perfil para empezar a medir.",
+    "incomplete": "Registros sin concluir"
   },
   "events": {
     "title": "Eventos",
@@ -3096,7 +3101,8 @@
       "city": "Ciudad",
       "postal": "Código postal",
       "country": "País",
-      "registeredNote": "Enviaremos a la dirección que tienes registrada en tu perfil."
+      "registeredNote": "Enviaremos a la dirección que tienes registrada en tu perfil.",
+      "costNote": "Algunos envíos pueden tener costos adicionales según el destino. Si aplica, te lo informaremos antes de enviar tu recompensa."
     },
     "who": {
       "title": "Datos del donante",
@@ -3105,7 +3111,8 @@
       "orgName": "Nombre de la empresa u organización",
       "contactName": "Nombre de la persona de contacto",
       "personName": "Tu nombre",
-      "email": "Correo electrónico de contacto"
+      "email": "Correo electrónico de contacto",
+      "confirmEmail": "Confirma tu correo"
     },
     "wall": {
       "consent": "Autorizo que se publique mi nombre (o el de mi empresa u organización) en el muro de donantes.",
@@ -3126,7 +3133,8 @@
       "email": "Escribe un correo válido.",
       "recipient": "Indica a nombre de quién dirigimos el envío.",
       "address": "Completa la dirección de envío.",
-      "checkout": "No se pudo iniciar el pago. Intenta de nuevo."
+      "checkout": "No se pudo iniciar el pago. Intenta de nuevo.",
+      "emailMatch": "Los correos no coinciden."
     },
     "result": {
       "ok": "¡Gracias por tu donativo! Tu aporte impulsa la inclusión.",

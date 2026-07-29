@@ -55,7 +55,7 @@ PY
   `drop policy if exists` + `create policy`, `insert ... on conflict do nothing`,
   `add column if not exists`. Backfills solo tocan filas nulas.
 - El usuario las aplica **a mano en el SQL Editor de Supabase**, en orden (no hay CLI de
-  migraciones en su flujo). Última en el repo: **0062**.
+  migraciones en su flujo). Última en el repo: **0063**.
 - Para verificar qué está aplicado en producción: `db/verificar_produccion.sql`.
 
 ### 3. Escribir a otros usuarios / notificaciones
@@ -453,6 +453,7 @@ Al extraer lógica de una página a `src/lib`, **añade su test** (patrón: `*.t
 | 0060 | Sello Neuroafirmativo: `profiles.neuroaffirming` + `admin_set_neuroaffirming` (lo otorga el admin; filtro en directorio y sello en el perfil) |
 | 0061 | Arregla el onboarding social: `protect_profile_columns` revertía el rol a 'parent' (dejaba `provider_type`); ahora permite fijarlo durante el alta + repara filas rotas |
 | 0062 | Fundador condicional: `founder_members.grace_until` (3 meses) + `purge_lapsed_founders` (revoca por requisitos objetivos: foto+bio+teléfono, y cuota cubierta si es prestador) + cron diario |
+| 0063 | Métrica admin `incomplete_registrations` (perfiles con `rules_version_accepted IS NULL`) en `admin_metrics()` |
 
 ## Reglas de producto/negocio ya implementadas
 - **Clasificación "Otro"**: si `products.store_category = 'otro'`, `store_category_other`

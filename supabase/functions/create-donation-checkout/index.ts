@@ -51,6 +51,7 @@ Deno.serve(async (req: Request) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: cors });
   if (req.method !== 'POST') return json(405, { error: 'Método no permitido' });
 
+  try {
   const stripeKey = Deno.env.get('STRIPE_SECRET_KEY') ?? '';
   if (!stripeKey) return json(500, { error: 'Falta STRIPE_SECRET_KEY' });
   const url = Deno.env.get('SUPABASE_URL') ?? '';
@@ -171,4 +172,11 @@ Deno.serve(async (req: Request) => {
   await admin.from('donations').update({ stripe_session_id: session.id }).eq('id', donation.id);
 
   return json(200, { url: session.url });
+  } catch (e) {
+    // CUALQUIER excepción (p. ej. Stripe rechaza la clave) debe responder CON
+    // cabeceras CORS y el mensaje real; si no, el navegador solo ve un error de
+    // CORS y se oculta la causa. El detalle queda también en los logs.
+    console.error('[create-donation-checkout]', e);
+    return json(500, { error: e instanceof Error ? e.message : 'Error interno' });
+  }
 });

@@ -1523,7 +1523,11 @@
     "acceptRules": "我已阅读并接受规则与免责声明。",
     "finish": "完成注册",
     "cancel": "取消并退出",
-    "pickRequired": "请选择你的账户类型以继续。"
+    "pickRequired": "请选择你的账户类型以继续。",
+    "cancelConfirmTitle": "取消注册？",
+    "cancelConfirmBody": "如果确认，你的注册将被作废，账户将从平台删除。你需要重新开始注册流程。",
+    "cancelConfirmBtn": "确认取消",
+    "cancelBack": "返回"
   },
   "a11y": {
     "title": "无障碍",
@@ -2625,7 +2629,8 @@
     "conversion": "转化率",
     "last30": "30天内{{n}}",
     "conversionHelp": "联系 ÷ 浏览",
-    "empty": "暂无浏览记录。分享您的主页以开始统计。"
+    "empty": "暂无浏览记录。分享您的主页以开始统计。",
+    "incomplete": "未完成的注册"
   },
   "events": {
     "title": "活动",
@@ -3096,7 +3101,8 @@
       "city": "城市",
       "postal": "邮政编码",
       "country": "国家",
-      "registeredNote": "我们将寄往您资料中保存的地址。"
+      "registeredNote": "我们将寄往您资料中保存的地址。",
+      "costNote": "部分寄送可能因目的地而产生额外费用。如有此情况，我们会在寄出奖励前通知你。"
     },
     "who": {
       "title": "捐赠者信息",
@@ -3105,7 +3111,8 @@
       "orgName": "企业或组织名称",
       "contactName": "联系人姓名",
       "personName": "您的姓名",
-      "email": "联系邮箱"
+      "email": "联系邮箱",
+      "confirmEmail": "确认邮箱"
     },
     "wall": {
       "consent": "我授权在捐赠者墙上公布我的姓名（或我的企业/组织名称）。",
@@ -3126,7 +3133,8 @@
       "email": "请填写有效邮箱。",
       "recipient": "请指明寄送的收件人。",
       "address": "请填写完整的寄送地址。",
-      "checkout": "无法发起支付，请重试。"
+      "checkout": "无法发起支付，请重试。",
+      "emailMatch": "邮箱不一致。"
     },
     "result": {
       "ok": "感谢您的捐赠！您的贡献助力包容。",

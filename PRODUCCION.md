@@ -33,7 +33,7 @@ En el repo van de `0001` a **`0061`**. Se aplican **a mano, en orden**, en
 Supabase → SQL Editor. Son idempotentes: si dudas de alguna, la puedes reejecutar
 sin romper nada.
 
-1. [ ] Aplica todo lo que falte hasta `0062_founder_grace_period.sql`.
+1. [ ] Aplica todo lo que falte hasta `0063_admin_metrics_incomplete.sql`.
    Las últimas y por qué importan:
 
    | # | Qué hace | Si falta… |
