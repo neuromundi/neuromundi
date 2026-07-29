@@ -25,12 +25,30 @@ export const SUPPORTED_LANGUAGES = [
   { code: 'pt', label: 'Português' },
   { code: 'ja', label: '日本語' },
   { code: 'zh', label: '中文' },
+  { code: 'ar', label: 'العربية' },
+  { code: 'he', label: 'עברית' },
 ] as const;
 
 export type LanguageCode = (typeof SUPPORTED_LANGUAGES)[number]['code'];
 
 const CODES = SUPPORTED_LANGUAGES.map((l) => l.code) as readonly string[];
 const STORAGE_KEY = 'neuro.lang';
+
+/** Idiomas de escritura de derecha a izquierda (árabe, hebreo). El japonés y el
+ *  chino se escriben de izquierda a derecha en la web (horizontal), así que NO
+ *  son RTL. */
+export const RTL_LANGUAGES = new Set<string>(['ar', 'he']);
+
+export function isRtl(code: string): boolean {
+  return RTL_LANGUAGES.has(code);
+}
+
+/** Fija `dir` y `lang` en <html> según el idioma (sentido de lectura). */
+export function applyDirection(code: string): void {
+  if (typeof document === 'undefined') return;
+  document.documentElement.lang = code;
+  document.documentElement.dir = isRtl(code) ? 'rtl' : 'ltr';
+}
 
 /** Mapea el idioma de la app a un locale BCP-47 para Intl (fechas, números). */
 const LOCALE_MAP: Record<LanguageCode, string> = {
@@ -42,6 +60,8 @@ const LOCALE_MAP: Record<LanguageCode, string> = {
   pt: 'pt-BR',
   ja: 'ja-JP',
   zh: 'zh-CN',
+  ar: 'ar',
+  he: 'he-IL',
 };
 
 /**
@@ -74,6 +94,8 @@ const LOADERS: Record<LanguageCode, () => Promise<{ default: Record<string, unkn
   pt: () => import('./locales/pt.json'),
   ja: () => import('./locales/ja.json'),
   zh: () => import('./locales/zh.json'),
+  ar: () => import('./locales/ar.json'),
+  he: () => import('./locales/he.json'),
 };
 
 const loaded = new Set<LanguageCode>();
@@ -102,6 +124,7 @@ export async function initI18n(): Promise<void> {
     fallbackLng: lng,
     interpolation: { escapeValue: false },
   });
+  applyDirection(lng);
 }
 
 /** Cambia el idioma y lo recuerda. Descarga su diccionario si hace falta. */
@@ -110,6 +133,7 @@ export function changeLanguage(code: LanguageCode): void {
     window.localStorage.setItem(STORAGE_KEY, code);
   }
   void loadLanguage(code).then(() => i18n.changeLanguage(code));
+  applyDirection(code);
 }
 
 /** Locale Intl correspondiente al idioma actual de la app. */

@@ -29,7 +29,7 @@ import { fileURLToPath, URL } from 'node:url';
  * desperdicia una descarga.
  */
 function preloadLocaleChunk(): Plugin {
-  const CHUNK_RE = /^assets\/(es|en|fr|de|it|pt|ja|zh)-[A-Za-z0-9_-]+\.js$/;
+  const CHUNK_RE = /^assets\/(es|en|fr|de|it|pt|ja|zh|ar|he)-[A-Za-z0-9_-]+\.js$/;
   return {
     name: 'nm-preload-locale-chunk',
     apply: 'build',
@@ -61,6 +61,9 @@ function preloadLocaleChunk(): Plugin {
               `try{s=localStorage.getItem('neuro.lang')}catch(e){}` +
               `var b=(navigator.language||'en').toLowerCase().split('-')[0];` +
               `var l=(s&&M[s])?s:(M[b]?b:'en');` +
+              // Sentido de lectura desde el primer pintado (evita un parpadeo de
+              // LTR→RTL en árabe/hebreo).
+              `try{var d=document.documentElement;d.lang=l;d.dir=(l==='ar'||l==='he')?'rtl':'ltr'}catch(e){}` +
               `var h=M[l];if(!h)return;` +
               `var k=document.createElement('link');k.rel='modulepreload';k.href=h;` +
               `document.head.appendChild(k)})();`,

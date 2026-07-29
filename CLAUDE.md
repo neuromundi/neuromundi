@@ -11,7 +11,16 @@ anual. Multipaís y multilingüe.
 - React 18 + Vite 5 + TypeScript + TailwindCSS
 - react-router-dom (rutas lazy en `src/App.tsx`), Zustand (`src/stores`)
 - react-hook-form + Zod (`src/lib/schemas.ts`)
-- react-i18next — 8 idiomas: **es, en, fr, de, it, pt, ja, zh** (fallback `en`)
+- react-i18next — 10 idiomas: **es, en, fr, de, it, pt, ja, zh, ar, he**. `fallbackLng`
+  apunta al PROPIO idioma (no a `en`), así que la paridad de claves DEBE ser 0 o se ven
+  claves crudas. **Árabe y hebreo son RTL**: `applyDirection()` fija `dir="rtl"` en `<html>`
+  (japonés/chino son LTR). El sentido de lectura se pone desde el primer pintado en el
+  script en línea de `vite.config.ts` (misma regla que `resolveInitialLanguage`).
+  **Traducción he/ar COMPLETA**: las 2725 claves están en los 10 idiomas con paridad 0
+  (verificado con el script de abajo). Solo quedan en su forma original marcas y acrónimos
+  internacionales que NO se traducen: `Neuromundi`, `EVS`, `Google Calendar`, `1 USD =` y los
+  nombres de redes (`Instagram`, `TikTok`, `Facebook`, `ADHD`). Al añadir claves nuevas,
+  tradúcelas también a he/ar (y respeta RTL en cualquier UI nueva).
 - Supabase (Auth, Postgres+RLS, Storage, Edge Functions) — `src/lib/supabase.ts`
 - Alias de import: `@` → `src`
 - PWA con `vite-plugin-pwa` (manifest + service worker; requiere HTTPS real)
@@ -30,12 +39,12 @@ La verificación que NO debe fallar antes de entregar: `npm run build`.
 
 ### 1. i18n con paridad total
 - Las cadenas visibles usan `t('clave')`. Las claves viven en `src/i18n/locales/*.json`.
-- **Toda clave nueva debe existir en los 8 idiomas.** La paridad debe ser exacta.
+- **Toda clave nueva debe existir en los 10 idiomas.** La paridad debe ser exacta (0).
 - Verifica la paridad tras cualquier cambio de textos:
 ```
 python3 - <<'PY'
 import json,glob
-L=['es','en','fr','de','it','pt','ja','zh']
+L=['es','en','fr','de','it','pt','ja','zh','ar','he']
 def flat(d,p=''):
     o=set()
     for k,v in d.items():
