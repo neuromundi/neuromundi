@@ -29,7 +29,10 @@ import { fileURLToPath, URL } from 'node:url';
  * desperdicia una descarga.
  */
 function preloadLocaleChunk(): Plugin {
-  const CHUNK_RE = /^assets\/(es|en|fr|de|it|pt|ja|zh|ar|he)-[A-Za-z0-9_-]+\.js$/;
+  // Preprecargamos el chunk CRÍTICO ({lang}.crit-hash.js), que es lo que
+  // initI18n carga primero para montar la portada; el diccionario completo se
+  // fusiona después y no está en la ruta crítica del LCP.
+  const CHUNK_RE = /^assets\/(es|en|fr|de|it|pt|ja|zh|ar|he|ko)\.crit-[A-Za-z0-9_-]+\.js$/;
   return {
     name: 'nm-preload-locale-chunk',
     apply: 'build',

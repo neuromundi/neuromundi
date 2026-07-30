@@ -4,8 +4,10 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
+    "dev": "node scripts/gen_i18n_critical.mjs && vite",
+    "gen:i18n-critical": "node scripts/gen_i18n_critical.mjs",
+    "build": "node scripts/gen_i18n_critical.mjs && tsc -b && vite build",
+    "build:prerender": "npm run build && node scripts/prerender.mjs",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "test": "vitest"

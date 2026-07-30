@@ -2,7 +2,7 @@
  * Punto de entrada. Carga i18n antes de la app y la monta en AppProviders.
  */
 import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
+import { createRoot, hydrateRoot } from 'react-dom/client';
 import { initI18n } from '@/i18n';
 import { AppProviders } from '@/AppProviders';
 import { App } from '@/App';
@@ -73,12 +73,20 @@ if ('serviceWorker' in navigator) {
 // Se espera al diccionario del idioma detectado antes de montar: así nadie ve
 // claves sin traducir, y a cambio el bundle ya no carga los 8 idiomas (~900 KiB
 // de JSON) sino solo el que se usa.
+// Si la portada viene PRERENDERIZADA (react-snap deja el HTML del app en #root,
+// sin el fallback SEO marcado con data-nm-shell), hidratamos en lugar de
+// re-renderizar: así el LCP ya está pintado en el HTML y React solo lo "adopta".
+const rootEl = document.getElementById('root')!;
+const prerendered = rootEl.hasChildNodes() && !rootEl.querySelector('[data-nm-shell]');
+
 void initI18n().then(() => {
-  createRoot(document.getElementById('root')!).render(
+  const tree = (
     <StrictMode>
       <AppProviders>
         <App />
       </AppProviders>
-    </StrictMode>,
+    </StrictMode>
   );
+  if (prerendered) hydrateRoot(rootEl, tree);
+  else createRoot(rootEl).render(tree);
 });

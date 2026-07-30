@@ -31,6 +31,9 @@ const Post = lazy(() => import('@/pages/Post').then((m) => ({ default: m.Post })
 const SearchPage = lazy(() => import('@/pages/SearchPage').then((m) => ({ default: m.SearchPage })));
 const Store = lazy(() => import('@/pages/Store').then((m) => ({ default: m.Store })));
 const SchoolInclusion = lazy(() => import('@/pages/SchoolInclusion').then((m) => ({ default: m.SchoolInclusion })));
+const LaborInclusion = lazy(() => import('@/pages/LaborInclusion').then((m) => ({ default: m.LaborInclusion })));
+const TribuNeuromundi = lazy(() => import('@/pages/TribuNeuromundi').then((m) => ({ default: m.TribuNeuromundi })));
+const RedNeuromundi = lazy(() => import('@/pages/RedNeuromundi').then((m) => ({ default: m.RedNeuromundi })));
 const Academy = lazy(() => import('@/pages/Academy').then((m) => ({ default: m.Academy })));
 const DataProtection = lazy(() => import('@/pages/DataProtection').then((m) => ({ default: m.DataProtection })));
 const AskExpert = lazy(() => import('@/pages/AskExpert').then((m) => ({ default: m.AskExpert })));
@@ -42,6 +45,7 @@ const Author = lazy(() => import('@/pages/Author').then((m) => ({ default: m.Aut
 const Manifiesto = lazy(() => import('@/pages/Manifiesto').then((m) => ({ default: m.Manifiesto })));
 const Donate = lazy(() => import('@/pages/Donate').then((m) => ({ default: m.Donate })));
 const DonorWall = lazy(() => import('@/pages/DonorWall').then((m) => ({ default: m.DonorWall })));
+const Founders = lazy(() => import('@/pages/Founders').then((m) => ({ default: m.Founders })));
 const Events = lazy(() => import('@/pages/Events').then((m) => ({ default: m.Events })));
 const CalendarPage = lazy(() => import('@/pages/Calendar').then((m) => ({ default: m.Calendar })));
 const Messages = lazy(() => import('@/pages/Messages').then((m) => ({ default: m.Messages })));
@@ -63,6 +67,8 @@ const router = createBrowserRouter([
       { path: '/tienda', element: <Store /> },
       { path: '/eventos', element: <Events /> },
       { path: '/inclusion-escolar', element: <SchoolInclusion /> },
+      { path: '/inclusion-laboral', element: <LaborInclusion /> },
+      { path: '/red', element: <RedNeuromundi /> },
       { path: '/proteccion-datos', element: <DataProtection /> },
       { path: '/pregunta-al-experto', element: <AskExpert /> },
       { path: '/crear-cuenta', element: <CreateAccount /> },
@@ -74,7 +80,12 @@ const router = createBrowserRouter([
       { path: '/manifiesto', element: <Manifiesto /> },
       { path: '/donar', element: <Donate /> },
       { path: '/donantes', element: <DonorWall /> },
+      { path: '/fundadores', element: <Founders /> },
       { path: '/entrar', element: <Auth /> },
+      // Pública: el landing explica Tribu e invita a crear cuenta/entrar. El
+      // contenido de la Tribu (foros, mentoría…) sigue exigiendo sesión y
+      // membresía dentro del propio componente.
+      { path: '/tribu', element: <TribuNeuromundi /> },
       {
         element: <ProtectedRoute />,
         children: [

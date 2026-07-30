@@ -8,7 +8,7 @@ import { ProviderDashboard } from '@/components/provider';
 import { AdminDashboard } from '@/components/admin';
 
 export function Dashboard() {
-  const { role } = useAuth();
+  const { role, isAdvisor } = useAuth();
 
   if (!role) {
     return (
@@ -19,6 +19,8 @@ export function Dashboard() {
   }
 
   if (role === 'admin') return <AdminDashboard />;
+  // Asesor (explorador + moderador de Tribu): panel limitado a métricas y Tribu.
+  if (isAdvisor) return <AdminDashboard advisor />;
   if (role === 'provider') return <ProviderDashboard />;
   return <ParentDashboard />;
 }

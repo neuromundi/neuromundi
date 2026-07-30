@@ -24,6 +24,9 @@ import { legalDe } from './legalDe';
 import { legalIt } from './legalIt';
 import { legalJa } from './legalJa';
 import { legalZh } from './legalZh';
+import { legalAr } from './legalAr';
+import { legalHe } from './legalHe';
+import { legalKo } from './legalKo';
 
 const CONTACT = 'admin@neuromundi.com';
 const RESP_ES = 'Neuromundi o sus representantes conforme a la ley';
@@ -155,7 +158,7 @@ const en: LegalBundle = {
   },
 };
 
-export const LEGAL_CONTENT: Record<string, LegalBundle> = { es, en, pt: legalPt, fr: legalFr, de: legalDe, it: legalIt, ja: legalJa, zh: legalZh };
+export const LEGAL_CONTENT: Record<string, LegalBundle> = { es, en, pt: legalPt, fr: legalFr, de: legalDe, it: legalIt, ja: legalJa, zh: legalZh, ar: legalAr, he: legalHe, ko: legalKo };
 
 /** Devuelve el contenido legal del idioma dado, con respaldo a inglés. */
 export function legalContent(lang: string | undefined): LegalBundle {

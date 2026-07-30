@@ -8,14 +8,14 @@
  */
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Html5Qrcode } from 'html5-qrcode';
-import { Camera, CheckCircle2, CameraOff, ScanLine } from 'lucide-react';
+import { Camera, CheckCircle2, CameraOff, ScanLine, BadgeCheck } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Button, HowTo} from '@/components/ui';
 import { useTransactions } from '@/hooks/useTransactions';
 import { logger } from '@/lib/utils';
 import type { Offer, ParentQrPayload } from '@/types/app';
 
-type ScannedParent = { id: string; full_name: string };
+type ScannedParent = { id: string; full_name: string; role: string; member_no: number | null; suspended: boolean };
 
 export interface QRScannerProps {
   providerId: string;
@@ -213,6 +213,20 @@ export function QRScanner({ providerId, activeOffers, onApplied }: QRScannerProp
   if (phase === 'choosing') {
     return (
       <div className="space-y-4">
+        {/* Pantalla de validación: verde si vigente, ámbar si suspendida. */}
+        <div className={`rounded-2xl border p-4 ${parent?.suspended ? 'border-amber-300 bg-amber-50' : 'border-sage-300 bg-sage-50'}`}>
+          <p className={`flex items-center gap-2 text-sm font-bold ${parent?.suspended ? 'text-amber-800' : 'text-sage-700'}`}>
+            <BadgeCheck className="h-5 w-5" aria-hidden="true" />
+            {parent?.suspended ? t('scan.nidSuspended') : t('scan.nidValid')}
+          </p>
+          <div className="mt-2 text-sm text-slate-800">
+            <p className="text-base font-bold">{parent?.full_name ?? t('scan.clientFallback')}</p>
+            <p className="flex flex-wrap items-center gap-x-2 text-xs text-muted">
+              <span>{parent ? t(`nid.role.${parent.role === 'provider' ? 'specialist' : parent.role === 'parent' ? 'family' : 'member'}`) : ''}</span>
+              {parent?.member_no != null && <span className="font-mono text-brand-700">NM-{String(parent.member_no).padStart(6, '0')}</span>}
+            </p>
+          </div>
+        </div>
         <HowTo stepsKey="howto.scan" />
         <p className="text-center text-slate-700">
           {t('scan.chooseFor')}{' '}

@@ -44,6 +44,9 @@ export interface DirectoryFilters {
   /** Acceso rápido por dominio: pasa si la profesión, alguna especialidad, área
    *  o categoría de producto del proveedor está en esta lista. */
   anyOf?: string[];
+  /** Acceso rápido por TIPO de proveedor (wellness, tourism, legal, ngo,
+   *  caregiver, company…): pasa si `provider_type` está en esta lista. */
+  providerTypes?: string[];
   /** Modalidad de atención. */
   modality?: string;
   /** Solo proveedores con el Sello Neuromundi Neuroafirmativo. */
@@ -147,7 +150,7 @@ export function useDirectory(filters: DirectoryFilters): UseDirectoryValue {
     [providers],
   );
 
-  const { query, categoryId, specialty, productCategory, ageRange, modality, neuroaffirming, city, center, radiusKm, anyOf } = filters;
+  const { query, categoryId, specialty, productCategory, ageRange, modality, neuroaffirming, city, center, radiusKm, anyOf, providerTypes } = filters;
 
   const filtered = useMemo(() => {
     const q = query?.trim().toLowerCase();
@@ -177,6 +180,9 @@ export function useDirectory(filters: DirectoryFilters): UseDirectoryValue {
         ];
         if (!anyOf.some((v) => pool.includes(v))) return false;
       }
+      if (providerTypes && providerTypes.length > 0) {
+        if (!p.provider_type || !providerTypes.includes(p.provider_type)) return false;
+      }
       if (ageRange && !(p.age_ranges ?? []).includes(ageRange)) return false;
       if (modality && !(p.modalities ?? []).includes(modality)) return false;
       if (neuroaffirming && !p.neuroaffirming) return false;
@@ -187,7 +193,7 @@ export function useDirectory(filters: DirectoryFilters): UseDirectoryValue {
       }
       return true;
     });
-  }, [providers, query, categoryId, specialty, productCategory, ageRange, modality, neuroaffirming, city, center, radiusKm, anyOf]);
+  }, [providers, query, categoryId, specialty, productCategory, ageRange, modality, neuroaffirming, city, center, radiusKm, anyOf, providerTypes]);
 
   return { providers, filtered, cities, loading, error, refetch };
 }

@@ -30,7 +30,9 @@ export function notifCategory(type: string): NotifCategory {
     type === 'referral_use' ||
     type === 'referral_reward' ||
     type === 'directory_match' ||
-    type === 'suspension_reminder'
+    type === 'suspension_reminder' ||
+    type === 'topic_job' ||
+    type === 'topic_venue'
   )
     return 'comunidad';
   if (type === 'commission_paid' || type === 'donation_thanks') return 'transacciones';

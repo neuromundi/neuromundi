@@ -21,6 +21,7 @@ export interface UseAuthValue {
   isPatient: boolean;
   isConsumer: boolean;
   isAdmin: boolean;
+  isAdvisor: boolean;
   fullName: string | null;
   avatarUrl: string | null;
   needsOnboarding: boolean;
@@ -60,6 +61,7 @@ export function useAuth(): UseAuthValue {
     isPatient: role === 'patient',
     isConsumer: role === 'parent' || role === 'patient',
     isAdmin: role === 'admin',
+    isAdvisor: profile?.is_advisor ?? false,
     fullName: profile?.full_name ?? null,
     avatarUrl: profile?.avatar_url ?? null,
     needsOnboarding: status === 'authenticated' && !!profile && !profile.rules_version_accepted,

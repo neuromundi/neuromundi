@@ -20,7 +20,7 @@ export type Json =
 
 // ── Enums del esquema ────────────────────────────────────────────────────────
 export type UserRole = 'patient' | 'parent' | 'provider' | 'admin';
-export type ProviderType = 'service_provider' | 'merchant' | 'school' | 'clinic' | 'wellness' | 'tourism' | 'legal' | 'ngo' | 'caregiver';
+export type ProviderType = 'service_provider' | 'merchant' | 'school' | 'clinic' | 'wellness' | 'tourism' | 'legal' | 'ngo' | 'caregiver' | 'company';
 export type TransactionStatus = 'pending' | 'completed' | 'expired' | 'disputed';
 export type OfferStatus = 'active' | 'paused' | 'expired' | 'draft';
 export type DiscountType = 'percentage' | 'fixed' | 'freebie';
@@ -46,7 +46,9 @@ export interface Database {
           country: string | null;
           is_verified: boolean;
           is_published: boolean;
+          is_advisor: boolean;
           neuroaffirming: boolean;
+          accepts_neuromundi_id: boolean;
           latitude: number | null;
           longitude: number | null;
           birth_date: string | null;
@@ -134,6 +136,7 @@ export interface Database {
           is_verified?: boolean;
           is_published?: boolean;
           neuroaffirming?: boolean;
+          accepts_neuromundi_id?: boolean;
           latitude?: number | null;
           longitude?: number | null;
           birth_date?: string | null;
@@ -644,6 +647,11 @@ export interface Database {
           code: string;
           kind: string;
           scope: string;
+          benefit: string;
+          percent_off: number | null;
+          amount_off: number | null;
+          amount_currency: string | null;
+          bound_email: string | null;
           max_uses: number | null;
           used_count: number;
           expires_at: string | null;
@@ -655,6 +663,11 @@ export interface Database {
           code: string;
           kind?: string;
           scope?: string;
+          benefit?: string;
+          percent_off?: number | null;
+          amount_off?: number | null;
+          amount_currency?: string | null;
+          bound_email?: string | null;
           max_uses?: number | null;
           used_count?: number;
           expires_at?: string | null;
@@ -842,9 +855,128 @@ export interface Database {
         Relationships: [];
       };
       founder_members: {
-        Row: { user_id: string; kind: string; country: string | null; created_at: string };
-        Insert: { user_id: string; kind: string; country?: string | null; created_at?: string };
+        Row: { user_id: string; kind: string; country: string | null; created_at: string; grace_until: string | null; wall_published: boolean; wall_featured: boolean; wall_order: number };
+        Insert: { user_id: string; kind: string; country?: string | null; created_at?: string; grace_until?: string | null; wall_published?: boolean; wall_featured?: boolean; wall_order?: number };
         Update: Partial<Database['public']['Tables']['founder_members']['Insert']>;
+        Relationships: [];
+      };
+
+      job_openings: {
+        Row: { id: string; company_id: string; opportunity_type: string; positions: number | null; title: string | null; experience: string | null; education: string | null; salary_text: string | null; country: string | null; city: string | null; skills: string | null; apply_email: string | null; apply_url: string | null; note: string | null; is_active: boolean; created_at: string; updated_at: string };
+        Insert: { id?: string; company_id: string; opportunity_type?: string; positions?: number | null; title?: string | null; experience?: string | null; education?: string | null; salary_text?: string | null; country?: string | null; city?: string | null; skills?: string | null; apply_email?: string | null; apply_url?: string | null; note?: string | null; is_active?: boolean; created_at?: string; updated_at?: string };
+        Update: Partial<Database['public']['Tables']['job_openings']['Insert']>;
+        Relationships: [];
+      };
+
+      member_badges: {
+        Row: { id: string; member_type: string; badge_key: string; title: string | null; storage_path: string | null; public_url: string | null; is_active: boolean; updated_at: string };
+        Insert: { id?: string; member_type: string; badge_key: string; title?: string | null; storage_path?: string | null; public_url?: string | null; is_active?: boolean; updated_at?: string };
+        Update: Partial<Database['public']['Tables']['member_badges']['Insert']>;
+        Relationships: [];
+      };
+
+      topic_subscriptions: {
+        Row: { user_id: string; topics: string[]; scope_country: string | null; scope_city: string | null; updated_at: string };
+        Insert: { user_id: string; topics?: string[]; scope_country?: string | null; scope_city?: string | null; updated_at?: string };
+        Update: Partial<Database['public']['Tables']['topic_subscriptions']['Insert']>;
+        Relationships: [];
+      };
+
+      tribe_members: {
+        Row: { user_id: string; status: string; energy: string; show_country: boolean; show_city: boolean; show_interests: boolean; show_diagnosis: boolean; rules_accepted_at: string | null; created_at: string; points: number; silent_mode: boolean; can_write: boolean; can_evaluate: boolean; can_review: boolean };
+        Insert: { user_id: string; status?: string; energy?: string; show_country?: boolean; show_city?: boolean; show_interests?: boolean; show_diagnosis?: boolean; rules_accepted_at?: string | null; created_at?: string; points?: number; silent_mode?: boolean; can_write?: boolean; can_evaluate?: boolean; can_review?: boolean };
+        Update: Partial<Database['public']['Tables']['tribe_members']['Insert']>;
+        Relationships: [];
+      };
+
+      tribe_gratitude: {
+        Row: { id: string; giver_id: string; receiver_id: string; badge_key: string; points: number; forum_id: string | null; is_anonymous: boolean; created_at: string };
+        Insert: { id?: string; giver_id: string; receiver_id: string; badge_key: string; points?: number; forum_id?: string | null; is_anonymous?: boolean; created_at?: string };
+        Update: Partial<Database['public']['Tables']['tribe_gratitude']['Insert']>;
+        Relationships: [];
+      };
+
+      tribe_moderators: {
+        Row: { user_id: string; status: string; justification: string | null; ethics_accepted_at: string | null; points: number; created_at: string };
+        Insert: { user_id: string; status?: string; justification?: string | null; ethics_accepted_at?: string | null; points?: number; created_at?: string };
+        Update: Partial<Database['public']['Tables']['tribe_moderators']['Insert']>;
+        Relationships: [];
+      };
+
+      tribe_mod_ratings: {
+        Row: { id: string; moderator_id: string; rater_id: string; empathy: number; inclusive_language: number; cordiality: number; knowledge: number; availability: number; comment: string | null; is_anonymous: boolean; created_at: string };
+        Insert: { id?: string; moderator_id: string; rater_id: string; empathy: number; inclusive_language: number; cordiality: number; knowledge: number; availability: number; comment?: string | null; is_anonymous?: boolean; created_at?: string };
+        Update: Partial<Database['public']['Tables']['tribe_mod_ratings']['Insert']>;
+        Relationships: [];
+      };
+
+      tribe_mentors: {
+        Row: { user_id: string; tracks: string[]; bio: string | null; is_active: boolean; created_at: string };
+        Insert: { user_id: string; tracks?: string[]; bio?: string | null; is_active?: boolean; created_at?: string };
+        Update: Partial<Database['public']['Tables']['tribe_mentors']['Insert']>;
+        Relationships: [];
+      };
+
+      tribe_mentorships: {
+        Row: { id: string; mentor_id: string; mentee_id: string; track: string; status: string; created_at: string };
+        Insert: { id?: string; mentor_id: string; mentee_id: string; track: string; status?: string; created_at?: string };
+        Update: Partial<Database['public']['Tables']['tribe_mentorships']['Insert']>;
+        Relationships: [];
+      };
+
+      tribe_mentor_messages: {
+        Row: { id: string; mentorship_id: string; author_id: string; body: string; created_at: string };
+        Insert: { id?: string; mentorship_id: string; author_id: string; body: string; created_at?: string };
+        Update: Partial<Database['public']['Tables']['tribe_mentor_messages']['Insert']>;
+        Relationships: [];
+      };
+
+      tribe_events: {
+        Row: { id: string; creator_id: string; title: string; description: string; starts_at: string; location: string | null; is_online: boolean; city: string | null; country: string | null; noise: string; quiet_room: boolean; sensory_tips: string | null; status: string; created_at: string };
+        Insert: { id?: string; creator_id: string; title: string; description: string; starts_at: string; location?: string | null; is_online?: boolean; city?: string | null; country?: string | null; noise: string; quiet_room?: boolean; sensory_tips?: string | null; status?: string; created_at?: string };
+        Update: Partial<Database['public']['Tables']['tribe_events']['Insert']>;
+        Relationships: [];
+      };
+
+      tribe_event_rsvps: {
+        Row: { event_id: string; user_id: string; joined_at: string };
+        Insert: { event_id: string; user_id: string; joined_at?: string };
+        Update: Partial<Database['public']['Tables']['tribe_event_rsvps']['Insert']>;
+        Relationships: [];
+      };
+
+      tribe_event_sensory: {
+        Row: { id: string; event_id: string; reviewer_id: string; noise_level: number | null; quiet_room_used: boolean | null; comfort: number | null; notes: string | null; created_at: string };
+        Insert: { id?: string; event_id: string; reviewer_id: string; noise_level?: number | null; quiet_room_used?: boolean | null; comfort?: number | null; notes?: string | null; created_at?: string };
+        Update: Partial<Database['public']['Tables']['tribe_event_sensory']['Insert']>;
+        Relationships: [];
+      };
+
+      tribe_forums: {
+        Row: { id: string; creator_id: string; title: string; description: string | null; theme: string | null; country: string | null; city: string | null; language: string | null; status: string; created_at: string };
+        Insert: { id?: string; creator_id: string; title: string; description?: string | null; theme?: string | null; country?: string | null; city?: string | null; language?: string | null; status?: string; created_at?: string };
+        Update: Partial<Database['public']['Tables']['tribe_forums']['Insert']>;
+        Relationships: [];
+      };
+
+      tribe_forum_members: {
+        Row: { forum_id: string; user_id: string; joined_at: string };
+        Insert: { forum_id: string; user_id: string; joined_at?: string };
+        Update: Partial<Database['public']['Tables']['tribe_forum_members']['Insert']>;
+        Relationships: [];
+      };
+
+      tribe_forum_invites: {
+        Row: { id: string; forum_id: string; inviter_id: string; invitee_id: string; status: string; created_at: string };
+        Insert: { id?: string; forum_id: string; inviter_id: string; invitee_id: string; status?: string; created_at?: string };
+        Update: Partial<Database['public']['Tables']['tribe_forum_invites']['Insert']>;
+        Relationships: [];
+      };
+
+      tribe_messages: {
+        Row: { id: string; forum_id: string; author_id: string; body: string; created_at: string };
+        Insert: { id?: string; forum_id: string; author_id: string; body: string; created_at?: string };
+        Update: Partial<Database['public']['Tables']['tribe_messages']['Insert']>;
         Relationships: [];
       };
 
@@ -912,8 +1044,8 @@ export interface Database {
       };
 
       allies: {
-        Row: { id: string; name: string; logo_url: string; website: string | null; sort_order: number; is_active: boolean; created_at: string };
-        Insert: { id?: string; name: string; logo_url: string; website?: string | null; sort_order?: number; is_active?: boolean; created_at?: string };
+        Row: { id: string; name: string; logo_url: string; website: string | null; sort_order: number; is_active: boolean; countries: string[] | null; created_at: string };
+        Insert: { id?: string; name: string; logo_url: string; website?: string | null; sort_order?: number; is_active?: boolean; countries?: string[] | null; created_at?: string };
         Update: Partial<Database['public']['Tables']['allies']['Insert']>;
         Relationships: [];
       };
@@ -1060,7 +1192,7 @@ export interface Database {
       };
       resolve_parent_by_qr: {
         Args: { p_id: string; p_token: string };
-        Returns: { id: string; full_name: string }[];
+        Returns: { id: string; full_name: string; role: string; member_no: number | null; suspended: boolean }[];
       };
       prescription_mark_viewed: {
         Args: { p_id: string };
@@ -1168,6 +1300,182 @@ export interface Database {
         Args: Record<string, never>;
         Returns: { display_name: string; level: string; is_company: boolean; featured: boolean; note: string | null; logo_url: string | null; since: string | null }[];
       };
+      founders_wall: {
+        Args: { p_country?: string | null };
+        Returns: { display_name: string; member_no: number | null; kind: string; country: string | null; featured: boolean; is_company: boolean }[];
+      };
+      founders_wall_countries: {
+        Args: Record<string, never>;
+        Returns: { country: string; n: number }[];
+      };
+      public_jobs: {
+        Args: { p_country?: string | null; p_type?: string | null };
+        Returns: { id: string; company_name: string; company_id: string; opportunity_type: string; positions: number | null; title: string | null; experience: string | null; education: string | null; salary_text: string | null; country: string | null; city: string | null; skills: string | null; apply_email: string | null; apply_url: string | null; note: string | null; created_at: string }[];
+      };
+      public_jobs_countries: {
+        Args: Record<string, never>;
+        Returns: { country: string; n: number }[];
+      };
+      is_tribe_active: {
+        Args: { p_uid?: string };
+        Returns: boolean;
+      };
+      tribe_forums_list: {
+        Args: { p_query?: string | null; p_country?: string | null; p_language?: string | null; p_theme?: string | null };
+        Returns: { id: string; title: string; description: string | null; theme: string | null; country: string | null; city: string | null; language: string | null; members: number; i_member: boolean; created_at: string }[];
+      };
+      tribe_forum_messages: {
+        Args: { p_forum: string };
+        Returns: { id: string; author_id: string; author_name: string; author_energy: string; author_is_mod: boolean; body: string; created_at: string }[];
+      };
+      is_tribe_moderator: {
+        Args: { p_uid?: string };
+        Returns: boolean;
+      };
+      tribe_apply_moderator: {
+        Args: { p_justification: string; p_accept: boolean };
+        Returns: undefined;
+      };
+      tribe_my_moderator: {
+        Args: Record<string, never>;
+        Returns: { status: string; points: number; justification: string | null }[];
+      };
+      tribe_moderators_list: {
+        Args: Record<string, never>;
+        Returns: { user_id: string; name: string; points: number; avg_rating: number; n_ratings: number; i_rated: boolean }[];
+      };
+      tribe_moderator_profile: {
+        Args: { p_moderator: string };
+        Returns: { points: number; n_ratings: number; empathy: number; inclusive_language: number; cordiality: number; knowledge: number; availability: number }[];
+      };
+      tribe_rate_moderator: {
+        Args: { p_moderator: string; p_empathy: number; p_inclusive: number; p_cordiality: number; p_knowledge: number; p_availability: number; p_comment?: string | null; p_anonymous?: boolean };
+        Returns: undefined;
+      };
+      admin_tribe_moderators: {
+        Args: { p_status?: string | null };
+        Returns: { user_id: string; name: string; member_no: number | null; status: string; points: number; justification: string | null; created_at: string }[];
+      };
+      admin_set_moderator_status: {
+        Args: { p_user: string; p_status: string };
+        Returns: undefined;
+      };
+      admin_set_tribe_member: {
+        Args: { p_user: string; p_status?: string | null; p_can_write?: boolean | null; p_can_evaluate?: boolean | null; p_can_review?: boolean | null };
+        Returns: undefined;
+      };
+      admin_tribe_member_lookup: {
+        Args: { p_member_no: number };
+        Returns: { user_id: string; name: string; status: string; can_write: boolean; can_evaluate: boolean; can_review: boolean }[];
+      };
+      admin_set_advisor: {
+        Args: { p_member_no: number; p_on: boolean };
+        Returns: undefined;
+      };
+      admin_list_advisors: {
+        Args: Record<string, never>;
+        Returns: { user_id: string; name: string; email: string; member_no: number | null }[];
+      };
+      tribe_delete_message: {
+        Args: { p_msg: string };
+        Returns: undefined;
+      };
+      tribe_become_mentor: {
+        Args: { p_tracks: string[]; p_bio: string | null };
+        Returns: undefined;
+      };
+      tribe_set_mentor_active: {
+        Args: { p_active: boolean };
+        Returns: undefined;
+      };
+      tribe_my_mentor: {
+        Args: Record<string, never>;
+        Returns: { tracks: string[]; bio: string | null; is_active: boolean }[];
+      };
+      tribe_mentors_list: {
+        Args: { p_track?: string | null };
+        Returns: { user_id: string; name: string; tracks: string[]; bio: string | null; my_status: string | null }[];
+      };
+      tribe_request_mentor: {
+        Args: { p_mentor: string; p_track: string };
+        Returns: undefined;
+      };
+      tribe_respond_mentorship: {
+        Args: { p_id: string; p_accept: boolean };
+        Returns: undefined;
+      };
+      tribe_my_mentorships: {
+        Args: Record<string, never>;
+        Returns: { id: string; role: string; counterpart_name: string; track: string; status: string; created_at: string }[];
+      };
+      tribe_mentor_messages_list: {
+        Args: { p_mentorship: string };
+        Returns: { id: string; author_id: string; author_name: string; body: string; created_at: string }[];
+      };
+      tribe_create_event: {
+        Args: { p_title: string; p_description: string; p_starts_at: string; p_location?: string | null; p_is_online?: boolean; p_city?: string | null; p_country?: string | null; p_noise: string; p_quiet_room?: boolean; p_sensory_tips?: string | null };
+        Returns: string;
+      };
+      tribe_cancel_event: {
+        Args: { p_event: string };
+        Returns: undefined;
+      };
+      tribe_event_rsvp: {
+        Args: { p_event: string; p_going: boolean };
+        Returns: undefined;
+      };
+      tribe_event_sensory_report: {
+        Args: { p_event: string; p_noise: number; p_quiet_used: boolean; p_comfort: number; p_notes?: string | null };
+        Returns: undefined;
+      };
+      tribe_events_list: {
+        Args: { p_country?: string | null };
+        Returns: { id: string; title: string; description: string; starts_at: string; location: string | null; is_online: boolean; city: string | null; country: string | null; noise: string; quiet_room: boolean; sensory_tips: string | null; creator_name: string; going: number; i_going: boolean; i_reported: boolean; is_past: boolean }[];
+      };
+      tribe_invite: {
+        Args: { p_forum: string; p_member_no: number };
+        Returns: undefined;
+      };
+      tribe_my_invites: {
+        Args: Record<string, never>;
+        Returns: { id: string; forum_id: string; forum_title: string; inviter_name: string; created_at: string }[];
+      };
+      tribe_respond_invite: {
+        Args: { p_invite: string; p_accept: boolean };
+        Returns: undefined;
+      };
+      admin_tribe_forums: {
+        Args: { p_status?: string | null };
+        Returns: { id: string; title: string; description: string | null; theme: string | null; country: string | null; city: string | null; language: string | null; creator_name: string; status: string; created_at: string }[];
+      };
+      admin_set_forum_status: {
+        Args: { p_forum: string; p_status: string };
+        Returns: undefined;
+      };
+      tribe_tokens_left: {
+        Args: Record<string, never>;
+        Returns: number;
+      };
+      tribe_give_gratitude: {
+        Args: { p_receiver: string; p_badge: string; p_forum?: string | null; p_anonymous?: boolean };
+        Returns: number;
+      };
+      tribe_set_silent: {
+        Args: { p_silent: boolean };
+        Returns: undefined;
+      };
+      tribe_impact: {
+        Args: { p_user: string };
+        Returns: { badge_key: string; n: number; points: number; silent: boolean }[];
+      };
+      admin_founders: {
+        Args: { p_country?: string | null };
+        Returns: { user_id: string; display_name: string; member_no: number | null; kind: string; country: string | null; wall_published: boolean; wall_featured: boolean; wall_order: number }[];
+      };
+      admin_set_founder_wall: {
+        Args: { p_user: string; p_published?: boolean | null; p_featured?: boolean | null; p_order?: number | null };
+        Returns: undefined;
+      };
       admin_donation_stats: {
         Args: Record<string, never>;
         Returns: { currency: string; paid_count: number; paid_cents: number; wall_published: number; physical_pending: number }[];
@@ -1187,6 +1495,14 @@ export interface Database {
       respond_review: {
         Args: { p_survey_id: string; p_text: string };
         Returns: Json;
+      };
+      can_review_provider: {
+        Args: { p_provider: string };
+        Returns: boolean;
+      };
+      submit_provider_review: {
+        Args: { p_provider: string; p_quality: number; p_human: number; p_accessibility: number; p_price: number; p_offer: number; p_sensory: number; p_flexibility: number; p_facilities?: number | null; p_professionalism?: number | null; p_comment?: string | null; p_anonymous?: boolean };
+        Returns: undefined;
       };
       track_profile_event: {
         Args: { p_provider_id: string; p_kind: string };

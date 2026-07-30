@@ -6,7 +6,7 @@
  * estado activo visible y labels claros (poca carga cognitiva).
  */
 import { NavLink, Outlet, useNavigate, Link } from 'react-router-dom';
-import { Compass, LayoutDashboard, Settings, LogIn, LogOut, ShieldCheck, MessageCircleQuestion, School, GraduationCap, Grid3x3, X, BookOpenCheck, BookOpen, ShieldAlert, CalendarDays, ShoppingBag, MessageSquare, Heart, Lightbulb } from 'lucide-react';
+import { Compass, LayoutDashboard, Settings, LogIn, LogOut, ShieldCheck, MessageCircleQuestion, School, GraduationCap, Grid3x3, X, BookOpenCheck, BookOpen, ShieldAlert, CalendarDays, ShoppingBag, MessageSquare, Heart, Lightbulb, Award, Briefcase, Users, BadgeCheck } from 'lucide-react';
 import { Suspense, lazy, useEffect, useState, type ComponentType } from 'react';
 import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -104,6 +104,9 @@ export function AppLayout() {
   // intro se conserva en pantallas grandes, donde la conexión suele ser mejor.
   const [showVideo, setShowVideo] = useState(() => {
     try {
+      // Durante el prerender (react-snap) NO mostramos el splash: taparía la
+      // portada en el HTML estático capturado.
+      if (typeof navigator !== 'undefined' && navigator.userAgent === 'ReactSnap') return false;
       if (localStorage.getItem(INTRO_KEY) != null) return false;
       // Coincide con el breakpoint md de Tailwind (768px).
       const isDesktop =
@@ -401,6 +404,10 @@ export function AppLayout() {
               <NavMoreMenu
                 label={t('nav.more')}
                 items={[
+                  { to: '/inclusion-laboral', label: t('nav.labor'), icon: <Briefcase className="h-4 w-4" /> },
+                  { to: '/tribu', label: t('nav.tribe'), icon: <Users className="h-4 w-4" /> },
+                  { to: '/red', label: t('nav.red'), icon: <BadgeCheck className="h-4 w-4" /> },
+                  { to: '/fundadores', label: t('nav.founders'), icon: <Award className="h-4 w-4" /> },
                   { to: '/proteccion-datos', label: t('nav.dataProtection'), icon: <ShieldCheck className="h-4 w-4" /> },
                   { to: '/pregunta-al-experto', label: t('nav.askExpert'), icon: <MessageCircleQuestion className="h-4 w-4" /> },
                 ]}
@@ -509,6 +516,8 @@ export function AppLayout() {
         <span className="mx-2">·</span>
         <Link to="/manifiesto" className="hover:text-brand-700">{t('footer.manifesto')}</Link>
         <span className="mx-2">·</span>
+        <Link to="/fundadores" className="hover:text-brand-700">{t('nav.founders')}</Link>
+        <span className="mx-2">·</span>
         <Link to="/donar" className="font-semibold text-[#8C6D1F] hover:underline">{t('nav.donate')}</Link>
         <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
           <button
@@ -546,12 +555,16 @@ export function AppLayout() {
                 { to: '/proteccion-datos', icon: <ShieldCheck className="h-6 w-6" />, label: t('nav.dataProtection'), color: 'bg-teal-600' },
                 { to: '/pregunta-al-experto', icon: <MessageCircleQuestion className="h-6 w-6" />, label: t('nav.askExpert'), color: 'bg-cyan-600' },
                 { to: '/inclusion-escolar', icon: <School className="h-6 w-6" />, label: t('school.title'), color: 'bg-gradient-to-br from-amber-600 via-orange-500 to-rose-500' },
+                { to: '/inclusion-laboral', icon: <Briefcase className="h-6 w-6" />, label: t('nav.labor'), color: 'bg-gradient-to-br from-slate-600 to-slate-800' },
+                { to: '/tribu', icon: <Users className="h-6 w-6" />, label: t('nav.tribe'), color: 'bg-gradient-to-br from-violet-600 to-fuchsia-600' },
+                { to: '/red', icon: <BadgeCheck className="h-6 w-6" />, label: t('nav.red'), color: 'bg-gradient-to-br from-sky-600 to-cyan-600' },
                 { to: '/academy', icon: <GraduationCap className="h-6 w-6" />, label: t('lms.tab'), color: 'bg-gradient-to-br from-brand-600 via-brand-500 to-evs-5' },
                 { to: '/blog', icon: <BookOpen className="h-6 w-6" />, label: t('nav.blog'), color: 'bg-gradient-to-br from-brand-600 via-indigo-600 to-indigo-800' },
                 { to: '/eventos', icon: <CalendarDays className="h-6 w-6" />, label: t('nav.events'), color: 'bg-gradient-to-br from-indigo-600 via-indigo-700 to-brand-700' },
                 ...(isAuthenticated ? [{ to: '/calendario', icon: <CalendarDays className="h-6 w-6" />, label: t('nav.calendar'), color: 'bg-slate-600' }] : []),
                 ...(isAuthenticated ? [{ to: '/mensajes', icon: <MessageSquare className="h-6 w-6" />, label: t('nav.messages'), color: 'bg-slate-600' }] : []),
                 { to: '/tienda', icon: <ShoppingBag className="h-6 w-6" />, label: t('shop.title'), color: 'bg-gradient-to-br from-fuchsia-600 via-purple-600 to-indigo-600' },
+                { to: '/fundadores', icon: <Award className="h-6 w-6" />, label: t('nav.founders'), color: 'bg-gradient-to-br from-brand-600 to-brand-800' },
                 { to: '/donar', icon: <Heart className="h-6 w-6" />, label: t('nav.donate'), color: 'bg-[#8C6D1F]' },
               ].map((it) => (
                 <button

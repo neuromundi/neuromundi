@@ -63,9 +63,8 @@
         var l = document.createElement('link');
         l.rel = 'preload';
         l.as = 'image';
-        l.href = '/hero/hero-550-v4.webp';
-        l.imageSrcset =
-          '/hero/hero-450-v4.webp 450w, /hero/hero-550-v4.webp 550w, /hero/hero-700-v4.webp 700w, /hero/hero-900-v4.webp 900w, /hero/hero-1100-v4.webp 1100w';
+        l.href = '/hero/slides/1-800-v3.webp';
+        l.imageSrcset = '/hero/slides/1-500-v3.webp 500w, /hero/slides/1-800-v3.webp 800w';
         l.imageSizes = '(max-width: 640px) 92vw, (max-width: 1024px) 60vw, 448px';
         l.setAttribute('fetchpriority', 'high');
         document.head.appendChild(l);
@@ -97,7 +96,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=3" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3" />
     <link rel="canonical" href="https://www.neuromundi.com/" />
-    <title>Neuromundi</title>
+    <title>Neuromundi: your global community</title>
 
     <!-- Google tag (gtag.js)
          Se inyecta DESPUÉS de que la página ya cargó (o al primer gesto del
@@ -144,7 +143,7 @@
   </head>
   <body>
     <div id="root">
-      <div style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">
+      <div data-nm-shell style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">
         <main style="font-family:system-ui,sans-serif;color:#0f172a">
           <h1 style="color:#0284c7">Neuromundi</h1>
           <p>Neuromundi es una comunidad y un marketplace global para la neurodivergencia.</p>

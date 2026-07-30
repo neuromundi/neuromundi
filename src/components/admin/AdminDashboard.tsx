@@ -21,8 +21,12 @@ import { AdminMessages } from './AdminMessages';
 import { AdminReferrals } from './AdminReferrals';
 import { AdminFees } from './AdminFees';
 import { AdminDonations } from './AdminDonations';
+import { AdminFounders } from './AdminFounders';
+import { AdminMemberBadges } from './AdminMemberBadges';
+import { AdminTribe } from './AdminTribe';
 import { AdminAccountActions } from './AdminAccountActions';
 import { AdminImprovements } from './AdminImprovements';
+import { AdminAdvisors } from './AdminAdvisors';
 import { formatDate, cn } from '@/lib/utils';
 import type { Profile } from '@/types/app';
 import { useAdminBadges } from '@/hooks/useAdminBadges';
@@ -188,12 +192,20 @@ function ProviderList({ filter }: { filter: AdminFilter }) {
   );
 }
 
-export function AdminDashboard() {
+type AdminSection = 'metrics' | 'messages' | 'moderation' | 'products' | 'store' | 'renewals' | 'referrals' | 'fees' | 'donations' | 'founders' | 'badges' | 'tribe' | 'accounts' | 'advisors' | 'improve' | 'reports' | 'other';
+
+// Secciones que puede ver un ASESOR (explorador + moderador de Tribu): SOLO la
+// moderación de Tribu. Las demás (incluidas métricas) son de administrador.
+const ADVISOR_SECTIONS: AdminSection[] = ['tribe'];
+const ALL_SECTIONS: AdminSection[] = ['metrics', 'messages', 'moderation', 'products', 'store', 'renewals', 'referrals', 'fees', 'donations', 'founders', 'badges', 'tribe', 'accounts', 'advisors', 'improve', 'reports', 'other'];
+
+export function AdminDashboard({ advisor = false }: { advisor?: boolean } = {}) {
   const { t } = useTranslation();
   const toast = useToast();
   const { userId } = useAuth();
   const [tab, setTab] = useState<AdminFilter>('pending');
-  const [section, setSection] = useState<'metrics' | 'messages' | 'moderation' | 'products' | 'store' | 'renewals' | 'referrals' | 'fees' | 'donations' | 'accounts' | 'improve' | 'reports' | 'other'>('metrics');
+  const sections = advisor ? ADVISOR_SECTIONS : ALL_SECTIONS;
+  const [section, setSection] = useState<AdminSection>(advisor ? 'tribe' : 'metrics');
   const [recalcBusy, setRecalcBusy] = useState(false);
 
   const recalcBadges = async () => {
@@ -209,7 +221,7 @@ export function AdminDashboard() {
       <h1 className="mb-4 text-2xl font-bold text-slate-900">{t('admin.title')}</h1>
 
       <div className="mb-4 inline-flex flex-wrap rounded-xl bg-slate-100 p-1">
-        {(['metrics', 'messages', 'moderation', 'products', 'store', 'renewals', 'referrals', 'fees', 'donations', 'accounts', 'improve', 'reports', 'other'] as const).map((s) => (
+        {sections.map((s) => (
           <button
             key={s}
             type="button"
@@ -219,7 +231,7 @@ export function AdminDashboard() {
               section === s ? 'bg-white text-slate-900 shadow-sm' : 'text-muted',
             )}
           >
-            {t(s === 'metrics' ? 'admin.secMetrics' : s === 'messages' ? 'admin.secMessages' : s === 'moderation' ? 'admin.secModeration' : s === 'products' ? 'admin.secProducts' : s === 'store' ? 'admin.secStore' : s === 'renewals' ? 'admin.secRenewals' : s === 'referrals' ? 'admin.secReferrals' : s === 'fees' ? 'admin.secFees' : s === 'donations' ? 'admin.secDonations' : s === 'accounts' ? 'admin.secAccounts' : s === 'improve' ? 'admin.secImprove' : s === 'reports' ? 'admin.secReports' : 'admin.secOther')}
+            {t(s === 'metrics' ? 'admin.secMetrics' : s === 'messages' ? 'admin.secMessages' : s === 'moderation' ? 'admin.secModeration' : s === 'products' ? 'admin.secProducts' : s === 'store' ? 'admin.secStore' : s === 'renewals' ? 'admin.secRenewals' : s === 'referrals' ? 'admin.secReferrals' : s === 'fees' ? 'admin.secFees' : s === 'donations' ? 'admin.secDonations' : s === 'founders' ? 'admin.secFounders' : s === 'badges' ? 'admin.secBadges' : s === 'tribe' ? 'admin.secTribe' : s === 'accounts' ? 'admin.secAccounts' : s === 'advisors' ? 'admin.secAdvisors' : s === 'improve' ? 'admin.secImprove' : s === 'reports' ? 'admin.secReports' : 'admin.secOther')}
           </button>
         ))}
       </div>
@@ -262,8 +274,16 @@ export function AdminDashboard() {
         <AdminFees />
       ) : section === 'donations' ? (
         <AdminDonations />
+      ) : section === 'founders' ? (
+        <AdminFounders />
+      ) : section === 'badges' ? (
+        <AdminMemberBadges />
+      ) : section === 'tribe' ? (
+        <AdminTribe />
       ) : section === 'accounts' ? (
         <AdminAccountActions />
+      ) : section === 'advisors' ? (
+        <AdminAdvisors />
       ) : section === 'improve' ? (
         <AdminImprovements />
       ) : section === 'reports' ? (

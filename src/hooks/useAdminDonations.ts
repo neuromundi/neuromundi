@@ -105,6 +105,7 @@ export function useAdminAllies() {
         website: a.website ?? null,
         sort_order: a.sort_order ?? 0,
         is_active: a.is_active ?? true,
+        countries: a.countries && a.countries.length > 0 ? a.countries : null,
       };
       const { error } = a.id
         ? await supabase.from('allies').update(payload).eq('id', a.id)

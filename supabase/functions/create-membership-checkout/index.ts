@@ -85,17 +85,37 @@ Deno.serve(async (req: Request) => {
   const amountLocal = Number(price.amount);
   const unitAmount = pricing.zero_decimal ? Math.round(amountLocal) : Math.round(amountLocal * 100);
 
-  // ── Descuentos del programa de recomendación ──────────────────────────────
-  // referral_pct: 5% por llegar con un enlace vigente (solo el primer pago).
-  // referrer_pct: 5% acumulado por cada referido suyo que ya pagó (con tope).
-  // Se combinan de forma compuesta; el RPC ya devuelve el total equivalente.
-  let discountPct = 0;
+  // ── Descuentos ────────────────────────────────────────────────────────────
+  // (1) Programa de recomendación (membership_discount → total_pct):
+  //     referral_pct + referrer_pct combinados, solo el primer pago.
+  // (2) Código promocional canjeado: 'percent' (se compone con la recomendación)
+  //     o 'amount' (monto fijo en su moneda; solo aplica si coincide con la de
+  //     cobro del país). Stripe admite un solo cupón por checkout: si hay monto
+  //     fijo válido, prevalece; si no, se usa el porcentaje combinado.
+  let referralPct = 0;
   try {
     const { data: disc } = await admin.rpc('membership_discount', { p_user: u.user.id });
     const row = Array.isArray(disc) ? disc[0] : disc;
-    discountPct = Math.min(Number(row?.total_pct ?? 0), 90);
+    referralPct = Number(row?.total_pct ?? 0);
   } catch {
-    discountPct = 0; // nunca bloquear el cobro por un fallo del descuento
+    referralPct = 0; // nunca bloquear el cobro por un fallo del descuento
+  }
+
+  let promoBenefit = '';
+  let promoPct = 0;
+  let promoAmount = 0;
+  let promoCurrency = '';
+  try {
+    const { data: pr } = await admin.rpc('membership_promo', { p_user: u.user.id });
+    const row = Array.isArray(pr) ? pr[0] : pr;
+    if (row) {
+      promoBenefit = String(row.benefit ?? '');
+      promoPct = Number(row.percent_off ?? 0);
+      promoAmount = Number(row.amount_off ?? 0);
+      promoCurrency = String(row.amount_currency ?? '').toLowerCase();
+    }
+  } catch {
+    promoBenefit = '';
   }
 
   const origin = req.headers.get('origin') ?? new URL(req.url).origin;
@@ -117,15 +137,37 @@ Deno.serve(async (req: Request) => {
   }
 
   // El descuento aplica SOLO al primer pago: cupón `duration: 'once'`.
+  const curr = pricing.currency.toLowerCase();
   let discounts: Array<{ coupon: string }> | undefined;
-  if (discountPct > 0) {
-    const coupon = await stripe.coupons.create({
-      percent_off: discountPct,
-      duration: 'once',
-      name: `Recomendación Neuromundi (-${discountPct}%)`,
-      metadata: { user_id: u.user.id, kind: 'referral' },
-    });
-    discounts = [{ coupon: coupon.id }];
+
+  if (promoBenefit === 'amount' && promoAmount > 0 && promoCurrency === curr) {
+    // Monto fijo en la moneda de cobro; se acota al total para no ir negativo.
+    const offMinor = pricing.zero_decimal ? Math.round(promoAmount) : Math.round(promoAmount * 100);
+    const amountOff = Math.min(offMinor, unitAmount);
+    if (amountOff > 0) {
+      const coupon = await stripe.coupons.create({
+        amount_off: amountOff,
+        currency: curr,
+        duration: 'once',
+        name: 'Descuento Neuromundi',
+        metadata: { user_id: u.user.id, kind: 'promo_amount' },
+      });
+      discounts = [{ coupon: coupon.id }];
+    }
+  } else {
+    // Porcentaje: recomendación ∘ promo (%), acotado al 90%.
+    const pct = promoBenefit === 'percent' ? promoPct : 0;
+    const combinedPct = (1 - (1 - referralPct / 100) * (1 - pct / 100)) * 100;
+    const discountPct = Math.min(Math.round(combinedPct), 90);
+    if (discountPct > 0) {
+      const coupon = await stripe.coupons.create({
+        percent_off: discountPct,
+        duration: 'once',
+        name: `Descuento Neuromundi (-${discountPct}%)`,
+        metadata: { user_id: u.user.id, kind: 'discount', referral_pct: String(referralPct), promo_pct: String(pct) },
+      });
+      discounts = [{ coupon: coupon.id }];
+    }
   }
 
   const session = await stripe.checkout.sessions.create({

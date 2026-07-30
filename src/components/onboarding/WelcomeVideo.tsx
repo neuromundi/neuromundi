@@ -11,12 +11,11 @@
  */
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { SkipForward, Volume2, VolumeX } from 'lucide-react';
+import { SkipForward } from 'lucide-react';
 
 export function WelcomeVideo({ onDone }: { onDone: () => void }) {
   const { t } = useTranslation();
   const [done, setDone] = useState(false);
-  const [muted, setMuted] = useState(true);
 
   const finish = () => {
     if (done) return;
@@ -30,7 +29,7 @@ export function WelcomeVideo({ onDone }: { onDone: () => void }) {
         className="h-full w-full object-contain"
         autoPlay
         playsInline
-        muted={muted}
+        muted
         preload="metadata"
         onEnded={finish}
         onError={finish}
@@ -39,15 +38,6 @@ export function WelcomeVideo({ onDone }: { onDone: () => void }) {
         <source src="/neuromundi-v2.webm" type="video/webm" />
         <source src="/neuromundi-v2.mp4" type="video/mp4" />
       </video>
-
-      <button
-        type="button"
-        onClick={() => setMuted((m) => !m)}
-        aria-label={muted ? t('intro.unmute') : t('intro.mute')}
-        className="absolute bottom-6 left-6 z-10 inline-flex items-center justify-center rounded-full bg-white/90 p-2.5 text-slate-900 shadow-lg backdrop-blur hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
-      >
-        {muted ? <VolumeX className="h-4 w-4" aria-hidden="true" /> : <Volume2 className="h-4 w-4" aria-hidden="true" />}
-      </button>
 
       <button
         type="button"

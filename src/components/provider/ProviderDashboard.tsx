@@ -39,6 +39,7 @@ import {
   Store,
   Gift,
   Megaphone,
+  Briefcase,
 } from 'lucide-react';
 import {
   Tabs,
@@ -64,8 +65,13 @@ import { useProviderRatings, type ProviderComment } from '@/hooks/useProviderRat
 import { useMyBadge } from '@/hooks/useMyBadge';
 import { BadgeProgress } from './BadgeProgress';
 import { AliadoCertificateCard } from './AliadoCertificateCard';
+import { GlobalMemberBadge } from './GlobalMemberBadge';
 import { ProviderMetricsPanel } from './ProviderMetricsPanel';
 import { SchoolInclusionPanel } from './SchoolInclusionPanel';
+import { JobsPanel } from './JobsPanel';
+import { MemberBadgesCard } from './MemberBadgesCard';
+import { NeuromundiIdOptIn } from './NeuromundiIdOptIn';
+import { SealsCard } from './SealsCard';
 import { OfferForm } from './OfferForm';
 import { QRScanner } from './QRScanner';
 import { PrescriptionBuilder } from './PrescriptionBuilder';
@@ -486,7 +492,11 @@ function RatingsTab({
     return (
       <div className="space-y-6">
         <BadgeProgress badge={myBadge} inputs={myInputs} />
+        <GlobalMemberBadge />
         <AliadoCertificateCard badge={myBadge} />
+        <MemberBadgesCard memberType={providerType} />
+        <NeuromundiIdOptIn />
+        <SealsCard />
         <div className="rounded-2xl border border-dashed border-slate-200 p-8 text-center text-muted">
           {t('provider.ratings.empty')}
         </div>
@@ -498,6 +508,9 @@ function RatingsTab({
     <div className="space-y-6">
       <BadgeProgress badge={myBadge} inputs={myInputs} />
       <AliadoCertificateCard badge={myBadge} />
+      <MemberBadgesCard memberType={providerType} />
+      <NeuromundiIdOptIn />
+      <SealsCard />
       <div className="flex flex-col items-center gap-2">
         <EVSBadge score={rating.evs_score} totalReviews={rating.total_reviews} size="lg" />
         <p className="text-sm text-muted">{t('card.reviews', { count: rating.total_reviews ?? 0 })}</p>
@@ -684,6 +697,17 @@ export function ProviderDashboard() {
         }
       : null;
 
+  // Oportunidades (empleo / voluntariado / servicio social): Empresas y ONG.
+  const jobsTab =
+    providerType === 'company' || providerType === 'ngo'
+      ? {
+          id: 'jobs',
+          label: t('jobs.tab'),
+          icon: <Briefcase className="h-4 w-4" aria-hidden="true" />,
+          content: <JobsPanel companyId={userId} />,
+        }
+      : null;
+
   const paymentsTab = {
     id: 'payments',
     label: t('pay.tab'),
@@ -724,6 +748,7 @@ export function ProviderDashboard() {
   const tabs = [
     ...baseTabs,
     ...(inclusionTab ? [inclusionTab] : []),
+    ...(jobsTab ? [jobsTab] : []),
     metricsTab,
     agendaTab,
     paymentsTab,

@@ -16,23 +16,39 @@ export function AdminPromoCodes() {
   const { t } = useTranslation();
   const toast = useToast();
   const { promos, loading, createPromo, togglePromo, deletePromo } = useAdminBilling();
-  const [newPromo, setNewPromo] = useState({ code: '', kind: 'personal', scope: 'all', max_uses: '', note: '' });
+  const [newPromo, setNewPromo] = useState({ code: '', kind: 'personal', scope: 'all', benefit: 'exempt', percent_off: '', amount_off: '', amount_currency: '', bound_email: '', max_uses: '', note: '' });
 
   const onCreatePromo = async () => {
     if (!newPromo.code.trim()) {
       toast.error(t('admin.errCode'));
       return;
     }
+    const pct = newPromo.benefit === 'percent' ? Number(newPromo.percent_off) : null;
+    if (newPromo.benefit === 'percent' && (!Number.isFinite(pct as number) || (pct as number) < 1 || (pct as number) > 100)) {
+      toast.error(t('admin.errPercent'));
+      return;
+    }
+    const amt = newPromo.benefit === 'amount' ? Number(newPromo.amount_off) : null;
+    const curr = newPromo.benefit === 'amount' ? newPromo.amount_currency.trim().toUpperCase() : null;
+    if (newPromo.benefit === 'amount' && (!Number.isFinite(amt as number) || (amt as number) <= 0 || !curr)) {
+      toast.error(t('admin.errAmount'));
+      return;
+    }
     const res = await createPromo({
       code: newPromo.code,
       kind: newPromo.kind,
       scope: newPromo.scope,
+      benefit: newPromo.benefit,
+      percent_off: pct,
+      amount_off: amt,
+      amount_currency: curr,
+      bound_email: newPromo.bound_email.trim() || null,
       max_uses: newPromo.max_uses === '' ? null : Number(newPromo.max_uses),
       note: newPromo.note || null,
     });
     if (res.ok) {
       toast.success(t('admin.created'));
-      setNewPromo({ code: '', kind: 'personal', scope: 'all', max_uses: '', note: '' });
+      setNewPromo({ code: '', kind: 'personal', scope: 'all', benefit: 'exempt', percent_off: '', amount_off: '', amount_currency: '', bound_email: '', max_uses: '', note: '' });
     } else toast.error(res.error);
   };
 
@@ -47,6 +63,11 @@ export function AdminPromoCodes() {
             <div className="min-w-0 flex-1">
               <span className="font-semibold text-slate-900">{c.code}</span>
               <span className="ml-2 text-xs text-muted">
+                {c.benefit === 'percent'
+                  ? t('admin.benefitPercentShort', { pct: c.percent_off ?? 0 })
+                  : c.benefit === 'amount'
+                    ? `−${c.amount_off ?? 0} ${c.amount_currency ?? ''}`
+                    : t('admin.benefitExempt')}{c.bound_email ? ' · 🔒' : ''} ·{' '}
                 {t(c.kind === 'universal' ? 'admin.kindUniversal' : 'admin.kindPersonal')} ·{' '}
                 {c.scope === 'consumer'
                   ? t('admin.scopeConsumer')
@@ -98,6 +119,49 @@ export function AdminPromoCodes() {
           placeholder={t('admin.maxUses')}
           value={newPromo.max_uses}
           onChange={(e) => setNewPromo((c) => ({ ...c, max_uses: e.target.value }))}
+        />
+        {/* Beneficio: exención total, descuento porcentual o monto fijo */}
+        <select className={inputCls} value={newPromo.benefit} onChange={(e) => setNewPromo((c) => ({ ...c, benefit: e.target.value }))}>
+          <option value="exempt">{t('admin.benefitExempt')}</option>
+          <option value="percent">{t('admin.benefitPercent')}</option>
+          <option value="amount">{t('admin.benefitAmount')}</option>
+        </select>
+        {newPromo.benefit === 'amount' ? (
+          <div className="grid grid-cols-2 gap-2">
+            <input
+              className={inputCls}
+              type="number"
+              min="1"
+              placeholder={t('admin.amountOff')}
+              value={newPromo.amount_off}
+              onChange={(e) => setNewPromo((c) => ({ ...c, amount_off: e.target.value }))}
+            />
+            <input
+              className={inputCls}
+              maxLength={3}
+              placeholder={t('admin.amountCurrency')}
+              value={newPromo.amount_currency}
+              onChange={(e) => setNewPromo((c) => ({ ...c, amount_currency: e.target.value.toUpperCase() }))}
+            />
+          </div>
+        ) : (
+          <input
+            className={inputCls}
+            type="number"
+            min="1"
+            max="100"
+            disabled={newPromo.benefit !== 'percent'}
+            placeholder={t('admin.percentOff')}
+            value={newPromo.percent_off}
+            onChange={(e) => setNewPromo((c) => ({ ...c, percent_off: e.target.value }))}
+          />
+        )}
+        <input
+          className={`${inputCls} col-span-2`}
+          type="email"
+          placeholder={t('admin.boundEmail')}
+          value={newPromo.bound_email}
+          onChange={(e) => setNewPromo((c) => ({ ...c, bound_email: e.target.value }))}
         />
         <input
           className={`${inputCls} col-span-2`}

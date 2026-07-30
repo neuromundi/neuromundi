@@ -19,12 +19,15 @@ import { useAuthStore } from '@/stores/authStore';
 import { getFounderOptoutFlag, clearFounderOptoutFlag } from '@/lib/founderPref';
 import type { ProviderType } from '@/types/database';
 
-export type FounderKind = 'families' | 'professionals' | 'providers';
+export type FounderKind = 'families' | 'professionals' | 'providers' | 'companies';
 
 /** Mapea el rol / tipo de proveedor al grupo de fundador correspondiente. */
 export function founderKindFor(role: string | null | undefined, providerType: ProviderType | null | undefined): FounderKind | null {
   if (role === 'parent' || role === 'patient') return 'families';
-  if (role === 'provider') return providerType === 'merchant' ? 'providers' : 'professionals';
+  if (role === 'provider') {
+    if (providerType === 'company') return 'companies'; // empresas: track propio (cupo 20 + 2 vacantes)
+    return providerType === 'merchant' ? 'providers' : 'professionals';
+  }
   return null; // admin u otros: no participan
 }
 
@@ -33,6 +36,7 @@ export const FOUNDER_CAPACITY: Record<FounderKind, number> = {
   families: 500,
   professionals: 100,
   providers: 100,
+  companies: 20,
 };
 
 /**
@@ -172,12 +176,16 @@ export function useFounderProgress() {
     setLoading(true);
     const [{ computeFounderProgress }] = await Promise.all([import('@/lib/founderRequirements')]);
 
-    const [founderRow, benefitCount, blogCount, offerRow, referralRes] = await Promise.all([
+    const [founderRow, benefitCount, blogCount, offerRow, referralRes, vacancyRes] = await Promise.all([
       supabase.from('founder_members').select('user_id').eq('user_id', userId).maybeSingle(),
       supabase.from('discount_transactions').select('id', { count: 'exact', head: true }).eq('provider_id', userId).eq('status', 'completed'),
       supabase.from('content_posts').select('id', { count: 'exact', head: true }).eq('author_id', userId),
       supabase.from('offers').select('discount_value').eq('provider_id', userId).eq('status', 'active').eq('discount_type', 'percentage').gte('discount_value', 10).limit(1),
       supabase.rpc('my_referral_count'),
+      // Vacantes activas (solo relevante para empresas).
+      kind === 'companies'
+        ? supabase.from('job_openings').select('id', { count: 'exact', head: true }).eq('company_id', userId).eq('is_active', true)
+        : Promise.resolve({ count: 0 }),
     ]);
 
     const details = (profile.provider_details ?? {}) as Record<string, unknown>;
@@ -195,6 +203,7 @@ export function useFounderProgress() {
       verifiedBenefitCount: benefitCount.count ?? 0,
       blogPosts: blogCount.count ?? 0,
       referralCount: typeof referralRes.data === 'number' ? referralRes.data : 0,
+      vacancyCount: vacancyRes.count ?? 0,
     });
     setProgress(res);
     setLoading(false);

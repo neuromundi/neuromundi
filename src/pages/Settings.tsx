@@ -20,6 +20,7 @@ import { ProviderLocations } from '@/components/provider';
 import { FiscalSchoolFields } from '@/components/provider/FiscalSchoolFields';
 import { MyReports } from '@/components/report/MyReports';
 import { NotificationPrefs } from '@/components/membership/NotificationPrefs';
+import { TopicSubscriptions } from '@/components/membership/TopicSubscriptions';
 import { AccountFlowModal } from '@/components/membership/AccountFlowModal';
 import { GuidedTour } from '@/components/onboarding';
 import { PasswordStrength } from '@/components/auth/PasswordStrength';
@@ -402,6 +403,9 @@ export function Settings() {
 
       {/* Preferencias de notificación (qué se empuja al dispositivo) */}
       <NotificationPrefs />
+
+      {/* Suscripción a avisos por categoría (empleo, esparcimiento…): solo consumidores */}
+      {!isProvider && <TopicSubscriptions />}
 
       {/* Seguimiento de denuncias del miembro */}
       <MyReports />

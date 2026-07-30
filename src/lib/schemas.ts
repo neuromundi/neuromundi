@@ -346,7 +346,7 @@ export const profileSchema = z.object({
   is_company: z.boolean().optional().default(false),
   services_offered: z.string().max(1000).optional().default(''),
   provider_type: z
-    .enum(['service_provider', 'merchant', 'school', 'clinic', 'wellness', 'tourism', 'legal', 'ngo', 'caregiver'])
+    .enum(['service_provider', 'merchant', 'school', 'clinic', 'wellness', 'tourism', 'legal', 'ngo', 'caregiver', 'company'])
     .nullable()
     .optional(),
   is_published: z.boolean().optional().default(false),

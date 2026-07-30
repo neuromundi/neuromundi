@@ -6,8 +6,8 @@
  * `selectedId`. En móvil alterna lista/mapa; en escritorio van lado a lado.
  */
 import { useEffect, useMemo, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { Search, List, MapPin, Globe, BellPlus, X, SlidersHorizontal, HeartPulse, PawPrint, Baby, GraduationCap, Package, Palette, Sparkles } from 'lucide-react';
+import { useSearchParams, useNavigate } from 'react-router-dom';
+import { Search, List, MapPin, Globe, BellPlus, X, SlidersHorizontal, HeartPulse, PawPrint, Baby, GraduationCap, Package, Palette, Sparkles, LocateFixed, Loader2, Dumbbell, Ticket, Scale, HeartHandshake, HandHeart, Briefcase } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { ProviderCard } from './ProviderCard';
 import { MapView } from './MapView';
@@ -31,7 +31,7 @@ const RADII = [5, 10, 25, 50] as const;
  * Accesos rápidos por dominio: cada uno apunta a valores REALES de la taxonomía
  * (profesión, especialidad, área o categoría de producto) vía el filtro `anyOf`.
  */
-const DOMAINS: Record<string, { icon: typeof HeartPulse; labelKey: string; values: string[] }> = {
+const DOMAINS: Record<string, { icon: typeof HeartPulse; labelKey: string; values?: string[]; providerTypes?: string[]; href?: string }> = {
   therapies: {
     icon: HeartPulse, labelKey: 'directory.quick.therapies',
     values: ['integracion_sensorial', 'modificacion_conducta', 'lenguaje_habla', 'saac', 'motricidad', 'regulacion_emocional', 'terapia_ocupacional', 'logopedia', 'psicomotricidad', 'fisioterapia', 'musicoterapia', 'arteterapia', 'neurofeedback', 'terapia_neurosensorial', 'estimulacion_auditiva', 'regulacion_polivagal', 'procesamiento_visual', 'optometria_comportamental'],
@@ -56,6 +56,14 @@ const DOMAINS: Record<string, { icon: typeof HeartPulse; labelKey: string; value
     icon: Package, labelKey: 'directory.quick.products',
     values: ['sensorial', 'cognitivo', 'comunicacion', 'autonomia', 'social_emocional', 'neurosensorial_tech', 'mascotas_nf', 'perinatal'],
   },
+  // Accesos rápidos por TIPO de proveedor (además de los de taxonomía de arriba).
+  wellness: { icon: Dumbbell, labelKey: 'directory.quick.wellness', providerTypes: ['wellness'] },
+  leisure: { icon: Ticket, labelKey: 'directory.quick.leisure', providerTypes: ['tourism'] },
+  legal: { icon: Scale, labelKey: 'directory.quick.legal', providerTypes: ['legal'] },
+  ngo: { icon: HeartHandshake, labelKey: 'directory.quick.ngo', providerTypes: ['ngo'] },
+  caregivers: { icon: HandHeart, labelKey: 'directory.quick.caregivers', providerTypes: ['caregiver'] },
+  // "Empleo" no es un proveedor: lleva a la sección de oportunidades.
+  employment: { icon: Briefcase, labelKey: 'directory.quick.employment', href: '/inclusion-laboral' },
 };
 
 export interface DirectorySearchProps {
@@ -71,6 +79,7 @@ export function DirectorySearch({ onViewProfile }: DirectorySearchProps) {
   const { t, i18n } = useTranslation();
   const catLabel = useCatLabel();
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
 
   // Lista de países con nombre localizado (value = nombre canónico, para filtrar).
   const countries = useMemo(() => {
@@ -96,6 +105,29 @@ export function DirectorySearch({ onViewProfile }: DirectorySearchProps) {
   const [city, setCity] = useState<string | undefined>();
   const [center, setCenter] = useState<{ lat: number; lng: number } | null>(null);
   const [radiusKm, setRadiusKm] = useState<number>(25);
+  const [locating, setLocating] = useState(false);
+
+  /** Pide la ubicación al navegador (solo con este gesto explícito del usuario)
+   *  y activa el filtrado por cercanía. Respeta la privacidad: nunca se solicita
+   *  de forma automática. Si se deniega o no está disponible, se avisa sin romper. */
+  const locateMe = () => {
+    if (!('geolocation' in navigator)) {
+      toast.error(t('directory.geoUnavailable'));
+      return;
+    }
+    setLocating(true);
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        setCenter({ lat: pos.coords.latitude, lng: pos.coords.longitude });
+        setLocating(false);
+      },
+      () => {
+        setLocating(false);
+        toast.error(t('directory.geoDenied'));
+      },
+      { enableHighAccuracy: false, timeout: 10000, maximumAge: 300000 },
+    );
+  };
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [view, setView] = useState<'list' | 'map'>('list');
   const [domain, setDomain] = useState<string | null>(null);
@@ -129,6 +161,7 @@ export function DirectorySearch({ onViewProfile }: DirectorySearchProps) {
       ageRange: ageRange || undefined,
       modality: modality || undefined,
       anyOf: domain ? DOMAINS[domain].values : undefined,
+      providerTypes: domain ? DOMAINS[domain].providerTypes : undefined,
       neuroaffirming: neuro || undefined,
       city,
       country: country || undefined,
@@ -196,7 +229,7 @@ export function DirectorySearch({ onViewProfile }: DirectorySearchProps) {
                 key={key}
                 type="button"
                 aria-pressed={active}
-                onClick={() => setDomain(active ? null : key)}
+                onClick={() => (d.href ? navigate(d.href) : setDomain(active ? null : key))}
                 className={cn(
                   'inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm font-medium transition-colors',
                   active ? 'border-brand-500 bg-brand-500 text-white' : 'border-slate-200 text-slate-700 hover:bg-slate-50',
@@ -294,25 +327,48 @@ export function DirectorySearch({ onViewProfile }: DirectorySearchProps) {
             ))}
           </select>
 
-          <label className="flex items-center gap-2 text-sm text-slate-700">
-            {t('directory.radius')}
-            <select
-              aria-label={t('directory.radiusAria')}
-              value={radiusKm}
-              onChange={(e) => setRadiusKm(Number(e.target.value))}
-              disabled={!center}
-              className="rounded-xl border border-slate-200 p-2.5 text-sm disabled:opacity-50"
+          {!center ? (
+            <button
+              type="button"
+              onClick={locateMe}
+              disabled={locating}
+              className="inline-flex items-center gap-2 rounded-xl border border-brand-200 bg-brand-50 px-3 py-2.5 text-sm font-semibold text-brand-800 transition-colors hover:bg-brand-100 disabled:opacity-60"
             >
-              {RADII.map((r) => (
-                <option key={r} value={r}>
-                  {r} km
-                </option>
-              ))}
-            </select>
-          </label>
+              {locating ? (
+                <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
+              ) : (
+                <LocateFixed className="h-4 w-4" aria-hidden="true" />
+              )}
+              {locating ? t('directory.locating') : t('directory.nearMe')}
+            </button>
+          ) : (
+            <label className="flex items-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm text-emerald-800">
+              <LocateFixed className="h-4 w-4 shrink-0" aria-hidden="true" />
+              <span className="font-semibold">{t('directory.nearActive')}</span>
+              <select
+                aria-label={t('directory.radiusAria')}
+                value={radiusKm}
+                onChange={(e) => setRadiusKm(Number(e.target.value))}
+                className="rounded-lg border border-emerald-200 bg-white p-1.5 text-sm"
+              >
+                {RADII.map((r) => (
+                  <option key={r} value={r}>
+                    {r} km
+                  </option>
+                ))}
+              </select>
+              <button
+                type="button"
+                onClick={() => setCenter(null)}
+                className="ml-1 inline-flex items-center gap-1 text-xs font-medium text-emerald-700 underline-offset-2 hover:underline"
+              >
+                <X className="h-3.5 w-3.5" aria-hidden="true" /> {t('directory.clearLocation')}
+              </button>
+            </label>
+          )}
           {!center && (
             <span className="text-xs text-muted">
-              {t('directory.radiusHint')}
+              {t('directory.nearHint')}
             </span>
           )}
         </div>

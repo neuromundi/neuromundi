@@ -34,8 +34,9 @@ export interface UseTransactionsValue {
   loading: boolean;
   error: string | null;
   refetch: () => Promise<void>;
-  /** Confirma que el qr_token corresponde al parentId (vía RPC segura). */
-  validateQr: (qr: ParentQrPayload) => Promise<Result<{ id: string; full_name: string }>>;
+  /** Confirma que el qr_token corresponde al parentId (vía RPC segura).
+   *  Devuelve además rol, folio y estado para la pantalla de validación (NID). */
+  validateQr: (qr: ParentQrPayload) => Promise<Result<{ id: string; full_name: string; role: string; member_no: number | null; suspended: boolean }>>;
   /** Inserta la transacción en estado 'pending' tras un escaneo válido. */
   createFromScan: (input: CreateTransactionInput) => Promise<Result<Transaction>>;
 }
@@ -105,7 +106,7 @@ export function useTransactions(
       if (!row) {
         return { ok: false, error: 'Este código no es válido o ya fue actualizado.' };
       }
-      return { ok: true, data: { id: row.id, full_name: row.full_name } };
+      return { ok: true, data: { id: row.id, full_name: row.full_name, role: row.role, member_no: row.member_no, suspended: row.suspended } };
     } catch (e) {
       return { ok: false, error: toMessage(e, 'No se pudo validar el código.') };
     }

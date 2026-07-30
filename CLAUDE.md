@@ -11,16 +11,34 @@ anual. Multipaís y multilingüe.
 - React 18 + Vite 5 + TypeScript + TailwindCSS
 - react-router-dom (rutas lazy en `src/App.tsx`), Zustand (`src/stores`)
 - react-hook-form + Zod (`src/lib/schemas.ts`)
-- react-i18next — 10 idiomas: **es, en, fr, de, it, pt, ja, zh, ar, he**. `fallbackLng`
+- react-i18next — 11 idiomas: **es, en, fr, de, it, pt, ja, zh, ar, he, ko**. `fallbackLng`
   apunta al PROPIO idioma (no a `en`), así que la paridad de claves DEBE ser 0 o se ven
   claves crudas. **Árabe y hebreo son RTL**: `applyDirection()` fija `dir="rtl"` en `<html>`
-  (japonés/chino son LTR). El sentido de lectura se pone desde el primer pintado en el
+  (japonés/chino/coreano son LTR). El sentido de lectura se pone desde el primer pintado en el
   script en línea de `vite.config.ts` (misma regla que `resolveInitialLanguage`).
-  **Traducción he/ar COMPLETA**: las 2725 claves están en los 10 idiomas con paridad 0
-  (verificado con el script de abajo). Solo quedan en su forma original marcas y acrónimos
-  internacionales que NO se traducen: `Neuromundi`, `EVS`, `Google Calendar`, `1 USD =` y los
-  nombres de redes (`Instagram`, `TikTok`, `Facebook`, `ADHD`). Al añadir claves nuevas,
-  tradúcelas también a he/ar (y respeta RTL en cualquier UI nueva).
+  **Traducción COMPLETA**: TODAS las claves están en los 11 idiomas con paridad 0
+  (verificado con el script de abajo tras cada cambio de textos; el total crece con cada
+  módulo nuevo —empresas, esparcimiento, oportunidades, notificaciones por categoría, Tribu—
+  pero la paridad SIEMPRE debe quedar en 0). Solo quedan en su forma original marcas y acrónimos
+  internacionales que NO se traducen: `Neuromundi`, `EVS`, `Google Calendar`, `1 USD =`, `MRI` y los
+  nombres de redes (`Instagram`, `TikTok`, `Facebook`, `ADHD`, `WhatsApp`). Al añadir claves nuevas,
+  tradúcelas también a he/ar/ko (y respeta RTL en cualquier UI nueva).
+  **OJO — hay DOS fuentes de texto FUERA del i18n, una por idioma (no las olvides al
+  añadir un idioma):** (1) el **Kit** en `src/data/toolkitContent/content.<lang>.ts`
+  (registrado en su `index.ts`, con `he`/`ar`/`ko` ya creados y traducidos); (2) el contenido
+  **legal + Manifiesto** en `src/data/legal<Xx>.ts` (registrado en `legalContent.ts` →
+  `LEGAL_CONTENT`, con `legalHe`/`legalAr`/`legalKo` ya creados). Ambos caen a inglés si falta el
+  idioma. Los 9 PDF del Kit por idioma (`public/kit/{he,ar,ko}/*.pdf`) YA existen. Los de he/ar
+  van maquetados RTL y se regeneran con `scripts/gen_kit_pdfs.py` (reportlab + arabic-reshaper +
+  python-bidi, fuente DejaVu Sans que cubre he y ar); los de ko (LTR) con
+  `scripts/gen_kit_pdfs_ko.py` (reportlab con la fuente CID `HYGothic-Medium`, que trae reportlab).
+  **Rendimiento del i18n**: `initI18n` NO espera el diccionario completo (~150 KB) para montar;
+  carga primero el chunk CRÍTICO `src/i18n/critical/{lang}.crit.json` (~9 KB: solo los namespaces
+  de la portada — encabezado/home/pie/intro, lista en `scripts/gen_i18n_critical.mjs`), monta, y
+  fusiona el diccionario completo en segundo plano. Los `.crit.json` se REGENERAN en cada
+  `npm run build`/`dev` (van en sincronía con los locales; no los edites a mano). El plugin de
+  precarga en `vite.config.ts` precarga el chunk `.crit` (no el completo). Si añades un namespace
+  que se pinte en el primer render de la portada, agrégalo a `CRITICAL` en el generador.
 - Supabase (Auth, Postgres+RLS, Storage, Edge Functions) — `src/lib/supabase.ts`
 - Alias de import: `@` → `src`
 - PWA con `vite-plugin-pwa` (manifest + service worker; requiere HTTPS real)
@@ -28,10 +46,13 @@ anual. Multipaís y multilingüe.
 
 ## Comandos
 ```
-npm run dev        # desarrollo
-npm run build      # tsc -b && vite build  (verificación definitiva de tipos)
-npm run test       # vitest
-npm run typecheck  # tsc --noEmit
+npm run dev            # desarrollo (genera antes los chunks i18n críticos)
+npm run build          # gen i18n críticos + tsc -b + vite build (verificación de tipos)
+npm run build:prerender# OPT-IN: build + react-snap (prerenderiza la portada). Requiere
+                       #   `npm i -D react-snap` (descarga Chromium). NO fatal: si falla,
+                       #   sale con éxito y te quedas con la SPA normal. Verifica la portada.
+npm run test           # vitest
+npm run typecheck      # tsc --noEmit
 ```
 La verificación que NO debe fallar antes de entregar: `npm run build`.
 
@@ -64,7 +85,7 @@ PY
   `drop policy if exists` + `create policy`, `insert ... on conflict do nothing`,
   `add column if not exists`. Backfills solo tocan filas nulas.
 - El usuario las aplica **a mano en el SQL Editor de Supabase**, en orden (no hay CLI de
-  migraciones en su flujo). Última en el repo: **0063**.
+  migraciones en su flujo). Última en el repo: **0079**.
 - Para verificar qué está aplicado en producción: `db/verificar_produccion.sql`.
 
 ### 3. Escribir a otros usuarios / notificaciones
@@ -91,9 +112,15 @@ PY
   SQL, no hay UI. Panel en `/panel` (Dashboard renderiza `AdminDashboard` si role=admin).
 - Secciones admin: metrics, messages, moderation, products, store, renewals, reports,
   fees (cuotas por país + carga/descarga CSV + **códigos promocionales**), referrals (programa de
-  recomendación), donations, **accounts** (bajas/suspensiones: estadística + ID/correo,
-  sin aprobación), **improve** (sugerencias del público "Ayúdanos a mejorar"), other.
-  Roles válidos por constraint: `parent | provider | admin`.
+  recomendación), donations, **founders** (curación del muro de fundadores por país, 0065),
+  **badges** (distintivos descargables por tipo de miembro: subir/bajar archivos, 0066),
+  **tribe** (moderación de Tribu Neuromundi: foros, moderadores y suspensiones totales/parciales,
+  0070/0072), **accounts** (bajas/suspensiones: estadística + ID/correo, sin aprobación),
+  **improve** (sugerencias del público "Ayúdanos a mejorar"), other.
+  Roles válidos por constraint: `parent | provider | admin`. `provider_type` admite
+  `service_provider | merchant | school | clinic | wellness | tourism | legal | ngo | caregiver | company`
+  (**company** = "Empresas", nuevo en 0066; **tourism** se reetiqueta en la UI como
+  "Esparcimiento" sin cambiar el valor en base).
 - Folio de miembro visible: `NM-000123` (= `profiles.member_no`).
 
 ### 5. Pagos (Stripe)
@@ -210,7 +237,7 @@ PY
   tras `requestIdleCallback` (estado `deferUi`). Si añades UI que no se ve en el primer
   pintado, gátala igual. El mismo patrón está extraído en el hook **`useIdleReady()`**
   (`src/hooks/useIdleReady.ts`): devuelve `false` en el primer pintado y `true` al quedar el
-  navegador ocioso. En `Home` gatea el montaje de `AlliesCarousel` y `ContentCarousel`
+  navegador ocioso. En `Home` gatea el montaje de `AlliesGrid` y `ContentCarousel`
   (`{idleReady && <…/>}`) porque cada uno dispara una consulta a Supabase al montar (allies /
   content_posts) que Lighthouse veía en la cadena crítica del LCP (~1 s). Si añades a la
   portada un componente debajo del pliegue que consulta la base, gátalo con `useIdleReady`.
@@ -265,6 +292,8 @@ PY
 | `/academy` · `/academy/:id` | `Academy` · `Course` | |
 | `/blog` · `/contenido/:id` · `/autor/:id` | `Blog` · `Post` · `Author` | |
 | `/inclusion-escolar` | `SchoolInclusion` | |
+| `/inclusion-laboral` | `LaborInclusion` | pública; oportunidades (empleo/voluntariado/servicio social) con buscador por país y tipo (RPC `public_jobs`). Las publican Empresas y ONG desde su panel |
+| `/red` | `RedNeuromundi` | pública; portal de aliados de la Neuromundi ID (cómo escanear/validar, beneficios, sellos descargables para prestadores). Sellos SVG→PNG en `NeuromundiSeal` |
 | `/pregunta-al-experto` | `AskExpert` | |
 | `/crear-cuenta` · `/entrar` | `CreateAccount` · `Auth` | |
 | `/lista/:token` | `SharedList` | pública por token |
@@ -273,8 +302,10 @@ PY
 | **`/ajustes`** | `Settings` | **protegida** |
 | **`/calendario`** | `Calendar` | **protegida** |
 | **`/mensajes`** | `Messages` | **protegida**; mensajería directa |
+| **`/tribu`** | `TribuNeuromundi` | **protegida**; módulo de Inclusión Social "Tribu Neuromundi" (F1–F5): inscripción con reglas + semáforo de energía, foros temáticos, gratitud/niveles, moderadores, mentoría y eventos |
 | `/donar` | `Donate` | pública; donación con o sin cuenta (`DonationSection`) |
 | `/donantes` | `DonorWall` | pública; muro de donantes (`donor_wall()`) |
+| `/fundadores` | `Founders` | pública; muro de Miembros Fundadores curado por país (`founders_wall`), 0065 |
 | `/reservar/:memberNo` | `Book` | pública, sin layout (widget embebible) |
 
 ### Hooks por dominio (`src/hooks`)
@@ -304,9 +335,12 @@ PY
 ### Componentes clave (`src/components`)
 - `layout/AppLayout` — navegación, pie, popups globales, disparo de recordatorios
 - `layout/AccessibilityMenu` — Modo calma, dislexia, contraste, tamaño de texto
-- `admin/AdminDashboard` — + `AdminMetrics`, `AdminMessages`, `AdminReports`, `AdminRenewals`, `AdminBilling`, `AdminProducts`, `AdminOtherValues`, `AdminFees` (+ `FeesCsvPanel`), `AdminReferrals`
+- `admin/AdminDashboard` — + `AdminMetrics`, `AdminMessages`, `AdminReports`, `AdminRenewals`, `AdminBilling`, `AdminProducts`, `AdminOtherValues`, `AdminFees` (+ `FeesCsvPanel`), `AdminReferrals`, `AdminFounders` (muro de fundadores), `AdminMemberBadges` (distintivos por tipo), `AdminTribe` (foros/moderadores/suspensiones de Tribu)
+- **Inclusión laboral** (Fase A/B): `pages/LaborInclusion` (oportunidades) · `pages/CompanyRegister` ("Empresas", `provider_type='company'`) · `pages/EsparcimientoRegister` (turismo reetiquetado, con lat/long + horarios de bajo impacto sensorial) · `provider/JobsPanel` (CRUD de vacantes) · `provider/MemberBadgesCard` (descarga de distintivos) · `directory/EsparcimientoInfo`
+- **Tribu Neuromundi** (`src/components/tribe/*` + `pages/TribuNeuromundi`): `JoinTribeModal`, `EnergyBadge`, `TribeLevelCard`, `GiveGratitudeModal`, `ForumRoom`, `ModeratorsSection`/`ApplyModeratorModal`/`RateModeratorModal`, `MentorshipSection`/`BecomeMentorModal`/`MentorThread`, `EventsSection`/`CreateEventModal`/`SensoryReportModal`. Datos: `hooks/useTribe`, `useTribeMentorship`, `useTribeEvents`; niveles en `lib/tribeLevels`/`tribeModLevels`, insignias en `data/tribeBadges`
+- `membership/TopicSubscriptions` (avisos por categoría, 0069) · `directory/ProviderReviewModal` (reseña directa, 0068)
 - `membership/AccountInactiveModal` · `membership/AccountReactivatedModal` — portero de cuota
-- `donation/DonationSection` (embudo `/donar`) · `donation/AlliesCarousel` · `admin/AdminDonations`
+- `donation/DonationSection` (embudo `/donar`) · `donation/AlliesGrid` (grid de logos, reemplazó al carrusel; máx 30, altura acotada) · `founder/FoundersWallSection` (`/fundadores`) · `admin/AdminDonations`
   (estadística + curación del muro + CRUD de aliados + **importes por moneda**) · página `DonorWall` (`/donantes`)
 - `directory/DirectorySearch` — filtros del directorio. Se quitaron los *chips* de la
   tabla `categories` (redundantes con la taxonomía nueva). Ahora: `directory/SearchableSelect`
@@ -403,6 +437,10 @@ PY
   `send-push` (Web Push VAPID), `send-campaign` (lista de espera/pacientes por push+email+SMS),
   `send-support`, `send-product-rejection`
 - **Mantenimiento**: `purge-expired-files`, `delete-account`
+- **Neuromundi ID (Wallet, andamiaje)**: `wallet-pass` — genera el pase de Apple Wallet
+  (`.pkpass` firmado) o el enlace de Google Wallet (JWT). Responde `501 not-configured`
+  con la lista de secrets faltantes hasta que se pongan los certificados. Los botones
+  del front van detrás de `VITE_WALLET_ENABLED`. Guía completa en `docs/NEUROMUNDI_ID_WALLET.md`
 - Despliegue: `supabase functions deploy <nombre> --use-api`.
 - **Las que NO invoca un usuario con sesión van con `--no-verify-jwt`**: `stripe-webhook`
   (la llama Stripe), `send-push` y `send-reminders` (las llama la base por `pg_net`, sin
@@ -463,6 +501,22 @@ Al extraer lógica de una página a `src/lib`, **añade su test** (patrón: `*.t
 | 0061 | Arregla el onboarding social: `protect_profile_columns` revertía el rol a 'parent' (dejaba `provider_type`); ahora permite fijarlo durante el alta + repara filas rotas |
 | 0062 | Fundador condicional: `founder_members.grace_until` (3 meses) + `purge_lapsed_founders` (revoca por requisitos objetivos: foto+bio+teléfono, y cuota cubierta si es prestador) + cron diario |
 | 0063 | Métrica admin `incomplete_registrations` (perfiles con `rules_version_accepted IS NULL`) en `admin_metrics()` |
+| 0064 | Aliados por país: `allies.countries text[]` (NULL/vacío = todos). El carrusel del home filtra por el país del selector; admin lo edita en Donaciones → Aliados |
+| 0065 | Muro de fundadores curado por país: `founder_members.wall_published/wall_featured/wall_order` + RPC `founders_wall`/`founders_wall_countries` (público) y `admin_founders`/`admin_set_founder_wall` (admin). Página `/fundadores` |
+| 0066 | Inclusión laboral: `provider_type='company'`; tabla `job_openings` (todos los campos opcionales, RLS: activas públicas) + `public_jobs`/`public_jobs_countries`; tabla `member_badges` + bucket público `badges` (distintivos por tipo de miembro que el admin sube/baja) |
+| 0067 | `job_openings.opportunity_type` (employment/volunteering/social_service); `public_jobs(p_country,p_type)` |
+| 0068 | Reseñas abiertas: `satisfaction_surveys.transaction_id` NULLABLE + índice único parcial; `can_review_provider` y `submit_provider_review` (reseñar tras cita/pedido/canje, no solo descuento) |
+| 0069 | Notificaciones por categoría (opt-in): `topic_subscriptions` (temas + país/ciudad) + triggers `notify_topic_job`/`notify_topic_venue` (tipos `topic_job`/`topic_venue`) |
+| 0070 | **Tribu Neuromundi F1**: `tribe_members` (energía/privacidad/reglas), `tribe_forums` (con aprobación admin), `tribe_forum_members`, `tribe_forum_invites`, `tribe_messages`; RPCs de listar/moderar; `is_tribe_active()` |
+| 0071 | **Tribu F2** (gratitud): `tribe_members.points/silent_mode`; `tribe_gratitude` (historial privado); `tribe_give_gratitude` con anti-spam (5 fichas/día, enfriamiento de par 24h, decaimiento, antigüedad 48h, anónimo); `tribe_impact`/`tribe_tokens_left`/`tribe_set_silent` |
+| 0072 | **Tribu F3** (moderadores): `tribe_members.can_write/can_evaluate/can_review` (suspensión parcial); `tribe_moderators` (postulación+ética+puntos), `tribe_mod_ratings` (5 dimensiones); RPCs de postular/listar/calificar/aprobar; `admin_set_tribe_member` (suspensión total/parcial). Recrea el candado de escribir/evaluar |
+| 0073 | **Tribu F4** (mentoría): `tribe_mentors` (vías nd_youth/family_family), `tribe_mentorships`, `tribe_mentor_messages` (hilo 1:1 asíncrono); RPCs de ofrecerse/listar/solicitar/responder/mensajes |
+| 0074 | **Tribu F5** (eventos): `tribe_events` (guía de anticipación OBLIGATORIA: qué pasará, ruido, sala de calma), `tribe_event_rsvps`, `tribe_event_sensory`; `tribe_create_event` (+20), `tribe_event_sensory_report` (+15), RSVP y listado |
+| 0075 | **Neuromundi ID** (Fase 1): `profiles.accepts_neuromundi_id` (opt-in del prestador → leyenda "Acepto Neuromundi ID" en su perfil); `resolve_parent_by_qr` ahora devuelve rol/folio/estado para la pantalla de validación. Tarjeta `NeuromundiIdCard` (anverso/reverso, colores por rol, folio, QR, vigencia). Wallet .pkpass pendiente (requiere certificados) |
+| 0076 | **Fundador de Empresas + empresa gratuita**: grupo de fundador `companies` (cupo **20/país**, requisito objetivo = **≥2 vacantes activas** en `claim_founder_slot` y `purge_lapsed_founders`); `founder_capacity('companies')=20`. Empresa inclusiva SIEMPRE gratis: backfill `membership_status='exempt'` + trigger `trg_company_membership_free`. Front: `founderKindFor(company)→'companies'`, `FOUNDER_CAPACITY.companies=20`, gate exime a `company`, requisito `vacancies` en `founderRequirements` |
+| 0077 | **Códigos promocionales con descuento** (además de la exención total previa): `promo_codes.benefit` (`exempt`/`percent`) + `percent_off` (1–100). `redeem_promo_code` ramifica: `exempt` marca `membership_status='exempt'` (como antes); `percent` guarda el código en `profiles.promo_code_used` SIN exentar y devuelve `{benefit,percent_off}`. Nueva RPC `membership_promo_pct(user)` que lee el % activo; el checkout (`create-membership-checkout`) lo combina de forma **compuesta** con el descuento de recomendación y acota al 90%. UI admin en `AdminPromoCodes` (selector beneficio + campo %); `MembershipModal` muestra "descuento aplicado" y deja pagar |
+| 0078 | **Promo de monto fijo + candado por correo**: `promo_codes.benefit` admite `amount` (con `amount_off` + `amount_currency`) y `bound_email` (si está puesto, `redeem_promo_code` exige que el correo de la cuenta coincida → error `email`). `membership_promo_pct` se reemplaza por `membership_promo(user)` (devuelve benefit/percent_off/amount_off/amount_currency). El checkout aplica cupón de **monto** (solo si la moneda coincide con la de cobro; no apila con recomendación por límite de Stripe de 1 cupón) o de **%** (compuesto con recomendación). UI admin: opción "Monto fijo" + moneda + campo "ligar a correo" |
+| 0079 | **Perfil Asesor** (explorador + moderador de Tribu): `profiles.is_advisor` (privilegio, blindado en `protect_profile_columns`); helpers `is_advisor()` / `is_admin_or_advisor()`. La moderación de Tribu (`admin_tribe_forums`, `admin_set_forum_status`, `admin_tribe_moderators`, `admin_set_moderator_status`, `admin_set_tribe_member`, `admin_tribe_member_lookup`) se abre a `is_admin_or_advisor()`. `tribe_forum_messages` deja leer cualquier foro a admin/asesor + `tribe_delete_message`. Asignación por folio: `admin_set_advisor(member_no,bool)` / `admin_list_advisors` (solo admin). Front: `useAuth.isAdvisor`, gate exime al asesor, `Dashboard`→`AdminDashboard advisor` (**solo Tribu**, sin métricas), `AdminAdvisors` (asignar), `AdminTribe` gana el área "Mensajes" (visor + borrado) |
 
 ## Reglas de producto/negocio ya implementadas
 - **Clasificación "Otro"**: si `products.store_category = 'otro'`, `store_category_other`
@@ -503,8 +557,9 @@ Al extraer lógica de una página a `src/lib`, **añade su test** (patrón: `*.t
   e insignia (`grant_course`/`grant_badge`) y avisa por la campana (`donation_thanks`). El
   muro (`donor_wall()`, anónimo) solo muestra lo pagado + consentido + `wall_published`.
   **Etapa 2 (migración 0046):** página pública `/donantes` (`DonorWall`, destacados primero),
-  carrusel de aliados en el home (`AlliesCarousel`, tabla `allies`, respeta
-  `prefers-reduced-motion` y se pausa al enfocar), y sección **Donaciones** en el panel admin
+  **grid** de aliados en el home (`AlliesGrid`, tabla `allies`; reemplazó al carrusel/marquee:
+  cuadrícula estática de máx 30 logos con altura acotada para no empujar el pie; filtra por país),
+  y sección **Donaciones** en el panel admin
   (`AdminDonations`): estadística por moneda, curación del muro (`admin_set_donation_wall`,
   solo publica a quien consintió), CRUD de aliados e **importes por moneda**. Falta aún
   atar `grant_course` a la inscripción real de Academy.

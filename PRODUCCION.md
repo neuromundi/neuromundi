@@ -435,3 +435,11 @@ Archivos que ya no hacen falta y que el entorno de trabajo no puede borrar
 - **Hostinger**: subir `dist/` + `.htaccess`, purgar CDN, HTTPS.
 - **Tú, en el panel**: cuotas por país y tipo, programa de recomendación, contenido.
 - **Operación**: pruebas de humo, legal, monitoreo.
+
+## Neuromundi ID — Wallet (opcional, Fase 3)
+La Edge Function `wallet-pass` está lista pero **apagada** hasta tener credenciales.
+- **Apple Wallet**: Pass Type ID + certificado (PEM) + clave (PEM) + WWDR (PEM) + Team ID.
+- **Google Wallet**: Issuer ID + Class ID + cuenta de servicio (email + clave PEM).
+- Poner los secrets, `supabase functions deploy wallet-pass --use-api`, y en el `.env`
+  del front `VITE_WALLET_ENABLED=true` + recompilar. Guía paso a paso con los comandos
+  exactos: **`docs/NEUROMUNDI_ID_WALLET.md`**.

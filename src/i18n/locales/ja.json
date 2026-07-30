@@ -34,7 +34,11 @@
     "calendar": "カレンダー",
     "messages": "メッセージ",
     "myPanel": "マイパネル",
-    "donate": "寄付する"
+    "donate": "寄付する",
+    "founders": "創設メンバー",
+    "labor": "就労インクルージョン",
+    "tribe": "トライブ",
+    "red": "Neuromundiネットワーク"
   },
   "home": {
     "title": "神経発達と神経多様性において、患者・家族・専門家・提供者をつなぐ世界初のグローバルコミュニティ。",
@@ -84,7 +88,30 @@
       "cta": "寄付者を見る",
       "donateCta": "寄付する"
     },
-    "donateHint": "Neuromundiを無料で維持する手助けをしませんか？支援方法をご覧ください。"
+    "donateHint": "Neuromundiを無料で維持する手助けをしませんか？支援方法をご覧ください。",
+    "slides": [
+      "",
+      "",
+      "相談とサポートのためのコミュニティ",
+      "Neuromundi ID：あなたのデジタルアクセスキー",
+      "効果的な製品",
+      "専門家がサポート",
+      "クリニック・診療所・検査室",
+      "コミュニティが検証したサービス",
+      "教育のインクルージョン",
+      "インクルーシブな環境",
+      "インクルーシブな体験",
+      "インクルーシブなスポーツ",
+      "法律相談",
+      "インクルーシブなレジャー",
+      "コミュニティ"
+    ],
+    "founders": {
+      "badge": "創設メンバー",
+      "title": "創設メンバーを見る",
+      "body": "設立当初からNeuromundiを信じ、このコミュニティづくりを支える先駆者の個人と団体です。",
+      "cta": "創設メンバーを見る"
+    }
   },
   "auth": {
     "login": "ログイン",
@@ -200,10 +227,23 @@
       "perinatal": "周産期",
       "executive": "教育・実行機能",
       "products": "支援製品",
-      "arts": "アート・音楽"
+      "arts": "アート・音楽",
+      "wellness": "スポーツ・ウェルネス",
+      "leisure": "レジャー",
+      "legal": "法律サービス",
+      "ngo": "NPO・団体",
+      "caregivers": "ケア・付き添い",
+      "employment": "就労"
     },
     "neuroFilter": "ニューロアファーミング",
-    "neuroHint": "Neuromundiのニューロアファーミング認証を持つ提供者のみ表示。"
+    "neuroHint": "Neuromundiのニューロアファーミング認証を持つ提供者のみ表示。",
+    "nearMe": "現在地の近くで探す",
+    "locating": "現在地を取得中…",
+    "nearActive": "現在地の近く",
+    "clearLocation": "解除",
+    "nearHint": "現在地を共有すると、近くの専門家・学校・提供者が表示されます。",
+    "geoDenied": "現在地にアクセスできませんでした。近くの結果を見るにはブラウザで有効にしてください。",
+    "geoUnavailable": "お使いのブラウザは位置情報の共有に対応していません。"
   },
   "card": {
     "evs": "EVS",
@@ -298,7 +338,8 @@
       "qr": "マイQR",
       "discounts": "割引",
       "history": "履歴",
-      "prescriptions": "処方"
+      "prescriptions": "処方",
+      "nid": "Neuromundi ID"
     },
     "emptyDiscounts": "まだ割引がありません。お店でQRを見せて始めましょう。",
     "emptyHistory": "最初の割引を使うと、ここに履歴が表示されます。",
@@ -582,7 +623,9 @@
     "stop": "停止",
     "idleTitle": "コードをスキャン",
     "idleBody": "開始時にのみカメラの許可を求めます。終了すると自動で切れます。",
-    "start": "スキャン開始"
+    "start": "スキャン開始",
+    "nidValid": "Neuromundi ID 有効",
+    "nidSuspended": "アカウント停止中"
   },
   "qr": {
     "step1": "このコードを店舗やサービスで提示します。",
@@ -722,7 +765,35 @@
     "secImprove": "改善",
     "neuroOn": "ニューロアファーミング",
     "neuroGrant": "認証を付与",
-    "neuroRevoke": "認証を取消"
+    "neuroRevoke": "認証を取消",
+    "secFounders": "創設メンバー",
+    "secBadges": "バッジ",
+    "secTribe": "トライブ",
+    "benefitExempt": "無料アクセス",
+    "benefitPercent": "割引 %",
+    "benefitPercentShort": "-{{pct}}%",
+    "percentOff": "割引率 %",
+    "errPercent": "1〜100 の割合を入力してください",
+    "benefitAmount": "定額",
+    "amountOff": "金額",
+    "amountCurrency": "通貨",
+    "errAmount": "有効な金額と通貨を入力してください",
+    "boundEmail": "メールに紐付け（任意）",
+    "secAdvisors": "アドバイザー",
+    "adv": {
+      "title": "アドバイザー権限",
+      "intro": "アドバイザーはプラットフォーム全体を閲覧しTribuをモデレートできます（財務・管理操作は不可）。",
+      "search": "検索",
+      "searchPh": "会員番号・氏名",
+      "searchShort": "2文字以上入力してください",
+      "make": "アドバイザーにする",
+      "added": "アドバイザーを割り当てました",
+      "removed": "アドバイザーを解除しました",
+      "current": "現在のアドバイザー",
+      "remove": "解除",
+      "emptyTitle": "アドバイザーなし",
+      "empty": "まだアドバイザーを指定していません。"
+    }
   },
   "reg": {
     "typePatient": "患者",
@@ -944,7 +1015,10 @@
     "perMonth": "／月",
     "choosePeriod": "支払い方法を選択",
     "savingBadge": "12か月分を10か月分の料金で",
-    "founderPrice": "創設メンバー価格が適用されます"
+    "founderPrice": "創設メンバー価格が適用されます",
+    "promoDiscountOk": "会費に{{pct}}%の割引を適用しました",
+    "promoEmail": "このコードは別のメールアカウントに紐付けられています。",
+    "promoAmountOk": "会費に{{amount}} {{currency}}の割引を適用しました"
   },
   "rules": {
     "version": "バージョン",
@@ -1195,6 +1269,14 @@
     },
     "dirMatch": {
       "title": "あなたへの新しい専門家"
+    },
+    "topicJob": {
+      "title": "新しい機会",
+      "body": "{{type}} · {{place}}"
+    },
+    "topicVenue": {
+      "title": "新しいレジャー施設",
+      "body": "{{name}} · {{place}}"
     }
   },
   "clin": {
@@ -1682,8 +1764,8 @@
         "desc": "インクルーシブな運動施設・クラブ。"
       },
       "tourism": {
-        "title": "アクセシブルな観光",
-        "desc": "インクルーシブな宿泊・ツアー・体験。"
+        "title": "レジャー",
+        "desc": "映画館・レストラン・美術館・公園…感覚・認知への配慮つき。"
       },
       "legal": {
         "title": "法律サービス",
@@ -1696,6 +1778,10 @@
       "caregiver": {
         "title": "介助者／付き添い",
         "desc": "在宅支援・レスパイト・学校付き添い。"
+      },
+      "company": {
+        "title": "企業",
+        "desc": "求人・ボランティア・社会奉仕を掲載し、バッジをダウンロード。"
       }
     }
   },
@@ -1951,16 +2037,16 @@
     "crianza": "子育て・家族",
     "derechos": "権利・手続き",
     "diagnostico": "診断・早期発見",
-    "educacion": "教育・学校インクルージョン",
+    "educacion": "教育",
     "emocional": "心の健康",
     "historias": "体験談・声",
     "investigacion": "研究・科学",
     "juego": "インクルーシブな遊び・余暇",
     "libros": "書籍・資料",
     "socioemocional": "社会的・感情スキル",
-    "tecnologia": "支援技術",
+    "tecnologia": "テクノロジー・IT",
     "vestimenta": "適応衣類・アクセサリー",
-    "salud": "健康",
+    "salud": "ヘルスケア",
     "recreacion": "レクリエーションと余暇",
     "productos": "製品と教材",
     "servicios": "専門サービス",
@@ -2125,7 +2211,30 @@
     "movimiento_danza": "ムーブメント・治療的ダンス",
     "teatro_rol": "演劇・社会的ロールプレイ",
     "ocio_sensorial": "センサリーフレンドリーな余暇・イベント",
-    "arte_musica": "適応型アート・音楽"
+    "arte_musica": "適応型アート・音楽",
+    "manufactura": "製造・産業",
+    "comercio_retail": "小売・流通",
+    "alimentos": "飲食",
+    "turismo_hosteleria": "観光・ホスピタリティ",
+    "finanzas": "金融・保険",
+    "logistica": "物流・運輸",
+    "construccion": "建設",
+    "agro": "アグリビジネス",
+    "creativo": "クリエイティブ産業",
+    "gobierno_ong": "政府・NGO",
+    "cine": "映画館",
+    "restaurante": "レストラン",
+    "cafeteria": "カフェ",
+    "plaza_comercial": "ショッピングモール",
+    "museo": "美術館・博物館",
+    "peluqueria": "美容室・理髪店",
+    "parque": "公園",
+    "teatro": "劇場",
+    "balneario": "温浴施設",
+    "hotel": "ホテル",
+    "biblioteca": "図書館",
+    "centro_cultural": "文化センター",
+    "gimnasio": "ジム・スポーツ"
   },
   "kit": {
     "badge": "ツールキット",
@@ -2318,7 +2427,8 @@
       "discount": "10%以上のコミュニティ割引が有効",
       "benefit": "QRで確認された特典（割引・相談）",
       "blog": "ブログで体験を共有",
-      "referrals": "コミュニティへの紹介"
+      "referrals": "コミュニティへの紹介",
+      "vacancies": "有効な求人を2件以上公開"
     }
   },
   "account": {
@@ -3207,7 +3317,13 @@
       "del": "削除",
       "delTitle": "パートナーを削除",
       "delBody": "このパートナーをカルーセルから削除しますか？",
-      "deleted": "パートナーを削除しました"
+      "deleted": "パートナーを削除しました",
+      "countries": "表示する国",
+      "countriesHint": "すべての国で表示するには空のままにします。Ctrl/Cmd+クリックで複数選択。",
+      "allCountries": "すべての国",
+      "externalTitle": "外部サーバーのロゴ",
+      "externalBody": "このロゴは別ドメインから配信され、サイズやキャッシュを制御できません。重いとトップページが遅くなります。最適化して自社サイトにアップロードすることをおすすめします。それでも保存しますか？",
+      "externalHint": "外部ロゴ：トップページを遅くしないよう、最適化して自分のサイトにアップロードしてください。"
     },
     "tier": {
       "title": "通貨ごとの寄付金額",
@@ -3217,6 +3333,79 @@
       "error": "保存できませんでした。",
       "active": "有効",
       "order": "金額は昇順である必要があります（種＜仲間＜推進者＜アンバサダー）。"
+    },
+    "founders": {
+      "title": "創設メンバーウォール",
+      "subtitle": "{{total}}人中{{published}}人を公開中。",
+      "allCountries": "すべての国",
+      "order": "順序",
+      "feature": "注目",
+      "publishFirst": "注目するにはまず公開してください",
+      "published": "公開中",
+      "hidden": "非公開",
+      "saveErr": "保存できませんでした。もう一度お試しください。",
+      "emptyTitle": "創設メンバーなし",
+      "empty": "まだ創設メンバーが検出されていません。"
+    },
+    "badges": {
+      "title": "メンバー種別のバッジ",
+      "subtitle": "{{total}}件中{{active}}件が有効",
+      "addTitle": "バッジをアップロード",
+      "memberType": "メンバー種別",
+      "key": "バッジキー",
+      "badgeTitle": "表示名",
+      "file": "ファイル（PNG・SVG・JPG）",
+      "upload": "アップロード",
+      "uploaded": "バッジを保存しました。",
+      "needFields": "キーを入力しファイルを選択してください。",
+      "emptyTitle": "バッジなし",
+      "empty": "まだバッジをアップロードしていません。",
+      "down": "停止中",
+      "takeDown": "停止する",
+      "putUp": "公開する",
+      "delete": "削除",
+      "deleteConfirm": "このバッジとファイルを削除しますか？"
+    },
+    "tribe": {
+      "title": "トライブのフォーラム",
+      "subtitle": "メンバーが作成したフォーラムを承認/却下します。",
+      "pending": "保留中",
+      "approved": "承認済み",
+      "rejected": "却下",
+      "approve": "承認",
+      "reject": "却下",
+      "reset": "再開",
+      "done": "フォーラムを更新しました。",
+      "emptyTitle": "フォーラムなし",
+      "empty": "この状態のフォーラムはありません。",
+      "area": {
+        "forums": "フォーラム",
+        "moderators": "モデレーター",
+        "members": "メンバー",
+        "messages": "メッセージ"
+      },
+      "modEmptyTitle": "応募なし",
+      "modEmpty": "この状態のモデレーターはいません。",
+      "lookup": "検索",
+      "memberNotFound": "その番号のトライブメンバーは見つかりません。",
+      "memberSaved": "メンバーを更新しました。",
+      "status": "状態",
+      "st": {
+        "active": "有効",
+        "muted": "ミュート",
+        "suspended": "停止"
+      },
+      "perm": {
+        "can_write": "チャットに書き込める",
+        "can_evaluate": "評価できる（感謝を贈る）",
+        "can_review": "モデレーターを評価できる"
+      },
+      "msgPick": "メッセージを確認するフォーラムを選びます。",
+      "backForums": "フォーラムに戻る",
+      "noMsgsTitle": "メッセージなし",
+      "noMsgs": "このフォーラムにはメッセージがありません。",
+      "msgDelete": "メッセージを削除",
+      "msgDeleted": "メッセージを削除しました"
     }
   },
   "callout": {
@@ -3424,13 +3613,12 @@
       ]
     },
     "tourism": {
-      "title": "アクセシブル観光のアカウントでできること:",
+      "title": "レジャーのアカウントでできること：",
       "features": [
-        "感覚に優しい体験、ツアー、インクルーシブなキャンプを掲載",
-        "地図上に位置を示してディレクトリに掲載",
-        "家族からの予約やメッセージを受け取る",
-        "コミュニティのレビューを獲得",
-        "Stripe Connectで口座に直接受け取る"
+        "アクセシブルなレジャー施設としてディレクトリに掲載",
+        "感覚に配慮した時間帯や認知的配慮を提示",
+        "家族や神経多様な人々からのレビューを受け取る",
+        "所在地と連絡先を共有"
       ]
     },
     "legal": {
@@ -3460,6 +3648,15 @@
         "メッセージで家族と連絡",
         "バッジとコミュニティのレビューを獲得",
         "Stripe Connectで口座に直接受け取る"
+      ]
+    },
+    "company": {
+      "title": "インクルーシブ企業アカウントでできること：",
+      "features": [
+        "インクルーシブな求人を掲載",
+        "ディレクトリに掲載され国別に見つけてもらえる",
+        "「インクルーシブ企業」「Neuromundiアライ」バッジをダウンロード",
+        "メッセージでコミュニティとつながる"
       ]
     }
   },
@@ -3613,5 +3810,519 @@
     "body": "プロフィールに「Soy Fundador Neuromundi」バッジが表示されました。維持するにはプロフィールの要件を3か月以内に満たす必要があります。満たさない場合、バッジは自動的に取り消されます。",
     "reqs": "要件を確認する",
     "ok": "了解しました"
+  },
+  "meta": {
+    "title": "Neuromundi：あなたのグローバルコミュニティ"
+  },
+  "globalMember": {
+    "title": "Global Member バッジ",
+    "desc": "お支払いは最新です。公式「Neuromundi Global Member」バッジをウェブサイトやSNS用にダウンロードできます。",
+    "dlPng": "PNGをダウンロード",
+    "dlWebp": "WebPをダウンロード",
+    "hint": "背景透過のPNGはSNSに最適、軽量のWebPはウェブサイトに。"
+  },
+  "foundersWall": {
+    "title": "創設メンバー",
+    "subtitle": "Neuromundiを最初から信じてくださった方々を、国ごとにたたえます。",
+    "selectCountry": "国を選択",
+    "allCountries": "すべての国",
+    "empty": "この国の創設メンバーはまだ公開されていません。",
+    "kind": {
+      "families": "家族",
+      "professionals": "専門家",
+      "providers": "事業者"
+    }
+  },
+  "foundersPage": {
+    "badge": "創設メンバープログラム",
+    "intro": "国ごとに、最初からNeuromundiを信頼し、このコミュニティづくりに力を貸してくださった方々や団体をたたえます。",
+    "ctaTitle": "創設メンバーになりませんか？",
+    "ctaBody": "創設メンバーの枠は国ごとに限りがあります。アカウントを作成し、枠がある間に条件を満たすと、自動的にバッジが付与されます。",
+    "cta": "アカウント作成"
+  },
+  "company": {
+    "miss": {
+      "name": "会社名を入力してください。"
+    },
+    "afterInfo": "メール確認後、ダッシュボードで求人掲載やバッジのダウンロードができます。",
+    "yourName": "会社名",
+    "s1": "会社",
+    "name": "会社名",
+    "sector": "業種",
+    "selectSector": "業種を選択",
+    "description": "説明",
+    "s2": "連絡先と所在地",
+    "contactName": "担当者",
+    "contactEmail": "連絡先メール",
+    "city": "市区町村"
+  },
+  "labor": {
+    "badge": "就労インクルージョン",
+    "title": "機会",
+    "intro": "インクルーシブな企業・団体が掲載する就労・ボランティア・社会奉仕。国と種類で検索し、興味のあるものに応募しましょう。",
+    "searchPlaceholder": "職種・企業・スキルで検索…",
+    "selectCountry": "国を選択",
+    "allCountries": "すべての国",
+    "emptyTitle": "求人なし",
+    "empty": "この国の求人はまだありません。別の国を試すか後でご確認ください。",
+    "untitled": "求人",
+    "positions": "{{n}}名募集",
+    "experience": "経験",
+    "education": "学歴・資格",
+    "salary": "給与",
+    "skills": "スキル",
+    "note": "補足情報",
+    "applyEmail": "メールで応募",
+    "applyLink": "求人を見る",
+    "type": {
+      "all": "すべて",
+      "employment": "就労",
+      "volunteering": "ボランティア",
+      "social_service": "社会奉仕"
+    }
+  },
+  "jobs": {
+    "tab": "機会",
+    "subtitle": "{{total}}件中{{active}}件が公開中",
+    "new": "新規求人",
+    "save": "保存",
+    "cancel": "キャンセル",
+    "title": "職種",
+    "positions": "募集人数",
+    "experience": "必要な経験",
+    "education": "必要な学歴・資格",
+    "salary": "給与範囲",
+    "salaryPlaceholder": "例：月10,000〜15,000",
+    "city": "市区町村",
+    "applyEmail": "応募用メール",
+    "applyUrl": "求人リンク",
+    "skills": "求めるスキル",
+    "note": "その他の重要情報",
+    "saveErr": "保存できませんでした。もう一度お試しください。",
+    "untitled": "無題の求人",
+    "positionsShort": "{{n}}名",
+    "hidden": "非公開",
+    "hide": "非公開にする",
+    "show": "公開する",
+    "edit": "編集",
+    "delete": "削除",
+    "deleteConfirm": "この求人を削除しますか？元に戻せません。",
+    "emptyTitle": "求人なし",
+    "empty": "まだ求人がありません。最初の求人を作成しましょう。",
+    "opportunityType": "機会の種類",
+    "type": {
+      "employment": "就労",
+      "volunteering": "ボランティア",
+      "social_service": "社会奉仕"
+    }
+  },
+  "memberBadges": {
+    "title": "あなたのバッジ",
+    "desc": "これらのバッジをダウンロードし、サイトやSNSで共有できます。",
+    "download": "ダウンロード"
+  },
+  "esp": {
+    "miss": {
+      "name": "施設名を入力してください。"
+    },
+    "afterInfo": "メール確認後、ダッシュボードでレジャープロフィールを完成できます。",
+    "yourName": "施設名",
+    "s1": "施設",
+    "name": "施設名",
+    "venueType": "施設の種類",
+    "selectVenue": "施設の種類を選択",
+    "description": "説明",
+    "s2": "所在地",
+    "city": "市区町村",
+    "address": "住所",
+    "mapUrl": "地図リンク（Googleマップ）",
+    "mapUrlHelp": "Googleマップの位置情報リンクを貼り付けてください。",
+    "s3": "感覚・認知のアクセシビリティ",
+    "sensoryHours": "感覚に配慮した時間帯",
+    "sensoryHoursPlaceholder": "例：火曜9〜11時、照明控えめ・音楽なし。",
+    "cognitive": "認知的配慮",
+    "cognitivePlaceholder": "例：ピクトグラム、視覚メニュー、研修済みスタッフ。",
+    "otherAdapt": "その他の配慮",
+    "s4": "連絡先",
+    "infoTitle": "施設のアクセシビリティ",
+    "viewMap": "地図で見る",
+    "lat": "緯度",
+    "lng": "経度",
+    "coordsHelp": "任意：Googleマップの座標を貼り付けると、ディレクトリの地図にピン表示されます。"
+  },
+  "review": {
+    "button": "評価・レビュー",
+    "title": "{{name}}を評価",
+    "desc": "あなたの声は他の家族の助けになります。すでに利用・連絡した相手のみ評価できます。"
+  },
+  "topics": {
+    "title": "カテゴリ別通知",
+    "desc": "関心のあるテーマを選ぶと、あなたの国や都市で新着があった際にお知らせします。",
+    "opt": {
+      "employment": "就労",
+      "volunteering": "ボランティア",
+      "social_service": "社会奉仕",
+      "esparcimiento": "レジャー"
+    },
+    "country": "国",
+    "anyCountry": "すべての国",
+    "city": "市区町村",
+    "anyCity": "すべての都市",
+    "save": "保存",
+    "saved": "設定を保存しました。",
+    "saveErr": "保存できませんでした。"
+  },
+  "tribe": {
+    "title": "Neuromundiトライブ",
+    "landing": "社会的インクルージョンの場：所属・参加・自律。関心を通じて、自分のペースで、安全な環境でつながりましょう。",
+    "onlyEligible": "トライブは当事者・家族・専門家に開かれています。",
+    "joinTitle": "トライブに参加",
+    "joinIntro": "入る前に、コミュニティのルールを読んで同意し、今日の参加の仕方を選んでください。",
+    "joinCta": "参加する",
+    "rulesTitle": "コミュニティのルール",
+    "rules": [
+      "敬意ある態度といじめゼロ：ここは安全な場所です。",
+      "明確で文字どおりのコミュニケーション：皮肉・二重の意味・ほのめかしはなし。",
+      "互いのペースを尊重し、即時の返信を求めない。",
+      "他者の社会的エネルギー状態を尊重する。",
+      "他人の個人情報や診断を共有しない。",
+      "コミュニティを大切に：ルール違反の行為は報告する。"
+    ],
+    "energyTitle": "今日の社会的エネルギー",
+    "energy": {
+      "green": {
+        "label": "緑 — 話したい気分",
+        "desc": "会話したい"
+      },
+      "yellow": {
+        "label": "黄 — 話しかけられたら",
+        "desc": "声をかけられたら返信"
+      },
+      "red": {
+        "label": "赤 — 低エネルギー",
+        "desc": "今日は聞く・見るだけ"
+      }
+    },
+    "privacyTitle": "段階的なプライバシー",
+    "privacy": {
+      "show_country": "国を表示",
+      "show_city": "市区町村を表示",
+      "show_interests": "興味を表示",
+      "show_diagnosis": "診断・特性を表示"
+    },
+    "acceptRules": "トライブのルールを読み、同意します。",
+    "mustAccept": "入るにはルールへの同意が必要です。",
+    "joinErr": "登録を完了できませんでした。",
+    "suspended": "ルール違反によりトライブでの参加が停止されています。誤りだと思う場合はチームにご連絡ください。",
+    "hubSubtitle": "関心クラブと親和スペース",
+    "energyToday": "今日のエネルギーは？",
+    "invitesTitle": "招待",
+    "forums": "フォーラム",
+    "newForum": "新規フォーラム",
+    "forumTitle": "フォーラム名",
+    "forumTitlePh": "例：恐竜クラブ",
+    "forumTitleReq": "タイトルを入力（3文字以上）。",
+    "theme": "テーマ",
+    "themePh": "例：ゲーム、自然…",
+    "themeFilter": "テーマ",
+    "language": "言語",
+    "anyLanguage": "すべての言語",
+    "country": "国",
+    "anyCountry": "すべての国",
+    "city": "市区町村",
+    "forumDesc": "説明",
+    "createForum": "フォーラム作成",
+    "cancel": "キャンセル",
+    "forumPending": "フォーラムを送信しました。管理者の承認後に表示されます。",
+    "forumErr": "フォーラムを作成できませんでした。",
+    "searchPh": "フォーラムを検索…",
+    "noForumsTitle": "フォーラムなし",
+    "noForums": "一致するフォーラムはまだありません。最初の一つを作りましょう！",
+    "membersCount": "{{n}}人",
+    "enter": "入る",
+    "joinForum": "参加",
+    "invite": "招待",
+    "sendInvite": "送信",
+    "invited": "招待を送信しました。",
+    "invalidFolio": "無効な会員番号です。",
+    "messagePlaceholder": "メッセージを入力…",
+    "send": "送信",
+    "sendErr": "送信できませんでした。",
+    "readOnly": "あなたのアカウントはトライブで閲覧のみです。",
+    "noMessages": "最初の会話を始めましょう。",
+    "loading": "読み込み中…",
+    "grat": {
+      "title": "{{name}}に感謝",
+      "desc": "バッジを選んでください。加点のみで減点はありません。",
+      "give": "感謝する",
+      "pick": "バッジを選んでください。",
+      "sent": "感謝を送りました！",
+      "err": "送信できませんでした。",
+      "anon": "匿名で送る",
+      "note": "クローズド形式：自由記述なし。1日の付与数に上限あり。"
+    },
+    "pointsLabel": "トライブポイント {{n}}",
+    "toNext": "{{level}}まであと{{n}}",
+    "tokensLeft": "本日の感謝フィッシュ：{{n}}",
+    "impactItem": "{{n}}× {{badge}}",
+    "silentOn": "サイレントモード（レベル非表示）",
+    "silentOff": "レベルを表示",
+    "badge": {
+      "claridad_literal": {
+        "name": "明快な説明",
+        "msg": "明快で直接的な説明をありがとう。"
+      },
+      "infodump_oro": {
+        "name": "黄金のインフォダンプ",
+        "msg": "知識を共有してくれてありがとう。"
+      },
+      "espacio_seguro": {
+        "name": "安全な場所",
+        "msg": "あなたの共感と受け止めに感謝します。"
+      },
+      "faro_sensorial": {
+        "name": "感覚の灯台",
+        "msg": "感覚のアクセシビリティへの配慮に感謝。"
+      },
+      "anticipacion_impecable": {
+        "name": "完璧な予告",
+        "msg": "予告して見通しをよくしてくれてありがとう。"
+      },
+      "puente_empatia": {
+        "name": "共感の橋",
+        "msg": "敬意をもって橋をかけてくれてありがとう。"
+      },
+      "bienvenida_calida": {
+        "name": "温かい歓迎",
+        "msg": "根気よく迎えてくれてありがとう。"
+      }
+    },
+    "level": {
+      "semilla": "種",
+      "brote": "芽",
+      "faro": "灯台",
+      "pilar": "柱",
+      "raiz": "根"
+    },
+    "mod": {
+      "title": "モデレーター",
+      "badge": "モデレーター",
+      "becomePrompt": "コミュニティを支えたいですか？",
+      "become": "モデレーターに応募",
+      "pendingMine": "あなたの応募は審査中です。",
+      "rejectedMine": "今回は承認されませんでした。",
+      "reapply": "再応募",
+      "youAre": "あなたは{{level}}です",
+      "applyTitle": "モデレーター応募",
+      "apply": "応募を送信",
+      "justifyLabel": "なぜトライブでモデレートしたいですか？",
+      "justifyPh": "動機や経験を教えてください…",
+      "justifyReq": "10文字以上入力してください。",
+      "ethicsTitle": "モデレーター倫理規定",
+      "acceptEthics": "モデレーター倫理規定を読み、同意します。",
+      "mustAcceptEthics": "倫理規定への同意が必要です。",
+      "applied": "応募を送信しました。承認待ちです。",
+      "rate": "評価",
+      "update": "レビューを更新",
+      "rateTitle": "{{name}}を評価",
+      "rateSubmit": "レビューを送信",
+      "rateIncomplete": "すべての項目を評価してください。",
+      "rated": "レビューを送りました！",
+      "commentLabel": "コメント（任意）",
+      "dim": {
+        "empathy": "共感",
+        "inclusive": "包摂的な言葉遣い",
+        "cordiality": "丁寧さ",
+        "knowledge": "知識",
+        "availability": "対応の早さ"
+      }
+    },
+    "ethics": [
+      "公平・中立な対応：えこひいきや報復をしない。",
+      "ハラスメントゼロ容認：安全な場を守る。",
+      "守秘：メンバーの個人情報を漏らさない。",
+      "明確・敬意・曖昧さのないコミュニケーション。",
+      "透明性：モデレーションの判断を説明する。",
+      "自分の役割を超える状況はチームに引き継ぐ。"
+    ],
+    "modLevel": {
+      "nuevo": "新人モデレーター",
+      "experimentado": "経験豊富なモデレーター",
+      "experto": "エキスパートモデレーター",
+      "lider": "リードモデレーター",
+      "destacado": "特別モデレーター"
+    },
+    "mentor": {
+      "title": "ピアメンタリング",
+      "intro": "先を歩む人と始めたばかりの人をつなぐ伴走。自分のペースで、即答のプレッシャーなく。",
+      "offerPrompt": "メンターとして誰かに寄り添いますか？",
+      "offer": "メンターになる",
+      "youOffer": "あなたのメンタリング分野",
+      "paused": "一時停止中",
+      "edit": "編集",
+      "pause": "一時停止",
+      "resume": "再開",
+      "becomeTitle": "メンターになる",
+      "becomeIntro": "分野を選び、あなたの支えを求める人へ短い自己紹介を。",
+      "save": "保存",
+      "offered": "完了！メンターとして表示されます。",
+      "pickTrack": "少なくとも1つの分野を選んでください。",
+      "tracks": "メンタリング分野",
+      "bioLabel": "短い自己紹介",
+      "bioPh": "あなたの経験とどう寄り添えるか…",
+      "track": {
+        "nd_youth": "若者向けNDメンタリング",
+        "family_family": "家族から家族へ"
+      },
+      "trackDesc": {
+        "nd_youth": "ND当事者の大人が、自己理解・大学・自立生活で若いND当事者に寄り添う。",
+        "family_family": "経験ある養育者が、診断を受けたばかりの家族に寄り添う。"
+      },
+      "mine": "私のメンタリング",
+      "role": {
+        "mentor": "メンター",
+        "mentee": "メンティー"
+      },
+      "status": {
+        "pending": "保留中",
+        "active": "進行中",
+        "declined": "辞退",
+        "ended": "終了"
+      },
+      "openThread": "会話を開く",
+      "find": "メンターを探す",
+      "allTracks": "すべての分野",
+      "noMentors": "この分野のメンターはまだいません。",
+      "request": "申し込む（{{track}}）",
+      "async": "非同期の会話",
+      "noMessages": "準備ができたら会話を始めましょう。"
+    },
+    "event": {
+      "title2": "イベント",
+      "new": "新規イベント",
+      "emptyTitle": "イベントなし",
+      "empty": "まだイベントがありません。予告ガイド付きで最初の一つを作成しましょう！",
+      "newTitle": "イベントを公開",
+      "guideHint": "予告ガイドは必須です：何が起きるか、騒音の見込み、静かな部屋。",
+      "guideReq": "ガイドを完成させてください：タイトル、日時、内容、騒音の見込み。",
+      "publish": "公開",
+      "created": "イベントを公開しました。+20トライブポイント。",
+      "pointsHint": "予告ガイド付きの公開で+20トライブポイント。",
+      "title": "タイトル",
+      "when": "日時",
+      "online": "オンライン",
+      "place": "場所",
+      "placePh": "住所または会場名",
+      "whatHappens": "何が起きるか",
+      "whatPh": "進行、活動、所要時間…",
+      "noise": "騒音の見込み",
+      "noisePh": "例：静かな環境、時々拍手",
+      "quietRoom": "静かな部屋（クワイエットルーム）あり",
+      "sensoryTips": "感覚面のヒント",
+      "sensoryPh": "ヘッドホン、控えめな照明、視覚的な案内…",
+      "hasQuiet": "静かな部屋あり",
+      "noQuiet": "静かな部屋なし",
+      "attend": "参加する",
+      "cancelRsvp": "参加を取り消す",
+      "past": "終了",
+      "sensoryReport": "感覚レポート",
+      "reportedTag": "報告済み",
+      "reportTitle": "感覚レポート：{{name}}",
+      "sendReport": "レポートを送信",
+      "reportReq": "騒音と快適さを評価してください。",
+      "reported": "ありがとう！+15トライブポイント。",
+      "noiseLevel": "体感した騒音レベル",
+      "noiseScale": "1＝とても静か・5＝とても騒がしい",
+      "comfort": "全体的な快適さ",
+      "quietUsed": "静かな部屋を使った",
+      "notes": "メモ（任意）",
+      "reportPoints": "このイベントへの最初のレポートで+15トライブポイント。"
+    },
+    "stepsTitle": "参加方法",
+    "step1": "コミュニティのルールを読んで同意します。",
+    "step2": "今日の社会的エネルギー状態を選びます。",
+    "step3": "表示する情報を選びます（プライバシー）。",
+    "step4": "「トライブに参加」を押して入ります。",
+    "privacyHint": "トライブの空間で何を見せるかはあなた次第。いつでも変更できます。",
+    "about": {
+      "title": "Tribu Neuromundiとは？",
+      "forumsT": "テーマ別フォーラム",
+      "forumsD": "国や言語ごとに、気の合う人とつながる同好会。",
+      "mentorT": "ピアメンタリング",
+      "mentorD": "似た経験を持つメンバー同士の1対1のサポート。",
+      "modsT": "コミュニティによる調整",
+      "modsD": "倫理規範を持つボランティアのモデレーター。コミュニティが評価します。",
+      "energyT": "エネルギーとプライバシー",
+      "energyD": "信号機で今日の調子を示し、共有する情報は自分で選べます。",
+      "eventsT": "事前ガイド付きイベント",
+      "eventsD": "各イベントには、内容・騒音レベル・カームルームの案内が付きます。"
+    },
+    "access": {
+      "title": "どうやって参加する？",
+      "body": "トライブに参加するにはNeuromundiのメンバーアカウントが必要です。まだなら作成、すでに会員ならログインしてください。",
+      "ready": "すでにアカウントがあります。トライブに参加して始めましょう。",
+      "createBtn": "アカウント作成",
+      "loginBtn": "ログイン"
+    }
+  },
+  "nid": {
+    "member": "Neuromundiメンバー",
+    "role": {
+      "family": "Neuromundiファミリー",
+      "member": "Neuromundiメンバー",
+      "specialist": "Neuromundi専門家"
+    },
+    "issued": "発行日",
+    "valid": "Neuromundiネットワークの有効なメンバー",
+    "directory": "Neuromundiディレクトリ",
+    "howToTitle": "事業者の方へ",
+    "how1": "アプリでこのコードを読み取る。",
+    "how2": "画面で名前と会員番号を確認。",
+    "how3": "Neuromundi特典を適用。",
+    "showFront": "表を見る",
+    "showBack": "裏を見る",
+    "downloadQr": "QRをダウンロード",
+    "walletSoon": "近日中にApple/Google Walletへ保存できます。",
+    "optInTitle": "Neuromundi IDを受け付ける",
+    "optInDesc": "プロフィールにNeuromundi ID対応を表示し、ネットワークに参加。",
+    "optInOn": "有効：プロフィールに「Neuromundi ID対応」を表示。",
+    "optInOff": "無効。",
+    "accepts": "Neuromundi ID対応",
+    "acceptsHint": "この事業者はコミュニティのNeuromundi IDに対応。",
+    "seal": {
+      "title": "ネットワークの認証マーク",
+      "desc": "マークをダウンロードして、サイト・SNS・院内に掲示。",
+      "acceptsTop": "対応店",
+      "allyTop": "アライ専門家"
+    },
+    "red": {
+      "badge": "Neuromundiネットワーク",
+      "title": "Neuromundiネットワーク",
+      "intro": "Neuromundi IDに対応する事業者・アライのための場。取引をコミュニティ体験に変えましょう。",
+      "howTitle": "仕組み",
+      "s1t": "メンバーがIDを提示",
+      "s1b": "当事者・家族・専門家がデジタルのNeuromundi IDを提示。",
+      "s2t": "QRを読み取る",
+      "s2b": "アプリで数秒でカードを検証。",
+      "s3t": "検証して適用",
+      "s3b": "緑の画面で名前・役割・番号を確認し、特典を適用。",
+      "benefitsTitle": "ネットワーク参加のメリット",
+      "b1t": "来訪増加",
+      "b1b": "信頼できる仲間を探すコミュニティに表示されます。",
+      "b2t": "信頼と正式さ",
+      "b2b": "待合室で透明かつ不正のない検証。",
+      "b3t": "ソーシャルプルーフ",
+      "b3b": "プロフィールの「Neuromundi ID対応」表示がより多くのメンバーを呼び込みます。",
+      "b4t": "コミュニティ",
+      "b4b": "単なる割引プログラムではなく、目的あるネットワークの一員に。",
+      "sealsForProviders": "認証マークは登録事業者向けです。ログインまたはアカウント作成で入手できます。",
+      "joinCta": "ネットワークに参加",
+      "ctaTitle": "Neuromundiネットワークに参加",
+      "ctaBody": "Neuromundi IDを受け付け、認証マークを取得し、来訪を所属感へ。",
+      "goPanel": "パネルへ"
+    },
+    "addApple": "Apple Walletに追加",
+    "addGoogle": "Google Walletに追加",
+    "walletErr": "パスを生成できませんでした。後でお試しください。"
   }
 }

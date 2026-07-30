@@ -34,7 +34,11 @@
     "calendar": "日历",
     "messages": "消息",
     "myPanel": "我的面板",
-    "donate": "捐赠"
+    "donate": "捐赠",
+    "founders": "创始成员",
+    "labor": "就业融合",
+    "tribe": "部落",
+    "red": "Neuromundi 网络"
   },
   "home": {
     "title": "首个连接神经发育与神经多样性领域中患者、家庭、专家与服务方的全球社区。",
@@ -84,7 +88,30 @@
       "cta": "认识我们的捐赠者",
       "donateCta": "我要捐赠"
     },
-    "donateHint": "想帮助 Neuromundi 保持免费吗？了解如何支持。"
+    "donateHint": "想帮助 Neuromundi 保持免费吗？了解如何支持。",
+    "slides": [
+      "",
+      "",
+      "为你提供建议与协助的社区",
+      "Neuromundi ID：你的数字通行钥匙",
+      "有效的产品",
+      "专家为你服务",
+      "诊所、诊室与实验室",
+      "经社区验证的服务",
+      "教育融合",
+      "包容的环境",
+      "包容的体验",
+      "包容的运动",
+      "法律咨询",
+      "包容的休闲",
+      "社区"
+    ],
+    "founders": {
+      "badge": "创始成员",
+      "title": "认识我们的创始成员",
+      "body": "从一开始就信任 Neuromundi 并帮助建设这个社区的先锋个人和组织。",
+      "cta": "认识创始成员"
+    }
   },
   "auth": {
     "login": "登录",
@@ -200,10 +227,23 @@
       "perinatal": "围产期",
       "executive": "教育与执行功能",
       "products": "辅助产品",
-      "arts": "艺术与音乐"
+      "arts": "艺术与音乐",
+      "wellness": "运动与健康",
+      "leisure": "休闲",
+      "legal": "法律服务",
+      "ngo": "非营利/协会",
+      "caregivers": "照护/陪伴",
+      "employment": "就业"
     },
     "neuroFilter": "神经肯定",
-    "neuroHint": "仅显示获得 Neuromundi 神经肯定认证的服务者。"
+    "neuroHint": "仅显示获得 Neuromundi 神经肯定认证的服务者。",
+    "nearMe": "搜索我附近",
+    "locating": "定位中…",
+    "nearActive": "在你附近",
+    "clearLocation": "清除",
+    "nearHint": "共享你的位置即可查看附近的专家、学校和提供者。",
+    "geoDenied": "无法获取你的位置。请在浏览器中开启以查看附近的结果。",
+    "geoUnavailable": "你的浏览器不支持共享位置。"
   },
   "card": {
     "evs": "EVS",
@@ -298,7 +338,8 @@
       "qr": "我的二维码",
       "discounts": "我的优惠",
       "history": "历史",
-      "prescriptions": "处方"
+      "prescriptions": "处方",
+      "nid": "Neuromundi ID"
     },
     "emptyDiscounts": "你还没有优惠。在商家出示二维码即可开始。",
     "emptyHistory": "使用第一笔优惠后，历史将显示在这里。",
@@ -582,7 +623,9 @@
     "stop": "停止",
     "idleTitle": "扫描二维码",
     "idleBody": "仅在开始时请求相机权限，结束后会自动关闭。",
-    "start": "开始扫描"
+    "start": "开始扫描",
+    "nidValid": "Neuromundi ID 有效",
+    "nidSuspended": "账户已暂停"
   },
   "qr": {
     "step1": "在商家或服务处出示此二维码。",
@@ -722,7 +765,35 @@
     "secImprove": "改进",
     "neuroOn": "神经肯定",
     "neuroGrant": "授予认证",
-    "neuroRevoke": "撤销认证"
+    "neuroRevoke": "撤销认证",
+    "secFounders": "创始成员",
+    "secBadges": "徽章",
+    "secTribe": "部落",
+    "benefitExempt": "免费访问",
+    "benefitPercent": "折扣 %",
+    "benefitPercentShort": "-{{pct}}%",
+    "percentOff": "折扣百分比",
+    "errPercent": "请输入 1 到 100 之间的百分比",
+    "benefitAmount": "固定金额",
+    "amountOff": "金额",
+    "amountCurrency": "货币",
+    "errAmount": "请输入有效的金额和货币",
+    "boundEmail": "绑定到邮箱（可选）",
+    "secAdvisors": "顾问",
+    "adv": {
+      "title": "顾问档案",
+      "intro": "顾问可以浏览整个平台并管理部落，但不能进行财务或管理操作。",
+      "search": "搜索",
+      "searchPh": "编号、姓名",
+      "searchShort": "请输入至少 2 个字符",
+      "make": "设为顾问",
+      "added": "已指定顾问",
+      "removed": "已移除顾问",
+      "current": "当前顾问",
+      "remove": "移除",
+      "emptyTitle": "暂无顾问",
+      "empty": "你还没有指定任何顾问。"
+    }
   },
   "reg": {
     "typePatient": "患者",
@@ -944,7 +1015,10 @@
     "perMonth": "/月",
     "choosePeriod": "选择付款方式",
     "savingBadge": "签 12 个月，只付 10 个月",
-    "founderPrice": "你享有创始会员价"
+    "founderPrice": "你享有创始会员价",
+    "promoDiscountOk": "已为你的会费应用 {{pct}}% 折扣",
+    "promoEmail": "此代码已绑定到其他邮箱账户。",
+    "promoAmountOk": "已为你的会费应用 {{amount}} {{currency}} 折扣"
   },
   "rules": {
     "version": "版本",
@@ -1195,6 +1269,14 @@
     },
     "dirMatch": {
       "title": "为您推荐的新专业人士"
+    },
+    "topicJob": {
+      "title": "新机会",
+      "body": "{{type}} · {{place}}"
+    },
+    "topicVenue": {
+      "title": "新休闲场所",
+      "body": "{{name}} · {{place}}"
     }
   },
   "clin": {
@@ -1682,8 +1764,8 @@
         "desc": "融合体育活动中心与俱乐部。"
       },
       "tourism": {
-        "title": "无障碍旅游",
-        "desc": "融合住宿、游览与体验。"
+        "title": "休闲",
+        "desc": "电影院、餐厅、博物馆、公园……提供感官与认知适配。"
       },
       "legal": {
         "title": "法律服务",
@@ -1696,6 +1778,10 @@
       "caregiver": {
         "title": "照护者／陪伴者",
         "desc": "居家支持、喘息服务与校园陪读。"
+      },
+      "company": {
+        "title": "企业",
+        "desc": "发布就业、志愿服务和社会服务；下载您的徽章。"
       }
     }
   },
@@ -1951,16 +2037,16 @@
     "crianza": "养育与家庭",
     "derechos": "权利与手续",
     "diagnostico": "诊断与早期发现",
-    "educacion": "教育与校园融合",
+    "educacion": "教育",
     "emocional": "情绪健康",
     "historias": "故事与见证",
     "investigacion": "研究与科学",
     "juego": "包容性游戏与休闲",
     "libros": "图书与资源",
     "socioemocional": "社交与情绪技能",
-    "tecnologia": "辅助技术",
+    "tecnologia": "科技与IT",
     "vestimenta": "适应性服饰与配件",
-    "salud": "健康",
+    "salud": "医疗健康",
     "recreacion": "娱乐与休闲",
     "productos": "产品与材料",
     "servicios": "专业服务",
@@ -2125,7 +2211,30 @@
     "movimiento_danza": "运动与治疗性舞蹈",
     "teatro_rol": "戏剧与社交角色扮演",
     "ocio_sensorial": "感官友好休闲与活动",
-    "arte_musica": "适性艺术与音乐"
+    "arte_musica": "适性艺术与音乐",
+    "manufactura": "制造与工业",
+    "comercio_retail": "零售与商贸",
+    "alimentos": "食品与饮料",
+    "turismo_hosteleria": "旅游与酒店",
+    "finanzas": "金融与保险",
+    "logistica": "物流与运输",
+    "construccion": "建筑",
+    "agro": "农业产业",
+    "creativo": "创意产业",
+    "gobierno_ong": "政府与非营利组织",
+    "cine": "电影院",
+    "restaurante": "餐厅",
+    "cafeteria": "咖啡馆",
+    "plaza_comercial": "购物中心",
+    "museo": "博物馆",
+    "peluqueria": "理发店",
+    "parque": "公园",
+    "teatro": "剧院",
+    "balneario": "水疗/浴场",
+    "hotel": "酒店",
+    "biblioteca": "图书馆",
+    "centro_cultural": "文化中心",
+    "gimnasio": "健身/运动"
   },
   "kit": {
     "badge": "工具包",
@@ -2318,7 +2427,8 @@
       "discount": "已启用 ≥10% 社区折扣",
       "benefit": "经二维码核实的权益（折扣/咨询）",
       "blog": "在博客分享经历",
-      "referrals": "向社区的推荐"
+      "referrals": "向社区的推荐",
+      "vacancies": "发布至少2个有效职位"
     }
   },
   "account": {
@@ -3207,7 +3317,13 @@
       "del": "删除",
       "delTitle": "删除伙伴",
       "delBody": "确定要将该伙伴从轮播中移除吗？",
-      "deleted": "伙伴已删除"
+      "deleted": "伙伴已删除",
+      "countries": "显示的国家",
+      "countriesHint": "留空表示在所有国家显示。按住 Ctrl/Cmd 点击可多选。",
+      "allCountries": "所有国家",
+      "externalTitle": "外部服务器上的徽标",
+      "externalBody": "该徽标来自其他域名，无法控制大小和缓存；过大的徽标会拖慢首页。建议优化后上传到你自己的站点。仍要保存吗？",
+      "externalHint": "外部徽标：请优化后上传到你的站点，以免拖慢首页。"
     },
     "tier": {
       "title": "各币种的捐赠金额",
@@ -3217,6 +3333,79 @@
       "error": "无法保存。",
       "active": "启用",
       "order": "金额须递增（种子＜盟友＜推动者＜大使）。"
+    },
+    "founders": {
+      "title": "创始成员墙",
+      "subtitle": "已在墙上公开 {{published}}/{{total}}。",
+      "allCountries": "所有国家",
+      "order": "排序",
+      "feature": "精选",
+      "publishFirst": "请先公开才能精选",
+      "published": "已公开",
+      "hidden": "已隐藏",
+      "saveErr": "保存失败，请重试。",
+      "emptyTitle": "暂无创始成员",
+      "empty": "尚未检测到创始成员。"
+    },
+    "badges": {
+      "title": "按会员类型的徽章",
+      "subtitle": "{{total}} 个中 {{active}} 个已启用",
+      "addTitle": "上传徽章",
+      "memberType": "会员类型",
+      "key": "徽章标识",
+      "badgeTitle": "显示名称",
+      "file": "文件（PNG、SVG、JPG）",
+      "upload": "上传",
+      "uploaded": "徽章已保存。",
+      "needFields": "请输入标识并选择文件。",
+      "emptyTitle": "暂无徽章",
+      "empty": "您还没有上传徽章。",
+      "down": "已下架",
+      "takeDown": "下架",
+      "putUp": "上架",
+      "delete": "删除",
+      "deleteConfirm": "删除该徽章及其文件？"
+    },
+    "tribe": {
+      "title": "部落论坛",
+      "subtitle": "审批成员创建的论坛。",
+      "pending": "待审",
+      "approved": "已批准",
+      "rejected": "已拒绝",
+      "approve": "批准",
+      "reject": "拒绝",
+      "reset": "重开",
+      "done": "论坛已更新。",
+      "emptyTitle": "暂无论坛",
+      "empty": "该状态下暂无论坛。",
+      "area": {
+        "forums": "论坛",
+        "moderators": "版主",
+        "members": "成员",
+        "messages": "消息"
+      },
+      "modEmptyTitle": "暂无申请",
+      "modEmpty": "该状态下暂无版主。",
+      "lookup": "查找",
+      "memberNotFound": "未找到该编号的部落成员。",
+      "memberSaved": "成员已更新。",
+      "status": "状态",
+      "st": {
+        "active": "活跃",
+        "muted": "已静音",
+        "suspended": "已暂停"
+      },
+      "perm": {
+        "can_write": "可在聊天中发言",
+        "can_evaluate": "可评价（致谢）",
+        "can_review": "可评价版主"
+      },
+      "msgPick": "选择一个论坛以查看其消息。",
+      "backForums": "返回论坛",
+      "noMsgsTitle": "暂无消息",
+      "noMsgs": "该论坛没有消息。",
+      "msgDelete": "删除消息",
+      "msgDeleted": "消息已删除"
     }
   },
   "callout": {
@@ -3424,13 +3613,12 @@
       ]
     },
     "tourism": {
-      "title": "使用您的无障碍旅游账户可以：",
+      "title": "使用休闲账户，您可以：",
       "features": [
-        "发布感官友好体验、行程和包容性营地",
-        "在目录中显示带地图定位的资料",
-        "接受家庭的预约和消息",
-        "获得社区评价",
-        "通过 Stripe Connect 直接收款到账户"
+        "作为无障碍休闲场所出现在目录中",
+        "标注低感官时段与认知适配",
+        "获得来自家庭和神经多样人士的评价",
+        "分享您的位置和联系方式"
       ]
     },
     "legal": {
@@ -3460,6 +3648,15 @@
         "通过站内信与家庭沟通",
         "获得徽章和社区评价",
         "通过 Stripe Connect 直接收款到账户"
+      ]
+    },
+    "company": {
+      "title": "使用包容性企业账户，您可以：",
+      "features": [
+        "发布包容性招聘职位",
+        "出现在目录中并按国家被找到",
+        "下载\"包容性企业\"和\"Neuromundi 伙伴\"徽章",
+        "通过消息与社区联系"
       ]
     }
   },
@@ -3613,5 +3810,519 @@
     "body": "你的个人主页现已显示“Soy Fundador Neuromundi”徽章。你有3个月时间满足身份要求以保留它；否则徽章将被自动移除。",
     "reqs": "查看我的要求",
     "ok": "明白了"
+  },
+  "meta": {
+    "title": "Neuromundi：你的全球社区"
+  },
+  "globalMember": {
+    "title": "Global Member 徽章",
+    "desc": "您的付款已是最新。下载官方「Neuromundi Global Member」徽章，用于您的网站和社交媒体。",
+    "dlPng": "下载 PNG",
+    "dlWebp": "下载 WebP",
+    "hint": "透明背景 PNG 适合社交媒体；更轻的 WebP 适合网站。"
+  },
+  "foundersWall": {
+    "title": "创始成员",
+    "subtitle": "我们逐国致敬那些从一开始就信任 Neuromundi 的人。",
+    "selectCountry": "选择国家",
+    "allCountries": "所有国家",
+    "empty": "该国家暂无已公开的创始成员。",
+    "kind": {
+      "families": "家庭",
+      "professionals": "专业人士",
+      "providers": "商家"
+    }
+  },
+  "foundersPage": {
+    "badge": "创始计划",
+    "intro": "我们逐国致敬那些从一开始就信任 Neuromundi、并帮助建设这个社区的个人与机构。",
+    "ctaTitle": "想成为创始成员吗？",
+    "ctaBody": "创始名额按国家有限。创建账户后，若在名额未满时符合条件，您将自动获得徽章。",
+    "cta": "创建账户"
+  },
+  "company": {
+    "miss": {
+      "name": "请输入公司名称。"
+    },
+    "afterInfo": "确认邮箱后，您将进入面板发布职位并下载徽章。",
+    "yourName": "贵公司名称",
+    "s1": "公司",
+    "name": "公司名称",
+    "sector": "行业",
+    "selectSector": "选择行业",
+    "description": "简介",
+    "s2": "联系方式与所在地",
+    "contactName": "联系人",
+    "contactEmail": "联系邮箱",
+    "city": "城市"
+  },
+  "labor": {
+    "badge": "就业融合",
+    "title": "机会",
+    "intro": "由包容性企业和组织发布的就业、志愿服务和社会服务。按国家和类型搜索，申请您感兴趣的机会。",
+    "searchPlaceholder": "按职位、公司、技能搜索…",
+    "selectCountry": "选择国家",
+    "allCountries": "所有国家",
+    "emptyTitle": "暂无职位",
+    "empty": "该国家暂无职位。请尝试其他国家或稍后再来。",
+    "untitled": "职位",
+    "positions": "{{n}} 个名额",
+    "experience": "经验",
+    "education": "学历",
+    "salary": "薪资",
+    "skills": "技能",
+    "note": "补充信息",
+    "applyEmail": "通过邮箱申请",
+    "applyLink": "查看职位",
+    "type": {
+      "all": "全部",
+      "employment": "就业",
+      "volunteering": "志愿服务",
+      "social_service": "社会服务"
+    }
+  },
+  "jobs": {
+    "tab": "机会",
+    "subtitle": "{{total}} 个中 {{active}} 个已启用",
+    "new": "新增职位",
+    "save": "保存",
+    "cancel": "取消",
+    "title": "职位",
+    "positions": "名额数量",
+    "experience": "所需经验",
+    "education": "所需学历",
+    "salary": "薪资范围",
+    "salaryPlaceholder": "例如 每月 $10,000–$15,000",
+    "city": "城市",
+    "applyEmail": "投递邮箱",
+    "applyUrl": "职位链接",
+    "skills": "期望技能",
+    "note": "其他重要信息",
+    "saveErr": "保存失败，请重试。",
+    "untitled": "未命名职位",
+    "positionsShort": "{{n}} 名额",
+    "hidden": "已隐藏",
+    "hide": "隐藏",
+    "show": "显示",
+    "edit": "编辑",
+    "delete": "删除",
+    "deleteConfirm": "删除该职位？此操作无法撤销。",
+    "emptyTitle": "暂无职位",
+    "empty": "您还没有发布职位。创建第一个吧。",
+    "opportunityType": "机会类型",
+    "type": {
+      "employment": "就业",
+      "volunteering": "志愿服务",
+      "social_service": "社会服务"
+    }
+  },
+  "memberBadges": {
+    "title": "您的徽章",
+    "desc": "下载并在您的网站和社交媒体上分享这些徽章。",
+    "download": "下载"
+  },
+  "esp": {
+    "miss": {
+      "name": "请输入场所名称。"
+    },
+    "afterInfo": "确认邮箱后，您将进入面板完善休闲资料。",
+    "yourName": "场所名称",
+    "s1": "场所",
+    "name": "场所名称",
+    "venueType": "场所类型",
+    "selectVenue": "选择场所类型",
+    "description": "简介",
+    "s2": "地理位置",
+    "city": "城市",
+    "address": "地址",
+    "mapUrl": "地图链接（Google 地图）",
+    "mapUrlHelp": "粘贴您在 Google 地图上的位置链接。",
+    "s3": "感官与认知无障碍",
+    "sensoryHours": "低感官时段",
+    "sensoryHoursPlaceholder": "例如：周二9–11点，灯光柔和且无音乐。",
+    "cognitive": "认知适配",
+    "cognitivePlaceholder": "例如：图形符号、视觉菜单、受训员工。",
+    "otherAdapt": "其他适配",
+    "s4": "联系方式",
+    "infoTitle": "场所无障碍",
+    "viewMap": "在地图上查看",
+    "lat": "纬度",
+    "lng": "经度",
+    "coordsHelp": "可选：从 Google 地图粘贴坐标，即可在目录地图上以图钉显示。"
+  },
+  "review": {
+    "button": "评价",
+    "title": "评价 {{name}}",
+    "desc": "您的反馈能帮助其他家庭。您只能评价已经拜访或联系过的对象。"
+  },
+  "topics": {
+    "title": "分类提醒",
+    "desc": "选择您关注的主题，当您所在国家或城市有新内容时我们会通知您。",
+    "opt": {
+      "employment": "就业",
+      "volunteering": "志愿服务",
+      "social_service": "社会服务",
+      "esparcimiento": "休闲"
+    },
+    "country": "国家",
+    "anyCountry": "任意国家",
+    "city": "城市",
+    "anyCity": "任意城市",
+    "save": "保存",
+    "saved": "偏好已保存。",
+    "saveErr": "保存失败。"
+  },
+  "tribe": {
+    "title": "Neuromundi 部落",
+    "landing": "社会包容的空间：归属、参与与自主。以自己的节奏，在安全环境中通过兴趣建立联系。",
+    "onlyEligible": "部落面向当事人、家庭和专业人士开放。",
+    "joinTitle": "加入部落",
+    "joinIntro": "进入前，请阅读并接受社区规则，并选择今天的参与方式。",
+    "joinCta": "加入",
+    "rulesTitle": "社区规则",
+    "rules": [
+      "尊重待人、零欺凌：这里是安全空间。",
+      "清晰直白的沟通：不用反讽、双关或暗示。",
+      "尊重每个人的节奏，不要求立即回复。",
+      "尊重他人的社交能量状态。",
+      "不分享他人的个人信息或诊断。",
+      "爱护社区：举报任何违反这些规则的行为。"
+    ],
+    "energyTitle": "今天的社交能量",
+    "energy": {
+      "green": {
+        "label": "绿 — 乐于交流",
+        "desc": "想聊天"
+      },
+      "yellow": {
+        "label": "黄 — 有人找我才聊",
+        "desc": "有人留言就回复"
+      },
+      "red": {
+        "label": "红 — 能量较低",
+        "desc": "今天只倾听/观察"
+      }
+    },
+    "privacyTitle": "分层隐私",
+    "privacy": {
+      "show_country": "显示我的国家",
+      "show_city": "显示我的城市",
+      "show_interests": "显示我的兴趣",
+      "show_diagnosis": "显示我的诊断或状况"
+    },
+    "acceptRules": "我已阅读并接受部落的社区规则。",
+    "mustAccept": "必须接受规则才能进入。",
+    "joinErr": "无法完成加入。",
+    "suspended": "因违反规则，您在部落的参与已被暂停。如认为有误，请联系团队。",
+    "hubSubtitle": "兴趣俱乐部与同好空间",
+    "energyToday": "今天的能量如何？",
+    "invitesTitle": "邀请",
+    "forums": "论坛",
+    "newForum": "新建论坛",
+    "forumTitle": "论坛标题",
+    "forumTitlePh": "例如：恐龙俱乐部",
+    "forumTitleReq": "请输入标题（至少3个字符）。",
+    "theme": "主题",
+    "themePh": "例如：电子游戏、自然……",
+    "themeFilter": "主题",
+    "language": "语言",
+    "anyLanguage": "任意语言",
+    "country": "国家",
+    "anyCountry": "任意国家",
+    "city": "城市",
+    "forumDesc": "简介",
+    "createForum": "创建论坛",
+    "cancel": "取消",
+    "forumPending": "论坛已提交，管理员批准后显示。",
+    "forumErr": "无法创建论坛。",
+    "searchPh": "搜索论坛…",
+    "noForumsTitle": "暂无论坛",
+    "noForums": "暂无匹配的论坛。创建第一个吧！",
+    "membersCount": "{{n}} 名成员",
+    "enter": "进入",
+    "joinForum": "加入",
+    "invite": "邀请",
+    "sendInvite": "发送",
+    "invited": "邀请已发送。",
+    "invalidFolio": "编号无效。",
+    "messagePlaceholder": "输入消息…",
+    "send": "发送",
+    "sendErr": "发送失败。",
+    "readOnly": "您的账户在部落中为只读。",
+    "noMessages": "来开启对话吧。",
+    "loading": "加载中…",
+    "grat": {
+      "title": "向 {{name}} 致谢",
+      "desc": "选择一枚徽章。只加正分，从不扣分。",
+      "give": "致谢",
+      "pick": "请选择一枚徽章。",
+      "sent": "已致谢！",
+      "err": "发送失败。",
+      "anon": "匿名发送",
+      "note": "封闭格式：无自由文本。每日有代币上限。"
+    },
+    "pointsLabel": "{{n}} 部落积分",
+    "toNext": "距 {{level}} 还差 {{n}}",
+    "tokensLeft": "今日的致谢代币：{{n}}",
+    "impactItem": "{{n}}× {{badge}}",
+    "silentOn": "静默模式（隐藏等级）",
+    "silentOff": "显示等级",
+    "badge": {
+      "claridad_literal": {
+        "name": "直白清晰",
+        "msg": "感谢你清晰直接的分享。"
+      },
+      "infodump_oro": {
+        "name": "金牌分享",
+        "msg": "感谢你分享知识。"
+      },
+      "espacio_seguro": {
+        "name": "安全空间",
+        "msg": "谢谢你的共情与肯定。"
+      },
+      "faro_sensorial": {
+        "name": "感官灯塔",
+        "msg": "感谢你关注感官无障碍。"
+      },
+      "anticipacion_impecable": {
+        "name": "完美预告",
+        "msg": "感谢你提前说明，让一切可预期。"
+      },
+      "puente_empatia": {
+        "name": "共情之桥",
+        "msg": "谢谢你以尊重架起桥梁。"
+      },
+      "bienvenida_calida": {
+        "name": "温暖欢迎",
+        "msg": "感谢你耐心地欢迎我。"
+      }
+    },
+    "level": {
+      "semilla": "种子",
+      "brote": "新芽",
+      "faro": "灯塔",
+      "pilar": "支柱",
+      "raiz": "根"
+    },
+    "mod": {
+      "title": "版主",
+      "badge": "版主",
+      "becomePrompt": "想帮助守护社区吗？",
+      "become": "申请成为版主",
+      "pendingMine": "您的申请正在审核中。",
+      "rejectedMine": "此次申请未通过。",
+      "reapply": "再次申请",
+      "youAre": "您是{{level}}",
+      "applyTitle": "版主申请",
+      "apply": "提交申请",
+      "justifyLabel": "您为什么想在部落担任版主？",
+      "justifyPh": "请分享您的动机与经验……",
+      "justifyReq": "请至少输入10个字符。",
+      "ethicsTitle": "版主道德准则",
+      "acceptEthics": "我已阅读并接受版主道德准则。",
+      "mustAcceptEthics": "必须接受道德准则。",
+      "applied": "申请已提交，等待批准。",
+      "rate": "评价",
+      "update": "更新评价",
+      "rateTitle": "评价 {{name}}",
+      "rateSubmit": "提交评价",
+      "rateIncomplete": "请评价所有维度。",
+      "rated": "评价已提交！",
+      "commentLabel": "评论（可选）",
+      "dim": {
+        "empathy": "共情",
+        "inclusive": "包容性语言",
+        "cordiality": "亲和力",
+        "knowledge": "专业知识",
+        "availability": "可及性"
+      }
+    },
+    "ethics": [
+      "公平公正对待：不偏袒、不报复。",
+      "对骚扰零容忍；守护安全空间。",
+      "保密：不泄露成员的个人信息。",
+      "清晰、尊重、无歧义的沟通。",
+      "透明：解释我的管理决定。",
+      "超出我职责的情况上报团队。"
+    ],
+    "modLevel": {
+      "nuevo": "新任版主",
+      "experimentado": "资深版主",
+      "experto": "专家版主",
+      "lider": "首席版主",
+      "destacado": "杰出版主"
+    },
+    "mentor": {
+      "title": "同伴指导",
+      "intro": "由走在前面的人陪伴刚起步的人。按你的节奏，无需即时回复的压力。",
+      "offerPrompt": "想作为导师陪伴他人吗？",
+      "offer": "成为导师",
+      "youOffer": "您指导的方向",
+      "paused": "已暂停",
+      "edit": "编辑",
+      "pause": "暂停",
+      "resume": "恢复",
+      "becomeTitle": "成为导师",
+      "becomeIntro": "选择方向，并写一段简短介绍给需要陪伴的人。",
+      "save": "保存",
+      "offered": "完成！您现在显示为导师。",
+      "pickTrack": "请至少选择一个方向。",
+      "tracks": "指导方向",
+      "bioLabel": "简短介绍",
+      "bioPh": "您的经验以及如何陪伴……",
+      "track": {
+        "nd_youth": "面向青年的ND指导",
+        "family_family": "家庭帮家庭"
+      },
+      "trackDesc": {
+        "nd_youth": "ND成人陪伴ND青年，助其自我认识、升学与独立生活。",
+        "family_family": "有经验的照护者陪伴刚获得诊断的家庭。"
+      },
+      "mine": "我的指导",
+      "role": {
+        "mentor": "导师",
+        "mentee": "学员"
+      },
+      "status": {
+        "pending": "待定",
+        "active": "进行中",
+        "declined": "已拒绝",
+        "ended": "已结束"
+      },
+      "openThread": "打开对话",
+      "find": "寻找导师",
+      "allTracks": "所有方向",
+      "noMentors": "该方向暂无可用导师。",
+      "request": "申请（{{track}}）",
+      "async": "异步对话",
+      "noMessages": "准备好时再开始对话。"
+    },
+    "event": {
+      "title2": "活动",
+      "new": "新建活动",
+      "emptyTitle": "暂无活动",
+      "empty": "暂无活动。用预告指南创建第一个吧！",
+      "newTitle": "发布活动",
+      "guideHint": "预告指南为必填：将发生什么、噪音预期与安静室。",
+      "guideReq": "请完善指南：标题、日期、将发生什么与噪音预期。",
+      "publish": "发布",
+      "created": "活动已发布。+20 部落积分。",
+      "pointsHint": "附预告指南发布可获 +20 部落积分。",
+      "title": "标题",
+      "when": "日期时间",
+      "online": "线上",
+      "place": "地点",
+      "placePh": "地址或场所名称",
+      "whatHappens": "将发生什么",
+      "whatPh": "议程、活动、时长……",
+      "noise": "噪音预期",
+      "noisePh": "例如：安静环境，偶有掌声",
+      "quietRoom": "将设有安静室",
+      "sensoryTips": "感官提示",
+      "sensoryPh": "耳机、柔和灯光、视觉指示……",
+      "hasQuiet": "设有安静室",
+      "noQuiet": "无安静室",
+      "attend": "参加",
+      "cancelRsvp": "取消参加",
+      "past": "已结束",
+      "sensoryReport": "感官反馈",
+      "reportedTag": "已反馈",
+      "reportTitle": "感官反馈：{{name}}",
+      "sendReport": "提交反馈",
+      "reportReq": "请评价噪音与舒适度。",
+      "reported": "谢谢！+15 部落积分。",
+      "noiseLevel": "感受到的噪音水平",
+      "noiseScale": "1＝很安静·5＝很吵",
+      "comfort": "整体舒适度",
+      "quietUsed": "我使用了安静室",
+      "notes": "备注（可选）",
+      "reportPoints": "您对此活动的首次反馈可获 +15 部落积分。"
+    },
+    "stepsTitle": "如何加入",
+    "step1": "阅读并接受社区规则。",
+    "step2": "选择今天的社交能量状态。",
+    "step3": "设置想显示的信息（隐私）。",
+    "step4": "点击\"加入部落\"进入。",
+    "privacyHint": "您决定在部落空间中显示什么；随时可更改。",
+    "about": {
+      "title": "什么是 Tribu Neuromundi？",
+      "forumsT": "主题论坛",
+      "forumsD": "按国家和语言，与志同道合的人交流的兴趣俱乐部。",
+      "mentorT": "同伴导师",
+      "mentorD": "经历相似的成员之间一对一的陪伴。",
+      "modsT": "社区管理",
+      "modsD": "拥有道德准则、由社区评价的志愿版主。",
+      "energyT": "能量与隐私",
+      "energyD": "用红绿灯显示你当天的状态，你自己决定分享哪些信息。",
+      "eventsT": "带预告的活动",
+      "eventsD": "每场活动都附有说明：将发生什么、噪音程度以及安静房间。"
+    },
+    "access": {
+      "title": "如何进入？",
+      "body": "加入部落需要 Neuromundi 会员账户。若还没有，请创建；若已是会员，请登录。",
+      "ready": "你已有账户：加入部落即可开始参与。",
+      "createBtn": "创建账户",
+      "loginBtn": "登录"
+    }
+  },
+  "nid": {
+    "member": "Neuromundi 成员",
+    "role": {
+      "family": "Neuromundi 家庭",
+      "member": "Neuromundi 成员",
+      "specialist": "Neuromundi 专业人士"
+    },
+    "issued": "签发",
+    "valid": "Neuromundi 网络的有效成员",
+    "directory": "Neuromundi 目录",
+    "howToTitle": "供服务者",
+    "how1": "用应用扫描此码。",
+    "how2": "在屏幕上核对姓名与编号。",
+    "how3": "应用 Neuromundi 优惠。",
+    "showFront": "看正面",
+    "showBack": "看背面",
+    "downloadQr": "下载二维码",
+    "walletSoon": "即将支持保存到 Apple/Google Wallet。",
+    "optInTitle": "接受 Neuromundi ID",
+    "optInDesc": "在个人资料中显示您接受 Neuromundi ID，加入网络。",
+    "optInOn": "已启用：您的资料显示\"接受 Neuromundi ID\"。",
+    "optInOff": "已停用。",
+    "accepts": "接受 Neuromundi ID",
+    "acceptsHint": "该服务者接受社区的 Neuromundi ID。",
+    "seal": {
+      "title": "网络印章",
+      "desc": "下载您的印章，放在网站、社媒或诊室。",
+      "acceptsTop": "接受",
+      "allyTop": "盟友专家"
+    },
+    "red": {
+      "badge": "Neuromundi 网络",
+      "title": "Neuromundi 网络",
+      "intro": "接受 Neuromundi ID 的服务者与盟友的空间。把一次交易变成社区体验。",
+      "howTitle": "运作方式",
+      "s1t": "会员出示 ID",
+      "s1b": "当事人、家庭或专业人士出示数字 Neuromundi ID。",
+      "s2t": "扫描二维码",
+      "s2b": "用应用几秒即可验证卡片。",
+      "s3t": "验证并应用",
+      "s3b": "在绿色界面看到姓名、角色与编号，并应用优惠。",
+      "benefitsTitle": "加入网络的好处",
+      "b1t": "更多客流",
+      "b1b": "向寻找可信盟友的社区展示自己。",
+      "b2t": "正式与信任",
+      "b2b": "候诊室中透明且防欺诈的验证。",
+      "b3t": "社会认同",
+      "b3b": "个人资料上的\"接受 Neuromundi ID\"吸引更多会员。",
+      "b4t": "社区",
+      "b4b": "您加入的是有使命的网络，而不仅是折扣计划。",
+      "sealsForProviders": "印章面向已注册的服务者。请登录或创建账户下载。",
+      "joinCta": "加入网络",
+      "ctaTitle": "加入 Neuromundi 网络",
+      "ctaBody": "接受 Neuromundi ID，下载印章，让每次到访都成为归属。",
+      "goPanel": "前往我的面板"
+    },
+    "addApple": "添加到 Apple Wallet",
+    "addGoogle": "添加到 Google Wallet",
+    "walletErr": "无法生成通行证，请稍后再试。"
   }
 }

@@ -70,7 +70,11 @@
     "calendar": "Calendar",
     "messages": "Messages",
     "myPanel": "My panel",
-    "donate": "Donate"
+    "donate": "Donate",
+    "founders": "Founders",
+    "labor": "Job inclusion",
+    "tribe": "Tribe",
+    "red": "Neuromundi Network"
   },
   "home": {
     "title": "The first global community connecting patients, families, specialists and providers in neurodevelopment and neurodivergence.",
@@ -120,7 +124,30 @@
       "cta": "Meet our donors",
       "donateCta": "Make a donation"
     },
-    "donateHint": "Want to help keep Neuromundi free? See how to support us."
+    "donateHint": "Want to help keep Neuromundi free? See how to support us.",
+    "slides": [
+      "",
+      "",
+      "Your community for advice and assistance",
+      "Neuromundi ID: your digital access key",
+      "Effective products",
+      "Experts at your disposal",
+      "Clinics, offices, and laboratories",
+      "Community validated services",
+      "Educational inclusion",
+      "Inclusive environments",
+      "Inclusive experiences",
+      "Inclusive sports",
+      "Legal counsel",
+      "Inclusive recreation",
+      "Community"
+    ],
+    "founders": {
+      "badge": "Founders",
+      "title": "Meet our Founders",
+      "body": "Pioneering people and organizations who believed in Neuromundi from the start and help build this community.",
+      "cta": "Meet our Founders"
+    }
   },
   "auth": {
     "login": "Sign in",
@@ -236,10 +263,23 @@
       "perinatal": "Perinatal",
       "executive": "Education & Exec. Function",
       "products": "Support products",
-      "arts": "Art & Music"
+      "arts": "Art & Music",
+      "wellness": "Sport & wellness",
+      "leisure": "Leisure",
+      "legal": "Legal services",
+      "ngo": "NGO / Association",
+      "caregivers": "Caregivers",
+      "employment": "Employment"
     },
     "neuroFilter": "Neuro-affirming",
-    "neuroHint": "Show only providers with the Neuromundi Neuro-affirming Seal."
+    "neuroHint": "Show only providers with the Neuromundi Neuro-affirming Seal.",
+    "nearMe": "Search near me",
+    "locating": "Locating…",
+    "nearActive": "Near your location",
+    "clearLocation": "Clear",
+    "nearHint": "Share your location to see nearby specialists, schools and providers.",
+    "geoDenied": "We couldn’t access your location. Enable it in your browser to see nearby results.",
+    "geoUnavailable": "Your browser doesn’t support sharing your location."
   },
   "card": {
     "evs": "EVS",
@@ -334,7 +374,8 @@
       "qr": "My QR",
       "discounts": "My discounts",
       "history": "History",
-      "prescriptions": "Prescriptions"
+      "prescriptions": "Prescriptions",
+      "nid": "Neuromundi ID"
     },
     "emptyDiscounts": "You have no discounts yet. Show your QR at a shop to get started.",
     "emptyHistory": "Your history will appear here once you use your first discount.",
@@ -618,7 +659,9 @@
     "stop": "Stop",
     "idleTitle": "Scan code",
     "idleBody": "We'll ask for camera permission only when starting. It turns off on its own.",
-    "start": "Start scanning"
+    "start": "Start scanning",
+    "nidValid": "Valid Neuromundi ID",
+    "nidSuspended": "Account suspended"
   },
   "qr": {
     "step1": "Show this code at the shop or service.",
@@ -758,7 +801,35 @@
     "secImprove": "Improvements",
     "neuroOn": "Neuro-affirming",
     "neuroGrant": "Grant seal",
-    "neuroRevoke": "Revoke seal"
+    "neuroRevoke": "Revoke seal",
+    "secFounders": "Founders",
+    "secBadges": "Badges",
+    "secTribe": "Tribe",
+    "benefitExempt": "Free access",
+    "benefitPercent": "% discount",
+    "benefitPercentShort": "-{{pct}}% off",
+    "percentOff": "% off",
+    "errPercent": "Enter a percentage between 1 and 100",
+    "benefitAmount": "Fixed amount",
+    "amountOff": "Amount",
+    "amountCurrency": "Currency",
+    "errAmount": "Enter a valid amount and currency",
+    "boundEmail": "Bind to an email (optional)",
+    "secAdvisors": "Advisors",
+    "adv": {
+      "title": "Advisor profile",
+      "intro": "An advisor can explore the whole platform and moderate Tribe, with no financial or administrative actions.",
+      "search": "Search",
+      "searchPh": "Folio, first or last name",
+      "searchShort": "Type at least 2 characters",
+      "make": "Make advisor",
+      "added": "Advisor assigned",
+      "removed": "Advisor removed",
+      "current": "Current advisors",
+      "remove": "Remove",
+      "emptyTitle": "No advisors",
+      "empty": "You haven't designated any advisors yet."
+    }
   },
   "reg": {
     "typePatient": "Patient",
@@ -980,7 +1051,10 @@
     "perMonth": "/ month",
     "choosePeriod": "Choose how to pay",
     "savingBadge": "Get 12 months, pay for 10",
-    "founderPrice": "You have Founding Member pricing"
+    "founderPrice": "You have Founding Member pricing",
+    "promoDiscountOk": "{{pct}}% discount applied to your fee",
+    "promoEmail": "This code is tied to a different email account.",
+    "promoAmountOk": "{{amount}} {{currency}} discount applied to your fee"
   },
   "rules": {
     "version": "Version",
@@ -1231,6 +1305,14 @@
     },
     "dirMatch": {
       "title": "A new specialist for you"
+    },
+    "topicJob": {
+      "title": "New opportunity",
+      "body": "{{type}} · {{place}}"
+    },
+    "topicVenue": {
+      "title": "New leisure venue",
+      "body": "{{name}} · {{place}}"
     }
   },
   "clin": {
@@ -1718,8 +1800,8 @@
         "desc": "Inclusive physical activity centers and clubs."
       },
       "tourism": {
-        "title": "Accessible tourism",
-        "desc": "Inclusive stays, tours and experiences."
+        "title": "Leisure & recreation",
+        "desc": "Cinemas, restaurants, museums, parks… with sensory and cognitive adaptations."
       },
       "legal": {
         "title": "Legal services",
@@ -1732,6 +1814,10 @@
       "caregiver": {
         "title": "Caregivers / Companions",
         "desc": "Home support, respite and school shadowing."
+      },
+      "company": {
+        "title": "Companies",
+        "desc": "Post jobs, volunteering and social service; download your badges."
       }
     }
   },
@@ -1987,16 +2073,16 @@
     "crianza": "Parenting & family",
     "derechos": "Rights & procedures",
     "diagnostico": "Diagnosis & early detection",
-    "educacion": "Education & school inclusion",
+    "educacion": "Education",
     "emocional": "Emotional well-being",
     "historias": "Stories & testimonials",
     "investigacion": "Research & science",
     "juego": "Inclusive play & leisure",
     "libros": "Books & resources",
     "socioemocional": "Social & emotional skills",
-    "tecnologia": "Assistive technology",
+    "tecnologia": "Technology & IT",
     "vestimenta": "Adapted clothing & accessories",
-    "salud": "Health",
+    "salud": "Healthcare",
     "recreacion": "Recreation & leisure",
     "productos": "Products & materials",
     "servicios": "Professional services",
@@ -2161,7 +2247,30 @@
     "movimiento_danza": "Movement & Therapeutic Dance",
     "teatro_rol": "Theater & Social Role-Play",
     "ocio_sensorial": "Sensory-Friendly Leisure & Events",
-    "arte_musica": "Adapted Art & Music"
+    "arte_musica": "Adapted Art & Music",
+    "manufactura": "Manufacturing & industry",
+    "comercio_retail": "Retail & commerce",
+    "alimentos": "Food & beverage",
+    "turismo_hosteleria": "Tourism & hospitality",
+    "finanzas": "Finance & insurance",
+    "logistica": "Logistics & transport",
+    "construccion": "Construction",
+    "agro": "Agribusiness",
+    "creativo": "Creative industries",
+    "gobierno_ong": "Government & NGO",
+    "cine": "Cinema",
+    "restaurante": "Restaurant",
+    "cafeteria": "Café",
+    "plaza_comercial": "Shopping mall",
+    "museo": "Museum",
+    "peluqueria": "Hair / barber salon",
+    "parque": "Park",
+    "teatro": "Theater",
+    "balneario": "Water park / spa",
+    "hotel": "Hotel",
+    "biblioteca": "Library",
+    "centro_cultural": "Cultural center",
+    "gimnasio": "Gym / sports"
   },
   "badge": {
     "miembro": "Verified Member",
@@ -2318,7 +2427,8 @@
       "discount": "Community discount ≥10% active",
       "benefit": "QR-verified benefits (discounts/consultations)",
       "blog": "Experience shared on the blog",
-      "referrals": "Community recommendations"
+      "referrals": "Community recommendations",
+      "vacancies": "Post at least 2 active job openings"
     }
   },
   "account": {
@@ -3207,7 +3317,13 @@
       "del": "Delete",
       "delTitle": "Delete ally",
       "delBody": "Are you sure you want to remove this ally from the carousel?",
-      "deleted": "Ally deleted"
+      "deleted": "Ally deleted",
+      "countries": "Countries where it shows",
+      "countriesHint": "Leave empty to show it in every country. Ctrl/Cmd-click to pick several.",
+      "allCountries": "All countries",
+      "externalTitle": "Logo on an external server",
+      "externalBody": "This logo is served from another domain, with no size or caching control; a heavy one slows the home page. We recommend uploading it optimized to your own site. Save anyway?",
+      "externalHint": "External logo: upload it optimized to your site so it doesn’t slow the home page."
     },
     "tier": {
       "title": "Donation amounts by currency",
@@ -3217,6 +3333,79 @@
       "error": "Couldn't save.",
       "active": "Active",
       "order": "Amounts must be in increasing order (Seed < Ally < Driver < Ambassador)."
+    },
+    "founders": {
+      "title": "Founders wall",
+      "subtitle": "{{published}} of {{total}} published on the wall.",
+      "allCountries": "All countries",
+      "order": "Order",
+      "feature": "Feature",
+      "publishFirst": "Publish first to feature",
+      "published": "Published",
+      "hidden": "Hidden",
+      "saveErr": "Couldn't save. Try again.",
+      "emptyTitle": "No founders",
+      "empty": "No founders detected yet."
+    },
+    "badges": {
+      "title": "Badges by member type",
+      "subtitle": "{{active}} active of {{total}}",
+      "addTitle": "Upload a badge",
+      "memberType": "Member type",
+      "key": "Badge key",
+      "badgeTitle": "Display name",
+      "file": "File (PNG, SVG, JPG)",
+      "upload": "Upload",
+      "uploaded": "Badge saved.",
+      "needFields": "Enter a key and choose a file.",
+      "emptyTitle": "No badges",
+      "empty": "You haven't uploaded any badges yet.",
+      "down": "Taken down",
+      "takeDown": "Take down",
+      "putUp": "Make available",
+      "delete": "Delete",
+      "deleteConfirm": "Delete this badge and its file?"
+    },
+    "tribe": {
+      "title": "Tribe forums",
+      "subtitle": "Approve or reject forums created by members.",
+      "pending": "Pending",
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "approve": "Approve",
+      "reject": "Reject",
+      "reset": "Reopen",
+      "done": "Forum updated.",
+      "emptyTitle": "No forums",
+      "empty": "No forums in this state.",
+      "area": {
+        "forums": "Forums",
+        "moderators": "Moderators",
+        "members": "Members",
+        "messages": "Messages"
+      },
+      "modEmptyTitle": "No applications",
+      "modEmpty": "No moderators in this state.",
+      "lookup": "Look up",
+      "memberNotFound": "No Tribe member found with that ID.",
+      "memberSaved": "Member updated.",
+      "status": "Status",
+      "st": {
+        "active": "Active",
+        "muted": "Muted",
+        "suspended": "Suspended"
+      },
+      "perm": {
+        "can_write": "Can write in chats",
+        "can_evaluate": "Can evaluate (give gratitude)",
+        "can_review": "Can review moderators"
+      },
+      "msgPick": "Pick a forum to review its messages.",
+      "backForums": "Back to forums",
+      "noMsgsTitle": "No messages",
+      "noMsgs": "This forum has no messages.",
+      "msgDelete": "Delete message",
+      "msgDeleted": "Message deleted"
     }
   },
   "callout": {
@@ -3424,13 +3613,12 @@
       ]
     },
     "tourism": {
-      "title": "With your accessible tourism account you can:",
+      "title": "With your leisure account you can:",
       "features": [
-        "Publish sensory-friendly experiences, tours and inclusive camps",
-        "Appear in the directory with your location on the map",
-        "Take bookings and messages from families",
-        "Earn community reviews",
-        "Get paid directly to your account via Stripe Connect"
+        "Appear in the directory as an accessible leisure venue",
+        "List low-sensory hours and cognitive adaptations",
+        "Receive reviews from families and neurodivergent people",
+        "Share your location and contact details"
       ]
     },
     "legal": {
@@ -3460,6 +3648,15 @@
         "Communicate with families via messaging",
         "Earn the badge and community reviews",
         "Get paid directly to your account via Stripe Connect"
+      ]
+    },
+    "company": {
+      "title": "With your inclusive-company account you can:",
+      "features": [
+        "Post inclusive job openings",
+        "Appear in the directory and be found by country",
+        "Download the \"Inclusive company\" and \"Neuromundi Ally\" badges",
+        "Reach the community through messaging"
       ]
     }
   },
@@ -3613,5 +3810,519 @@
     "body": "Your profile now shows the \"Soy Fundador Neuromundi\" badge. You have 3 months to meet your profile's requirements and keep it; otherwise the badge is removed automatically.",
     "reqs": "Review my requirements",
     "ok": "Got it"
+  },
+  "meta": {
+    "title": "Neuromundi: your global community"
+  },
+  "globalMember": {
+    "title": "Global Member badge",
+    "desc": "Your payment is up to date. Download your official “Neuromundi Global Member” badge for your website and social media.",
+    "dlPng": "Download PNG",
+    "dlWebp": "Download WebP",
+    "hint": "Transparent PNG, ideal for social; lighter WebP for your website."
+  },
+  "foundersWall": {
+    "title": "Founding Members",
+    "subtitle": "We honor those who believed in Neuromundi from the start, country by country.",
+    "selectCountry": "Select country",
+    "allCountries": "All countries",
+    "empty": "No founders published for this country yet.",
+    "kind": {
+      "families": "Family",
+      "professionals": "Professional",
+      "providers": "Business"
+    }
+  },
+  "foundersPage": {
+    "badge": "Founder Program",
+    "intro": "Country by country, we honor the people and organizations who trusted Neuromundi from the start and helped build this community.",
+    "ctaTitle": "Want to become a Founding Member?",
+    "ctaBody": "Founder slots are limited per country. Create your account and, if you qualify while spots remain, you'll get the badge automatically.",
+    "cta": "Create account"
+  },
+  "company": {
+    "miss": {
+      "name": "Enter the company name."
+    },
+    "afterInfo": "After confirming your email you'll reach your dashboard to post jobs and download your badges.",
+    "yourName": "Your company name",
+    "s1": "The company",
+    "name": "Company name",
+    "sector": "Sector",
+    "selectSector": "Select a sector",
+    "description": "Description",
+    "s2": "Contact and location",
+    "contactName": "Contact person",
+    "contactEmail": "Contact email",
+    "city": "City"
+  },
+  "labor": {
+    "badge": "Job inclusion",
+    "title": "Opportunities",
+    "intro": "Jobs, volunteering and social service posted by inclusive companies and organizations. Search by country and type, and apply to what interests you.",
+    "searchPlaceholder": "Search by role, company, skill…",
+    "selectCountry": "Select country",
+    "allCountries": "All countries",
+    "emptyTitle": "No openings",
+    "empty": "No openings for this country yet. Try another or check back later.",
+    "untitled": "Opening",
+    "positions": "{{n}} openings",
+    "experience": "Experience",
+    "education": "Education",
+    "salary": "Salary",
+    "skills": "Skills",
+    "note": "Additional info",
+    "applyEmail": "Apply by email",
+    "applyLink": "View job",
+    "type": {
+      "all": "All",
+      "employment": "Employment",
+      "volunteering": "Volunteering",
+      "social_service": "Social service"
+    }
+  },
+  "jobs": {
+    "tab": "Opportunities",
+    "subtitle": "{{active}} active of {{total}}",
+    "new": "New opening",
+    "save": "Save",
+    "cancel": "Cancel",
+    "title": "Position",
+    "positions": "Number of openings",
+    "experience": "Required experience",
+    "education": "Required education",
+    "salary": "Salary range",
+    "salaryPlaceholder": "e.g. $10,000–$15,000 monthly",
+    "city": "City",
+    "applyEmail": "Application email",
+    "applyUrl": "Job link",
+    "skills": "Expected skills",
+    "note": "Other important info",
+    "saveErr": "Couldn't save. Try again.",
+    "untitled": "Untitled opening",
+    "positionsShort": "{{n}} openings",
+    "hidden": "Hidden",
+    "hide": "Hide",
+    "show": "Show",
+    "edit": "Edit",
+    "delete": "Delete",
+    "deleteConfirm": "Delete this opening? This can't be undone.",
+    "emptyTitle": "No openings",
+    "empty": "You haven't posted any openings yet. Create the first one.",
+    "opportunityType": "Opportunity type",
+    "type": {
+      "employment": "Employment",
+      "volunteering": "Volunteering",
+      "social_service": "Social service"
+    }
+  },
+  "memberBadges": {
+    "title": "Your badges",
+    "desc": "Download and share these badges on your site and social media.",
+    "download": "Download"
+  },
+  "esp": {
+    "miss": {
+      "name": "Enter the venue name."
+    },
+    "afterInfo": "After confirming your email you'll reach your dashboard to complete your leisure profile.",
+    "yourName": "Venue name",
+    "s1": "The venue",
+    "name": "Venue name",
+    "venueType": "Venue type",
+    "selectVenue": "Select venue type",
+    "description": "Description",
+    "s2": "Geographic location",
+    "city": "City",
+    "address": "Address",
+    "mapUrl": "Map link (Google Maps)",
+    "mapUrlHelp": "Paste your Google Maps location link.",
+    "s3": "Sensory & cognitive accessibility",
+    "sensoryHours": "Low-sensory hours",
+    "sensoryHoursPlaceholder": "e.g. Tue 9–11am: dim lights and no music.",
+    "cognitive": "Cognitive adaptations",
+    "cognitivePlaceholder": "e.g. pictograms, visual menu, trained staff.",
+    "otherAdapt": "Other adaptations",
+    "s4": "Contact",
+    "infoTitle": "Venue accessibility",
+    "viewMap": "View on map",
+    "lat": "Latitude",
+    "lng": "Longitude",
+    "coordsHelp": "Optional: paste coordinates from Google Maps to appear with a pin on the directory map."
+  },
+  "review": {
+    "button": "Rate / review",
+    "title": "Review {{name}}",
+    "desc": "Your feedback helps other families. You can only review someone you've already visited or contacted."
+  },
+  "topics": {
+    "title": "Category alerts",
+    "desc": "Choose the topics you care about and we'll notify you when something new is posted in your country or city.",
+    "opt": {
+      "employment": "Employment",
+      "volunteering": "Volunteering",
+      "social_service": "Social service",
+      "esparcimiento": "Leisure"
+    },
+    "country": "Country",
+    "anyCountry": "Any country",
+    "city": "City",
+    "anyCity": "Any city",
+    "save": "Save",
+    "saved": "Preferences saved.",
+    "saveErr": "Couldn't save."
+  },
+  "tribe": {
+    "title": "Neuromundi Tribe",
+    "landing": "A space for social inclusion: belonging, participation and autonomy. Connect through your interests, at your pace, in a safe environment.",
+    "onlyEligible": "The Tribe is open to patients, families and specialists.",
+    "joinTitle": "Join the Tribe",
+    "joinIntro": "Before entering, read and accept our community rules and choose how you want to take part today.",
+    "joinCta": "Join the Tribe",
+    "rulesTitle": "Community rules",
+    "rules": [
+      "Respectful treatment and zero bullying: this is a safe space.",
+      "Literal, clear communication: no irony, double meanings or hints.",
+      "Respect everyone's pace; don't demand instant replies.",
+      "Respect other people's social energy status.",
+      "Don't share other people's personal data or diagnoses.",
+      "Care for the community: report any behavior that breaks these rules."
+    ],
+    "energyTitle": "Your social energy today",
+    "energy": {
+      "green": {
+        "label": "Green — Open to chat",
+        "desc": "Up for talking"
+      },
+      "yellow": {
+        "label": "Yellow — Only if spoken to",
+        "desc": "I reply if written to"
+      },
+      "red": {
+        "label": "Red — Low energy",
+        "desc": "Today I just listen/observe"
+      }
+    },
+    "privacyTitle": "Layered privacy",
+    "privacy": {
+      "show_country": "Show my country",
+      "show_city": "Show my city",
+      "show_interests": "Show my interests",
+      "show_diagnosis": "Show my diagnosis or condition"
+    },
+    "acceptRules": "I have read and accept the Tribe's community rules.",
+    "mustAccept": "You must accept the rules to enter.",
+    "joinErr": "Couldn't complete sign-up.",
+    "suspended": "Your participation in the Tribe is suspended for breaking the rules. Contact the team if you think this is a mistake.",
+    "hubSubtitle": "Interest clubs and affinity spaces",
+    "energyToday": "How's your energy today?",
+    "invitesTitle": "Invitations",
+    "forums": "Forums",
+    "newForum": "New forum",
+    "forumTitle": "Forum title",
+    "forumTitlePh": "e.g. Dinosaur club",
+    "forumTitleReq": "Enter a title (min. 3 characters).",
+    "theme": "Theme",
+    "themePh": "e.g. Video games, Nature…",
+    "themeFilter": "Theme",
+    "language": "Language",
+    "anyLanguage": "Any language",
+    "country": "Country",
+    "anyCountry": "Any country",
+    "city": "City",
+    "forumDesc": "Description",
+    "createForum": "Create forum",
+    "cancel": "Cancel",
+    "forumPending": "Forum submitted. It will appear once an admin approves it.",
+    "forumErr": "Couldn't create the forum.",
+    "searchPh": "Search forums…",
+    "noForumsTitle": "No forums",
+    "noForums": "No matching forums yet. Create the first one!",
+    "membersCount": "{{n}} members",
+    "enter": "Enter",
+    "joinForum": "Join",
+    "invite": "Invite",
+    "sendInvite": "Send",
+    "invited": "Invitation sent.",
+    "invalidFolio": "Invalid ID.",
+    "messagePlaceholder": "Write a message…",
+    "send": "Send",
+    "sendErr": "Couldn't send.",
+    "readOnly": "Your account is read-only in the Tribe.",
+    "noMessages": "Be the one to start the conversation.",
+    "loading": "Loading…",
+    "grat": {
+      "title": "Give gratitude to {{name}}",
+      "desc": "Choose a badge. It only adds positive points; never subtracts.",
+      "give": "Give gratitude",
+      "pick": "Choose a badge.",
+      "sent": "Gratitude sent!",
+      "err": "Couldn't send.",
+      "anon": "Send anonymously",
+      "note": "Closed format: no free text. There's a daily token limit."
+    },
+    "pointsLabel": "{{n}} Tribe Points",
+    "toNext": "{{n}} to reach {{level}}",
+    "tokensLeft": "Gratitude tokens today: {{n}}",
+    "impactItem": "{{n}}× {{badge}}",
+    "silentOn": "Silent mode (levels hidden)",
+    "silentOff": "Show levels",
+    "badge": {
+      "claridad_literal": {
+        "name": "Literal Clarity",
+        "msg": "Thanks for your clear, direct contribution."
+      },
+      "infodump_oro": {
+        "name": "Golden Infodump",
+        "msg": "Thanks for sharing your knowledge."
+      },
+      "espacio_seguro": {
+        "name": "Safe Space",
+        "msg": "I appreciate your empathy and validation."
+      },
+      "faro_sensorial": {
+        "name": "Sensory Beacon",
+        "msg": "Thanks for caring about sensory accessibility."
+      },
+      "anticipacion_impecable": {
+        "name": "Flawless Anticipation",
+        "msg": "Thanks for anticipating and making it predictable."
+      },
+      "puente_empatia": {
+        "name": "Empathy Bridge",
+        "msg": "Thanks for building bridges with respect."
+      },
+      "bienvenida_calida": {
+        "name": "Warm Welcome",
+        "msg": "Thanks for welcoming me patiently."
+      }
+    },
+    "level": {
+      "semilla": "Seed",
+      "brote": "Sprout",
+      "faro": "Beacon",
+      "pilar": "Pillar",
+      "raiz": "Root"
+    },
+    "mod": {
+      "title": "Moderators",
+      "badge": "Moderator",
+      "becomePrompt": "Want to help care for the community?",
+      "become": "Apply to be a moderator",
+      "pendingMine": "Your application is under review.",
+      "rejectedMine": "Your application wasn't approved this time.",
+      "reapply": "Apply again",
+      "youAre": "You are {{level}}",
+      "applyTitle": "Moderator application",
+      "apply": "Submit application",
+      "justifyLabel": "Why do you want to moderate in the Tribe?",
+      "justifyPh": "Tell us your motivation and experience…",
+      "justifyReq": "Write at least 10 characters.",
+      "ethicsTitle": "Moderator Code of Ethics",
+      "acceptEthics": "I have read and accept the Moderator Code of Ethics.",
+      "mustAcceptEthics": "You must accept the code of ethics.",
+      "applied": "Application sent. Pending approval.",
+      "rate": "Rate",
+      "update": "Update review",
+      "rateTitle": "Rate {{name}}",
+      "rateSubmit": "Submit review",
+      "rateIncomplete": "Rate all dimensions.",
+      "rated": "Review sent!",
+      "commentLabel": "Comment (optional)",
+      "dim": {
+        "empathy": "Empathy",
+        "inclusive": "Inclusive language",
+        "cordiality": "Cordiality",
+        "knowledge": "Knowledge",
+        "availability": "Availability"
+      }
+    },
+    "ethics": [
+      "Fair and impartial treatment: no favoritism or retaliation.",
+      "Zero tolerance for harassment; I protect the safe space.",
+      "Confidentiality: I don't disclose members' personal data.",
+      "Clear, respectful, unambiguous communication.",
+      "Transparency: I explain my moderation decisions.",
+      "I escalate to the team when a situation exceeds my role."
+    ],
+    "modLevel": {
+      "nuevo": "New moderator",
+      "experimentado": "Experienced moderator",
+      "experto": "Expert moderator",
+      "lider": "Lead moderator",
+      "destacado": "Distinguished moderator"
+    },
+    "mentor": {
+      "title": "Peer mentorship",
+      "intro": "Support between those further along and those just starting. At your pace, no pressure for instant replies.",
+      "offerPrompt": "Want to mentor others?",
+      "offer": "Offer to mentor",
+      "youOffer": "You mentor in",
+      "paused": "paused",
+      "edit": "Edit",
+      "pause": "Pause",
+      "resume": "Resume",
+      "becomeTitle": "Offer to mentor",
+      "becomeIntro": "Choose your track and share a short intro for those seeking your support.",
+      "save": "Save",
+      "offered": "Done! You now appear as a mentor.",
+      "pickTrack": "Choose at least one track.",
+      "tracks": "Mentorship tracks",
+      "bioLabel": "Short intro",
+      "bioPh": "Your experience and how you can help…",
+      "track": {
+        "nd_youth": "ND mentoring for youth",
+        "family_family": "Families for families"
+      },
+      "trackDesc": {
+        "nd_youth": "ND adults supporting ND youth in self-discovery, university and independent living.",
+        "family_family": "Experienced caregivers supporting families with a recent diagnosis."
+      },
+      "mine": "My mentorships",
+      "role": {
+        "mentor": "Mentor",
+        "mentee": "Mentee"
+      },
+      "status": {
+        "pending": "Pending",
+        "active": "Active",
+        "declined": "Declined",
+        "ended": "Ended"
+      },
+      "openThread": "Open thread",
+      "find": "Find a mentor",
+      "allTracks": "All tracks",
+      "noMentors": "No mentors available in this track yet.",
+      "request": "Request ({{track}})",
+      "async": "Asynchronous chat",
+      "noMessages": "Start the conversation whenever you feel ready."
+    },
+    "event": {
+      "title2": "Events",
+      "new": "New event",
+      "emptyTitle": "No events",
+      "empty": "No events yet. Create the first one with its anticipation guide!",
+      "newTitle": "Publish event",
+      "guideHint": "The anticipation guide is required: what will happen, noise expectations and quiet room.",
+      "guideReq": "Complete the guide: title, date, what will happen and noise expectations.",
+      "publish": "Publish",
+      "created": "Event published. +20 Tribe Points.",
+      "pointsHint": "Publishing with an anticipation guide grants +20 Tribe Points.",
+      "title": "Title",
+      "when": "Date and time",
+      "online": "Online",
+      "place": "Place",
+      "placePh": "Address or venue name",
+      "whatHappens": "What will happen",
+      "whatPh": "Agenda, activities, duration…",
+      "noise": "Noise expectations",
+      "noisePh": "e.g. calm environment; occasional applause",
+      "quietRoom": "A quiet room will be available",
+      "sensoryTips": "Sensory tips",
+      "sensoryPh": "headphones, dim light, visual signage…",
+      "hasQuiet": "Quiet room available",
+      "noQuiet": "No quiet room",
+      "attend": "Attend",
+      "cancelRsvp": "Cancel attendance",
+      "past": "past",
+      "sensoryReport": "Sensory report",
+      "reportedTag": "Reported",
+      "reportTitle": "Sensory report: {{name}}",
+      "sendReport": "Send report",
+      "reportReq": "Rate the noise and comfort.",
+      "reported": "Thanks! +15 Tribe Points.",
+      "noiseLevel": "Perceived noise level",
+      "noiseScale": "1 = very calm · 5 = very noisy",
+      "comfort": "Overall comfort",
+      "quietUsed": "I used the quiet room",
+      "notes": "Notes (optional)",
+      "reportPoints": "Your first report for this event grants +15 Tribe Points."
+    },
+    "stepsTitle": "How to join",
+    "step1": "Read and accept the community rules.",
+    "step2": "Choose today's social energy status.",
+    "step3": "Set which details you want to show (privacy).",
+    "step4": "Tap \"Join the Tribe\" to enter.",
+    "privacyHint": "You decide what's visible in Tribe spaces; you can change it anytime.",
+    "about": {
+      "title": "What is Tribu Neuromundi?",
+      "forumsT": "Themed forums",
+      "forumsD": "Affinity clubs to connect with like-minded people, by country and language.",
+      "mentorT": "Peer mentoring",
+      "mentorD": "One-to-one support between members with similar experiences.",
+      "modsT": "Community moderation",
+      "modsD": "Volunteer moderators with a code of ethics, rated by the community.",
+      "energyT": "Energy and privacy",
+      "energyD": "A traffic light shows your energy for the day, and you choose what to share.",
+      "eventsT": "Events with a heads-up",
+      "eventsD": "Every event includes a guide on what will happen, noise level and a calm room."
+    },
+    "access": {
+      "title": "How do I get in?",
+      "body": "To join the Tribe you need a Neuromundi member account. If you don't have one yet, create it; if you're already a member, log in.",
+      "ready": "You already have an account — join the Tribe to start taking part.",
+      "createBtn": "Create account",
+      "loginBtn": "Log in"
+    }
+  },
+  "nid": {
+    "member": "Neuromundi Member",
+    "role": {
+      "family": "Neuromundi Family",
+      "member": "Neuromundi Member",
+      "specialist": "Neuromundi Specialist"
+    },
+    "issued": "Issued",
+    "valid": "Active member of the Neuromundi Network",
+    "directory": "Neuromundi directory",
+    "howToTitle": "For the provider",
+    "how1": "Scan this code with the app.",
+    "how2": "Check the name and ID on screen.",
+    "how3": "Apply the Neuromundi benefit.",
+    "showFront": "Show front",
+    "showBack": "Show back",
+    "downloadQr": "Download QR",
+    "walletSoon": "Soon you'll be able to save it to Apple/Google Wallet.",
+    "optInTitle": "I accept Neuromundi ID",
+    "optInDesc": "Show on your profile that you accept the Neuromundi ID and join the Network.",
+    "optInOn": "Enabled: your profile shows \"I accept Neuromundi ID\".",
+    "optInOff": "Disabled.",
+    "accepts": "Accepts Neuromundi ID",
+    "acceptsHint": "This provider accepts the community's Neuromundi ID.",
+    "seal": {
+      "title": "Network seals",
+      "desc": "Download your seal and place it on your site, social media or office.",
+      "acceptsTop": "We accept",
+      "allyTop": "Ally Specialist"
+    },
+    "red": {
+      "badge": "Neuromundi Network",
+      "title": "Neuromundi Network",
+      "intro": "The space for providers and allies who accept the Neuromundi ID. Turn a transaction into a community experience.",
+      "howTitle": "How it works",
+      "s1t": "The member shows their ID",
+      "s1b": "A patient, family or specialist presents their digital Neuromundi ID.",
+      "s2t": "You scan the QR",
+      "s2b": "With the app you validate the card in seconds.",
+      "s3t": "Validate and apply",
+      "s3b": "See name, role and ID on a green screen, and apply the benefit.",
+      "benefitsTitle": "Benefits of joining the Network",
+      "b1t": "More traffic",
+      "b1b": "You appear to a community looking for trusted allies.",
+      "b2t": "Formality and trust",
+      "b2b": "Transparent, fraud-free validation in the waiting room.",
+      "b3t": "Social proof",
+      "b3b": "The \"I accept Neuromundi ID\" label on your profile attracts more members.",
+      "b4t": "Community",
+      "b4b": "You're part of a network with purpose, not just a discount program.",
+      "sealsForProviders": "Seals are available to registered providers. Sign in or create your account to download them.",
+      "joinCta": "Join the Network",
+      "ctaTitle": "Join the Neuromundi Network",
+      "ctaBody": "Accept the Neuromundi ID, download your seals and turn every visit into belonging.",
+      "goPanel": "Go to my panel"
+    },
+    "addApple": "Add to Apple Wallet",
+    "addGoogle": "Add to Google Wallet",
+    "walletErr": "Couldn't generate the pass. Try again later."
   }
 }

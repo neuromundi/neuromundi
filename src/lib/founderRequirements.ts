@@ -30,7 +30,11 @@ export interface FounderInputs {
   verifiedBenefitCount: number; // transacciones verificadas por QR (status completed)
   blogPosts: number;
   referralCount: number; // personas registradas con su enlace de recomendación
+  vacancyCount?: number; // vacantes activas (solo empresas): meta 2
 }
+
+/** Vacantes activas que debe publicar una empresa inclusiva para ser Fundadora. */
+export const COMPANY_VACANCY_TARGET = 2;
 
 export interface FounderReqItem {
   key: string;      // clave i18n: founderReq.<key>
@@ -53,7 +57,21 @@ export function computeFounderProgress(kind: FounderKind, i: FounderInputs): Fou
   const push = (key: string, fraction: number, progress?: { current: number; target: number }) =>
     items.push({ key, fraction: Math.max(0, Math.min(1, fraction)), met: fraction >= 1, progress });
 
-  // Comunes a todos los perfiles.
+  // Empresas inclusivas: requisitos propios (primeras 20 por país + 2 vacantes).
+  // Registro gratuito: no se les exige cuota, foto/bio/teléfono ni recomendaciones.
+  if (kind === 'companies') {
+    push('slot', bin(i.isFounder));
+    const vac = i.vacancyCount ?? 0;
+    push('vacancies', vac / COMPANY_VACANCY_TARGET, {
+      current: Math.min(vac, COMPANY_VACANCY_TARGET),
+      target: COMPANY_VACANCY_TARGET,
+    });
+    const totalC = items.length;
+    const sumC = items.reduce((a, it) => a + it.fraction, 0);
+    return { items, pct: totalC === 0 ? 0 : Math.round((sumC / totalC) * 100), metCount: items.filter((it) => it.met).length, total: totalC };
+  }
+
+  // Comunes a todos los demás perfiles.
   push('slot', bin(i.isFounder));
   push('photo', bin(!!i.avatarUrl));
   push('bio', bin(!!i.bio && i.bio.trim().length >= BIO_MIN));

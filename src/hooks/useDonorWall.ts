@@ -23,6 +23,8 @@ export interface Ally {
   website: string | null;
   sort_order: number;
   is_active: boolean;
+  /** Países (nombre canónico ES) donde se muestra. NULL/vacío = todos. */
+  countries: string[] | null;
 }
 
 export function useDonorWall() {
@@ -44,7 +46,12 @@ export function useDonorWall() {
   return { entries, loading };
 }
 
-export function useAllies() {
+/**
+ * Aliados activos del carrusel. Si se pasa `country` (nombre canónico ES), se
+ * muestran solo los aliados globales (sin países fijados) y los que incluyan ese
+ * país. Sin país (vista "todos los países") se muestran todos.
+ */
+export function useAllies(country?: string | null) {
   const [allies, setAllies] = useState<Ally[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -64,5 +71,9 @@ export function useAllies() {
     return () => { alive = false; };
   }, []);
 
-  return { allies, loading };
+  const filtered = country
+    ? allies.filter((a) => !a.countries || a.countries.length === 0 || a.countries.includes(country))
+    : allies;
+
+  return { allies: filtered, loading };
 }

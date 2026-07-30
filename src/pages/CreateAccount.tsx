@@ -7,7 +7,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { User, Users, Stethoscope, Building2, Store, School, ArrowLeft, LogIn, HeartPulse, Plane, Scale, HeartHandshake, HandHeart } from 'lucide-react';
+import { User, Users, Stethoscope, Building2, Store, School, ArrowLeft, LogIn, HeartPulse, Ticket, Scale, HeartHandshake, HandHeart, Briefcase } from 'lucide-react';
 import { RegisterForm } from '@/components/auth/RegisterForm';
 import { RoleFeaturesPanel } from '@/components/auth/RoleFeaturesPanel';
 import { SpecialistRegister } from '@/pages/SpecialistRegister';
@@ -15,12 +15,14 @@ import { ProviderRegister } from '@/pages/ProviderRegister';
 import { ClinicRegister } from '@/pages/ClinicRegister';
 import { SchoolRegister } from '@/pages/SchoolRegister';
 import { KProviderRegister } from '@/pages/KProviderRegister';
+import { CompanyRegister } from '@/pages/CompanyRegister';
+import { EsparcimientoRegister } from '@/pages/EsparcimientoRegister';
 import { LoginForm } from '@/components/auth/LoginForm';
 import { SocialButtons } from '@/components/onboarding/SocialButtons';
 import type { RegType } from '@/lib/schemas';
 import type { KType } from '@/data/kCatalog';
 
-type CardType = RegType | 'clinic' | KType;
+type CardType = RegType | 'clinic' | KType | 'company';
 
 const CARDS: { type: CardType; icon: typeof User; color: string; soon?: boolean }[] = [
   { type: 'patient', icon: User, color: 'from-emerald-500 to-teal-600' },
@@ -30,10 +32,11 @@ const CARDS: { type: CardType; icon: typeof User; color: string; soon?: boolean 
   { type: 'merchant', icon: Store, color: 'from-fuchsia-600 to-purple-600' },
   { type: 'school', icon: School, color: 'from-amber-500 to-orange-600' },
   { type: 'wellness', icon: HeartPulse, color: 'from-lime-500 to-emerald-600' },
-  { type: 'tourism', icon: Plane, color: 'from-sky-500 to-cyan-600' },
+  { type: 'tourism', icon: Ticket, color: 'from-sky-500 to-cyan-600' },
   { type: 'legal', icon: Scale, color: 'from-slate-600 to-slate-800' },
   { type: 'ngo', icon: HeartHandshake, color: 'from-rose-500 to-pink-600' },
   { type: 'caregiver', icon: HandHeart, color: 'from-violet-500 to-purple-600' },
+  { type: 'company', icon: Briefcase, color: 'from-slate-600 to-slate-800' },
 ];
 
 const K_SET = new Set<CardType>(['wellness', 'tourism', 'legal', 'ngo', 'caregiver']);
@@ -58,8 +61,10 @@ export function CreateAccount() {
     const isProvider = selected === 'merchant';
     const isClinic = selected === 'clinic';
     const isSchool = selected === 'school';
-    const isK = K_SET.has(selected);
-    const wide = isSpecialist || isProvider || isClinic || isSchool || isK;
+    const isCompany = selected === 'company';
+    const isEsparcimiento = selected === 'tourism';
+    const isK = K_SET.has(selected) && !isEsparcimiento;
+    const wide = isSpecialist || isProvider || isClinic || isSchool || isK || isCompany;
     return (
       <div className={`mx-auto px-4 py-10 ${wide ? 'max-w-4xl' : 'max-w-lg'}`}>
         <button onClick={() => setSelected(null)} className="mb-4 inline-flex items-center gap-1 text-sm font-semibold text-brand-700 hover:underline">
@@ -82,6 +87,10 @@ export function CreateAccount() {
             <ClinicRegister />
           ) : isSchool ? (
             <SchoolRegister />
+          ) : isCompany ? (
+            <CompanyRegister />
+          ) : isEsparcimiento ? (
+            <EsparcimientoRegister />
           ) : isK ? (
             <KProviderRegister typeKey={selected as KType} />
           ) : (

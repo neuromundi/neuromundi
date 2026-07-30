@@ -34,7 +34,11 @@
     "calendar": "Calendario",
     "messages": "Messaggi",
     "myPanel": "La mia area",
-    "donate": "Dona"
+    "donate": "Dona",
+    "founders": "Fondatori",
+    "labor": "Inclusione lavorativa",
+    "tribe": "Tribù",
+    "red": "Rete Neuromundi"
   },
   "home": {
     "title": "La prima comunità globale che connette pazienti, famiglie, specialisti e fornitori nel neurosviluppo e nella neurodivergenza.",
@@ -84,7 +88,30 @@
       "cta": "Scopri i nostri donatori",
       "donateCta": "Fai una donazione"
     },
-    "donateHint": "Vuoi aiutare a mantenere Neuromundi gratuito? Scopri come sostenere."
+    "donateHint": "Vuoi aiutare a mantenere Neuromundi gratuito? Scopri come sostenere.",
+    "slides": [
+      "",
+      "",
+      "La tua comunità per consigli e assistenza",
+      "Neuromundi ID: la tua chiave di accesso digitale",
+      "Prodotti efficaci",
+      "Esperti a tua disposizione",
+      "Cliniche, studi e laboratori",
+      "Servizi convalidati dalla comunità",
+      "Inclusione educativa",
+      "Ambienti inclusivi",
+      "Esperienze inclusive",
+      "Sport inclusivo",
+      "Consulenza legale",
+      "Svago inclusivo",
+      "Comunità"
+    ],
+    "founders": {
+      "badge": "Fondatori",
+      "title": "Scopri i nostri fondatori",
+      "body": "Persone e organizzazioni pioniere che hanno creduto in Neuromundi fin dall'inizio e aiutano a costruire questa comunità.",
+      "cta": "Scopri i fondatori"
+    }
   },
   "auth": {
     "login": "Accedi",
@@ -200,10 +227,23 @@
       "perinatal": "Perinatale",
       "executive": "Educazione e Funz. Esecutive",
       "products": "Prodotti di supporto",
-      "arts": "Arte e musica"
+      "arts": "Arte e musica",
+      "wellness": "Sport e benessere",
+      "leisure": "Svago",
+      "legal": "Servizi legali",
+      "ngo": "ONG / Associazione",
+      "caregivers": "Assistenti",
+      "employment": "Impiego"
     },
     "neuroFilter": "Neuroaffermativo",
-    "neuroHint": "Mostra solo i fornitori con il Sigillo Neuroaffermativo di Neuromundi."
+    "neuroHint": "Mostra solo i fornitori con il Sigillo Neuroaffermativo di Neuromundi.",
+    "nearMe": "Cerca vicino a me",
+    "locating": "Localizzazione…",
+    "nearActive": "Vicino alla tua posizione",
+    "clearLocation": "Rimuovi",
+    "nearHint": "Condividi la tua posizione per vedere specialisti, scuole e fornitori vicini.",
+    "geoDenied": "Non è stato possibile accedere alla tua posizione. Attivala nel browser per vedere i risultati vicini.",
+    "geoUnavailable": "Il tuo browser non consente di condividere la posizione."
   },
   "card": {
     "evs": "EVS",
@@ -298,7 +338,8 @@
       "qr": "Il mio QR",
       "discounts": "I miei sconti",
       "history": "Cronologia",
-      "prescriptions": "Prescrizioni"
+      "prescriptions": "Prescrizioni",
+      "nid": "Neuromundi ID"
     },
     "emptyDiscounts": "Non hai ancora sconti. Mostra il tuo QR in un negozio per iniziare.",
     "emptyHistory": "La tua cronologia apparirà qui dopo il primo sconto utilizzato.",
@@ -582,7 +623,9 @@
     "stop": "Ferma",
     "idleTitle": "Scansiona codice",
     "idleBody": "Chiederemo il permesso della fotocamera solo all'avvio. Si spegne da sola.",
-    "start": "Avvia scansione"
+    "start": "Avvia scansione",
+    "nidValid": "Neuromundi ID valida",
+    "nidSuspended": "Account sospeso"
   },
   "qr": {
     "step1": "Mostra questo codice al negozio o servizio.",
@@ -722,7 +765,35 @@
     "secImprove": "Miglioramenti",
     "neuroOn": "Neuroaffermativo",
     "neuroGrant": "Assegna sigillo",
-    "neuroRevoke": "Revoca sigillo"
+    "neuroRevoke": "Revoca sigillo",
+    "secFounders": "Fondatori",
+    "secBadges": "Distintivi",
+    "secTribe": "Tribù",
+    "benefitExempt": "Accesso gratuito",
+    "benefitPercent": "Sconto %",
+    "benefitPercentShort": "-{{pct}}%",
+    "percentOff": "% di sconto",
+    "errPercent": "Inserisci una percentuale tra 1 e 100",
+    "benefitAmount": "Importo fisso",
+    "amountOff": "Importo",
+    "amountCurrency": "Valuta",
+    "errAmount": "Inserisci un importo e una valuta validi",
+    "boundEmail": "Associa a un'email (facoltativo)",
+    "secAdvisors": "Consulenti",
+    "adv": {
+      "title": "Profilo Consulente",
+      "intro": "Il consulente può esplorare tutta la piattaforma e moderare la Tribù, senza azioni finanziarie o amministrative.",
+      "search": "Cerca",
+      "searchPh": "Folio, nome o cognome",
+      "searchShort": "Digita almeno 2 caratteri",
+      "make": "Rendi consulente",
+      "added": "Consulente assegnato",
+      "removed": "Consulente rimosso",
+      "current": "Consulenti attuali",
+      "remove": "Rimuovi",
+      "emptyTitle": "Nessun consulente",
+      "empty": "Non hai ancora designato consulenti."
+    }
   },
   "reg": {
     "typePatient": "Paziente",
@@ -944,7 +1015,10 @@
     "perMonth": "/ mese",
     "choosePeriod": "Scegli come pagare",
     "savingBadge": "12 mesi al prezzo di 10",
-    "founderPrice": "Hai il prezzo da Socio Fondatore"
+    "founderPrice": "Hai il prezzo da Socio Fondatore",
+    "promoDiscountOk": "Sconto del {{pct}}% applicato alla tua quota",
+    "promoEmail": "Questo codice è associato a un altro indirizzo email.",
+    "promoAmountOk": "Sconto di {{amount}} {{currency}} applicato alla tua quota"
   },
   "rules": {
     "version": "Versione",
@@ -1195,6 +1269,14 @@
     },
     "dirMatch": {
       "title": "Un nuovo specialista per te"
+    },
+    "topicJob": {
+      "title": "Nuova opportunità",
+      "body": "{{type}} · {{place}}"
+    },
+    "topicVenue": {
+      "title": "Nuovo luogo di svago",
+      "body": "{{name}} · {{place}}"
     }
   },
   "clin": {
@@ -1682,8 +1764,8 @@
         "desc": "Centri e club di attività fisica inclusiva."
       },
       "tourism": {
-        "title": "Turismo accessibile",
-        "desc": "Soggiorni, tour ed esperienze inclusive."
+        "title": "Svago",
+        "desc": "Cinema, ristoranti, musei, parchi… con adattamenti sensoriali e cognitivi."
       },
       "legal": {
         "title": "Servizi legali",
@@ -1696,6 +1778,10 @@
       "caregiver": {
         "title": "Assistenti / Accompagnatori",
         "desc": "Supporto a casa, sollievo e ombra scolastica."
+      },
+      "company": {
+        "title": "Aziende",
+        "desc": "Pubblica lavoro, volontariato e servizio sociale; scarica i distintivi."
       }
     }
   },
@@ -1951,16 +2037,16 @@
     "crianza": "Genitorialità e famiglia",
     "derechos": "Diritti e pratiche",
     "diagnostico": "Diagnosi e individuazione precoce",
-    "educacion": "Istruzione e inclusione scolastica",
+    "educacion": "Istruzione",
     "emocional": "Benessere emotivo",
     "historias": "Storie e testimonianze",
     "investigacion": "Ricerca e scienza",
     "juego": "Gioco e tempo libero inclusivo",
     "libros": "Libri e risorse",
     "socioemocional": "Abilità sociali ed emotive",
-    "tecnologia": "Tecnologia assistiva",
+    "tecnologia": "Tecnologia e IT",
     "vestimenta": "Abbigliamento e accessori adattati",
-    "salud": "Salute",
+    "salud": "Sanità",
     "recreacion": "Ricreazione e tempo libero",
     "productos": "Prodotti e materiali",
     "servicios": "Servizi professionali",
@@ -2125,7 +2211,30 @@
     "movimiento_danza": "Movimento e danza terapeutica",
     "teatro_rol": "Teatro e giochi di ruolo sociali",
     "ocio_sensorial": "Tempo libero ed eventi sensory-friendly",
-    "arte_musica": "Arte e musica adattate"
+    "arte_musica": "Arte e musica adattate",
+    "manufactura": "Produzione e industria",
+    "comercio_retail": "Commercio e retail",
+    "alimentos": "Alimenti e bevande",
+    "turismo_hosteleria": "Turismo e ospitalità",
+    "finanzas": "Finanza e assicurazioni",
+    "logistica": "Logistica e trasporti",
+    "construccion": "Edilizia",
+    "agro": "Agroindustria",
+    "creativo": "Industrie creative",
+    "gobierno_ong": "Governo e ONG",
+    "cine": "Cinema",
+    "restaurante": "Ristorante",
+    "cafeteria": "Caffetteria",
+    "plaza_comercial": "Centro commerciale",
+    "museo": "Museo",
+    "peluqueria": "Parrucchiere / barbiere",
+    "parque": "Parco",
+    "teatro": "Teatro",
+    "balneario": "Stabilimento balneare",
+    "hotel": "Hotel",
+    "biblioteca": "Biblioteca",
+    "centro_cultural": "Centro culturale",
+    "gimnasio": "Palestra / sport"
   },
   "kit": {
     "badge": "Kit di strumenti",
@@ -2318,7 +2427,8 @@
       "discount": "Sconto comunitario ≥10% attivo",
       "benefit": "Vantaggi verificati via QR (sconti/consulenze)",
       "blog": "Esperienza condivisa sul blog",
-      "referrals": "Raccomandazioni alla comunità"
+      "referrals": "Raccomandazioni alla comunità",
+      "vacancies": "Pubblica almeno 2 offerte attive"
     }
   },
   "account": {
@@ -3207,7 +3317,13 @@
       "del": "Elimina",
       "delTitle": "Elimina alleato",
       "delBody": "Vuoi davvero rimuovere questo alleato dal carosello?",
-      "deleted": "Alleato eliminato"
+      "deleted": "Alleato eliminato",
+      "countries": "Paesi in cui appare",
+      "countriesHint": "Lascia vuoto per mostrarlo in tutti i paesi. Ctrl/Cmd+clic per sceglierne più d’uno.",
+      "allCountries": "Tutti i paesi",
+      "externalTitle": "Logo su server esterno",
+      "externalBody": "Questo logo è servito da un altro dominio, senza controllo di dimensione o cache; uno pesante rallenta la home. Consigliamo di caricarlo ottimizzato sul tuo sito. Salvare comunque?",
+      "externalHint": "Logo esterno: caricalo ottimizzato sul tuo sito per non rallentare la home."
     },
     "tier": {
       "title": "Importi di donazione per valuta",
@@ -3217,6 +3333,79 @@
       "error": "Impossibile salvare.",
       "active": "Attiva",
       "order": "Gli importi devono essere crescenti (Seme < Alleato < Motore < Ambasciatore)."
+    },
+    "founders": {
+      "title": "Muro dei fondatori",
+      "subtitle": "{{published}} di {{total}} pubblicati sul muro.",
+      "allCountries": "Tutti i paesi",
+      "order": "Ordine",
+      "feature": "In evidenza",
+      "publishFirst": "Pubblica prima per mettere in evidenza",
+      "published": "Pubblicato",
+      "hidden": "Nascosto",
+      "saveErr": "Impossibile salvare. Riprova.",
+      "emptyTitle": "Nessun fondatore",
+      "empty": "Nessun fondatore rilevato."
+    },
+    "badges": {
+      "title": "Distintivi per tipo di membro",
+      "subtitle": "{{active}} attivi su {{total}}",
+      "addTitle": "Carica un distintivo",
+      "memberType": "Tipo di membro",
+      "key": "Chiave del distintivo",
+      "badgeTitle": "Nome visibile",
+      "file": "File (PNG, SVG, JPG)",
+      "upload": "Carica",
+      "uploaded": "Distintivo salvato.",
+      "needFields": "Inserisci una chiave e scegli un file.",
+      "emptyTitle": "Nessun distintivo",
+      "empty": "Non hai ancora caricato distintivi.",
+      "down": "Disattivato",
+      "takeDown": "Disattiva",
+      "putUp": "Rendi disponibile",
+      "delete": "Elimina",
+      "deleteConfirm": "Eliminare questo distintivo e il suo file?"
+    },
+    "tribe": {
+      "title": "Forum della Tribù",
+      "subtitle": "Approva o rifiuta i forum creati dai membri.",
+      "pending": "In attesa",
+      "approved": "Approvati",
+      "rejected": "Rifiutati",
+      "approve": "Approva",
+      "reject": "Rifiuta",
+      "reset": "Riapri",
+      "done": "Forum aggiornato.",
+      "emptyTitle": "Nessun forum",
+      "empty": "Nessun forum in questo stato.",
+      "area": {
+        "forums": "Forum",
+        "moderators": "Moderatori",
+        "members": "Membri",
+        "messages": "Messaggi"
+      },
+      "modEmptyTitle": "Nessuna candidatura",
+      "modEmpty": "Nessun moderatore in questo stato.",
+      "lookup": "Cerca",
+      "memberNotFound": "Nessun membro della Tribù con quel codice.",
+      "memberSaved": "Membro aggiornato.",
+      "status": "Stato",
+      "st": {
+        "active": "Attivo",
+        "muted": "Silenziato",
+        "suspended": "Sospeso"
+      },
+      "perm": {
+        "can_write": "Può scrivere nelle chat",
+        "can_evaluate": "Può valutare (dare gratitudine)",
+        "can_review": "Può recensire i moderatori"
+      },
+      "msgPick": "Scegli un forum per esaminare i messaggi.",
+      "backForums": "Torna ai forum",
+      "noMsgsTitle": "Nessun messaggio",
+      "noMsgs": "Questo forum non ha messaggi.",
+      "msgDelete": "Elimina messaggio",
+      "msgDeleted": "Messaggio eliminato"
     }
   },
   "callout": {
@@ -3424,13 +3613,12 @@
       ]
     },
     "tourism": {
-      "title": "Con il tuo account turismo accessibile puoi:",
+      "title": "Con il tuo account svago puoi:",
       "features": [
-        "Pubblicare esperienze sensory-friendly, tour e campi inclusivi",
-        "Apparire nella directory con la tua posizione sulla mappa",
-        "Ricevere prenotazioni e messaggi dalle famiglie",
-        "Ottenere recensioni della community",
-        "Essere pagato direttamente sul tuo conto con Stripe Connect"
+        "Comparire nella directory come luogo di svago accessibile",
+        "Indicare orari a basso impatto sensoriale e adattamenti cognitivi",
+        "Ricevere recensioni da famiglie e persone neurodivergenti",
+        "Condividere la posizione e i contatti"
       ]
     },
     "legal": {
@@ -3460,6 +3648,15 @@
         "Comunicare con le famiglie via messaggistica",
         "Ottenere il distintivo e le recensioni della community",
         "Essere pagato direttamente sul tuo conto con Stripe Connect"
+      ]
+    },
+    "company": {
+      "title": "Con il tuo account azienda inclusiva puoi:",
+      "features": [
+        "Pubblicare offerte di lavoro inclusive",
+        "Comparire nella directory ed essere trovata per paese",
+        "Scaricare i distintivi \"Azienda inclusiva\" e \"Alleato Neuromundi\"",
+        "Comunicare con la comunità tramite messaggi"
       ]
     }
   },
@@ -3613,5 +3810,519 @@
     "body": "Il tuo profilo mostra ora il distintivo \"Soy Fundador Neuromundi\". Hai 3 mesi per soddisfare i requisiti del tuo profilo e mantenerlo; in caso contrario il distintivo verrà rimosso automaticamente.",
     "reqs": "Vedi i miei requisiti",
     "ok": "Ho capito"
+  },
+  "meta": {
+    "title": "Neuromundi: la tua comunità globale"
+  },
+  "globalMember": {
+    "title": "Distintivo Global Member",
+    "desc": "Il tuo pagamento è in regola. Scarica il tuo distintivo ufficiale «Neuromundi Global Member» per il tuo sito web e i social.",
+    "dlPng": "Scarica PNG",
+    "dlWebp": "Scarica WebP",
+    "hint": "PNG con sfondo trasparente, ideale per i social; WebP più leggero per il tuo sito."
+  },
+  "foundersWall": {
+    "title": "Membri fondatori",
+    "subtitle": "Onoriamo chi ha creduto in Neuromundi fin dall'inizio, paese per paese.",
+    "selectCountry": "Seleziona paese",
+    "allCountries": "Tutti i paesi",
+    "empty": "Nessun fondatore pubblicato per questo paese.",
+    "kind": {
+      "families": "Famiglia",
+      "professionals": "Professionista",
+      "providers": "Attività"
+    }
+  },
+  "foundersPage": {
+    "badge": "Programma Fondatori",
+    "intro": "Paese per paese, onoriamo le persone e le organizzazioni che hanno creduto in Neuromundi fin dall'inizio e hanno contribuito a costruire questa comunità.",
+    "ctaTitle": "Vuoi diventare Membro Fondatore?",
+    "ctaBody": "I posti da fondatore sono limitati per paese. Crea il tuo account e, se hai i requisiti finché ci sono posti, otterrai il distintivo automaticamente.",
+    "cta": "Crea account"
+  },
+  "company": {
+    "miss": {
+      "name": "Inserisci il nome dell'azienda."
+    },
+    "afterInfo": "Dopo aver confermato l'email accederai alla tua dashboard per pubblicare offerte e scaricare i distintivi.",
+    "yourName": "Nome della tua azienda",
+    "s1": "L'azienda",
+    "name": "Nome dell'azienda",
+    "sector": "Settore",
+    "selectSector": "Seleziona un settore",
+    "description": "Descrizione",
+    "s2": "Contatto e sede",
+    "contactName": "Persona di contatto",
+    "contactEmail": "Email di contatto",
+    "city": "Città"
+  },
+  "labor": {
+    "badge": "Inclusione lavorativa",
+    "title": "Opportunità",
+    "intro": "Lavoro, volontariato e servizio sociale pubblicati da aziende e organizzazioni inclusive. Cerca per paese e tipo e candidati a ciò che ti interessa.",
+    "searchPlaceholder": "Cerca per ruolo, azienda, competenza…",
+    "selectCountry": "Seleziona paese",
+    "allCountries": "Tutti i paesi",
+    "emptyTitle": "Nessuna offerta",
+    "empty": "Ancora nessuna offerta per questo paese. Prova un altro o torna più tardi.",
+    "untitled": "Offerta",
+    "positions": "{{n}} posti",
+    "experience": "Esperienza",
+    "education": "Formazione",
+    "salary": "Stipendio",
+    "skills": "Competenze",
+    "note": "Informazioni aggiuntive",
+    "applyEmail": "Candidati via email",
+    "applyLink": "Vedi offerta",
+    "type": {
+      "all": "Tutte",
+      "employment": "Impiego",
+      "volunteering": "Volontariato",
+      "social_service": "Servizio sociale"
+    }
+  },
+  "jobs": {
+    "tab": "Opportunità",
+    "subtitle": "{{active}} attive su {{total}}",
+    "new": "Nuova offerta",
+    "save": "Salva",
+    "cancel": "Annulla",
+    "title": "Posizione",
+    "positions": "Numero di posti",
+    "experience": "Esperienza richiesta",
+    "education": "Formazione richiesta",
+    "salary": "Fascia salariale",
+    "salaryPlaceholder": "es. $10.000–$15.000 al mese",
+    "city": "Città",
+    "applyEmail": "Email per candidature",
+    "applyUrl": "Link all'offerta",
+    "skills": "Competenze attese",
+    "note": "Altra info importante",
+    "saveErr": "Impossibile salvare. Riprova.",
+    "untitled": "Offerta senza titolo",
+    "positionsShort": "{{n}} posti",
+    "hidden": "Nascosta",
+    "hide": "Nascondi",
+    "show": "Mostra",
+    "edit": "Modifica",
+    "delete": "Elimina",
+    "deleteConfirm": "Eliminare questa offerta? Non è reversibile.",
+    "emptyTitle": "Nessuna offerta",
+    "empty": "Non hai ancora pubblicato offerte. Crea la prima.",
+    "opportunityType": "Tipo di opportunità",
+    "type": {
+      "employment": "Impiego",
+      "volunteering": "Volontariato",
+      "social_service": "Servizio sociale"
+    }
+  },
+  "memberBadges": {
+    "title": "I tuoi distintivi",
+    "desc": "Scarica e condividi questi distintivi sul tuo sito e sui social.",
+    "download": "Scarica"
+  },
+  "esp": {
+    "miss": {
+      "name": "Inserisci il nome del luogo."
+    },
+    "afterInfo": "Dopo aver confermato l'email accederai alla dashboard per completare il profilo svago.",
+    "yourName": "Nome del luogo",
+    "s1": "Il luogo",
+    "name": "Nome del luogo",
+    "venueType": "Tipo di luogo",
+    "selectVenue": "Seleziona il tipo di luogo",
+    "description": "Descrizione",
+    "s2": "Posizione geografica",
+    "city": "Città",
+    "address": "Indirizzo",
+    "mapUrl": "Link alla mappa (Google Maps)",
+    "mapUrlHelp": "Incolla il link della tua posizione su Google Maps.",
+    "s3": "Accessibilità sensoriale e cognitiva",
+    "sensoryHours": "Orari a basso impatto sensoriale",
+    "sensoryHoursPlaceholder": "es. mar 9–11: luci soffuse e senza musica.",
+    "cognitive": "Adattamenti cognitivi",
+    "cognitivePlaceholder": "es. pittogrammi, menu visivo, personale formato.",
+    "otherAdapt": "Altri adattamenti",
+    "s4": "Contatto",
+    "infoTitle": "Accessibilità del luogo",
+    "viewMap": "Vedi sulla mappa",
+    "lat": "Latitudine",
+    "lng": "Longitudine",
+    "coordsHelp": "Facoltativo: incolla le coordinate da Google Maps per apparire con un segnaposto sulla mappa della directory."
+  },
+  "review": {
+    "button": "Valuta / recensisci",
+    "title": "Recensisci {{name}}",
+    "desc": "Il tuo parere aiuta altre famiglie. Puoi recensire solo chi hai già visitato o contattato."
+  },
+  "topics": {
+    "title": "Avvisi per categoria",
+    "desc": "Scegli i temi che ti interessano e ti avviseremo quando verrà pubblicato qualcosa di nuovo nel tuo paese o città.",
+    "opt": {
+      "employment": "Impiego",
+      "volunteering": "Volontariato",
+      "social_service": "Servizio sociale",
+      "esparcimiento": "Svago"
+    },
+    "country": "Paese",
+    "anyCountry": "Qualsiasi paese",
+    "city": "Città",
+    "anyCity": "Qualsiasi città",
+    "save": "Salva",
+    "saved": "Preferenze salvate.",
+    "saveErr": "Impossibile salvare."
+  },
+  "tribe": {
+    "title": "Tribù Neuromundi",
+    "landing": "Uno spazio di inclusione sociale: appartenenza, partecipazione e autonomia. Connettiti attraverso i tuoi interessi, al tuo ritmo, in un ambiente sicuro.",
+    "onlyEligible": "La Tribù è aperta a pazienti, famiglie e specialisti.",
+    "joinTitle": "Unisciti alla Tribù",
+    "joinIntro": "Prima di entrare, leggi e accetta le regole di convivenza e scegli come partecipare oggi.",
+    "joinCta": "Unisciti",
+    "rulesTitle": "Regole di convivenza",
+    "rules": [
+      "Rispetto e zero bullismo: questo è uno spazio sicuro.",
+      "Comunicazione letterale e chiara: senza ironia, doppi sensi o allusioni.",
+      "Rispetta i tempi di ciascuno; non pretendere risposte immediate.",
+      "Rispetta il semaforo di energia sociale degli altri.",
+      "Non condividere dati personali o diagnosi di altre persone.",
+      "Prenditi cura della comunità: segnala qualsiasi comportamento che violi queste regole."
+    ],
+    "energyTitle": "La tua energia sociale oggi",
+    "energy": {
+      "green": {
+        "label": "Verde — Aperto a chiacchierare",
+        "desc": "Voglia di parlare"
+      },
+      "yellow": {
+        "label": "Giallo — Solo se mi parlano",
+        "desc": "Rispondo se mi scrivono"
+      },
+      "red": {
+        "label": "Rosso — Poca energia",
+        "desc": "Oggi ascolto/osservo soltanto"
+      }
+    },
+    "privacyTitle": "Privacy a livelli",
+    "privacy": {
+      "show_country": "Mostra il mio paese",
+      "show_city": "Mostra la mia città",
+      "show_interests": "Mostra i miei interessi",
+      "show_diagnosis": "Mostra la mia diagnosi o condizione"
+    },
+    "acceptRules": "Ho letto e accetto le regole della Tribù.",
+    "mustAccept": "Devi accettare le regole per entrare.",
+    "joinErr": "Impossibile completare l'iscrizione.",
+    "suspended": "La tua partecipazione alla Tribù è sospesa per violazione delle regole. Contatta il team se pensi sia un errore.",
+    "hubSubtitle": "Club di interesse e spazi di affinità",
+    "energyToday": "Com'è la tua energia oggi?",
+    "invitesTitle": "Inviti",
+    "forums": "Forum",
+    "newForum": "Nuovo forum",
+    "forumTitle": "Titolo del forum",
+    "forumTitlePh": "es. Club dei dinosauri",
+    "forumTitleReq": "Inserisci un titolo (min. 3 caratteri).",
+    "theme": "Tema",
+    "themePh": "es. Videogiochi, Natura…",
+    "themeFilter": "Tema",
+    "language": "Lingua",
+    "anyLanguage": "Qualsiasi lingua",
+    "country": "Paese",
+    "anyCountry": "Qualsiasi paese",
+    "city": "Città",
+    "forumDesc": "Descrizione",
+    "createForum": "Crea forum",
+    "cancel": "Annulla",
+    "forumPending": "Forum inviato. Comparirà dopo l'approvazione dell'admin.",
+    "forumErr": "Impossibile creare il forum.",
+    "searchPh": "Cerca forum…",
+    "noForumsTitle": "Nessun forum",
+    "noForums": "Nessun forum corrispondente. Crea il primo!",
+    "membersCount": "{{n}} membri",
+    "enter": "Entra",
+    "joinForum": "Unisciti",
+    "invite": "Invita",
+    "sendInvite": "Invia",
+    "invited": "Invito inviato.",
+    "invalidFolio": "Codice non valido.",
+    "messagePlaceholder": "Scrivi un messaggio…",
+    "send": "Invia",
+    "sendErr": "Invio non riuscito.",
+    "readOnly": "Il tuo account è in sola lettura nella Tribù.",
+    "noMessages": "Sii tu ad avviare la conversazione.",
+    "loading": "Caricamento…",
+    "grat": {
+      "title": "Ringraziare {{name}}",
+      "desc": "Scegli un distintivo. Aggiunge solo punti positivi.",
+      "give": "Ringrazia",
+      "pick": "Scegli un distintivo.",
+      "sent": "Gratitudine inviata!",
+      "err": "Invio non riuscito.",
+      "anon": "Invia in modo anonimo",
+      "note": "Formato chiuso: niente testo libero. C'è un limite giornaliero di gettoni."
+    },
+    "pointsLabel": "{{n}} punti Tribù",
+    "toNext": "{{n}} per raggiungere {{level}}",
+    "tokensLeft": "Gettoni di gratitudine oggi: {{n}}",
+    "impactItem": "{{n}}× {{badge}}",
+    "silentOn": "Modalità silenziosa (livelli nascosti)",
+    "silentOff": "Mostra livelli",
+    "badge": {
+      "claridad_literal": {
+        "name": "Chiarezza letterale",
+        "msg": "Grazie per il tuo contributo chiaro e diretto."
+      },
+      "infodump_oro": {
+        "name": "Infodump d'oro",
+        "msg": "Grazie per aver condiviso le tue conoscenze."
+      },
+      "espacio_seguro": {
+        "name": "Spazio sicuro",
+        "msg": "Apprezzo la tua empatia e validazione."
+      },
+      "faro_sensorial": {
+        "name": "Faro sensoriale",
+        "msg": "Grazie per l'attenzione all'accessibilità sensoriale."
+      },
+      "anticipacion_impecable": {
+        "name": "Anticipazione impeccabile",
+        "msg": "Grazie per aver anticipato e reso tutto prevedibile."
+      },
+      "puente_empatia": {
+        "name": "Ponte di empatia",
+        "msg": "Grazie per aver creato ponti con rispetto."
+      },
+      "bienvenida_calida": {
+        "name": "Accoglienza calorosa",
+        "msg": "Grazie per avermi accolto con pazienza."
+      }
+    },
+    "level": {
+      "semilla": "Seme",
+      "brote": "Germoglio",
+      "faro": "Faro",
+      "pilar": "Pilastro",
+      "raiz": "Radice"
+    },
+    "mod": {
+      "title": "Moderatori",
+      "badge": "Moderatore",
+      "becomePrompt": "Vuoi aiutare a curare la comunità?",
+      "become": "Candidati come moderatore",
+      "pendingMine": "La tua candidatura è in revisione.",
+      "rejectedMine": "La tua candidatura non è stata approvata questa volta.",
+      "reapply": "Candidati di nuovo",
+      "youAre": "Sei {{level}}",
+      "applyTitle": "Candidatura moderatore",
+      "apply": "Invia candidatura",
+      "justifyLabel": "Perché vuoi moderare nella Tribù?",
+      "justifyPh": "Raccontaci la tua motivazione ed esperienza…",
+      "justifyReq": "Scrivi almeno 10 caratteri.",
+      "ethicsTitle": "Codice etico del moderatore",
+      "acceptEthics": "Ho letto e accetto il Codice etico del moderatore.",
+      "mustAcceptEthics": "Devi accettare il codice etico.",
+      "applied": "Candidatura inviata. In attesa di approvazione.",
+      "rate": "Valuta",
+      "update": "Aggiorna recensione",
+      "rateTitle": "Valuta {{name}}",
+      "rateSubmit": "Invia recensione",
+      "rateIncomplete": "Valuta tutte le dimensioni.",
+      "rated": "Recensione inviata!",
+      "commentLabel": "Commento (facoltativo)",
+      "dim": {
+        "empathy": "Empatia",
+        "inclusive": "Linguaggio inclusivo",
+        "cordiality": "Cordialità",
+        "knowledge": "Conoscenza",
+        "availability": "Disponibilità"
+      }
+    },
+    "ethics": [
+      "Trattamento equo e imparziale: senza favoritismi né ritorsioni.",
+      "Tolleranza zero verso le molestie; proteggo lo spazio sicuro.",
+      "Riservatezza: non divulgo i dati personali dei membri.",
+      "Comunicazione chiara, rispettosa e senza ambiguità.",
+      "Trasparenza: spiego le mie decisioni di moderazione.",
+      "Coinvolgo il team quando una situazione supera il mio ruolo."
+    ],
+    "modLevel": {
+      "nuevo": "Nuovo moderatore",
+      "experimentado": "Moderatore esperto",
+      "experto": "Moderatore esperto+",
+      "lider": "Moderatore leader",
+      "destacado": "Moderatore di spicco"
+    },
+    "mentor": {
+      "title": "Mentoring tra pari",
+      "intro": "Accompagnamento tra chi è più avanti e chi inizia. Al tuo ritmo, senza pressione di risposta immediata.",
+      "offerPrompt": "Vuoi accompagnare altri come mentore?",
+      "offer": "Offriti come mentore",
+      "youOffer": "Offri mentoring in",
+      "paused": "in pausa",
+      "edit": "Modifica",
+      "pause": "Pausa",
+      "resume": "Riprendi",
+      "becomeTitle": "Offriti come mentore",
+      "becomeIntro": "Scegli la via e condividi una breve presentazione per chi cerca il tuo accompagnamento.",
+      "save": "Salva",
+      "offered": "Fatto! Ora compari come mentore.",
+      "pickTrack": "Scegli almeno una via.",
+      "tracks": "Vie di mentoring",
+      "bioLabel": "Breve presentazione",
+      "bioPh": "La tua esperienza e come puoi aiutare…",
+      "track": {
+        "nd_youth": "Mentoring ND per giovani",
+        "family_family": "Famiglie per famiglie"
+      },
+      "trackDesc": {
+        "nd_youth": "Adulti ND che accompagnano giovani ND nell'autoscoperta, l'università e la vita indipendente.",
+        "family_family": "Caregiver esperti che accompagnano famiglie con diagnosi recente."
+      },
+      "mine": "Le mie mentorship",
+      "role": {
+        "mentor": "Mentore",
+        "mentee": "Allievo"
+      },
+      "status": {
+        "pending": "In attesa",
+        "active": "Attiva",
+        "declined": "Rifiutata",
+        "ended": "Conclusa"
+      },
+      "openThread": "Apri conversazione",
+      "find": "Trova un mentore",
+      "allTracks": "Tutte le vie",
+      "noMentors": "Ancora nessun mentore disponibile in questa via.",
+      "request": "Richiedi ({{track}})",
+      "async": "Chat asincrona",
+      "noMessages": "Inizia la conversazione quando ti senti pronto."
+    },
+    "event": {
+      "title2": "Eventi",
+      "new": "Nuovo evento",
+      "emptyTitle": "Nessun evento",
+      "empty": "Ancora nessun evento. Crea il primo con la sua guida di anticipazione!",
+      "newTitle": "Pubblica evento",
+      "guideHint": "La guida di anticipazione è obbligatoria: cosa accadrà, rumore atteso e stanza tranquilla.",
+      "guideReq": "Completa la guida: titolo, data, cosa accadrà e rumore atteso.",
+      "publish": "Pubblica",
+      "created": "Evento pubblicato. +20 punti Tribù.",
+      "pointsHint": "Pubblicare con guida di anticipazione dà +20 punti Tribù.",
+      "title": "Titolo",
+      "when": "Data e ora",
+      "online": "Online",
+      "place": "Luogo",
+      "placePh": "Indirizzo o nome del luogo",
+      "whatHappens": "Cosa accadrà",
+      "whatPh": "Programma, attività, durata…",
+      "noise": "Rumore atteso",
+      "noisePh": "es. ambiente tranquillo; applausi occasionali",
+      "quietRoom": "Sarà disponibile una stanza tranquilla",
+      "sensoryTips": "Consigli sensoriali",
+      "sensoryPh": "cuffie, luce soffusa, segnaletica visiva…",
+      "hasQuiet": "Stanza tranquilla disponibile",
+      "noQuiet": "Nessuna stanza tranquilla",
+      "attend": "Partecipa",
+      "cancelRsvp": "Non partecipo più",
+      "past": "passato",
+      "sensoryReport": "Report sensoriale",
+      "reportedTag": "Già segnalato",
+      "reportTitle": "Report sensoriale: {{name}}",
+      "sendReport": "Invia report",
+      "reportReq": "Indica rumore e comfort.",
+      "reported": "Grazie! +15 punti Tribù.",
+      "noiseLevel": "Livello di rumore percepito",
+      "noiseScale": "1 = molto tranquillo · 5 = molto rumoroso",
+      "comfort": "Comfort generale",
+      "quietUsed": "Ho usato la stanza tranquilla",
+      "notes": "Note (facoltativo)",
+      "reportPoints": "Il tuo primo report per questo evento dà +15 punti Tribù."
+    },
+    "stepsTitle": "Come entrare",
+    "step1": "Leggi e accetta le regole di convivenza.",
+    "step2": "Scegli il tuo semaforo di energia sociale di oggi.",
+    "step3": "Imposta quali dati mostrare (privacy).",
+    "step4": "Tocca \"Unisciti alla Tribù\" per entrare.",
+    "privacyHint": "Decidi tu cosa è visibile negli spazi della Tribù; modificabile quando vuoi.",
+    "about": {
+      "title": "Che cos'è Tribu Neuromundi?",
+      "forumsT": "Forum tematici",
+      "forumsD": "Club per affinità per confrontarti con persone simili, per Paese e lingua.",
+      "mentorT": "Mentoring tra pari",
+      "mentorD": "Accompagnamento uno a uno tra membri con esperienze simili.",
+      "modsT": "Moderazione della comunità",
+      "modsD": "Moderatori volontari con un codice etico, valutati dalla comunità.",
+      "energyT": "Energia e privacy",
+      "energyD": "Un semaforo mostra la tua disposizione del giorno e scegli cosa condividere.",
+      "eventsT": "Eventi con anticipazione",
+      "eventsD": "Ogni evento include una guida su cosa accadrà, livello di rumore e stanza della calma."
+    },
+    "access": {
+      "title": "Come accedo?",
+      "body": "Per entrare nella Tribù ti serve un account membro di Neuromundi. Se non ce l'hai, crealo; se sei già membro, accedi.",
+      "ready": "Hai già un account: unisciti alla Tribù per iniziare a partecipare.",
+      "createBtn": "Crea un account",
+      "loginBtn": "Accedi"
+    }
+  },
+  "nid": {
+    "member": "Membro Neuromundi",
+    "role": {
+      "family": "Famiglia Neuromundi",
+      "member": "Membro Neuromundi",
+      "specialist": "Specialista Neuromundi"
+    },
+    "issued": "Emessa",
+    "valid": "Membro attivo della Rete Neuromundi",
+    "directory": "Directory Neuromundi",
+    "howToTitle": "Per il fornitore",
+    "how1": "Scansiona questo codice con l'app.",
+    "how2": "Verifica nome e codice sullo schermo.",
+    "how3": "Applica il beneficio Neuromundi.",
+    "showFront": "Fronte",
+    "showBack": "Retro",
+    "downloadQr": "Scarica QR",
+    "walletSoon": "Presto potrai salvarla in Apple/Google Wallet.",
+    "optInTitle": "Accetto la Neuromundi ID",
+    "optInDesc": "Mostra nel tuo profilo che accetti la Neuromundi ID e unisciti alla Rete.",
+    "optInOn": "Attivo: il tuo profilo mostra \"Accetto la Neuromundi ID\".",
+    "optInOff": "Disattivato.",
+    "accepts": "Accetta la Neuromundi ID",
+    "acceptsHint": "Questo fornitore accetta la Neuromundi ID della comunità.",
+    "seal": {
+      "title": "Sigilli della Rete",
+      "desc": "Scarica il tuo sigillo e mettilo su sito, social o studio.",
+      "acceptsTop": "Accettiamo",
+      "allyTop": "Specialista Alleato"
+    },
+    "red": {
+      "badge": "Rete Neuromundi",
+      "title": "Rete Neuromundi",
+      "intro": "Lo spazio per fornitori e alleati che accettano la Neuromundi ID. Trasforma una transazione in un'esperienza di comunità.",
+      "howTitle": "Come funziona",
+      "s1t": "Il membro mostra il suo ID",
+      "s1b": "Paziente, famiglia o specialista mostra la Neuromundi ID digitale.",
+      "s2t": "Scansioni il QR",
+      "s2b": "Con l'app validi la tessera in pochi secondi.",
+      "s3t": "Convalidi e applichi",
+      "s3b": "Vedi nome, ruolo e codice su schermo verde e applichi il beneficio.",
+      "benefitsTitle": "Vantaggi di unirti alla Rete",
+      "b1t": "Più traffico",
+      "b1b": "Compari a una comunità che cerca alleati fidati.",
+      "b2t": "Formalità e fiducia",
+      "b2b": "Validazione trasparente e senza frodi in sala d'attesa.",
+      "b3t": "Riprova sociale",
+      "b3b": "La dicitura \"Accetto la Neuromundi ID\" nel profilo attira più membri.",
+      "b4t": "Comunità",
+      "b4b": "Fai parte di una rete con uno scopo, non solo di un programma di sconti.",
+      "sealsForProviders": "I sigilli sono per i fornitori registrati. Accedi o crea un account per scaricarli.",
+      "joinCta": "Unisciti alla Rete",
+      "ctaTitle": "Unisciti alla Rete Neuromundi",
+      "ctaBody": "Accetta la Neuromundi ID, scarica i sigilli e trasforma ogni visita in appartenenza.",
+      "goPanel": "Vai al mio pannello"
+    },
+    "addApple": "Aggiungi ad Apple Wallet",
+    "addGoogle": "Aggiungi a Google Wallet",
+    "walletErr": "Impossibile generare il pass. Riprova più tardi."
   }
 }

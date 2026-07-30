@@ -15,11 +15,14 @@ describe('resolveInitialLanguage', () => {
     expect(resolveInitialLanguage('zh-CN', null)).toBe('zh');
     expect(resolveInitialLanguage('pt-BR', null)).toBe('pt');
     expect(resolveInitialLanguage('it', null)).toBe('it');
+    expect(resolveInitialLanguage('ar', null)).toBe('ar');
+    expect(resolveInitialLanguage('he-IL', null)).toBe('he');
+    expect(resolveInitialLanguage('ko-KR', null)).toBe('ko');
   });
 
   it('idioma del navegador NO soportado → inglés', () => {
     expect(resolveInitialLanguage('ru-RU', null)).toBe('en');
-    expect(resolveInitialLanguage('ko', null)).toBe('en');
+    expect(resolveInitialLanguage('th', null)).toBe('en');
     expect(resolveInitialLanguage('', null)).toBe('en');
   });
 

@@ -21,6 +21,7 @@ const PROMO_ERRORS: Record<string, string> = {
   expired: 'membership.promoExpired',
   exhausted: 'membership.promoExhausted',
   scope: 'membership.promoScope',
+  email: 'membership.promoEmail',
 };
 
 export function MembershipModal({ open, onClose }: { open: boolean; onClose: () => void }) {
@@ -51,8 +52,20 @@ export function MembershipModal({ open, onClose }: { open: boolean; onClose: () 
     const res = await redeemPromo(promo.trim());
     setBusy(false);
     if (res.ok) {
-      toast.success(t('membership.promoOk'));
-      onClose();
+      if (res.benefit === 'percent') {
+        // Descuento porcentual: no exenta; se aplica al pagar. Deja el modal
+        // abierto para continuar con el checkout ya rebajado.
+        toast.success(t('membership.promoDiscountOk', { pct: res.percentOff ?? 0 }));
+        setShowPromo(false);
+        setPromo('');
+      } else if (res.benefit === 'amount') {
+        toast.success(t('membership.promoAmountOk', { amount: res.amountOff ?? 0, currency: res.amountCurrency ?? '' }));
+        setShowPromo(false);
+        setPromo('');
+      } else {
+        toast.success(t('membership.promoOk'));
+        onClose();
+      }
     } else {
       toast.error(t(PROMO_ERRORS[res.error ?? 'invalid'] ?? 'membership.promoInvalid'));
     }

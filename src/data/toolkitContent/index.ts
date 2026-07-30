@@ -7,10 +7,13 @@ import { MODULES as it } from './content.it';
 import { MODULES as pt } from './content.pt';
 import { MODULES as ja } from './content.ja';
 import { MODULES as zh } from './content.zh';
+import { MODULES as ar } from './content.ar';
+import { MODULES as he } from './content.he';
+import { MODULES as ko } from './content.ko';
 
 export * from './types';
 
-const BY_LANG: Record<string, ToolkitModule[]> = { es, en, fr, de, it, pt, ja, zh };
+const BY_LANG: Record<string, ToolkitModule[]> = { es, en, fr, de, it, pt, ja, zh, ar, he, ko };
 
 export function getModules(lang: string): ToolkitModule[] {
   const base = (lang || 'es').split('-')[0];

@@ -13,6 +13,7 @@ import { Button, SkeletonCard, EmptyState, useToast, useConfirm } from '@/compon
 import { useAdminDonations, useAdminAllies, type AdminDonation } from '@/hooks/useAdminDonations';
 import { useAdminDonationTiers, type DonationTierRow } from '@/hooks/useDonationTiers';
 import type { Ally } from '@/hooks/useDonorWall';
+import { COUNTRIES } from '@/data/countries';
 import { formatDonation } from '@/lib/donation';
 import { formatDate, cn } from '@/lib/utils';
 
@@ -215,6 +216,20 @@ function TiersManager() {
 }
 
 /** CRUD de aliados. */
+/** ¿El logo se sirve desde un dominio de terceros? (no auto-alojado). Se
+ *  consideran seguros: rutas relativas, el propio dominio y el Storage de
+ *  Supabase. Cualquier otro host es externo y se avisa. */
+function isExternalLogo(url: string): boolean {
+  if (!url) return false;
+  if (url.startsWith('/') || url.startsWith('data:')) return false;
+  try {
+    const h = new URL(url).hostname;
+    return !(h.endsWith('neuromundi.com') || h.endsWith('.supabase.co'));
+  } catch {
+    return false; // no es URL absoluta válida: la valida el propio guardado
+  }
+}
+
 function AlliesManager() {
   const { t } = useTranslation();
   const toast = useToast();
@@ -223,10 +238,23 @@ function AlliesManager() {
   const [draft, setDraft] = useState<Partial<Ally>>({});
   const [busy, setBusy] = useState(false);
 
+  const logoUrl = (draft.logo_url ?? '').trim();
+  const externalLogo = isExternalLogo(logoUrl);
+
   const onSave = async () => {
-    if (!draft.name?.trim() || !draft.logo_url?.trim()) { toast.error(t('adm.ally.need')); return; }
+    if (!draft.name?.trim() || !logoUrl) { toast.error(t('adm.ally.need')); return; }
+    // Los logos externos (otro dominio) no tienen límite de tamaño ni caché
+    // controlada: uno pesado (p. ej. un SVG de 267 KB en un CDN de terceros)
+    // frena la portada. Se avisa y se pide confirmación explícita.
+    if (externalLogo) {
+      const proceed = await confirm({
+        title: t('adm.ally.externalTitle'),
+        message: t('adm.ally.externalBody'),
+      });
+      if (!proceed) return;
+    }
     setBusy(true);
-    const ok = await save({ ...draft, name: draft.name.trim(), logo_url: draft.logo_url.trim() });
+    const ok = await save({ ...draft, name: draft.name.trim(), logo_url: logoUrl });
     setBusy(false);
     if (ok) { toast.success(t('adm.ally.saved')); setDraft({}); }
     else toast.error(t('adm.ally.error'));
@@ -241,10 +269,32 @@ function AlliesManager() {
 
       <div className="mt-3 grid gap-2 sm:grid-cols-2">
         <input value={draft.name ?? ''} onChange={(e) => setDraft((d) => ({ ...d, name: e.target.value }))} placeholder={t('adm.ally.name')} className={inputCls} />
-        <input value={draft.logo_url ?? ''} onChange={(e) => setDraft((d) => ({ ...d, logo_url: e.target.value }))} placeholder={t('adm.ally.logoUrl')} className={inputCls} />
+        <div>
+          <input value={draft.logo_url ?? ''} onChange={(e) => setDraft((d) => ({ ...d, logo_url: e.target.value }))} placeholder={t('adm.ally.logoUrl')} className={cn(inputCls, 'w-full')} />
+          {externalLogo && (
+            <p className="mt-1 text-xs text-amber-700">{t('adm.ally.externalHint')}</p>
+          )}
+        </div>
         <input value={draft.website ?? ''} onChange={(e) => setDraft((d) => ({ ...d, website: e.target.value }))} placeholder={t('adm.ally.website')} className={inputCls} />
         <input type="number" value={draft.sort_order ?? ''} onChange={(e) => setDraft((d) => ({ ...d, sort_order: Number(e.target.value) }))} placeholder={t('adm.ally.order')} className={inputCls} />
       </div>
+
+      <label className="mt-2 block text-xs font-medium text-slate-700">{t('adm.ally.countries')}</label>
+      <select
+        multiple
+        value={draft.countries ?? []}
+        onChange={(e) =>
+          setDraft((d) => ({ ...d, countries: Array.from(e.target.selectedOptions, (o) => o.value) }))
+        }
+        className={cn(inputCls, 'h-32')}
+        aria-label={t('adm.ally.countries')}
+      >
+        {COUNTRIES.map((c) => (
+          <option key={c.code} value={c.name}>{c.name}</option>
+        ))}
+      </select>
+      <p className="mt-1 text-xs text-muted">{t('adm.ally.countriesHint')}</p>
+
       <Button size="sm" className="mt-2" loading={busy} onClick={onSave} leadingIcon={draft.id ? <Save className="h-4 w-4" /> : <Plus className="h-4 w-4" />}>
         {draft.id ? t('adm.ally.update') : t('adm.ally.add')}
       </Button>
@@ -261,7 +311,12 @@ function AlliesManager() {
               <img src={a.logo_url} alt={a.name} className="h-8 w-auto max-w-[80px] object-contain" loading="lazy" />
               <div className="min-w-0 flex-1">
                 <p className={cn('truncate text-sm font-medium', a.is_active ? 'text-slate-900' : 'text-muted line-through')}>{a.name}</p>
-                <p className="text-xs text-muted">#{a.sort_order}{a.website ? ` · ${a.website}` : ''}</p>
+                <p className="text-xs text-muted">
+                  #{a.sort_order}
+                  {a.website ? ` · ${a.website}` : ''}
+                  {' · '}
+                  {a.countries && a.countries.length > 0 ? a.countries.join(', ') : t('adm.ally.allCountries')}
+                </p>
               </div>
               <Button size="sm" variant="ghost" onClick={() => void save({ ...a, is_active: !a.is_active })}>
                 {a.is_active ? t('adm.ally.hide') : t('adm.ally.show')}

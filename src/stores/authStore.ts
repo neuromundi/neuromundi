@@ -31,7 +31,7 @@ interface SignUpInput {
   password: string;
   fullName: string;
   role?: UserRole;
-  providerType?: 'service_provider' | 'merchant' | 'school' | 'clinic' | 'wellness' | 'tourism' | 'legal' | 'ngo' | 'caregiver' | null;
+  providerType?: 'service_provider' | 'merchant' | 'school' | 'clinic' | 'wellness' | 'tourism' | 'legal' | 'ngo' | 'caregiver' | 'company' | null;
   isCompany?: boolean;
   businessName?: string | null;
   birthDate?: string | null;

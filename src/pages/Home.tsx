@@ -9,9 +9,9 @@ import { Globe, Compass, ShieldCheck, Heart, Lock, BookOpenCheck } from 'lucide-
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui';
 import { ContentCarousel } from '@/components/content/ContentCarousel';
-import { AlliesCarousel } from '@/components/donation/AlliesCarousel';
-import { HeroArt } from '@/components/home/HeroArt';
-import { HeartHandshake } from 'lucide-react';
+import { AlliesGrid } from '@/components/donation/AlliesGrid';
+import { HeroCarousel } from '@/components/home/HeroCarousel';
+import { HeartHandshake, Award } from 'lucide-react';
 import { useCountry } from '@/stores/countryStore';
 import { COUNTRIES } from '@/data/countries';
 import { useIdleReady } from '@/hooks/useIdleReady';
@@ -44,7 +44,7 @@ export function Home() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-10">
       {/* HÉROE */}
-      <section className="grid items-center gap-8 lg:grid-cols-2">
+      <section className="grid items-start gap-8 lg:grid-cols-2">
         <div className="order-last text-left lg:order-first">
           <h1 className="text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl">
             {t('home.title')}
@@ -93,7 +93,7 @@ export function Home() {
         </div>
 
         <div className="order-first lg:order-last">
-          <HeroArt className="mx-auto w-full max-w-md" />
+          <HeroCarousel className="mx-auto w-full max-w-md lg:max-w-sm" />
         </div>
       </section>
 
@@ -127,14 +127,22 @@ export function Home() {
         </div>
       </section>
 
-      {/* Aliados + donantes: misma estructura que la sección del Kit —
-          izquierda un bloque de texto (aquí el carrusel de aliados), derecha una
-          tarjeta con el mismo contenedor degradado. En móvil se apilan. */}
+      {/* Fundadores + Donantes: dos tarjetas gemelas (mismo contenedor degradado
+          que la sección del Kit). Cada una conduce a su muro. En móvil se apilan. */}
       <section className="mt-16 grid items-stretch gap-8 lg:grid-cols-2">
-        <div className="flex flex-col justify-center">
-          {/* La leyenda es visible SIEMPRE, aunque aún no haya aliados cargados. */}
-          <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-muted">{t('allies.title')}</h2>
-          {idleReady && <AlliesCarousel showHeading={false} />}
+        <div className="overflow-hidden rounded-3xl border border-brand-100 bg-gradient-to-br from-brand-50 to-white p-6 sm:p-8">
+          <div className="flex h-full flex-col justify-center">
+            <span className="inline-flex w-fit items-center gap-2 rounded-full bg-white px-3 py-1 text-sm font-semibold text-brand-700 shadow-sm">
+              <Award className="h-4 w-4" aria-hidden="true" /> {t('home.founders.badge')}
+            </span>
+            <h2 className="mt-3 text-2xl font-bold text-slate-900">{t('home.founders.title')}</h2>
+            <p className="mt-2 leading-relaxed text-slate-700">{t('home.founders.body')}</p>
+            <div className="mt-5 flex flex-wrap gap-2">
+              <Button size="lg" onClick={() => navigate('/fundadores')} leadingIcon={<Award className="h-5 w-5" />}>
+                {t('home.founders.cta')}
+              </Button>
+            </div>
+          </div>
         </div>
 
         <div className="overflow-hidden rounded-3xl border border-brand-100 bg-gradient-to-br from-brand-50 to-white p-6 sm:p-8">
@@ -151,6 +159,13 @@ export function Home() {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* Aliados: banda a todo el ancho debajo de Fundadores/Donantes, para que el
+          grid pueda estirarse horizontalmente y mostrar más logos por fila. */}
+      <section className="mt-16">
+        <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-muted">{t('allies.title')}</h2>
+        {idleReady && <AlliesGrid />}
       </section>
 
       {idleReady && <ContentCarousel />}

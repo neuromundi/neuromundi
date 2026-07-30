@@ -16,6 +16,7 @@ import { useParentPendingTransactions } from '@/hooks/useRealtime';
 import { useTransactions } from '@/hooks/useTransactions';
 import { useParentDiscounts, type ParentDiscount } from '@/hooks/useParentDiscounts';
 import { QRGenerator } from './QRGenerator';
+import { NeuromundiIdCard } from './NeuromundiIdCard';
 import { SurveyModal } from './SurveyModal';
 import { ParentPrescriptions } from './ParentPrescriptions';
 import { MyAppointments } from '@/components/booking/MyAppointments';
@@ -148,10 +149,16 @@ export function ParentDashboard() {
         tabs={[
           {
             id: 'qr',
-            label: t('parent.tabs.qr'),
+            label: t('parent.tabs.nid'),
             icon: <QrCode className="h-4 w-4" aria-hidden="true" />,
             content: profile ? (
-              <QRGenerator profile={profile} />
+              <div className="space-y-6">
+                <NeuromundiIdCard profile={profile} />
+                <details className="mx-auto max-w-md rounded-2xl border border-slate-100 p-3">
+                  <summary className="cursor-pointer text-sm font-semibold text-slate-700">{t('parent.tabs.qr')}</summary>
+                  <div className="mt-3"><QRGenerator profile={profile} /></div>
+                </details>
+              </div>
             ) : (
               <SkeletonCard rows={0} />
             ),

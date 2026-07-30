@@ -1,7 +1,7 @@
 /**
  * ProviderProfile — perfil público de un proveedor (internacionalizado).
  */
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import {
   Radar,
@@ -11,7 +11,7 @@ import {
   PolarRadiusAxis,
   ResponsiveContainer,
 } from 'recharts';
-import { ArrowLeft, MapPin, ShieldCheck, Tag, Users, Sparkles, Waves, LifeBuoy, Heart, Star } from 'lucide-react';
+import { ArrowLeft, MapPin, ShieldCheck, Tag, Users, Sparkles, Waves, LifeBuoy, Heart, Star, BadgeCheck } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useCatLabel } from '@/lib/catLabel';
 import { Button, EVSBadge, SkeletonCard, DistintivoBadge, FounderBadge } from '@/components/ui';
@@ -25,7 +25,10 @@ import { useOffers } from '@/hooks/useOffers';
 import { useAuth } from '@/hooks/useAuth';
 import { DonateCallout } from '@/components/donation/DonateCallout';
 import { ProviderReviews } from '@/components/directory/ProviderReviews';
+import { ProviderReviewModal } from '@/components/directory/ProviderReviewModal';
 import { SchoolInclusionInfo } from '@/components/directory/SchoolInclusionInfo';
+import { EsparcimientoInfo } from '@/components/directory/EsparcimientoInfo';
+import { useProviderReview } from '@/hooks/useProviderReview';
 import { trackProfileEvent } from '@/hooks/useProviderMetrics';
 import { discountLabel } from '@/lib/utils';
 import { DIMENSION_LABEL_KEY } from '@/types/app';
@@ -40,6 +43,8 @@ export function ProviderProfile() {
   const { badge } = useProviderBadge(id);
   const { isFounder } = useFounderStatus(id);
   const { rating, radar } = useProviderRatings(id, profile?.provider_type ?? null);
+  const { canReview } = useProviderReview(isConsumer || isParent ? id : null);
+  const [reviewOpen, setReviewOpen] = useState(false);
   const { offers } = useOffers(id);
   const activeOffers = offers.filter((o) => o.status === 'active');
 
@@ -109,6 +114,11 @@ export function ProviderProfile() {
                 <Sparkles className="h-3.5 w-3.5" aria-hidden="true" /> {t('neuro.seal')}
               </span>
             )}
+            {profile.accepts_neuromundi_id && (
+              <span className="inline-flex items-center gap-1 rounded-full bg-brand-50 px-2.5 py-1 text-xs font-semibold text-brand-700" title={t('nid.acceptsHint')}>
+                <BadgeCheck className="h-3.5 w-3.5" aria-hidden="true" /> {t('nid.accepts')}
+              </span>
+            )}
           </div>
           {profile.city && (
             <p className="flex items-center gap-1 text-sm text-muted">
@@ -130,7 +140,21 @@ export function ProviderProfile() {
           {isParent && <SaveToListButton providerId={id} />}
           {isConsumer && profile.provider_type === 'service_provider' && <BookAppointment providerId={id} />}
           {isConsumer && profile.provider_type === 'school' && <BookAppointment providerId={id} label={t('school.tour')} />}
+          {(isConsumer || isParent) && userId !== id && canReview && (
+            <Button variant="secondary" leadingIcon={<Star className="h-4 w-4" />} onClick={() => setReviewOpen(true)}>
+              {t('review.button')}
+            </Button>
+          )}
         </div>
+      )}
+
+      {reviewOpen && (
+        <ProviderReviewModal
+          providerId={id}
+          providerName={profile.business_name ?? profile.full_name ?? ''}
+          providerType={profile.provider_type ?? null}
+          onClose={() => setReviewOpen(false)}
+        />
       )}
 
       {/* Gratitud contextual: a la familia que acaba de encontrar especialista. */}
@@ -141,6 +165,11 @@ export function ProviderProfile() {
       {/* Programa de inclusión (escuelas y clínicas). */}
       {(profile.provider_type === 'school' || profile.provider_type === 'clinic') && (
         <SchoolInclusionInfo details={profile.provider_details as Record<string, unknown> | null} grades={profile.school_grades} />
+      )}
+
+      {/* Accesibilidad del lugar de esparcimiento. */}
+      {profile.provider_type === 'tourism' && (
+        <EsparcimientoInfo details={profile.provider_details as Record<string, unknown> | null} />
       )}
 
       {categories.length > 0 && (

@@ -117,14 +117,14 @@ export function useMembership() {
   }, []);
 
   const redeemPromo = useCallback(
-    async (code: string): Promise<Result<true> & { reason?: string }> => {
+    async (code: string): Promise<Result<true> & { reason?: string; benefit?: string; percentOff?: number | null; amountOff?: number | null; amountCurrency?: string | null }> => {
       try {
         const { data, error } = await supabase.rpc('redeem_promo_code', { p_code: code });
         if (error) throw error;
-        const res = data as { ok: boolean; error?: string };
+        const res = data as { ok: boolean; error?: string; benefit?: string; percent_off?: number | null; amount_off?: number | null; amount_currency?: string | null };
         if (!res?.ok) return { ok: false, error: res?.error ?? 'invalid', reason: res?.error };
         await load();
-        return { ok: true, data: true };
+        return { ok: true, data: true, benefit: res.benefit, percentOff: res.percent_off ?? null, amountOff: res.amount_off ?? null, amountCurrency: res.amount_currency ?? null };
       } catch (e) {
         return { ok: false, error: toMessage(e, 'invalid') };
       }

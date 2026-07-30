@@ -25,11 +25,13 @@ import { ProviderRegister } from '@/pages/ProviderRegister';
 import { SchoolRegister } from '@/pages/SchoolRegister';
 import { ClinicRegister } from '@/pages/ClinicRegister';
 import { KProviderRegister } from '@/pages/KProviderRegister';
+import { CompanyRegister } from '@/pages/CompanyRegister';
+import { EsparcimientoRegister } from '@/pages/EsparcimientoRegister';
 import type { KType } from '@/data/kCatalog';
 import type { RegType } from '@/lib/schemas';
 
 type Role = 'patient' | 'parent' | 'provider';
-type PType = 'service_provider' | 'merchant' | 'school' | 'clinic' | KType;
+type PType = 'service_provider' | 'merchant' | 'school' | 'clinic' | KType | 'company';
 
 const K_SET = new Set<string>(['wellness', 'tourism', 'legal', 'ngo', 'caregiver']);
 
@@ -45,6 +47,7 @@ const TYPES: { role: Role; ptype?: PType; key: string }[] = [
   { role: 'provider', ptype: 'legal', key: 'create.cards.legal.title' },
   { role: 'provider', ptype: 'ngo', key: 'create.cards.ngo.title' },
   { role: 'provider', ptype: 'caregiver', key: 'create.cards.caregiver.title' },
+  { role: 'provider', ptype: 'company', key: 'create.cards.company.title' },
 ];
 
 export function SocialOnboarding() {
@@ -128,7 +131,9 @@ export function SocialOnboarding() {
                   {choice.ptype === 'clinic' && <ClinicRegister complete />}
                   {choice.ptype === 'merchant' && <ProviderRegister complete />}
                   {choice.ptype === 'school' && <SchoolRegister complete />}
-                  {choice.ptype && K_SET.has(choice.ptype) && (
+                  {choice.ptype === 'company' && <CompanyRegister complete />}
+                  {choice.ptype === 'tourism' && <EsparcimientoRegister complete />}
+                  {choice.ptype && choice.ptype !== 'tourism' && K_SET.has(choice.ptype) && (
                     <KProviderRegister typeKey={choice.ptype as KType} complete />
                   )}
                 </>

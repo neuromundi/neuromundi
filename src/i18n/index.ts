@@ -27,6 +27,7 @@ export const SUPPORTED_LANGUAGES = [
   { code: 'zh', label: '中文' },
   { code: 'ar', label: 'العربية' },
   { code: 'he', label: 'עברית' },
+  { code: 'ko', label: '한국어' },
 ] as const;
 
 export type LanguageCode = (typeof SUPPORTED_LANGUAGES)[number]['code'];
@@ -50,6 +51,14 @@ export function applyDirection(code: string): void {
   document.documentElement.dir = isRtl(code) ? 'rtl' : 'ltr';
 }
 
+/** Fija el título de la pestaña del navegador con el texto localizado
+ *  (`meta.title`). Cae al propio idioma, cuya paridad de claves es 0. */
+export function applyDocumentTitle(): void {
+  if (typeof document === 'undefined') return;
+  const title = i18n.t('meta.title');
+  if (title && title !== 'meta.title') document.title = title;
+}
+
 /** Mapea el idioma de la app a un locale BCP-47 para Intl (fechas, números). */
 const LOCALE_MAP: Record<LanguageCode, string> = {
   es: 'es-MX',
@@ -62,6 +71,7 @@ const LOCALE_MAP: Record<LanguageCode, string> = {
   zh: 'zh-CN',
   ar: 'ar',
   he: 'he-IL',
+  ko: 'ko-KR',
 };
 
 /**
@@ -96,11 +106,32 @@ const LOADERS: Record<LanguageCode, () => Promise<{ default: Record<string, unkn
   zh: () => import('./locales/zh.json'),
   ar: () => import('./locales/ar.json'),
   he: () => import('./locales/he.json'),
+  ko: () => import('./locales/ko.json'),
+};
+
+/**
+ * Chunks CRÍTICOS: solo los namespaces que se pintan en el primer render de la
+ * portada (encabezado + home + pie + intro). Los genera `scripts/gen_i18n_critical.mjs`
+ * en cada build. Son ~9 KB (vs ~150 KB del completo), así que la app monta sin
+ * esperar el diccionario entero y el resto se fusiona en segundo plano.
+ */
+const CRITICAL_LOADERS: Record<LanguageCode, () => Promise<{ default: Record<string, unknown> }>> = {
+  es: () => import('./critical/es.crit.json'),
+  en: () => import('./critical/en.crit.json'),
+  fr: () => import('./critical/fr.crit.json'),
+  de: () => import('./critical/de.crit.json'),
+  it: () => import('./critical/it.crit.json'),
+  pt: () => import('./critical/pt.crit.json'),
+  ja: () => import('./critical/ja.crit.json'),
+  zh: () => import('./critical/zh.crit.json'),
+  ar: () => import('./critical/ar.crit.json'),
+  he: () => import('./critical/he.crit.json'),
+  ko: () => import('./critical/ko.crit.json'),
 };
 
 const loaded = new Set<LanguageCode>();
 
-/** Descarga un idioma y lo registra en i18next (una sola vez por idioma). */
+/** Descarga el diccionario COMPLETO de un idioma y lo fusiona (una vez por idioma). */
 async function loadLanguage(code: LanguageCode): Promise<void> {
   if (loaded.has(code)) return;
   const mod = await LOADERS[code]();
@@ -109,15 +140,15 @@ async function loadLanguage(code: LanguageCode): Promise<void> {
 }
 
 /**
- * Arranca i18n con el idioma detectado YA cargado. main.tsx espera esta promesa
- * antes de montar la app, así que nadie ve claves sin traducir.
+ * Arranca i18n con el chunk CRÍTICO del idioma detectado (pequeño, precargado
+ * desde index.html) y monta la app enseguida; el diccionario completo se descarga
+ * y fusiona en segundo plano. Así el LCP no espera a las ~2.7k claves.
  */
 export async function initI18n(): Promise<void> {
   const lng = detectInitial();
-  const mod = await LOADERS[lng]();
-  loaded.add(lng);
+  const crit = await CRITICAL_LOADERS[lng]();
   await i18n.use(initReactI18next).init({
-    resources: { [lng]: { translation: mod.default } },
+    resources: { [lng]: { translation: crit.default } },
     lng,
     // Apunta al propio idioma: el respaldo nunca debe ser un bundle no
     // descargado. La paridad de claves es 0, así que no se pierde nada.
@@ -125,6 +156,9 @@ export async function initI18n(): Promise<void> {
     interpolation: { escapeValue: false },
   });
   applyDirection(lng);
+  applyDocumentTitle();
+  // Fusiona el diccionario completo tras montar (no bloquea el primer pintado).
+  void loadLanguage(lng).then(applyDocumentTitle);
 }
 
 /** Cambia el idioma y lo recuerda. Descarga su diccionario si hace falta. */
@@ -132,7 +166,7 @@ export function changeLanguage(code: LanguageCode): void {
   if (typeof window !== 'undefined') {
     window.localStorage.setItem(STORAGE_KEY, code);
   }
-  void loadLanguage(code).then(() => i18n.changeLanguage(code));
+  void loadLanguage(code).then(() => i18n.changeLanguage(code).then(applyDocumentTitle));
   applyDirection(code);
 }
 

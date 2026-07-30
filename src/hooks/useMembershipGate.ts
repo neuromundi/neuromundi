@@ -18,15 +18,16 @@ import { useAuthStore } from '@/stores/authStore';
 const POLL_MS = 20000;
 
 export function useMembershipGate() {
-  const { isAuthenticated, isAdmin, role } = useAuth();
+  const { isAuthenticated, isAdmin, isAdvisor, role, providerType } = useAuth();
   const { status, daysLeft, loading, reload } = useMembership();
   const refreshProfile = useAuthStore((s) => s.refreshProfile);
 
   const [justReactivated, setJustReactivated] = useState(false);
   const wasBlocked = useRef(false);
 
-  // Solo pagan cuota los prestadores (servicios, comercios, escuelas).
-  const mustPay = isAuthenticated && !isAdmin && role === 'provider';
+  // Solo pagan cuota los prestadores (servicios, comercios, escuelas). Las
+  // Empresas inclusivas (provider_type='company') son SIEMPRE gratuitas.
+  const mustPay = isAuthenticated && !isAdmin && !isAdvisor && role === 'provider' && providerType !== 'company';
   const graceOver = status === 'pending' && (daysLeft ?? 0) <= 0;
   const blocked = mustPay && !loading && (status === 'past_due' || graceOver);
 
