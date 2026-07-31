@@ -220,14 +220,12 @@ export function useTribeForums(filters: ForumFilters) {
 
   useEffect(() => { void load(); }, [load]);
 
-  const create = useCallback(async (input: { title: string; description: string; theme: string; country: string; city: string; language: string }): Promise<boolean> => {
-    const { data: auth } = await supabase.auth.getUser();
-    const uid = auth.user?.id;
-    if (!uid) return false;
-    const { error } = await supabase.from('tribe_forums').insert({
-      creator_id: uid, title: input.title, description: input.description || null,
-      theme: input.theme || null, country: input.country || null, city: input.city || null,
-      language: input.language || null, status: 'pending',
+  const create = useCallback(async (input: { title: string; description: string; theme: string; country: string; city: string; language: string; notifyCountries: string[]; applyModerator: boolean }): Promise<boolean> => {
+    const { error } = await supabase.rpc('tribe_create_forum', {
+      p_title: input.title, p_description: input.description || '', p_theme: input.theme || '',
+      p_country: input.country || '', p_city: input.city || '', p_language: input.language || '',
+      p_notify_countries: input.notifyCountries.length ? input.notifyCountries : null,
+      p_apply_moderator: input.applyModerator,
     });
     if (!error) await load();
     return !error;
@@ -242,7 +240,36 @@ export function useTribeForums(filters: ForumFilters) {
     return !error;
   }, [load]);
 
-  return { forums, loading, reload: load, create, joinForum };
+  const closeForum = useCallback(async (forumId: string): Promise<boolean> => {
+    const { error } = await supabase.rpc('tribe_close_forum', { p_forum: forumId });
+    if (!error) await load();
+    return !error;
+  }, [load]);
+
+  return { forums, loading, reload: load, create, joinForum, closeForum };
+}
+
+/** Preferencias de push de foros de Tribu (activar + países de interés). */
+export function useTribeForumPrefs() {
+  const [prefs, setPrefs] = useState<{ push_enabled: boolean; countries: string[] }>({ push_enabled: true, countries: [] });
+  const [loading, setLoading] = useState(true);
+
+  const load = useCallback(async () => {
+    setLoading(true);
+    const { data } = await supabase.rpc('tribe_forum_prefs_get');
+    const row = (data as { push_enabled: boolean; countries: string[] | null }[] | null)?.[0];
+    setPrefs({ push_enabled: row?.push_enabled ?? true, countries: row?.countries ?? [] });
+    setLoading(false);
+  }, []);
+  useEffect(() => { void load(); }, [load]);
+
+  const save = useCallback(async (push_enabled: boolean, countries: string[]): Promise<boolean> => {
+    const { error } = await supabase.rpc('tribe_forum_prefs_set', { p_push: push_enabled, p_countries: countries.length ? countries : null });
+    if (!error) setPrefs({ push_enabled, countries });
+    return !error;
+  }, []);
+
+  return { prefs, loading, save };
 }
 
 export interface TribeMessage {

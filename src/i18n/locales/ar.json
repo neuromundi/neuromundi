@@ -1313,6 +1313,26 @@
     "topicVenue": {
       "title": "مكان ترفيه جديد",
       "body": "{{name}} · {{place}}"
+    },
+    "forumNew": {
+      "title": "منتدى جديد في القبيلة",
+      "body": "تم فتح المنتدى «{{title}}»."
+    },
+    "forumPending": {
+      "title": "منتداك قيد المراجعة",
+      "body": "يخضع لموافقة المشرف وتعيين مشرف وميثاق Neuromundi الأخلاقي."
+    },
+    "forumApproved": {
+      "title": "تمت الموافقة على المنتدى",
+      "body": "منتداك «{{title}}» متاح الآن."
+    },
+    "forumModCall": {
+      "title": "دعوة للإشراف",
+      "body": "مطلوب مشرفون لـ «{{title}}»."
+    },
+    "forumModApproved": {
+      "title": "تمت الموافقة على الإشراف",
+      "body": "أنت الآن تُشرف على منتدى في القبيلة."
     }
   },
   "clin": {
@@ -3382,7 +3402,8 @@
         "forums": "المنتديات",
         "moderators": "المشرفون",
         "members": "الأعضاء",
-        "messages": "الرسائل"
+        "messages": "الرسائل",
+        "forummods": "الطلبات"
       },
       "modEmptyTitle": "لا طلبات",
       "modEmpty": "لا مشرفين في هذه الحالة.",
@@ -3405,7 +3426,11 @@
       "noMsgsTitle": "لا رسائل",
       "noMsgs": "لا توجد رسائل في هذا المنتدى.",
       "msgDelete": "حذف الرسالة",
-      "msgDeleted": "تم حذف الرسالة"
+      "msgDeleted": "تم حذف الرسالة",
+      "called": "تم إرسال الدعوة",
+      "callMods": "دعوة مشرفين",
+      "closeForum": "إغلاق المنتدى",
+      "forumLabel": "منتدى"
     }
   },
   "callout": {
@@ -4263,7 +4288,24 @@
       "ready": "لديك حساب بالفعل: انضم إلى القبيلة لتبدأ المشاركة.",
       "createBtn": "إنشاء حساب",
       "loginBtn": "تسجيل الدخول"
-    }
+    },
+    "forumTerms": "عند إنشاء المنتدى يبقى بانتظار موافقة المشرف وتعيين مشرف معتمد. تذكّر احترام قواعد المنتديات وميثاق Neuromundi الأخلاقي.",
+    "notifyCountries": "بلدان الإشعار",
+    "allCountries": "كل البلدان",
+    "applyAsModerator": "التقدّم للإشراف على هذا المنتدى (رهناً بالموافقة)",
+    "applyModShort": "التقدّم للإشراف",
+    "modApplied": "تم إرسال طلب الإشراف",
+    "closeForum": "إغلاق المنتدى",
+    "closeForumConfirm": "إغلاق هذا المنتدى؟ لن يعود متاحاً.",
+    "forumClosed": "تم إغلاق المنتدى",
+    "forumsPanelTitle": "منتديات القبيلة",
+    "forumsTab": "المنتديات",
+    "forumPushOn": "التنبيهات مفعّلة",
+    "forumPushOff": "التنبيهات موقوفة",
+    "interestCountries": "البلدان محل الاهتمام",
+    "currentForums": "المنتديات الحالية",
+    "goToTribe": "إلى القبيلة",
+    "prefsSaved": "تم حفظ التفضيل"
   },
   "nid": {
     "member": "عضو Neuromundi",

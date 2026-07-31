@@ -71,14 +71,23 @@ export function NotificationsBell() {
                 const isCosto = n.type === 'account_costo';
                 const isTopicJob = n.type === 'topic_job';
                 const isTopicVenue = n.type === 'topic_venue';
+                const isForumNew = n.type === 'forum_new';
+                const isForumPending = n.type === 'forum_pending';
+                const isForumApproved = n.type === 'forum_approved';
+                const isForumModCall = n.type === 'forum_mod_call';
+                const isForumModApproved = n.type === 'forum_mod_approved';
+                const isForum = isForumNew || isForumPending || isForumApproved || isForumModCall || isForumModApproved;
+                const fd = (n.data ?? {}) as { title?: string; country?: string };
                 const td = (n.data ?? {}) as { opportunity_type?: string; title?: string; name?: string; country?: string; city?: string };
                 const tPlace = [td.city, td.country].filter(Boolean).join(', ');
                 const ad = (n.data ?? {}) as { specialist_name?: string; recipient_name?: string; reason?: string; title?: string; from_name?: string };
                 const apptSuffix = n.type.replace('appt_', '');
                 const apptTitle = isAppt ? t(`notif.appt.${apptSuffix}.title`) : n.title;
                 const apptBody = isAppt ? t(`notif.appt.${apptSuffix}.body`, { name: ad.specialist_name || ad.recipient_name || '', title: ad.title || '', reason: ad.reason || '' }) : n.body;
-                const rowTitle = isTopicJob ? t('notif.topicJob.title') : isTopicVenue ? t('notif.topicVenue.title') : isBooking ? t('notif.booking.title') : isDM ? t('notif.dm.title') : isWaitSlot ? t('notif.waitlist.title') : isWaitJoin ? t('notif.waitlist.join') : n.type === 'referral_reward' ? t('notif.referral.reward') : isReferral ? t('notif.referral.title') : isCommission ? t('notif.commission.title') : isDirMatch ? t('notif.dirMatch.title') : apptTitle;
-                const rowBody = isTopicJob ? t('notif.topicJob.body', { type: t(`labor.type.${td.opportunity_type}`, { defaultValue: '' }), place: tPlace }) : isTopicVenue ? t('notif.topicVenue.body', { name: td.name || '', place: tPlace }) : isBooking ? t('notif.booking.body', { name: (n.data as { name?: string } | null)?.name ?? '' }) : isDM ? t('notif.dm.body', { name: ad.from_name || '' }) : apptBody;
+                const forumTitle = isForumNew ? t('notif.forumNew.title') : isForumPending ? t('notif.forumPending.title') : isForumApproved ? t('notif.forumApproved.title') : isForumModCall ? t('notif.forumModCall.title') : t('notif.forumModApproved.title');
+                const forumBody = isForumNew ? t('notif.forumNew.body', { title: fd.title || '' }) : isForumPending ? t('notif.forumPending.body') : isForumApproved ? t('notif.forumApproved.body', { title: fd.title || '' }) : isForumModCall ? t('notif.forumModCall.body', { title: fd.title || '' }) : t('notif.forumModApproved.body');
+                const rowTitle = isForum ? forumTitle : isTopicJob ? t('notif.topicJob.title') : isTopicVenue ? t('notif.topicVenue.title') : isBooking ? t('notif.booking.title') : isDM ? t('notif.dm.title') : isWaitSlot ? t('notif.waitlist.title') : isWaitJoin ? t('notif.waitlist.join') : n.type === 'referral_reward' ? t('notif.referral.reward') : isReferral ? t('notif.referral.title') : isCommission ? t('notif.commission.title') : isDirMatch ? t('notif.dirMatch.title') : apptTitle;
+                const rowBody = isForum ? forumBody : isTopicJob ? t('notif.topicJob.body', { type: t(`labor.type.${td.opportunity_type}`, { defaultValue: '' }), place: tPlace }) : isTopicVenue ? t('notif.topicVenue.body', { name: td.name || '', place: tPlace }) : isBooking ? t('notif.booking.body', { name: (n.data as { name?: string } | null)?.name ?? '' }) : isDM ? t('notif.dm.body', { name: ad.from_name || '' }) : apptBody;
                 return (
                   <li key={n.id}>
                     <button
@@ -102,6 +111,7 @@ export function NotificationsBell() {
                         {isCosto && <AlertTriangle className="h-4 w-4 shrink-0 text-amber-600" />}
                         {isTopicJob && <Briefcase className="h-4 w-4 shrink-0 text-brand-600" />}
                         {isTopicVenue && <Ticket className="h-4 w-4 shrink-0 text-brand-600" />}
+                        {isForum && <Users className="h-4 w-4 shrink-0 text-brand-600" />}
                         <span className="text-sm font-semibold text-slate-900">{rowTitle}</span>
                       </div>
                       {rowBody && <p className="mt-0.5 text-sm text-slate-600">{rowBody}</p>}

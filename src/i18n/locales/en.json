@@ -1313,6 +1313,26 @@
     "topicVenue": {
       "title": "New leisure venue",
       "body": "{{name}} · {{place}}"
+    },
+    "forumNew": {
+      "title": "New forum in the Tribe",
+      "body": "The forum “{{title}}” is now open."
+    },
+    "forumPending": {
+      "title": "Your forum is under review",
+      "body": "It is subject to admin approval, moderator assignment and the Neuromundi code of ethics."
+    },
+    "forumApproved": {
+      "title": "Forum approved",
+      "body": "Your forum “{{title}}” is now available."
+    },
+    "forumModCall": {
+      "title": "Moderation call",
+      "body": "Moderators wanted for “{{title}}”."
+    },
+    "forumModApproved": {
+      "title": "Moderation approved",
+      "body": "You now moderate a Tribe forum."
     }
   },
   "clin": {
@@ -3382,7 +3402,8 @@
         "forums": "Forums",
         "moderators": "Moderators",
         "members": "Members",
-        "messages": "Messages"
+        "messages": "Messages",
+        "forummods": "Applications"
       },
       "modEmptyTitle": "No applications",
       "modEmpty": "No moderators in this state.",
@@ -3405,7 +3426,11 @@
       "noMsgsTitle": "No messages",
       "noMsgs": "This forum has no messages.",
       "msgDelete": "Delete message",
-      "msgDeleted": "Message deleted"
+      "msgDeleted": "Message deleted",
+      "called": "Call sent",
+      "callMods": "Call moderators",
+      "closeForum": "Close forum",
+      "forumLabel": "Forum"
     }
   },
   "callout": {
@@ -4263,7 +4288,24 @@
       "ready": "You already have an account — join the Tribe to start taking part.",
       "createBtn": "Create account",
       "loginBtn": "Log in"
-    }
+    },
+    "forumTerms": "Once created, the forum is pending admin approval and the assignment of an authorized moderator. Remember to follow the forum rules and the Neuromundi code of ethics.",
+    "notifyCountries": "Countries to notify",
+    "allCountries": "all countries",
+    "applyAsModerator": "Apply to moderate this forum (subject to approval)",
+    "applyModShort": "Apply to moderate",
+    "modApplied": "Moderation application sent",
+    "closeForum": "Close forum",
+    "closeForumConfirm": "Close this forum? It will no longer be available.",
+    "forumClosed": "Forum closed",
+    "forumsPanelTitle": "Tribe forums",
+    "forumsTab": "Forums",
+    "forumPushOn": "Alerts on",
+    "forumPushOff": "Alerts off",
+    "interestCountries": "Countries of interest",
+    "currentForums": "Current forums",
+    "goToTribe": "Go to the Tribe",
+    "prefsSaved": "Preference saved"
   },
   "nid": {
     "member": "Neuromundi Member",

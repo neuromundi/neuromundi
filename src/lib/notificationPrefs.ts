@@ -32,7 +32,12 @@ export function notifCategory(type: string): NotifCategory {
     type === 'directory_match' ||
     type === 'suspension_reminder' ||
     type === 'topic_job' ||
-    type === 'topic_venue'
+    type === 'topic_venue' ||
+    type === 'forum_new' ||
+    type === 'forum_pending' ||
+    type === 'forum_approved' ||
+    type === 'forum_mod_call' ||
+    type === 'forum_mod_approved'
   )
     return 'comunidad';
   if (type === 'commission_paid' || type === 'donation_thanks') return 'transacciones';

@@ -1277,6 +1277,26 @@
     "topicVenue": {
       "title": "Neuer Freizeitort",
       "body": "{{name}} · {{place}}"
+    },
+    "forumNew": {
+      "title": "Neues Forum im Tribe",
+      "body": "Das Forum „{{title}}“ ist jetzt offen."
+    },
+    "forumPending": {
+      "title": "Dein Forum wird geprüft",
+      "body": "Es unterliegt der Freigabe des Administrators, der Zuweisung eines Moderators und dem Ethikkodex von Neuromundi."
+    },
+    "forumApproved": {
+      "title": "Forum freigegeben",
+      "body": "Dein Forum „{{title}}“ ist jetzt verfügbar."
+    },
+    "forumModCall": {
+      "title": "Moderations-Aufruf",
+      "body": "Moderatoren gesucht für „{{title}}“."
+    },
+    "forumModApproved": {
+      "title": "Moderation freigegeben",
+      "body": "Du moderierst jetzt ein Tribe-Forum."
     }
   },
   "clin": {
@@ -3382,7 +3402,8 @@
         "forums": "Foren",
         "moderators": "Moderatoren",
         "members": "Mitglieder",
-        "messages": "Nachrichten"
+        "messages": "Nachrichten",
+        "forummods": "Bewerbungen"
       },
       "modEmptyTitle": "Keine Bewerbungen",
       "modEmpty": "Keine Moderatoren in diesem Status.",
@@ -3405,7 +3426,11 @@
       "noMsgsTitle": "Keine Nachrichten",
       "noMsgs": "Dieses Forum hat keine Nachrichten.",
       "msgDelete": "Nachricht löschen",
-      "msgDeleted": "Nachricht gelöscht"
+      "msgDeleted": "Nachricht gelöscht",
+      "called": "Aufruf gesendet",
+      "callMods": "Moderatoren aufrufen",
+      "closeForum": "Forum schließen",
+      "forumLabel": "Forum"
     }
   },
   "callout": {
@@ -4263,7 +4288,24 @@
       "ready": "Du hast schon ein Konto – tritt der Tribe bei und mach mit.",
       "createBtn": "Konto erstellen",
       "loginBtn": "Anmelden"
-    }
+    },
+    "forumTerms": "Nach dem Erstellen wartet das Forum auf die Freigabe des Administrators und die Zuweisung eines autorisierten Moderators. Beachte die Forenregeln und den Ethikkodex von Neuromundi.",
+    "notifyCountries": "Zu benachrichtigende Länder",
+    "allCountries": "alle Länder",
+    "applyAsModerator": "Als Moderator dieses Forums bewerben (vorbehaltlich Freigabe)",
+    "applyModShort": "Bewerben",
+    "modApplied": "Moderationsbewerbung gesendet",
+    "closeForum": "Forum schließen",
+    "closeForumConfirm": "Dieses Forum schließen? Es ist dann nicht mehr verfügbar.",
+    "forumClosed": "Forum geschlossen",
+    "forumsPanelTitle": "Tribe-Foren",
+    "forumsTab": "Foren",
+    "forumPushOn": "Hinweise an",
+    "forumPushOff": "Hinweise aus",
+    "interestCountries": "Länder von Interesse",
+    "currentForums": "Aktive Foren",
+    "goToTribe": "Zum Tribe",
+    "prefsSaved": "Einstellung gespeichert"
   },
   "nid": {
     "member": "Neuromundi-Mitglied",

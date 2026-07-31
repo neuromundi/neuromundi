@@ -1313,6 +1313,26 @@
     "topicVenue": {
       "title": "새 여가 장소",
       "body": "{{name}} · {{place}}"
+    },
+    "forumNew": {
+      "title": "트라이브 새 포럼",
+      "body": "포럼 \"{{title}}\"이(가) 열렸습니다."
+    },
+    "forumPending": {
+      "title": "포럼이 검토 중입니다",
+      "body": "관리자 승인, 중재자 배정, Neuromundi 윤리 강령의 적용을 받습니다."
+    },
+    "forumApproved": {
+      "title": "포럼 승인됨",
+      "body": "포럼 \"{{title}}\"을(를) 이용할 수 있습니다."
+    },
+    "forumModCall": {
+      "title": "중재자 모집",
+      "body": "\"{{title}}\"의 중재자를 모집합니다."
+    },
+    "forumModApproved": {
+      "title": "중재 승인됨",
+      "body": "이제 트라이브 포럼을 중재합니다."
     }
   },
   "clin": {
@@ -3382,7 +3402,8 @@
         "forums": "포럼",
         "moderators": "모더레이터",
         "members": "회원",
-        "messages": "메시지"
+        "messages": "메시지",
+        "forummods": "신청"
       },
       "modEmptyTitle": "지원 없음",
       "modEmpty": "이 상태의 모더레이터가 없습니다.",
@@ -3405,7 +3426,11 @@
       "noMsgsTitle": "메시지 없음",
       "noMsgs": "이 포럼에는 메시지가 없습니다.",
       "msgDelete": "메시지 삭제",
-      "msgDeleted": "메시지가 삭제되었습니다"
+      "msgDeleted": "메시지가 삭제되었습니다",
+      "called": "모집을 보냈습니다",
+      "callMods": "중재자 모집",
+      "closeForum": "포럼 닫기",
+      "forumLabel": "포럼"
     }
   },
   "callout": {
@@ -4263,7 +4288,24 @@
       "ready": "이미 계정이 있습니다. 트라이브에 참여해 시작하세요.",
       "createBtn": "계정 만들기",
       "loginBtn": "로그인"
-    }
+    },
+    "forumTerms": "포럼을 만들면 관리자 승인과 승인된 중재자 배정이 보류됩니다. 포럼 규칙과 Neuromundi 윤리 강령을 지켜 주세요.",
+    "notifyCountries": "알릴 국가",
+    "allCountries": "모든 국가",
+    "applyAsModerator": "이 포럼의 중재자로 신청(승인 필요)",
+    "applyModShort": "중재 신청",
+    "modApplied": "중재 신청을 보냈습니다",
+    "closeForum": "포럼 닫기",
+    "closeForumConfirm": "이 포럼을 닫을까요? 더 이상 사용할 수 없습니다.",
+    "forumClosed": "포럼이 닫혔습니다",
+    "forumsPanelTitle": "트라이브 포럼",
+    "forumsTab": "포럼",
+    "forumPushOn": "알림 켜짐",
+    "forumPushOff": "알림 꺼짐",
+    "interestCountries": "관심 국가",
+    "currentForums": "현재 포럼",
+    "goToTribe": "트라이브로 이동",
+    "prefsSaved": "설정이 저장되었습니다"
   },
   "nid": {
     "member": "Neuromundi 회원",

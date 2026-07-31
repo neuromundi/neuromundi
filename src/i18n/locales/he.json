@@ -1313,6 +1313,26 @@
     "topicVenue": {
       "title": "מקום פנאי חדש",
       "body": "{{name}} · {{place}}"
+    },
+    "forumNew": {
+      "title": "פורום חדש בשבט",
+      "body": "הפורום «{{title}}» נפתח."
+    },
+    "forumPending": {
+      "title": "הפורום שלך בבדיקה",
+      "body": "כפוף לאישור המנהל, להקצאת מנחה ולקוד האתיקה של Neuromundi."
+    },
+    "forumApproved": {
+      "title": "הפורום אושר",
+      "body": "הפורום שלך «{{title}}» זמין כעת."
+    },
+    "forumModCall": {
+      "title": "קריאה לניהול",
+      "body": "דרושים מנחים ל-«{{title}}»."
+    },
+    "forumModApproved": {
+      "title": "הניהול אושר",
+      "body": "אתם מנחים כעת פורום בשבט."
     }
   },
   "clin": {
@@ -3382,7 +3402,8 @@
         "forums": "פורומים",
         "moderators": "מנחים",
         "members": "חברים",
-        "messages": "הודעות"
+        "messages": "הודעות",
+        "forummods": "מועמדויות"
       },
       "modEmptyTitle": "אין מועמדויות",
       "modEmpty": "אין מנחים במצב זה.",
@@ -3405,7 +3426,11 @@
       "noMsgsTitle": "אין הודעות",
       "noMsgs": "אין הודעות בפורום זה.",
       "msgDelete": "מחק הודעה",
-      "msgDeleted": "ההודעה נמחקה"
+      "msgDeleted": "ההודעה נמחקה",
+      "called": "הקריאה נשלחה",
+      "callMods": "קריאה למנחים",
+      "closeForum": "סגירת פורום",
+      "forumLabel": "פורום"
     }
   },
   "callout": {
@@ -4263,7 +4288,24 @@
       "ready": "כבר יש לך חשבון: הצטרף לשבט כדי להתחיל להשתתף.",
       "createBtn": "יצירת חשבון",
       "loginBtn": "התחברות"
-    }
+    },
+    "forumTerms": "עם היצירה, הפורום ממתין לאישור המנהל ולהקצאת מנחה מורשה. זכרו לכבד את כללי הפורומים ואת קוד האתיקה של Neuromundi.",
+    "notifyCountries": "מדינות ליידוע",
+    "allCountries": "כל המדינות",
+    "applyAsModerator": "להגיש מועמדות לניהול הפורום (בכפוף לאישור)",
+    "applyModShort": "להגיש מועמדות",
+    "modApplied": "בקשת הניהול נשלחה",
+    "closeForum": "סגירת פורום",
+    "closeForumConfirm": "לסגור את הפורום? הוא לא יהיה זמין יותר.",
+    "forumClosed": "הפורום נסגר",
+    "forumsPanelTitle": "פורומים של השבט",
+    "forumsTab": "פורומים",
+    "forumPushOn": "התראות פעילות",
+    "forumPushOff": "התראות כבויות",
+    "interestCountries": "מדינות שמעניינות",
+    "currentForums": "פורומים פעילים",
+    "goToTribe": "אל השבט",
+    "prefsSaved": "ההעדפה נשמרה"
   },
   "nid": {
     "member": "חבר Neuromundi",

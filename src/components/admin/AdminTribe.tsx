@@ -5,11 +5,11 @@
  */
 import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Users, Check, X, RotateCcw, ShieldCheck, UserCog, Search, MessagesSquare, Trash2, ArrowLeft } from 'lucide-react';
+import { Users, Check, X, RotateCcw, ShieldCheck, UserCog, Search, MessagesSquare, Trash2, ArrowLeft, Megaphone, Lock } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { SkeletonCard, EmptyState, Button, useToast } from '@/components/ui';
 
-type Area = 'forums' | 'moderators' | 'members' | 'messages';
+type Area = 'forums' | 'moderators' | 'members' | 'messages' | 'forummods';
 const STATUS_TABS = ['pending', 'approved', 'rejected'] as const;
 
 interface AdminForum { id: string; title: string; description: string | null; theme: string | null; country: string | null; language: string | null; creator_name: string; status: string; created_at: string }
@@ -25,6 +25,7 @@ function ForumsArea() {
   const load = useCallback(async () => { setLoading(true); const { data } = await supabase.rpc('admin_tribe_forums', { p_status: tab }); setRows((data as AdminForum[] | null) ?? []); setLoading(false); }, [tab]);
   useEffect(() => { void load(); }, [load]);
   const setStatus = async (id: string, status: string) => { const { error } = await supabase.rpc('admin_set_forum_status', { p_forum: id, p_status: status }); if (error) toast.error(error.message); else { toast.success(t('adm.tribe.done')); await load(); } };
+  const callMods = async (id: string) => { const { error } = await supabase.rpc('tribe_forum_call_moderators', { p_forum: id }); if (error) toast.error(error.message); else toast.success(t('adm.tribe.called')); };
 
   return (
     <div className="space-y-3">
@@ -37,10 +38,45 @@ function ForumsArea() {
             <p className="font-semibold text-slate-900">{f.title}</p>
             <p className="flex flex-wrap gap-x-2 text-xs text-muted">{f.theme && <span>{f.theme}</span>}{f.language && <span>{f.language}</span>}{f.country && <span>{f.country}</span>}<span>· {f.creator_name}</span></p>
             {f.description && <p className="mt-1 text-sm text-slate-600">{f.description}</p>}
-            <div className="mt-2 flex gap-2">
+            <div className="mt-2 flex flex-wrap gap-2">
               {f.status !== 'approved' && <button type="button" onClick={() => void setStatus(f.id, 'approved')} className="inline-flex items-center gap-1 rounded-lg bg-brand-600 px-2.5 py-1.5 text-sm font-medium text-white hover:bg-brand-700"><Check className="h-4 w-4" /> {t('adm.tribe.approve')}</button>}
-              {f.status !== 'rejected' && <button type="button" onClick={() => void setStatus(f.id, 'rejected')} className="inline-flex items-center gap-1 rounded-lg border border-slate-200 px-2.5 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50"><X className="h-4 w-4" /> {t('adm.tribe.reject')}</button>}
+              {f.status !== 'rejected' && f.status !== 'closed' && <button type="button" onClick={() => void setStatus(f.id, 'rejected')} className="inline-flex items-center gap-1 rounded-lg border border-slate-200 px-2.5 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50"><X className="h-4 w-4" /> {t('adm.tribe.reject')}</button>}
               {f.status !== 'pending' && <button type="button" onClick={() => void setStatus(f.id, 'pending')} className="inline-flex items-center gap-1 rounded-lg border border-slate-200 px-2.5 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50"><RotateCcw className="h-4 w-4" /> {t('adm.tribe.reset')}</button>}
+              {f.status === 'approved' && <button type="button" onClick={() => void callMods(f.id)} className="inline-flex items-center gap-1 rounded-lg border border-brand-200 px-2.5 py-1.5 text-sm font-medium text-brand-700 hover:bg-brand-50"><Megaphone className="h-4 w-4" /> {t('adm.tribe.callMods')}</button>}
+              {f.status === 'approved' && <button type="button" onClick={() => void setStatus(f.id, 'closed')} className="inline-flex items-center gap-1 rounded-lg border border-red-200 px-2.5 py-1.5 text-sm font-medium text-evs-1 hover:bg-red-50"><Lock className="h-4 w-4" /> {t('adm.tribe.closeForum')}</button>}
+            </div>
+          </div>
+        ))}</div>
+      )}
+    </div>
+  );
+}
+
+// Postulaciones de moderador por foro (aprobar/rechazar).
+interface ForumModApp { id: string; forum_title: string; user_id: string; name: string; member_no: number | null; status: string }
+function ForumModsArea() {
+  const { t } = useTranslation();
+  const toast = useToast();
+  const [tab, setTab] = useState<(typeof STATUS_TABS)[number]>('pending');
+  const [rows, setRows] = useState<ForumModApp[]>([]);
+  const [loading, setLoading] = useState(true);
+  const load = useCallback(async () => { setLoading(true); const { data } = await supabase.rpc('admin_forum_moderators', { p_forum: null, p_status: tab }); setRows((data as ForumModApp[] | null) ?? []); setLoading(false); }, [tab]);
+  useEffect(() => { void load(); }, [load]);
+  const setStatus = async (id: string, status: string) => { const { error } = await supabase.rpc('admin_set_forum_moderator', { p_id: id, p_status: status }); if (error) toast.error(error.message); else { toast.success(t('adm.tribe.done')); await load(); } };
+
+  return (
+    <div className="space-y-3">
+      <div className="inline-flex rounded-xl bg-slate-100 p-1">
+        {STATUS_TABS.map((s) => <button key={s} type="button" onClick={() => setTab(s)} className={`rounded-lg px-3 py-1.5 text-sm font-semibold ${tab === s ? 'bg-white text-slate-900 shadow-sm' : 'text-muted'}`}>{t(`adm.tribe.${s}`)}</button>)}
+      </div>
+      {loading ? <SkeletonCard rows={3} /> : rows.length === 0 ? <EmptyState icon={<ShieldCheck className="h-6 w-6" />} title={t('adm.tribe.modEmptyTitle')} description={t('adm.tribe.modEmpty')} /> : (
+        <div className="space-y-2">{rows.map((m) => (
+          <div key={m.id} className="rounded-xl border border-slate-100 bg-white p-3">
+            <p className="font-semibold text-slate-900">{m.name} {m.member_no != null && <span className="font-mono text-xs text-brand-700">NM-{String(m.member_no).padStart(6, '0')}</span>}</p>
+            <p className="text-xs text-muted">{t('adm.tribe.forumLabel')}: {m.forum_title}</p>
+            <div className="mt-2 flex gap-2">
+              {m.status !== 'approved' && <button type="button" onClick={() => void setStatus(m.id, 'approved')} className="inline-flex items-center gap-1 rounded-lg bg-brand-600 px-2.5 py-1.5 text-sm font-medium text-white hover:bg-brand-700"><Check className="h-4 w-4" /> {t('adm.tribe.approve')}</button>}
+              {m.status !== 'rejected' && <button type="button" onClick={() => void setStatus(m.id, 'rejected')} className="inline-flex items-center gap-1 rounded-lg border border-slate-200 px-2.5 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50"><X className="h-4 w-4" /> {t('adm.tribe.reject')}</button>}
             </div>
           </div>
         ))}</div>
@@ -219,7 +255,7 @@ export function AdminTribe() {
   const { t } = useTranslation();
   const [area, setArea] = useState<Area>('forums');
   const AREAS: { key: Area; icon: typeof Users }[] = [
-    { key: 'forums', icon: Users }, { key: 'moderators', icon: ShieldCheck }, { key: 'members', icon: UserCog }, { key: 'messages', icon: MessagesSquare },
+    { key: 'forums', icon: Users }, { key: 'moderators', icon: ShieldCheck }, { key: 'forummods', icon: ShieldCheck }, { key: 'members', icon: UserCog }, { key: 'messages', icon: MessagesSquare },
   ];
 
   return (
@@ -235,7 +271,7 @@ export function AdminTribe() {
           </button>
         ))}
       </div>
-      {area === 'forums' ? <ForumsArea /> : area === 'moderators' ? <ModeratorsArea /> : area === 'members' ? <MembersArea /> : <MessagesArea />}
+      {area === 'forums' ? <ForumsArea /> : area === 'moderators' ? <ModeratorsArea /> : area === 'forummods' ? <ForumModsArea /> : area === 'members' ? <MembersArea /> : <MessagesArea />}
     </div>
   );
 }

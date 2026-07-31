@@ -953,9 +953,23 @@ export interface Database {
       };
 
       tribe_forums: {
-        Row: { id: string; creator_id: string; title: string; description: string | null; theme: string | null; country: string | null; city: string | null; language: string | null; status: string; created_at: string };
-        Insert: { id?: string; creator_id: string; title: string; description?: string | null; theme?: string | null; country?: string | null; city?: string | null; language?: string | null; status?: string; created_at?: string };
+        Row: { id: string; creator_id: string; title: string; description: string | null; theme: string | null; country: string | null; city: string | null; language: string | null; status: string; notify_countries: string[] | null; created_at: string };
+        Insert: { id?: string; creator_id: string; title: string; description?: string | null; theme?: string | null; country?: string | null; city?: string | null; language?: string | null; status?: string; notify_countries?: string[] | null; created_at?: string };
         Update: Partial<Database['public']['Tables']['tribe_forums']['Insert']>;
+        Relationships: [];
+      };
+
+      tribe_forum_prefs: {
+        Row: { user_id: string; push_enabled: boolean; countries: string[] | null; updated_at: string };
+        Insert: { user_id: string; push_enabled?: boolean; countries?: string[] | null; updated_at?: string };
+        Update: Partial<Database['public']['Tables']['tribe_forum_prefs']['Insert']>;
+        Relationships: [];
+      };
+
+      tribe_forum_moderators: {
+        Row: { id: string; forum_id: string; user_id: string; status: string; created_at: string };
+        Insert: { id?: string; forum_id: string; user_id: string; status?: string; created_at?: string };
+        Update: Partial<Database['public']['Tables']['tribe_forum_moderators']['Insert']>;
         Relationships: [];
       };
 
@@ -1327,6 +1341,42 @@ export interface Database {
       tribe_forum_messages: {
         Args: { p_forum: string };
         Returns: { id: string; author_id: string; author_name: string; author_energy: string; author_is_mod: boolean; body: string; created_at: string }[];
+      };
+      tribe_create_forum: {
+        Args: { p_title: string; p_description: string; p_theme: string; p_country: string; p_city: string; p_language: string; p_notify_countries: string[] | null; p_apply_moderator?: boolean };
+        Returns: string;
+      };
+      tribe_close_forum: {
+        Args: { p_forum: string };
+        Returns: undefined;
+      };
+      tribe_am_i_forum_moderator: {
+        Args: { p_forum: string };
+        Returns: boolean;
+      };
+      tribe_apply_forum_moderator: {
+        Args: { p_forum: string };
+        Returns: undefined;
+      };
+      tribe_forum_call_moderators: {
+        Args: { p_forum: string };
+        Returns: undefined;
+      };
+      tribe_forum_prefs_get: {
+        Args: Record<string, never>;
+        Returns: { push_enabled: boolean; countries: string[] | null }[];
+      };
+      tribe_forum_prefs_set: {
+        Args: { p_push: boolean; p_countries: string[] | null };
+        Returns: undefined;
+      };
+      admin_forum_moderators: {
+        Args: { p_forum?: string | null; p_status?: string | null };
+        Returns: { id: string; forum_id: string; forum_title: string; user_id: string; name: string; member_no: number | null; status: string; created_at: string }[];
+      };
+      admin_set_forum_moderator: {
+        Args: { p_id: string; p_status: string };
+        Returns: undefined;
       };
       is_tribe_moderator: {
         Args: { p_uid?: string };

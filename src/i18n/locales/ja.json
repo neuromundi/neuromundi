@@ -1277,6 +1277,26 @@
     "topicVenue": {
       "title": "新しいレジャー施設",
       "body": "{{name}} · {{place}}"
+    },
+    "forumNew": {
+      "title": "トライブに新しいフォーラム",
+      "body": "フォーラム「{{title}}」が開設されました。"
+    },
+    "forumPending": {
+      "title": "フォーラムは審査中です",
+      "body": "管理者の承認、モデレーターの割り当て、Neuromundiの倫理規範の対象です。"
+    },
+    "forumApproved": {
+      "title": "フォーラムが承認されました",
+      "body": "フォーラム「{{title}}」が利用可能になりました。"
+    },
+    "forumModCall": {
+      "title": "モデレーター募集",
+      "body": "「{{title}}」のモデレーターを募集しています。"
+    },
+    "forumModApproved": {
+      "title": "モデレーター承認",
+      "body": "トライブのフォーラムのモデレーターになりました。"
     }
   },
   "clin": {
@@ -3382,7 +3402,8 @@
         "forums": "フォーラム",
         "moderators": "モデレーター",
         "members": "メンバー",
-        "messages": "メッセージ"
+        "messages": "メッセージ",
+        "forummods": "応募"
       },
       "modEmptyTitle": "応募なし",
       "modEmpty": "この状態のモデレーターはいません。",
@@ -3405,7 +3426,11 @@
       "noMsgsTitle": "メッセージなし",
       "noMsgs": "このフォーラムにはメッセージがありません。",
       "msgDelete": "メッセージを削除",
-      "msgDeleted": "メッセージを削除しました"
+      "msgDeleted": "メッセージを削除しました",
+      "called": "募集を送信しました",
+      "callMods": "モデレーターを募集",
+      "closeForum": "フォーラムを閉じる",
+      "forumLabel": "フォーラム"
     }
   },
   "callout": {
@@ -4263,7 +4288,24 @@
       "ready": "すでにアカウントがあります。トライブに参加して始めましょう。",
       "createBtn": "アカウント作成",
       "loginBtn": "ログイン"
-    }
+    },
+    "forumTerms": "フォーラムを作成すると、管理者の承認と認定モデレーターの割り当てが保留になります。フォーラムのルールとNeuromundiの倫理規範を守ってください。",
+    "notifyCountries": "通知する国",
+    "allCountries": "すべての国",
+    "applyAsModerator": "このフォーラムのモデレーターに応募する（承認制）",
+    "applyModShort": "応募する",
+    "modApplied": "モデレーター応募を送信しました",
+    "closeForum": "フォーラムを閉じる",
+    "closeForumConfirm": "このフォーラムを閉じますか？利用できなくなります。",
+    "forumClosed": "フォーラムを閉じました",
+    "forumsPanelTitle": "トライブのフォーラム",
+    "forumsTab": "フォーラム",
+    "forumPushOn": "通知オン",
+    "forumPushOff": "通知オフ",
+    "interestCountries": "関心のある国",
+    "currentForums": "現在のフォーラム",
+    "goToTribe": "トライブへ",
+    "prefsSaved": "設定を保存しました"
   },
   "nid": {
     "member": "Neuromundiメンバー",

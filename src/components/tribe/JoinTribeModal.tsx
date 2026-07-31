@@ -12,7 +12,7 @@ import { useTribeMembership, type TribeEnergy } from '@/hooks/useTribe';
 import { EnergyPicker } from './EnergyBadge';
 
 export function tribeLogo(lang: string): string {
-  return lang.startsWith('es') ? '/tribu/tribu-es-v2.webp' : '/tribu/tribu-en-v2.webp';
+  return lang.startsWith('es') ? '/tribu/tribu-es-v3.webp' : '/tribu/tribu-en-v3.webp';
 }
 
 export function JoinTribeModal({ onClose, onJoined }: { onClose: () => void; onJoined?: () => void }) {

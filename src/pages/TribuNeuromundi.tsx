@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { Users, Plus, Search, Globe, Sparkles, MailPlus, Check, X, HeartHandshake, ShieldCheck, Gauge, CalendarCheck, UserPlus, LogIn } from 'lucide-react';
 import { Button, SkeletonCard, EmptyState, useToast } from '@/components/ui';
 import { useAuth } from '@/hooks/useAuth';
-import { useTribeMembership, useTribeForums, useTribeInvites, type TribeForum } from '@/hooks/useTribe';
+import { useTribeMembership, useTribeForums, useTribeInvites, useTribeModerator, type TribeForum } from '@/hooks/useTribe';
 import { JoinTribeModal, tribeLogo } from '@/components/tribe/JoinTribeModal';
 import { EnergyPicker } from '@/components/tribe/EnergyBadge';
 import { ForumRoom } from '@/components/tribe/ForumRoom';
@@ -30,18 +30,26 @@ const LANGS: { code: string; label: string }[] = [
 ];
 const inputCls = 'w-full rounded-xl border border-slate-200 p-2.5 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500';
 
-function CreateForumForm({ onCreate, onCancel }: { onCreate: (i: { title: string; description: string; theme: string; country: string; city: string; language: string }) => Promise<boolean>; onCancel: () => void }) {
+interface CreateForumInput { title: string; description: string; theme: string; country: string; city: string; language: string; notifyCountries: string[]; applyModerator: boolean }
+
+function CreateForumForm({ onCreate, onCancel }: { onCreate: (i: CreateForumInput) => Promise<boolean>; onCancel: () => void }) {
   const { t, i18n } = useTranslation();
   const countryLabel = useCountryLabel();
   const toast = useToast();
+  const { mod } = useTribeModerator();
+  const isApprovedMod = mod?.status === 'approved';
   const [f, setF] = useState({ title: '', description: '', theme: '', country: '', city: '', language: i18n.language.slice(0, 2) });
+  const [notify, setNotify] = useState<string[]>([]);
+  const [applyMod, setApplyMod] = useState(false);
+  const [showCountries, setShowCountries] = useState(false);
   const [busy, setBusy] = useState(false);
   const set = (k: string, v: string) => setF((p) => ({ ...p, [k]: v }));
+  const toggleCountry = (name: string) => setNotify((p) => (p.includes(name) ? p.filter((c) => c !== name) : [...p, name]));
 
   const submit = async () => {
     if (f.title.trim().length < 3) { toast.error(t('tribe.forumTitleReq')); return; }
     setBusy(true);
-    const ok = await onCreate(f);
+    const ok = await onCreate({ ...f, notifyCountries: notify, applyModerator: applyMod && isApprovedMod });
     setBusy(false);
     if (ok) { toast.success(t('tribe.forumPending')); onCancel(); }
     else toast.error(t('tribe.forumErr'));
@@ -50,6 +58,12 @@ function CreateForumForm({ onCreate, onCancel }: { onCreate: (i: { title: string
   return (
     <div className="rounded-2xl border border-brand-200 bg-brand-50/40 p-4">
       <h3 className="mb-3 text-sm font-bold text-slate-900">{t('tribe.newForum')}</h3>
+
+      {/* Aviso: aprobación + moderador + reglas + código de ética */}
+      <div className="mb-3 rounded-xl border border-amber-200 bg-amber-50 p-3 text-xs leading-relaxed text-amber-900">
+        {t('tribe.forumTerms')}
+      </div>
+
       <div className="grid gap-3 sm:grid-cols-2">
         <div className="sm:col-span-2"><label className="mb-1 block text-sm font-semibold text-slate-800">{t('tribe.forumTitle')}</label><input className={inputCls} value={f.title} onChange={(e) => set('title', e.target.value)} placeholder={t('tribe.forumTitlePh')} /></div>
         <div><label className="mb-1 block text-sm font-semibold text-slate-800">{t('tribe.theme')}</label><input className={inputCls} value={f.theme} onChange={(e) => set('theme', e.target.value)} placeholder={t('tribe.themePh')} /></div>
@@ -69,6 +83,34 @@ function CreateForumForm({ onCreate, onCancel }: { onCreate: (i: { title: string
         <div><label className="mb-1 block text-sm font-semibold text-slate-800">{t('tribe.city')}</label><input className={inputCls} value={f.city} onChange={(e) => set('city', e.target.value)} /></div>
         <div className="sm:col-span-2"><label className="mb-1 block text-sm font-semibold text-slate-800">{t('tribe.forumDesc')}</label><textarea rows={2} className={inputCls} value={f.description} onChange={(e) => set('description', e.target.value)} /></div>
       </div>
+
+      {/* Países a los que llega el aviso de creación (vacío = todos) */}
+      <div className="mt-3">
+        <button type="button" onClick={() => setShowCountries((v) => !v)} className="text-sm font-semibold text-brand-700 hover:underline">
+          {t('tribe.notifyCountries')} {notify.length > 0 ? `(${notify.length})` : `· ${t('tribe.allCountries')}`}
+        </button>
+        {showCountries && (
+          <div className="mt-2 max-h-40 overflow-y-auto rounded-xl border border-slate-200 bg-white p-2">
+            <div className="grid grid-cols-2 gap-1 sm:grid-cols-3">
+              {COUNTRIES.map((c) => (
+                <label key={c.code} className="flex items-center gap-1.5 text-xs text-slate-700">
+                  <input type="checkbox" checked={notify.includes(c.name)} onChange={() => toggleCountry(c.name)} className="h-4 w-4 rounded border-slate-300 text-brand-500" />
+                  <span className="truncate">{countryLabel(c.code, c.name)}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Postularse como moderador (solo moderadores aprobados) */}
+      {isApprovedMod && (
+        <label className="mt-3 flex items-center gap-2 text-sm text-slate-700">
+          <input type="checkbox" checked={applyMod} onChange={(e) => setApplyMod(e.target.checked)} className="h-5 w-5 rounded border-slate-300 text-brand-500" />
+          <span>{t('tribe.applyAsModerator')}</span>
+        </label>
+      )}
+
       <div className="mt-3 flex gap-2">
         <Button size="sm" loading={busy} onClick={() => void submit()}>{t('tribe.createForum')}</Button>
         <Button size="sm" variant="ghost" onClick={onCancel}>{t('tribe.cancel')}</Button>
@@ -102,7 +144,7 @@ export function TribuNeuromundi() {
   const [theme, setTheme] = useState('');
   const filters = useMemo(() => ({ query: q, country, language, theme }), [q, country, language, theme]);
 
-  const { forums, loading: loadingForums, create, joinForum } = useTribeForums(filters);
+  const { forums, loading: loadingForums, create, joinForum, closeForum } = useTribeForums(filters);
   const { invites, respond } = useTribeInvites();
 
   // Elegibles: consumidores (paciente/familia) y especialistas (prestador).
@@ -175,7 +217,7 @@ export function TribuNeuromundi() {
   if (open) {
     return (
       <div className="mx-auto max-w-3xl px-4 py-6">
-        <ForumRoom forum={open} canWrite={canWrite} onBack={() => setOpen(null)} />
+        <ForumRoom forum={open} canWrite={canWrite} onBack={() => setOpen(null)} onCloseForum={closeForum} />
       </div>
     );
   }

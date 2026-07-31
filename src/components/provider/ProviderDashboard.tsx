@@ -76,6 +76,7 @@ import { OfferForm } from './OfferForm';
 import { QRScanner } from './QRScanner';
 import { PrescriptionBuilder } from './PrescriptionBuilder';
 import { NetworkPanel } from './NetworkPanel';
+import { TribeForumsPanel } from '@/components/tribe/TribeForumsPanel';
 import { BookingWidgetPanel } from './BookingWidgetPanel';
 import { WaitlistPanel } from './WaitlistPanel';
 import { CampaignsPanel } from './CampaignsPanel';
@@ -665,6 +666,13 @@ export function ProviderDashboard() {
     content: <NetworkPanel />,
   };
 
+  const tribeForumsTab = {
+    id: 'tribeforums',
+    label: t('tribe.forumsTab'),
+    icon: <Users className="h-4 w-4" aria-hidden="true" />,
+    content: <TribeForumsPanel />,
+  };
+
   const recommendTab = {
     id: 'recommend',
     label: t('recommend.tab'),
@@ -759,6 +767,7 @@ export function ProviderDashboard() {
     ...(storeTab ? [storeTab] : []),
     affiliateTab,
     networkTab,
+    tribeForumsTab,
     recommendTab,
   ];
 

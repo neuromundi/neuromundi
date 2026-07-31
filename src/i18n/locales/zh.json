@@ -1277,6 +1277,26 @@
     "topicVenue": {
       "title": "新休闲场所",
       "body": "{{name}} · {{place}}"
+    },
+    "forumNew": {
+      "title": "部落有新论坛",
+      "body": "论坛“{{title}}”已开放。"
+    },
+    "forumPending": {
+      "title": "你的论坛正在审核",
+      "body": "需经管理员批准、分配版主，并遵守 Neuromundi 道德准则。"
+    },
+    "forumApproved": {
+      "title": "论坛已批准",
+      "body": "你的论坛“{{title}}”现已可用。"
+    },
+    "forumModCall": {
+      "title": "版主招募",
+      "body": "正在为“{{title}}”招募版主。"
+    },
+    "forumModApproved": {
+      "title": "版主已批准",
+      "body": "你现在是部落论坛的版主。"
     }
   },
   "clin": {
@@ -3382,7 +3402,8 @@
         "forums": "论坛",
         "moderators": "版主",
         "members": "成员",
-        "messages": "消息"
+        "messages": "消息",
+        "forummods": "申请"
       },
       "modEmptyTitle": "暂无申请",
       "modEmpty": "该状态下暂无版主。",
@@ -3405,7 +3426,11 @@
       "noMsgsTitle": "暂无消息",
       "noMsgs": "该论坛没有消息。",
       "msgDelete": "删除消息",
-      "msgDeleted": "消息已删除"
+      "msgDeleted": "消息已删除",
+      "called": "招募已发送",
+      "callMods": "招募版主",
+      "closeForum": "关闭论坛",
+      "forumLabel": "论坛"
     }
   },
   "callout": {
@@ -4263,7 +4288,24 @@
       "ready": "你已有账户：加入部落即可开始参与。",
       "createBtn": "创建账户",
       "loginBtn": "登录"
-    }
+    },
+    "forumTerms": "创建后，论坛将等待管理员批准并分配授权版主。请遵守论坛规则和 Neuromundi 的道德准则。",
+    "notifyCountries": "要通知的国家",
+    "allCountries": "所有国家",
+    "applyAsModerator": "申请担任本论坛版主（需审批）",
+    "applyModShort": "申请版主",
+    "modApplied": "版主申请已发送",
+    "closeForum": "关闭论坛",
+    "closeForumConfirm": "关闭此论坛？将不再可用。",
+    "forumClosed": "论坛已关闭",
+    "forumsPanelTitle": "部落论坛",
+    "forumsTab": "论坛",
+    "forumPushOn": "提醒开启",
+    "forumPushOff": "提醒关闭",
+    "interestCountries": "感兴趣的国家",
+    "currentForums": "当前论坛",
+    "goToTribe": "前往部落",
+    "prefsSaved": "偏好已保存"
   },
   "nid": {
     "member": "Neuromundi 成员",

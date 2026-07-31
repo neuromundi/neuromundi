@@ -1277,6 +1277,26 @@
     "topicVenue": {
       "title": "Nuovo luogo di svago",
       "body": "{{name}} · {{place}}"
+    },
+    "forumNew": {
+      "title": "Nuovo forum nella Tribù",
+      "body": "È stato aperto il forum «{{title}}»."
+    },
+    "forumPending": {
+      "title": "Il tuo forum è in revisione",
+      "body": "È soggetto all’approvazione dell’amministratore, all’assegnazione di un moderatore e al codice etico di Neuromundi."
+    },
+    "forumApproved": {
+      "title": "Forum approvato",
+      "body": "Il tuo forum «{{title}}» è ora disponibile."
+    },
+    "forumModCall": {
+      "title": "Convocazione di moderazione",
+      "body": "Cercasi moderatori per «{{title}}»."
+    },
+    "forumModApproved": {
+      "title": "Moderazione approvata",
+      "body": "Ora moderi un forum della Tribù."
     }
   },
   "clin": {
@@ -3382,7 +3402,8 @@
         "forums": "Forum",
         "moderators": "Moderatori",
         "members": "Membri",
-        "messages": "Messaggi"
+        "messages": "Messaggi",
+        "forummods": "Candidature"
       },
       "modEmptyTitle": "Nessuna candidatura",
       "modEmpty": "Nessun moderatore in questo stato.",
@@ -3405,7 +3426,11 @@
       "noMsgsTitle": "Nessun messaggio",
       "noMsgs": "Questo forum non ha messaggi.",
       "msgDelete": "Elimina messaggio",
-      "msgDeleted": "Messaggio eliminato"
+      "msgDeleted": "Messaggio eliminato",
+      "called": "Convocazione inviata",
+      "callMods": "Convoca moderatori",
+      "closeForum": "Chiudi forum",
+      "forumLabel": "Forum"
     }
   },
   "callout": {
@@ -4263,7 +4288,24 @@
       "ready": "Hai già un account: unisciti alla Tribù per iniziare a partecipare.",
       "createBtn": "Crea un account",
       "loginBtn": "Accedi"
-    }
+    },
+    "forumTerms": "Una volta creato, il forum è in attesa dell’approvazione dell’amministratore e dell’assegnazione di un moderatore autorizzato. Ricorda di rispettare le regole dei forum e il codice etico di Neuromundi.",
+    "notifyCountries": "Paesi da notificare",
+    "allCountries": "tutti i paesi",
+    "applyAsModerator": "Candidarmi come moderatore di questo forum (soggetto ad approvazione)",
+    "applyModShort": "Candidarmi",
+    "modApplied": "Candidatura di moderazione inviata",
+    "closeForum": "Chiudi forum",
+    "closeForumConfirm": "Chiudere questo forum? Non sarà più disponibile.",
+    "forumClosed": "Forum chiuso",
+    "forumsPanelTitle": "Forum della Tribù",
+    "forumsTab": "Forum",
+    "forumPushOn": "Avvisi attivi",
+    "forumPushOff": "Avvisi disattivati",
+    "interestCountries": "Paesi di interesse",
+    "currentForums": "Forum attivi",
+    "goToTribe": "Vai alla Tribù",
+    "prefsSaved": "Preferenza salvata"
   },
   "nid": {
     "member": "Membro Neuromundi",

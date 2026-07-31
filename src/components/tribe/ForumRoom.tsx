@@ -5,25 +5,50 @@
  */
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Send, UserPlus, ArrowLeft, Sparkles, ShieldCheck } from 'lucide-react';
+import { Send, UserPlus, ArrowLeft, Sparkles, ShieldCheck, Lock } from 'lucide-react';
 import { Button, useToast } from '@/components/ui';
 import { useAuth } from '@/hooks/useAuth';
-import { useTribeMessages, useTribeInvites, type TribeForum } from '@/hooks/useTribe';
+import { supabase } from '@/lib/supabase';
+import { useTribeMessages, useTribeInvites, useTribeModerator, type TribeForum } from '@/hooks/useTribe';
 import { EnergyDot } from './EnergyBadge';
 import { GiveGratitudeModal } from './GiveGratitudeModal';
 
-export function ForumRoom({ forum, canWrite, onBack }: { forum: TribeForum; canWrite: boolean; onBack: () => void }) {
+export function ForumRoom({ forum, canWrite, onBack, onCloseForum }: { forum: TribeForum; canWrite: boolean; onBack: () => void; onCloseForum?: (id: string) => Promise<boolean> }) {
   const { t } = useTranslation();
   const toast = useToast();
-  const { userId } = useAuth();
+  const { userId, isAdmin, isAdvisor } = useAuth();
   const { messages, loading, send } = useTribeMessages(forum.id);
   const { invite } = useTribeInvites();
+  const { mod } = useTribeModerator();
   const [text, setText] = useState('');
   const [folio, setFolio] = useState('');
   const [inviting, setInviting] = useState(false);
   const [busy, setBusy] = useState(false);
+  const [canClose, setCanClose] = useState(false);
+  const [applied, setApplied] = useState(false);
   const [thanking, setThanking] = useState<{ id: string; name: string } | null>(null);
   const endRef = useRef<HTMLDivElement>(null);
+  const canApplyMod = mod?.status === 'approved' && !canClose && !applied;
+
+  const applyMod = async () => {
+    const { error } = await supabase.rpc('tribe_apply_forum_moderator', { p_forum: forum.id });
+    if (error) toast.error(error.message);
+    else { setApplied(true); toast.success(t('tribe.modApplied')); }
+  };
+
+  useEffect(() => {
+    let alive = true;
+    if (isAdmin || isAdvisor) { setCanClose(true); return; }
+    void supabase.rpc('tribe_am_i_forum_moderator', { p_forum: forum.id }).then(({ data }) => { if (alive) setCanClose(data === true); });
+    return () => { alive = false; };
+  }, [forum.id, isAdmin, isAdvisor]);
+
+  const onClose = async () => {
+    if (!onCloseForum || !window.confirm(t('tribe.closeForumConfirm'))) return;
+    const ok = await onCloseForum(forum.id);
+    if (ok) { toast.success(t('tribe.forumClosed')); onBack(); }
+    else toast.error(t('tribe.forumErr'));
+  };
 
   useEffect(() => { endRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [messages.length]);
 
@@ -52,6 +77,16 @@ export function ForumRoom({ forum, canWrite, onBack }: { forum: TribeForum; canW
           <p className="truncate font-bold text-slate-900">{forum.title}</p>
           <p className="truncate text-xs text-muted">{[forum.theme, forum.city, forum.country].filter(Boolean).join(' · ')}</p>
         </div>
+        {canApplyMod && (
+          <button type="button" onClick={() => void applyMod()} className="inline-flex items-center gap-1 rounded-lg border border-slate-200 px-2.5 py-1.5 text-sm text-slate-700 hover:bg-slate-50">
+            <ShieldCheck className="h-4 w-4" /> {t('tribe.applyModShort')}
+          </button>
+        )}
+        {canClose && (
+          <button type="button" onClick={() => void onClose()} className="inline-flex items-center gap-1 rounded-lg border border-red-200 px-2.5 py-1.5 text-sm text-evs-1 hover:bg-red-50">
+            <Lock className="h-4 w-4" /> {t('tribe.closeForum')}
+          </button>
+        )}
         {canWrite && (
           <button type="button" onClick={() => setInviting((v) => !v)} className="inline-flex items-center gap-1 rounded-lg border border-slate-200 px-2.5 py-1.5 text-sm text-slate-700 hover:bg-slate-50">
             <UserPlus className="h-4 w-4" /> {t('tribe.invite')}

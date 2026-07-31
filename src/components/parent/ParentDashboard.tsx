@@ -29,6 +29,7 @@ import { FounderRequirements } from '@/components/founder/FounderRequirements';
 import { RecommendPanel } from '@/components/referral/RecommendPanel';
 import { DonateCallout } from '@/components/donation/DonateCallout';
 import { ContinueLearning } from '@/components/toolkit/ContinueLearning';
+import { TribeForumsPanel } from '@/components/tribe/TribeForumsPanel';
 import { formatDate } from '@/lib/utils';
 import type { Transaction, TransactionStatus } from '@/types/app';
 
@@ -138,6 +139,10 @@ export function ParentDashboard() {
       {/* Continuar donde me quedé (Kit de Herramientas). */}
       <div className="mb-4">
         <ContinueLearning />
+      </div>
+      {/* Foros de la Tribu: vigentes + preferencias de aviso. */}
+      <div className="mb-4">
+        <TribeForumsPanel />
       </div>
       {/* Recordatorio permanente y amable: Neuromundi vive de aportes. */}
       <div className="mb-4">
