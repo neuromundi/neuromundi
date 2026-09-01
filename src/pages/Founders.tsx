@@ -11,10 +11,17 @@ import { useTranslation } from 'react-i18next';
 import { Award, UserPlus } from 'lucide-react';
 import { Button } from '@/components/ui';
 import { FoundersWallSection } from '@/components/founder/FoundersWallSection';
+import { useSeo } from '@/hooks/useSeo';
 
 export function Founders() {
   const { t } = useTranslation();
   const navigate = useNavigate();
+
+  useSeo({
+    title: `${t('foundersWall.title')} — Neuromundi`,
+    description: t('foundersPage.intro'),
+    path: '/fundadores',
+  });
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-10">

@@ -27,7 +27,7 @@ try {
 try {
   await run({
     source: 'dist',
-    include: ['/'], // solo la portada, para acotar riesgo
+    include: ['/', '/fundadores'], // portada + fundadores, para acotar riesgo
     inlineCss: false,
     skipThirdPartyRequests: true, // no dispares Supabase/analytics durante el snapshot
     puppeteerArgs: ['--no-sandbox', '--disable-setuid-sandbox'],
