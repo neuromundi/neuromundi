@@ -64,7 +64,13 @@ export function CreateAccount() {
     const isCompany = selected === 'company';
     const isEsparcimiento = selected === 'tourism';
     const isK = K_SET.has(selected) && !isEsparcimiento;
-    const wide = isSpecialist || isProvider || isClinic || isSchool || isK || isCompany;
+    // `wide` = el formulario usa disposición de dos columnas (1fr + panel de
+    // 320 px). Con el contenedor estrecho (max-w-lg, 512 px) el panel fijo se
+    // come casi todo y al formulario le quedan ~145 px: los campos salen
+    // aplastados. Esparcimiento queda FUERA de `isK` a propósito (tiene su
+    // propio formulario, no el genérico de K), así que hay que sumarlo aquí de
+    // forma explícita o se queda con el contenedor estrecho.
+    const wide = isSpecialist || isProvider || isClinic || isSchool || isK || isCompany || isEsparcimiento;
     return (
       <div className={`mx-auto px-4 py-10 ${wide ? 'max-w-4xl' : 'max-w-lg'}`}>
         <button onClick={() => setSelected(null)} className="mb-4 inline-flex items-center gap-1 text-sm font-semibold text-brand-700 hover:underline">
