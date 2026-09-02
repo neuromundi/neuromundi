@@ -30,6 +30,7 @@ const TYPE_KEY: Record<string, string> = {
   merchant: 'fees.typeMerchant',
   school: 'fees.typeSchool',
   clinic: 'fees.typeClinic',
+  ngo: 'fees.typeNgo',
 };
 
 /**

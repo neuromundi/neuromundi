@@ -3102,7 +3102,8 @@
     "savingNote": "12 meses pagando 10.",
     "typeMedical": "Especialista médico",
     "typeNonMedical": "Especialista não médico",
-    "typeClinic": "Clínica"
+    "typeClinic": "Clínica",
+    "typeNgo": "ONG"
   },
   "gate": {
     "title": "Sua conta está pausada",

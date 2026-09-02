@@ -3102,7 +3102,8 @@
     "savingNote": "Get 12 months, pay for 10.",
     "typeMedical": "Medical specialist",
     "typeNonMedical": "Non-medical specialist",
-    "typeClinic": "Clinic"
+    "typeClinic": "Clinic",
+    "typeNgo": "NGO"
   },
   "gate": {
     "title": "Your account is paused",

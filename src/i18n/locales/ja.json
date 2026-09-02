@@ -3102,7 +3102,8 @@
     "savingNote": "12か月分を10か月分の料金で。",
     "typeMedical": "医療専門職",
     "typeNonMedical": "非医療専門職",
-    "typeClinic": "クリニック"
+    "typeClinic": "クリニック",
+    "typeNgo": "NGO"
   },
   "gate": {
     "title": "アカウントは一時停止中です",

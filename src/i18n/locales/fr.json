@@ -3102,7 +3102,8 @@
     "savingNote": "12 mois pour le prix de 10.",
     "typeMedical": "Spécialiste médical",
     "typeNonMedical": "Spécialiste non médical",
-    "typeClinic": "Clinique"
+    "typeClinic": "Clinique",
+    "typeNgo": "ONG"
   },
   "gate": {
     "title": "Votre compte est en pause",

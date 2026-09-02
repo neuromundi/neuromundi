@@ -3102,7 +3102,8 @@
     "savingNote": "احصل على 12 شهرًا وادفع 10.",
     "typeMedical": "أخصائي طبي",
     "typeNonMedical": "أخصائي غير طبي",
-    "typeClinic": "عيادة"
+    "typeClinic": "عيادة",
+    "typeNgo": "منظمة غير حكومية"
   },
   "gate": {
     "title": "حسابك متوقف مؤقتًا",

@@ -3102,7 +3102,8 @@
     "savingNote": "קבל 12 חודשים, שלם על 10.",
     "typeMedical": "מומחה רפואי",
     "typeNonMedical": "מומחה לא רפואי",
-    "typeClinic": "מרפאה"
+    "typeClinic": "מרפאה",
+    "typeNgo": "ארגון לא ממשלתי"
   },
   "gate": {
     "title": "חשבונך מושהה",
