@@ -3107,7 +3107,8 @@
     "savingNote": "签 12 个月，只付 10 个月。",
     "typeMedical": "医疗专家",
     "typeNonMedical": "非医疗专家",
-    "typeClinic": "诊所"
+    "typeClinic": "诊所",
+    "typeNgo": "非政府组织"
   },
   "gate": {
     "title": "你的账户已暂停",

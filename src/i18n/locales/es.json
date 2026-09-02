@@ -3107,7 +3107,8 @@
     "savingNote": "Contrata 12 meses y paga 10.",
     "typeMedical": "Especialista médico",
     "typeNonMedical": "Especialista no médico",
-    "typeClinic": "Clínica"
+    "typeClinic": "Clínica",
+    "typeNgo": "ONG"
   },
   "gate": {
     "title": "Tu cuenta está en pausa",

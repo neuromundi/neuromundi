@@ -3107,7 +3107,8 @@
     "savingNote": "12 Monate zum Preis von 10.",
     "typeMedical": "Medizinische Fachkraft",
     "typeNonMedical": "Nicht-medizinische Fachkraft",
-    "typeClinic": "Klinik"
+    "typeClinic": "Klinik",
+    "typeNgo": "NGO"
   },
   "gate": {
     "title": "Dein Konto pausiert",

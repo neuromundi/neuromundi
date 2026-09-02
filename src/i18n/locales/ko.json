@@ -3107,7 +3107,8 @@
     "savingNote": "12개월 이용, 10개월치만 지불.",
     "typeMedical": "의료 전문가",
     "typeNonMedical": "비의료 전문가",
-    "typeClinic": "클리닉"
+    "typeClinic": "클리닉",
+    "typeNgo": "NGO"
   },
   "gate": {
     "title": "계정이 일시중지되었습니다",
