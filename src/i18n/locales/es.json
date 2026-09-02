@@ -2381,6 +2381,19 @@
           "Ofrecer un beneficio a la comunidad: descuento ≥10% a 10 miembros, o 3 servicios/consultas gratuitos verificados.",
           "Recomienda Neuromundi al menos a 10 personas."
         ]
+      },
+      "companies": {
+        "benefits": [
+          "Tu perfil mostrará el distintivo \"Soy Fundador Neuromundi\".",
+          "Tu perfil aparecerá como relevante y destacado en las búsquedas.",
+          "Registro de empresa inclusiva siempre gratuito."
+        ],
+        "reqs": [
+          "Ser de las primeras 20 empresas por país.",
+          "Mantener al menos 2 vacantes activas publicadas.",
+          "Logo, descripción completa y correo/teléfono verificados.",
+          "Recomienda Neuromundi al menos a 10 personas."
+        ]
       }
     },
     "allBenefits": [

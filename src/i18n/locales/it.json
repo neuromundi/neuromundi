@@ -2417,6 +2417,19 @@
           "Offrire un vantaggio alla comunità: sconto ≥10% a 10 membri, o 3 servizi/consulenze gratuiti verificati.",
           "Consiglia Neuromundi ad almeno 10 persone."
         ]
+      },
+      "companies": {
+        "benefits": [
+          "Il tuo profilo mostrerà il distintivo \"Sono Fondatore Neuromundi\".",
+          "Il tuo profilo apparirà come rilevante e in evidenza nelle ricerche.",
+          "Registrazione dell'azienda inclusiva sempre gratuita."
+        ],
+        "reqs": [
+          "Essere tra le prime 20 aziende per paese.",
+          "Mantenere almeno 2 offerte di lavoro attive pubblicate.",
+          "Logo, descrizione completa ed e-mail/telefono verificati.",
+          "Consiglia Neuromundi ad almeno 10 persone."
+        ]
       }
     },
     "allBenefits": [

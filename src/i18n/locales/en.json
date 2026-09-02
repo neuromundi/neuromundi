@@ -2381,6 +2381,19 @@
           "Offer a community benefit: ≥10% discount to 10 members, or 3 verified free services/consultations.",
           "Recommend Neuromundi to at least 10 people."
         ]
+      },
+      "companies": {
+        "benefits": [
+          "Your profile will show the \"Neuromundi Founder\" badge.",
+          "Your profile will appear as relevant and featured in searches.",
+          "Inclusive company registration is always free."
+        ],
+        "reqs": [
+          "Be among the first 20 companies per country.",
+          "Keep at least 2 active job openings published.",
+          "Logo, full description and verified email/phone.",
+          "Recommend Neuromundi to at least 10 people."
+        ]
       }
     },
     "allBenefits": [
