@@ -82,7 +82,13 @@ jobs:
       # que los bundles viejos quedan huérfanos pero no estorban: el index.html
       # nuevo apunta solo a los nuevos. Si con el tiempo molestan, se limpian a
       # mano una vez, sin prisa.
+      # `continue-on-error` en el primer intento: si Hostinger corta la
+      # conexión, el paso falla sin tumbar el despliegue y el siguiente lo
+      # reintenta. Solo el segundo intento marca el resultado final, así que un
+      # fallo real sigue saliendo en rojo.
       - name: Subir a Hostinger
+        id: subida
+        continue-on-error: true
         uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
           server: ${{ secrets.FTP_SERVER }}
@@ -90,3 +96,18 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist/
           server-dir: ./
+          # Hostinger corta o retrasa conexiones de forma intermitente (en una
+          # tanda de 10 despliegues fallaron 4, con la MISMA configuración que
+          # los 6 que pasaron). 60 s en vez de los 30 por defecto le dan margen.
+          timeout: 60000
+
+      - name: Reintentar subida si falló
+        if: steps.subida.outcome == 'failure'
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./dist/
+          server-dir: ./
+          timeout: 60000
