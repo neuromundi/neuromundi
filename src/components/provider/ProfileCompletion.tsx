@@ -48,7 +48,7 @@ export function ProfileCompletion() {
     if (!f || !userId) return;
     setUploadingDoc(true);
     try {
-      const safe = f.name.replace(/[^\w.\-]/g, '_');
+      const safe = f.name.replace(/[^\w.-]/g, '_');
       const path = `${userId}/${Date.now()}-${safe}`;
       const up = await supabase.storage.from('verification').upload(path, f, { contentType: f.type || 'application/octet-stream' });
       if (up.error) throw up.error;
