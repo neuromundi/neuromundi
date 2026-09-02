@@ -2,6 +2,7 @@
  * useAdminBilling — CRUD de configuración de cuota para el admin:
  *  - membership_fees (cuota base por tipo, en USD)
  *  - country_pricing (moneda + tipo de cambio por país)
+ *  - country_discount_policies (% de descuento por país, aplica sobre cualquier tipo)
  *  - promo_codes (códigos promocionales)
  * Requiere rol admin (las políticas RLS solo permiten escribir al admin).
  */
@@ -13,26 +14,31 @@ import type { Result } from '@/types/app';
 
 export type MembershipFee = Tables<'membership_fees'>;
 export type CountryPricing = Tables<'country_pricing'>;
+export type CountryDiscount = Tables<'country_discount_policies'>;
 export type PromoCode = Tables<'promo_codes'>;
 
 export function useAdminBilling() {
   const [fees, setFees] = useState<MembershipFee[]>([]);
   const [pricing, setPricing] = useState<CountryPricing[]>([]);
+  const [discounts, setDiscounts] = useState<CountryDiscount[]>([]);
   const [promos, setPromos] = useState<PromoCode[]>([]);
   const [loading, setLoading] = useState(true);
 
   const load = useCallback(async () => {
     setLoading(true);
-    const [f, p, c] = await Promise.all([
+    const [f, p, d, c] = await Promise.all([
       supabase.from('membership_fees').select('*').order('affiliate_type'),
       supabase.from('country_pricing').select('*').order('country_label'),
+      supabase.from('country_discount_policies').select('*').order('country_label'),
       supabase.from('promo_codes').select('*').order('created_at', { ascending: false }),
     ]);
     if (f.error) logger.error('fees', f.error);
     if (p.error) logger.error('pricing', p.error);
+    if (d.error) logger.error('discounts', d.error);
     if (c.error) logger.error('promos', c.error);
     setFees(f.data ?? []);
     setPricing(p.data ?? []);
+    setDiscounts(d.data ?? []);
     setPromos(c.data ?? []);
     setLoading(false);
   }, []);
@@ -67,6 +73,22 @@ export function useAdminBilling() {
     return { ok: true, data: true };
   }, []);
 
+  const saveDiscount = useCallback(async (row: TablesInsert<'country_discount_policies'>): Promise<Result<true>> => {
+    const { error } = await supabase
+      .from('country_discount_policies')
+      .upsert({ ...row, country_label: row.country_label.trim().toLowerCase(), updated_at: new Date().toISOString() });
+    if (error) return { ok: false, error: toMessage(error) };
+    await load();
+    return { ok: true, data: true };
+  }, [load]);
+
+  const deleteDiscount = useCallback(async (label: string): Promise<Result<true>> => {
+    const { error } = await supabase.from('country_discount_policies').delete().eq('country_label', label);
+    if (error) return { ok: false, error: toMessage(error) };
+    setDiscounts((prev) => prev.filter((x) => x.country_label !== label));
+    return { ok: true, data: true };
+  }, []);
+
   const createPromo = useCallback(async (row: TablesInsert<'promo_codes'>): Promise<Result<true>> => {
     const { error } = await supabase.from('promo_codes').insert({ ...row, code: row.code.trim() });
     if (error) return { ok: false, error: toMessage(error) };
@@ -91,12 +113,15 @@ export function useAdminBilling() {
   return {
     fees,
     pricing,
+    discounts,
     promos,
     loading,
     reload: load,
     saveFee,
     savePricing,
     deletePricing,
+    saveDiscount,
+    deleteDiscount,
     createPromo,
     togglePromo,
     deletePromo,

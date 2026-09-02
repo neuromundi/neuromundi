@@ -642,6 +642,25 @@ export interface Database {
         Relationships: [];
       };
 
+      country_discount_policies: {
+        Row: {
+          country_label: string;
+          discount_pct: number;
+          is_active: boolean;
+          note: string | null;
+          updated_at: string;
+        };
+        Insert: {
+          country_label: string;
+          discount_pct: number;
+          is_active?: boolean;
+          note?: string | null;
+          updated_at?: string;
+        };
+        Update: Partial<Database['public']['Tables']['country_discount_policies']['Insert']>;
+        Relationships: [];
+      };
+
       promo_codes: {
         Row: {
           code: string;

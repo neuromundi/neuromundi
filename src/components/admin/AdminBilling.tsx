@@ -26,11 +26,14 @@ export function AdminBilling() {
   const {
     fees,
     pricing,
+    discounts,
     promos,
     loading,
     saveFee,
     savePricing,
     deletePricing,
+    saveDiscount,
+    deleteDiscount,
     createPromo,
     togglePromo,
     deletePromo,
@@ -38,6 +41,7 @@ export function AdminBilling() {
 
   const [draftFees, setDraftFees] = useState<Record<string, MembershipFee>>({});
   const [newCountry, setNewCountry] = useState({ country_label: '', currency: 'USD', fx_per_usd: '1', zero_decimal: false });
+  const [newDiscount, setNewDiscount] = useState({ country_label: '', discount_pct: '', note: '' });
   const [newPromo, setNewPromo] = useState({ code: '', kind: 'personal', scope: 'all', max_uses: '', note: '' });
 
   if (loading) return <SkeletonCard rows={4} />;
@@ -60,6 +64,20 @@ export function AdminBilling() {
     if (res.ok) {
       toast.success(t('admin.saved'));
       setNewCountry({ country_label: '', currency: 'USD', fx_per_usd: '1', zero_decimal: false });
+    } else toast.error(res.error);
+  };
+
+  const onAddDiscount = async () => {
+    const pct = Number(newDiscount.discount_pct);
+    if (!newDiscount.country_label.trim() || Number.isNaN(pct) || pct < 0 || pct > 100) return;
+    const res = await saveDiscount({
+      country_label: newDiscount.country_label,
+      discount_pct: pct,
+      note: newDiscount.note || null,
+    });
+    if (res.ok) {
+      toast.success(t('admin.saved'));
+      setNewDiscount({ country_label: '', discount_pct: '', note: '' });
     } else toast.error(res.error);
   };
 
@@ -185,6 +203,71 @@ export function AdminBilling() {
           />
           {t('admin.colZero')}
         </label>
+      </section>
+
+      {/* Descuento por país */}
+      <section className="rounded-2xl border border-slate-100 bg-white p-4 shadow-sm">
+        <h2 className="mb-1 font-semibold text-slate-900">{t('admin.discountTitle')}</h2>
+        <p className="mb-3 text-xs text-muted">{t('admin.discountHint')}</p>
+        <ul className="space-y-2">
+          {discounts.map((d) => (
+            <li key={d.country_label} className="flex items-center gap-2 text-sm">
+              <span className="flex-1 truncate text-slate-700">{d.country_label}</span>
+              <span className="w-16 text-right font-medium">{d.discount_pct}%</span>
+              <span className="flex-1 truncate text-xs text-muted">{d.note}</span>
+              <label className="flex items-center gap-1 text-xs text-muted">
+                <input
+                  type="checkbox"
+                  checked={d.is_active}
+                  onChange={async (e) => {
+                    const res = await saveDiscount({ ...d, is_active: e.target.checked });
+                    toast[res.ok ? 'success' : 'error'](res.ok ? t('admin.saved') : res.error);
+                  }}
+                />
+                {t('admin.activeCol')}
+              </label>
+              <button
+                type="button"
+                onClick={async () => {
+                  const res = await deleteDiscount(d.country_label);
+                  toast[res.ok ? 'success' : 'error'](res.ok ? t('admin.deleted') : res.error);
+                }}
+                aria-label={t('admin.del')}
+                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted hover:bg-slate-100"
+              >
+                <Trash2 className="h-4 w-4" />
+              </button>
+            </li>
+          ))}
+        </ul>
+
+        <div className="mt-3 grid grid-cols-2 gap-2 border-t border-slate-100 pt-3 sm:grid-cols-4">
+          <input
+            className={inputCls}
+            placeholder={t('admin.colCountry')}
+            value={newDiscount.country_label}
+            onChange={(e) => setNewDiscount((c) => ({ ...c, country_label: e.target.value }))}
+          />
+          <input
+            className={inputCls}
+            type="number"
+            min="0"
+            max="100"
+            step="0.01"
+            placeholder={t('admin.colDiscountPct')}
+            value={newDiscount.discount_pct}
+            onChange={(e) => setNewDiscount((c) => ({ ...c, discount_pct: e.target.value }))}
+          />
+          <input
+            className={`${inputCls} sm:col-span-1`}
+            placeholder={t('admin.note')}
+            value={newDiscount.note}
+            onChange={(e) => setNewDiscount((c) => ({ ...c, note: e.target.value }))}
+          />
+          <Button size="sm" onClick={onAddDiscount} leadingIcon={<Plus className="h-4 w-4" />}>
+            {t('admin.addDiscount')}
+          </Button>
+        </div>
       </section>
 
       {/* Códigos promocionales */}
