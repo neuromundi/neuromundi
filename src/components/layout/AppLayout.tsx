@@ -38,6 +38,10 @@ import { useAppointmentReminders } from '@/hooks/useAppointmentRequests';
 // tumbar TODA la app (antes: "Failed to fetch dynamically imported module"). Los
 // modales FUNCIONALES (barrera de onboarding, portero de cuota, auth) siguen con
 // `lazy` normal para que `vite:preloadError` recargue y tome el index nuevo.
+// `ComponentType<any>` es intencional: es el modismo estándar para una
+// RESTRICCIÓN genérica de componente. Con `unknown` la varianza de las props
+// deja de funcionar y no acepta componentes con props concretas.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function lazyOptional<T extends ComponentType<any>>(factory: () => Promise<{ default: T }>) {
   return lazy(() => factory().catch(() => ({ default: (() => null) as unknown as T })));
 }
