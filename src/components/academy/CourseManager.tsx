@@ -5,6 +5,7 @@
  */
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { tList } from '@/lib/tList';
 import { Plus, Eye, EyeOff, Trash2, FolderPlus, FilePlus } from 'lucide-react';
 import { Button, SkeletonCard, useToast, useConfirm, HowTo} from '@/components/ui';
 import { useCourseAuthor } from '@/hooks/useAcademy';
@@ -19,7 +20,7 @@ export function CourseManager() {
   const confirmDialog = useConfirm();
   const { courses, loading, createCourse, updateCourse, togglePublish, remove, addModule, addLesson } = useCourseAuthor();
 
-  const levelOptions = t('lms.levels', { returnObjects: true }) as string[];
+  const levelOptions = tList(t, 'lms.levels');
 
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState('');

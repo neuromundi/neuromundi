@@ -12,6 +12,7 @@
  */
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
+import { tList } from '@/lib/tList';
 import { X, Award, Check, Sparkles, ClipboardList } from 'lucide-react';
 import { useState } from 'react';
 
@@ -19,7 +20,7 @@ export function FounderPopup({ onClose }: { onClose: (reason: 'cta' | 'later' | 
   const { t } = useTranslation();
   const [imgOk, setImgOk] = useState(true);
 
-  const benefits = t('founder.allBenefits', { returnObjects: true, defaultValue: [] }) as string[];
+  const benefits = tList(t, 'founder.allBenefits');
 
   return createPortal(
     <div

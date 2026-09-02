@@ -6,6 +6,7 @@
  */
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { tList } from '@/lib/tList';
 import { Scale } from 'lucide-react';
 import { Modal, Button, useToast } from '@/components/ui';
 import { useTribeModerator } from '@/hooks/useTribe';
@@ -14,7 +15,7 @@ export function ApplyModeratorModal({ onClose, onApplied }: { onClose: () => voi
   const { t } = useTranslation();
   const toast = useToast();
   const { apply } = useTribeModerator();
-  const ethics = (t('tribe.ethics', { returnObjects: true }) as string[]) ?? [];
+  const ethics = tList(t, 'tribe.ethics');
   const [justification, setJustification] = useState('');
   const [accepted, setAccepted] = useState(false);
   const [busy, setBusy] = useState(false);

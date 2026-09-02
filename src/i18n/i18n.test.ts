@@ -38,26 +38,56 @@ describe('resolveInitialLanguage', () => {
 });
 
 /**
- * Las claves que se leen con `returnObjects: true` deben ser LISTAS en los 11
- * idiomas. Si falta una, i18next devuelve el texto de la clave (un string) y el
- * `.map` del componente tumba la página entera.
+ * Toda clave que se lee con `returnObjects: true` debe ser una LISTA en los 11
+ * idiomas. Si falta, i18next devuelve el texto de la clave (un string); el
+ * helper `tList` evita que eso rompa la pantalla, pero la lista se vería VACÍA
+ * y el usuario perdería contenido en silencio. Este test detecta el hueco.
  *
- * Este test nace de un fallo real: `founder.groups.companies` nunca se agregó
- * cuando se creó el track de fundador para empresas, y el registro de empresas
- * quedó con "Unexpected Application Error: m.map is not a function".
+ * Nace de un fallo real: `founder.groups.companies` nunca se agregó al crear el
+ * track de fundador para empresas, y el registro de empresas quedó con
+ * "Unexpected Application Error: m.map is not a function".
+ *
+ * Al añadir un `tList(t, 'x.y')` nuevo en el código, agrega aquí su clave.
  */
 describe('claves de i18n leídas como listas', () => {
   const LOCALES = ['es', 'en', 'pt', 'fr', 'de', 'it', 'ja', 'ko', 'zh', 'ar', 'he'] as const;
-  const FOUNDER_KINDS = ['families', 'professionals', 'providers', 'companies'] as const;
 
-  it.each(LOCALES)('%s: founder.groups.*.benefits y .reqs son listas', async (loc) => {
-    const dict = (await import(`./locales/${loc}.json`)).default as Record<string, never>;
-    const groups = (dict as { founder?: { groups?: Record<string, { benefits?: unknown; reqs?: unknown }> } })
-      .founder?.groups;
-    expect(groups, `${loc}: falta founder.groups`).toBeDefined();
-    for (const kind of FOUNDER_KINDS) {
-      expect(Array.isArray(groups?.[kind]?.benefits), `${loc}: founder.groups.${kind}.benefits no es lista`).toBe(true);
-      expect(Array.isArray(groups?.[kind]?.reqs), `${loc}: founder.groups.${kind}.reqs no es lista`).toBe(true);
-    }
+  const FOUNDER_KINDS = ['families', 'professionals', 'providers', 'companies'];
+  const LMS_PROFILES = ['families', 'specialists', 'educators'];
+  const MILESTONE_BANDS = ['0-6m', '6-12m', '12-24m', '2-3a', '3-4a', '4-6a'];
+  const MILESTONE_AREAS = ['motor', 'lenguaje', 'social', 'cognitivo'];
+  const ROLE_TYPES = [
+    'patient', 'parent', 'service_provider', 'merchant', 'school', 'clinic',
+    'wellness', 'tourism', 'legal', 'ngo', 'caregiver', 'company',
+  ];
+
+  const KEYS: string[] = [
+    'agenda.weekdays',
+    'home.slides',
+    'tribe.ethics',
+    'tribe.rules',
+    'founder.allBenefits',
+    'lms.levels',
+    'dataprot.law.rights',
+    'expert.form.notes',
+    ...FOUNDER_KINDS.flatMap((k) => [`founder.groups.${k}.benefits`, `founder.groups.${k}.reqs`]),
+    ...LMS_PROFILES.map((p) => `lms.profiles.${p}.themes`),
+    ...MILESTONE_BANDS.flatMap((b) => MILESTONE_AREAS.map((a) => `milestones.${b}.${a}`)),
+    ...ROLE_TYPES.map((r) => `roleFeatures.${r}.features`),
+  ];
+
+  const at = (dict: unknown, path: string): unknown =>
+    path.split('.').reduce<unknown>(
+      (cur, part) =>
+        cur && typeof cur === 'object' && part in (cur as Record<string, unknown>)
+          ? (cur as Record<string, unknown>)[part]
+          : undefined,
+      dict,
+    );
+
+  it.each(LOCALES)('%s: todas las claves de lista son arreglos', async (loc) => {
+    const dict = (await import(`./locales/${loc}.json`)).default;
+    const rotas = KEYS.filter((k) => !Array.isArray(at(dict, k)));
+    expect(rotas, `${loc}: estas claves no son listas -> ${rotas.join(', ')}`).toEqual([]);
   });
 });
