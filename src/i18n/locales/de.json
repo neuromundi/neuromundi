@@ -2417,6 +2417,19 @@
           "Einen Community-Vorteil bieten: ≥10 % Rabatt für 10 Mitglieder oder 3 verifizierte kostenlose Leistungen/Beratungen.",
           "Empfiehl Neuromundi mindestens 10 Personen."
         ]
+      },
+      "companies": {
+        "benefits": [
+          "Dein Profil zeigt das Abzeichen „Ich bin Neuromundi-Gründungsmitglied“.",
+          "Dein Profil erscheint als relevant und hervorgehoben in der Suche.",
+          "Registrierung als inklusives Unternehmen ist immer kostenlos."
+        ],
+        "reqs": [
+          "Unter den ersten 20 Unternehmen pro Land sein.",
+          "Mindestens 2 aktive Stellenangebote veröffentlicht halten.",
+          "Logo, vollständige Beschreibung und verifizierte E-Mail/Telefonnummer.",
+          "Empfiehl Neuromundi an mindestens 10 Personen."
+        ]
       }
     },
     "allBenefits": [

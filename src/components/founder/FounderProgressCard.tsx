@@ -31,8 +31,13 @@ export function FounderProgressCard({ kind, country }: { kind: FounderKind; coun
     );
   }
 
-  const benefits = t(`founder.groups.${kind}.benefits`, { returnObjects: true }) as string[];
-  const reqs = t(`founder.groups.${kind}.reqs`, { returnObjects: true }) as string[];
+  // `returnObjects` devuelve el TEXTO DE LA CLAVE (un string) cuando la
+  // traducción falta, y `.map` sobre un string tumba la página entera. Por eso
+  // se normaliza a array en vez de confiar en el `as string[]`: un idioma
+  // incompleto debe degradar la tarjeta, nunca romper el formulario.
+  const asList = (v: unknown): string[] => (Array.isArray(v) ? (v as string[]) : []);
+  const benefits = asList(t(`founder.groups.${kind}.benefits`, { returnObjects: true, defaultValue: [] }));
+  const reqs = asList(t(`founder.groups.${kind}.reqs`, { returnObjects: true, defaultValue: [] }));
 
   return (
     <div className="mt-4 rounded-2xl border border-brand-200 bg-brand-50 p-4">

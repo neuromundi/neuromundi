@@ -2417,6 +2417,19 @@
           "Oferecer um benefício à comunidade: desconto ≥10% a 10 membros, ou 3 serviços/consultas gratuitos verificados.",
           "Recomende a Neuromundi para pelo menos 10 pessoas."
         ]
+      },
+      "companies": {
+        "benefits": [
+          "Seu perfil exibirá o selo \"Sou Fundador Neuromundi\".",
+          "Seu perfil aparecerá como relevante e destacado nas buscas.",
+          "Cadastro de empresa inclusiva sempre gratuito."
+        ],
+        "reqs": [
+          "Estar entre as primeiras 20 empresas por país.",
+          "Manter pelo menos 2 vagas ativas publicadas.",
+          "Logo, descrição completa e e-mail/telefone verificados.",
+          "Recomende o Neuromundi a pelo menos 10 pessoas."
+        ]
       }
     },
     "allBenefits": [

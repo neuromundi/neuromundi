@@ -2417,6 +2417,19 @@
           "Offrir un avantage communautaire : remise ≥10 % à 10 membres, ou 3 services/consultations gratuits vérifiés.",
           "Recommandez Neuromundi à au moins 10 personnes."
         ]
+      },
+      "companies": {
+        "benefits": [
+          "Votre profil affichera le badge « Je suis Fondateur Neuromundi ».",
+          "Votre profil apparaîtra comme pertinent et mis en avant dans les recherches.",
+          "Inscription d'entreprise inclusive toujours gratuite."
+        ],
+        "reqs": [
+          "Être parmi les 20 premières entreprises par pays.",
+          "Maintenir au moins 2 offres d'emploi actives publiées.",
+          "Logo, description complète et e-mail/téléphone vérifiés.",
+          "Recommandez Neuromundi à au moins 10 personnes."
+        ]
       }
     },
     "allBenefits": [
