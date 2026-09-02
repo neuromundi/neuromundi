@@ -138,6 +138,40 @@ export default defineConfig({
   // Pre-empaqueta las dependencias (sobre todo las que se cargan en rutas lazy)
   // para que el optimizador de Vite no las descubra de a poco y recargue cada
   // vez que entras a una página nueva.
+  /**
+   * División del bundle por librería.
+   *
+   * El problema: el chunk principal pesaba 624 KB porque metía React, Supabase,
+   * i18next y los iconos en el mismo archivo que el código de la app. Como Vite
+   * pone un hash en el nombre, CUALQUIER cambio en la app —una traducción, un
+   * texto— invalidaba los 624 KB enteros y el usuario los volvía a descargar,
+   * aunque React no hubiera cambiado.
+   *
+   * La solución: separar las dependencias que casi nunca cambian. Los bytes
+   * totales son prácticamente los mismos, pero se descargan en paralelo y, sobre
+   * todo, el navegador REUTILIZA los vendor-* entre despliegues. En la práctica
+   * un despliegue de rutina pasa a descargar solo el trozo de la app.
+   *
+   * Recharts, Leaflet y los diccionarios de idioma ya se separaban solos por los
+   * `import()` dinámicos de las rutas; no hace falta tocarlos.
+   */
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor-react': ['react', 'react-dom', 'react-dom/client', 'react-router-dom'],
+          'vendor-supabase': ['@supabase/supabase-js'],
+          'vendor-i18n': ['i18next', 'react-i18next'],
+          'vendor-forms': ['react-hook-form', '@hookform/resolvers/zod', 'zod'],
+        },
+      },
+    },
+    // El aviso por defecto salta a 500 KB. Tras la división ningún chunk se
+    // acerca a eso; se deja algo por encima para que el aviso siga sirviendo
+    // de alarma real si algún día un chunk vuelve a dispararse.
+    chunkSizeWarningLimit: 600,
+  },
+
   optimizeDeps: {
     include: [
       'react',
