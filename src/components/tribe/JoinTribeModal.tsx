@@ -6,6 +6,7 @@
  */
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { tList } from '@/lib/tList';
 import { ShieldCheck, ListChecks } from 'lucide-react';
 import { Modal, Button } from '@/components/ui';
 import { useTribeMembership, type TribeEnergy } from '@/hooks/useTribe';
@@ -18,7 +19,7 @@ export function tribeLogo(lang: string): string {
 export function JoinTribeModal({ onClose, onJoined }: { onClose: () => void; onJoined?: () => void }) {
   const { t, i18n } = useTranslation();
   const { join } = useTribeMembership();
-  const rules = (t('tribe.rules', { returnObjects: true }) as string[]) ?? [];
+  const rules = tList(t, 'tribe.rules');
   const [accepted, setAccepted] = useState(false);
   const [energy, setEnergy] = useState<TribeEnergy>('green');
   const [privacy, setPrivacy] = useState({ show_country: true, show_city: true, show_interests: true, show_diagnosis: false });

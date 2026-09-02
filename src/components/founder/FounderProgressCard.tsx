@@ -10,6 +10,7 @@
  * motiva a registrarse igualmente por los beneficios propios del perfil.
  */
 import { useTranslation } from 'react-i18next';
+import { tList } from '@/lib/tList';
 import { Award, Check, Sparkles, Info } from 'lucide-react';
 import { FounderBadge } from '@/components/ui';
 import { useFounderCapacity, type FounderKind } from '@/hooks/useFounder';
@@ -31,13 +32,8 @@ export function FounderProgressCard({ kind, country }: { kind: FounderKind; coun
     );
   }
 
-  // `returnObjects` devuelve el TEXTO DE LA CLAVE (un string) cuando la
-  // traducción falta, y `.map` sobre un string tumba la página entera. Por eso
-  // se normaliza a array en vez de confiar en el `as string[]`: un idioma
-  // incompleto debe degradar la tarjeta, nunca romper el formulario.
-  const asList = (v: unknown): string[] => (Array.isArray(v) ? (v as string[]) : []);
-  const benefits = asList(t(`founder.groups.${kind}.benefits`, { returnObjects: true, defaultValue: [] }));
-  const reqs = asList(t(`founder.groups.${kind}.reqs`, { returnObjects: true, defaultValue: [] }));
+  const benefits = tList(t, `founder.groups.${kind}.benefits`);
+  const reqs = tList(t, `founder.groups.${kind}.reqs`);
 
   return (
     <div className="mt-4 rounded-2xl border border-brand-200 bg-brand-50 p-4">

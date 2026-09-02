@@ -9,6 +9,7 @@
 import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { tList } from '@/lib/tList';
 import { GraduationCap, BookOpen, Play, Check, HeartHandshake, Stethoscope, School, Search } from 'lucide-react';
 import { Button, SkeletonCard, useToast, EmptyState } from '@/components/ui';
 import { useAuth } from '@/hooks/useAuth';
@@ -52,7 +53,7 @@ export function Academy() {
     [courses, profile, level, q],
   );
 
-  const themes = profile ? (t(`lms.profiles.${profile}.themes`, { returnObjects: true }) as string[]) : [];
+  const themes = profile ? tList(t, `lms.profiles.${profile}.themes`) : [];
 
   return (
     <main className="mx-auto max-w-5xl space-y-6 p-4">

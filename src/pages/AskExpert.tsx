@@ -5,6 +5,7 @@
  */
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { tList } from '@/lib/tList';
 import { useCatLabel } from '@/lib/catLabel';
 import { MessageCircleQuestion, Check, ShieldCheck, Mail } from 'lucide-react';
 import { Button, useToast } from '@/components/ui';
@@ -26,7 +27,7 @@ export function AskExpert() {
   const [question, setQuestion] = useState('');
   const [sending, setSending] = useState(false);
 
-  const notes = t('expert.form.notes', { returnObjects: true }) as string[];
+  const notes = tList(t, 'expert.form.notes');
 
   const mailtoFallback = () => {
     const subject = t('expert.mail.subject');

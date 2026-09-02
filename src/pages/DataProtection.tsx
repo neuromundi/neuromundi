@@ -4,11 +4,12 @@
  */
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { tList } from '@/lib/tList';
 import { ShieldCheck, Lock, KeyRound, Scale, Check } from 'lucide-react';
 
 export function DataProtection() {
   const { t } = useTranslation();
-  const rights = t('dataprot.law.rights', { returnObjects: true }) as string[];
+  const rights = tList(t, 'dataprot.law.rights');
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-10">
