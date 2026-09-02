@@ -12,6 +12,7 @@ import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
 import { Button, useToast, PasswordInput} from '@/components/ui';
 import { useAuth } from '@/hooks/useAuth';
 import { useCatLabel } from '@/lib/catLabel';
+import { SectionsField } from '@/components/onboarding/SectionsField';
 import { RULES_VERSION } from '@/lib/legal';
 import { COUNTRIES, MEXICO_NAME } from '@/data/countries';
 import { MX_ESTADOS, MX_MUNICIPIOS } from '@/data/mxStatesMunicipalities';
@@ -71,6 +72,8 @@ export function ClinicRegister({ onSuccess, complete = false }: { onSuccess?: ()
   const [linkedin, setLinkedin] = useState('');
   // 3. Especialidades y servicios
   const [specialties, toggleSpecialty, setSpecialties] = useToggleList();
+  const [sections, toggleSection] = useToggleList();
+  const [neuroConditions, toggleCondition] = useToggleList();
   const [clinicSpecialtyOther, setClinicSpecialtyOther] = useState('');
   const [ageRanges, toggleAge] = useToggleList();
   const [services, toggleService, setServices] = useToggleList();
@@ -252,6 +255,7 @@ export function ClinicRegister({ onSuccess, complete = false }: { onSuccess?: ()
       country: country || null, state: isMexico ? stateName : null, municipality: isMexico ? municipality : null,
       address: address || null,
       specialties, ageRanges, modalities, providerDetails: details,
+      sections, neuroConditions,
       rulesVersion: RULES_VERSION,
     };
     const res = complete ? await completeProfile(payload) : await signUp(payload);
@@ -369,6 +373,12 @@ export function ClinicRegister({ onSuccess, complete = false }: { onSuccess?: ()
 
         {step === 2 && (
           <div className="space-y-4">
+            <SectionsField
+              sections={sections}
+              onToggleSection={toggleSection}
+              neuroConditions={neuroConditions}
+              onToggleCondition={toggleCondition}
+            />
             {/* Especialidades y servicios PROPIOS de la clínica / centro
                 terapéutico: solo se muestran si ese subperfil está seleccionado.
                 El gabinete y el laboratorio tienen su propio listado más abajo. */}

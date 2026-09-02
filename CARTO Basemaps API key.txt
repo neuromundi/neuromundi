@@ -1,0 +1,7 @@
+Here is your CARTO Basemaps API key:
+
+cb1_2t0t_1_8cd69c3c9ea54e2996ed1199
+
+Add the key to your tile URL as a key parameter and the watermark goes away:
+
+https://basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png?key=cb1_2t0t_1_8cd69c3c9ea54e2996ed1199

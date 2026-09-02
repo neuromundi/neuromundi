@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0ea5e9" />
+    <meta name="application-name" content="Neuromundi" />
+    <meta name="description" content="Neuromundi es la comunidad global para la neurodivergencia: conecta a familias y personas neurodivergentes con prestadores de servicios, comercios y escuelas inclusivas validados, con directorio, tienda, formación y agenda de citas." />
+    
+    <link rel="alternate" hreflang="es" href="https://www.neuromundi.com/" />
+    <link rel="alternate" hreflang="en" href="https://www.neuromundi.com/en/" />
+    <link rel="alternate" hreflang="de" href="https://www.neuromundi.com/de/" />
+    <link rel="alternate" hreflang="pt" href="https://www.neuromundi.com/pt/" />
+    <link rel="alternate" hreflang="it" href="https://www.neuromundi.com/it/" />
+    <link rel="alternate" hreflang="fr" href="https://www.neuromundi.com/fr/" />
+    <link rel="alternate" hreflang="zh" href="https://www.neuromundi.com/zh/" />
+    <link rel="alternate" hreflang="ja" href="https://www.neuromundi.com/ja/" />
+    <link rel="alternate" hreflang="x-default" href="https://www.neuromundi.com/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Neuromundi" />
+    <meta property="og:title" content="Neuromundi — Comunidad global para la neurodivergencia" />
+    <meta property="og:description" content="Conecta a familias y personas neurodivergentes con prestadores, comercios y escuelas inclusivas validados. Directorio, tienda, formación y citas." />
+    <meta property="og:url" content="https://www.neuromundi.com" />
+    
+    <meta property="og:image" content="https://www.neuromundi.com/hero-neuromundi.jpg" />
+    <meta property="og:image:secure_url" content="https://www.neuromundi.com/hero-neuromundi.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Ilustración de la comunidad Neuromundi" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Neuromundi — Comunidad global para la neurodivergencia" />
+    <meta name="twitter:description" content="Conecta a familias y personas neurodivergentes con prestadores, comercios y escuelas inclusivas validados. Directorio, tienda, formación y citas." />
+    <meta name="twitter:image" content="https://www.neuromundi.com/hero-neuromundi.jpg" />
+
+
+    <!-- ── Fuentes: fuera de la ruta crítica ──────────────────────────────
+         Antes se cargaban con @import dentro del CSS, lo que encadenaba
+         CSS → hoja de fuentes → archivos (1.6 s de latencia crítica) y traía
+         5 pesos de Inter desde rsms.me (564 KB). Ahora: preconexión, solo los
+         pesos que se usan, y carga sin bloquear el render. -->
+    <!-- La primera consulta de datos sale hacia Supabase: abrir la conexión
+         antes ahorra el handshake TLS de la ruta crítica. -->
+    <!-- Precarga del héroe (elemento LCP). Vive en /hero/ con nombre estable
+         para que el navegador pueda pedirlo SIN esperar a que descargue y
+         ejecute el bundle: eso era el "retraso en la carga de recursos".
+         imagesrcset/imagesizes deben coincidir con HeroArt.tsx.
+
+         SOLO EN LA PORTADA. Como es una SPA, este mismo index.html se sirve en
+         todas las rutas, y el héroe únicamente existe en "/". Cuando estaba como
+         <link> estático, entrar a /panel o /directorio descargaba una imagen de
+         decenas de KB que nadie iba a usar, y el navegador avisaba en consola:
+         "preloaded ... but not used within a few seconds".
+
+         Va como script en línea y no como <link> para poder condicionarlo. Se
+         ejecuta durante el análisis del HTML, en este mismo punto, así que la
+         imagen se sigue pidiendo antes de descargar el bundle. -->
+    <script>
+      (function () {
+        if (location.pathname !== '/' && location.pathname !== '/index.html') return;
+        var l = document.createElement('link');
+        l.rel = 'preload';
+        l.as = 'image';
+        l.href = '/hero/slides/1-800-v3.webp';
+        l.imageSrcset = '/hero/slides/1-500-v3.webp 500w, /hero/slides/1-800-v3.webp 800w';
+        l.imageSizes = '(max-width: 640px) 92vw, (max-width: 1024px) 60vw, 448px';
+        l.setAttribute('fetchpriority', 'high');
+        document.head.appendChild(l);
+      })();
+    </script>
+    <!-- crossorigin es OBLIGATORIO aquí: las llamadas a la API de Supabase van
+         con cabeceras (apikey/Authorization), así que son peticiones CORS. Sin
+         crossorigin, el navegador abre una conexión que NO reutiliza para esos
+         fetch y el preconnect se desperdicia (Lighthouse lo marcaba como
+         "conexión previa no utilizada", ~300 ms de LCP perdidos). -->
+    <link rel="preconnect" href="https://sboagswcehuxwfjdbhdn.supabase.co" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- display=optional (no swap): si Inter no llega en ~100 ms se usa el
+         respaldo métricamente idéntico durante toda la carga y NUNCA se
+         reemplaza. Es lo que elimina el desplazamiento de diseño; en la
+         siguiente visita la fuente ya está en caché y sí se aplica. -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=optional"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=optional" />
+    </noscript>
+
+    <link rel="icon" href="/favicon.ico?v=3" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=3" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3" />
+    <link rel="canonical" href="https://www.neuromundi.com/" />
+    <title>Neuromundi: your global community</title>
+
+    <!-- Google tag (gtag.js)
+         Se inyecta DESPUÉS de que la página ya cargó (o al primer gesto del
+         usuario). Son 160 KB y ~144 ms de tareas largas: fuera de la carga
+         inicial no compiten con el LCP, y la medición no se pierde porque
+         dataLayer acumula los eventos desde el principio. -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-10RD9TJY3V');
+      (function () {
+        var loaded = false;
+        function loadGtag() {
+          if (loaded) return;
+          loaded = true;
+          var s = document.createElement('script');
+          s.async = true;
+          s.src = 'https://www.googletagmanager.com/gtag/js?id=G-10RD9TJY3V';
+          document.head.appendChild(s);
+        }
+        // Lo que ocurra primero: navegador ocioso, 3 s, o interacción real.
+        // Se espera al evento load y DESPUÉS a que el navegador quede ocioso.
+        // Con timeout de 3 s se disparaba en plena ventana de LCP y aportaba
+        // ~350 ms de trabajo en el hilo principal.
+        // Tras 'load' se espera además unos segundos: en escritorio la página
+        // carga tan rápido que el idle llegaba a los ~900 ms, en plena medición,
+        // y sus 190 ms de trabajo se contaban como bloqueo. Cualquier gesto del
+        // usuario lo carga de inmediato, así que no se pierden sesiones reales.
+        function schedule() {
+          setTimeout(function () {
+            if ('requestIdleCallback' in window) requestIdleCallback(loadGtag, { timeout: 5000 });
+            else setTimeout(loadGtag, 1000);
+          }, 4000);
+        }
+        if (document.readyState === 'complete') schedule();
+        else window.addEventListener('load', schedule, { once: true });
+        ['pointerdown', 'keydown', 'scroll'].forEach(function (e) {
+          window.addEventListener(e, loadGtag, { once: true, passive: true });
+        });
+      })();
+    </script>
+
+    <script type="module" crossorigin src="/assets/index-zIwyk9eW.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-ZBIQ6KVT.css">
+    <script>(function(){var M={"es":"/assets/es.crit-BFs4JoS-.js","en":"/assets/en.crit-BDYnU7Jl.js","fr":"/assets/fr.crit-Bz1ed9td.js","de":"/assets/de.crit-YPw9H6eh.js","it":"/assets/it.crit-BU82HJOr.js","pt":"/assets/pt.crit-BCS4yefP.js","ja":"/assets/ja.crit-Bx9rAhai.js","zh":"/assets/zh.crit-VBXCsnhp.js","ar":"/assets/ar.crit-D6tYUYQW.js","he":"/assets/he.crit-DiVTuvuo.js","ko":"/assets/ko.crit-C3df71q0.js"};var s=null;try{s=localStorage.getItem('neuro.lang')}catch(e){}var b=(navigator.language||'en').toLowerCase().split('-')[0];var l=(s&&M[s])?s:(M[b]?b:'en');try{var d=document.documentElement;d.lang=l;d.dir=(l==='ar'||l==='he')?'rtl':'ltr'}catch(e){}var h=M[l];if(!h)return;var k=document.createElement('link');k.rel='modulepreload';k.href=h;document.head.appendChild(k)})();</script>
+  <link rel="manifest" href="/manifest.webmanifest"></head>
+  <body>
+    <div id="root">
+      <div data-nm-shell style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">
+        <main style="font-family:system-ui,sans-serif;color:#0f172a">
+          <h1 style="color:#0284c7">Neuromundi</h1>
+          <p>Neuromundi es una comunidad y un marketplace global para la neurodivergencia.</p>
+          <p>
+            Neuromundi conecta a familias y personas neurodivergentes con prestadores de
+            servicios, comercios y escuelas inclusivas validados por la comunidad. La
+            plataforma ofrece un directorio de profesionales, una tienda de productos y
+            recursos, formación (Academy), inclusión escolar y agenda de citas. El registro
+            de familias y personas neurodivergentes es gratuito.
+          </p>
+        </main>
+        <footer style="font-family:system-ui,sans-serif">
+          <a href="/privacidad.html">Aviso de Privacidad</a> ·
+          <a href="/terminos.html">Términos y Condiciones</a>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>

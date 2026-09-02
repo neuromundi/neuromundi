@@ -1,0 +1,11 @@
+import{u as l,aI as d,r as c,I as m,j as e}from"./index-BHjU6jbF.js";import{S as u}from"./sparkles-C3DhLtqZ.js";function x({onClose:r}){var s;const{t:a}=l(),o=typeof window<"u"&&((s=window.matchMedia)==null?void 0:s.call(window,"(prefers-reduced-motion: reduce)").matches)||d.getState().reduceMotion,n=c.useMemo(()=>o?[]:Array.from({length:40},(t,i)=>({id:i,left:Math.random()*100,delay:Math.random()*2.5,duration:2.5+Math.random()*2.5,size:10+Math.random()*16,opacity:.6+Math.random()*.4})),[o]);return m.createPortal(e.jsxs("div",{className:"fixed inset-0 z-[60] flex items-center justify-center bg-slate-900/60 p-4",children:[e.jsx("style",{children:`
+        @keyframes nm-starfall {
+          0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+          10% { opacity: 1; }
+          100% { transform: translateY(110vh) rotate(220deg); opacity: 0; }
+        }
+        @keyframes nm-pop {
+          0% { transform: scale(0.85); opacity: 0; }
+          100% { transform: scale(1); opacity: 1; }
+        }
+      `}),e.jsx("div",{className:"pointer-events-none absolute inset-0 overflow-hidden","aria-hidden":"true",children:n.map(t=>e.jsx("span",{className:"absolute top-0",style:{left:`${t.left}%`,fontSize:`${t.size}px`,opacity:t.opacity,color:"#FFD23F",animation:`nm-starfall ${t.duration}s linear ${t.delay}s infinite`,textShadow:"0 0 6px rgba(255,210,63,0.8)"},children:"★"},t.id))}),e.jsxs("div",{role:"dialog","aria-modal":"true","aria-labelledby":"welcome-title",className:"relative w-full max-w-md rounded-3xl bg-white p-8 text-center shadow-2xl",style:{animation:o?void 0:"nm-pop 300ms ease-out"},children:[e.jsx("div",{className:"mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-brand-500 to-evs-5 text-white",children:e.jsx(u,{className:"h-8 w-8"})}),e.jsx("h2",{id:"welcome-title",className:"text-2xl font-extrabold text-slate-900",children:a("welcome.title")}),e.jsx("p",{className:"mt-2 text-slate-600",children:a("welcome.body")}),e.jsx("button",{type:"button",onClick:r,className:"mt-6 w-full rounded-xl bg-brand-700 px-4 py-3 font-semibold text-white shadow-lg hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500",children:a("welcome.cta")})]})]}),document.body)}export{x as WelcomePopup};

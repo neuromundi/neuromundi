@@ -28,7 +28,7 @@
     "school": "インクルージョン",
     "dataProtection": "データ保護",
     "askExpert": "専門家に質問",
-    "kit": "ツールキット",
+    "kit": "ツール",
     "blog": "ブログ",
     "events": "イベント",
     "calendar": "カレンダー",
@@ -37,11 +37,11 @@
     "donate": "寄付する",
     "founders": "創設メンバー",
     "labor": "就労インクルージョン",
-    "tribe": "トライブ",
+    "tribe": "Neurocamps",
     "red": "Neuromundiネットワーク"
   },
   "home": {
-    "title": "神経発達と神経多様性において、患者・家族・専門家・提供者をつなぐ世界初のグローバルコミュニティ。",
+    "title": "神経発達、神経多様性、神経疾患の分野で患者・家族・専門家・事業者をつなぐ、世界初のグローバルコミュニティ。",
     "subtitle": "体験を共有し、最新情報を得て、他の家族が検証したサービスや製品を見つけましょう。割引と信頼できるおすすめ付き。",
     "explore": "ディレクトリを見る",
     "auth": "アカウント作成またはログイン",
@@ -72,13 +72,15 @@
       "button": "検索",
       "free": "家族と神経多様性のある人の登録は無料です。"
     },
-    "community": "私たちは単なるディレクトリではありません。神経発達と神経多様性に取り組む専門家や提供者と協力し、患者と家族が創る、支援・導き・伴走の本物のコミュニティです。ここはインクルージョンとともに育つあなたの場所です。",
+    "community": "私たちは単なる名簿ではなく、患者と家族が、神経発達・神経多様性・神経疾患に取り組む専門家や事業者とともに築いた、支援・案内・伴走の本物のコミュニティです。ここはインクルージョンとともに成長するあなたの場所です。",
     "country": {
       "label": "どの国からご利用ですか？",
       "all": "すべての国",
       "cta": "ディレクトリを見る",
       "hint": "国を選ぶと、近くの専門家・学校・事業者が表示されます。",
-      "selected": "{{country}} 向けに表示しています。"
+      "selected": "{{country}} 向けに表示しています。",
+      "search": "国を検索",
+      "noMatch": "該当なし"
     },
     "heroAlt": "家族、神経多様性のある人々、神経発達の専門家のコミュニティ",
     "donors": {
@@ -243,7 +245,11 @@
     "clearLocation": "解除",
     "nearHint": "現在地を共有すると、近くの専門家・学校・提供者が表示されます。",
     "geoDenied": "現在地にアクセスできませんでした。近くの結果を見るにはブラウザで有効にしてください。",
-    "geoUnavailable": "お使いのブラウザは位置情報の共有に対応していません。"
+    "geoUnavailable": "お使いのブラウザは位置情報の共有に対応していません。",
+    "sectionLabel": "今日は何をお探しですか？",
+    "sectionAll": "すべて",
+    "allConditions": "すべての疾患",
+    "conditionAria": "神経疾患で絞り込む"
   },
   "card": {
     "evs": "EVS",
@@ -768,7 +774,7 @@
     "neuroRevoke": "認証を取消",
     "secFounders": "創設メンバー",
     "secBadges": "バッジ",
-    "secTribe": "トライブ",
+    "secTribe": "Neurocamps",
     "benefitExempt": "無料アクセス",
     "benefitPercent": "割引 %",
     "benefitPercentShort": "-{{pct}}%",
@@ -782,7 +788,7 @@
     "secAdvisors": "アドバイザー",
     "adv": {
       "title": "アドバイザー権限",
-      "intro": "アドバイザーはプラットフォーム全体を閲覧しTribuをモデレートできます（財務・管理操作は不可）。",
+      "intro": "アドバイザーはプラットフォーム全体を閲覧しTribeをモデレートできます（財務・管理操作は不可）。",
       "search": "検索",
       "searchPh": "会員番号・氏名",
       "searchShort": "2文字以上入力してください",
@@ -793,11 +799,42 @@
       "remove": "解除",
       "emptyTitle": "アドバイザーなし",
       "empty": "まだアドバイザーを指定していません。"
+    },
+    "secCampaign": "キャンペーン",
+    "camp": {
+      "title": "事前登録キャンペーン",
+      "intro": "国ごとの公開まで名簿をロックし、大陸ごとにポップアップを制御。管理者とアドバイザーは対象外。",
+      "active": "キャンペーン有効（名簿ロック）",
+      "startAt": "ロック開始",
+      "defaultDays": "ロック日数（既定）",
+      "countryDays": "国別の日数（例外）",
+      "pickCountry": "国を選択",
+      "addCountry": "国を追加",
+      "popupActive": "ウェルカムポップアップ有効",
+      "popupHint": "ウェルカムポップアップを表示する大陸を選びます。",
+      "save": "キャンペーンを保存",
+      "saved": "キャンペーンを保存しました",
+      "discTitle": "創設割引（年額）",
+      "discHint": "開始からの日数による段階（例：15日目まで50%、30日目まで25%）。年額会員のみ。",
+      "discUntilDay": "～日目まで",
+      "addStage": "段階を追加",
+      "raffleTitle": "抽選",
+      "raffleHint": "登録ごとに1枚、紹介ごとにもう1枚。ローンチ当日の抽選用に参加者をダウンロード。",
+      "raffleCsv": "参加者をダウンロード（CSV）",
+      "communityTitle": "限定グループ",
+      "communityHint": "招待リンク（Discord/WhatsApp）を貼り付け。講座と特典ページで表示。",
+      "drawTitle": "抽選を実行",
+      "drawAll": "全員",
+      "drawConsumer": "患者・家族・保護者",
+      "drawPaying": "有料会員",
+      "drawCta": "抽選",
+      "drawDone": "抽選が完了しました",
+      "winnersCsv": "当選者をダウンロード（CSV）"
     }
   },
   "reg": {
     "typePatient": "患者",
-    "typeParent": "保護者",
+    "typeParent": "家族（親・保護者・親族）",
     "typeService": "専門家",
     "typeMerchant": "商品提供者",
     "account": "アカウント情報",
@@ -808,9 +845,9 @@
     "birthDate": "生年月日",
     "gender": "性別（任意）",
     "genderPlaceholder": "自認する性別",
-    "condition": "神経多様性または症状の種類",
-    "conditionChild": "お子さまの神経多様性または症状",
-    "conditionPlaceholder": "例：ASD、ADHD、ディスレクシア…",
+    "condition": "神経発達・神経多様性・神経疾患の種類",
+    "conditionChild": "家族の神経発達・神経多様性・神経疾患",
+    "conditionPlaceholder": "例：ASD、ADHD、失読症、てんかん…",
     "location": "所在地",
     "country": "居住国",
     "state": "州・県",
@@ -836,7 +873,7 @@
     "errAddress": "番地・建物を入力してください",
     "errBusiness": "会社名を入力してください",
     "errBirth": "生年月日を入力してください",
-    "errCondition": "神経多様性または症状を入力してください",
+    "errCondition": "神経発達・神経多様性・神経疾患を入力してください",
     "errServices": "提供するサービスを入力してください",
     "errProducts": "提供する商品を入力してください",
     "errLocations": "少なくとも1つの所在地を追加してください",
@@ -923,7 +960,9 @@
     "wantFounder": "Neuromundi 創設メンバーになりたい。",
     "wantFounderHint": "通常アカウントを希望する場合は外してください（後で変更できます）。",
     "ordinaryDiscount": "創設メンバーでなくても、初年度に限り年会費が50%割引になります。",
-    "freeLifetime": "患者または保護者としての会員資格は完全に無料で生涯有効です。更新も料金もありません。"
+    "freeLifetime": "患者または家族としての会員資格は完全無料で生涯有効です。更新も料金もありません。",
+    "sectionsInterest": "興味のあるセクションは？（1つ以上選択）",
+    "sectionsInterestHelp": "Neuromundiは3つの領域を扱います。興味のあるものを選んでください。"
   },
   "loc": {
     "title": "店舗一覧",
@@ -1018,7 +1057,12 @@
     "founderPrice": "創設メンバー価格が適用されます",
     "promoDiscountOk": "会費に{{pct}}%の割引を適用しました",
     "promoEmail": "このコードは別のメールアカウントに紐付けられています。",
-    "promoAmountOk": "会費に{{amount}} {{currency}}の割引を適用しました"
+    "promoAmountOk": "会費に{{amount}} {{currency}}の割引を適用しました",
+    "founderCampaign": "創設割引：{{date}}までに年会費を支払うと{{pct}}%オフ。",
+    "successTitle": "お支払い完了！",
+    "successBody": "Neuromundi創設メンバーへようこそ。バッジが有効になりました。",
+    "freezeNotice": "年会費は生涯固定：将来の値上げから守られます（国のインフレによる年次調整を除く）。",
+    "successCta": "了解！"
   },
   "rules": {
     "version": "バージョン",
@@ -1279,7 +1323,7 @@
       "body": "{{name}} · {{place}}"
     },
     "forumNew": {
-      "title": "トライブに新しいフォーラム",
+      "title": "Tribeに新しいフォーラム",
       "body": "フォーラム「{{title}}」が開設されました。"
     },
     "forumPending": {
@@ -1296,7 +1340,7 @@
     },
     "forumModApproved": {
       "title": "モデレーター承認",
-      "body": "トライブのフォーラムのモデレーターになりました。"
+      "body": "Tribeのフォーラムのモデレーターになりました。"
     }
   },
   "clin": {
@@ -1760,7 +1804,7 @@
         "desc": "支援・サービス・コミュニティを求めるあなたへ。"
       },
       "parent": {
-        "title": "保護者",
+        "title": "家族（親・保護者・親族）",
         "desc": "お子さんや家族のためにアカウントを作成。"
       },
       "service_provider": {
@@ -2254,12 +2298,45 @@
     "hotel": "ホテル",
     "biblioteca": "図書館",
     "centro_cultural": "文化センター",
-    "gimnasio": "ジム・スポーツ"
+    "gimnasio": "ジム・スポーツ",
+    "neurocirugia": "脳神経外科",
+    "epileptologia": "てんかん学",
+    "neurogeriatria": "神経老年医学",
+    "neurorrehabilitacion": "神経リハビリテーション",
+    "fisioterapia_neurologica": "神経理学療法",
+    "enfermeria_neurologica": "神経看護・ケア",
+    "neurorrehabilitacion_motora": "運動神経リハビリ",
+    "rehabilitacion_cognitiva": "認知リハビリ",
+    "manejo_epilepsia": "てんかん・発作の管理",
+    "espasticidad_movilidad": "痙縮と可動性",
+    "deglucion_disfagia": "嚥下・摂食障害",
+    "dolor_neurologico": "神経性疼痛の管理",
+    "cuidados_paliativos_neuro": "神経緩和ケア",
+    "epilepsia": "てんかん・発作",
+    "paralisis_cerebral_afeccion": "脳性麻痺",
+    "acv": "脳卒中・脳血管疾患",
+    "cefalea_migrana": "頭痛・片頭痛",
+    "esclerosis_multiple": "多発性硬化症・脱髄疾患",
+    "parkinson": "パーキンソン病・パーキンソニズム",
+    "enf_neuromuscular": "神経筋疾患（ALS・筋ジストロフィー・SMA）",
+    "neuropatia_periferica": "末梢神経障害",
+    "distonia_movimiento": "ジストニア・運動障害",
+    "demencia_neurocognitivo": "神経認知障害・認知症",
+    "tce_lesion_medular": "外傷性脳・脊髄損傷",
+    "hidrocefalia_lcr": "水頭症・髄液障害",
+    "tumor_snc": "神経系腫瘍",
+    "enf_neurogenetica": "神経遺伝性疾患（脆弱X・結節性硬化症・神経線維腫症）",
+    "espina_bifida": "皮質発達異常・二分脊椎",
+    "neuroinmune": "神経免疫疾患（自己免疫性脳炎）",
+    "ataxia": "遺伝性運動失調症",
+    "sueno_neurologico": "神経性睡眠障害（ナルコレプシー）",
+    "infeccion_snc": "中枢神経感染症の後遺症（髄膜炎・脳炎）",
+    "otra_afeccion": "その他の神経疾患"
   },
   "kit": {
-    "badge": "ツールキット",
+    "badge": "ツール",
     "title": "一歩ごとに寄り添う",
-    "intro": "理解し、調整し、ケアするための短くあたたかなガイド。急がず、専門用語なしで、必要なときにいつでも。",
+    "intro": "Neuromundiの3領域—神経発達・神経多様性・神経疾患—を理解し、調整し、寄り添うための短くやさしいガイド。急がず、専門用語なしで。",
     "progressLabel": "あなたの読書の進み",
     "markRead": "読んだことにする",
     "readDone": "読了",
@@ -2284,7 +2361,8 @@
       "empty": "この分野のプロフィールは追加中です。その間、ディレクトリ全体をご覧いただけます。",
       "error": "現在おすすめを読み込めませんでした。ディレクトリ全体をご覧いただけます。",
       "specialist": "専門家"
-    }
+    },
+    "pickSection": "セクションでキットを選ぶ"
   },
   "founderCard": {
     "kicker": "ファウンダープログラム",
@@ -2411,6 +2489,18 @@
           "写真、詳しい自己紹介、認証済みメール/電話。",
           "コミュニティ特典の提供：10名に10%以上の割引、または認証済みの無料サービス/相談3件。",
           "少なくとも10人に Neuromundi を紹介する。"
+        ]
+      },
+      "companies": {
+        "benefits": [
+          "企業プロフィールに「私はNeuromundi創設メンバー」バッジが表示されます。",
+          "就労インクルージョンと検索であなたの企業が目立ちます。",
+          "インクルーシブ企業は常に会費無料です。"
+        ],
+        "reqs": [
+          "自国で最初に登録された20社に入ること。",
+          "有効な求人を2件以上維持すること。",
+          "ロゴ・説明・メール/電話の確認済み。"
         ]
       }
     },
@@ -2613,7 +2703,8 @@
     },
     "accrued": "次回の支払いに{{pct}}%が貯まっています（上限{{max}}%）。",
     "rules": "リンクは受け取ってから{{days}}日間有効です。これで登録した方は初回支払いが5%割引、あなたは支払いのあった紹介1件につき{{step}}%を獲得します。患者・家族は無料登録のため割引も特典もありませんが、利用は記録されます。",
-    "creditLive": "割引は次回の請求にのみ適用されます。有効なサブスクリプションがある場合は自動的に適用されます。"
+    "creditLive": "割引は次回の請求にのみ適用されます。有効なサブスクリプションがある場合は自動的に適用されます。",
+    "raffleTickets": "抽選券が{{count}}枚あります。もっと招待して増やしましょう。"
   },
   "renewal": {
     "title": "まもなく会員資格の更新時期です",
@@ -3387,7 +3478,7 @@
       "deleteConfirm": "このバッジとファイルを削除しますか？"
     },
     "tribe": {
-      "title": "トライブのフォーラム",
+      "title": "Tribeのフォーラム",
       "subtitle": "メンバーが作成したフォーラムを承認/却下します。",
       "pending": "保留中",
       "approved": "承認済み",
@@ -3408,7 +3499,7 @@
       "modEmptyTitle": "応募なし",
       "modEmpty": "この状態のモデレーターはいません。",
       "lookup": "検索",
-      "memberNotFound": "その番号のトライブメンバーは見つかりません。",
+      "memberNotFound": "その番号のTribeメンバーは見つかりません。",
       "memberSaved": "メンバーを更新しました。",
       "status": "状態",
       "st": {
@@ -3998,10 +4089,10 @@
     "saveErr": "保存できませんでした。"
   },
   "tribe": {
-    "title": "Neuromundiトライブ",
+    "title": "NeuromundiTribe",
     "landing": "社会的インクルージョンの場：所属・参加・自律。関心を通じて、自分のペースで、安全な環境でつながりましょう。",
-    "onlyEligible": "トライブは当事者・家族・専門家に開かれています。",
-    "joinTitle": "トライブに参加",
+    "onlyEligible": "Tribeは当事者・家族・専門家に開かれています。",
+    "joinTitle": "Tribeに参加",
     "joinIntro": "入る前に、コミュニティのルールを読んで同意し、今日の参加の仕方を選んでください。",
     "joinCta": "参加する",
     "rulesTitle": "コミュニティのルール",
@@ -4035,10 +4126,10 @@
       "show_interests": "興味を表示",
       "show_diagnosis": "診断・特性を表示"
     },
-    "acceptRules": "トライブのルールを読み、同意します。",
+    "acceptRules": "Tribeのルールを読み、同意します。",
     "mustAccept": "入るにはルールへの同意が必要です。",
     "joinErr": "登録を完了できませんでした。",
-    "suspended": "ルール違反によりトライブでの参加が停止されています。誤りだと思う場合はチームにご連絡ください。",
+    "suspended": "ルール違反によりTribeでの参加が停止されています。誤りだと思う場合はチームにご連絡ください。",
     "hubSubtitle": "関心クラブと親和スペース",
     "energyToday": "今日のエネルギーは？",
     "invitesTitle": "招待",
@@ -4073,7 +4164,7 @@
     "messagePlaceholder": "メッセージを入力…",
     "send": "送信",
     "sendErr": "送信できませんでした。",
-    "readOnly": "あなたのアカウントはトライブで閲覧のみです。",
+    "readOnly": "あなたのアカウントはTribeで閲覧のみです。",
     "noMessages": "最初の会話を始めましょう。",
     "loading": "読み込み中…",
     "grat": {
@@ -4086,7 +4177,7 @@
       "anon": "匿名で送る",
       "note": "クローズド形式：自由記述なし。1日の付与数に上限あり。"
     },
-    "pointsLabel": "トライブポイント {{n}}",
+    "pointsLabel": "Tribeポイント {{n}}",
     "toNext": "{{level}}まであと{{n}}",
     "tokensLeft": "本日の感謝フィッシュ：{{n}}",
     "impactItem": "{{n}}× {{badge}}",
@@ -4140,7 +4231,7 @@
       "youAre": "あなたは{{level}}です",
       "applyTitle": "モデレーター応募",
       "apply": "応募を送信",
-      "justifyLabel": "なぜトライブでモデレートしたいですか？",
+      "justifyLabel": "なぜTribeでモデレートしたいですか？",
       "justifyPh": "動機や経験を教えてください…",
       "justifyReq": "10文字以上入力してください。",
       "ethicsTitle": "モデレーター倫理規定",
@@ -4231,8 +4322,8 @@
       "guideHint": "予告ガイドは必須です：何が起きるか、騒音の見込み、静かな部屋。",
       "guideReq": "ガイドを完成させてください：タイトル、日時、内容、騒音の見込み。",
       "publish": "公開",
-      "created": "イベントを公開しました。+20トライブポイント。",
-      "pointsHint": "予告ガイド付きの公開で+20トライブポイント。",
+      "created": "イベントを公開しました。+20Tribeポイント。",
+      "pointsHint": "予告ガイド付きの公開で+20Tribeポイント。",
       "title": "タイトル",
       "when": "日時",
       "online": "オンライン",
@@ -4255,22 +4346,22 @@
       "reportTitle": "感覚レポート：{{name}}",
       "sendReport": "レポートを送信",
       "reportReq": "騒音と快適さを評価してください。",
-      "reported": "ありがとう！+15トライブポイント。",
+      "reported": "ありがとう！+15Tribeポイント。",
       "noiseLevel": "体感した騒音レベル",
       "noiseScale": "1＝とても静か・5＝とても騒がしい",
       "comfort": "全体的な快適さ",
       "quietUsed": "静かな部屋を使った",
       "notes": "メモ（任意）",
-      "reportPoints": "このイベントへの最初のレポートで+15トライブポイント。"
+      "reportPoints": "このイベントへの最初のレポートで+15Tribeポイント。"
     },
     "stepsTitle": "参加方法",
     "step1": "コミュニティのルールを読んで同意します。",
     "step2": "今日の社会的エネルギー状態を選びます。",
     "step3": "表示する情報を選びます（プライバシー）。",
-    "step4": "「トライブに参加」を押して入ります。",
-    "privacyHint": "トライブの空間で何を見せるかはあなた次第。いつでも変更できます。",
+    "step4": "「Tribeに参加」を押して入ります。",
+    "privacyHint": "Tribeの空間で何を見せるかはあなた次第。いつでも変更できます。",
     "about": {
-      "title": "Tribu Neuromundiとは？",
+      "title": "Neurocamps Neuromundiとは？",
       "forumsT": "テーマ別フォーラム",
       "forumsD": "国や言語ごとに、気の合う人とつながる同好会。",
       "mentorT": "ピアメンタリング",
@@ -4284,8 +4375,8 @@
     },
     "access": {
       "title": "どうやって参加する？",
-      "body": "トライブに参加するにはNeuromundiのメンバーアカウントが必要です。まだなら作成、すでに会員ならログインしてください。",
-      "ready": "すでにアカウントがあります。トライブに参加して始めましょう。",
+      "body": "Tribeに参加するにはNeuromundiのメンバーアカウントが必要です。まだなら作成、すでに会員ならログインしてください。",
+      "ready": "すでにアカウントがあります。Tribeに参加して始めましょう。",
       "createBtn": "アカウント作成",
       "loginBtn": "ログイン"
     },
@@ -4298,14 +4389,18 @@
     "closeForum": "フォーラムを閉じる",
     "closeForumConfirm": "このフォーラムを閉じますか？利用できなくなります。",
     "forumClosed": "フォーラムを閉じました",
-    "forumsPanelTitle": "トライブのフォーラム",
+    "forumsPanelTitle": "Tribeのフォーラム",
     "forumsTab": "フォーラム",
     "forumPushOn": "通知オン",
     "forumPushOff": "通知オフ",
     "interestCountries": "関心のある国",
     "currentForums": "現在のフォーラム",
-    "goToTribe": "トライブへ",
-    "prefsSaved": "設定を保存しました"
+    "goToTribe": "Tribeへ",
+    "prefsSaved": "設定を保存しました",
+    "pickNeurocamp": "Neurocampを選ぶ",
+    "allNeurocamps": "すべて",
+    "forumSection": "Neurocamp（セクション）",
+    "sectionGeneral": "全体（すべて）"
   },
   "nid": {
     "member": "Neuromundiメンバー",
@@ -4361,10 +4456,108 @@
       "joinCta": "ネットワークに参加",
       "ctaTitle": "Neuromundiネットワークに参加",
       "ctaBody": "Neuromundi IDを受け付け、認証マークを取得し、来訪を所属感へ。",
-      "goPanel": "パネルへ"
+      "goPanel": "パネルへ",
+      "sealsCta": "アカウント作成"
     },
     "addApple": "Apple Walletに追加",
     "addGoogle": "Google Walletに追加",
-    "walletErr": "パスを生成できませんでした。後でお試しください。"
+    "walletErr": "パスを生成できませんでした。後でお試しください。",
+    "downloadCard": "証明書をダウンロード",
+    "pageTitle": "マイ Neuromundi ID",
+    "needLogin": "Neuromundi IDを見るにはログインしてください。"
+  },
+  "campaign": {
+    "locked": {
+      "title": "私たちは革新的なものを築いています。",
+      "body": "一般公開はまだですが、あなたは今、鍵を確保できます。",
+      "opensIn": "ディレクトリ公開まで",
+      "cta": "鍵を確保する",
+      "login": "アカウントを持っています"
+    },
+    "cd": {
+      "days": "日",
+      "hours": "時間",
+      "mins": "分",
+      "secs": "秒"
+    },
+    "welcome": {
+      "watch": "動画を見る",
+      "watchSub": "2分でプラットフォームを紹介",
+      "benefitsTitle": "特典を見る",
+      "benefitsSub": "創設メンバーとしての特典を見る",
+      "benefitsCta": "特典を見る",
+      "later": "あとで"
+    },
+    "benefits": {
+      "badge": "創設メンバー",
+      "title": "Neuromundi創設メンバーの特典",
+      "intro": "公開前に登録して、プロフィールに応じた特典を手に入れましょう。",
+      "note": "特典は登録確認で有効化。有料分はプロモ期間内の支払いで有効化。",
+      "cta": "登録する",
+      "paid": {
+        "title": "有料の提供者",
+        "items": [
+          "創設特別料金：最初の15日以内の支払いで年額50%オフ、16〜30日目は25%オフ。",
+          "生涯優待料金：価格は生涯固定（国のインフレによる年次調整を除く）。",
+          "創設メンバーのバッジと要件免除、公開プロフィールに専用マーク。",
+          "ローンチ当日の抽選（1年間無料会員）に自動参加。",
+          "パイオニア限定コミュニティに即アクセス。"
+        ]
+      },
+      "consumer": {
+        "title": "患者・家族・保護者",
+        "items": [
+          "創設レベルの無料メンバーシップ（生涯）。",
+          "紹介プログラム：有料の紹介者が支払う額の10%を獲得。",
+          "紹介者が患者・家族・保護者の場合、お好きな専門家によるセラピー10回の抽選券を1枚獲得。",
+          "ローンチ当日の抽選：無料の1対1相談10回。",
+          "メール確認でウェルカム オンライン講座、創設バッジ、限定コミュニティ。"
+        ]
+      },
+      "orgs": {
+        "title": "NPO・求人企業",
+        "items": [
+          "求人を提供するNPO・企業は常に無料メンバーシップ。",
+          "創設メンバーのバッジと公開プロフィールのマーク。",
+          "メール確認でウェルカム オンライン講座。",
+          "パイオニア限定コミュニティへのアクセス。"
+        ]
+      }
+    }
+  },
+  "course": {
+    "badge": "ウェルカム講座",
+    "title": "あなたのウェルカム講座",
+    "intro": "初日からNeuromundiを活用するための短いガイド。",
+    "modulesTitle": "内容",
+    "communityTitle": "パイオニア限定コミュニティ",
+    "communityBody": "限定グループに参加して、他の創設メンバーとつながりましょう。",
+    "communityCta": "コミュニティに参加",
+    "modules": [
+      "名簿の使い方と認定サービスの探し方。",
+      "Neuromundi ID の使い方とダウンロード。",
+      "割引・レビュー・コミュニティへの参加方法。",
+      "Kit のリソースと活用法。"
+    ]
+  },
+  "sections": {
+    "neurodesarrollo": {
+      "name": "神経発達",
+      "tagline": "幼児期の発達支援"
+    },
+    "neurodivergencias": {
+      "name": "神経多様性",
+      "tagline": "神経多様性のある人への支援"
+    },
+    "afecciones": {
+      "name": "神経疾患",
+      "tagline": "神経系疾患のケア"
+    }
+  },
+  "sectionsField": {
+    "label": "あなたのプロフィールが対象とするセクションは？",
+    "hint": "1つでも3つでも選択可。選んだ各セクションの名簿に表示されます。",
+    "conditionsLabel": "対応する神経疾患は？",
+    "conditionsHint": "該当するものを選択（任意）。"
   }
 }

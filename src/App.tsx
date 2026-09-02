@@ -5,11 +5,14 @@
  * sesión): panel y ajustes. Todo bajo el layout con navegación por rol.
  */
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
-import { lazy } from 'react';
+import { lazy, Suspense } from 'react';
 import { AppLayout } from '@/components/layout/AppLayout';
 import { ProtectedRoute } from '@/components/layout/ProtectedRoute';
+import { DirectoryGate } from '@/components/campaign/DirectoryGate';
 import { Home } from '@/pages/Home';
-import { Book } from '@/pages/Book';
+
+// Widget de reserva embebible: ruta propia sin layout; fuera del bundle inicial.
+const Book = lazy(() => import('@/pages/Book').then((m) => ({ default: m.Book })));
 
 // Carga diferida de las rutas pesadas (mapa, gráficas, escáner) para no inflar
 // el bundle inicial. El AppLayout provee el Suspense boundary.
@@ -49,21 +52,24 @@ const Founders = lazy(() => import('@/pages/Founders').then((m) => ({ default: m
 const Events = lazy(() => import('@/pages/Events').then((m) => ({ default: m.Events })));
 const CalendarPage = lazy(() => import('@/pages/Calendar').then((m) => ({ default: m.Calendar })));
 const Messages = lazy(() => import('@/pages/Messages').then((m) => ({ default: m.Messages })));
+const MyId = lazy(() => import('@/pages/MyId').then((m) => ({ default: m.MyId })));
+const Benefits = lazy(() => import('@/pages/Benefits').then((m) => ({ default: m.Benefits })));
+const WelcomeCourse = lazy(() => import('@/pages/WelcomeCourse').then((m) => ({ default: m.WelcomeCourse })));
 
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
     children: [
       { path: '/', element: <Home /> },
-      { path: '/directorio', element: <Directory /> },
-      { path: '/proveedor/:id', element: <ProviderProfile /> },
+      { path: '/directorio', element: <DirectoryGate><Directory /></DirectoryGate> },
+      { path: '/proveedor/:id', element: <DirectoryGate><ProviderProfile /></DirectoryGate> },
       { path: '/lista/:token', element: <SharedList /> },
       { path: '/terminos', element: <Terms /> },
       { path: '/privacidad', element: <Privacy /> },
       { path: '/conocer-mas', element: <InfoNeuromundi /> },
       { path: '/reglamento', element: <Rules /> },
       { path: '/contenido/:id', element: <Post /> },
-      { path: '/buscar', element: <SearchPage /> },
+      { path: '/buscar', element: <DirectoryGate><SearchPage /></DirectoryGate> },
       { path: '/tienda', element: <Store /> },
       { path: '/eventos', element: <Events /> },
       { path: '/inclusion-escolar', element: <SchoolInclusion /> },
@@ -75,17 +81,20 @@ const router = createBrowserRouter([
       { path: '/academy', element: <Academy /> },
       { path: '/academy/:id', element: <Course /> },
       { path: '/kit', element: <Toolkit /> },
+      { path: '/herramientas', element: <Toolkit /> },
       { path: '/blog', element: <Blog /> },
       { path: '/autor/:id', element: <Author /> },
       { path: '/manifiesto', element: <Manifiesto /> },
       { path: '/donar', element: <Donate /> },
       { path: '/donantes', element: <DonorWall /> },
       { path: '/fundadores', element: <Founders /> },
+      { path: '/beneficios', element: <Benefits /> },
       { path: '/entrar', element: <Auth /> },
       // Pública: el landing explica Tribu e invita a crear cuenta/entrar. El
       // contenido de la Tribu (foros, mentoría…) sigue exigiendo sesión y
       // membresía dentro del propio componente.
       { path: '/tribu', element: <TribuNeuromundi /> },
+      { path: '/neurocamps', element: <TribuNeuromundi /> },
       {
         element: <ProtectedRoute />,
         children: [
@@ -93,12 +102,14 @@ const router = createBrowserRouter([
           { path: '/ajustes', element: <Settings /> },
           { path: '/calendario', element: <CalendarPage /> },
           { path: '/mensajes', element: <Messages /> },
+          { path: '/mi-id', element: <MyId /> },
+          { path: '/curso-bienvenida', element: <WelcomeCourse /> },
         ],
       },
       { path: '*', element: <Navigate to="/" replace /> },
     ],
   },
-  { path: '/reservar/:memberNo', element: <Book /> },
+  { path: '/reservar/:memberNo', element: <Suspense fallback={null}><Book /></Suspense> },
 ]);
 
 export function App() {

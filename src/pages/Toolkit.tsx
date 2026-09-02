@@ -1,44 +1,65 @@
 /**
- * Toolkit — "Kit de Herramientas" de Neuromundi.
+ * Toolkit — "Herramientas" de Neuromundi (antes "Kit").
  *
- * Contenedor principal: navegación por módulos (A–E), lector de contenido,
- * progreso de lectura (Supabase si hay sesión, si no localStorage) y un CTA de
- * especialistas al final de cada módulo. Diseño calmado, alto contraste y
- * mobile-first, con transiciones solo de opacidad.
+ * Alberga los kits y herramientas de las TRES secciones de la plataforma
+ * (Neurodivergencias, Neurodesarrollo, Afecciones neurológicas). Un selector de
+ * sección elige el kit; cada kit tiene su navegación por módulos, lector de
+ * contenido, progreso de lectura (Supabase si hay sesión, si no localStorage) y
+ * un CTA de especialistas. Diseño calmado, alto contraste y mobile-first.
  */
 import { useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { CheckCircle2, BookOpenCheck, Info } from 'lucide-react';
+import { CheckCircle2, BookOpenCheck, Info, Sprout, Sparkles, Stethoscope } from 'lucide-react';
 import { Button, ProgressBar } from '@/components/ui';
 import { useAuth } from '@/hooks/useAuth';
 import { useToolkitProgress } from '@/hooks/useToolkitProgress';
 import { getModules, getModule } from '@/data/toolkit';
+import type { ToolkitSectionKey } from '@/data/toolkit';
+import { SECTIONS } from '@/data/sections';
+import { useSection } from '@/stores/sectionStore';
 import { ContentRenderer, SpecialistMatcher, ToolkitNav, MODULE_ACCENTS, MODULE_ICONS } from '@/components/toolkit';
 import { DonateCallout } from '@/components/donation/DonateCallout';
+import { cn } from '@/lib/utils';
+
+const SECTION_ICONS = { Sprout, Sparkles, Stethoscope } as const;
 
 export function Toolkit() {
   const { t, i18n } = useTranslation();
   const { isAuthenticated } = useAuth();
   const { isRead, markRead, ready } = useToolkitProgress();
   const [params, setParams] = useSearchParams();
-  const modules = useMemo(() => getModules(i18n.language), [i18n.language]);
+  const { section, setSection } = useSection();
+  // El kit necesita una sección concreta; si no hay elegida, arranca en neurodivergencias.
+  const activeSection: ToolkitSectionKey = (section ?? 'neurodivergencias') as ToolkitSectionKey;
+
+  const modules = useMemo(() => getModules(i18n.language, activeSection), [i18n.language, activeSection]);
+  // Clave de progreso: el kit original conserva ids sin prefijo; los nuevos se
+  // prefijan con la sección para no colisionar entre kits.
+  const pk = (id: string) => (activeSection === 'neurodivergencias' ? id : `${activeSection}:${id}`);
 
   const activeId = useMemo(() => {
     const m = params.get('m');
-    return m && getModule(i18n.language, m) ? m : modules[0].id;
-  }, [params, i18n.language, modules]);
+    return m && getModule(i18n.language, activeSection, m) ? m : modules[0].id;
+  }, [params, i18n.language, activeSection, modules]);
 
-  const activeModule = getModule(i18n.language, activeId) ?? modules[0];
+  const activeModule = getModule(i18n.language, activeSection, activeId) ?? modules[0];
   const accent = MODULE_ACCENTS[activeModule.id];
   const Icon = MODULE_ICONS[activeModule.icon];
-  const readCount = modules.filter((m) => isRead(m.id)).length;
+  const readCount = modules.filter((m) => isRead(pk(m.id))).length;
   const total = modules.length;
-  const activeRead = isRead(activeModule.id);
+  const activeRead = isRead(pk(activeModule.id));
 
   const selectModule = (id: string) => {
     const next = new URLSearchParams(params);
     next.set('m', id);
+    setParams(next, { replace: true });
+  };
+
+  const selectSection = (value: ToolkitSectionKey) => {
+    setSection(value);
+    const next = new URLSearchParams(params);
+    next.delete('m'); // vuelve al primer módulo del kit elegido
     setParams(next, { replace: true });
   };
 
@@ -52,6 +73,31 @@ export function Toolkit() {
         <h1 className="mt-3 text-3xl font-extrabold leading-tight text-slate-900">{t('kit.title')}</h1>
         <p className="mt-3 text-lg leading-relaxed text-muted">{t('kit.intro')}</p>
       </header>
+
+      {/* Selector de sección: elige el kit */}
+      <div className="mt-6">
+        <p className="mb-2 text-sm font-semibold text-slate-800">{t('kit.pickSection')}</p>
+        <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
+          {SECTIONS.map((s) => {
+            const SIcon = SECTION_ICONS[s.icon];
+            const active = activeSection === s.value;
+            return (
+              <button
+                key={s.value}
+                type="button"
+                aria-pressed={active}
+                onClick={() => selectSection(s.value)}
+                className={cn(
+                  'flex items-center justify-center gap-2 rounded-xl border px-3 py-2.5 text-sm font-semibold transition-colors',
+                  active ? `border-transparent bg-gradient-to-br text-white ${s.gradient}` : 'border-slate-200 text-slate-700 hover:bg-slate-50',
+                )}
+              >
+                <SIcon className="h-4 w-4 shrink-0" aria-hidden="true" /> {t(`sections.${s.value}.name`)}
+              </button>
+            );
+          })}
+        </div>
+      </div>
 
       {/* Progreso */}
       <div className="mt-6 rounded-2xl border border-slate-100 bg-white p-4 shadow-sm">
@@ -70,7 +116,7 @@ export function Toolkit() {
 
       {/* Navegación por módulos */}
       <div className="mt-8 border-b border-slate-100">
-        <ToolkitNav modules={modules} activeId={activeId} onSelect={selectModule} isRead={isRead} />
+        <ToolkitNav modules={modules} activeId={activeId} onSelect={selectModule} isRead={(id) => isRead(pk(id))} />
       </div>
 
       {/* Panel del módulo activo */}
@@ -112,7 +158,7 @@ export function Toolkit() {
             </span>
           ) : (
             <Button
-              onClick={() => markRead(activeModule.id)}
+              onClick={() => markRead(pk(activeModule.id))}
               disabled={!ready}
               leadingIcon={<CheckCircle2 className="h-4 w-4" />}
             >

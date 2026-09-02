@@ -11,6 +11,7 @@ import { useForm, useFieldArray } from 'react-hook-form';
 import { PasswordStrength } from './PasswordStrength';
 import { GeoFields } from './GeoFields';
 import { SCHOOL_GRADES } from '@/data/satCatalogs';
+import { SECTIONS } from '@/data/sections';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { Plus, Trash2, Gift, Globe, Instagram, Facebook } from 'lucide-react';
@@ -138,6 +139,9 @@ export function RegisterForm({ onSuccess, initialType, complete = false }: { onS
       accountType: (values.regType === 'patient' ? 'adulto_independiente' : values.regType === 'parent' ? 'padre_tutor' : null) as 'adulto_independiente' | 'padre_tutor' | null,
       lifeStage: values.regType === 'patient' ? (values.life_stage || null) : null,
       interests: values.regType === 'patient' ? (values.interests ?? []) : [],
+      // Secciones de interés (paciente/familiar). Los prestadores las declaran en
+      // sus formularios dedicados, así que aquí solo aplica a consumidores.
+      sections: (values.regType === 'patient' || values.regType === 'parent') ? (values.sections ?? []) : [],
       commsOptIn: values.regType === 'patient' ? !!values.comms_opt_in : false,
       locations: provider ? (values.locations ?? []) : [],
     };
@@ -276,6 +280,22 @@ export function RegisterForm({ onSuccess, initialType, complete = false }: { onS
             <label htmlFor="reg-birth" className={labelCls}>{t('reg.birthDate')}</label>
             <input id="reg-birth" type="date" className={inputCls} {...register('birth_date')} />
             {errors.birth_date && <p role="alert" className={errCls}>{t(errors.birth_date.message!)}</p>}
+          </div>
+        )}
+
+        {/* Secciones de interés (paciente y familiar): Neuromundi abarca tres áreas. */}
+        {isConsumer && (
+          <div>
+            <label className={labelCls}>{t('reg.sectionsInterest')}</label>
+            <p className="mb-2 text-xs text-muted">{t('reg.sectionsInterestHelp')}</p>
+            <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
+              {SECTIONS.map((s) => (
+                <label key={s.value} className="flex items-center gap-2 rounded-lg border border-slate-100 p-2 text-sm">
+                  <input type="checkbox" value={s.value} className="h-4 w-4 rounded border-slate-300 text-brand-500" {...register('sections')} />
+                  <span className="text-slate-700">{t(`sections.${s.value}.name`)}</span>
+                </label>
+              ))}
+            </div>
           </div>
         )}
 

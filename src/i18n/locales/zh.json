@@ -28,7 +28,7 @@
     "school": "融合教育",
     "dataProtection": "数据保护",
     "askExpert": "向专家提问",
-    "kit": "工具包",
+    "kit": "工具",
     "blog": "博客",
     "events": "活动",
     "calendar": "日历",
@@ -37,11 +37,11 @@
     "donate": "捐赠",
     "founders": "创始成员",
     "labor": "就业融合",
-    "tribe": "部落",
+    "tribe": "Neurocamps",
     "red": "Neuromundi 网络"
   },
   "home": {
-    "title": "首个连接神经发育与神经多样性领域中患者、家庭、专家与服务方的全球社区。",
+    "title": "首个连接患者、家庭、专家和服务提供者的全球社区，涵盖神经发育、神经多样性与神经系统疾病。",
     "subtitle": "分享经验、获取最新资讯，并找到经其他家庭验证的服务与产品，附带折扣和可信推荐。",
     "explore": "浏览目录",
     "auth": "注册或登录",
@@ -72,13 +72,15 @@
       "button": "搜索",
       "free": "家庭和神经多样性人士注册免费。"
     },
-    "community": "我们不只是又一个目录，而是由患者和家庭携手专注于神经发育与神经多样性的专业人员和提供者共同创建的真正支持、指导与陪伴社区。这里是你在融合中成长的空间。",
+    "community": "我们不只是又一个目录，而是由患者和家庭携手专注于神经发育、神经多样性与神经系统疾病的专家和服务提供者共同打造的真正互助、指导与陪伴社区。这里是你与包容一同成长的空间。",
     "country": {
       "label": "你来自哪个国家？",
       "all": "所有国家",
       "cta": "浏览目录",
       "hint": "选择你的国家，查看附近的专家、学校和提供者。",
-      "selected": "正在为 {{country}} 显示平台。"
+      "selected": "正在为 {{country}} 显示平台。",
+      "search": "搜索国家",
+      "noMatch": "无结果"
     },
     "heroAlt": "由家庭、神经多样性人士和神经发育专家组成的社区",
     "donors": {
@@ -243,7 +245,11 @@
     "clearLocation": "清除",
     "nearHint": "共享你的位置即可查看附近的专家、学校和提供者。",
     "geoDenied": "无法获取你的位置。请在浏览器中开启以查看附近的结果。",
-    "geoUnavailable": "你的浏览器不支持共享位置。"
+    "geoUnavailable": "你的浏览器不支持共享位置。",
+    "sectionLabel": "您今天在找什么？",
+    "sectionAll": "全部",
+    "allConditions": "所有疾病",
+    "conditionAria": "按神经系统疾病筛选"
   },
   "card": {
     "evs": "EVS",
@@ -768,7 +774,7 @@
     "neuroRevoke": "撤销认证",
     "secFounders": "创始成员",
     "secBadges": "徽章",
-    "secTribe": "部落",
+    "secTribe": "Neurocamps",
     "benefitExempt": "免费访问",
     "benefitPercent": "折扣 %",
     "benefitPercentShort": "-{{pct}}%",
@@ -782,7 +788,7 @@
     "secAdvisors": "顾问",
     "adv": {
       "title": "顾问档案",
-      "intro": "顾问可以浏览整个平台并管理部落，但不能进行财务或管理操作。",
+      "intro": "顾问可以浏览整个平台并管理Tribe，但不能进行财务或管理操作。",
       "search": "搜索",
       "searchPh": "编号、姓名",
       "searchShort": "请输入至少 2 个字符",
@@ -793,11 +799,42 @@
       "remove": "移除",
       "emptyTitle": "暂无顾问",
       "empty": "你还没有指定任何顾问。"
+    },
+    "secCampaign": "活动",
+    "camp": {
+      "title": "预注册活动",
+      "intro": "按国家开放前锁定目录，并按大洲控制弹窗。管理员和顾问除外。",
+      "active": "活动开启（锁定目录）",
+      "startAt": "锁定开始",
+      "defaultDays": "锁定天数（默认）",
+      "countryDays": "各国天数（例外）",
+      "pickCountry": "选择国家",
+      "addCountry": "添加国家",
+      "popupActive": "欢迎弹窗开启",
+      "popupHint": "选择在哪些大洲显示欢迎弹窗。",
+      "save": "保存活动",
+      "saved": "活动已保存",
+      "discTitle": "创始折扣（年费）",
+      "discHint": "按开始后的天数分阶段（如第15天前50%，第30天前25%）。仅适用于年费会员。",
+      "discUntilDay": "截至第几天",
+      "addStage": "添加阶段",
+      "raffleTitle": "抽奖",
+      "raffleHint": "每次注册得1张券，每次推荐再加1张。下载参与者用于发布日抽奖。",
+      "raffleCsv": "下载参与者（CSV）",
+      "communityTitle": "私密群组",
+      "communityHint": "粘贴邀请链接（Discord 或 WhatsApp），会在课程和权益页向会员显示。",
+      "drawTitle": "进行抽奖",
+      "drawAll": "所有人",
+      "drawConsumer": "患者/家庭/监护人",
+      "drawPaying": "付费会员",
+      "drawCta": "抽奖",
+      "drawDone": "抽奖已完成",
+      "winnersCsv": "下载中奖者（CSV）"
     }
   },
   "reg": {
     "typePatient": "患者",
-    "typeParent": "家长或监护人",
+    "typeParent": "家属（父母/监护人/亲属）",
     "typeService": "专业人员",
     "typeMerchant": "商品提供商",
     "account": "账户信息",
@@ -808,9 +845,9 @@
     "birthDate": "出生日期",
     "gender": "性别（可选）",
     "genderPlaceholder": "你的性别认同",
-    "condition": "神经多样性或病症类型",
-    "conditionChild": "孩子的神经多样性或病症",
-    "conditionPlaceholder": "例：自闭症、多动症、阅读障碍…",
+    "condition": "神经发育、神经多样性或神经系统疾病的类型",
+    "conditionChild": "家属的神经发育、神经多样性或神经系统疾病",
+    "conditionPlaceholder": "例如：ASD、ADHD、诵读困难、癫痫…",
     "location": "所在地",
     "country": "居住国家",
     "state": "州／省",
@@ -836,7 +873,7 @@
     "errAddress": "请填写街道与门牌号",
     "errBusiness": "请填写公司名称",
     "errBirth": "请填写出生日期",
-    "errCondition": "请填写神经多样性或病症",
+    "errCondition": "请填写神经发育、神经多样性或神经系统疾病",
     "errServices": "请填写你提供的服务",
     "errProducts": "请填写你提供的商品",
     "errLocations": "请至少添加一个地点",
@@ -923,7 +960,9 @@
     "wantFounder": "我想成为 Neuromundi 创始会员。",
     "wantFounderHint": "如果你想要普通账户，请取消勾选（以后可再开启或关闭）。",
     "ordinaryDiscount": "即使不是创始会员，你也可享受首年年费五折优惠（仅限第一年）。",
-    "freeLifetime": "作为患者或家长/监护人，你的会员资格完全免费且终身有效：无需续费或付费。"
+    "freeLifetime": "作为患者或家属的会员资格完全免费且终身有效：无需续费，也不收费。",
+    "sectionsInterest": "您对哪些板块感兴趣？（可选1个或多个）",
+    "sectionsInterestHelp": "Neuromundi 涵盖三个领域。勾选您感兴趣的。"
   },
   "loc": {
     "title": "我的门店",
@@ -1018,7 +1057,12 @@
     "founderPrice": "你享有创始会员价",
     "promoDiscountOk": "已为你的会费应用 {{pct}}% 折扣",
     "promoEmail": "此代码已绑定到其他邮箱账户。",
-    "promoAmountOk": "已为你的会费应用 {{amount}} {{currency}} 折扣"
+    "promoAmountOk": "已为你的会费应用 {{amount}} {{currency}} 折扣",
+    "founderCampaign": "创始折扣：在 {{date}} 前支付年费可享 {{pct}}% 优惠。",
+    "successTitle": "支付已确认！",
+    "successBody": "欢迎成为 Neuromundi 创始会员，你的徽章已激活。",
+    "freezeNotice": "你的年费终身冻结：免受未来涨价影响（你所在国家的年度通胀调整除外）。",
+    "successCta": "明白了！"
   },
   "rules": {
     "version": "版本",
@@ -1279,7 +1323,7 @@
       "body": "{{name}} · {{place}}"
     },
     "forumNew": {
-      "title": "部落有新论坛",
+      "title": "Tribe有新论坛",
       "body": "论坛“{{title}}”已开放。"
     },
     "forumPending": {
@@ -1296,7 +1340,7 @@
     },
     "forumModApproved": {
       "title": "版主已批准",
-      "body": "你现在是部落论坛的版主。"
+      "body": "你现在是Tribe论坛的版主。"
     }
   },
   "clin": {
@@ -1760,7 +1804,7 @@
         "desc": "为寻求支持、服务与社区的你。"
       },
       "parent": {
-        "title": "家长或监护人",
+        "title": "家属（父母/监护人/亲属）",
         "desc": "为你的孩子或家人创建账户。"
       },
       "service_provider": {
@@ -2254,12 +2298,45 @@
     "hotel": "酒店",
     "biblioteca": "图书馆",
     "centro_cultural": "文化中心",
-    "gimnasio": "健身/运动"
+    "gimnasio": "健身/运动",
+    "neurocirugia": "神经外科",
+    "epileptologia": "癫痫学",
+    "neurogeriatria": "神经老年医学",
+    "neurorrehabilitacion": "神经康复",
+    "fisioterapia_neurologica": "神经物理治疗",
+    "enfermeria_neurologica": "神经护理与照护",
+    "neurorrehabilitacion_motora": "运动神经康复",
+    "rehabilitacion_cognitiva": "认知康复",
+    "manejo_epilepsia": "癫痫与发作管理",
+    "espasticidad_movilidad": "痉挛与活动能力",
+    "deglucion_disfagia": "吞咽与吞咽困难",
+    "dolor_neurologico": "神经性疼痛管理",
+    "cuidados_paliativos_neuro": "神经系统姑息照护",
+    "epilepsia": "癫痫与惊厥",
+    "paralisis_cerebral_afeccion": "脑性瘫痪",
+    "acv": "脑卒中/脑血管病",
+    "cefalea_migrana": "头痛与偏头痛",
+    "esclerosis_multiple": "多发性硬化与脱髓鞘疾病",
+    "parkinson": "帕金森病与帕金森综合征",
+    "enf_neuromuscular": "神经肌肉疾病（ALS、肌营养不良、SMA）",
+    "neuropatia_periferica": "周围神经病变",
+    "distonia_movimiento": "肌张力障碍与运动障碍",
+    "demencia_neurocognitivo": "神经认知障碍/痴呆",
+    "tce_lesion_medular": "颅脑与脊髓损伤",
+    "hidrocefalia_lcr": "脑积水与脑脊液疾病",
+    "tumor_snc": "神经系统肿瘤",
+    "enf_neurogenetica": "神经遗传病（脆性X、结节性硬化、神经纤维瘤病）",
+    "espina_bifida": "皮质发育畸形/脊柱裂",
+    "neuroinmune": "神经免疫疾病（自身免疫性脑炎）",
+    "ataxia": "遗传性共济失调",
+    "sueno_neurologico": "神经性睡眠障碍（发作性睡病）",
+    "infeccion_snc": "中枢神经系统感染后遗症（脑膜炎/脑炎）",
+    "otra_afeccion": "其他神经系统疾病"
   },
   "kit": {
-    "badge": "工具包",
+    "badge": "工具",
     "title": "陪伴每一步",
-    "intro": "简短而温暖的指南，帮助理解、调整与照顾。不急不燥、没有术语：需要时随时在这里。",
+    "intro": "简短温暖的指南，帮助你在 Neuromundi 的三大领域——神经发育、神经多样性与神经系统疾病——理解、调整与照护。不赶时间，没有术语。",
     "progressLabel": "你的阅读进度",
     "markRead": "标记为已读",
     "readDone": "已读模块",
@@ -2284,7 +2361,8 @@
       "empty": "该领域的资料仍在补充。你可以先浏览完整目录。",
       "error": "暂时无法加载推荐。你可以浏览完整目录。",
       "specialist": "专家"
-    }
+    },
+    "pickSection": "按板块选择工具包"
   },
   "founderCard": {
     "kicker": "创始计划",
@@ -2411,6 +2489,18 @@
           "照片、完整简介及已验证的邮箱/电话。",
           "提供一项社区权益：向 10 名会员提供 ≥10% 折扣，或 3 次经核实的免费服务/咨询。",
           "至少向 10 人推荐 Neuromundi。"
+        ]
+      },
+      "companies": {
+        "benefits": [
+          "你的企业资料将显示\"我是 Neuromundi 创始成员\"徽章。",
+          "你的企业将在劳动包容和搜索中获得推荐展示。",
+          "包容性企业始终免费会员。"
+        ],
+        "reqs": [
+          "成为你所在国家最先注册的 20 家企业之一。",
+          "保持至少 2 个有效职位空缺。",
+          "已验证的标志、描述和邮箱/电话。"
         ]
       }
     },
@@ -2613,7 +2703,8 @@
     },
     "accrued": "你已累积 {{pct}}% 用于下次付款（上限 {{max}}%）。",
     "rules": "你的链接自收到起 {{days}} 天内有效。通过它订阅的人首次付款可享 5% 优惠，每有一位付费推荐你可获得 {{step}}%。患者与家庭免费加入：无折扣也无奖励，但会记录使用。",
-    "creditLive": "折扣仅适用于你的下一张账单；若已有有效订阅，会自动应用。"
+    "creditLive": "折扣仅适用于你的下一张账单；若已有有效订阅，会自动应用。",
+    "raffleTickets": "你有 {{count}} 张抽奖券。邀请更多人可获得更多。"
   },
   "renewal": {
     "title": "你的会员资格即将续期",
@@ -3387,7 +3478,7 @@
       "deleteConfirm": "删除该徽章及其文件？"
     },
     "tribe": {
-      "title": "部落论坛",
+      "title": "Tribe论坛",
       "subtitle": "审批成员创建的论坛。",
       "pending": "待审",
       "approved": "已批准",
@@ -3408,7 +3499,7 @@
       "modEmptyTitle": "暂无申请",
       "modEmpty": "该状态下暂无版主。",
       "lookup": "查找",
-      "memberNotFound": "未找到该编号的部落成员。",
+      "memberNotFound": "未找到该编号的Tribe成员。",
       "memberSaved": "成员已更新。",
       "status": "状态",
       "st": {
@@ -3998,10 +4089,10 @@
     "saveErr": "保存失败。"
   },
   "tribe": {
-    "title": "Neuromundi 部落",
+    "title": "Neuromundi Neurocamps",
     "landing": "社会包容的空间：归属、参与与自主。以自己的节奏，在安全环境中通过兴趣建立联系。",
-    "onlyEligible": "部落面向当事人、家庭和专业人士开放。",
-    "joinTitle": "加入部落",
+    "onlyEligible": "Tribe面向当事人、家庭和专业人士开放。",
+    "joinTitle": "加入Tribe",
     "joinIntro": "进入前，请阅读并接受社区规则，并选择今天的参与方式。",
     "joinCta": "加入",
     "rulesTitle": "社区规则",
@@ -4035,10 +4126,10 @@
       "show_interests": "显示我的兴趣",
       "show_diagnosis": "显示我的诊断或状况"
     },
-    "acceptRules": "我已阅读并接受部落的社区规则。",
+    "acceptRules": "我已阅读并接受Tribe的社区规则。",
     "mustAccept": "必须接受规则才能进入。",
     "joinErr": "无法完成加入。",
-    "suspended": "因违反规则，您在部落的参与已被暂停。如认为有误，请联系团队。",
+    "suspended": "因违反规则，您在Tribe的参与已被暂停。如认为有误，请联系团队。",
     "hubSubtitle": "兴趣俱乐部与同好空间",
     "energyToday": "今天的能量如何？",
     "invitesTitle": "邀请",
@@ -4073,7 +4164,7 @@
     "messagePlaceholder": "输入消息…",
     "send": "发送",
     "sendErr": "发送失败。",
-    "readOnly": "您的账户在部落中为只读。",
+    "readOnly": "您的账户在Tribe中为只读。",
     "noMessages": "来开启对话吧。",
     "loading": "加载中…",
     "grat": {
@@ -4086,7 +4177,7 @@
       "anon": "匿名发送",
       "note": "封闭格式：无自由文本。每日有代币上限。"
     },
-    "pointsLabel": "{{n}} 部落积分",
+    "pointsLabel": "{{n}} Tribe积分",
     "toNext": "距 {{level}} 还差 {{n}}",
     "tokensLeft": "今日的致谢代币：{{n}}",
     "impactItem": "{{n}}× {{badge}}",
@@ -4140,7 +4231,7 @@
       "youAre": "您是{{level}}",
       "applyTitle": "版主申请",
       "apply": "提交申请",
-      "justifyLabel": "您为什么想在部落担任版主？",
+      "justifyLabel": "您为什么想在Tribe担任版主？",
       "justifyPh": "请分享您的动机与经验……",
       "justifyReq": "请至少输入10个字符。",
       "ethicsTitle": "版主道德准则",
@@ -4231,8 +4322,8 @@
       "guideHint": "预告指南为必填：将发生什么、噪音预期与安静室。",
       "guideReq": "请完善指南：标题、日期、将发生什么与噪音预期。",
       "publish": "发布",
-      "created": "活动已发布。+20 部落积分。",
-      "pointsHint": "附预告指南发布可获 +20 部落积分。",
+      "created": "活动已发布。+20 Tribe积分。",
+      "pointsHint": "附预告指南发布可获 +20 Tribe积分。",
       "title": "标题",
       "when": "日期时间",
       "online": "线上",
@@ -4255,22 +4346,22 @@
       "reportTitle": "感官反馈：{{name}}",
       "sendReport": "提交反馈",
       "reportReq": "请评价噪音与舒适度。",
-      "reported": "谢谢！+15 部落积分。",
+      "reported": "谢谢！+15 Tribe积分。",
       "noiseLevel": "感受到的噪音水平",
       "noiseScale": "1＝很安静·5＝很吵",
       "comfort": "整体舒适度",
       "quietUsed": "我使用了安静室",
       "notes": "备注（可选）",
-      "reportPoints": "您对此活动的首次反馈可获 +15 部落积分。"
+      "reportPoints": "您对此活动的首次反馈可获 +15 Tribe积分。"
     },
     "stepsTitle": "如何加入",
     "step1": "阅读并接受社区规则。",
     "step2": "选择今天的社交能量状态。",
     "step3": "设置想显示的信息（隐私）。",
-    "step4": "点击\"加入部落\"进入。",
-    "privacyHint": "您决定在部落空间中显示什么；随时可更改。",
+    "step4": "点击\"加入Tribe\"进入。",
+    "privacyHint": "您决定在Tribe空间中显示什么；随时可更改。",
     "about": {
-      "title": "什么是 Tribu Neuromundi？",
+      "title": "什么是 Neurocamps Neuromundi？",
       "forumsT": "主题论坛",
       "forumsD": "按国家和语言，与志同道合的人交流的兴趣俱乐部。",
       "mentorT": "同伴导师",
@@ -4284,8 +4375,8 @@
     },
     "access": {
       "title": "如何进入？",
-      "body": "加入部落需要 Neuromundi 会员账户。若还没有，请创建；若已是会员，请登录。",
-      "ready": "你已有账户：加入部落即可开始参与。",
+      "body": "加入Tribe需要 Neuromundi 会员账户。若还没有，请创建；若已是会员，请登录。",
+      "ready": "你已有账户：加入Tribe即可开始参与。",
       "createBtn": "创建账户",
       "loginBtn": "登录"
     },
@@ -4298,14 +4389,18 @@
     "closeForum": "关闭论坛",
     "closeForumConfirm": "关闭此论坛？将不再可用。",
     "forumClosed": "论坛已关闭",
-    "forumsPanelTitle": "部落论坛",
+    "forumsPanelTitle": "Tribe论坛",
     "forumsTab": "论坛",
     "forumPushOn": "提醒开启",
     "forumPushOff": "提醒关闭",
     "interestCountries": "感兴趣的国家",
     "currentForums": "当前论坛",
-    "goToTribe": "前往部落",
-    "prefsSaved": "偏好已保存"
+    "goToTribe": "前往Tribe",
+    "prefsSaved": "偏好已保存",
+    "pickNeurocamp": "选择你的 Neurocamp",
+    "allNeurocamps": "全部",
+    "forumSection": "Neurocamp（板块）",
+    "sectionGeneral": "通用（全部）"
   },
   "nid": {
     "member": "Neuromundi 成员",
@@ -4361,10 +4456,108 @@
       "joinCta": "加入网络",
       "ctaTitle": "加入 Neuromundi 网络",
       "ctaBody": "接受 Neuromundi ID，下载印章，让每次到访都成为归属。",
-      "goPanel": "前往我的面板"
+      "goPanel": "前往我的面板",
+      "sealsCta": "创建账户"
     },
     "addApple": "添加到 Apple Wallet",
     "addGoogle": "添加到 Google Wallet",
-    "walletErr": "无法生成通行证，请稍后再试。"
+    "walletErr": "无法生成通行证，请稍后再试。",
+    "downloadCard": "下载证件",
+    "pageTitle": "我的 Neuromundi ID",
+    "needLogin": "登录以查看你的 Neuromundi ID。"
+  },
+  "campaign": {
+    "locked": {
+      "title": "我们正在打造革命性的东西。",
+      "body": "大门尚未向公众开放，但你可以先拿到你的钥匙。",
+      "opensIn": "目录将在以下时间开放",
+      "cta": "获取你的钥匙",
+      "login": "我已有账户"
+    },
+    "cd": {
+      "days": "天",
+      "hours": "时",
+      "mins": "分",
+      "secs": "秒"
+    },
+    "welcome": {
+      "watch": "观看视频",
+      "watchSub": "2 分钟了解平台",
+      "benefitsTitle": "了解权益",
+      "benefitsSub": "看看作为创始成员的专属权益",
+      "benefitsCta": "查看权益",
+      "later": "暂时不用"
+    },
+    "benefits": {
+      "badge": "创始会员",
+      "title": "成为 Neuromundi 创始成员的权益",
+      "intro": "在开放前锁定名额，并根据你的身份获得专属权益。",
+      "note": "确认注册后权益即生效；付费权益需在促销期内付款。",
+      "cta": "锁定名额",
+      "paid": {
+        "title": "付费服务者",
+        "items": [
+          "创始专属费率：前15天内付款年费享5折，第16至30天享75折。",
+          "终身优惠价：价格终身冻结（你所在国家的年度通胀调整除外）。",
+          "创始会员徽章并豁免资格要求，公开档案专属标识。",
+          "自动参加发布日抽奖（一年免费会员）。",
+          "立即进入先锋私密社区。"
+        ]
+      },
+      "consumer": {
+        "title": "患者、家庭和监护人",
+        "items": [
+          "终身免费的创始级会员。",
+          "推荐计划：获得付费被推荐人所付费用的 10%。",
+          "若被推荐人是患者、家庭或监护人，你获得 1 张抽奖券，可抽取由你选择的专家提供的 10 次治疗。",
+          "发布日抽奖：10 次免费一对一咨询。",
+          "确认邮箱后获赠欢迎在线课程、创始徽章和私密社区。"
+        ]
+      },
+      "orgs": {
+        "title": "非营利组织与招聘企业",
+        "items": [
+          "提供职位的非营利组织与企业始终免费会员。",
+          "创始会员徽章及公开档案标识。",
+          "确认邮箱后获赠欢迎在线课程。",
+          "进入先锋私密社区。"
+        ]
+      }
+    }
+  },
+  "course": {
+    "badge": "欢迎课程",
+    "title": "你的欢迎课程",
+    "intro": "从第一天起充分利用 Neuromundi 的简短导览。",
+    "modulesTitle": "内容",
+    "communityTitle": "先锋私密社区",
+    "communityBody": "加入封闭群组，与其他创始会员建立联系。",
+    "communityCta": "加入社区",
+    "modules": [
+      "如何浏览目录并找到经过验证的服务。",
+      "你的 Neuromundi ID：如何使用和下载。",
+      "折扣、评价以及如何参与社区。",
+      "工具包资源及如何充分利用。"
+    ]
+  },
+  "sections": {
+    "neurodesarrollo": {
+      "name": "神经发育",
+      "tagline": "早期儿童发育支持"
+    },
+    "neurodivergencias": {
+      "name": "神经多样性",
+      "tagline": "为神经多样性人士提供支持"
+    },
+    "afecciones": {
+      "name": "神经系统疾病",
+      "tagline": "神经系统疾病的照护"
+    }
+  },
+  "sectionsField": {
+    "label": "您的档案涵盖哪些板块？",
+    "hint": "可选择1个或全部3个。您将出现在所选每个板块的目录中。",
+    "conditionsLabel": "您诊治哪些神经系统疾病？",
+    "conditionsHint": "请选择适用项（可选）。"
   }
 }

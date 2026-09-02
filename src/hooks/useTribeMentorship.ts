@@ -9,7 +9,7 @@ import { supabase } from '@/lib/supabase';
 export type MentorTrack = 'nd_youth' | 'family_family';
 export const MENTOR_TRACKS: MentorTrack[] = ['nd_youth', 'family_family'];
 
-export interface MyMentor { tracks: MentorTrack[]; bio: string | null; is_active: boolean }
+export interface MyMentor { tracks: MentorTrack[]; bio: string | null; is_active: boolean; section: string | null }
 
 export function useMyMentor() {
   const [mentor, setMentor] = useState<MyMentor | null>(null);
@@ -23,8 +23,8 @@ export function useMyMentor() {
   }, []);
   useEffect(() => { void load(); }, [load]);
 
-  const become = useCallback(async (tracks: MentorTrack[], bio: string): Promise<string | null> => {
-    const { error } = await supabase.rpc('tribe_become_mentor', { p_tracks: tracks, p_bio: bio || null });
+  const become = useCallback(async (tracks: MentorTrack[], bio: string, section?: string | null): Promise<string | null> => {
+    const { error } = await supabase.rpc('tribe_become_mentor', { p_tracks: tracks, p_bio: bio || null, p_section: section || null });
     if (error) return error.message;
     await load();
     return null;
@@ -39,18 +39,18 @@ export function useMyMentor() {
   return { mentor, loading, become, setActive, reload: load };
 }
 
-export interface MentorRow { user_id: string; name: string; tracks: MentorTrack[]; bio: string | null; my_status: string | null }
+export interface MentorRow { user_id: string; name: string; tracks: MentorTrack[]; bio: string | null; section: string | null; my_status: string | null }
 
-export function useMentors(track: MentorTrack | '') {
+export function useMentors(track: MentorTrack | '', section?: string | null) {
   const [mentors, setMentors] = useState<MentorRow[]>([]);
   const [loading, setLoading] = useState(true);
 
   const load = useCallback(async () => {
     setLoading(true);
-    const { data } = await supabase.rpc('tribe_mentors_list', { p_track: track || null });
+    const { data } = await supabase.rpc('tribe_mentors_list', { p_track: track || null, p_section: section || null });
     setMentors((data as MentorRow[] | null) ?? []);
     setLoading(false);
-  }, [track]);
+  }, [track, section]);
   useEffect(() => { void load(); }, [load]);
 
   const request = useCallback(async (mentorId: string, trk: MentorTrack): Promise<string | null> => {

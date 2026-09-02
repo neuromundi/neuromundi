@@ -3,28 +3,33 @@
  * el directorio y demás secciones quedan segmentados a ese país sin que la
  * persona tenga que volver a filtrar. La selección se guarda en el dispositivo.
  */
-import { useMemo } from 'react';
+import { useMemo, lazy, Suspense } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Globe, Compass, ShieldCheck, Heart, Lock, BookOpenCheck } from 'lucide-react';
+import { Compass, ShieldCheck, Heart, Lock, BookOpenCheck } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui';
-import { ContentCarousel } from '@/components/content/ContentCarousel';
-import { AlliesGrid } from '@/components/donation/AlliesGrid';
 import { HeroCarousel } from '@/components/home/HeroCarousel';
+import { SearchableSelect } from '@/components/directory/SearchableSelect';
+
+// Debajo del pliegue y diferidos por scroll: se sacan del bundle inicial (su
+// código y sus consultas a Supabase ya no viajan en index-*.js).
+const AlliesGrid = lazy(() => import('@/components/donation/AlliesGrid').then((m) => ({ default: m.AlliesGrid })));
+const ContentCarousel = lazy(() => import('@/components/content/ContentCarousel').then((m) => ({ default: m.ContentCarousel })));
 import { HeartHandshake, Award } from 'lucide-react';
 import { useCountry } from '@/stores/countryStore';
 import { COUNTRIES } from '@/data/countries';
-import { useIdleReady } from '@/hooks/useIdleReady';
+import { useInView } from '@/hooks/useInView';
 
 export function Home() {
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
   const { country, setCountry } = useCountry();
-  // Los carruseles de aliados y contenido están debajo del pliegue pero
-  // disparan una consulta a Supabase cada uno al montar, colándose en la cadena
-  // crítica del LCP (~1 s en Lighthouse). Se montan cuando el navegador queda
-  // ocioso: sus consultas dejan de competir con el héroe.
-  const idleReady = useIdleReady();
+  // Aliados y contenido están debajo del pliegue pero cada uno dispara una
+  // consulta a Supabase al montar, colándose en la cadena crítica del LCP. Se
+  // montan cuando su sección se acerca al viewport (IntersectionObserver): sus
+  // consultas salen por completo de la ruta crítica (Lighthouse no hace scroll
+  // durante la medición, así que ni siquiera se piden en la auditoría).
+  const [deferRef, deferInView] = useInView<HTMLElement>();
 
   // Nombre del país localizado para mostrar; el `value` sigue siendo el nombre
   // canónico (español) para que coincida con `profiles.country` al filtrar.
@@ -62,24 +67,22 @@ export function Home() {
 
           {/* Selector de país */}
           <div className="mt-6 rounded-2xl border border-slate-100 bg-white p-4 shadow-md">
-            <label htmlFor="home-country" className="mb-1 block text-sm font-semibold text-slate-900">
+            <p className="mb-1 block text-sm font-semibold text-slate-900">
               {t('home.country.label')}
-            </label>
+            </p>
             <div className="flex flex-col gap-2 sm:flex-row">
-              <div className="relative flex-1">
-                <Globe className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-muted" aria-hidden="true" />
-                <select
-                  id="home-country"
-                  className="w-full rounded-xl border border-slate-200 py-3 pl-10 pr-3 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
-                  value={country ?? ''}
-                  onChange={(e) => setCountry(e.target.value || null)}
-                >
-                  <option value="">{t('home.country.all')}</option>
-                  {countries.map((c) => (
-                    <option key={c.value} value={c.value}>{c.label}</option>
-                  ))}
-                </select>
-              </div>
+              {/* Selector con búsqueda: no pinta las ~250 opciones hasta que se abre,
+                  quitando ese coste de "Style & Layout" del primer render. */}
+              <SearchableSelect
+                className="flex-1"
+                options={countries}
+                value={country ?? ''}
+                onChange={(v) => setCountry(v || null)}
+                placeholder={t('home.country.all')}
+                searchPlaceholder={t('home.country.search')}
+                noMatches={t('home.country.noMatch')}
+                ariaLabel={t('home.country.label')}
+              />
               <Button type="button" size="lg" onClick={() => navigate('/directorio')} leadingIcon={<Compass className="h-5 w-5" />}>
                 {t('home.country.cta')}
               </Button>
@@ -163,12 +166,12 @@ export function Home() {
 
       {/* Aliados: banda a todo el ancho debajo de Fundadores/Donantes, para que el
           grid pueda estirarse horizontalmente y mostrar más logos por fila. */}
-      <section className="mt-16">
+      <section ref={deferRef} className="mt-16">
         <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-muted">{t('allies.title')}</h2>
-        {idleReady && <AlliesGrid />}
+        {deferInView && <Suspense fallback={null}><AlliesGrid /></Suspense>}
       </section>
 
-      {idleReady && <ContentCarousel />}
+      {deferInView && <Suspense fallback={null}><ContentCarousel /></Suspense>}
     </div>
   );
 }

@@ -1,0 +1,1 @@
+import{u as a,r as u}from"./index-zIwyk9eW.js";function s(){const{i18n:n}=a(),e=u.useMemo(()=>{try{return new Intl.DisplayNames([n.language],{type:"region"})}catch{return null}},[n.language]);return(r,t)=>(e==null?void 0:e.of(r))??t}export{s as u};

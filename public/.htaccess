@@ -70,11 +70,12 @@
   </FilesMatch>
 
   # 3) EXCEPCIONES (van al final para imponerse): lo que anuncia una versión
-  #    nueva de la app nunca debe cachearse.
+  #    nueva de la app siempre debe REVALIDARSE. Usamos `no-cache` (revalida en
+  #    cada carga con ETag), NO `no-store`: `no-store` impide el back/forward
+  #    cache (bfcache) del navegador —lo marcaba Lighthouse— sin ninguna ventaja,
+  #    porque `no-cache, must-revalidate` ya evita servir HTML/SW viejos.
   <FilesMatch "(index\.html|sw\.js|registerSW\.js|push-sw\.js|manifest\.webmanifest)$">
-    Header set Cache-Control "no-cache, no-store, must-revalidate"
-    Header set Pragma "no-cache"
-    Header set Expires "0"
+    Header set Cache-Control "no-cache, must-revalidate"
   </FilesMatch>
 </IfModule>
 

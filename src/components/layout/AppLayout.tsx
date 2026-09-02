@@ -18,6 +18,9 @@ import { track } from '@/lib/track';
 import { NotificationsBell } from '@/components/content/NotificationsBell';
 import { NavMoreMenu } from '@/components/layout/NavMoreMenu';
 import { useFounderAutoClaim, useFounderProgressNotice } from '@/hooks/useFounder';
+import { useCampaign } from '@/hooks/useCampaign';
+import { useCountry } from '@/stores/countryStore';
+import { useAuthStore } from '@/stores/authStore';
 import { useReferralCapture } from '@/hooks/useReferral';
 import { useMembershipGate } from '@/hooks/useMembershipGate';
 import { useAppointmentReminders } from '@/hooks/useAppointmentRequests';
@@ -50,6 +53,8 @@ const FounderPopup = lazyOptional(() => import('@/components/onboarding/FounderP
 const FounderCongratsPopup = lazyOptional(() => import('@/components/onboarding/FounderCongratsPopup').then((m) => ({ default: m.FounderCongratsPopup })));
 const GuidedTour = lazyOptional(() => import('@/components/onboarding/GuidedTour').then((m) => ({ default: m.GuidedTour })));
 const WelcomePopup = lazyOptional(() => import('@/components/onboarding/WelcomePopup').then((m) => ({ default: m.WelcomePopup })));
+const CampaignWelcomePopup = lazyOptional(() => import('@/components/campaign/CampaignWelcomePopup').then((m) => ({ default: m.CampaignWelcomePopup })));
+const MembershipSuccessNotice = lazyOptional(() => import('@/components/membership/MembershipSuccessNotice').then((m) => ({ default: m.MembershipSuccessNotice })));
 const SoftSignupBanner = lazyOptional(() => import('@/components/onboarding/SoftSignupBanner').then((m) => ({ default: m.SoftSignupBanner })));
 const ReportModal = lazyOptional(() => import('@/components/report/ReportModal').then((m) => ({ default: m.ReportModal })));
 const MembershipReminderPopup = lazyOptional(() => import('@/components/membership/MembershipReminderPopup').then((m) => ({ default: m.MembershipReminderPopup })));
@@ -57,7 +62,6 @@ const AccountInactiveModal = lazy(() => import('@/components/membership/AccountI
 const AccountReactivatedModal = lazy(() => import('@/components/membership/AccountReactivatedModal').then((m) => ({ default: m.AccountReactivatedModal })));
 const SuspendedAccountModal = lazy(() => import('@/components/membership/SuspendedAccountModal').then((m) => ({ default: m.SuspendedAccountModal })));
 const ImproveModal = lazyOptional(() => import('@/components/layout/ImproveModal').then((m) => ({ default: m.ImproveModal })));
-import { useAuthStore } from '@/stores/authStore';
 import { setRefCode } from '@/hooks/useShop';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { SocialLinks } from './SocialLinks';
@@ -130,6 +134,13 @@ export function AppLayout() {
   const [showTour, setShowTour] = useState(false);
   const [showFounder, setShowFounder] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
+  // Campaña de pre-registro: mientras esté activa se apagan el popup de fundadores
+  // y el banner de registro suave (se reemplazan por el embudo de campaña).
+  const { config: campaign, popupActiveFor } = useCampaign();
+  const campaignActive = campaign?.active === true;
+  const { country: selCountry } = useCountry();
+  const profileCountry = useAuthStore((s) => s.profile?.country ?? null);
+  const [showCampaignPopup, setShowCampaignPopup] = useState(false);
   const { status: memStatus, daysLeft: memDays } = useMembership();
   // Detección automática de Miembro Fundador (reclama cupo si el usuario califica).
   const { justClaimed: founderJustClaimed } = useFounderAutoClaim();
@@ -156,6 +167,21 @@ export function AppLayout() {
     try { localStorage.setItem(INTRO_KEY, '1'); } catch { /* almacenamiento no disponible */ }
   }, [showVideo]);
 
+  // Embudo de campaña: tras el video de intro (o directo si ya se vio), muestra el
+  // popup de bienvenida UNA vez por sesión, solo si el admin lo activó para el
+  // continente del visitante. Admin y asesor no lo necesitan pero no molesta.
+  useEffect(() => {
+    if (showVideo || !campaignActive) return;
+    const country = profileCountry ?? selCountry ?? null;
+    if (!popupActiveFor(country)) return;
+    try {
+      if (sessionStorage.getItem('neuro.campaignPopup')) return;
+      sessionStorage.setItem('neuro.campaignPopup', '1');
+    } catch { /* noop */ }
+    setShowCampaignPopup(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showVideo, campaignActive, profileCountry, selCountry, campaign]);
+
   const dismissVideo = () => {
     try {
       localStorage.setItem(INTRO_KEY, '1');
@@ -163,9 +189,10 @@ export function AppLayout() {
       /* almacenamiento no disponible */
     }
     setShowVideo(false);
-    // Al terminar el video, ofrecemos la guía rápida (solo la primera vez).
+    // Al terminar el video, ofrecemos la guía rápida (solo la primera vez). Durante
+    // la campaña se omite: el embudo de bienvenida toma su lugar.
     try {
-      if (localStorage.getItem(TOUR_KEY) == null) setShowTour(true);
+      if (!campaignActive && localStorage.getItem(TOUR_KEY) == null) setShowTour(true);
     } catch { /* noop */ }
   };
 
@@ -187,7 +214,7 @@ export function AppLayout() {
     const offer = () => {
       if (cancelled) return;
       try {
-        if (localStorage.getItem(TOUR_KEY) == null) setShowTour(true);
+        if (!campaignActive && localStorage.getItem(TOUR_KEY) == null) setShowTour(true);
       } catch { /* noop */ }
     };
     const w = window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number };
@@ -342,7 +369,14 @@ export function AppLayout() {
         {showVideo && <WelcomeVideo onDone={dismissVideo} />}
         {showWelcome && <WelcomePopup onClose={() => setShowWelcome(false)} />}
         {showTour && <GuidedTour onClose={closeTour} />}
-        {showFounder && <FounderPopup onClose={closeFounder} />}
+        {showCampaignPopup && (
+          <CampaignWelcomePopup
+            onClose={() => setShowCampaignPopup(false)}
+            onSeeBenefits={() => { setShowCampaignPopup(false); navigate('/beneficios'); }}
+          />
+        )}
+        {typeof window !== 'undefined' && window.location.search.includes('membership=') && <MembershipSuccessNotice />}
+        {showFounder && !campaignActive && <FounderPopup onClose={closeFounder} />}
         {founderJustClaimed && !founderCongratsDismissed && (
           <FounderCongratsPopup onClose={() => setFounderCongratsDismissed(true)} />
         )}
@@ -370,14 +404,14 @@ export function AppLayout() {
         {authView !== 'none' && (
           <AuthModals view={authView} onChangeView={setAuthView} onAuthenticated={() => navigate('/panel')} />
         )}
-        {deferUi && <SoftSignupBanner onSignup={() => navigate('/crear-cuenta')} />}
+        {deferUi && !campaignActive && <SoftSignupBanner onSignup={() => navigate('/crear-cuenta')} />}
       </Suspense>
       <header className="sticky top-0 z-30 border-b border-slate-100 bg-white/90 backdrop-blur">
         <div className="mx-auto max-w-6xl px-4 py-3">
           <div className="flex items-center justify-between">
             <NavLink to="/" className="inline-flex items-center gap-2 leading-none">
               <img
-                src="/logo-header.png"
+                src="/logo-header.png?v=2026"
                 alt=""
                 width={48}
                 height={48}
@@ -542,7 +576,7 @@ export function AppLayout() {
       {moreOpen && (
         <div className="fixed inset-0 z-40 md:hidden" role="dialog" aria-modal="true">
           <div className="absolute inset-0 bg-slate-900/40" onClick={() => setMoreOpen(false)} />
-          <div className="absolute inset-x-0 bottom-0 rounded-t-3xl bg-white p-4 pb-24 shadow-2xl">
+          <div className="absolute inset-x-0 bottom-0 max-h-[85dvh] overflow-y-auto overscroll-contain rounded-t-3xl bg-white p-4 pb-24 shadow-2xl">
             <div className="mb-2 flex items-center justify-between">
               <h2 className="text-base font-bold text-slate-900">{t('nav.more')}</h2>
               <button type="button" onClick={() => setMoreOpen(false)} aria-label={t('common.close')} className="rounded-full p-1 text-slate-500 hover:bg-slate-100">

@@ -277,6 +277,44 @@ en **Edge Functions → Logs**.
 - [ ] Si tu plan no tiene `pg_net`, usa un cron externo (cron-job.org) que haga POST
   a esas mismas URLs.
 
+### Verificadores de cron y migraciones
+
+- [ ] **Migraciones aplicadas** (tramo reciente): corre `db/verificar_produccion_0077_0088.sql`
+  en el SQL Editor. Devuelve OK/FALTA por objeto; para las RPC que solo cambian de firma
+  (0087/0088 añaden `p_section`) comprueba el **número de argumentos**, no solo el nombre.
+  El histórico viejo (hasta 0022) está en `db/verificar_produccion.sql`.
+- [ ] **Cron esperados y activos**: corre `db/verificar_cron.sql`. Marca OK / INACTIVO / FALTA
+  por cada cron esperado y lista TODO lo agendado (para detectar extras/duplicados). Los 6
+  activos deben ser: `nm-appt-reminders`, `nm-send-reminders`, `nm-suspension-reminders`,
+  `nm-purge-suspensions`, `nm-purge-lapsed-founders`, `nm-campaign-emails`. Extra legítimo:
+  `purge-expired-files-cada-hora` (llama a la Edge Function `purge-expired-files`).
+
+### Estándar de crons (para no repetir errores)
+
+- **Un solo cron por tarea.** Nombre canónico = el que crea la migración (prefijo `nm-*`).
+  Si programaste uno manual antes de que existiera la migración, **quítalo** con
+  `select cron.unschedule('<nombre-viejo>');` para no duplicar la ejecución.
+- **Host canónico** para llamar Edge Functions desde `net.http_post`:
+  `https://sboagswcehuxwfjdbhdn.supabase.co/functions/v1/<fn>` (NO el viejo
+  `…functions.supabase.co/<fn>`).
+- Las funciones que llama el cron van **sin JWT** (`--no-verify-jwt`): `send-reminders`,
+  `campaign-emails`, `purge-expired-files`. Por eso el `net.http_post` del cron NO manda
+  cabecera `Authorization`. Si "Verify JWT" quedara en ON, la llamada da 401 en silencio.
+- **Probar una función del cron a mano** (pg_net es asíncrono → devuelve un id, no la respuesta):
+  ```sql
+  select net.http_post(
+    url := 'https://sboagswcehuxwfjdbhdn.supabase.co/functions/v1/send-reminders',
+    headers := '{"Content-Type":"application/json"}'::jsonb, body := '{}'::jsonb);  -- devuelve <id>
+  select id, status_code, error_msg, left(content,200) as content
+    from net._http_response where id = <id>;   -- 200 = OK; corre pronto, se purga
+  ```
+
+> **Aprendizaje (2026-08):** existían DOS cron de recordatorios corriendo cada 10 min:
+> `nm-send-reminders` (migración 0028, host nuevo, sin JWT) y `send-reminders-cada-10min`
+> (manual antiguo, host `functions.supabase.co`, con Bearer anon). `send-reminders` se
+> invocaba dos veces. Se eliminó el manual (`cron.unschedule('send-reminders-cada-10min')`)
+> tras confirmar que el de la migración responde 200 sin JWT. Se conserva solo el `nm-*`.
+
 ---
 
 ## 9) 🔴 Frontend: compilar y publicar

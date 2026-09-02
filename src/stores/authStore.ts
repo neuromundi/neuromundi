@@ -69,6 +69,10 @@ interface SignUpInput {
   modalities?: string[] | null;
   ageRanges?: string[] | null;
   interventionAreas?: string[] | null;
+  /** Secciones de la plataforma que cubre el prestador (1 a 3). */
+  sections?: string[] | null;
+  /** Afecciones neurológicas que atiende (sección "afecciones"). */
+  neuroConditions?: string[] | null;
   providerDetails?: Record<string, unknown> | null;
   /** Proveedor comercial: productos indexables. */
   productCategories?: string[] | null;
@@ -209,6 +213,8 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       modalities,
       ageRanges,
       interventionAreas,
+      sections,
+      neuroConditions,
       providerDetails,
       productCategories,
       productsOffered,
@@ -257,6 +263,8 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     if (modalities && modalities.length > 0) meta.modalities = modalities;
     if (ageRanges && ageRanges.length > 0) meta.age_ranges = ageRanges;
     if (interventionAreas && interventionAreas.length > 0) meta.intervention_areas = interventionAreas;
+    if (sections && sections.length > 0) meta.sections = sections;
+    if (neuroConditions && neuroConditions.length > 0) meta.neuro_conditions = neuroConditions;
     if (productCategories && productCategories.length > 0) meta.product_categories = productCategories;
     if (productsOffered && productsOffered.length > 0) meta.products_offered = productsOffered;
     if (salesChannels && salesChannels.length > 0) meta.sales_channels = salesChannels;
@@ -336,6 +344,8 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       modalities: input.modalities ?? undefined,
       age_ranges: input.ageRanges ?? undefined,
       intervention_areas: input.interventionAreas ?? undefined,
+      sections: input.sections ?? undefined,
+      neuro_conditions: input.neuroConditions ?? undefined,
       provider_details: input.providerDetails ?? undefined,
       product_categories: input.productCategories ?? undefined,
       products_offered: input.productsOffered ?? undefined,

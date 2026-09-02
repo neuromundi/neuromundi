@@ -8,14 +8,16 @@ import { useTranslation } from 'react-i18next';
 import { HandHeart, Check, X, MessageSquare, UserPlus } from 'lucide-react';
 import { Button } from '@/components/ui';
 import { useMyMentor, useMentors, useMyMentorships, MENTOR_TRACKS, type MentorTrack, type Mentorship } from '@/hooks/useTribeMentorship';
+import { useSection } from '@/stores/sectionStore';
 import { BecomeMentorModal } from './BecomeMentorModal';
 import { MentorThread } from './MentorThread';
 
 export function MentorshipSection() {
   const { t } = useTranslation();
+  const { section } = useSection();
   const { mentor, setActive, reload: reloadMentor } = useMyMentor();
   const [track, setTrack] = useState<MentorTrack | ''>('');
-  const { mentors, request } = useMentors(track);
+  const { mentors, request } = useMentors(track, section);
   const { items, respond } = useMyMentorships();
   const [becoming, setBecoming] = useState(false);
   const [open, setOpen] = useState<Mentorship | null>(null);

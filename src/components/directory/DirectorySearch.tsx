@@ -7,7 +7,7 @@
  */
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { Search, List, MapPin, Globe, BellPlus, X, SlidersHorizontal, HeartPulse, PawPrint, Baby, GraduationCap, Package, Palette, Sparkles, LocateFixed, Loader2, Dumbbell, Ticket, Scale, HeartHandshake, HandHeart, Briefcase } from 'lucide-react';
+import { Search, List, MapPin, Globe, BellPlus, X, SlidersHorizontal, HeartPulse, PawPrint, Baby, GraduationCap, Package, Palette, Sparkles, LocateFixed, Loader2, Dumbbell, Ticket, Scale, HeartHandshake, HandHeart, Briefcase, Sprout, Stethoscope, LayoutGrid } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { ProviderCard } from './ProviderCard';
 import { MapView } from './MapView';
@@ -18,14 +18,20 @@ import { useSearchAlerts } from '@/hooks/useSearchAlerts';
 import { useDirectory, type DirectoryFilters } from '@/hooks/useDirectory';
 import { SPECIALTIES, INTERVENTION_AREAS, MODALITIES, AGE_RANGES } from '@/data/specialistCatalog';
 import { PRODUCT_CATEGORIES } from '@/data/providerCatalog';
+import { NEURO_CONDITIONS } from '@/data/neuroConditionsCatalog';
+import { SECTIONS } from '@/data/sections';
 import { useCatLabel } from '@/lib/catLabel';
 import { usePublicLocations } from '@/hooks/useProviderLocations';
 import { useCategories } from '@/hooks/useCategories';
 import { useCountry } from '@/stores/countryStore';
+import { useSection } from '@/stores/sectionStore';
 import { COUNTRIES } from '@/data/countries';
 import { cn } from '@/lib/utils';
 
 const RADII = [5, 10, 25, 50] as const;
+
+/** Iconos lucide por sección (SECTIONS.icon es un nombre; aquí se mapea). */
+const SECTION_ICONS = { Sprout, Sparkles, Stethoscope } as const;
 
 /**
  * Accesos rápidos por dominio: cada uno apunta a valores REALES de la taxonomía
@@ -73,6 +79,8 @@ export interface DirectorySearchProps {
 export function DirectorySearch({ onViewProfile }: DirectorySearchProps) {
   const { categories } = useCategories();
   const { country, setCountry } = useCountry();
+  const { section, setSection } = useSection();
+  const [neuroCondition, setNeuroCondition] = useState('');
   const { isAuthenticated } = useAuth();
   const toast = useToast();
   const { alerts, create: createAlert, remove: removeAlert } = useSearchAlerts();
@@ -163,12 +171,14 @@ export function DirectorySearch({ onViewProfile }: DirectorySearchProps) {
       anyOf: domain ? DOMAINS[domain].values : undefined,
       providerTypes: domain ? DOMAINS[domain].providerTypes : undefined,
       neuroaffirming: neuro || undefined,
+      section: section || undefined,
+      neuroCondition: section === 'afecciones' && neuroCondition ? neuroCondition : undefined,
       city,
       country: country || undefined,
       center: center ?? undefined,
       radiusKm: center ? radiusKm : undefined,
     }),
-    [query, categoryId, specialty, productCategory, ageRange, modality, domain, neuro, city, country, center, radiusKm],
+    [query, categoryId, specialty, productCategory, ageRange, modality, domain, neuro, section, neuroCondition, city, country, center, radiusKm],
   );
 
   const { filtered, cities, loading } = useDirectory(filters);
@@ -184,6 +194,58 @@ export function DirectorySearch({ onViewProfile }: DirectorySearchProps) {
     <div className="mx-auto w-full max-w-6xl p-4">
       {/* Filtros */}
       <div className="space-y-3">
+        {/* Selector de SECCIÓN: abre un directorio especializado en una de las
+            tres secciones de la plataforma (o todas). Se persiste en el dispositivo. */}
+        <div className="rounded-xl border border-slate-200 bg-white p-3">
+          <div className="mb-2 flex items-center gap-2 text-sm font-semibold text-slate-800">
+            <LayoutGrid className="h-4 w-4 text-brand-600" aria-hidden="true" /> {t('directory.sectionLabel')}
+          </div>
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+            <button
+              type="button"
+              aria-pressed={!section}
+              onClick={() => { setSection(null); setNeuroCondition(''); }}
+              className={cn(
+                'rounded-xl border px-3 py-2.5 text-sm font-semibold transition-colors',
+                !section ? 'border-slate-800 bg-slate-800 text-white' : 'border-slate-200 text-slate-700 hover:bg-slate-50',
+              )}
+            >
+              {t('directory.sectionAll')}
+            </button>
+            {SECTIONS.map((s) => {
+              const Icon = SECTION_ICONS[s.icon];
+              const active = section === s.value;
+              return (
+                <button
+                  key={s.value}
+                  type="button"
+                  aria-pressed={active}
+                  onClick={() => { setSection(active ? null : s.value); if (s.value !== 'afecciones') setNeuroCondition(''); }}
+                  className={cn(
+                    'flex items-center justify-center gap-1.5 rounded-xl border px-3 py-2.5 text-sm font-semibold transition-colors',
+                    active ? `border-transparent bg-gradient-to-br text-white ${s.gradient}` : 'border-slate-200 text-slate-700 hover:bg-slate-50',
+                  )}
+                >
+                  <Icon className="h-4 w-4 shrink-0" aria-hidden="true" /> {t(`sections.${s.value}.name`)}
+                </button>
+              );
+            })}
+          </div>
+          {section === 'afecciones' && (
+            <div className="mt-2">
+              <SearchableSelect
+                options={NEURO_CONDITIONS.filter((c) => c.value !== 'otra_afeccion').map((c) => ({ value: c.value, label: catLabel(c.value, c.label) }))}
+                value={neuroCondition}
+                onChange={setNeuroCondition}
+                placeholder={t('directory.allConditions')}
+                searchPlaceholder={t('directory.filterSearchPh')}
+                noMatches={t('directory.noMatches')}
+                ariaLabel={t('directory.conditionAria')}
+                className="w-full sm:max-w-md"
+              />
+            </div>
+          )}
+        </div>
         {/* Selector de país: segmenta el directorio. Si no se eligió en el Home, aquí se elige. */}
         <div className="flex flex-col gap-2 rounded-xl border border-brand-100 bg-brand-50 p-3 sm:flex-row sm:items-center">
           <label htmlFor="dir-country" className="flex shrink-0 items-center gap-2 text-sm font-semibold text-brand-800">

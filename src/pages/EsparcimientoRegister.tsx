@@ -14,6 +14,7 @@ import { setFounderOptoutFlag } from '@/lib/founderPref';
 import { isStrictEmail } from '@/lib/email';
 import { useCountryLabel } from '@/lib/countryLabel';
 import { FounderProgressCard } from '@/components/founder/FounderProgressCard';
+import { SectionsField } from '@/components/onboarding/SectionsField';
 import { founderKindFor } from '@/hooks/useFounder';
 import { Camera, Eye, ChevronDown, MapPin, Ticket } from 'lucide-react';
 import { Button, useToast, PasswordInput } from '@/components/ui';
@@ -38,6 +39,10 @@ export function EsparcimientoRegister({ onSuccess, complete = false }: { onSucce
   const [logoUrl, setLogoUrl] = useState<string | null>(null);
   const [venueType, setVenueType] = useState('');
   const [description, setDescription] = useState('');
+  const [sections, setSections] = useState<string[]>([]);
+  const [neuroConditions, setNeuroConditions] = useState<string[]>([]);
+  const toggleSection = (v: string) => setSections((l) => (l.includes(v) ? l.filter((x) => x !== v) : [...l, v]));
+  const toggleCondition = (v: string) => setNeuroConditions((l) => (l.includes(v) ? l.filter((x) => x !== v) : [...l, v]));
   // Ubicación geográfica
   const [country, setCountry] = useState('');
   const [city, setCity] = useState('');
@@ -118,6 +123,7 @@ export function EsparcimientoRegister({ onSuccess, complete = false }: { onSucce
       instagram: instagram || null, facebook: facebook || null,
       country: country || null, address: address || null,
       specialties: venueType ? [venueType] : [], // indexable para el buscador
+      sections, neuroConditions,
       providerDetails: details,
       ...(locations ? { locations } : {}),
       rulesVersion: RULES_VERSION,
@@ -195,6 +201,12 @@ export function EsparcimientoRegister({ onSuccess, complete = false }: { onSucce
         {/* 2. Ubicación geográfica */}
         <section className="space-y-4">
           <h3 className={sectionTitle}>{t('esp.s2')}</h3>
+          <SectionsField
+            sections={sections}
+            onToggleSection={toggleSection}
+            neuroConditions={neuroConditions}
+            onToggleCondition={toggleCondition}
+          />
           <div className="grid gap-3 sm:grid-cols-2">
             <div>
               <label className={labelCls}>{t('reg.country')}</label>

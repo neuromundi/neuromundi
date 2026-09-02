@@ -66,7 +66,7 @@ export function CreateAccount() {
     const isK = K_SET.has(selected) && !isEsparcimiento;
     const wide = isSpecialist || isProvider || isClinic || isSchool || isK || isCompany;
     return (
-      <div className={`mx-auto px-4 py-10 ${wide ? 'max-w-4xl' : 'max-w-lg'}`}>
+      <div className={`mx-auto px-4 py-10 ${wide ? 'max-w-4xl' : 'max-w-3xl'}`}>
         <button onClick={() => setSelected(null)} className="mb-4 inline-flex items-center gap-1 text-sm font-semibold text-brand-700 hover:underline">
           <ArrowLeft className="h-4 w-4" /> {t('create.back')}
         </button>

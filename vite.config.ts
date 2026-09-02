@@ -94,12 +94,19 @@ export default defineConfig({
         display: 'standalone',
         orientation: 'portrait',
         icons: [
-          { src: '/icon-192.png', sizes: '192x192', type: 'image/png' },
+          // "any" = se muestra tal cual en el aviso de instalación (sin recorte).
+          { src: '/icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
+          { src: '/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
+          // maskable = con safe zone, para el icono adaptativo ya instalado.
+          { src: '/icon-512-maskable.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
+        ],
+        // Acceso directo a la Neuromundi ID desde el icono de la app instalada.
+        shortcuts: [
           {
-            src: '/icon-512.png',
-            sizes: '512x512',
-            type: 'image/png',
-            purpose: 'maskable',
+            name: 'Mi Neuromundi ID',
+            short_name: 'Mi ID',
+            url: '/mi-id',
+            icons: [{ src: '/icon-192.png', sizes: '192x192', type: 'image/png' }],
           },
         ],
       },

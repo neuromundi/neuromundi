@@ -15,6 +15,7 @@ import { Modal, Button, useToast } from '@/components/ui';
 import { useMembership, type BillingPeriod } from '@/hooks/useMembership';
 import { cn } from '@/lib/utils';
 import { annualSaving } from '@/lib/pricing';
+import { useCampaign } from '@/hooks/useCampaign';
 
 const PROMO_ERRORS: Record<string, string> = {
   invalid: 'membership.promoInvalid',
@@ -28,6 +29,7 @@ export function MembershipModal({ open, onClose }: { open: boolean; onClose: () 
   const { t } = useTranslation();
   const toast = useToast();
   const { status, daysLeft, quote, options, loading, startCheckout, redeemPromo } = useMembership();
+  const { founderDiscount: campaignDisc } = useCampaign();
   const [promo, setPromo] = useState('');
   const [showPromo, setShowPromo] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -101,6 +103,17 @@ export function MembershipModal({ open, onClose }: { open: boolean; onClose: () 
           {options?.is_founder && (
             <p className="flex items-center justify-center gap-1.5 rounded-xl bg-warm-50 px-3 py-2 text-sm font-semibold text-warm-800">
               <Crown className="h-4 w-4" aria-hidden="true" /> {t('membership.founderPrice')}
+            </p>
+          )}
+
+          {/* Descuento de campaña de fundador vigente (solo aplica al anual). */}
+          {campaignDisc.pct > 0 && (
+            <p className="flex items-center justify-center gap-1.5 rounded-xl bg-amber-50 px-3 py-2 text-center text-sm font-semibold text-amber-800">
+              <Crown className="h-4 w-4 shrink-0" aria-hidden="true" />
+              {t('membership.founderCampaign', {
+                pct: campaignDisc.pct,
+                date: campaignDisc.endsAt ? campaignDisc.endsAt.toLocaleDateString(undefined, { day: 'numeric', month: 'long' }) : '',
+              })}
             </p>
           )}
 

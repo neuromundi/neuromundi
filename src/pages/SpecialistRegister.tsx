@@ -14,6 +14,7 @@ import { setFounderOptoutFlag } from '@/lib/founderPref';
 import { isStrictEmail } from '@/lib/email';
 import { useCountryLabel } from '@/lib/countryLabel';
 import { FounderProgressCard } from '@/components/founder/FounderProgressCard';
+import { SectionsField } from '@/components/onboarding/SectionsField';
 import { founderKindFor } from '@/hooks/useFounder';
 import { Camera, Eye, ChevronDown, MapPin, Stethoscope, BadgeCheck } from 'lucide-react';
 import { Button, useToast, PasswordInput} from '@/components/ui';
@@ -71,6 +72,9 @@ export function SpecialistRegister({ onSuccess, complete = false }: { onSuccess?
   const [ageRanges, toggleAge] = useToggleList();
   const [areas, toggleArea] = useToggleList();
   const [areaOther, setAreaOther] = useState('');
+  // Secciones de la plataforma que cubre + afecciones neurológicas que atiende.
+  const [sections, toggleSection] = useToggleList();
+  const [neuroConditions, toggleCondition] = useToggleList();
   // Validaciones
   const [cedula, setCedula] = useState('');
   const [rfc, setRfc] = useState('');
@@ -150,6 +154,7 @@ export function SpecialistRegister({ onSuccess, complete = false }: { onSuccess?
       instagram: instagram || null, tiktok: tiktok || null, facebook: facebook || null,
       cedulaProfesional: cedula || null, rfc: isMexico ? (rfc || null) : null,
       specialties, modalities, ageRanges, interventionAreas: areas, providerDetails: details,
+      sections, neuroConditions,
       rulesVersion: RULES_VERSION,
     };
     const res = complete ? await completeProfile(payload) : await signUp(payload);
@@ -319,6 +324,12 @@ export function SpecialistRegister({ onSuccess, complete = false }: { onSuccess?
         {/* 3. Especialización */}
         <section className="space-y-4">
           <h3 className={sectionTitle}>{t('spec.s3')}</h3>
+          <SectionsField
+            sections={sections}
+            onToggleSection={toggleSection}
+            neuroConditions={neuroConditions}
+            onToggleCondition={toggleCondition}
+          />
           <div>
             <label className={labelCls}>{t('spec.specialties')}</label>
             <div className="flex flex-wrap gap-2">

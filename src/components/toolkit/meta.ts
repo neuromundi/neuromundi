@@ -5,7 +5,7 @@
  * el texto, AA sobre blanco). Se usa en el punto indicador, la pestaña, los
  * bordes suaves y los encabezados. Sin colores saturados que sobreestimulen.
  */
-import { Stethoscope, GraduationCap, Waves, HeartHandshake, Scale } from 'lucide-react';
+import { Stethoscope, GraduationCap, Waves, HeartHandshake, Scale, Sprout, Blocks, Activity, HeartPulse } from 'lucide-react';
 import type { ModuleId } from '@/data/toolkit';
 
 export const MODULE_ICONS = {
@@ -14,6 +14,10 @@ export const MODULE_ICONS = {
   waves: Waves,
   hearthands: HeartHandshake,
   scale: Scale,
+  sprout: Sprout,
+  blocks: Blocks,
+  activity: Activity,
+  pulse: HeartPulse,
 } as const;
 
 export interface Accent {

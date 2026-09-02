@@ -101,6 +101,8 @@ export interface Database {
           modalities: string[] | null;
           age_ranges: string[] | null;
           intervention_areas: string[] | null;
+          sections: string[];
+          neuro_conditions: string[];
           product_categories: string[] | null;
           products_offered: string[] | null;
           sales_channels: string[] | null;
@@ -189,6 +191,8 @@ export interface Database {
           modalities?: string[] | null;
           age_ranges?: string[] | null;
           intervention_areas?: string[] | null;
+          sections?: string[];
+          neuro_conditions?: string[];
           product_categories?: string[] | null;
           products_offered?: string[] | null;
           sales_channels?: string[] | null;
@@ -1335,15 +1339,15 @@ export interface Database {
         Returns: boolean;
       };
       tribe_forums_list: {
-        Args: { p_query?: string | null; p_country?: string | null; p_language?: string | null; p_theme?: string | null };
-        Returns: { id: string; title: string; description: string | null; theme: string | null; country: string | null; city: string | null; language: string | null; members: number; i_member: boolean; created_at: string }[];
+        Args: { p_query?: string | null; p_country?: string | null; p_language?: string | null; p_theme?: string | null; p_section?: string | null };
+        Returns: { id: string; title: string; description: string | null; theme: string | null; country: string | null; city: string | null; language: string | null; section: string | null; members: number; i_member: boolean; created_at: string }[];
       };
       tribe_forum_messages: {
         Args: { p_forum: string };
         Returns: { id: string; author_id: string; author_name: string; author_energy: string; author_is_mod: boolean; body: string; created_at: string }[];
       };
       tribe_create_forum: {
-        Args: { p_title: string; p_description: string; p_theme: string; p_country: string; p_city: string; p_language: string; p_notify_countries: string[] | null; p_apply_moderator?: boolean };
+        Args: { p_title: string; p_description: string; p_theme: string; p_country: string; p_city: string; p_language: string; p_notify_countries: string[] | null; p_apply_moderator?: boolean; p_section?: string | null };
         Returns: string;
       };
       tribe_close_forum: {
@@ -1422,6 +1426,51 @@ export interface Database {
         Args: { p_member_no: number; p_on: boolean };
         Returns: undefined;
       };
+      campaign_status: {
+        Args: Record<string, never>;
+        Returns: {
+          active: boolean;
+          start_at: string | null;
+          default_block_days: number;
+          block_days_by_country: Record<string, number>;
+          popup_active: boolean;
+          popup_continents: Record<string, boolean>;
+          founder_discount: { days: number; pct: number }[];
+          community_url: string | null;
+        } | null;
+      };
+      admin_campaign_set: {
+        Args: {
+          p_active: boolean;
+          p_start_at: string | null;
+          p_default_days: number;
+          p_days_by_country: Record<string, number>;
+          p_popup_active: boolean;
+          p_popup_continents: Record<string, boolean>;
+          p_founder_discount: { days: number; pct: number }[];
+        };
+        Returns: undefined;
+      };
+      my_raffle_tickets: {
+        Args: Record<string, never>;
+        Returns: number;
+      };
+      admin_raffle_entries: {
+        Args: Record<string, never>;
+        Returns: { user_id: string; name: string; member_no: number | null; email: string; role: string; tickets: number }[];
+      };
+      admin_set_campaign_community: {
+        Args: { p_url: string };
+        Returns: undefined;
+      };
+      admin_raffle_draw: {
+        Args: { p_count: number; p_role?: string | null; p_batch?: string | null };
+        Returns: { user_id: string; name: string; member_no: number | null; email: string; tickets: number }[];
+      };
+      admin_raffle_winners: {
+        Args: Record<string, never>;
+        Returns: { user_id: string; name: string; member_no: number | null; email: string; batch: string | null; drawn_at: string }[];
+      };
       admin_list_advisors: {
         Args: Record<string, never>;
         Returns: { user_id: string; name: string; email: string; member_no: number | null }[];
@@ -1431,7 +1480,7 @@ export interface Database {
         Returns: undefined;
       };
       tribe_become_mentor: {
-        Args: { p_tracks: string[]; p_bio: string | null };
+        Args: { p_tracks: string[]; p_bio: string | null; p_section?: string | null };
         Returns: undefined;
       };
       tribe_set_mentor_active: {
@@ -1440,11 +1489,11 @@ export interface Database {
       };
       tribe_my_mentor: {
         Args: Record<string, never>;
-        Returns: { tracks: string[]; bio: string | null; is_active: boolean }[];
+        Returns: { tracks: string[]; bio: string | null; is_active: boolean; section: string | null }[];
       };
       tribe_mentors_list: {
-        Args: { p_track?: string | null };
-        Returns: { user_id: string; name: string; tracks: string[]; bio: string | null; my_status: string | null }[];
+        Args: { p_track?: string | null; p_section?: string | null };
+        Returns: { user_id: string; name: string; tracks: string[]; bio: string | null; section: string | null; my_status: string | null }[];
       };
       tribe_request_mentor: {
         Args: { p_mentor: string; p_track: string };
@@ -1463,7 +1512,7 @@ export interface Database {
         Returns: { id: string; author_id: string; author_name: string; body: string; created_at: string }[];
       };
       tribe_create_event: {
-        Args: { p_title: string; p_description: string; p_starts_at: string; p_location?: string | null; p_is_online?: boolean; p_city?: string | null; p_country?: string | null; p_noise: string; p_quiet_room?: boolean; p_sensory_tips?: string | null };
+        Args: { p_title: string; p_description: string; p_starts_at: string; p_location?: string | null; p_is_online?: boolean; p_city?: string | null; p_country?: string | null; p_noise: string; p_quiet_room?: boolean; p_sensory_tips?: string | null; p_section?: string | null };
         Returns: string;
       };
       tribe_cancel_event: {
@@ -1479,8 +1528,8 @@ export interface Database {
         Returns: undefined;
       };
       tribe_events_list: {
-        Args: { p_country?: string | null };
-        Returns: { id: string; title: string; description: string; starts_at: string; location: string | null; is_online: boolean; city: string | null; country: string | null; noise: string; quiet_room: boolean; sensory_tips: string | null; creator_name: string; going: number; i_going: boolean; i_reported: boolean; is_past: boolean }[];
+        Args: { p_country?: string | null; p_section?: string | null };
+        Returns: { id: string; title: string; description: string; starts_at: string; location: string | null; is_online: boolean; city: string | null; country: string | null; noise: string; quiet_room: boolean; sensory_tips: string | null; section: string | null; creator_name: string; going: number; i_going: boolean; i_reported: boolean; is_past: boolean }[];
       };
       tribe_invite: {
         Args: { p_forum: string; p_member_no: number };

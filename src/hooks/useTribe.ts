@@ -192,6 +192,7 @@ export interface TribeForum {
   country: string | null;
   city: string | null;
   language: string | null;
+  section: string | null;
   members: number;
   i_member: boolean;
   created_at: string;
@@ -202,30 +203,34 @@ export interface ForumFilters {
   country?: string;
   language?: string;
   theme?: string;
+  /** Neurocamp (sección): neurodesarrollo | neurodivergencias | afecciones. */
+  section?: string;
 }
 
 export function useTribeForums(filters: ForumFilters) {
   const [forums, setForums] = useState<TribeForum[]>([]);
   const [loading, setLoading] = useState(true);
-  const { query, country, language, theme } = filters;
+  const { query, country, language, theme, section } = filters;
 
   const load = useCallback(async () => {
     setLoading(true);
     const { data, error } = await supabase.rpc('tribe_forums_list', {
       p_query: query ?? null, p_country: country ?? null, p_language: language ?? null, p_theme: theme ?? null,
+      p_section: section ?? null,
     });
     setForums(error ? [] : ((data as TribeForum[] | null) ?? []));
     setLoading(false);
-  }, [query, country, language, theme]);
+  }, [query, country, language, theme, section]);
 
   useEffect(() => { void load(); }, [load]);
 
-  const create = useCallback(async (input: { title: string; description: string; theme: string; country: string; city: string; language: string; notifyCountries: string[]; applyModerator: boolean }): Promise<boolean> => {
+  const create = useCallback(async (input: { title: string; description: string; theme: string; country: string; city: string; language: string; notifyCountries: string[]; applyModerator: boolean; section?: string | null }): Promise<boolean> => {
     const { error } = await supabase.rpc('tribe_create_forum', {
       p_title: input.title, p_description: input.description || '', p_theme: input.theme || '',
       p_country: input.country || '', p_city: input.city || '', p_language: input.language || '',
       p_notify_countries: input.notifyCountries.length ? input.notifyCountries : null,
       p_apply_moderator: input.applyModerator,
+      p_section: input.section || null,
     });
     if (!error) await load();
     return !error;

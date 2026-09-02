@@ -1,0 +1,6 @@
+import{c as r,u as a,r as l,j as e}from"./index-BHjU6jbF.js";/**
+ * @license lucide-react v0.383.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const u=r("SkipForward",[["polygon",{points:"5 4 15 12 5 20 5 4",key:"16p6eg"}],["line",{x1:"19",x2:"19",y1:"5",y2:"19",key:"futhcm"}]]);function d({onDone:s}){const{t:o}=a(),[i,n]=l.useState(!1),t=()=>{i||(n(!0),s())};return e.jsxs("div",{className:"fixed inset-0 z-[100] flex items-center justify-center bg-black",children:[e.jsxs("video",{className:"h-full w-full object-contain",autoPlay:!0,playsInline:!0,muted:!0,preload:"metadata",onEnded:t,onError:t,children:[e.jsx("source",{src:"/neuromundi-v2.webm",type:"video/webm"}),e.jsx("source",{src:"/neuromundi-v2.mp4",type:"video/mp4"})]}),e.jsxs("button",{type:"button",onClick:t,className:"absolute bottom-6 right-6 z-10 inline-flex items-center gap-2 rounded-full bg-white/90 px-4 py-2.5 text-sm font-semibold text-slate-900 shadow-lg backdrop-blur hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white",children:[o("intro.skip"),e.jsx(u,{className:"h-4 w-4","aria-hidden":"true"})]})]})}export{d as WelcomeVideo};

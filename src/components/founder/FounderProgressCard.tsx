@@ -31,8 +31,12 @@ export function FounderProgressCard({ kind, country }: { kind: FounderKind; coun
     );
   }
 
-  const benefits = t(`founder.groups.${kind}.benefits`, { returnObjects: true }) as string[];
-  const reqs = t(`founder.groups.${kind}.reqs`, { returnObjects: true }) as string[];
+  // returnObjects devuelve la CLAVE (string) si falta la traducción; blindamos con
+  // Array.isArray para que una clave ausente nunca rompa el registro con `.map`.
+  const rawBenefits = t(`founder.groups.${kind}.benefits`, { returnObjects: true });
+  const rawReqs = t(`founder.groups.${kind}.reqs`, { returnObjects: true });
+  const benefits = Array.isArray(rawBenefits) ? (rawBenefits as string[]) : [];
+  const reqs = Array.isArray(rawReqs) ? (rawReqs as string[]) : [];
 
   return (
     <div className="mt-4 rounded-2xl border border-brand-200 bg-brand-50 p-4">

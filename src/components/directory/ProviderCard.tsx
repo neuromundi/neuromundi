@@ -10,6 +10,7 @@ import { MapPin, Tag, MessageCircle, ShieldCheck, ChevronDown, Map as MapIcon, S
 import { useTranslation } from 'react-i18next';
 import { Button, EVSBadge, ProgressBar , Avatar, DistintivoBadge } from '@/components/ui';
 import { cn, evsColor } from '@/lib/utils';
+import { SECTION_BY_VALUE } from '@/data/sections';
 import {
   DIMENSION_LABEL_KEY,
   RATING_AVG_COLUMN,
@@ -98,6 +99,19 @@ export function ProviderCard({
               </>
             )}
           </p>
+          {(provider.sections ?? []).length > 0 && (
+            <div className="mt-1 flex flex-wrap gap-1">
+              {(provider.sections ?? []).map((sv) => {
+                const def = SECTION_BY_VALUE[sv];
+                if (!def) return null;
+                return (
+                  <span key={sv} className={cn('rounded-full px-2 py-0.5 text-[11px] font-semibold', def.chip)}>
+                    {t(`sections.${sv}.name`)}
+                  </span>
+                );
+              })}
+            </div>
+          )}
         </div>
         {provider.badge?.level && <DistintivoBadge badge={provider.badge} size="sm" className="shrink-0" />}
       </header>

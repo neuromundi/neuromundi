@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { CalendarDays, Plus, Volume2, ShieldCheck, MapPin, Users, Sparkles } from 'lucide-react';
 import { Button, SkeletonCard, EmptyState } from '@/components/ui';
 import { useTribeEvents, type TribeEvent } from '@/hooks/useTribeEvents';
+import { useSection } from '@/stores/sectionStore';
 import { CreateEventModal } from './CreateEventModal';
 import { SensoryReportModal } from './SensoryReportModal';
 
@@ -51,7 +52,8 @@ function EventCard({ e, onRsvp, onReport }: { e: TribeEvent; onRsvp: (going: boo
 
 export function EventsSection() {
   const { t } = useTranslation();
-  const { events, loading, rsvp, reload } = useTribeEvents('');
+  const { section } = useSection();
+  const { events, loading, rsvp, reload } = useTribeEvents('', section);
   const [creating, setCreating] = useState(false);
   const [reporting, setReporting] = useState<{ id: string; title: string } | null>(null);
 
@@ -78,7 +80,7 @@ export function EventsSection() {
         )}
       </div>
 
-      {creating && <CreateEventModal onClose={() => setCreating(false)} onCreated={() => void reload()} />}
+      {creating && <CreateEventModal section={section} onClose={() => setCreating(false)} onCreated={() => void reload()} />}
       {reporting && <SensoryReportModal eventId={reporting.id} eventTitle={reporting.title} onClose={() => setReporting(null)} onDone={() => void reload()} />}
     </section>
   );

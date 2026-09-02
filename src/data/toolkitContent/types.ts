@@ -19,10 +19,17 @@ export interface ToolkitSection {
 
 export type ModuleId = 'A' | 'B' | 'C' | 'D' | 'E';
 
+/** Secciones de la plataforma a las que puede pertenecer un kit de Herramientas. */
+export type ToolkitSectionKey = 'neurodivergencias' | 'neurodesarrollo' | 'afecciones';
+
+export type ToolkitIcon =
+  | 'stethoscope' | 'graduation' | 'waves' | 'hearthands' | 'scale'
+  | 'sprout' | 'blocks' | 'activity' | 'pulse';
+
 export interface ToolkitModule {
   id: ModuleId;
   slug: string;
-  icon: 'stethoscope' | 'graduation' | 'waves' | 'hearthands' | 'scale';
+  icon: ToolkitIcon;
   title: string;
   area: string;
   summary: string;

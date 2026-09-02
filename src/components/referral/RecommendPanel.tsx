@@ -4,10 +4,11 @@
  * compartirlo (menú nativo, copiar o botones directos) y cuántas personas ha
  * recomendado. Los registros que lleguen por su enlace se atribuyen a su folio.
  */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Share2, Copy, Check, Users, MessageCircle, Mail, Facebook, Linkedin, Gift, Percent, Clock } from 'lucide-react';
+import { Share2, Copy, Check, Users, MessageCircle, Mail, Facebook, Linkedin, Gift, Percent, Clock, Ticket } from 'lucide-react';
 import { Button, useToast, HowTo } from '@/components/ui';
+import { supabase } from '@/lib/supabase';
 import { useAuthStore } from '@/stores/authStore';
 import { useReferralSummary } from '@/hooks/useReferralProgram';
 import { referralUrl, formatMemberNo } from '@/lib/referral';
@@ -19,6 +20,13 @@ export function RecommendPanel() {
   const profile = useAuthStore((s) => s.profile);
   const { summary } = useReferralSummary();
   const [copied, setCopied] = useState(false);
+  const [tickets, setTickets] = useState<number | null>(null);
+
+  useEffect(() => {
+    let alive = true;
+    void supabase.rpc('my_raffle_tickets').then(({ data }) => { if (alive) setTickets(typeof data === 'number' ? data : 0); });
+    return () => { alive = false; };
+  }, []);
 
   if (!profile) return null;
 
@@ -102,6 +110,13 @@ export function RecommendPanel() {
           </p>
         </div>
       </div>
+
+      {tickets != null && tickets > 0 && (
+        <div className="flex items-center gap-3 rounded-2xl border border-amber-200 bg-amber-50 p-3">
+          <Ticket className="h-5 w-5 shrink-0 text-amber-600" aria-hidden="true" />
+          <p className="text-sm font-medium text-amber-900">{t('recommend.raffleTickets', { count: tickets })}</p>
+        </div>
+      )}
 
       <div className="flex items-start gap-2 rounded-2xl border border-warm-200 bg-warm-50 p-3 text-sm text-warm-800">
         <Clock className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />

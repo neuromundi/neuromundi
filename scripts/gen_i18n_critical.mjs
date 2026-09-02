@@ -12,6 +12,9 @@ import path from 'node:path';
 const CRITICAL = [
   'common', 'nav', 'home', 'access', 'footer', 'followUs', 'lang', 'a11y',
   'intro', 'meta', 'notif', 'pwa', 'push', 'support', 'improve', 'report',
+  // La portada también pinta la invitación al Kit y el título de aliados en el
+  // primer render → sin estos, se veían las claves crudas (kit.home.title…).
+  'kit', 'allies',
 ];
 
 const locDir = 'src/i18n/locales';

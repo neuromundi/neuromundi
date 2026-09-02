@@ -27,7 +27,7 @@ export function Auth() {
   if (isAuthenticated) return <Navigate to={dest} replace />;
 
   return (
-    <div className="mx-auto max-w-md px-4 py-10">
+    <div className={cn('mx-auto px-4 py-10 transition-[max-width]', mode === 'register' ? 'max-w-3xl' : 'max-w-md')}>
       <div className="mb-6 flex gap-1 rounded-xl bg-slate-100 p-1">
         {(['login', 'register'] as const).map((m) => (
           <button

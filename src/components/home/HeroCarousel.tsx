@@ -35,7 +35,9 @@ const KEYFRAMES = `
 `;
 
 function srcset(n: number) {
-  return `/hero/slides/${n}-500-v3.webp 500w, /hero/slides/${n}-800-v3.webp 800w`;
+  // 700w cubre el hueco típico de móvil (~665 px mostrados) sin bajar a la de
+  // 800w, que Lighthouse marcaba como sobredimensionada.
+  return `/hero/slides/${n}-500-v3.webp 500w, /hero/slides/${n}-700-v3.webp 700w, /hero/slides/${n}-800-v3.webp 800w`;
 }
 
 export function HeroCarousel({ className }: { className?: string }) {

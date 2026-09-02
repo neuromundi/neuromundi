@@ -118,6 +118,25 @@ Deno.serve(async (req: Request) => {
     promoBenefit = '';
   }
 
+  // (3) Descuento de FUNDADOR por etapa (campaña de pre-registro): 50% ≤ día 15,
+  //     25% día 16–30, 0% después. SOLO en el periodo anual. Las etapas y la fecha
+  //     de inicio las edita el admin en campaign_config.
+  let founderPct = 0;
+  if (period === 'annual') {
+    try {
+      const { data: camp } = await admin.rpc('campaign_status');
+      if (camp?.active && camp.start_at) {
+        const days = (Date.now() - new Date(camp.start_at).getTime()) / 86400000;
+        if (days >= 0 && Array.isArray(camp.founder_discount)) {
+          const stages = [...camp.founder_discount].sort((a, b) => Number(a.days) - Number(b.days));
+          for (const s of stages) { if (days <= Number(s.days)) { founderPct = Number(s.pct) || 0; break; } }
+        }
+      }
+    } catch {
+      founderPct = 0;
+    }
+  }
+
   const origin = req.headers.get('origin') ?? new URL(req.url).origin;
 
   const stripe = new Stripe(stripeKey, {
@@ -155,16 +174,16 @@ Deno.serve(async (req: Request) => {
       discounts = [{ coupon: coupon.id }];
     }
   } else {
-    // Porcentaje: recomendación ∘ promo (%), acotado al 90%.
+    // Porcentaje: recomendación ∘ promo (%) ∘ fundador, acotado al 90%.
     const pct = promoBenefit === 'percent' ? promoPct : 0;
-    const combinedPct = (1 - (1 - referralPct / 100) * (1 - pct / 100)) * 100;
+    const combinedPct = (1 - (1 - referralPct / 100) * (1 - pct / 100) * (1 - founderPct / 100)) * 100;
     const discountPct = Math.min(Math.round(combinedPct), 90);
     if (discountPct > 0) {
       const coupon = await stripe.coupons.create({
         percent_off: discountPct,
         duration: 'once',
         name: `Descuento Neuromundi (-${discountPct}%)`,
-        metadata: { user_id: u.user.id, kind: 'discount', referral_pct: String(referralPct), promo_pct: String(pct) },
+        metadata: { user_id: u.user.id, kind: 'discount', referral_pct: String(referralPct), promo_pct: String(pct), founder_pct: String(founderPct) },
       });
       discounts = [{ coupon: coupon.id }];
     }
@@ -195,7 +214,7 @@ Deno.serve(async (req: Request) => {
       discount_pct: String(discountPct),
     },
     subscription_data: { metadata: { user_id: u.user.id } },
-    success_url: `${origin}/panel?membership=ok`,
+    success_url: `${origin}/panel?membership=ok&period=${period}`,
     cancel_url: `${origin}/panel?membership=cancel`,
   });
 

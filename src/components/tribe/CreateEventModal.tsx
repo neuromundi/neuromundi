@@ -14,7 +14,7 @@ import { COUNTRIES } from '@/data/countries';
 const inputCls = 'w-full rounded-xl border border-slate-200 p-2.5 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500';
 const labelCls = 'mb-1 block text-sm font-semibold text-slate-800';
 
-export function CreateEventModal({ onClose, onCreated }: { onClose: () => void; onCreated?: () => void }) {
+export function CreateEventModal({ onClose, onCreated, section }: { onClose: () => void; onCreated?: () => void; section?: string | null }) {
   const { t } = useTranslation();
   const toast = useToast();
   const countryLabel = useCountryLabel();
@@ -33,7 +33,7 @@ export function CreateEventModal({ onClose, onCreated }: { onClose: () => void; 
     const err = await create({
       title: f.title, description: f.description, starts_at: new Date(f.when).toISOString(),
       location: f.location, is_online: f.is_online, city: f.city, country: f.country,
-      noise: f.noise, quiet_room: f.quiet_room, sensory_tips: f.sensory_tips,
+      noise: f.noise, quiet_room: f.quiet_room, sensory_tips: f.sensory_tips, section: section ?? null,
     });
     setBusy(false);
     if (err) toast.error(err);

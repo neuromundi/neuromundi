@@ -81,7 +81,7 @@ export function RedNeuromundi() {
           <div className="mt-4 rounded-2xl border border-dashed border-slate-200 bg-slate-50 p-6 text-center">
             <p className="text-sm text-muted">{t('nid.red.sealsForProviders')}</p>
             {!isAuthenticated && (
-              <Button className="mt-3" onClick={() => navigate('/crear-cuenta')} leadingIcon={<LogIn className="h-4 w-4" />}>{t('nid.red.joinCta')}</Button>
+              <Button className="mt-3" onClick={() => navigate('/crear-cuenta')} leadingIcon={<LogIn className="h-4 w-4" />}>{t('nid.red.sealsCta')}</Button>
             )}
           </div>
         )}

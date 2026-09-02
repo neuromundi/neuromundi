@@ -12,6 +12,7 @@ import { setFounderOptoutFlag } from '@/lib/founderPref';
 import { isStrictEmail } from '@/lib/email';
 import { useCountryLabel } from '@/lib/countryLabel';
 import { FounderProgressCard } from '@/components/founder/FounderProgressCard';
+import { SectionsField } from '@/components/onboarding/SectionsField';
 import { founderKindFor } from '@/hooks/useFounder';
 import { Camera, Eye, ChevronDown, MapPin, Store, BadgeCheck, Plus, X } from 'lucide-react';
 import { Button, useToast, PasswordInput} from '@/components/ui';
@@ -47,6 +48,8 @@ export function ProviderRegister({ onSuccess, complete = false }: { onSuccess?: 
   const [logoUrl, setLogoUrl] = useState<string | null>(null);
   const [description, setDescription] = useState('');
   const [channels, toggleChannel] = useToggleList();
+  const [sections, toggleSection] = useToggleList();
+  const [neuroConditions, toggleCondition] = useToggleList();
   // Productos
   const [categories, toggleCategory] = useToggleList();
   const [categoryOther, setCategoryOther] = useState('');
@@ -144,6 +147,7 @@ export function ProviderRegister({ onSuccess, complete = false }: { onSuccess?: 
       address: onlineOnly ? null : (address || null),
       productCategories: categories, productsOffered: products, salesChannels: channels,
       shippingCoverage: shipping, priceRange: priceRange || null, providerDetails: details,
+      sections, neuroConditions,
       rulesVersion: RULES_VERSION,
     };
     const res = complete ? await completeProfile(payload) : await signUp(payload);
@@ -238,6 +242,12 @@ export function ProviderRegister({ onSuccess, complete = false }: { onSuccess?: 
         {/* 2. Productos */}
         <section className="space-y-4">
           <h3 className={sectionTitle}>{t('prov.s2')}</h3>
+          <SectionsField
+            sections={sections}
+            onToggleSection={toggleSection}
+            neuroConditions={neuroConditions}
+            onToggleCondition={toggleCondition}
+          />
           <div>
             <label className={labelCls}>{t('prov.categories')} *</label>
             <div className="flex flex-wrap gap-2">

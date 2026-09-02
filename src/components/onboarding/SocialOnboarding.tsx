@@ -92,7 +92,7 @@ export function SocialOnboarding() {
       <div
         role="dialog"
         aria-modal="true"
-        className={`max-h-[90vh] w-full overflow-y-auto rounded-2xl bg-white p-6 shadow-2xl ${isProvider ? 'max-w-4xl' : 'max-w-lg'}`}
+        className={`max-h-[90vh] w-full overflow-y-auto rounded-2xl bg-white p-6 shadow-2xl ${isProvider ? 'max-w-4xl' : 'max-w-3xl'}`}
       >
         <h2 className="text-xl font-bold text-slate-900">{t('onb.title')}</h2>
         <p className="mt-1 text-sm text-muted">{t('onb.intro')}</p>

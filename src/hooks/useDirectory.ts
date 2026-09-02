@@ -51,6 +51,10 @@ export interface DirectoryFilters {
   modality?: string;
   /** Solo proveedores con el Sello Neuromundi Neuroafirmativo. */
   neuroaffirming?: boolean;
+  /** Sección de la plataforma: neurodesarrollo | neurodivergencias | afecciones. */
+  section?: string;
+  /** Afección neurológica (clave canónica) — solo relevante en la sección de afecciones. */
+  neuroCondition?: string;
   city?: string;
   /** País (nombre) para segmentar el directorio a un solo país. */
   country?: string;
@@ -150,7 +154,7 @@ export function useDirectory(filters: DirectoryFilters): UseDirectoryValue {
     [providers],
   );
 
-  const { query, categoryId, specialty, productCategory, ageRange, modality, neuroaffirming, city, center, radiusKm, anyOf, providerTypes } = filters;
+  const { query, categoryId, specialty, productCategory, ageRange, modality, neuroaffirming, section, neuroCondition, city, center, radiusKm, anyOf, providerTypes } = filters;
 
   const filtered = useMemo(() => {
     const q = query?.trim().toLowerCase();
@@ -186,6 +190,8 @@ export function useDirectory(filters: DirectoryFilters): UseDirectoryValue {
       if (ageRange && !(p.age_ranges ?? []).includes(ageRange)) return false;
       if (modality && !(p.modalities ?? []).includes(modality)) return false;
       if (neuroaffirming && !p.neuroaffirming) return false;
+      if (section && !(p.sections ?? []).includes(section)) return false;
+      if (neuroCondition && !(p.neuro_conditions ?? []).includes(neuroCondition)) return false;
       if (city && p.city !== city) return false;
       if (center && radiusKm && p.latitude != null && p.longitude != null) {
         const dist = haversineKm(center, { lat: p.latitude, lng: p.longitude });
@@ -193,7 +199,7 @@ export function useDirectory(filters: DirectoryFilters): UseDirectoryValue {
       }
       return true;
     });
-  }, [providers, query, categoryId, specialty, productCategory, ageRange, modality, neuroaffirming, city, center, radiusKm, anyOf, providerTypes]);
+  }, [providers, query, categoryId, specialty, productCategory, ageRange, modality, neuroaffirming, section, neuroCondition, city, center, radiusKm, anyOf, providerTypes]);
 
   return { providers, filtered, cities, loading, error, refetch };
 }

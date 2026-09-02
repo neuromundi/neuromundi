@@ -20,6 +20,8 @@ import { ModeratorsSection } from '@/components/tribe/ModeratorsSection';
 import { MentorshipSection } from '@/components/tribe/MentorshipSection';
 import { EventsSection } from '@/components/tribe/EventsSection';
 import { COUNTRIES } from '@/data/countries';
+import { SECTIONS } from '@/data/sections';
+import { useSection } from '@/stores/sectionStore';
 import { useCountryLabel } from '@/lib/countryLabel';
 
 const LANGS: { code: string; label: string }[] = [
@@ -30,7 +32,7 @@ const LANGS: { code: string; label: string }[] = [
 ];
 const inputCls = 'w-full rounded-xl border border-slate-200 p-2.5 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500';
 
-interface CreateForumInput { title: string; description: string; theme: string; country: string; city: string; language: string; notifyCountries: string[]; applyModerator: boolean }
+interface CreateForumInput { title: string; description: string; theme: string; country: string; city: string; language: string; notifyCountries: string[]; applyModerator: boolean; section: string }
 
 function CreateForumForm({ onCreate, onCancel }: { onCreate: (i: CreateForumInput) => Promise<boolean>; onCancel: () => void }) {
   const { t, i18n } = useTranslation();
@@ -38,7 +40,7 @@ function CreateForumForm({ onCreate, onCancel }: { onCreate: (i: CreateForumInpu
   const toast = useToast();
   const { mod } = useTribeModerator();
   const isApprovedMod = mod?.status === 'approved';
-  const [f, setF] = useState({ title: '', description: '', theme: '', country: '', city: '', language: i18n.language.slice(0, 2) });
+  const [f, setF] = useState({ title: '', description: '', theme: '', country: '', city: '', language: i18n.language.slice(0, 2), section: '' });
   const [notify, setNotify] = useState<string[]>([]);
   const [applyMod, setApplyMod] = useState(false);
   const [showCountries, setShowCountries] = useState(false);
@@ -65,6 +67,13 @@ function CreateForumForm({ onCreate, onCancel }: { onCreate: (i: CreateForumInpu
       </div>
 
       <div className="grid gap-3 sm:grid-cols-2">
+        <div className="sm:col-span-2">
+          <label className="mb-1 block text-sm font-semibold text-slate-800">{t('tribe.forumSection')}</label>
+          <select className={inputCls} value={f.section} onChange={(e) => set('section', e.target.value)}>
+            <option value="">{t('tribe.sectionGeneral')}</option>
+            {SECTIONS.map((s) => <option key={s.value} value={s.value}>{t(`sections.${s.value}.name`)}</option>)}
+          </select>
+        </div>
         <div className="sm:col-span-2"><label className="mb-1 block text-sm font-semibold text-slate-800">{t('tribe.forumTitle')}</label><input className={inputCls} value={f.title} onChange={(e) => set('title', e.target.value)} placeholder={t('tribe.forumTitlePh')} /></div>
         <div><label className="mb-1 block text-sm font-semibold text-slate-800">{t('tribe.theme')}</label><input className={inputCls} value={f.theme} onChange={(e) => set('theme', e.target.value)} placeholder={t('tribe.themePh')} /></div>
         <div>
@@ -142,7 +151,8 @@ export function TribuNeuromundi() {
   const [country, setCountry] = useState('');
   const [language, setLanguage] = useState('');
   const [theme, setTheme] = useState('');
-  const filters = useMemo(() => ({ query: q, country, language, theme }), [q, country, language, theme]);
+  const { section, setSection } = useSection();
+  const filters = useMemo(() => ({ query: q, country, language, theme, section: section ?? undefined }), [q, country, language, theme, section]);
 
   const { forums, loading: loadingForums, create, joinForum, closeForum } = useTribeForums(filters);
   const { invites, respond } = useTribeInvites();
@@ -158,7 +168,7 @@ export function TribuNeuromundi() {
     return (
       <div className="mx-auto max-w-3xl px-4 py-12">
         <div className="text-center">
-          <img src={tribeLogo(i18n.language)} alt="Tribu Neuromundi" className="mx-auto h-28 w-auto" />
+          <img src={tribeLogo(i18n.language)} alt="Neurocamps" className="mx-auto h-28 w-auto" />
           <h1 className="mt-4 text-3xl font-bold text-slate-900">{t('tribe.title')}</h1>
           <p className="mx-auto mt-3 max-w-xl text-muted">{t('tribe.landing')}</p>
         </div>
@@ -225,7 +235,7 @@ export function TribuNeuromundi() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-8">
       <header className="flex items-center gap-3">
-        <img src={tribeLogo(i18n.language)} alt="Tribu Neuromundi" className="h-12 w-auto" />
+        <img src={tribeLogo(i18n.language)} alt="Neurocamps" className="h-12 w-auto" />
         <div>
           <h1 className="text-2xl font-bold text-slate-900">{t('tribe.title')}</h1>
           <p className="text-sm text-muted">{t('tribe.hubSubtitle')}</p>
@@ -267,6 +277,17 @@ export function TribuNeuromundi() {
           </ul>
         </section>
       )}
+
+      {/* Selector de Neurocamp (sección) */}
+      <section className="mt-6">
+        <h2 className="mb-2 text-sm font-semibold text-slate-800">{t('tribe.pickNeurocamp')}</h2>
+        <div className="flex flex-wrap gap-2">
+          <button type="button" aria-pressed={!section} onClick={() => setSection(null)} className={`rounded-full border px-3 py-1.5 text-sm font-semibold ${!section ? 'border-slate-800 bg-slate-800 text-white' : 'border-slate-200 text-slate-700 hover:bg-slate-50'}`}>{t('tribe.allNeurocamps')}</button>
+          {SECTIONS.map((s) => (
+            <button key={s.value} type="button" aria-pressed={section === s.value} onClick={() => setSection(section === s.value ? null : s.value)} className={`rounded-full border px-3 py-1.5 text-sm font-semibold ${section === s.value ? `border-transparent bg-gradient-to-br text-white ${s.gradient}` : 'border-slate-200 text-slate-700 hover:bg-slate-50'}`}>{t(`sections.${s.value}.name`)}</button>
+          ))}
+        </div>
+      </section>
 
       {/* Buscador de chats */}
       <section className="mt-6">

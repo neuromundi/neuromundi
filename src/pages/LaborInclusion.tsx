@@ -11,6 +11,8 @@ import { Briefcase, MapPin, Search, Globe, Users, GraduationCap, Wallet, Mail, E
 import { SkeletonCard, EmptyState } from '@/components/ui';
 import { usePublicJobs, usePublicJobsCountries, type PublicJob, type OpportunityType } from '@/hooks/useJobOpenings';
 import { useCountry } from '@/stores/countryStore';
+import { useCountryLabel } from '@/lib/countryLabel';
+import { COUNTRIES } from '@/data/countries';
 
 const OPP_TYPES: (OpportunityType | 'all')[] = ['all', 'employment', 'volunteering', 'social_service'];
 
@@ -75,15 +77,24 @@ export function LaborInclusion() {
   const { t } = useTranslation();
   const { country: globalCountry } = useCountry();
   const { countries } = usePublicJobsCountries();
+  const countryLabel = useCountryLabel();
   const [selected, setSelected] = useState<string>('');
   const [oppType, setOppType] = useState<OpportunityType | 'all'>('all');
   const [q, setQ] = useState('');
 
+  // El selector lista TODOS los países (localizados), no solo los que ya tienen
+  // vacantes: así nunca aparece vacío. Se muestra el conteo cuando existe.
+  const countMap = useMemo(() => Object.fromEntries(countries.map((c) => [c.country, c.n])), [countries]);
+  const countryOptions = useMemo(
+    () => COUNTRIES.map((c) => ({ name: c.name, label: countryLabel(c.code, c.name) })).sort((a, b) => a.label.localeCompare(b.label)),
+    [countryLabel],
+  );
+
   const effective = useMemo(() => {
     if (selected) return selected;
-    if (globalCountry && countries.some((c) => c.country === globalCountry)) return globalCountry;
+    if (globalCountry) return globalCountry;
     return '';
-  }, [selected, globalCountry, countries]);
+  }, [selected, globalCountry]);
 
   const { jobs, loading } = usePublicJobs(effective || null, oppType === 'all' ? null : oppType);
 
@@ -140,8 +151,8 @@ export function LaborInclusion() {
           <span className="sr-only">{t('labor.selectCountry')}</span>
           <select value={effective} onChange={(e) => setSelected(e.target.value)} className="bg-transparent font-medium text-slate-800 focus:outline-none">
             <option value="">{t('labor.allCountries')}</option>
-            {countries.map((c) => (
-              <option key={c.country} value={c.country}>{c.country} ({c.n})</option>
+            {countryOptions.map((c) => (
+              <option key={c.name} value={c.name}>{c.label}{countMap[c.name] ? ` (${countMap[c.name]})` : ''}</option>
             ))}
           </select>
         </label>

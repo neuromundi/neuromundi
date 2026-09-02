@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Modal, Button, useToast } from '@/components/ui';
 import { useMyMentor, MENTOR_TRACKS, type MentorTrack, type MyMentor } from '@/hooks/useTribeMentorship';
+import { SECTIONS } from '@/data/sections';
 
 export function BecomeMentorModal({ current, onClose, onSaved }: { current: MyMentor | null; onClose: () => void; onSaved?: () => void }) {
   const { t } = useTranslation();
@@ -13,6 +14,7 @@ export function BecomeMentorModal({ current, onClose, onSaved }: { current: MyMe
   const { become } = useMyMentor();
   const [tracks, setTracks] = useState<MentorTrack[]>(current?.tracks ?? []);
   const [bio, setBio] = useState(current?.bio ?? '');
+  const [section, setSection] = useState<string>(current?.section ?? '');
   const [busy, setBusy] = useState(false);
 
   const toggle = (tr: MentorTrack) => setTracks((p) => (p.includes(tr) ? p.filter((x) => x !== tr) : [...p, tr]));
@@ -20,7 +22,7 @@ export function BecomeMentorModal({ current, onClose, onSaved }: { current: MyMe
   const submit = async () => {
     if (tracks.length === 0) { toast.error(t('tribe.mentor.pickTrack')); return; }
     setBusy(true);
-    const err = await become(tracks, bio.trim());
+    const err = await become(tracks, bio.trim(), section || null);
     setBusy(false);
     if (err) toast.error(err);
     else { toast.success(t('tribe.mentor.offered')); onSaved?.(); onClose(); }
@@ -40,6 +42,14 @@ export function BecomeMentorModal({ current, onClose, onSaved }: { current: MyMe
               </label>
             ))}
           </div>
+        </div>
+        <div>
+          <label className="mb-1 block text-sm font-semibold text-slate-900">{t('tribe.forumSection')}</label>
+          <select value={section} onChange={(e) => setSection(e.target.value)}
+            className="w-full rounded-xl border border-slate-200 p-2.5 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500">
+            <option value="">{t('tribe.sectionGeneral')}</option>
+            {SECTIONS.map((s) => <option key={s.value} value={s.value}>{t(`sections.${s.value}.name`)}</option>)}
+          </select>
         </div>
         <div>
           <label className="mb-1 block text-sm font-semibold text-slate-900">{t('tribe.mentor.bioLabel')}</label>

@@ -12,6 +12,7 @@ import { setFounderOptoutFlag } from '@/lib/founderPref';
 import { isStrictEmail } from '@/lib/email';
 import { useCountryLabel } from '@/lib/countryLabel';
 import { FounderProgressCard } from '@/components/founder/FounderProgressCard';
+import { SectionsField } from '@/components/onboarding/SectionsField';
 import { founderKindFor } from '@/hooks/useFounder';
 import { Camera, Eye, ChevronDown, MapPin, School, BadgeCheck } from 'lucide-react';
 import { Button, useToast, PasswordInput} from '@/components/ui';
@@ -60,6 +61,8 @@ export function SchoolRegister({ onSuccess, complete = false }: { onSuccess?: ()
   const [website, setWebsite] = useState('');
   // Oferta e inclusión
   const [grades, toggleGrade] = useToggleList();
+  const [sections, toggleSection] = useToggleList();
+  const [neuroConditions, toggleCondition] = useToggleList();
   const [models, toggleModel] = useToggleList();
   const [modelOther, setModelOther] = useState('');
   const [services, toggleService] = useToggleList();
@@ -143,6 +146,7 @@ export function SchoolRegister({ onSuccess, complete = false }: { onSuccess?: ()
       address: address || null,
       schoolGrades: grades,
       interventionAreas: [...models, ...services], // indexable para el buscador
+      sections, neuroConditions,
       providerDetails: details,
       rulesVersion: RULES_VERSION,
     };
@@ -275,6 +279,12 @@ export function SchoolRegister({ onSuccess, complete = false }: { onSuccess?: ()
         {/* 3. Oferta educativa e inclusión */}
         <section className="space-y-4">
           <h3 className={sectionTitle}>{t('sch.s3')}</h3>
+          <SectionsField
+            sections={sections}
+            onToggleSection={toggleSection}
+            neuroConditions={neuroConditions}
+            onToggleCondition={toggleCondition}
+          />
           <div>
             <label className={labelCls}>{t('sch.grades')}</label>
             <div className="flex flex-wrap gap-2">{SCHOOL_GRADES.map((g) => <button type="button" key={g} onClick={() => toggleGrade(g)} className={chip(grades.includes(g))}>{t(`grades.${g}`)}</button>)}</div>

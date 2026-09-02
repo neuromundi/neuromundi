@@ -28,7 +28,7 @@
     "school": "Inclusão",
     "dataProtection": "Proteção de dados",
     "askExpert": "Pergunte a um especialista",
-    "kit": "Kit",
+    "kit": "Ferramentas",
     "blog": "Blog",
     "events": "Eventos",
     "calendar": "Calendário",
@@ -37,11 +37,11 @@
     "donate": "Doar",
     "founders": "Fundadores",
     "labor": "Inclusão laboral",
-    "tribe": "Tribo",
+    "tribe": "Neurocamps",
     "red": "Rede Neuromundi"
   },
   "home": {
-    "title": "A primeira comunidade global que conecta pacientes, famílias, especialistas e fornecedores em neurodesenvolvimento e neurodivergência.",
+    "title": "A primeira comunidade global que conecta pacientes, famílias, especialistas e prestadores em neurodesenvolvimento, neurodivergência e afecções neurológicas.",
     "subtitle": "Compartilhe experiências, mantenha-se atualizado e encontre serviços e produtos validados por outras famílias, com descontos e recomendações de confiança.",
     "explore": "Explorar o diretório",
     "auth": "Criar conta ou entrar",
@@ -72,13 +72,15 @@
       "button": "Buscar",
       "free": "O cadastro é gratuito para famílias e pessoas neurodivergentes."
     },
-    "community": "Não somos apenas mais um diretório — somos uma verdadeira comunidade de apoio, orientação e acompanhamento, criada por pacientes e famílias em colaboração com especialistas e fornecedores focados em neurodesenvolvimento e neurodivergência. Este é o seu espaço para crescer com inclusão.",
+    "community": "Não somos apenas mais um diretório — somos uma comunidade genuína de apoio, orientação e acompanhamento criada por pacientes e famílias junto com especialistas e prestadores focados em neurodesenvolvimento, neurodivergência e afecções neurológicas. Este é o seu espaço para crescer com inclusão.",
     "country": {
       "label": "De qual país você nos visita?",
       "all": "Todos os países",
       "cta": "Explorar diretório",
       "hint": "Escolha seu país para ver especialistas, escolas e fornecedores próximos.",
-      "selected": "Mostrando a plataforma para {{country}}."
+      "selected": "Mostrando a plataforma para {{country}}.",
+      "search": "Busque seu país",
+      "noMatch": "Sem resultados"
     },
     "heroAlt": "Comunidade de famílias, pessoas neurodivergentes e especialistas em neurodesenvolvimento",
     "donors": {
@@ -243,7 +245,11 @@
     "clearLocation": "Remover",
     "nearHint": "Compartilhe sua localização para ver especialistas, escolas e fornecedores próximos.",
     "geoDenied": "Não conseguimos acessar sua localização. Ative-a no navegador para ver resultados próximos.",
-    "geoUnavailable": "Seu navegador não permite compartilhar a localização."
+    "geoUnavailable": "Seu navegador não permite compartilhar a localização.",
+    "sectionLabel": "O que você procura hoje?",
+    "sectionAll": "Todas",
+    "allConditions": "Todas as afecções",
+    "conditionAria": "Filtrar por afecção neurológica"
   },
   "card": {
     "evs": "EVS",
@@ -768,7 +774,7 @@
     "neuroRevoke": "Remover selo",
     "secFounders": "Fundadores",
     "secBadges": "Distintivos",
-    "secTribe": "Tribo",
+    "secTribe": "Neurocamps",
     "benefitExempt": "Acesso grátis",
     "benefitPercent": "Desconto %",
     "benefitPercentShort": "-{{pct}}%",
@@ -782,7 +788,7 @@
     "secAdvisors": "Consultores",
     "adv": {
       "title": "Perfil Consultor",
-      "intro": "O consultor pode explorar toda a plataforma e moderar a Tribo, sem ações financeiras ou administrativas.",
+      "intro": "O consultor pode explorar toda a plataforma e moderar a Neurocamps, sem ações financeiras ou administrativas.",
       "search": "Buscar",
       "searchPh": "Folio, nome ou sobrenome",
       "searchShort": "Digite ao menos 2 caracteres",
@@ -793,11 +799,42 @@
       "remove": "Remover",
       "emptyTitle": "Sem consultores",
       "empty": "Você ainda não designou consultores."
+    },
+    "secCampaign": "Campanha",
+    "camp": {
+      "title": "Campanha de pré-registro",
+      "intro": "Bloqueia o diretório até a abertura por país e controla os popups por continente. Admin e consultor isentos.",
+      "active": "Campanha ativa (bloqueio do diretório)",
+      "startAt": "Início do bloqueio",
+      "defaultDays": "Dias de bloqueio (padrão)",
+      "countryDays": "Dias por país (exceções)",
+      "pickCountry": "Escolha o país",
+      "addCountry": "Adicionar país",
+      "popupActive": "Popup de boas-vindas ativo",
+      "popupHint": "Escolha em quais continentes o popup aparece.",
+      "save": "Salvar campanha",
+      "saved": "Campanha salva",
+      "discTitle": "Desconto de fundador (anual)",
+      "discHint": "Por etapa conforme os dias desde o início (ex. 50% até o dia 15, 25% até o 30). Só vale para a anual.",
+      "discUntilDay": "Até o dia",
+      "addStage": "Adicionar etapa",
+      "raffleTitle": "Sorteio",
+      "raffleHint": "Cada cadastro dá 1 bilhete e cada indicação soma outro. Baixe os participantes para o sorteio do dia do lançamento.",
+      "raffleCsv": "Baixar participantes (CSV)",
+      "communityTitle": "Grupo privado",
+      "communityHint": "Cole o link de convite (Discord ou WhatsApp). Exibido aos membros no curso e na página de benefícios.",
+      "drawTitle": "Realizar sorteio",
+      "drawAll": "Todos",
+      "drawConsumer": "Pacientes/famílias/tutores",
+      "drawPaying": "Membros pagantes",
+      "drawCta": "Sortear",
+      "drawDone": "Sorteio realizado",
+      "winnersCsv": "Baixar vencedores (CSV)"
     }
   },
   "reg": {
     "typePatient": "Paciente",
-    "typeParent": "Pai/mãe ou responsável",
+    "typeParent": "Familiar (pai/mãe/tutor/parente)",
     "typeService": "Especialista",
     "typeMerchant": "Fornecedor de produtos",
     "account": "Dados da conta",
@@ -808,9 +845,9 @@
     "birthDate": "Data de nascimento",
     "gender": "Gênero (opcional)",
     "genderPlaceholder": "Como você se identifica",
-    "condition": "Tipo de neurodivergência ou condição",
-    "conditionChild": "Neurodivergência ou condição do filho(a)",
-    "conditionPlaceholder": "Ex. TEA, TDAH, dislexia…",
+    "condition": "Tipo de neurodesenvolvimento, neurodivergência ou afecção neurológica",
+    "conditionChild": "Neurodesenvolvimento, neurodivergência ou afecção neurológica do familiar",
+    "conditionPlaceholder": "Ex. TEA, TDAH, dislexia, epilepsia…",
     "location": "Localização",
     "country": "País de residência",
     "state": "Estado / província",
@@ -836,7 +873,7 @@
     "errAddress": "Informe a rua e o número",
     "errBusiness": "Informe a razão social",
     "errBirth": "Informe a data de nascimento",
-    "errCondition": "Informe a neurodivergência ou condição",
+    "errCondition": "Informe o neurodesenvolvimento, neurodivergência ou afecção neurológica",
     "errServices": "Informe o(s) serviço(s) oferecido(s)",
     "errProducts": "Informe o(s) produto(s) oferecido(s)",
     "errLocations": "Adicione ao menos um local",
@@ -923,7 +960,9 @@
     "wantFounder": "Quero ser Membro Fundador Neuromundi.",
     "wantFounderHint": "Desmarque se preferir uma conta comum (pode ativar ou desativar depois).",
     "ordinaryDiscount": "Mesmo sem ser Fundador, você terá 50% de desconto na anuidade apenas no primeiro ano.",
-    "freeLifetime": "Sua associação como paciente ou responsável é totalmente gratuita e vitalícia: sem renovações nem cobranças."
+    "freeLifetime": "Sua associação como paciente ou familiar é totalmente gratuita e vitalícia: sem renovações nem cobranças.",
+    "sectionsInterest": "Quais seções te interessam? (escolha 1 ou mais)",
+    "sectionsInterestHelp": "A Neuromundi abrange três áreas. Marque as que te interessam."
   },
   "loc": {
     "title": "Minhas filiais",
@@ -1018,7 +1057,12 @@
     "founderPrice": "Você tem preço de Membro Fundador",
     "promoDiscountOk": "Desconto de {{pct}}% aplicado à sua cota",
     "promoEmail": "Este código está vinculado a outra conta de e-mail.",
-    "promoAmountOk": "Desconto de {{amount}} {{currency}} aplicado à sua cota"
+    "promoAmountOk": "Desconto de {{amount}} {{currency}} aplicado à sua cota",
+    "founderCampaign": "Desconto de fundador: {{pct}}% se pagar sua anuidade antes de {{date}}.",
+    "successTitle": "Pagamento confirmado!",
+    "successBody": "Bem-vindo como Membro Fundador da Neuromundi. Seu selo já está ativo.",
+    "freezeNotice": "Sua anuidade fica congelada para sempre: protege de aumentos futuros (exceto o ajuste anual pela inflação do seu país).",
+    "successCta": "Entendi!"
   },
   "rules": {
     "version": "Versão",
@@ -1279,7 +1323,7 @@
       "body": "{{name}} · {{place}}"
     },
     "forumNew": {
-      "title": "Novo fórum na Tribo",
+      "title": "Novo fórum na Neurocamps",
       "body": "O fórum “{{title}}” foi aberto."
     },
     "forumPending": {
@@ -1296,7 +1340,7 @@
     },
     "forumModApproved": {
       "title": "Moderação aprovada",
-      "body": "Agora você modera um fórum da Tribo."
+      "body": "Agora você modera um fórum da Neurocamps."
     }
   },
   "clin": {
@@ -1760,7 +1804,7 @@
         "desc": "Para você, em busca de apoio, serviços e comunidade."
       },
       "parent": {
-        "title": "Pai, mãe ou responsável",
+        "title": "Familiar (pai/mãe/tutor/parente)",
         "desc": "Crie a conta para seu filho ou familiar."
       },
       "service_provider": {
@@ -2254,12 +2298,45 @@
     "hotel": "Hotel",
     "biblioteca": "Biblioteca",
     "centro_cultural": "Centro cultural",
-    "gimnasio": "Academia / esporte"
+    "gimnasio": "Academia / esporte",
+    "neurocirugia": "Neurocirurgia",
+    "epileptologia": "Epileptologia",
+    "neurogeriatria": "Neurogeriatria",
+    "neurorrehabilitacion": "Neurorreabilitação",
+    "fisioterapia_neurologica": "Fisioterapia neurológica",
+    "enfermeria_neurologica": "Enfermagem neurológica e cuidados",
+    "neurorrehabilitacion_motora": "Neurorreabilitação motora",
+    "rehabilitacion_cognitiva": "Reabilitação cognitiva",
+    "manejo_epilepsia": "Manejo de epilepsia e crises",
+    "espasticidad_movilidad": "Espasticidade e mobilidade",
+    "deglucion_disfagia": "Deglutição e disfagia",
+    "dolor_neurologico": "Manejo da dor neurológica",
+    "cuidados_paliativos_neuro": "Cuidados paliativos neurológicos",
+    "epilepsia": "Epilepsia e convulsões",
+    "paralisis_cerebral_afeccion": "Paralisia cerebral",
+    "acv": "AVC / doença cerebrovascular",
+    "cefalea_migrana": "Cefaleias e enxaqueca",
+    "esclerosis_multiple": "Esclerose múltipla e doenças desmielinizantes",
+    "parkinson": "Doença de Parkinson e parkinsonismos",
+    "enf_neuromuscular": "Doenças neuromusculares (ELA, distrofias, AME)",
+    "neuropatia_periferica": "Neuropatias periféricas",
+    "distonia_movimiento": "Distonias e transtornos do movimento",
+    "demencia_neurocognitivo": "Transtornos neurocognitivos / demências",
+    "tce_lesion_medular": "Traumatismo cranioencefálico e lesão medular",
+    "hidrocefalia_lcr": "Hidrocefalia e distúrbios do líquor",
+    "tumor_snc": "Tumores do sistema nervoso",
+    "enf_neurogenetica": "Doenças neurogenéticas (X frágil, esclerose tuberosa, neurofibromatose)",
+    "espina_bifida": "Malformações do desenvolvimento cortical / espinha bífida",
+    "neuroinmune": "Transtornos neuroimunes (encefalite autoimune)",
+    "ataxia": "Ataxias hereditárias",
+    "sueno_neurologico": "Distúrbios do sono neurológicos (narcolepsia)",
+    "infeccion_snc": "Sequelas de infecções do SNC (meningite / encefalite)",
+    "otra_afeccion": "Outra afecção neurológica"
   },
   "kit": {
-    "badge": "Kit de Ferramentas",
+    "badge": "Ferramentas",
     "title": "Um acompanhamento para cada passo",
-    "intro": "Guias breves e acolhedores para entender, adaptar e cuidar. Sem pressa e sem jargão: aqui quando precisar.",
+    "intro": "Guias breves e acolhedores para entender, adaptar e cuidar nas três áreas da Neuromundi: neurodesenvolvimento, neurodivergência e afecções neurológicas. Sem pressa e sem jargão.",
     "progressLabel": "Seu progresso de leitura",
     "markRead": "Marcar como lido",
     "readDone": "Módulo lido",
@@ -2284,7 +2361,8 @@
       "empty": "Ainda estamos adicionando perfis desta área. Enquanto isso, explore o diretório completo.",
       "error": "Não foi possível carregar as sugestões agora. Você pode explorar o diretório completo.",
       "specialist": "Especialista"
-    }
+    },
+    "pickSection": "Escolha um kit por seção"
   },
   "founderCard": {
     "kicker": "Programa fundador",
@@ -2411,6 +2489,18 @@
           "Foto, bio completa e e-mail/telefone verificados.",
           "Oferecer um benefício à comunidade: desconto ≥10% a 10 membros, ou 3 serviços/consultas gratuitos verificados.",
           "Recomende a Neuromundi para pelo menos 10 pessoas."
+        ]
+      },
+      "companies": {
+        "benefits": [
+          "O perfil da sua empresa mostrará o selo \"Sou Fundador Neuromundi\".",
+          "Sua empresa aparecerá em destaque na Inclusão Laboral e nas buscas.",
+          "Assinatura sempre gratuita para empresas inclusivas."
+        ],
+        "reqs": [
+          "Estar entre as primeiras 20 empresas registradas no seu país.",
+          "Manter ao menos 2 vagas de emprego ativas.",
+          "Logo, descrição e e-mail/telefone verificados."
         ]
       }
     },
@@ -2613,7 +2703,8 @@
     },
     "accrued": "Você acumulou {{pct}}% para o próximo pagamento (limite {{max}}%).",
     "rules": "Seu link vale {{days}} dias após ser recebido. Quem assinar com ele ganha 5% no primeiro pagamento, e você ganha {{step}}% por cada indicado que pagar. Pacientes e famílias entram grátis: sem desconto nem recompensa, mas o uso fica registrado.",
-    "creditLive": "Seu desconto vale apenas para a próxima fatura; se já tiver assinatura ativa, é aplicado automaticamente."
+    "creditLive": "Seu desconto vale apenas para a próxima fatura; se já tiver assinatura ativa, é aplicado automaticamente.",
+    "raffleTickets": "Você tem {{count}} bilhete(s) do sorteio. Convide mais pessoas para ganhar mais."
   },
   "renewal": {
     "title": "Sua associação está prestes a renovar",
@@ -3387,7 +3478,7 @@
       "deleteConfirm": "Excluir este distintivo e seu arquivo?"
     },
     "tribe": {
-      "title": "Fóruns da Tribo",
+      "title": "Fóruns da Neurocamps",
       "subtitle": "Aprove ou rejeite os fóruns criados pelos membros.",
       "pending": "Pendentes",
       "approved": "Aprovados",
@@ -3408,7 +3499,7 @@
       "modEmptyTitle": "Sem candidaturas",
       "modEmpty": "Nenhum moderador neste estado.",
       "lookup": "Buscar",
-      "memberNotFound": "Nenhum membro da Tribo com esse folio.",
+      "memberNotFound": "Nenhum membro da Neurocamps com esse folio.",
       "memberSaved": "Membro atualizado.",
       "status": "Status",
       "st": {
@@ -3998,12 +4089,12 @@
     "saveErr": "Não foi possível salvar."
   },
   "tribe": {
-    "title": "Tribo Neuromundi",
+    "title": "Neurocamps Neuromundi",
     "landing": "Um espaço de inclusão social: pertencimento, participação e autonomia. Conecte-se pelos seus interesses, no seu ritmo, em um ambiente seguro.",
-    "onlyEligible": "A Tribo é aberta a pacientes, famílias e especialistas.",
-    "joinTitle": "Junte-se à Tribo",
+    "onlyEligible": "A Neurocamps é aberta a pacientes, famílias e especialistas.",
+    "joinTitle": "Junte-se à Neurocamps",
     "joinIntro": "Antes de entrar, leia e aceite nossas regras de convivência e escolha como quer participar hoje.",
-    "joinCta": "Entrar na Tribo",
+    "joinCta": "Entrar na Neurocamps",
     "rulesTitle": "Regras de convivência",
     "rules": [
       "Trato respeitoso e zero bullying: este é um espaço seguro.",
@@ -4035,10 +4126,10 @@
       "show_interests": "Mostrar meus interesses",
       "show_diagnosis": "Mostrar meu diagnóstico ou condição"
     },
-    "acceptRules": "Li e aceito as regras de convivência da Tribo.",
+    "acceptRules": "Li e aceito as regras de convivência da Neurocamps.",
     "mustAccept": "Você precisa aceitar as regras para entrar.",
     "joinErr": "Não foi possível concluir a inscrição.",
-    "suspended": "Sua participação na Tribo está suspensa por descumprir as normas. Contate a equipe se achar que é um engano.",
+    "suspended": "Sua participação na Neurocamps está suspensa por descumprir as normas. Contate a equipe se achar que é um engano.",
     "hubSubtitle": "Clubes de interesse e espaços de afinidade",
     "energyToday": "Como está sua energia hoje?",
     "invitesTitle": "Convites",
@@ -4073,7 +4164,7 @@
     "messagePlaceholder": "Escreva uma mensagem…",
     "send": "Enviar",
     "sendErr": "Não foi possível enviar.",
-    "readOnly": "Sua conta está em somente leitura na Tribo.",
+    "readOnly": "Sua conta está em somente leitura na Neurocamps.",
     "noMessages": "Seja quem inicia a conversa.",
     "loading": "Carregando…",
     "grat": {
@@ -4086,7 +4177,7 @@
       "anon": "Enviar anonimamente",
       "note": "Formato fechado: sem texto livre. Há um limite diário de fichas."
     },
-    "pointsLabel": "{{n}} pontos de Tribo",
+    "pointsLabel": "{{n}} pontos de Neurocamps",
     "toNext": "Faltam {{n}} para {{level}}",
     "tokensLeft": "Fichas de gratidão hoje: {{n}}",
     "impactItem": "{{n}}× {{badge}}",
@@ -4140,7 +4231,7 @@
       "youAre": "Você é {{level}}",
       "applyTitle": "Candidatura a moderador",
       "apply": "Enviar candidatura",
-      "justifyLabel": "Por que você quer moderar na Tribo?",
+      "justifyLabel": "Por que você quer moderar na Neurocamps?",
       "justifyPh": "Conte sua motivação e experiência…",
       "justifyReq": "Escreva pelo menos 10 caracteres.",
       "ethicsTitle": "Código de Ética do moderador",
@@ -4231,8 +4322,8 @@
       "guideHint": "O guia de antecipação é obrigatório: o que acontecerá, ruído esperado e sala de calma.",
       "guideReq": "Complete o guia: título, data, o que acontecerá e ruído esperado.",
       "publish": "Publicar",
-      "created": "Evento publicado. +20 pontos de Tribo.",
-      "pointsHint": "Publicar com guia de antecipação concede +20 pontos de Tribo.",
+      "created": "Evento publicado. +20 pontos de Neurocamps.",
+      "pointsHint": "Publicar com guia de antecipação concede +20 pontos de Neurocamps.",
       "title": "Título",
       "when": "Data e hora",
       "online": "Online",
@@ -4255,22 +4346,22 @@
       "reportTitle": "Relato sensorial: {{name}}",
       "sendReport": "Enviar relato",
       "reportReq": "Informe o ruído e o conforto.",
-      "reported": "Obrigado! +15 pontos de Tribo.",
+      "reported": "Obrigado! +15 pontos de Neurocamps.",
       "noiseLevel": "Nível de ruído percebido",
       "noiseScale": "1 = muito calmo · 5 = muito barulhento",
       "comfort": "Conforto geral",
       "quietUsed": "Usei a sala de calma",
       "notes": "Notas (opcional)",
-      "reportPoints": "Seu primeiro relato deste evento concede +15 pontos de Tribo."
+      "reportPoints": "Seu primeiro relato deste evento concede +15 pontos de Neurocamps."
     },
     "stepsTitle": "Como entrar",
     "step1": "Leia e aceite as regras de convivência.",
     "step2": "Escolha seu semáforo de energia social de hoje.",
     "step3": "Defina quais dados quer mostrar (privacidade).",
-    "step4": "Toque em \"Junte-se à Tribo\" para entrar.",
-    "privacyHint": "Você decide o que é visível nos espaços da Tribo; pode mudar quando quiser.",
+    "step4": "Toque em \"Junte-se à Neurocamps\" para entrar.",
+    "privacyHint": "Você decide o que é visível nos espaços da Neurocamps; pode mudar quando quiser.",
     "about": {
-      "title": "O que é a Tribu Neuromundi?",
+      "title": "O que é a Neurocamps Neuromundi?",
       "forumsT": "Fóruns temáticos",
       "forumsD": "Clubes por afinidade para trocar com pessoas parecidas, por país e idioma.",
       "mentorT": "Mentoria entre pares",
@@ -4284,8 +4375,8 @@
     },
     "access": {
       "title": "Como acesso?",
-      "body": "Para entrar na Tribo você precisa de uma conta de membro da Neuromundi. Se ainda não tem, crie-a; se já é membro, faça login.",
-      "ready": "Você já tem conta: junte-se à Tribo para começar a participar.",
+      "body": "Para entrar na Neurocamps você precisa de uma conta de membro da Neuromundi. Se ainda não tem, crie-a; se já é membro, faça login.",
+      "ready": "Você já tem conta: junte-se à Neurocamps para começar a participar.",
       "createBtn": "Criar conta",
       "loginBtn": "Entrar"
     },
@@ -4298,14 +4389,18 @@
     "closeForum": "Fechar fórum",
     "closeForumConfirm": "Fechar este fórum? Deixará de estar disponível.",
     "forumClosed": "Fórum fechado",
-    "forumsPanelTitle": "Fóruns da Tribo",
+    "forumsPanelTitle": "Fóruns da Neurocamps",
     "forumsTab": "Fóruns",
     "forumPushOn": "Avisos ativados",
     "forumPushOff": "Avisos desativados",
     "interestCountries": "Países de interesse",
     "currentForums": "Fóruns vigentes",
-    "goToTribe": "Ir para a Tribo",
-    "prefsSaved": "Preferência salva"
+    "goToTribe": "Ir para a Neurocamps",
+    "prefsSaved": "Preferência salva",
+    "pickNeurocamp": "Escolha seu Neurocamp",
+    "allNeurocamps": "Todos",
+    "forumSection": "Neurocamp (seção)",
+    "sectionGeneral": "Geral (todos)"
   },
   "nid": {
     "member": "Membro Neuromundi",
@@ -4361,10 +4456,108 @@
       "joinCta": "Entrar na Rede",
       "ctaTitle": "Junte-se à Rede Neuromundi",
       "ctaBody": "Aceite a Neuromundi ID, baixe seus selos e transforme cada visita em pertencimento.",
-      "goPanel": "Ir ao meu painel"
+      "goPanel": "Ir ao meu painel",
+      "sealsCta": "Criar conta"
     },
     "addApple": "Adicionar à Apple Wallet",
     "addGoogle": "Adicionar à Google Wallet",
-    "walletErr": "Não foi possível gerar o passe. Tente mais tarde."
+    "walletErr": "Não foi possível gerar o passe. Tente mais tarde.",
+    "downloadCard": "Baixar credencial",
+    "pageTitle": "Minha Neuromundi ID",
+    "needLogin": "Faça login para ver sua Neuromundi ID."
+  },
+  "campaign": {
+    "locked": {
+      "title": "Estamos construindo algo revolucionário.",
+      "body": "As portas estão fechadas ao público geral, mas você pode garantir a sua chave.",
+      "opensIn": "O diretório abre em",
+      "cta": "Garanta sua chave",
+      "login": "Já tenho conta"
+    },
+    "cd": {
+      "days": "dias",
+      "hours": "horas",
+      "mins": "min",
+      "secs": "seg"
+    },
+    "welcome": {
+      "watch": "Ver vídeo",
+      "watchSub": "Conheça a plataforma em 2 minutos",
+      "benefitsTitle": "Conhecer os benefícios",
+      "benefitsSub": "Veja o que te espera como Fundador",
+      "benefitsCta": "Ver benefícios",
+      "later": "Agora não"
+    },
+    "benefits": {
+      "badge": "Membros Fundadores",
+      "title": "Benefícios de ser Fundador da Neuromundi",
+      "intro": "Garanta seu lugar antes da abertura e ganhe vantagens exclusivas conforme seu perfil.",
+      "note": "Os benefícios ativam ao confirmar o registro; os pagos, ao pagar dentro do prazo promocional.",
+      "cta": "Garantir meu lugar",
+      "paid": {
+        "title": "Prestadores (pagos)",
+        "items": [
+          "Cota Especial de Fundador: 50% na anual pagando nos primeiros 15 dias, 25% do dia 16 ao 30.",
+          "Cota vitalícia preferencial: seu preço fica congelado para sempre (exceto o ajuste anual pela inflação do seu país).",
+          "Selo de Membro Fundador e isenção de requisitos, com distintivo exclusivo no seu perfil público.",
+          "Participação automática no sorteio do dia do lançamento (um ano de assinatura grátis).",
+          "Acesso imediato à comunidade privada de pioneiros."
+        ]
+      },
+      "consumer": {
+        "title": "Pacientes, famílias e tutores",
+        "items": [
+          "Assinatura gratuita nível Fundador para sempre.",
+          "Programa de indicações: receba 10% do que seus indicados pagantes pagarem.",
+          "Se seu indicado for paciente, família ou tutor, você ganha 1 bilhete para o sorteio de 10 terapias com o especialista de sua preferência.",
+          "Sorteio no dia do lançamento: 10 consultorias gratuitas individuais.",
+          "Curso online de boas-vindas ao confirmar o e-mail, selo de Fundador e comunidade privada."
+        ]
+      },
+      "orgs": {
+        "title": "ONGs e empresas com emprego",
+        "items": [
+          "Assinatura sempre gratuita para ONGs e empresas que oferecem emprego.",
+          "Selo de Membro Fundador e distintivo no perfil público.",
+          "Curso online de boas-vindas ao confirmar o e-mail.",
+          "Acesso à comunidade privada de pioneiros."
+        ]
+      }
+    }
+  },
+  "course": {
+    "badge": "Curso de boas-vindas",
+    "title": "Seu curso de boas-vindas",
+    "intro": "Um tour rápido para aproveitar a Neuromundi desde o primeiro dia.",
+    "modulesTitle": "Conteúdo",
+    "communityTitle": "Comunidade privada de pioneiros",
+    "communityBody": "Entre no grupo fechado para se conectar com outros membros fundadores.",
+    "communityCta": "Entrar na comunidade",
+    "modules": [
+      "Como navegar no diretório e encontrar serviços validados.",
+      "Sua Neuromundi ID: como usar e baixar.",
+      "Descontos, avaliações e como participar da comunidade.",
+      "Recursos do Kit e como aproveitá-los."
+    ]
+  },
+  "sections": {
+    "neurodesarrollo": {
+      "name": "Neurodesenvolvimento",
+      "tagline": "Acompanhamento do desenvolvimento infantil"
+    },
+    "neurodivergencias": {
+      "name": "Neurodivergência",
+      "tagline": "Apoio a pessoas neurodivergentes"
+    },
+    "afecciones": {
+      "name": "Afecções neurológicas",
+      "tagline": "Atenção a doenças do sistema nervoso"
+    }
+  },
+  "sectionsField": {
+    "label": "Quais seções o seu perfil abrange?",
+    "hint": "Escolha 1 ou as 3. Você aparecerá no diretório de cada seção selecionada.",
+    "conditionsLabel": "Quais afecções neurológicas você atende?",
+    "conditionsHint": "Selecione as aplicáveis (opcional)."
   }
 }

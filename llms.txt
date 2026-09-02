@@ -1,0 +1,29 @@
+# Neuromundi
+
+> Comunidad global y marketplace para la neurodivergencia y el neurodesarrollo.
+> Conecta a familias y personas neurodivergentes con prestadores de servicios,
+> comercios y escuelas inclusivas validados por la propia comunidad.
+> El registro de familias y personas neurodivergentes es gratuito.
+
+## Secciones principales
+
+- [Directorio de prestadores](https://www.neuromundi.com/directorio): profesionales, comercios y escuelas verificados, con reseñas y distintivo de calidad.
+- [Tienda](https://www.neuromundi.com/tienda): productos y recursos para el neurodesarrollo, clasificados por necesidad.
+- [Inclusión escolar](https://www.neuromundi.com/inclusion-escolar): guía y escuelas con prácticas inclusivas.
+- [Academy](https://www.neuromundi.com/academy): formación para familias y especialistas.
+- [Kit de herramientas](https://www.neuromundi.com/kit): materiales descargables de apoyo diario.
+- [Blog](https://www.neuromundi.com/blog): artículos de especialistas y familias.
+- [Eventos](https://www.neuromundi.com/eventos): agenda de actividades por país.
+- [Pregunta al experto](https://www.neuromundi.com/pregunta-al-experto): consultas orientadas a especialistas.
+
+## Sobre la plataforma
+
+- [Conocer más](https://www.neuromundi.com/conocer-mas): qué es Neuromundi y cómo funciona.
+- [Manifiesto](https://www.neuromundi.com/manifiesto): principios de la comunidad.
+- [Crear cuenta](https://www.neuromundi.com/crear-cuenta): registro de familias (gratuito) y de prestadores (cuota anual).
+
+## Legal
+
+- [Términos y condiciones](https://www.neuromundi.com/terminos)
+- [Aviso de privacidad](https://www.neuromundi.com/privacidad)
+- [Protección de datos](https://www.neuromundi.com/proteccion-datos)

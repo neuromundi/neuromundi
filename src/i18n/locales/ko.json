@@ -23,9 +23,9 @@
     "linkedin": "링크드인에서 팔로우하세요"
   },
   "kit": {
-    "badge": "툴킷",
+    "badge": "도구",
     "title": "모든 단계를 위한 지원",
-    "intro": "이해하고, 적응하고, 돌보기 위한 짧고 따뜻한 가이드. 서두름도 전문 용어도 없이: 필요할 때 언제든 여기에.",
+    "intro": "Neuromundi의 세 영역—신경발달, 신경다양성, 신경계 질환—을 이해하고 조정하고 돌보기 위한 짧고 따뜻한 안내. 서두르지 않고, 전문용어 없이.",
     "progressLabel": "읽기 진행률",
     "markRead": "읽음으로 표시",
     "readDone": "모듈 읽음",
@@ -50,7 +50,8 @@
       "specialist": "전문가"
     },
     "moduleWord": "모듈",
-    "modulesNav": "툴킷 모듈"
+    "modulesNav": "툴킷 모듈",
+    "pickSection": "섹션별 키트 선택"
   },
   "nav": {
     "directory": "디렉터리",
@@ -64,7 +65,7 @@
     "school": "통합교육",
     "dataProtection": "데이터 보호",
     "askExpert": "전문가에게 질문",
-    "kit": "툴킷",
+    "kit": "도구",
     "blog": "블로그",
     "events": "이벤트",
     "calendar": "캘린더",
@@ -73,11 +74,11 @@
     "donate": "후원하기",
     "founders": "창립 멤버",
     "labor": "고용 포용",
-    "tribe": "트라이브",
+    "tribe": "Neurocamps",
     "red": "Neuromundi 네트워크"
   },
   "home": {
-    "title": "신경발달과 신경다양성 분야에서 환자, 가족, 전문가, 제공자를 연결하는 최초의 글로벌 커뮤니티.",
+    "title": "신경발달, 신경다양성, 신경계 질환 분야에서 환자·가족·전문가·제공자를 연결하는 세계 최초의 글로벌 커뮤니티.",
     "subtitle": "경험을 나누고, 최신 정보를 얻고, 다른 가족들이 검증한 서비스와 제품을 할인과 신뢰할 수 있는 추천과 함께 찾아보세요.",
     "explore": "디렉터리 둘러보기",
     "auth": "계정 만들기 또는 로그인",
@@ -108,13 +109,15 @@
       "button": "검색",
       "free": "가족과 신경다양인은 무료로 등록합니다."
     },
-    "community": "저희는 단순한 디렉터리가 아니라, 신경발달과 신경다양성에 집중하는 전문가·제공자와 함께 환자와 가족이 만든 진정한 지원·안내·동행의 커뮤니티입니다. 이곳은 통합과 함께 성장하는 여러분의 공간입니다.",
+    "community": "우리는 또 하나의 디렉터리가 아니라, 환자와 가족이 신경발달·신경다양성·신경계 질환에 전념하는 전문가 및 제공자와 함께 만든 진정한 지원·안내·동행 커뮤니티입니다. 이곳은 포용과 함께 성장하는 당신의 공간입니다.",
     "country": {
       "label": "어느 나라에서 방문하셨나요?",
       "all": "모든 국가",
       "cta": "디렉터리 둘러보기",
       "hint": "국가를 선택하면 주변의 전문가, 학교, 제공자를 볼 수 있습니다.",
-      "selected": "{{country}} 플랫폼을 표시하고 있습니다."
+      "selected": "{{country}} 플랫폼을 표시하고 있습니다.",
+      "search": "국가 검색",
+      "noMatch": "결과 없음"
     },
     "heroAlt": "가족, 신경다양인, 신경발달 전문가의 커뮤니티",
     "donors": {
@@ -279,7 +282,11 @@
     "clearLocation": "해제",
     "nearHint": "위치를 공유하면 주변의 전문가, 학교, 제공자를 볼 수 있습니다.",
     "geoDenied": "위치에 접근할 수 없습니다. 주변 결과를 보려면 브라우저에서 활성화하세요.",
-    "geoUnavailable": "브라우저가 위치 공유를 지원하지 않습니다."
+    "geoUnavailable": "브라우저가 위치 공유를 지원하지 않습니다.",
+    "sectionLabel": "오늘 무엇을 찾으세요?",
+    "sectionAll": "전체",
+    "allConditions": "모든 질환",
+    "conditionAria": "신경계 질환으로 필터"
   },
   "card": {
     "evs": "EVS",
@@ -804,7 +811,7 @@
     "neuroRevoke": "인증 취소",
     "secFounders": "창립 멤버",
     "secBadges": "배지",
-    "secTribe": "트라이브",
+    "secTribe": "Neurocamps",
     "benefitExempt": "무료 이용",
     "benefitPercent": "% 할인",
     "benefitPercentShort": "-{{pct}}%",
@@ -818,7 +825,7 @@
     "secAdvisors": "자문위원",
     "adv": {
       "title": "자문위원 프로필",
-      "intro": "자문위원은 플랫폼 전체를 살펴보고 트라이브를 관리할 수 있으나 재무·관리 작업은 할 수 없습니다.",
+      "intro": "자문위원은 플랫폼 전체를 살펴보고 Tribe를 관리할 수 있으나 재무·관리 작업은 할 수 없습니다.",
       "search": "검색",
       "searchPh": "번호 또는 이름",
       "searchShort": "2자 이상 입력하세요",
@@ -829,11 +836,42 @@
       "remove": "제거",
       "emptyTitle": "자문위원 없음",
       "empty": "아직 지정한 자문위원이 없습니다."
+    },
+    "secCampaign": "캠페인",
+    "camp": {
+      "title": "사전 등록 캠페인",
+      "intro": "국가별 개방 전까지 디렉터리를 잠그고 대륙별 팝업을 제어합니다. 관리자와 자문위원은 제외.",
+      "active": "캠페인 활성(디렉터리 잠금)",
+      "startAt": "잠금 시작",
+      "defaultDays": "잠금 일수(기본)",
+      "countryDays": "국가별 일수(예외)",
+      "pickCountry": "국가 선택",
+      "addCountry": "국가 추가",
+      "popupActive": "환영 팝업 활성",
+      "popupHint": "환영 팝업을 표시할 대륙을 선택하세요.",
+      "save": "캠페인 저장",
+      "saved": "캠페인이 저장되었습니다",
+      "discTitle": "창립 할인(연간)",
+      "discHint": "시작 후 경과일 기준 단계(예: 15일까지 50%, 30일까지 25%). 연간 멤버십에만 적용.",
+      "discUntilDay": "~일까지",
+      "addStage": "단계 추가",
+      "raffleTitle": "추첨",
+      "raffleHint": "가입마다 1장, 추천마다 1장 추가. 출시일 추첨용 참가자를 다운로드하세요.",
+      "raffleCsv": "참가자 다운로드(CSV)",
+      "communityTitle": "비공개 그룹",
+      "communityHint": "초대 링크(Discord 또는 WhatsApp)를 붙여넣으세요. 강좌와 혜택 페이지에 표시됩니다.",
+      "drawTitle": "추첨 실행",
+      "drawAll": "전체",
+      "drawConsumer": "환자/가족/보호자",
+      "drawPaying": "유료 회원",
+      "drawCta": "추첨",
+      "drawDone": "추첨 완료",
+      "winnersCsv": "당첨자 다운로드(CSV)"
     }
   },
   "reg": {
     "typePatient": "환자",
-    "typeParent": "부모 또는 보호자",
+    "typeParent": "가족(부모/보호자/친척)",
     "typeService": "전문가",
     "typeMerchant": "제품 제공자",
     "account": "계정 정보",
@@ -844,9 +882,9 @@
     "birthDate": "생년월일",
     "gender": "성별 (선택)",
     "genderPlaceholder": "본인이 인식하는 성별",
-    "condition": "신경다양성 또는 상태 유형",
-    "conditionChild": "자녀의 신경다양성 또는 상태",
-    "conditionPlaceholder": "예: ASD, ADHD, 난독증…",
+    "condition": "신경발달, 신경다양성 또는 신경계 질환 유형",
+    "conditionChild": "가족의 신경발달, 신경다양성 또는 신경계 질환",
+    "conditionPlaceholder": "예: ASD, ADHD, 난독증, 뇌전증…",
     "location": "위치",
     "country": "거주 국가",
     "state": "주 / 도",
@@ -872,7 +910,7 @@
     "errAddress": "도로명과 번지를 입력하세요",
     "errBusiness": "회사명을 입력하세요",
     "errBirth": "생년월일을 입력하세요",
-    "errCondition": "신경다양성 또는 상태를 입력하세요",
+    "errCondition": "신경발달, 신경다양성 또는 신경계 질환을 입력하세요",
     "errServices": "제공하는 서비스를 입력하세요",
     "errProducts": "제공하는 제품을 입력하세요",
     "errLocations": "위치를 하나 이상 추가하세요",
@@ -959,7 +997,9 @@
     "wantFounder": "Neuromundi 창립 회원이 되고 싶습니다.",
     "wantFounderHint": "일반 계정을 원하시면 체크를 해제하세요(나중에 켜거나 끌 수 있습니다).",
     "ordinaryDiscount": "창립 회원이 아니어도 첫 해에 한해 연간 멤버십 50% 할인을 받습니다.",
-    "freeLifetime": "환자 또는 부모/보호자로서의 멤버십은 완전히 무료이며 평생 유효합니다: 갱신이나 요금이 없습니다."
+    "freeLifetime": "환자 또는 가족으로서의 멤버십은 완전 무료이며 평생 유지됩니다. 갱신도 비용도 없습니다.",
+    "sectionsInterest": "어떤 섹션에 관심 있나요? (1개 이상 선택)",
+    "sectionsInterestHelp": "Neuromundi는 세 영역을 다룹니다. 관심 있는 것을 선택하세요."
   },
   "loc": {
     "title": "내 지점",
@@ -1054,7 +1094,12 @@
     "founderPrice": "창립 회원 가격이 적용됩니다",
     "promoDiscountOk": "회비에 {{pct}}% 할인이 적용되었습니다",
     "promoEmail": "이 코드는 다른 이메일 계정에 연결되어 있습니다.",
-    "promoAmountOk": "회비에 {{amount}} {{currency}} 할인이 적용되었습니다"
+    "promoAmountOk": "회비에 {{amount}} {{currency}} 할인이 적용되었습니다",
+    "founderCampaign": "창립 할인: {{date}} 전에 연간 회비를 결제하면 {{pct}}% 할인.",
+    "successTitle": "결제 완료!",
+    "successBody": "Neuromundi 창립 회원이 되신 것을 환영합니다. 배지가 활성화되었습니다.",
+    "freezeNotice": "연회비가 평생 동결됩니다: 향후 인상으로부터 보호됩니다(귀하 국가의 연간 물가 조정 제외).",
+    "successCta": "확인!"
   },
   "rules": {
     "version": "버전",
@@ -1315,7 +1360,7 @@
       "body": "{{name}} · {{place}}"
     },
     "forumNew": {
-      "title": "트라이브 새 포럼",
+      "title": "Neurocamps 새 포럼",
       "body": "포럼 \"{{title}}\"이(가) 열렸습니다."
     },
     "forumPending": {
@@ -1332,7 +1377,7 @@
     },
     "forumModApproved": {
       "title": "중재 승인됨",
-      "body": "이제 트라이브 포럼을 중재합니다."
+      "body": "이제 Neurocamps 포럼을 중재합니다."
     }
   },
   "clin": {
@@ -1796,7 +1841,7 @@
         "desc": "지원, 서비스, 커뮤니티를 찾는 본인을 위해."
       },
       "parent": {
-        "title": "부모 또는 보호자",
+        "title": "가족(부모/보호자/친척)",
         "desc": "자녀나 친척을 위해 계정을 만드세요."
       },
       "service_provider": {
@@ -2290,7 +2335,40 @@
     "hotel": "호텔",
     "biblioteca": "도서관",
     "centro_cultural": "문화센터",
-    "gimnasio": "헬스장·스포츠"
+    "gimnasio": "헬스장·스포츠",
+    "neurocirugia": "신경외과",
+    "epileptologia": "뇌전증학",
+    "neurogeriatria": "신경노인의학",
+    "neurorrehabilitacion": "신경재활",
+    "fisioterapia_neurologica": "신경물리치료",
+    "enfermeria_neurologica": "신경간호 및 돌봄",
+    "neurorrehabilitacion_motora": "운동 신경재활",
+    "rehabilitacion_cognitiva": "인지 재활",
+    "manejo_epilepsia": "뇌전증·발작 관리",
+    "espasticidad_movilidad": "경직 및 이동성",
+    "deglucion_disfagia": "삼킴 및 연하장애",
+    "dolor_neurologico": "신경통증 관리",
+    "cuidados_paliativos_neuro": "신경완화 케어",
+    "epilepsia": "뇌전증과 발작",
+    "paralisis_cerebral_afeccion": "뇌성마비",
+    "acv": "뇌졸중/뇌혈관질환",
+    "cefalea_migrana": "두통과 편두통",
+    "esclerosis_multiple": "다발성경화증 및 탈수초질환",
+    "parkinson": "파킨슨병 및 파킨슨증",
+    "enf_neuromuscular": "신경근육질환(ALS, 근이영양증, SMA)",
+    "neuropatia_periferica": "말초신경병증",
+    "distonia_movimiento": "근긴장이상 및 운동장애",
+    "demencia_neurocognitivo": "신경인지장애/치매",
+    "tce_lesion_medular": "외상성 뇌·척수 손상",
+    "hidrocefalia_lcr": "수두증 및 뇌척수액 질환",
+    "tumor_snc": "신경계 종양",
+    "enf_neurogenetica": "신경유전질환(취약X, 결절성경화증, 신경섬유종증)",
+    "espina_bifida": "피질발달기형/이분척추",
+    "neuroinmune": "신경면역질환(자가면역성 뇌염)",
+    "ataxia": "유전성 실조증",
+    "sueno_neurologico": "신경성 수면장애(기면증)",
+    "infeccion_snc": "중추신경계 감염 후유증(수막염/뇌염)",
+    "otra_afeccion": "기타 신경계 질환"
   },
   "badge": {
     "miembro": "인증 회원",
@@ -2375,6 +2453,18 @@
           "사진, 완전한 소개, 인증된 이메일/전화.",
           "커뮤니티 혜택 제공: 회원 10명에게 ≥10% 할인, 또는 검증된 무료 서비스/상담 3회.",
           "최소 10명에게 Neuromundi 추천하기."
+        ]
+      },
+      "companies": {
+        "benefits": [
+          "회사 프로필에 \"나는 Neuromundi 창립 멤버\" 배지가 표시됩니다.",
+          "귀사가 고용 포용과 검색에서 강조 표시됩니다.",
+          "포용 기업은 항상 무료 멤버십입니다."
+        ],
+        "reqs": [
+          "자국에서 처음 등록된 20개 기업에 포함될 것.",
+          "활성 채용 공고를 2개 이상 유지할 것.",
+          "인증된 로고, 설명, 이메일/전화."
         ]
       }
     },
@@ -2613,7 +2703,8 @@
     },
     "accrued": "다음 결제에 {{pct}}%가 적립되었습니다(최대 {{max}}%).",
     "rules": "링크는 수신 후 {{days}}일간 유효합니다. 링크로 구독하는 사람은 첫 결제에서 5% 할인을 받고, 결제하는 추천인마다 {{step}}%를 받습니다. 환자와 가족은 무료로 가입합니다: 할인이나 보상은 없지만 사용은 기록됩니다.",
-    "creditLive": "할인은 다음 청구서에만 적용됩니다. 이미 활성 구독이 있다면 자동으로 적용됩니다."
+    "creditLive": "할인은 다음 청구서에만 적용됩니다. 이미 활성 구독이 있다면 자동으로 적용됩니다.",
+    "raffleTickets": "추첨권이 {{count}}장 있습니다. 더 많은 사람을 초대해 늘리세요."
   },
   "renewal": {
     "title": "멤버십 갱신이 임박했습니다",
@@ -3387,7 +3478,7 @@
       "deleteConfirm": "이 배지와 파일을 삭제할까요?"
     },
     "tribe": {
-      "title": "트라이브 포럼",
+      "title": "Neurocamps 포럼",
       "subtitle": "회원이 만든 포럼을 승인하거나 거부하세요.",
       "pending": "대기",
       "approved": "승인됨",
@@ -3408,7 +3499,7 @@
       "modEmptyTitle": "지원 없음",
       "modEmpty": "이 상태의 모더레이터가 없습니다.",
       "lookup": "조회",
-      "memberNotFound": "해당 번호의 트라이브 회원을 찾을 수 없습니다.",
+      "memberNotFound": "해당 번호의 Neurocamps 회원을 찾을 수 없습니다.",
       "memberSaved": "회원이 업데이트되었습니다.",
       "status": "상태",
       "st": {
@@ -3998,10 +4089,10 @@
     "saveErr": "저장하지 못했습니다."
   },
   "tribe": {
-    "title": "Neuromundi 트라이브",
+    "title": "Neuromundi Neurocamps",
     "landing": "사회적 포용의 공간: 소속감, 참여, 자율성. 관심사를 통해 자신의 속도로 안전한 환경에서 연결되세요.",
-    "onlyEligible": "트라이브는 당사자, 가족, 전문가에게 열려 있습니다.",
-    "joinTitle": "트라이브 참여",
+    "onlyEligible": "Tribe는 당사자, 가족, 전문가에게 열려 있습니다.",
+    "joinTitle": "Neurocamps 참여",
     "joinIntro": "입장하기 전에 커뮤니티 규칙을 읽고 동의한 뒤 오늘 참여 방식을 선택하세요.",
     "joinCta": "참여하기",
     "rulesTitle": "커뮤니티 규칙",
@@ -4035,10 +4126,10 @@
       "show_interests": "내 관심사 표시",
       "show_diagnosis": "내 진단·특성 표시"
     },
-    "acceptRules": "트라이브 규칙을 읽고 동의합니다.",
+    "acceptRules": "Neurocamps 규칙을 읽고 동의합니다.",
     "mustAccept": "입장하려면 규칙에 동의해야 합니다.",
     "joinErr": "가입을 완료하지 못했습니다.",
-    "suspended": "규칙 위반으로 트라이브 참여가 정지되었습니다. 오류라고 생각되면 팀에 문의하세요.",
+    "suspended": "규칙 위반으로 Neurocamps 참여가 정지되었습니다. 오류라고 생각되면 팀에 문의하세요.",
     "hubSubtitle": "관심 클럽과 친화 공간",
     "energyToday": "오늘 에너지는 어떤가요?",
     "invitesTitle": "초대",
@@ -4073,7 +4164,7 @@
     "messagePlaceholder": "메시지 입력…",
     "send": "보내기",
     "sendErr": "보내지 못했습니다.",
-    "readOnly": "트라이브에서 계정이 읽기 전용입니다.",
+    "readOnly": "Tribe에서 계정이 읽기 전용입니다.",
     "noMessages": "대화를 먼저 시작해 보세요.",
     "loading": "불러오는 중…",
     "grat": {
@@ -4086,7 +4177,7 @@
       "anon": "익명으로 보내기",
       "note": "닫힌 형식: 자유 입력 없음. 하루 토큰 한도가 있습니다."
     },
-    "pointsLabel": "트라이브 포인트 {{n}}",
+    "pointsLabel": "Neurocamps 포인트 {{n}}",
     "toNext": "{{level}}까지 {{n}} 남음",
     "tokensLeft": "오늘의 감사 토큰: {{n}}",
     "impactItem": "{{n}}× {{badge}}",
@@ -4140,7 +4231,7 @@
       "youAre": "당신은 {{level}}입니다",
       "applyTitle": "모더레이터 지원",
       "apply": "지원서 제출",
-      "justifyLabel": "트라이브에서 왜 조정을 맡고 싶으신가요?",
+      "justifyLabel": "Tribe에서 왜 조정을 맡고 싶으신가요?",
       "justifyPh": "동기와 경험을 알려주세요…",
       "justifyReq": "최소 10자 이상 입력하세요.",
       "ethicsTitle": "모더레이터 윤리 강령",
@@ -4231,8 +4322,8 @@
       "guideHint": "예고 가이드는 필수입니다: 무슨 일이 있을지, 소음 예상, 조용한 방.",
       "guideReq": "가이드를 완성하세요: 제목, 날짜, 진행 내용, 소음 예상.",
       "publish": "게시",
-      "created": "이벤트가 게시되었습니다. +20 트라이브 포인트.",
-      "pointsHint": "예고 가이드와 함께 게시하면 +20 트라이브 포인트.",
+      "created": "이벤트가 게시되었습니다. +20 Neurocamps 포인트.",
+      "pointsHint": "예고 가이드와 함께 게시하면 +20 Neurocamps 포인트.",
       "title": "제목",
       "when": "날짜와 시간",
       "online": "온라인",
@@ -4255,22 +4346,22 @@
       "reportTitle": "감각 리포트: {{name}}",
       "sendReport": "리포트 보내기",
       "reportReq": "소음과 편안함을 평가하세요.",
-      "reported": "감사합니다! +15 트라이브 포인트.",
+      "reported": "감사합니다! +15 Neurocamps 포인트.",
       "noiseLevel": "체감 소음 수준",
       "noiseScale": "1 = 매우 조용 · 5 = 매우 시끄러움",
       "comfort": "전반적 편안함",
       "quietUsed": "조용한 방을 이용함",
       "notes": "메모(선택)",
-      "reportPoints": "이 이벤트에 대한 첫 리포트는 +15 트라이브 포인트를 줍니다."
+      "reportPoints": "이 이벤트에 대한 첫 리포트는 +15 Neurocamps 포인트를 줍니다."
     },
     "stepsTitle": "참여 방법",
     "step1": "커뮤니티 규칙을 읽고 동의합니다.",
     "step2": "오늘의 사회적 에너지 상태를 선택합니다.",
     "step3": "표시할 정보를 설정합니다(개인정보).",
-    "step4": "\"트라이브 참여\"를 눌러 입장합니다.",
-    "privacyHint": "트라이브 공간에서 무엇을 보일지는 여러분이 정하며 언제든 변경할 수 있습니다.",
+    "step4": "\"Neurocamps 참여\"를 눌러 입장합니다.",
+    "privacyHint": "Neurocamps 공간에서 무엇을 보일지는 여러분이 정하며 언제든 변경할 수 있습니다.",
     "about": {
-      "title": "Tribu Neuromundi란?",
+      "title": "Neurocamps Neuromundi란?",
       "forumsT": "주제별 포럼",
       "forumsD": "국가와 언어별로 마음이 맞는 사람과 나누는 관심사 모임.",
       "mentorT": "또래 멘토링",
@@ -4284,8 +4375,8 @@
     },
     "access": {
       "title": "어떻게 참여하나요?",
-      "body": "트라이브에 참여하려면 Neuromundi 회원 계정이 필요합니다. 아직 없으면 만들고, 이미 회원이면 로그인하세요.",
-      "ready": "이미 계정이 있습니다. 트라이브에 참여해 시작하세요.",
+      "body": "Tribe에 참여하려면 Neuromundi 회원 계정이 필요합니다. 아직 없으면 만들고, 이미 회원이면 로그인하세요.",
+      "ready": "이미 계정이 있습니다. Tribe에 참여해 시작하세요.",
       "createBtn": "계정 만들기",
       "loginBtn": "로그인"
     },
@@ -4298,14 +4389,18 @@
     "closeForum": "포럼 닫기",
     "closeForumConfirm": "이 포럼을 닫을까요? 더 이상 사용할 수 없습니다.",
     "forumClosed": "포럼이 닫혔습니다",
-    "forumsPanelTitle": "트라이브 포럼",
+    "forumsPanelTitle": "Neurocamps 포럼",
     "forumsTab": "포럼",
     "forumPushOn": "알림 켜짐",
     "forumPushOff": "알림 꺼짐",
     "interestCountries": "관심 국가",
     "currentForums": "현재 포럼",
-    "goToTribe": "트라이브로 이동",
-    "prefsSaved": "설정이 저장되었습니다"
+    "goToTribe": "Tribe로 이동",
+    "prefsSaved": "설정이 저장되었습니다",
+    "pickNeurocamp": "당신의 Neurocamp 선택",
+    "allNeurocamps": "전체",
+    "forumSection": "Neurocamp(섹션)",
+    "sectionGeneral": "일반(전체)"
   },
   "nid": {
     "member": "Neuromundi 회원",
@@ -4361,10 +4456,108 @@
       "joinCta": "네트워크 참여",
       "ctaTitle": "Neuromundi 네트워크에 참여하세요",
       "ctaBody": "Neuromundi ID를 수락하고 실을 다운로드하여 모든 방문을 소속감으로 바꾸세요.",
-      "goPanel": "내 패널로"
+      "goPanel": "내 패널로",
+      "sealsCta": "계정 만들기"
     },
     "addApple": "Apple Wallet에 추가",
     "addGoogle": "Google Wallet에 추가",
-    "walletErr": "패스를 생성하지 못했습니다. 나중에 다시 시도하세요."
+    "walletErr": "패스를 생성하지 못했습니다. 나중에 다시 시도하세요.",
+    "downloadCard": "카드 다운로드",
+    "pageTitle": "내 Neuromundi ID",
+    "needLogin": "Neuromundi ID를 보려면 로그인하세요."
+  },
+  "campaign": {
+    "locked": {
+      "title": "우리는 혁신적인 것을 만들고 있습니다.",
+      "body": "일반 대중에게는 문이 닫혀 있지만, 당신은 지금 열쇠를 확보할 수 있습니다.",
+      "opensIn": "디렉터리 공개까지",
+      "cta": "열쇠 확보하기",
+      "login": "이미 계정이 있어요"
+    },
+    "cd": {
+      "days": "일",
+      "hours": "시간",
+      "mins": "분",
+      "secs": "초"
+    },
+    "welcome": {
+      "watch": "영상 보기",
+      "watchSub": "2분 만에 플랫폼 소개",
+      "benefitsTitle": "혜택 보기",
+      "benefitsSub": "창립 멤버로서의 혜택 확인",
+      "benefitsCta": "혜택 보기",
+      "later": "나중에"
+    },
+    "benefits": {
+      "badge": "창립 회원",
+      "title": "Neuromundi 창립 멤버 혜택",
+      "intro": "오픈 전에 자리를 확보하고 프로필에 맞는 독점 혜택을 받으세요.",
+      "note": "등록 확인 시 혜택이 활성화되며, 유료 혜택은 프로모션 기간 내 결제 시 적용됩니다.",
+      "cta": "자리 확보하기",
+      "paid": {
+        "title": "유료 제공자",
+        "items": [
+          "창립 특별 요금: 첫 15일 내 결제 시 연간 50% 할인, 16~30일은 25% 할인.",
+          "평생 우대 요금: 가격이 평생 동결됩니다(귀하 국가의 연간 물가 조정 제외).",
+          "창립 회원 배지와 요건 면제, 공개 프로필에 전용 표식.",
+          "출시일 추첨(1년 무료 멤버십) 자동 참여.",
+          "개척자 비공개 커뮤니티 즉시 이용."
+        ]
+      },
+      "consumer": {
+        "title": "환자, 가족, 보호자",
+        "items": [
+          "평생 무료 창립 등급 멤버십.",
+          "추천 프로그램: 유료 추천인이 낸 금액의 10%를 받습니다.",
+          "추천인이 환자·가족·보호자라면, 원하는 전문가의 치료 10회 추첨권 1장을 받습니다.",
+          "출시일 추첨: 무료 1:1 상담 10회.",
+          "이메일 확인 시 환영 온라인 강좌, 창립 배지, 비공개 커뮤니티."
+        ]
+      },
+      "orgs": {
+        "title": "NGO 및 채용 기업",
+        "items": [
+          "채용을 제공하는 NGO 및 기업은 항상 무료 멤버십.",
+          "창립 회원 배지와 공개 프로필 표식.",
+          "이메일 확인 시 환영 온라인 강좌.",
+          "개척자 비공개 커뮤니티 이용."
+        ]
+      }
+    }
+  },
+  "course": {
+    "badge": "환영 강좌",
+    "title": "당신의 환영 강좌",
+    "intro": "첫날부터 Neuromundi를 활용하는 짧은 안내.",
+    "modulesTitle": "내용",
+    "communityTitle": "개척자 비공개 커뮤니티",
+    "communityBody": "비공개 그룹에 참여해 다른 창립 회원들과 연결하세요.",
+    "communityCta": "커뮤니티 참여",
+    "modules": [
+      "디렉터리 탐색과 검증된 서비스 찾기.",
+      "Neuromundi ID: 사용법과 다운로드.",
+      "할인, 리뷰, 커뮤니티 참여 방법.",
+      "키트 자료와 활용법."
+    ]
+  },
+  "sections": {
+    "neurodesarrollo": {
+      "name": "신경발달",
+      "tagline": "영유아 발달 지원"
+    },
+    "neurodivergencias": {
+      "name": "신경다양성",
+      "tagline": "신경다양인을 위한 지원"
+    },
+    "afecciones": {
+      "name": "신경계 질환",
+      "tagline": "신경계 질환 케어"
+    }
+  },
+  "sectionsField": {
+    "label": "프로필이 다루는 섹션은?",
+    "hint": "1개 또는 3개 모두 선택하세요. 선택한 각 섹션의 디렉터리에 표시됩니다.",
+    "conditionsLabel": "어떤 신경계 질환을 진료하나요?",
+    "conditionsHint": "해당되는 항목을 선택하세요(선택)."
   }
 }

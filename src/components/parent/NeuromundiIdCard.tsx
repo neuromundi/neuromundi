@@ -6,17 +6,18 @@
  * (Miembro / Familia / Especialista Neuromundi), nunca "usuario" o "cliente".
  *
  * Para consumidores (paciente/familia) el QR es el de descuentos; para
- * especialistas enlaza a su perfil público. La versión para Apple/Google Wallet
- * (.pkpass) llegará en una fase posterior (requiere certificados).
+ * especialistas enlaza a su perfil público. Se puede DESCARGAR como credencial
+ * (PDF, vía impresión) y funciona OFFLINE: el QR se dibuja en el cliente
+ * (qrcode.react) y la página `/mi-id` cachea los datos localmente.
  */
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { QRCodeCanvas } from 'qrcode.react';
-import { Download, RefreshCw, RotateCw, ShieldCheck, Globe, ScanLine } from 'lucide-react';
+import { Download, RefreshCw, RotateCw, ShieldCheck, Globe, ScanLine, CreditCard } from 'lucide-react';
 import { Button, Modal, useToast } from '@/components/ui';
 import { useProfile } from '@/hooks/useProfile';
-import { useWalletPass } from '@/hooks/useWalletPass';
 import { formatMemberNo } from '@/lib/referral';
+import { downloadIdCredential } from '@/lib/idCredential';
 import type { ParentQrPayload, Profile } from '@/types/app';
 import { cn } from '@/lib/utils';
 
@@ -38,7 +39,6 @@ export function NeuromundiIdCard({ profile }: { profile: Profile }) {
   const { t, i18n } = useTranslation();
   const toast = useToast();
   const { regenerateQrToken, saving } = useProfile();
-  const { add: addToWallet, busy: walletBusy, enabled: walletEnabled } = useWalletPass();
   const qrRef = useRef<HTMLDivElement>(null);
   const [back, setBack] = useState(false);
   const [confirmRotate, setConfirmRotate] = useState(false);
@@ -62,6 +62,23 @@ export function NeuromundiIdCard({ profile }: { profile: Profile }) {
     a.download = 'neuromundi-id.png';
     a.href = canvas.toDataURL('image/png');
     a.click();
+  };
+
+  // Descarga la credencial COMPLETA (anverso) como PDF vía impresión, con el QR
+  // embebido. Sin dependencias (mismo patrón que aliadoCertificate).
+  const downloadCredential = () => {
+    const canvas = qrRef.current?.querySelector('canvas');
+    downloadIdCredential({
+      qrDataUrl: canvas ? canvas.toDataURL('image/png') : '',
+      brand: 'Neuromundi ID',
+      name: displayName,
+      role: t(`nid.role.${roleKey}`),
+      folio,
+      issued: issued ? `${t('nid.issued')}: ${issued}` : '',
+      valid: t('nid.valid'),
+      scanTitle: t('nid.howToTitle'),
+      steps: [t('nid.how1'), t('nid.how2'), t('nid.how3')],
+    });
   };
 
   const rotate = async () => {
@@ -116,21 +133,12 @@ export function NeuromundiIdCard({ profile }: { profile: Profile }) {
         <Button size="sm" variant="ghost" leadingIcon={<RotateCw className="h-4 w-4" />} onClick={() => setBack((b) => !b)}>
           {back ? t('nid.showFront') : t('nid.showBack')}
         </Button>
-        <Button size="sm" variant="secondary" leadingIcon={<Download className="h-4 w-4" />} onClick={downloadQr}>{t('nid.downloadQr')}</Button>
+        <Button size="sm" variant="secondary" leadingIcon={<CreditCard className="h-4 w-4" />} onClick={downloadCredential}>{t('nid.downloadCard')}</Button>
+        <Button size="sm" variant="ghost" leadingIcon={<Download className="h-4 w-4" />} onClick={downloadQr}>{t('nid.downloadQr')}</Button>
         {isConsumer && (
           <Button size="sm" variant="ghost" leadingIcon={<RefreshCw className="h-4 w-4" />} onClick={() => setConfirmRotate(true)}>{t('qr.regenerate')}</Button>
         )}
       </div>
-
-      {/* Añadir a Wallet: solo cuando el backend está configurado (Fase 3). */}
-      {walletEnabled ? (
-        <div className="mt-2 flex flex-wrap gap-2">
-          <Button size="sm" variant="ghost" loading={walletBusy === 'apple'} onClick={async () => { const r = await addToWallet('apple'); if (!r.ok) toast.error(t('nid.walletErr')); }}>{t('nid.addApple')}</Button>
-          <Button size="sm" variant="ghost" loading={walletBusy === 'google'} onClick={async () => { const r = await addToWallet('google'); if (!r.ok) toast.error(t('nid.walletErr')); }}>{t('nid.addGoogle')}</Button>
-        </div>
-      ) : (
-        <p className="mt-2 text-xs text-muted">{t('nid.walletSoon')}</p>
-      )}
 
       <Modal
         open={confirmRotate}

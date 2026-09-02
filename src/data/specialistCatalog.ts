@@ -55,6 +55,13 @@ export const PROFESSIONS: CatItem[] = [
   { value: 'trabajo_social', label: 'Trabajo Social' },
   { value: 'accesibilidad_cognitiva', label: 'Consultoría en Accesibilidad Cognitiva (B2B)' },
   { value: 'odontologia_inclusiva', label: 'Odontología para pacientes neurodivergentes' },
+  // ── Afecciones neurológicas ─────────────────────────────────────────────────
+  { value: 'neurocirugia', label: 'Neurocirugía' },
+  { value: 'epileptologia', label: 'Epileptología' },
+  { value: 'neurogeriatria', label: 'Neurogeriatría' },
+  { value: 'neurorrehabilitacion', label: 'Neurorrehabilitación' },
+  { value: 'fisioterapia_neurologica', label: 'Fisioterapia Neurológica' },
+  { value: 'enfermeria_neurologica', label: 'Enfermería Neurológica y Cuidados' },
   // ── Dominio: Terapia y Asistencia con Animales (Neuro-Friendly) ─────────────
   { value: 'taa_equinoterapia', label: 'Equinoterapia / Hipoterapia' },
   { value: 'taa_perros', label: 'Terapia Asistida con Perros' },
@@ -103,6 +110,9 @@ export const MEDICAL_PROFESSIONS: ReadonlySet<string> = new Set([
   'pediatria',
   'genetica_medica',
   'medicina_rehabilitacion',
+  'neurocirugia',
+  'epileptologia',
+  'neurogeriatria',
 ]);
 
 /**
@@ -187,6 +197,14 @@ export const INTERVENTION_AREAS: CatItem[] = [
   { value: 'movimiento_danza', label: 'Movimiento y Danza Terapéutica' },
   { value: 'teatro_rol', label: 'Teatro y Juego de Roles Sociales' },
   { value: 'ocio_sensorial', label: 'Ocio y Eventos Sensory-Friendly' },
+  // ── Afecciones neurológicas ─────────────────────────────────────────────────
+  { value: 'neurorrehabilitacion_motora', label: 'Neurorrehabilitación motora' },
+  { value: 'rehabilitacion_cognitiva', label: 'Rehabilitación cognitiva' },
+  { value: 'manejo_epilepsia', label: 'Manejo de epilepsia y crisis' },
+  { value: 'espasticidad_movilidad', label: 'Espasticidad y movilidad' },
+  { value: 'deglucion_disfagia', label: 'Deglución y disfagia' },
+  { value: 'dolor_neurologico', label: 'Manejo del dolor neurológico' },
+  { value: 'cuidados_paliativos_neuro', label: 'Cuidados paliativos neurológicos' },
   { value: 'otro', label: 'Otro' },
 ];
 

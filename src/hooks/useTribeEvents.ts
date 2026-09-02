@@ -18,6 +18,7 @@ export interface TribeEvent {
   noise: string;
   quiet_room: boolean;
   sensory_tips: string | null;
+  section: string | null;
   creator_name: string;
   going: number;
   i_going: boolean;
@@ -28,19 +29,19 @@ export interface TribeEvent {
 export interface EventInput {
   title: string; description: string; starts_at: string; location: string;
   is_online: boolean; city: string; country: string; noise: string;
-  quiet_room: boolean; sensory_tips: string;
+  quiet_room: boolean; sensory_tips: string; section?: string | null;
 }
 
-export function useTribeEvents(country: string) {
+export function useTribeEvents(country: string, section?: string | null) {
   const [events, setEvents] = useState<TribeEvent[]>([]);
   const [loading, setLoading] = useState(true);
 
   const load = useCallback(async () => {
     setLoading(true);
-    const { data } = await supabase.rpc('tribe_events_list', { p_country: country || null });
+    const { data } = await supabase.rpc('tribe_events_list', { p_country: country || null, p_section: section || null });
     setEvents((data as TribeEvent[] | null) ?? []);
     setLoading(false);
-  }, [country]);
+  }, [country, section]);
   useEffect(() => { void load(); }, [load]);
 
   const create = useCallback(async (input: EventInput): Promise<string | null> => {
@@ -48,7 +49,7 @@ export function useTribeEvents(country: string) {
       p_title: input.title, p_description: input.description, p_starts_at: input.starts_at,
       p_location: input.location || null, p_is_online: input.is_online, p_city: input.city || null,
       p_country: input.country || null, p_noise: input.noise, p_quiet_room: input.quiet_room,
-      p_sensory_tips: input.sensory_tips || null,
+      p_sensory_tips: input.sensory_tips || null, p_section: input.section || null,
     });
     if (error) return error.message;
     await load();

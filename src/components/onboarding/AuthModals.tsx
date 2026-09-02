@@ -62,7 +62,7 @@ export function AuthModals({ view, onChangeView, onAuthenticated }: AuthModalsPr
 
       {/* Registro: el propio formulario trae el selector de tipo (paciente,
           padre/tutor, prestador de servicios, proveedor). */}
-      <Modal open={view === 'register'} onClose={close} title={t('auth.register')} size="lg">
+      <Modal open={view === 'register'} onClose={close} title={t('auth.register')} size="xl">
         <RegisterForm
           onSuccess={(regType) =>
             regType === 'patient' || regType === 'parent' ? afterLogin() : afterRegister()

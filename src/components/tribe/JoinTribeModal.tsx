@@ -11,8 +11,9 @@ import { Modal, Button } from '@/components/ui';
 import { useTribeMembership, type TribeEnergy } from '@/hooks/useTribe';
 import { EnergyPicker } from './EnergyBadge';
 
-export function tribeLogo(lang: string): string {
-  return lang.startsWith('es') ? '/tribu/tribu-es-v3.webp' : '/tribu/tribu-en-v3.webp';
+// Logo de Neurocamps: marca única (igual en los 11 idiomas), ya no depende del idioma.
+export function tribeLogo(_lang?: string): string {
+  return '/tribu/neurocamps-v6.webp';
 }
 
 export function JoinTribeModal({ onClose, onJoined }: { onClose: () => void; onJoined?: () => void }) {
@@ -48,7 +49,7 @@ export function JoinTribeModal({ onClose, onJoined }: { onClose: () => void; onJ
       <div className="space-y-5">
         {/* Logo + qué es la Tribu */}
         <div className="text-center">
-          <img src={tribeLogo(i18n.language)} alt="Tribu Neuromundi" className="mx-auto h-28 w-auto" />
+          <img src={tribeLogo(i18n.language)} alt="Neurocamps" className="mx-auto h-28 w-auto" />
           <p className="mx-auto mt-3 max-w-md text-sm text-muted">{t('tribe.landing')}</p>
         </div>
 

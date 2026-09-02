@@ -7,6 +7,21 @@ Marketplace + comunidad global de neurodivergencia/neurodesarrollo. Pre-lanzamie
 Familias/pacientes se registran gratis; prestadores/comercios/escuelas pagan cuota
 anual. Multipaís y multilingüe.
 
+**TRES SECCIONES (0086/0087)**: la plataforma abarca **Neurodesarrollo**,
+**Neurodivergencias** y **Afecciones neurológicas** (`sections` = `neurodesarrollo` |
+`neurodivergencias` | `afecciones`). Fuente única en `src/data/sections.ts` (color+ícono);
+nombres i18n `sections.<value>.name`. Los prestadores declaran a cuáles pertenecen
+(`profiles.sections text[]`) y, en afecciones, qué atienden (`profiles.neuro_conditions text[]`,
+catálogo `src/data/neuroConditionsCatalog.ts` basado en CIE-11 Cap.08 + IGAP OMS). El
+directorio tiene un **selector de sección** (`sectionStore`, persistido) junto al de país;
+`useDirectory` filtra por `section`/`neuroCondition`. Los prestadores lo declaran con el componente `SectionsField` (con sub-selección de afecciones);
+los **consumidores** (paciente/**familiar** = padre/madre/tutor/pariente) marcan sus secciones de
+interés con casillas en `RegisterForm` (`reg.sectionsInterest`, guardado también en
+`profiles.sections`). Las empresas de empleo NO lo declaran. **Nota de marca**: en el registro,
+el tipo antes "Padre/madre o tutor" ahora se llama **"Familiar (padre/madre/tutor/pariente)"**
+(`reg.typeParent`/`create.cards.parent.title`), y los textos de condición abarcan las tres áreas
+(neurodesarrollo, neurodivergencia y afección neurológica).
+
 ## Stack
 - React 18 + Vite 5 + TypeScript + TailwindCSS
 - react-router-dom (rutas lazy en `src/App.tsx`), Zustand (`src/stores`)
@@ -23,8 +38,22 @@ anual. Multipaís y multilingüe.
   internacionales que NO se traducen: `Neuromundi`, `EVS`, `Google Calendar`, `1 USD =`, `MRI` y los
   nombres de redes (`Instagram`, `TikTok`, `Facebook`, `ADHD`, `WhatsApp`). Al añadir claves nuevas,
   tradúcelas también a he/ar/ko (y respeta RTL en cualquier UI nueva).
+  **REGLA DE MARCA "Neurocamps" (antes "Tribu/Tribe")**: el módulo social ahora se llama
+  **"Neurocamps"** (marca acuñada, IGUAL en los 11 idiomas, tratada como nombre propio; el espacio
+  individual es "Neurocamp"). Rename hecho en 0087/i18n reemplazando el token de marca de VALOR
+  `\bTribu\b`/`\bTribe\b` → `Neurocamps` (las CLAVES i18n y las tablas/RPC internas siguen siendo
+  `tribe_*` / `nav.tribe` / `adm.tribe.*`: NO se renombraron para no romper referencias). Cada
+  **Neurocamp corresponde a una sección** (`tribe_forums/tribe_events/tribe_mentors.section`,
+  0087): el usuario elige el Neurocamp con un selector (usa `sectionStore`) y los foros se filtran
+  por sección (`tribe_forums_list(...,p_section)`, `tribe_create_forum(...,p_section)`). **Eventos y
+  mentoría también filtran/crean por sección** (0088: `tribe_events_list`/`tribe_create_event`,
+  `tribe_mentors_list`/`tribe_become_mentor`/`tribe_my_mentor` con `p_section`; el selector de la
+  página propaga la sección a `EventsSection`/`MentorshipSection` vía `useSection`).
+  El LOGO de Neurocamps es único (marca igual en los 11 idiomas): `public/tribu/neurocamps-v6.webp`
+  (`tribeLogo()` ya NO depende del idioma). El logo global de Neuromundi está en `public/logo-header.png`
+  + `logo-neuromundi.webp` + iconos PWA/favicon/OG, todos generados/optimizados desde los PNG de la raíz.
   **OJO — hay DOS fuentes de texto FUERA del i18n, una por idioma (no las olvides al
-  añadir un idioma):** (1) el **Kit** en `src/data/toolkitContent/content.<lang>.ts`
+  añadir un idioma):** (1) el **Kit / "Herramientas"** en `src/data/toolkitContent/content.<lang>.ts`
   (registrado en su `index.ts`, con `he`/`ar`/`ko` ya creados y traducidos); (2) el contenido
   **legal + Manifiesto** en `src/data/legal<Xx>.ts` (registrado en `legalContent.ts` →
   `LEGAL_CONTENT`, con `legalHe`/`legalAr`/`legalKo` ya creados). Ambos caen a inglés si falta el
@@ -32,6 +61,19 @@ anual. Multipaís y multilingüe.
   van maquetados RTL y se regeneran con `scripts/gen_kit_pdfs.py` (reportlab + arabic-reshaper +
   python-bidi, fuente DejaVu Sans que cubre he y ar); los de ko (LTR) con
   `scripts/gen_kit_pdfs_ko.py` (reportlab con la fuente CID `HYGothic-Medium`, que trae reportlab).
+  **HERRAMIENTAS POR SECCIÓN (antes "Kit")**: la sección `/kit` (+ alias `/herramientas`,
+  `nav.kit`="Herramientas") alberga un kit por cada una de las 3 secciones. `getModules(lang, section)`
+  y `getModule(lang, section, id)` (`toolkitContent/index.ts`) reciben `section` =
+  `neurodivergencias` (kit original, 11 idiomas) | `neurodesarrollo` (`nd.<lang>.ts`) | `afecciones`
+  (`af.<lang>.ts`). La página `Toolkit` tiene un selector de sección (usa `sectionStore`) y el
+  progreso se prefija por sección (`${section}:${id}`, salvo neurodivergencias que conserva ids
+  sueltos). Iconos de módulo nuevos en `types.ts`/`meta.ts` (`sprout`,`blocks`,`activity`,`pulse`).
+  Los kits `nd` (`nd.<lang>.ts`) y `af` (`af.<lang>.ts`) ya están en los **11 idiomas** (misma
+  estructura de módulos A–E e ids de sección que la base) y sus **PDF de recurso** ya existen
+  (`public/kit/{nd,af}/<lang>/*.pdf`, 110 archivos = 5 por módulo × 2 kits × 11 idiomas). Se
+  generan con `node scripts/dump_kit_content.mjs` (vuelca el contenido a `scripts/kit_content.json`)
+  seguido de `python3 scripts/gen_new_kit_pdfs.py` (reportlab; DejaVu para latín, reshaping+bidi
+  para ar/he RTL, fuentes CID `HeiseiKakuGo-W5`/`STSong-Light`/`HYGothic-Medium` para ja/zh/ko).
   **Rendimiento del i18n**: `initI18n` NO espera el diccionario completo (~150 KB) para montar;
   carga primero el chunk CRÍTICO `src/i18n/critical/{lang}.crit.json` (~9 KB: solo los namespaces
   de la portada — encabezado/home/pie/intro, lista en `scripts/gen_i18n_critical.mjs`), monta, y
@@ -85,8 +127,10 @@ PY
   `drop policy if exists` + `create policy`, `insert ... on conflict do nothing`,
   `add column if not exists`. Backfills solo tocan filas nulas.
 - El usuario las aplica **a mano en el SQL Editor de Supabase**, en orden (no hay CLI de
-  migraciones en su flujo). Última en el repo: **0080**.
-- Para verificar qué está aplicado en producción: `db/verificar_produccion.sql`.
+  migraciones en su flujo). Última en el repo: **0088**.
+- Para verificar qué está aplicado en producción: `db/verificar_produccion.sql` (histórico hasta
+  0022), `db/verificar_produccion_0077_0088.sql` (tramo reciente; las RPC que solo cambian de firma
+  se comprueban por nº de argumentos) y `db/verificar_cron.sql` (cron esperados + activos).
 
 ### 3. Escribir a otros usuarios / notificaciones
 - Tabla `notifications` (user_id, type, title, body, data jsonb, is_read). RLS = solo
@@ -227,6 +271,16 @@ PY
   estático, entrar a `/panel` descargaba una imagen que nadie usaba y el navegador lo
   avisaba en consola. Por eso se inyecta desde un script en línea que comprueba
   `location.pathname`. Si mueves `HeroArt` a otra página, ajusta esa condición.
+- **Héroe estático inyectado: PROBADO Y RETIRADO (no reintentar por esta vía).** Se probó
+  inyectar en `#root`, con un script en línea, una réplica del pliegue superior con la 1.ª
+  imagen del héroe para pintar el LCP antes de que React monte. **No funciona con `createRoot`**:
+  al montar, React REEMPLAZA `#root`, destruye ese `<img>` y crea uno nuevo, así que el LCP se
+  vuelve a medir en el pintado de React (el desglose LCP mostraba `element render delay ~1,9 s`
+  con el `<img>` de HeroCarousel, no el estático) y encima el "pinta→borra→repinta" degradaba el
+  Speed Index. La ÚNICA forma de que un héroe en el HTML mejore el LCP es la **hidratación**
+  (`hydrateRoot`), que exige DOM que coincida con el árbol de React → eso es el **prerender**
+  (`npm run build:prerender` con react-snap; `main.tsx` ya hidrata si el `#root` viene sin
+  `data-nm-shell`). El LCP de la portada está por tanto acotado por el primer pintado de React.
 - **Los modales del layout van con `lazy`**: `AppLayout` monta ~12 emergentes (AuthModals,
   SocialOnboarding, GuidedTour…). Importarlos de forma estática mete react-hook-form, zod
   y `mxStatesMunicipalities` (43 KB) en el bundle inicial aunque no se vean. Si añades un
@@ -237,10 +291,16 @@ PY
   tras `requestIdleCallback` (estado `deferUi`). Si añades UI que no se ve en el primer
   pintado, gátala igual. El mismo patrón está extraído en el hook **`useIdleReady()`**
   (`src/hooks/useIdleReady.ts`): devuelve `false` en el primer pintado y `true` al quedar el
-  navegador ocioso. En `Home` gatea el montaje de `AlliesGrid` y `ContentCarousel`
-  (`{idleReady && <…/>}`) porque cada uno dispara una consulta a Supabase al montar (allies /
-  content_posts) que Lighthouse veía en la cadena crítica del LCP (~1 s). Si añades a la
-  portada un componente debajo del pliegue que consulta la base, gátalo con `useIdleReady`.
+  navegador ocioso. **En `Home`** `AlliesGrid` y `ContentCarousel` ya NO usan `useIdleReady`:
+  se cargan con **`lazy` + `Suspense`** y se montan solo cuando su sección entra al viewport
+  vía **`useInView()`** (`src/hooks/useInView.ts`, IntersectionObserver, `rootMargin` 300px).
+  Así su código sale del bundle inicial (`index-*.js`) Y sus consultas a Supabase (allies /
+  content_posts) salen por completo de la ruta crítica del LCP (Lighthouse no hace scroll, así
+  que ni se piden). Si añades a la portada un componente debajo del pliegue que consulta la
+  base, hazlo `lazy` + gátalo con `useInView` (o `useIdleReady` si no quieres esperar al scroll).
+  El **selector de país de la portada** usa `SearchableSelect` (no un `<select>` con ~250
+  `<option>`): no pinta las opciones hasta abrirse, quitando ese coste de "Style & Layout" del
+  primer render. La ruta `/reservar/:memberNo` (`Book`) también es `lazy` (fuera del bundle inicial).
 - **El preconnect a Supabase necesita `crossorigin`**: las llamadas a la API van con
   cabeceras (`apikey`/`Authorization`) → son CORS. Sin `crossorigin`, el navegador abre una
   conexión que NO reutiliza para esos fetch y el preconnect se desperdicia (~300 ms de LCP).
@@ -302,10 +362,13 @@ PY
 | **`/ajustes`** | `Settings` | **protegida** |
 | **`/calendario`** | `Calendar` | **protegida** |
 | **`/mensajes`** | `Messages` | **protegida**; mensajería directa |
-| **`/tribu`** | `TribuNeuromundi` | **protegida**; módulo de Inclusión Social "Tribu Neuromundi" (F1–F5): inscripción con reglas + semáforo de energía, foros temáticos, gratitud/niveles, moderadores, mentoría y eventos |
+| **`/mi-id`** | `MyId` | **protegida**; Neuromundi ID a pantalla + destino del `shortcut` del PWA. Abre OFFLINE (QR client-side + cache `localStorage 'neuro.id.card'`) |
+| `/tribu` | `TribuNeuromundi` | **pública** (el landing explica e invita a crear cuenta/entrar); el hub —foros, mentoría, eventos— exige sesión + membresía dentro del propio componente. Módulo "Tribe/Tribu" (F1–F5) |
 | `/donar` | `Donate` | pública; donación con o sin cuenta (`DonationSection`) |
 | `/donantes` | `DonorWall` | pública; muro de donantes (`donor_wall()`) |
 | `/fundadores` | `Founders` | pública; muro de Miembros Fundadores curado por país (`founders_wall`), 0065 |
+| `/beneficios` | `Benefits` | pública; beneficios de la campaña por tipo de perfil (destino del popup de bienvenida) |
+| **`/curso-bienvenida`** | `WelcomeCourse` | **protegida**; curso virtual de bienvenida (video + módulos + CTA al grupo privado si el admin puso `community_url`) |
 | `/reservar/:memberNo` | `Book` | pública, sin layout (widget embebible) |
 
 ### Hooks por dominio (`src/hooks`)
@@ -435,12 +498,16 @@ PY
   `create-consultation-checkout`, `create-donation-checkout`, `connect-onboarding`, `stripe-webhook`
 - **Avisos**: `send-reminders` (cola + email de citas aceptadas; la agenda `pg_cron`+`pg_net`),
   `send-push` (Web Push VAPID), `send-campaign` (lista de espera/pacientes por push+email+SMS),
-  `send-support`, `send-product-rejection`
+  `send-support`, `send-product-rejection`, `campaign-emails` (bienvenida +
+  recordatorios de la campaña por Resend desde `admin@neuromundi.com`; cron cada 2h)
 - **Mantenimiento**: `purge-expired-files`, `delete-account`
-- **Neuromundi ID (Wallet, andamiaje)**: `wallet-pass` — genera el pase de Apple Wallet
-  (`.pkpass` firmado) o el enlace de Google Wallet (JWT). Responde `501 not-configured`
-  con la lista de secrets faltantes hasta que se pongan los certificados. Los botones
-  del front van detrás de `VITE_WALLET_ENABLED`. Guía completa en `docs/NEUROMUNDI_ID_WALLET.md`
+- **Neuromundi ID (Wallet): RETIRADO.** Se probó el andamiaje `wallet-pass` (Apple `.pkpass`
+  + Google JWT) y se decidió NO usarlo (mucho mantenimiento: cuenta Apple de pago, certificados
+  WWDR G4, alta de emisor Google). En su lugar la Neuromundi ID es 100% PWA: página `/mi-id`
+  (protegida, también el `shortcuts` del manifest) que abre OFFLINE (QR client-side + cache local
+  del ID en `localStorage 'neuro.id.card'`), y descarga de la credencial en PDF vía impresión
+  (`src/lib/idCredential.ts`, sin dependencias). Si algún día se reconsidera Wallet, revisar el
+  historial de git; NO reintroducir sin resolver antes el mantenimiento de certificados.
 - Despliegue: `supabase functions deploy <nombre> --use-api`.
 - **Las que NO invoca un usuario con sesión van con `--no-verify-jwt`**: `stripe-webhook`
   (la llama Stripe), `send-push` y `send-reminders` (las llama la base por `pg_net`, sin
@@ -455,7 +522,9 @@ PY
 `meet` (salas Jitsi; valida host con `new URL`, no con regex de texto) ·
 `pricing` (anual = 10 meses, referencia = 12) · `feesCsv` (lectura/escritura del CSV de cuotas) ·
 `commissions` (totales por moneda, agrupación por contraparte, estado de cuenta CSV;
-ojo con las monedas sin decimales: JPY no se divide entre 100).
+ojo con las monedas sin decimales: JPY no se divide entre 100) ·
+`aliadoCertificate` / `idCredential` (documentos descargables vía impresión→PDF, SIN dependencias:
+abren un HTML con `@page` y lanzan `window.print()`; `idCredential` embebe el QR como dataURL).
 Al extraer lógica de una página a `src/lib`, **añade su test** (patrón: `*.test.ts`).
 
 ## Migraciones recientes (referencia)
@@ -512,10 +581,18 @@ Al extraer lógica de una página a `src/lib`, **añade su test** (patrón: `*.t
 | 0072 | **Tribu F3** (moderadores): `tribe_members.can_write/can_evaluate/can_review` (suspensión parcial); `tribe_moderators` (postulación+ética+puntos), `tribe_mod_ratings` (5 dimensiones); RPCs de postular/listar/calificar/aprobar; `admin_set_tribe_member` (suspensión total/parcial). Recrea el candado de escribir/evaluar |
 | 0073 | **Tribu F4** (mentoría): `tribe_mentors` (vías nd_youth/family_family), `tribe_mentorships`, `tribe_mentor_messages` (hilo 1:1 asíncrono); RPCs de ofrecerse/listar/solicitar/responder/mensajes |
 | 0074 | **Tribu F5** (eventos): `tribe_events` (guía de anticipación OBLIGATORIA: qué pasará, ruido, sala de calma), `tribe_event_rsvps`, `tribe_event_sensory`; `tribe_create_event` (+20), `tribe_event_sensory_report` (+15), RSVP y listado |
-| 0075 | **Neuromundi ID** (Fase 1): `profiles.accepts_neuromundi_id` (opt-in del prestador → leyenda "Acepto Neuromundi ID" en su perfil); `resolve_parent_by_qr` ahora devuelve rol/folio/estado para la pantalla de validación. Tarjeta `NeuromundiIdCard` (anverso/reverso, colores por rol, folio, QR, vigencia). Wallet .pkpass pendiente (requiere certificados) |
+| 0075 | **Neuromundi ID** (Fase 1): `profiles.accepts_neuromundi_id` (opt-in del prestador → leyenda "Acepto Neuromundi ID" en su perfil); `resolve_parent_by_qr` ahora devuelve rol/folio/estado para la pantalla de validación. Tarjeta `NeuromundiIdCard` (anverso/reverso, colores por rol, folio, QR, vigencia). Sin Wallet nativo: PWA offline (`/mi-id` + shortcut) + descarga en PDF |
 | 0076 | **Fundador de Empresas + empresa gratuita**: grupo de fundador `companies` (cupo **20/país**, requisito objetivo = **≥2 vacantes activas** en `claim_founder_slot` y `purge_lapsed_founders`); `founder_capacity('companies')=20`. Empresa inclusiva SIEMPRE gratis: backfill `membership_status='exempt'` + trigger `trg_company_membership_free`. Front: `founderKindFor(company)→'companies'`, `FOUNDER_CAPACITY.companies=20`, gate exime a `company`, requisito `vacancies` en `founderRequirements` |
 | 0077 | **Códigos promocionales con descuento** (además de la exención total previa): `promo_codes.benefit` (`exempt`/`percent`) + `percent_off` (1–100). `redeem_promo_code` ramifica: `exempt` marca `membership_status='exempt'` (como antes); `percent` guarda el código en `profiles.promo_code_used` SIN exentar y devuelve `{benefit,percent_off}`. Nueva RPC `membership_promo_pct(user)` que lee el % activo; el checkout (`create-membership-checkout`) lo combina de forma **compuesta** con el descuento de recomendación y acota al 90%. UI admin en `AdminPromoCodes` (selector beneficio + campo %); `MembershipModal` muestra "descuento aplicado" y deja pagar |
 | 0078 | **Promo de monto fijo + candado por correo**: `promo_codes.benefit` admite `amount` (con `amount_off` + `amount_currency`) y `bound_email` (si está puesto, `redeem_promo_code` exige que el correo de la cuenta coincida → error `email`). `membership_promo_pct` se reemplaza por `membership_promo(user)` (devuelve benefit/percent_off/amount_off/amount_currency). El checkout aplica cupón de **monto** (solo si la moneda coincide con la de cobro; no apila con recomendación por límite de Stripe de 1 cupón) o de **%** (compuesto con recomendación). UI admin: opción "Monto fijo" + moneda + campo "ligar a correo" |
+| 0084 | **Campaña (Fase 5): boletos de sorteo**: tabla `raffle_tickets` (source `signup`/`referral`, únicos por usuario y por par referente-referido). Triggers: `trg_raffle_signup` (1 boleto al registrarse si la campaña está activa) y `trg_raffle_referral` (1 boleto al referente por cada fila de `referrals`). RPCs: `my_raffle_tickets()` (panel de recomendación) y `admin_raffle_entries()` (lista para el sorteo, solo admin → CSV en `AdminCampaign`). El sorteo (elegir ganadores) es manual el día del lanzamiento con esa lista |
+| 0086 | **Tres secciones (fundación)**: `profiles.sections text[]` (backfill de prestadores existentes a neurodesarrollo+neurodivergencias) + `profiles.neuro_conditions text[]` + índices GIN. `handle_new_user` ampliado (lee `sections`/`neuro_conditions` del alta por correo). Front: `src/data/sections.ts`, `sectionStore`, `neuroConditionsCatalog.ts`, filtro `section`/`neuroCondition` en `useDirectory`, selector de sección + chips en el directorio, `SectionsField` en los registros de prestador |
+| 0088 | **Neurocamps por sección — eventos y mentoría**: `tribe_create_event`/`tribe_events_list` con `p_section` (+ devuelve `section`); `tribe_become_mentor`/`tribe_my_mentor`/`tribe_mentors_list` con `p_section`. `EventsSection`/`MentorshipSection` leen `useSection` y propagan el Neurocamp elegido; selector de sección en `CreateEventModal` y `BecomeMentorModal` |
+| 0087 | **Neurocamps (antes Tribu) por sección**: `tribe_forums/tribe_events/tribe_mentors.section` (check a los 3 valores o NULL) + índices; `tribe_forums_list` recreada con `p_section` (+ devuelve `section`); `tribe_create_forum` recreada con `p_section`. Rename de marca Tribu/Tribe → Neurocamps en los 11 idiomas (solo valores). Ruta `/neurocamps` (alias de `/tribu`). Selector de Neurocamp en la página + sección al crear foro |
+| 0085 | **Campaña (Fase 6): comunidad + curso + sorteo ponderado**: `campaign_config.community_url` (grupo privado Discord/WhatsApp) + `admin_set_campaign_community(p_url)`. Tabla `raffle_winners` + `admin_raffle_draw(p_count,p_role,p_batch)` (muestreo ponderado por nº de boletos con `power(random(),1.0/tickets)` —Efraimidis-Spirakis—, filtro de rol `consumer`/`paying`/null, inserta ganadores y los devuelve) + `admin_raffle_winners()`. Front: página **`/curso-bienvenida`** (`WelcomeCourse`, protegida: video `public/curso-bienvenida.{webm,mp4}` + módulos i18n + CTA de comunidad), CTA de comunidad en `/beneficios`, y en `AdminCampaign` el campo de URL de comunidad + UI de sorteo (rol + cantidad → sortear, lista de ganadores, CSV) |
+| 0083 | **Campaña (Fase 4): emails con Resend**: tabla `campaign_emails` (welcome_sent_at/last_reminder_at) + trigger `trg_enroll_campaign_email` (alta al registrarse SI la campaña está activa). RPCs (solo `service_role`): `campaign_welcome_queue`, `campaign_reminder_queue` (perfiles de pago sin cuota, cada 5 días, % vigente, antes de la apertura del país), `campaign_email_sent`. Cron `nm-campaign-emails` (cada 2h) → Edge Function **`campaign-emails`** (Resend, remitente `admin@neuromundi.com` vía `CAMPAIGN_FROM`; deploy `--no-verify-jwt`). Bienvenida = recompensa por tipo de perfil + fecha de apertura; recordatorio = % de descuento vigente. PENDIENTE: referidos/sorteo, curso al confirmar correo |
+| 0082 | **Campaña (Fase 2): descuento de fundador por etapa en Stripe**: `campaign_config.founder_discount` jsonb (`[{"days":15,"pct":50},{"days":30,"pct":25}]`). `admin_campaign_set` recreada con `p_founder_discount` (drop del 6-args previo). `create-membership-checkout` calcula el % según días desde `start_at` **solo para el periodo anual** y lo combina de forma compuesta con recomendación+promo (tope 90%). Front: `useCampaign.founderDiscount`/`founderDiscountNow()` (etapa vigente + fecha de corte), aviso en `MembershipModal`, editor de etapas en `AdminCampaign` |
+| 0081 | **Campaña de pre-registro (Fase 1)**: tabla `campaign_config` (fila única id=1): `active`, `start_at`, `default_block_days` (90), `block_days_by_country` jsonb ({"México":30}), `popup_active`, `popup_continents` jsonb. RPC pública `campaign_status()` + `admin_campaign_set(...)` (admin). Front: `useCampaign`/`useDirectoryLock` (admin+asesor EXENTOS), `DirectoryGate` envuelve `/directorio` `/buscar` `/proveedor/:id` → `DirectoryLockedScreen` (fondo oscuro + cuenta regresiva naranja hasta la apertura del país). Mapa país→continente en `src/data/continents.ts`. Con la campaña activa se apagan `FounderPopup` y `SoftSignupBanner`. Panel `AdminCampaign` (sección "Campaña"). Semilla: activa, inicio 2026-08-10T06:00Z (00:00 CDMX). **Fase 3** (front, sin migración): `CampaignWelcomePopup` (2 secciones: "Ver video" → `public/welcome-neuromundi.{webm,mp4}` que sube el equipo, "Conocer beneficios" → `/beneficios`) montado en `AppLayout` tras el intro, gateado por `popupActiveFor(continente)`, una vez por sesión (sessionStorage `neuro.campaignPopup`), y SUPRIME el tour cuando la campaña está activa. `MembershipSuccessNotice` (aviso de congelación vitalicia en `/panel?membership=ok&period=annual`). PENDIENTE: referidos/sorteo, curso al confirmar correo, emails Resend |
 | 0080 | **Foros de Tribu ampliados**: `tribe_forums.notify_countries` (países a los que llega el aviso) + estado `closed`. Nuevas tablas `tribe_forum_prefs` (push de foros + países de interés del usuario) y `tribe_forum_moderators` (postulación de moderador POR foro). RPCs: `tribe_create_forum` (crea + notifica al creador `forum_pending` con reglas/ética + autopostulación si es moderador aprobado), `admin_set_forum_status` recreada (al aprobar avisa a la comunidad `forum_new` por país respetando `tribe_forum_prefs`; avisa al creador `forum_approved`), `tribe_close_forum` (moderador del foro o admin/asesor), `tribe_forum_call_moderators` (convocatoria → `forum_mod_call`), `tribe_apply_forum_moderator`, `admin_forum_moderators`/`admin_set_forum_moderator` (`forum_mod_approved`), `tribe_forum_prefs_get/set`, `tribe_am_i_forum_moderator`. `notif_category` clasifica los tipos `forum_*` en "comunidad". Front: `CreateForumForm` (multiselección de países + aviso reglas/ética + checkbox postular), `TribeForumsPanel` en dashboards (foros vigentes + toggle push + países), `ForumRoom` (cerrar/postular), `AdminTribe` gana "Postulaciones" + convocar/cerrar, `NotificationsBell` tipos `forum_*` |
 | 0079 | **Perfil Asesor** (explorador + moderador de Tribu): `profiles.is_advisor` (privilegio, blindado en `protect_profile_columns`); helpers `is_advisor()` / `is_admin_or_advisor()`. La moderación de Tribu (`admin_tribe_forums`, `admin_set_forum_status`, `admin_tribe_moderators`, `admin_set_moderator_status`, `admin_set_tribe_member`, `admin_tribe_member_lookup`) se abre a `is_admin_or_advisor()`. `tribe_forum_messages` deja leer cualquier foro a admin/asesor + `tribe_delete_message`. Asignación por folio: `admin_set_advisor(member_no,bool)` / `admin_list_advisors` (solo admin). Front: `useAuth.isAdvisor`, gate exime al asesor, `Dashboard`→`AdminDashboard advisor` (**solo Tribu**, sin métricas), `AdminAdvisors` (asignar), `AdminTribe` gana el área "Mensajes" (visor + borrado) |
 

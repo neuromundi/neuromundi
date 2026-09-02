@@ -238,6 +238,8 @@ export const registerSchema = z
     confirm_email: z.string().trim().optional().default(''),
     is_company: z.boolean().default(false),
     school_grades: z.array(z.string()).optional().default([]),
+    // Secciones de interés del consumidor (paciente/familiar): 1 o más de las tres.
+    sections: z.array(z.string()).optional().default([]),
     full_name: z.string().trim().optional().default(''),
     business_name: z.string().trim().optional().default(''),
     birth_date: z.string().optional().default(''),

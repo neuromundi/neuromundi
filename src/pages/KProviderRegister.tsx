@@ -9,6 +9,7 @@ import { setFounderOptoutFlag } from '@/lib/founderPref';
 import { isStrictEmail } from '@/lib/email';
 import { useCountryLabel } from '@/lib/countryLabel';
 import { FounderProgressCard } from '@/components/founder/FounderProgressCard';
+import { SectionsField } from '@/components/onboarding/SectionsField';
 import { founderKindFor } from '@/hooks/useFounder';
 import { Camera, Eye, ChevronDown, MapPin, BadgeCheck, HeartPulse, Plane, Scale, HeartHandshake, HandHeart } from 'lucide-react';
 import { Button, useToast, PasswordInput} from '@/components/ui';
@@ -47,6 +48,8 @@ export function KProviderRegister({ typeKey, onSuccess, complete = false }: { ty
   const [logoUrl, setLogoUrl] = useState<string | null>(null);
   const [description, setDescription] = useState('');
   const [picked, togglePick] = useToggleList();
+  const [sections, toggleSection] = useToggleList();
+  const [neuroConditions, toggleCondition] = useToggleList();
   const [otherOffering, setOtherOffering] = useState('');
   // Contacto
   const [whatsapp, setWhatsapp] = useState('');
@@ -131,6 +134,7 @@ export function KProviderRegister({ typeKey, onSuccess, complete = false }: { ty
       country: country || null, state: isMexico ? stateName : null, municipality: isMexico ? municipality : null,
       address: address || null,
       specialties: picked, // indexable para el buscador
+      sections, neuroConditions,
       providerDetails: details,
       rulesVersion: RULES_VERSION,
     };
@@ -216,6 +220,12 @@ export function KProviderRegister({ typeKey, onSuccess, complete = false }: { ty
         {/* 2. Oferta */}
         <section className="space-y-4">
           <h3 className={sectionTitle}>{t('k.s2')}</h3>
+          <SectionsField
+            sections={sections}
+            onToggleSection={toggleSection}
+            neuroConditions={neuroConditions}
+            onToggleCondition={toggleCondition}
+          />
           <div>
             <label className={labelCls}>{t('k.offerings')}</label>
             <div className="flex flex-wrap gap-2">

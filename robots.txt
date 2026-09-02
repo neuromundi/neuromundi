@@ -1,0 +1,13 @@
+# Neuromundi — https://www.neuromundi.com
+User-agent: *
+Allow: /
+
+# Zonas privadas o sin valor para búsqueda
+Disallow: /panel
+Disallow: /ajustes
+Disallow: /calendario
+Disallow: /mensajes
+Disallow: /reservar/
+Disallow: /lista/
+
+Sitemap: https://www.neuromundi.com/sitemap.xml

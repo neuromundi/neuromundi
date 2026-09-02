@@ -1,0 +1,1 @@
+function n(e){const t=(e??"").trim().replace(/[^a-zA-Z0-9]/g,"").slice(0,24),s=Math.random().toString(36).slice(2,10)+Date.now().toString(36).slice(-4);return`https://meet.jit.si/Neuromundi-${t?`${t}-${s}`:s}`}export{n as j};

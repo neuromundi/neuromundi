@@ -61,7 +61,7 @@ export function Book() {
     <main className="min-h-screen bg-slate-50 px-4 py-8">
       <div className="mx-auto w-full max-w-md rounded-3xl border border-slate-100 bg-white p-6 shadow-sm">
         <div className="mb-4 flex items-center gap-2">
-          <img src="/logo-neuromundi.webp" alt="Neuromundi" className="h-8 w-8 rounded-lg" />
+          <img src="/logo-neuromundi.webp?v=2026" alt="Neuromundi" className="h-8 w-8 rounded-lg" />
           <span className="text-sm font-semibold text-brand-700">Neuromundi</span>
         </div>
 
