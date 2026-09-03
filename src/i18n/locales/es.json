@@ -299,7 +299,9 @@
     "map": "Mapa",
     "verified": "Verificado",
     "verifiedTip": "Proveedor verificado por Neuromundi",
-    "reviews": "{{count}} reseñas"
+    "reviews": "{{count}} reseñas",
+    "founder": "Fundador",
+    "founderTip": "Miembro Fundador de Neuromundi"
   },
   "map": {
     "locate": "Centrar en mi ubicación",
@@ -866,7 +868,9 @@
       "drawPaying": "Miembros de pago",
       "drawCta": "Sortear",
       "drawDone": "Sorteo realizado",
-      "winnersCsv": "Descargar ganadores (CSV)"
+      "winnersCsv": "Descargar ganadores (CSV)",
+      "whatsappTitle": "Canal de WhatsApp",
+      "whatsappHint": "Pega el enlace del canal de WhatsApp. Se muestra un botón para unirse en el pie de la plataforma."
     }
   },
   "reg": {
@@ -1099,7 +1103,8 @@
     "successTitle": "¡Pago confirmado!",
     "successBody": "Bienvenido como Miembro Fundador de Neuromundi. Tu distintivo ya está activo.",
     "freezeNotice": "Tu cuota anual queda congelada de por vida: te protege de aumentos futuros (salvo el ajuste anual por inflación de tu país).",
-    "successCta": "¡Entendido!"
+    "successCta": "¡Entendido!",
+    "twoMonthsFree": "2 meses gratis"
   },
   "rules": {
     "version": "Versión",
@@ -2482,7 +2487,8 @@
     "reqsBoxTitle": "Requisitos por perfil"
   },
   "footer": {
-    "manifesto": "Manifiesto"
+    "manifesto": "Manifiesto",
+    "whatsappChannel": "Únete a nuestro canal de WhatsApp"
   },
   "blog": {
     "title": "Blog Neuromundi",
@@ -3193,7 +3199,8 @@
     "savingNote": "Contrata 12 meses y paga 10.",
     "typeMedical": "Especialista médico",
     "typeNonMedical": "Especialista no médico",
-    "typeClinic": "Clínica"
+    "typeClinic": "Clínica",
+    "typeNgo": "ONG / Asociación"
   },
   "gate": {
     "title": "Tu cuenta está en pausa",
@@ -4559,5 +4566,20 @@
     "hint": "Elige 1 o las 3. Aparecerás en el directorio de cada sección seleccionada.",
     "conditionsLabel": "¿Qué afecciones neurológicas atiendes?",
     "conditionsHint": "Selecciona las que correspondan (opcional)."
+  },
+  "disc": {
+    "title": "Descuentos por país",
+    "help": "Un % de descuento sobre el primer pago de cuota, por país. Se combina con recomendación, promo y fundador (tope 90%).",
+    "country": "País",
+    "pickCountry": "Elige un país",
+    "pct": "% desc.",
+    "note": "Nota (opcional)",
+    "notePh": "Ej. lanzamiento",
+    "add": "Agregar",
+    "saved": "Descuento guardado",
+    "badPct": "El porcentaje debe estar entre 0 y 100",
+    "active": "Activo",
+    "inactive": "Inactivo",
+    "empty": "Aún no hay descuentos por país."
   }
 }

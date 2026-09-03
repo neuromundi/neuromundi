@@ -262,7 +262,9 @@
     "map": "Carte",
     "verified": "Vérifié",
     "verifiedTip": "Prestataire vérifié par NeuroAnnuaire",
-    "reviews": "{{count}} avis"
+    "reviews": "{{count}} avis",
+    "founder": "Fondateur",
+    "founderTip": "Membre fondateur de Neuromundi"
   },
   "map": {
     "locate": "Centrer sur ma position",
@@ -829,7 +831,9 @@
       "drawPaying": "Membres payants",
       "drawCta": "Tirer",
       "drawDone": "Tirage effectué",
-      "winnersCsv": "Télécharger les gagnants (CSV)"
+      "winnersCsv": "Télécharger les gagnants (CSV)",
+      "whatsappTitle": "Canal WhatsApp",
+      "whatsappHint": "Collez le lien du canal WhatsApp. Un bouton pour rejoindre apparaît dans le pied de page."
     }
   },
   "reg": {
@@ -1062,7 +1066,8 @@
     "successTitle": "Paiement confirmé !",
     "successBody": "Bienvenue en tant que Membre Fondateur de Neuromundi. Votre badge est actif.",
     "freezeNotice": "Votre cotisation annuelle est gelée à vie : vous êtes protégé des hausses futures (hors ajustement annuel lié à l’inflation de votre pays).",
-    "successCta": "Compris !"
+    "successCta": "Compris !",
+    "twoMonthsFree": "2 mois gratuits"
   },
   "rules": {
     "version": "Version",
@@ -2425,7 +2430,8 @@
     "title": "Suivez-nous"
   },
   "footer": {
-    "manifesto": "Manifeste"
+    "manifesto": "Manifeste",
+    "whatsappChannel": "Rejoignez notre canal WhatsApp"
   },
   "founder": {
     "benefitsTitle": "Avantages",
@@ -3193,7 +3199,8 @@
     "savingNote": "12 mois pour le prix de 10.",
     "typeMedical": "Spécialiste médical",
     "typeNonMedical": "Spécialiste non médical",
-    "typeClinic": "Clinique"
+    "typeClinic": "Clinique",
+    "typeNgo": "ONG / Association"
   },
   "gate": {
     "title": "Votre compte est en pause",
@@ -4559,5 +4566,20 @@
     "hint": "Choisissez 1 ou les 3. Vous apparaîtrez dans l’annuaire de chaque section choisie.",
     "conditionsLabel": "Quelles affections neurologiques prenez-vous en charge ?",
     "conditionsHint": "Sélectionnez celles qui s’appliquent (facultatif)."
+  },
+  "disc": {
+    "title": "Remises par pays",
+    "help": "Une remise en % sur le premier paiement de cotisation, par pays. Se combine avec parrainage, promo et fondateur (plafond 90%).",
+    "country": "Pays",
+    "pickCountry": "Choisir un pays",
+    "pct": "% remise",
+    "note": "Note (facultatif)",
+    "notePh": "Ex. lancement",
+    "add": "Ajouter",
+    "saved": "Remise enregistrée",
+    "badPct": "Le pourcentage doit être entre 0 et 100",
+    "active": "Actif",
+    "inactive": "Inactif",
+    "empty": "Aucune remise par pays pour le moment."
   }
 }

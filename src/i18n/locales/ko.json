@@ -299,7 +299,9 @@
     "map": "지도",
     "verified": "인증됨",
     "verifiedTip": "Neuromundi가 인증한 제공자",
-    "reviews": "후기 {{count}}개"
+    "reviews": "후기 {{count}}개",
+    "founder": "창립 회원",
+    "founderTip": "Neuromundi 창립 회원"
   },
   "map": {
     "locate": "내 위치로 중심 이동",
@@ -866,7 +868,9 @@
       "drawPaying": "유료 회원",
       "drawCta": "추첨",
       "drawDone": "추첨 완료",
-      "winnersCsv": "당첨자 다운로드(CSV)"
+      "winnersCsv": "당첨자 다운로드(CSV)",
+      "whatsappTitle": "WhatsApp 채널",
+      "whatsappHint": "WhatsApp 채널 링크를 붙여넣으세요. 하단에 참여 버튼이 표시됩니다."
     }
   },
   "reg": {
@@ -1099,7 +1103,8 @@
     "successTitle": "결제 완료!",
     "successBody": "Neuromundi 창립 회원이 되신 것을 환영합니다. 배지가 활성화되었습니다.",
     "freezeNotice": "연회비가 평생 동결됩니다: 향후 인상으로부터 보호됩니다(귀하 국가의 연간 물가 조정 제외).",
-    "successCta": "확인!"
+    "successCta": "확인!",
+    "twoMonthsFree": "2개월 무료"
   },
   "rules": {
     "version": "버전",
@@ -2482,7 +2487,8 @@
     "reqsBoxTitle": "프로필별 요건"
   },
   "footer": {
-    "manifesto": "선언문"
+    "manifesto": "선언문",
+    "whatsappChannel": "WhatsApp 채널 참여"
   },
   "blog": {
     "title": "Neuromundi 블로그",
@@ -3193,7 +3199,8 @@
     "savingNote": "12개월 이용, 10개월치만 지불.",
     "typeMedical": "의료 전문가",
     "typeNonMedical": "비의료 전문가",
-    "typeClinic": "클리닉"
+    "typeClinic": "클리닉",
+    "typeNgo": "NGO/협회"
   },
   "gate": {
     "title": "계정이 일시중지되었습니다",
@@ -4559,5 +4566,20 @@
     "hint": "1개 또는 3개 모두 선택하세요. 선택한 각 섹션의 디렉터리에 표시됩니다.",
     "conditionsLabel": "어떤 신경계 질환을 진료하나요?",
     "conditionsHint": "해당되는 항목을 선택하세요(선택)."
+  },
+  "disc": {
+    "title": "국가별 할인",
+    "help": "국가별 첫 회비에 대한 % 할인. 추천·프로모·창립과 합산(최대 90%).",
+    "country": "국가",
+    "pickCountry": "국가 선택",
+    "pct": "% 할인",
+    "note": "메모(선택)",
+    "notePh": "예: 출시",
+    "add": "추가",
+    "saved": "할인 저장됨",
+    "badPct": "백분율은 0에서 100 사이여야 합니다",
+    "active": "활성",
+    "inactive": "비활성",
+    "empty": "아직 국가별 할인이 없습니다."
   }
 }

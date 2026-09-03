@@ -102,13 +102,15 @@ export function useDirectory(filters: DirectoryFilters): UseDirectoryValue {
         return;
       }
 
-      // 2) EVS + 3) categorías, en paralelo.
-      const [ratingsRes, pcRes, catsRes, badgeRes] = await Promise.all([
+      // 2) EVS + 3) categorías + 4) fundadores, en paralelo.
+      const [ratingsRes, pcRes, catsRes, badgeRes, founderRes] = await Promise.all([
         supabase.from('public_provider_ratings').select('*').in('provider_id', ids),
         supabase.from('provider_categories').select('*').in('provider_id', ids),
         supabase.from('categories').select('*'),
         supabase.from('provider_badge_inputs').select('*').in('provider_id', ids),
+        supabase.rpc('founder_provider_ids'),
       ]);
+      const founderSet = new Set<string>(((founderRes.data as { id: string }[] | null) ?? []).map((r) => r.id));
 
       const badgeMap = new Map<string, BadgeResult>(
         (badgeRes.data ?? []).map((r) => [r.provider_id, computeBadge(inputsFromRow(r))]),
@@ -135,6 +137,7 @@ export function useDirectory(filters: DirectoryFilters): UseDirectoryValue {
           rating: ratingMap.get(p.id) ?? null,
           categories: byProvider.get(p.id) ?? [],
           badge: badgeMap.get(p.id) ?? null,
+          is_founder: founderSet.has(p.id),
         })),
       );
     } catch (e) {
@@ -158,7 +161,7 @@ export function useDirectory(filters: DirectoryFilters): UseDirectoryValue {
 
   const filtered = useMemo(() => {
     const q = query?.trim().toLowerCase();
-    return providers.filter((p) => {
+    const pass = providers.filter((p) => {
       if (q) {
         const haystack = [
           p.business_name ?? '', p.full_name, p.profession ?? '', p.bio ?? '',
@@ -199,6 +202,11 @@ export function useDirectory(filters: DirectoryFilters): UseDirectoryValue {
       }
       return true;
     });
+    // SEO de fundadores: aparecen primero (orden estable para el resto).
+    return pass
+      .map((p, i) => [p, i] as const)
+      .sort((a, b) => (Number(b[0].is_founder) - Number(a[0].is_founder)) || (a[1] - b[1]))
+      .map(([p]) => p);
   }, [providers, query, categoryId, specialty, productCategory, ageRange, modality, neuroaffirming, section, neuroCondition, city, center, radiusKm, anyOf, providerTypes]);
 
   return { providers, filtered, cities, loading, error, refetch };

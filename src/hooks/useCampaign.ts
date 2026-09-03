@@ -24,6 +24,7 @@ export interface CampaignConfig {
   popup_continents: Record<string, boolean>;
   founder_discount: FounderStage[];
   community_url: string | null;
+  whatsapp_url: string | null;
 }
 
 /** Descuento de fundador vigente HOY según las etapas y la fecha de inicio.

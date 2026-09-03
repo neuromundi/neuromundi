@@ -6,7 +6,7 @@
  * estado activo visible y labels claros (poca carga cognitiva).
  */
 import { NavLink, Outlet, useNavigate, Link } from 'react-router-dom';
-import { Compass, LayoutDashboard, Settings, LogIn, LogOut, ShieldCheck, MessageCircleQuestion, School, GraduationCap, Grid3x3, X, BookOpenCheck, BookOpen, ShieldAlert, CalendarDays, ShoppingBag, MessageSquare, Heart, Lightbulb, Award, Briefcase, Users, BadgeCheck } from 'lucide-react';
+import { Compass, LayoutDashboard, Settings, LogIn, LogOut, ShieldCheck, MessageCircleQuestion, School, GraduationCap, Grid3x3, X, BookOpenCheck, BookOpen, ShieldAlert, CalendarDays, ShoppingBag, MessageSquare, MessageCircle, Heart, Lightbulb, Award, Briefcase, Users, BadgeCheck } from 'lucide-react';
 import { Suspense, lazy, useEffect, useState, type ComponentType } from 'react';
 import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -542,6 +542,18 @@ export function AppLayout() {
         <div className="mb-5 flex justify-center">
           <InstallAppButton />
         </div>
+        {campaign?.whatsapp_url && (
+          <div className="mb-5 flex justify-center">
+            <a
+              href={campaign.whatsapp_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#1ebe5b] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25D366] focus-visible:ring-offset-2"
+            >
+              <MessageCircle className="h-4 w-4" aria-hidden="true" /> {t('footer.whatsappChannel')}
+            </a>
+          </div>
+        )}
         <Link to="/proteccion-datos" className="hover:text-brand-700">{t('nav.dataProtection')}</Link>
         <span className="mx-2">·</span>
         <Link to="/privacidad" className="hover:text-brand-700">{t('auth.privacy')}</Link>

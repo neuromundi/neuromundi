@@ -157,6 +157,9 @@ export function MembershipModal({ open, onClose }: { open: boolean; onClose: () 
                         <span className="mt-0.5 block text-xs font-semibold text-sage-700">
                           {t('membership.savingBadge')}
                         </span>
+                        <span className="mt-1 inline-block rounded-full bg-sage-50 px-2 py-0.5 text-[11px] font-bold text-sage-700">
+                          {t('membership.twoMonthsFree')}
+                        </span>
                       </>
                     )}
                   </button>

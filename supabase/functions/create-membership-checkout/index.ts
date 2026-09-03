@@ -137,6 +137,16 @@ Deno.serve(async (req: Request) => {
     }
   }
 
+  // (4) Política de descuento por PAÍS (la fija el admin en el panel). Se compone
+  //     con los anteriores; nunca bloquea el cobro si falla.
+  let countryPct = 0;
+  try {
+    const { data: cd } = await admin.rpc('country_discount_pct', { p_country: profile.country ?? '' });
+    countryPct = Number(cd ?? 0);
+  } catch {
+    countryPct = 0;
+  }
+
   const origin = req.headers.get('origin') ?? new URL(req.url).origin;
 
   const stripe = new Stripe(stripeKey, {
@@ -158,6 +168,7 @@ Deno.serve(async (req: Request) => {
   // El descuento aplica SOLO al primer pago: cupón `duration: 'once'`.
   const curr = pricing.currency.toLowerCase();
   let discounts: Array<{ coupon: string }> | undefined;
+  let discountPct = 0; // % efectivo aplicado (0 en la ruta de monto fijo); se usa en la metadata.
 
   if (promoBenefit === 'amount' && promoAmount > 0 && promoCurrency === curr) {
     // Monto fijo en la moneda de cobro; se acota al total para no ir negativo.
@@ -176,14 +187,14 @@ Deno.serve(async (req: Request) => {
   } else {
     // Porcentaje: recomendación ∘ promo (%) ∘ fundador, acotado al 90%.
     const pct = promoBenefit === 'percent' ? promoPct : 0;
-    const combinedPct = (1 - (1 - referralPct / 100) * (1 - pct / 100) * (1 - founderPct / 100)) * 100;
-    const discountPct = Math.min(Math.round(combinedPct), 90);
+    const combinedPct = (1 - (1 - referralPct / 100) * (1 - pct / 100) * (1 - founderPct / 100) * (1 - countryPct / 100)) * 100;
+    discountPct = Math.min(Math.round(combinedPct), 90);
     if (discountPct > 0) {
       const coupon = await stripe.coupons.create({
         percent_off: discountPct,
         duration: 'once',
         name: `Descuento Neuromundi (-${discountPct}%)`,
-        metadata: { user_id: u.user.id, kind: 'discount', referral_pct: String(referralPct), promo_pct: String(pct), founder_pct: String(founderPct) },
+        metadata: { user_id: u.user.id, kind: 'discount', referral_pct: String(referralPct), promo_pct: String(pct), founder_pct: String(founderPct), country_pct: String(countryPct) },
       });
       discounts = [{ coupon: coupon.id }];
     }

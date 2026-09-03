@@ -262,7 +262,9 @@
     "map": "地图",
     "verified": "已认证",
     "verifiedTip": "由 Neuromundi 认证的服务商",
-    "reviews": "{{count}} 条评价"
+    "reviews": "{{count}} 条评价",
+    "founder": "创始会员",
+    "founderTip": "Neuromundi 创始会员"
   },
   "map": {
     "locate": "定位到我的位置",
@@ -829,7 +831,9 @@
       "drawPaying": "付费会员",
       "drawCta": "抽奖",
       "drawDone": "抽奖已完成",
-      "winnersCsv": "下载中奖者（CSV）"
+      "winnersCsv": "下载中奖者（CSV）",
+      "whatsappTitle": "WhatsApp 频道",
+      "whatsappHint": "粘贴 WhatsApp 频道链接，页脚会出现加入按钮。"
     }
   },
   "reg": {
@@ -1062,7 +1066,8 @@
     "successTitle": "支付已确认！",
     "successBody": "欢迎成为 Neuromundi 创始会员，你的徽章已激活。",
     "freezeNotice": "你的年费终身冻结：免受未来涨价影响（你所在国家的年度通胀调整除外）。",
-    "successCta": "明白了！"
+    "successCta": "明白了！",
+    "twoMonthsFree": "2个月免费"
   },
   "rules": {
     "version": "版本",
@@ -2425,7 +2430,8 @@
     "title": "关注我们"
   },
   "footer": {
-    "manifesto": "宣言"
+    "manifesto": "宣言",
+    "whatsappChannel": "加入我们的 WhatsApp 频道"
   },
   "founder": {
     "benefitsTitle": "权益",
@@ -3193,7 +3199,8 @@
     "savingNote": "签 12 个月，只付 10 个月。",
     "typeMedical": "医疗专家",
     "typeNonMedical": "非医疗专家",
-    "typeClinic": "诊所"
+    "typeClinic": "诊所",
+    "typeNgo": "NGO/协会"
   },
   "gate": {
     "title": "你的账户已暂停",
@@ -4559,5 +4566,20 @@
     "hint": "可选择1个或全部3个。您将出现在所选每个板块的目录中。",
     "conditionsLabel": "您诊治哪些神经系统疾病？",
     "conditionsHint": "请选择适用项（可选）。"
+  },
+  "disc": {
+    "title": "按国家/地区的折扣",
+    "help": "按国家/地区对首次会费给予百分比折扣。可与推荐、促销和创始叠加（上限90%）。",
+    "country": "国家/地区",
+    "pickCountry": "选择国家/地区",
+    "pct": "折扣%",
+    "note": "备注（可选）",
+    "notePh": "例如：上线",
+    "add": "添加",
+    "saved": "折扣已保存",
+    "badPct": "百分比必须在0到100之间",
+    "active": "启用",
+    "inactive": "停用",
+    "empty": "暂无按国家/地区的折扣。"
   }
 }

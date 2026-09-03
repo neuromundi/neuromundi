@@ -59,6 +59,8 @@ export interface ProviderWithRating extends Profile {
   categories: Category[];
   /** Distintivo oficial calculado (src/lib/badge). Opcional: lo adjunta el directorio. */
   badge?: BadgeResult | null;
+  /** Miembro Fundador: aparece primero en el directorio y con sello (SEO fundadores). */
+  is_founder?: boolean;
 }
 
 /** Payload que viaja dentro del QR del padre. */

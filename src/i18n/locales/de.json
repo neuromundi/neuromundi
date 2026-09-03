@@ -262,7 +262,9 @@
     "map": "Karte",
     "verified": "Verifiziert",
     "verifiedTip": "Anbieter verifiziert von NeuroVerzeichnis",
-    "reviews": "{{count}} Bewertungen"
+    "reviews": "{{count}} Bewertungen",
+    "founder": "Gründungsmitglied",
+    "founderTip": "Neuromundi-Gründungsmitglied"
   },
   "map": {
     "locate": "Auf meinen Standort zentrieren",
@@ -829,7 +831,9 @@
       "drawPaying": "Zahlende Mitglieder",
       "drawCta": "Ziehen",
       "drawDone": "Ziehung abgeschlossen",
-      "winnersCsv": "Gewinner herunterladen (CSV)"
+      "winnersCsv": "Gewinner herunterladen (CSV)",
+      "whatsappTitle": "WhatsApp-Kanal",
+      "whatsappHint": "Füge den WhatsApp-Kanal-Link ein. Im Footer erscheint ein Beitritts-Button."
     }
   },
   "reg": {
@@ -1062,7 +1066,8 @@
     "successTitle": "Zahlung bestätigt!",
     "successBody": "Willkommen als Neuromundi-Gründungsmitglied. Dein Abzeichen ist aktiv.",
     "freezeNotice": "Dein Jahresbeitrag ist lebenslang eingefroren: Schutz vor künftigen Erhöhungen (außer der jährlichen Inflationsanpassung deines Landes).",
-    "successCta": "Verstanden!"
+    "successCta": "Verstanden!",
+    "twoMonthsFree": "2 Monate gratis"
   },
   "rules": {
     "version": "Version",
@@ -2425,7 +2430,8 @@
     "title": "Folge uns"
   },
   "footer": {
-    "manifesto": "Manifest"
+    "manifesto": "Manifest",
+    "whatsappChannel": "Tritt unserem WhatsApp-Kanal bei"
   },
   "founder": {
     "benefitsTitle": "Vorteile",
@@ -3193,7 +3199,8 @@
     "savingNote": "12 Monate zum Preis von 10.",
     "typeMedical": "Medizinische Fachkraft",
     "typeNonMedical": "Nicht-medizinische Fachkraft",
-    "typeClinic": "Klinik"
+    "typeClinic": "Klinik",
+    "typeNgo": "NGO / Verein"
   },
   "gate": {
     "title": "Dein Konto pausiert",
@@ -4559,5 +4566,20 @@
     "hint": "Wähle 1 oder alle 3. Du erscheinst im Verzeichnis jeder gewählten Sektion.",
     "conditionsLabel": "Welche neurologischen Erkrankungen behandelst du?",
     "conditionsHint": "Wähle alle zutreffenden aus (optional)."
+  },
+  "disc": {
+    "title": "Rabatte nach Land",
+    "help": "Ein %-Rabatt auf die erste Beitragszahlung, nach Land. Kombinierbar mit Empfehlung, Promo und Gründer (max. 90%).",
+    "country": "Land",
+    "pickCountry": "Land wählen",
+    "pct": "% Rabatt",
+    "note": "Notiz (optional)",
+    "notePh": "z. B. Launch",
+    "add": "Hinzufügen",
+    "saved": "Rabatt gespeichert",
+    "badPct": "Prozentsatz muss zwischen 0 und 100 liegen",
+    "active": "Aktiv",
+    "inactive": "Inaktiv",
+    "empty": "Noch keine Länderrabatte."
   }
 }

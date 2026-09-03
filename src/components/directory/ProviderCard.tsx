@@ -6,7 +6,7 @@
  * y "Nuevo". Emite eventos para ver el perfil o centrar el mapa.
  */
 import { useMemo, useState } from 'react';
-import { MapPin, Tag, MessageCircle, ShieldCheck, ChevronDown, Map as MapIcon, Sparkles } from 'lucide-react';
+import { MapPin, Tag, MessageCircle, ShieldCheck, ChevronDown, Map as MapIcon, Sparkles, Crown } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Button, EVSBadge, ProgressBar , Avatar, DistintivoBadge } from '@/components/ui';
 import { cn, evsColor } from '@/lib/utils';
@@ -81,6 +81,11 @@ export function ProviderCard({
             {provider.neuroaffirming && (
               <span title={t('neuro.sealHint')}>
                 <Sparkles className="h-4 w-4 shrink-0 text-violet-500" aria-label={t('neuro.seal')} />
+              </span>
+            )}
+            {provider.is_founder && (
+              <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-amber-100 px-2 py-0.5 text-[11px] font-bold text-amber-800" title={t('card.founderTip')}>
+                <Crown className="h-3 w-3" aria-hidden="true" /> {t('card.founder')}
               </span>
             )}
           </div>

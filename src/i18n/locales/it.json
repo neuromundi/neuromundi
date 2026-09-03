@@ -262,7 +262,9 @@
     "map": "Mappa",
     "verified": "Verificato",
     "verifiedTip": "Fornitore verificato da Neuromundi",
-    "reviews": "{{count}} recensioni"
+    "reviews": "{{count}} recensioni",
+    "founder": "Fondatore",
+    "founderTip": "Membro fondatore di Neuromundi"
   },
   "map": {
     "locate": "Centra sulla mia posizione",
@@ -829,7 +831,9 @@
       "drawPaying": "Membri paganti",
       "drawCta": "Estrai",
       "drawDone": "Estrazione completata",
-      "winnersCsv": "Scarica vincitori (CSV)"
+      "winnersCsv": "Scarica vincitori (CSV)",
+      "whatsappTitle": "Canale WhatsApp",
+      "whatsappHint": "Incolla il link del canale WhatsApp. Nel piè di pagina appare un pulsante per unirsi."
     }
   },
   "reg": {
@@ -1062,7 +1066,8 @@
     "successTitle": "Pagamento confermato!",
     "successBody": "Benvenuto come Membro Fondatore di Neuromundi. Il tuo distintivo è attivo.",
     "freezeNotice": "La tua quota annuale è congelata a vita: ti protegge da aumenti futuri (salvo l’adeguamento annuo all’inflazione del tuo Paese).",
-    "successCta": "Capito!"
+    "successCta": "Capito!",
+    "twoMonthsFree": "2 mesi gratis"
   },
   "rules": {
     "version": "Versione",
@@ -2425,7 +2430,8 @@
     "title": "Seguici"
   },
   "footer": {
-    "manifesto": "Manifesto"
+    "manifesto": "Manifesto",
+    "whatsappChannel": "Unisciti al nostro canale WhatsApp"
   },
   "founder": {
     "benefitsTitle": "Vantaggi",
@@ -3193,7 +3199,8 @@
     "savingNote": "12 mesi al prezzo di 10.",
     "typeMedical": "Specialista medico",
     "typeNonMedical": "Specialista non medico",
-    "typeClinic": "Clinica"
+    "typeClinic": "Clinica",
+    "typeNgo": "ONG / Associazione"
   },
   "gate": {
     "title": "Il tuo account è in pausa",
@@ -4559,5 +4566,20 @@
     "hint": "Scegli 1 o tutte e 3. Comparirai nella directory di ogni sezione scelta.",
     "conditionsLabel": "Quali patologie neurologiche tratti?",
     "conditionsHint": "Seleziona quelle pertinenti (facoltativo)."
+  },
+  "disc": {
+    "title": "Sconti per Paese",
+    "help": "Uno sconto in % sul primo pagamento della quota, per Paese. Si combina con referral, promo e fondatore (max 90%).",
+    "country": "Paese",
+    "pickCountry": "Scegli un Paese",
+    "pct": "% sconto",
+    "note": "Nota (facoltativo)",
+    "notePh": "Es. lancio",
+    "add": "Aggiungi",
+    "saved": "Sconto salvato",
+    "badPct": "La percentuale deve essere tra 0 e 100",
+    "active": "Attivo",
+    "inactive": "Inattivo",
+    "empty": "Nessuno sconto per Paese ancora."
   }
 }

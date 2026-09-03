@@ -1463,6 +1463,22 @@ export interface Database {
         Args: { p_url: string };
         Returns: undefined;
       };
+      admin_set_whatsapp_url: {
+        Args: { p_url: string };
+        Returns: undefined;
+      };
+      country_discount_pct: {
+        Args: { p_country: string };
+        Returns: number;
+      };
+      admin_country_discounts: {
+        Args: Record<string, never>;
+        Returns: { country_label: string; pct: number; is_active: boolean; note: string | null; updated_at: string }[];
+      };
+      admin_set_country_discount: {
+        Args: { p_country: string; p_pct: number | null; p_active?: boolean; p_note?: string | null };
+        Returns: undefined;
+      };
       admin_raffle_draw: {
         Args: { p_count: number; p_role?: string | null; p_batch?: string | null };
         Returns: { user_id: string; name: string; member_no: number | null; email: string; tickets: number }[];

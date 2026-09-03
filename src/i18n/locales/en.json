@@ -299,7 +299,9 @@
     "map": "Map",
     "verified": "Verified",
     "verifiedTip": "Provider verified by Neuromundi",
-    "reviews": "{{count}} reviews"
+    "reviews": "{{count}} reviews",
+    "founder": "Founder",
+    "founderTip": "Neuromundi Founding Member"
   },
   "map": {
     "locate": "Center on my location",
@@ -866,7 +868,9 @@
       "drawPaying": "Paying members",
       "drawCta": "Draw",
       "drawDone": "Draw completed",
-      "winnersCsv": "Download winners (CSV)"
+      "winnersCsv": "Download winners (CSV)",
+      "whatsappTitle": "WhatsApp channel",
+      "whatsappHint": "Paste the WhatsApp channel link. A join button appears in the site footer."
     }
   },
   "reg": {
@@ -1099,7 +1103,8 @@
     "successTitle": "Payment confirmed!",
     "successBody": "Welcome as a Neuromundi Founder Member. Your badge is now active.",
     "freezeNotice": "Your annual fee is frozen for life: it protects you from future increases (except the yearly inflation adjustment for your country).",
-    "successCta": "Got it!"
+    "successCta": "Got it!",
+    "twoMonthsFree": "2 months free"
   },
   "rules": {
     "version": "Version",
@@ -2482,7 +2487,8 @@
     "reqsBoxTitle": "Requirements by profile"
   },
   "footer": {
-    "manifesto": "Manifesto"
+    "manifesto": "Manifesto",
+    "whatsappChannel": "Join our WhatsApp channel"
   },
   "blog": {
     "title": "Neuromundi Blog",
@@ -3193,7 +3199,8 @@
     "savingNote": "Get 12 months, pay for 10.",
     "typeMedical": "Medical specialist",
     "typeNonMedical": "Non-medical specialist",
-    "typeClinic": "Clinic"
+    "typeClinic": "Clinic",
+    "typeNgo": "NGO / Association"
   },
   "gate": {
     "title": "Your account is paused",
@@ -4559,5 +4566,20 @@
     "hint": "Choose 1 or all 3. You’ll appear in the directory of each selected section.",
     "conditionsLabel": "Which neurological conditions do you treat?",
     "conditionsHint": "Select all that apply (optional)."
+  },
+  "disc": {
+    "title": "Discounts by country",
+    "help": "A % discount on the first membership payment, by country. Combines with referral, promo and founder (cap 90%).",
+    "country": "Country",
+    "pickCountry": "Choose a country",
+    "pct": "% off",
+    "note": "Note (optional)",
+    "notePh": "e.g. launch",
+    "add": "Add",
+    "saved": "Discount saved",
+    "badPct": "Percentage must be between 0 and 100",
+    "active": "Active",
+    "inactive": "Inactive",
+    "empty": "No country discounts yet."
   }
 }

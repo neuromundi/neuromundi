@@ -262,7 +262,9 @@
     "map": "地図",
     "verified": "認証済み",
     "verifiedTip": "Neuromundiが認証した事業者",
-    "reviews": "{{count}} 件のレビュー"
+    "reviews": "{{count}} 件のレビュー",
+    "founder": "創設メンバー",
+    "founderTip": "Neuromundi創設メンバー"
   },
   "map": {
     "locate": "現在地に移動",
@@ -829,7 +831,9 @@
       "drawPaying": "有料会員",
       "drawCta": "抽選",
       "drawDone": "抽選が完了しました",
-      "winnersCsv": "当選者をダウンロード（CSV）"
+      "winnersCsv": "当選者をダウンロード（CSV）",
+      "whatsappTitle": "WhatsAppチャンネル",
+      "whatsappHint": "WhatsAppチャンネルのリンクを貼り付け。フッターに参加ボタンが表示されます。"
     }
   },
   "reg": {
@@ -1062,7 +1066,8 @@
     "successTitle": "お支払い完了！",
     "successBody": "Neuromundi創設メンバーへようこそ。バッジが有効になりました。",
     "freezeNotice": "年会費は生涯固定：将来の値上げから守られます（国のインフレによる年次調整を除く）。",
-    "successCta": "了解！"
+    "successCta": "了解！",
+    "twoMonthsFree": "2か月無料"
   },
   "rules": {
     "version": "バージョン",
@@ -2425,7 +2430,8 @@
     "title": "フォローする"
   },
   "footer": {
-    "manifesto": "マニフェスト"
+    "manifesto": "マニフェスト",
+    "whatsappChannel": "WhatsAppチャンネルに参加"
   },
   "founder": {
     "benefitsTitle": "特典",
@@ -3193,7 +3199,8 @@
     "savingNote": "12か月分を10か月分の料金で。",
     "typeMedical": "医療専門職",
     "typeNonMedical": "非医療専門職",
-    "typeClinic": "クリニック"
+    "typeClinic": "クリニック",
+    "typeNgo": "NGO・団体"
   },
   "gate": {
     "title": "アカウントは一時停止中です",
@@ -4559,5 +4566,20 @@
     "hint": "1つでも3つでも選択可。選んだ各セクションの名簿に表示されます。",
     "conditionsLabel": "対応する神経疾患は？",
     "conditionsHint": "該当するものを選択（任意）。"
+  },
+  "disc": {
+    "title": "国別割引",
+    "help": "初回会費への割引（%）を国別に。紹介・プロモ・創設と併用（上限90%）。",
+    "country": "国",
+    "pickCountry": "国を選択",
+    "pct": "割引%",
+    "note": "メモ（任意）",
+    "notePh": "例：ローンチ",
+    "add": "追加",
+    "saved": "割引を保存しました",
+    "badPct": "パーセントは0〜100の範囲で",
+    "active": "有効",
+    "inactive": "無効",
+    "empty": "国別割引はまだありません。"
   }
 }

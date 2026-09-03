@@ -40,6 +40,7 @@ export function AdminCampaign() {
   const [popupContinents, setPopupContinents] = useState<Record<string, boolean>>({});
   const [stages, setStages] = useState<{ days: number; pct: number }[]>([]);
   const [community, setCommunity] = useState('');
+  const [whatsapp, setWhatsapp] = useState('');
   const [drawCount, setDrawCount] = useState(1);
   const [drawRole, setDrawRole] = useState('');
   const [winners, setWinners] = useState<{ name: string; member_no: number | null; email: string; tickets: number }[]>([]);
@@ -50,10 +51,11 @@ export function AdminCampaign() {
     const c = data as {
       active: boolean; start_at: string | null; default_block_days: number;
       block_days_by_country: Record<string, number>; popup_active: boolean; popup_continents: Record<string, boolean>;
-      founder_discount: { days: number; pct: number }[]; community_url: string | null;
+      founder_discount: { days: number; pct: number }[]; community_url: string | null; whatsapp_url: string | null;
     } | null;
     if (c) {
       setCommunity(c.community_url ?? '');
+      setWhatsapp(c.whatsapp_url ?? '');
       setActive(c.active);
       setStartLocal(isoToLocal(c.start_at));
       setDefaultDays(c.default_block_days);
@@ -82,6 +84,11 @@ export function AdminCampaign() {
     setBusy(false);
     if (error) toast.error(error.message);
     else toast.success(t('admin.camp.saved'));
+  };
+
+  const saveWhatsapp = async () => {
+    const { error } = await supabase.rpc('admin_set_whatsapp_url', { p_url: whatsapp });
+    toast[error ? 'error' : 'success'](error ? error.message : t('admin.camp.saved'));
   };
 
   const saveCommunity = async () => {
@@ -206,6 +213,16 @@ export function AdminCampaign() {
         <div className="flex gap-2">
           <input className={inputCls} type="url" placeholder="https://discord.gg/… o https://chat.whatsapp.com/…" value={community} onChange={(e) => setCommunity(e.target.value)} />
           <Button size="sm" onClick={() => void saveCommunity()}>{t('admin.camp.save')}</Button>
+        </div>
+      </div>
+
+      {/* Canal de WhatsApp (botón público en el pie) */}
+      <div className="rounded-2xl border border-slate-100 bg-white p-4 shadow-sm">
+        <h3 className="mb-1 font-semibold text-slate-900">{t('admin.camp.whatsappTitle')}</h3>
+        <p className="mb-2 text-xs text-muted">{t('admin.camp.whatsappHint')}</p>
+        <div className="flex gap-2">
+          <input className={inputCls} type="url" placeholder="https://whatsapp.com/channel/…" value={whatsapp} onChange={(e) => setWhatsapp(e.target.value)} />
+          <Button size="sm" onClick={() => void saveWhatsapp()}>{t('admin.camp.save')}</Button>
         </div>
       </div>
 

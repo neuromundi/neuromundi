@@ -20,6 +20,7 @@ import { annualFromMonthly, listFromMonthly } from '@/lib/pricing';
 import { cn } from '@/lib/utils';
 import { FeesCsvPanel } from './FeesCsvPanel';
 import { AdminPromoCodes } from './AdminPromoCodes';
+import { AdminCountryDiscounts } from './AdminCountryDiscounts';
 
 const TYPE_KEY: Record<string, string> = {
   patient: 'fees.typePatient',
@@ -30,6 +31,7 @@ const TYPE_KEY: Record<string, string> = {
   merchant: 'fees.typeMerchant',
   school: 'fees.typeSchool',
   clinic: 'fees.typeClinic',
+  ngo: 'fees.typeNgo',
 };
 
 /**
@@ -312,6 +314,9 @@ export function AdminFees() {
         <Coins className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
         {t('fees.freeNote')}
       </p>
+
+      {/* Política de descuentos por país (migración 0089). */}
+      <AdminCountryDiscounts />
 
       {/* Códigos promocionales (antes en "Facturación"). */}
       <AdminPromoCodes />

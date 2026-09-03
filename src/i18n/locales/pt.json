@@ -262,7 +262,9 @@
     "map": "Mapa",
     "verified": "Verificado",
     "verifiedTip": "Fornecedor verificado pelo NeuroDiretório",
-    "reviews": "{{count}} avaliações"
+    "reviews": "{{count}} avaliações",
+    "founder": "Fundador",
+    "founderTip": "Membro Fundador da Neuromundi"
   },
   "map": {
     "locate": "Centralizar na minha localização",
@@ -829,7 +831,9 @@
       "drawPaying": "Membros pagantes",
       "drawCta": "Sortear",
       "drawDone": "Sorteio realizado",
-      "winnersCsv": "Baixar vencedores (CSV)"
+      "winnersCsv": "Baixar vencedores (CSV)",
+      "whatsappTitle": "Canal do WhatsApp",
+      "whatsappHint": "Cole o link do canal do WhatsApp. Um botão para entrar aparece no rodapé."
     }
   },
   "reg": {
@@ -1062,7 +1066,8 @@
     "successTitle": "Pagamento confirmado!",
     "successBody": "Bem-vindo como Membro Fundador da Neuromundi. Seu selo já está ativo.",
     "freezeNotice": "Sua anuidade fica congelada para sempre: protege de aumentos futuros (exceto o ajuste anual pela inflação do seu país).",
-    "successCta": "Entendi!"
+    "successCta": "Entendi!",
+    "twoMonthsFree": "2 meses grátis"
   },
   "rules": {
     "version": "Versão",
@@ -2425,7 +2430,8 @@
     "title": "Siga-nos"
   },
   "footer": {
-    "manifesto": "Manifesto"
+    "manifesto": "Manifesto",
+    "whatsappChannel": "Junte-se ao nosso canal do WhatsApp"
   },
   "founder": {
     "benefitsTitle": "Benefícios",
@@ -3193,7 +3199,8 @@
     "savingNote": "12 meses pagando 10.",
     "typeMedical": "Especialista médico",
     "typeNonMedical": "Especialista não médico",
-    "typeClinic": "Clínica"
+    "typeClinic": "Clínica",
+    "typeNgo": "ONG / Associação"
   },
   "gate": {
     "title": "Sua conta está pausada",
@@ -4559,5 +4566,20 @@
     "hint": "Escolha 1 ou as 3. Você aparecerá no diretório de cada seção selecionada.",
     "conditionsLabel": "Quais afecções neurológicas você atende?",
     "conditionsHint": "Selecione as aplicáveis (opcional)."
+  },
+  "disc": {
+    "title": "Descontos por país",
+    "help": "Um % de desconto no primeiro pagamento da mensalidade, por país. Combina com indicação, promo e fundador (teto 90%).",
+    "country": "País",
+    "pickCountry": "Escolha um país",
+    "pct": "% desc.",
+    "note": "Nota (opcional)",
+    "notePh": "Ex. lançamento",
+    "add": "Adicionar",
+    "saved": "Desconto salvo",
+    "badPct": "A porcentagem deve estar entre 0 e 100",
+    "active": "Ativo",
+    "inactive": "Inativo",
+    "empty": "Ainda não há descontos por país."
   }
 }
