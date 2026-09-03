@@ -1,0 +1,113 @@
+# ============================================================================
+# Build y despliegue automático a Hostinger.
+# ----------------------------------------------------------------------------
+# Se dispara con cada push a `main` (o a mano desde la pestaña Actions).
+#
+# Qué resuelve:
+#  · Las claves (Supabase, CARTO) viven en GitHub como Secrets, no en tu
+#    máquina. No hay que volver a escribir el .env en cada build.
+#  · El .htaccess (archivo OCULTO, y el que hace funcionar las rutas en
+#    Apache/Hostinger) se sube siempre. Arrastrando carpetas a mano es
+#    justo el archivo que se pierde sin que te des cuenta.
+#  · Nunca más se sube un build hecho desde una rama vieja: siempre compila
+#    lo que hay en main en ese momento.
+#
+# Secrets que hay que configurar UNA VEZ en:
+#   GitHub → Settings → Secrets and variables → Actions → New repository secret
+#
+#   VITE_SUPABASE_URL        https://sboagswcehuxwfjdbhdn.supabase.co
+#   VITE_SUPABASE_ANON_KEY   la anon key del proyecto Supabase
+#   VITE_CARTO_KEY           la API key de CARTO Basemaps
+#   FTP_SERVER               host FTP de Hostinger (p. ej. ftp.neuromundi.com)
+#   FTP_USERNAME             usuario FTP
+#   FTP_PASSWORD             contraseña FTP
+#
+# Los tres primeros son claves públicas (viajan al navegador de todos modos).
+# Los tres de FTP sí son credenciales reales: van como Secrets y GitHub los
+# oculta incluso en los logs de ejecución.
+# ============================================================================
+
+name: Deploy a Hostinger
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: # permite lanzarlo a mano desde la pestaña Actions
+
+# Evita que dos despliegues corran a la vez y se pisen a medio subir.
+concurrency:
+  group: deploy-produccion
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Traer el código
+        uses: actions/checkout@v5
+
+      - name: Preparar Node
+        uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Verificar tipos
+        run: npx tsc --noEmit
+
+      - name: Pruebas
+        run: npx vitest run
+
+      - name: Compilar
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+          VITE_CARTO_KEY: ${{ secrets.VITE_CARTO_KEY }}
+        run: npm run build
+
+      # Red de seguridad: si el .htaccess no llegó a dist/, las rutas del sitio
+      # devolverían 404 en Apache. Mejor fallar aquí que desplegar roto.
+      - name: Comprobar que el .htaccess esté en el build
+        run: test -f dist/.htaccess || (echo "Falta dist/.htaccess" && exit 1)
+
+      # Sincronización incremental: solo sube lo que cambió y no borra nada
+      # ajeno al build. NO se usa `dangerous-clean-slate` a propósito — vaciar
+      # public_html en cada push destruiría cualquier otra cosa que viva ahí.
+      #
+      # Vite pone un hash en el nombre de cada archivo (index-a1b2c3.js), así
+      # que los bundles viejos quedan huérfanos pero no estorban: el index.html
+      # nuevo apunta solo a los nuevos. Si con el tiempo molestan, se limpian a
+      # mano una vez, sin prisa.
+      # `continue-on-error` en el primer intento: si Hostinger corta la
+      # conexión, el paso falla sin tumbar el despliegue y el siguiente lo
+      # reintenta. Solo el segundo intento marca el resultado final, así que un
+      # fallo real sigue saliendo en rojo.
+      - name: Subir a Hostinger
+        id: subida
+        continue-on-error: true
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./dist/
+          server-dir: ./
+          # Hostinger corta o retrasa conexiones de forma intermitente (en una
+          # tanda de 10 despliegues fallaron 4, con la MISMA configuración que
+          # los 6 que pasaron). 60 s en vez de los 30 por defecto le dan margen.
+          timeout: 60000
+
+      - name: Reintentar subida si falló
+        if: steps.subida.outcome == 'failure'
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./dist/
+          server-dir: ./
+          timeout: 60000

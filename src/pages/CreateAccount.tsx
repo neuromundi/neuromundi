@@ -64,7 +64,10 @@ export function CreateAccount() {
     const isCompany = selected === 'company';
     const isEsparcimiento = selected === 'tourism';
     const isK = K_SET.has(selected) && !isEsparcimiento;
-    const wide = isSpecialist || isProvider || isClinic || isSchool || isK || isCompany;
+    // Esparcimiento queda FUERA de `isK` (tiene su propio formulario dedicado
+    // con lat/long y horarios), así que hay que sumarlo aquí explícitamente o
+    // se quedaría con el contenedor estrecho y los campos saldrían aplastados.
+    const wide = isSpecialist || isProvider || isClinic || isSchool || isK || isCompany || isEsparcimiento;
     return (
       <div className={`mx-auto px-4 py-10 ${wide ? 'max-w-4xl' : 'max-w-3xl'}`}>
         <button onClick={() => setSelected(null)} className="mb-4 inline-flex items-center gap-1 text-sm font-semibold text-brand-700 hover:underline">

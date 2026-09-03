@@ -22,6 +22,21 @@ import 'leaflet/dist/leaflet.css';
 import 'leaflet.markercluster/dist/MarkerCluster.css';
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 
+/**
+ * Tiles de CARTO. Desde agosto de 2026 CARTO exige API key: sin ella, los
+ * tiles se sirven con una marca de agua "API KEY REQUIRED" encima del mapa.
+ *
+ * La clave va en la URL, así que es pública por naturaleza (cualquiera puede
+ * verla en las peticiones del navegador) — CARTO la protege atándola al
+ * dominio, no ocultándola. Aun así se lee de una variable de entorno para no
+ * dejarla escrita en el repositorio. Si la variable no está definida, la URL
+ * queda sin `?key=` y el mapa sigue funcionando (con marca de agua).
+ */
+const CARTO_KEY = import.meta.env.VITE_CARTO_KEY as string | undefined;
+const TILE_URL = `https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png${
+  CARTO_KEY ? `?key=${CARTO_KEY}` : ''
+}`;
+
 export interface MapViewProps {
   providers: ProviderWithRating[];
   selectedId?: string | null;
@@ -172,7 +187,7 @@ export function MapView({
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
-          url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+          url={TILE_URL}
         />
 
         {center && radiusKm && (
