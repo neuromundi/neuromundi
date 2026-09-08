@@ -1,8 +1,8 @@
-/**
- * Settings — ajustes de la cuenta (núcleo de AccountSettings 3.1), internacionalizado.
+﻿/**
+ * Settings â€” ajustes de la cuenta (nÃºcleo de AccountSettings 3.1), internacionalizado.
  *
  * Edita datos del perfil (con avatar) y, para proveedores, los datos del negocio
- * y la publicación. Incluye el selector de idioma y la zona de peligro.
+ * y la publicaciÃ³n. Incluye el selector de idioma y la zona de peligro.
  */
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
@@ -34,10 +34,10 @@ const labelCls = 'mb-1 block font-semibold text-slate-900';
 function PushSection() {
   const { t } = useTranslation();
   const { state, enable } = usePushSubscribe();
-  // Cuando ya está concedido, esta tarjeta solo repetía "activadas" (sin acción)
-  // y duplicaba a la sección "Notificaciones push" (NotificationPrefs), que ya
-  // gestiona el estado y las categorías. Se muestra únicamente cuando falta
-  // activarlo o está bloqueado en el navegador.
+  // Cuando ya estÃ¡ concedido, esta tarjeta solo repetÃ­a "activadas" (sin acciÃ³n)
+  // y duplicaba a la secciÃ³n "Notificaciones push" (NotificationPrefs), que ya
+  // gestiona el estado y las categorÃ­as. Se muestra Ãºnicamente cuando falta
+  // activarlo o estÃ¡ bloqueado en el navegador.
   if (state === 'unsupported' || state === 'unconfigured' || state === 'granted') return null;
   return (
     <section className="flex items-center justify-between gap-3 rounded-2xl border border-slate-100 p-4">
@@ -115,9 +115,9 @@ export function Settings() {
     setNewPassword(''); setNewPassword2('');
     toast.success(t('settings.pwUpdated'));
     if (recovery) {
-      // El enlace de recuperación es de un solo uso: al terminar cerramos la
-      // sesión temporal para que no pueda reutilizarse; el usuario entra con su
-      // nueva contraseña.
+      // El enlace de recuperaciÃ³n es de un solo uso: al terminar cerramos la
+      // sesiÃ³n temporal para que no pueda reutilizarse; el usuario entra con su
+      // nueva contraseÃ±a.
       await signOut();
       navigate('/auth', { replace: true });
     }
@@ -209,7 +209,7 @@ export function Settings() {
       patch.services_offered = orNull(values.services_offered);
       patch.provider_type = values.provider_type;
       patch.is_published = values.is_published;
-      // Datos fiscales (factura México/CFDI e internacional).
+      // Datos fiscales (factura MÃ©xico/CFDI e internacional).
       patch.fiscal_razon_social = orNull(values.fiscal_razon_social);
       patch.fiscal_regimen = orNull(values.fiscal_regimen);
       patch.fiscal_uso_cfdi = orNull(values.fiscal_uso_cfdi);
@@ -220,7 +220,7 @@ export function Settings() {
       patch.fiscal_country = orNull(values.fiscal_country);
       // Grados escolares (solo escuelas).
       patch.school_grades = values.provider_type === 'school' ? (values.school_grades ?? []) : [];
-      // Directorio y especialización.
+      // Directorio y especializaciÃ³n.
       patch.profession = orNull(values.profession);
       patch.specialties = values.specialties ?? [];
       patch.intervention_areas = values.intervention_areas ?? [];
@@ -247,10 +247,10 @@ export function Settings() {
   };
 
   const finishAccountFlow = () => {
-    // La cuenta ya fue borrada y `deleteAccount` limpió la sesión SOLO en el
-    // cliente (sin llamar a `/auth/v1/logout`, que daría 403 porque el usuario
+    // La cuenta ya fue borrada y `deleteAccount` limpiÃ³ la sesiÃ³n SOLO en el
+    // cliente (sin llamar a `/auth/v1/logout`, que darÃ­a 403 porque el usuario
     // ya no existe). Recargamos en la home con `assign` para reiniciar el
-    // cliente de Supabase sin rastro del token. NO llamamos signOut aquí.
+    // cliente de Supabase sin rastro del token. NO llamamos signOut aquÃ­.
     setShowAccountFlow(false);
     window.location.assign('/');
   };
@@ -370,7 +370,7 @@ export function Settings() {
             </div>
             <div>
               <label htmlFor="s-web" className={labelCls}>{t('settings.website')}</label>
-              <input id="s-web" className={inputCls} placeholder="https://…" {...register('website_url')} />
+              <input id="s-web" className={inputCls} placeholder="https://â€¦" {...register('website_url')} />
               {errors.website_url && <p role="alert" className="mt-1 text-sm text-evs-1">{t(errors.website_url.message!)}</p>}
             </div>
             <div className="grid grid-cols-2 gap-3">
@@ -392,12 +392,12 @@ export function Settings() {
           </fieldset>
         )}
 
-        {/* ── Directorio y especialización (solo proveedores) ──────────────── */}
+        {/* â”€â”€ Directorio y especializaciÃ³n (solo proveedores) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
         {isProvider && (
           <fieldset className="space-y-4 rounded-2xl border border-brand-100 bg-brand-50/30 p-4">
             <legend className="px-1 font-semibold text-slate-900">{t('settings.directory')}</legend>
 
-            {/* Profesión */}
+            {/* ProfesiÃ³n */}
             <div>
               <label htmlFor="s-prof" className={labelCls}>{t('settings.profession')}</label>
               <input id="s-prof" className={inputCls} placeholder={t('settings.professionPlaceholder')} {...register('profession')} />
@@ -418,7 +418,7 @@ export function Settings() {
               <p className="mt-1 text-xs text-muted">{t('settings.specialtiesHint')}</p>
             </div>
 
-            {/* Áreas de intervención */}
+            {/* Ãreas de intervenciÃ³n */}
             <div>
               <label htmlFor="s-areas" className={labelCls}>{t('settings.interventionAreas')}</label>
               <input
@@ -433,7 +433,7 @@ export function Settings() {
               <p className="mt-1 text-xs text-muted">{t('settings.specialtiesHint')}</p>
             </div>
 
-            {/* Categorías Neuromundi (neuro_conditions → sections) */}
+            {/* CategorÃ­as Neuromundi (neuro_conditions â†’ sections) */}
             <div>
               <p className={labelCls}>{t('settings.neuroCategories')}</p>
               <div className="mt-2 space-y-2">
@@ -464,7 +464,7 @@ export function Settings() {
               </div>
             </div>
 
-            {/* Modalidades de atención */}
+            {/* Modalidades de atenciÃ³n */}
             <div>
               <p className={labelCls}>{t('settings.modalities')}</p>
               <div className="mt-2 grid grid-cols-2 gap-2">
@@ -513,7 +513,7 @@ export function Settings() {
                 <label htmlFor="s-book" className={labelCls}>
                   <span className="flex items-center gap-1.5"><CalendarCheck className="h-4 w-4 text-brand-600" /> {t('settings.bookingUrl')}</span>
                 </label>
-                <input id="s-book" className={inputCls} placeholder="https://cal.com/…" {...register('booking_url')} />
+                <input id="s-book" className={inputCls} placeholder="https://cal.com/â€¦" {...register('booking_url')} />
                 {errors.booking_url && <p role="alert" className="mt-1 text-sm text-evs-1">{t(errors.booking_url.message!)}</p>}
               </div>
             </div>
@@ -530,7 +530,7 @@ export function Settings() {
                 <label htmlFor="s-fb" className={labelCls}>
                   <span className="flex items-center gap-1.5"><Facebook className="h-4 w-4 text-blue-600" /> Facebook</span>
                 </label>
-                <input id="s-fb" className={inputCls} placeholder="facebook.com/página" {...register('facebook')} />
+                <input id="s-fb" className={inputCls} placeholder="facebook.com/pÃ¡gina" {...register('facebook')} />
               </div>
             </div>
           </fieldset>
@@ -543,7 +543,7 @@ export function Settings() {
 
       {isProvider && <ProviderLocations providerId={profile.id} />}
 
-      {/* Cambio de contraseña (también atiende el flujo de recuperación) */}
+      {/* Cambio de contraseÃ±a (tambiÃ©n atiende el flujo de recuperaciÃ³n) */}
       <section id="password" className={`space-y-3 rounded-2xl border p-4 ${recovery ? 'border-brand-300 bg-brand-50' : 'border-slate-100'}`}>
         <h2 className="flex items-center gap-2 font-bold text-slate-900">
           <KeyRound className="h-5 w-5 text-brand-600" aria-hidden="true" /> {t('settings.changePassword')}
@@ -571,16 +571,16 @@ export function Settings() {
       {/* Notificaciones push nativas */}
       <PushSection />
 
-      {/* Preferencias de notificación (qué se empuja al dispositivo) */}
+      {/* Preferencias de notificaciÃ³n (quÃ© se empuja al dispositivo) */}
       <NotificationPrefs />
 
-      {/* Suscripción a avisos por categoría (empleo, esparcimiento…): solo consumidores */}
+      {/* SuscripciÃ³n a avisos por categorÃ­a (empleo, esparcimientoâ€¦): solo consumidores */}
       {!isProvider && <TopicSubscriptions />}
 
       {/* Seguimiento de denuncias del miembro */}
       <MyReports />
 
-      {/* Ayuda: reabrir la guía rápida */}
+      {/* Ayuda: reabrir la guÃ­a rÃ¡pida */}
       <section className="flex items-center justify-between gap-3 rounded-2xl border border-slate-100 p-4">
         <span className="flex items-center gap-2 font-semibold text-slate-900">
           <HelpCircle className="h-5 w-5 text-brand-600" aria-hidden="true" /> {t('tour.reopenTitle')}
