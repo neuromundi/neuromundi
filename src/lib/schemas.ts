@@ -352,6 +352,18 @@ export const profileSchema = z.object({
     .nullable()
     .optional(),
   is_published: z.boolean().optional().default(false),
+  // ── Directorio ──────────────────────────────────────────────────────────────
+  profession: z.string().trim().max(140).optional().default(''),
+  specialties: z.array(z.string()).optional().default([]),
+  intervention_areas: z.array(z.string()).optional().default([]),
+  neuro_conditions: z.array(z.string()).optional().default([]),
+  sections: z.array(z.string()).optional().default([]),
+  modalities: z.array(z.string()).optional().default([]),
+  neuroaffirming: z.boolean().optional().default(false),
+  whatsapp: z.string().trim().max(30).optional().default(''),
+  booking_url: z.string().trim().url('val.url').optional().or(z.literal('')),
+  instagram: z.string().trim().max(200).optional().default(''),
+  facebook: z.string().trim().max(200).optional().default(''),
 });
 
 export type ProfileFormValues = z.input<typeof profileSchema>;

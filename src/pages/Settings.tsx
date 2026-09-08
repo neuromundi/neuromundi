@@ -9,7 +9,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
-import { Camera, LogOut, Trash2, KeyRound, HelpCircle, BellRing } from 'lucide-react';
+import { Camera, LogOut, Trash2, KeyRound, HelpCircle, BellRing, Globe, MessageCircle, CalendarCheck, Instagram, Facebook } from 'lucide-react';
 import { usePushSubscribe } from '@/hooks/usePushSubscribe';
 import { Button, useToast, SkeletonCard, PasswordInput} from '@/components/ui';
 import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher';
@@ -127,6 +127,7 @@ export function Settings() {
     register,
     handleSubmit,
     watch,
+    setValue,
     formState: { errors, isDirty },
   } = useForm<ProfileFormValues>({
     resolver: zodResolver(profileSchema),
@@ -159,6 +160,18 @@ export function Settings() {
           services_offered: profile.services_offered ?? '',
           provider_type: profile.provider_type,
           is_published: profile.is_published,
+          // Directorio
+          profession: profile.profession ?? '',
+          specialties: profile.specialties ?? [],
+          intervention_areas: profile.intervention_areas ?? [],
+          neuro_conditions: profile.neuro_conditions ?? [],
+          sections: profile.sections ?? [],
+          modalities: profile.modalities ?? [],
+          neuroaffirming: profile.neuroaffirming ?? false,
+          whatsapp: profile.whatsapp ?? '',
+          booking_url: profile.booking_url ?? '',
+          instagram: profile.instagram ?? '',
+          facebook: profile.facebook ?? '',
         }
       : undefined,
   });
@@ -207,6 +220,19 @@ export function Settings() {
       patch.fiscal_country = orNull(values.fiscal_country);
       // Grados escolares (solo escuelas).
       patch.school_grades = values.provider_type === 'school' ? (values.school_grades ?? []) : [];
+      // Directorio y especialización.
+      patch.profession = orNull(values.profession);
+      patch.specialties = values.specialties ?? [];
+      patch.intervention_areas = values.intervention_areas ?? [];
+      const nc = values.neuro_conditions ?? [];
+      patch.neuro_conditions = nc;
+      patch.sections = nc; // sections mirrors neuro_conditions for directorio
+      patch.modalities = values.modalities ?? [];
+      patch.neuroaffirming = values.neuroaffirming ?? false;
+      patch.whatsapp = orNull(values.whatsapp);
+      patch.booking_url = orNull(values.booking_url);
+      patch.instagram = orNull(values.instagram);
+      patch.facebook = orNull(values.facebook);
     }
     const res = await updateProfile(patch);
     toast[res.ok ? 'success' : 'error'](res.ok ? t('settings.savedToast') : res.error);
@@ -363,6 +389,150 @@ export function Settings() {
               <input type="checkbox" className="h-5 w-5 rounded border-slate-300 text-brand-500" {...register('is_published')} />
               <span className="text-sm text-slate-700">{t('settings.publish')}</span>
             </label>
+          </fieldset>
+        )}
+
+        {/* ── Directorio y especialización (solo proveedores) ──────────────── */}
+        {isProvider && (
+          <fieldset className="space-y-4 rounded-2xl border border-brand-100 bg-brand-50/30 p-4">
+            <legend className="px-1 font-semibold text-slate-900">{t('settings.directory')}</legend>
+
+            {/* Profesión */}
+            <div>
+              <label htmlFor="s-prof" className={labelCls}>{t('settings.profession')}</label>
+              <input id="s-prof" className={inputCls} placeholder={t('settings.professionPlaceholder')} {...register('profession')} />
+            </div>
+
+            {/* Especialidades (texto libre, coma-separado) */}
+            <div>
+              <label htmlFor="s-spec" className={labelCls}>{t('settings.specialties')}</label>
+              <input
+                id="s-spec"
+                className={inputCls}
+                placeholder={t('settings.specialtiesPlaceholder')}
+                value={(watch('specialties') ?? []).join(', ')}
+                onChange={(e) =>
+                  setValue('specialties', e.target.value.split(',').map((s) => s.trim()).filter(Boolean), { shouldDirty: true })
+                }
+              />
+              <p className="mt-1 text-xs text-muted">{t('settings.specialtiesHint')}</p>
+            </div>
+
+            {/* Áreas de intervención */}
+            <div>
+              <label htmlFor="s-areas" className={labelCls}>{t('settings.interventionAreas')}</label>
+              <input
+                id="s-areas"
+                className={inputCls}
+                placeholder={t('settings.areasPlaceholder')}
+                value={(watch('intervention_areas') ?? []).join(', ')}
+                onChange={(e) =>
+                  setValue('intervention_areas', e.target.value.split(',').map((s) => s.trim()).filter(Boolean), { shouldDirty: true })
+                }
+              />
+              <p className="mt-1 text-xs text-muted">{t('settings.specialtiesHint')}</p>
+            </div>
+
+            {/* Categorías Neuromundi (neuro_conditions → sections) */}
+            <div>
+              <p className={labelCls}>{t('settings.neuroCategories')}</p>
+              <div className="mt-2 space-y-2">
+                {[
+                  { value: 'neurodesarrollo', label: t('dir.neurodesarrollo') },
+                  { value: 'neurodivergencias', label: t('dir.neurodivergencias') },
+                  { value: 'afecciones', label: t('dir.afecciones') },
+                ].map(({ value, label }) => {
+                  const current = watch('neuro_conditions') ?? [];
+                  return (
+                    <label key={value} className="flex items-center gap-3">
+                      <input
+                        type="checkbox"
+                        className="h-5 w-5 rounded border-slate-300 text-brand-500"
+                        checked={current.includes(value)}
+                        onChange={() => {
+                          const next = current.includes(value)
+                            ? current.filter((v) => v !== value)
+                            : [...current, value];
+                          setValue('neuro_conditions', next, { shouldDirty: true });
+                          setValue('sections', next, { shouldDirty: true });
+                        }}
+                      />
+                      <span className="text-sm text-slate-700">{label}</span>
+                    </label>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Modalidades de atención */}
+            <div>
+              <p className={labelCls}>{t('settings.modalities')}</p>
+              <div className="mt-2 grid grid-cols-2 gap-2">
+                {[
+                  { value: 'presencial', label: t('settings.modalPresencial') },
+                  { value: 'en_linea', label: t('settings.modalOnline') },
+                  { value: 'hibrido', label: t('settings.modalHibrido') },
+                  { value: 'domicilio', label: t('settings.modalDomicilio') },
+                ].map(({ value, label }) => {
+                  const current = watch('modalities') ?? [];
+                  return (
+                    <label key={value} className="flex items-center gap-3">
+                      <input
+                        type="checkbox"
+                        className="h-5 w-5 rounded border-slate-300 text-brand-500"
+                        checked={current.includes(value)}
+                        onChange={() => {
+                          const next = current.includes(value)
+                            ? current.filter((v) => v !== value)
+                            : [...current, value];
+                          setValue('modalities', next, { shouldDirty: true });
+                        }}
+                      />
+                      <span className="text-sm text-slate-700">{label}</span>
+                    </label>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Neuroafirmativo */}
+            <label className="flex items-center gap-3">
+              <input type="checkbox" className="h-5 w-5 rounded border-slate-300 text-brand-500" {...register('neuroaffirming')} />
+              <span className="text-sm text-slate-700">{t('settings.neuroaffirming')}</span>
+            </label>
+
+            {/* Contacto y citas */}
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              <div>
+                <label htmlFor="s-wa" className={labelCls}>
+                  <span className="flex items-center gap-1.5"><MessageCircle className="h-4 w-4 text-green-600" /> WhatsApp</span>
+                </label>
+                <input id="s-wa" className={inputCls} placeholder="+52 55 1234 5678" {...register('whatsapp')} />
+              </div>
+              <div>
+                <label htmlFor="s-book" className={labelCls}>
+                  <span className="flex items-center gap-1.5"><CalendarCheck className="h-4 w-4 text-brand-600" /> {t('settings.bookingUrl')}</span>
+                </label>
+                <input id="s-book" className={inputCls} placeholder="https://cal.com/…" {...register('booking_url')} />
+                {errors.booking_url && <p role="alert" className="mt-1 text-sm text-evs-1">{t(errors.booking_url.message!)}</p>}
+              </div>
+            </div>
+
+            {/* Redes sociales */}
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              <div>
+                <label htmlFor="s-ig" className={labelCls}>
+                  <span className="flex items-center gap-1.5"><Instagram className="h-4 w-4 text-pink-500" /> Instagram</span>
+                </label>
+                <input id="s-ig" className={inputCls} placeholder="@usuario" {...register('instagram')} />
+              </div>
+              <div>
+                <label htmlFor="s-fb" className={labelCls}>
+                  <span className="flex items-center gap-1.5"><Facebook className="h-4 w-4 text-blue-600" /> Facebook</span>
+                </label>
+                <input id="s-fb" className={inputCls} placeholder="facebook.com/página" {...register('facebook')} />
+              </div>
+            </div>
           </fieldset>
         )}
 

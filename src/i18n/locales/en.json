@@ -78,8 +78,7 @@
     "red": "Neuromundi Network"
   },
   "home": {
-    "title": "The first global community connecting patients, families, specialists and providers across neurodevelopment, neurodivergence and neurological conditions.",
-    "subtitle": "Share experiences, stay up to date, and find services and products validated by other families, with discounts and trusted recommendations.",
+    "title": "The first global community specialized in:",
     "explore": "Explore the directory",
     "auth": "Create account or sign in",
     "f1": {
@@ -101,7 +100,8 @@
     "about": {
       "title": "What is Neuromundi?",
       "body1": "Neuromundi is a global community and marketplace for neurodivergence. We connect families and neurodivergent people with service providers, merchants and inclusive schools, plus a directory of vetted professionals, a store of products and resources, and an academy with courses.",
-      "body2": "Families and neurodivergent people register and use the platform for free. Neuromundi’s purpose is to make quality support easier to find—with real reviews, trustworthy information and safe tools—all in one place."
+      "body2": "Families and neurodivergent people register and use the platform for free. Neuromundi’s purpose is to make quality support easier to find—with real reviews, trustworthy information and safe tools—all in one place.",
+      "more": "Learn more"
     },
     "search": {
       "placeholder": "Specialty, condition, service or name",
@@ -109,7 +109,6 @@
       "button": "Search",
       "free": "Registration is free for families and neurodivergent people."
     },
-    "community": "We’re not just another directory — we’re a genuine community of support, guidance and companionship created by patients and families together with specialists and providers focused on neurodevelopment, neurodivergence and neurological conditions. This is your space to grow with inclusion.",
     "country": {
       "label": "Which country are you visiting from?",
       "all": "All countries",
@@ -150,6 +149,11 @@
       "title": "Meet our Founders",
       "body": "Pioneering people and organizations who believed in Neuromundi from the start and help build this community.",
       "cta": "Meet our Founders"
+    },
+    "cta": {
+      "join": "Join the community",
+      "expert": "Consult a specialist",
+      "kits": "Use our guidance kits"
     }
   },
   "auth": {
@@ -214,7 +218,23 @@
     "recoveryHint": "You're recovering your account. Set your new password below.",
     "pwMatch": "Passwords match.",
     "pwSameAsOld": "You must create a new password, different from the previous one.",
-    "pwLocked": "For security, wait {{s}} s before trying again."
+    "pwLocked": "For security, wait {{s}} s before trying again.",
+    "directory": "Directory & Specialization",
+    "profession": "Profession",
+    "professionPlaceholder": "E.g. Neuropsychologist, Occupational Therapist, Speech Therapist…",
+    "specialties": "Specialties",
+    "specialtiesPlaceholder": "E.g. ASD, ADHD, Down Syndrome, ABA Therapy…",
+    "specialtiesHint": "Separate each item with a comma.",
+    "interventionAreas": "Intervention Areas",
+    "areasPlaceholder": "E.g. Language, Motor Skills, Behavior, Attention…",
+    "neuroCategories": "Neuromundi Categories",
+    "modalities": "Care Modalities",
+    "modalPresencial": "In-person",
+    "modalOnline": "Online",
+    "modalHibrido": "Hybrid",
+    "modalDomicilio": "Home visits",
+    "neuroaffirming": "Neuroaffirming approach",
+    "bookingUrl": "Booking link"
   },
   "val": {
     "email": "Enter a valid email",
@@ -1021,7 +1041,6 @@
     "noAddress": "No address"
   },
   "legal": {
-    "badge": "Base template",
     "lastUpdated": "Last updated",
     "disclaimer": "This is a template document for example purposes. Before publishing, review and adapt it with qualified legal counsel for your jurisdiction.",
     "bodyNote": "The content below is provided in Spanish as a base; replace it with your final legal text."
@@ -1058,13 +1077,19 @@
   },
   "info": {
     "title": "Learn more about Neuromundi",
-    "tagline": "A community connecting neurodivergent people with friendly services and providers.",
+    "tagline": "The first global platform that brings families, patients, specialists, shops, schools, companies and organizations together around neurodevelopment, neurodivergence and neurological conditions.",
     "whatTitle": "What is Neuromundi?",
-    "whatBody": "Neuromundi is a directory bringing together service providers and product vendors committed to neurodivergence, with discounts, experience ratings (EVS) and trusted recommendations.",
+    "whatBody": "Neuromundi is the first global community and marketplace dedicated entirely to neurodevelopment, neurodivergence and neurological conditions. It unites in one place —multi-country and in 11 languages— what used to be scattered: directory, scheduling, community, learning and school and workplace inclusion.",
     "forTitle": "Who is it for?",
-    "forBody": "For neurodivergent people, families, professionals and providers seeking or offering quality support.",
-    "visit": "Visit official site",
-    "officialNote": "This is a template page inside the app. The official site lives at neuromundi.com."
+    "forBody": "For everyone in the ecosystem: families, patients and neurodivergent people; specialists and clinics; shops and creators; schools; leisure venues; inclusive companies and organizations.",
+    "uniqueTitle": "Something unprecedented worldwide",
+    "uniqueBody": "The world of neurodivergence and neurological conditions has lived fragmented by language, country and discipline. Neuromundi is the first platform to integrate that whole ecosystem in one space, built from the start for international scale: multi-country and in 11 languages, including Arabic and Hebrew with right-to-left reading.",
+    "inclusiveTitle": "Inclusive by design",
+    "inclusiveBody": "Accessibility is the foundation, not an add-on: calm mode, dyslexia settings, high contrast and text size; anticipation guides and low-sensory-impact spaces; a Neuroaffirming seal and the Neuromundi ID. Access is equitable too: free for families and patients, free for inclusive companies, and a preferential fee for NGOs.",
+    "ecosystemTitle": "One ecosystem, many profiles",
+    "ecosystemBody": "Its strength lies in the diversity of those who make it up, all connected in the same network: specialists, clinics, shops, schools, leisure venues, companies and organizations and, at the center, families and neurodivergent people. Every profile gives and receives: directory, scheduling and commission-free payments, a store, messaging with video calls, school and workplace inclusion, learning and the Neurocamps community.",
+    "closingTitle": "A cause that becomes a network",
+    "closingBody": "Neuromundi turns neurodivergence from something faced alone into a global community that supports, informs and strengthens one another: the shared, international and inclusive home of neurodevelopment, neurodivergence and neurological conditions."
   },
   "membership": {
     "title": "Membership fee",
@@ -4529,6 +4554,72 @@
           "Welcome online course when you confirm your email.",
           "Access to the private pioneers’ community."
         ]
+      },
+      "profilesTitle": "Benefits by profile type",
+      "profiles": {
+        "specialists": {
+          "title": "Specialists and professionals",
+          "items": [
+            "Global directory and appointment scheduling with reminders.",
+            "Charge consultations online and keep 100% (no commission).",
+            "Verified reviews, experience score and Neuroaffirming seal.",
+            "Publish articles on the Blog with your own author page."
+          ]
+        },
+        "clinics": {
+          "title": "Clinics and centers",
+          "items": [
+            "Show your inclusion program, admissions and services.",
+            "Team-wide scheduling with no-show reminders.",
+            "Online charging for consultations and services, no commission.",
+            "Institutional verification, reviews and profile metrics."
+          ]
+        },
+        "merchants": {
+          "title": "Shops and stores",
+          "items": [
+            "Your own store within the platform, with inventory.",
+            "Keep 100% of your sales (no commission).",
+            "Specialized categories, including Art and Craft.",
+            "Affiliate program with a commission you set."
+          ]
+        },
+        "schools": {
+          "title": "Schools and institutions",
+          "items": [
+            "Profile with inclusion program, admissions and grades.",
+            "Visibility to families by country and proximity.",
+            "Institutional verification and community reviews.",
+            "Blog to share your pedagogical approach."
+          ]
+        },
+        "companies": {
+          "title": "Inclusive companies",
+          "items": [
+            "Free membership for inclusive companies.",
+            "Post jobs, volunteering and community service.",
+            "Downloadable inclusive-company badges.",
+            "Company Founder slots with recognition."
+          ]
+        },
+        "leisure": {
+          "title": "Leisure and sensory-friendly places",
+          "items": [
+            "Map location and verified profile.",
+            "Low-sensory-impact hours.",
+            "Visibility to families seeking accessible outings.",
+            "Direct messaging for bookings and questions."
+          ]
+        },
+        "ngos": {
+          "title": "NGOs and organizations",
+          "items": [
+            "Preferential fee for NGOs.",
+            "Call for volunteers and community service.",
+            "Neurocamps community: forums, mentorship and events.",
+            "Blog to spread your cause and research."
+          ]
+        }
       }
     }
   },
@@ -4546,6 +4637,16 @@
       "Discounts, reviews and how to take part in the community.",
       "Toolkit resources and how to make the most of them."
     ]
+  },
+  "dir": {
+    "neurodesarrollo": "Neurodevelopment",
+    "neurodivergencias": "Neurodivergences",
+    "afecciones": "Neurological Conditions"
+  },
+  "dir": {
+    "neurodesarrollo": "Neurodevelopment",
+    "neurodivergencias": "Neurodivergences",
+    "afecciones": "Neurological Conditions"
   },
   "sections": {
     "neurodesarrollo": {
