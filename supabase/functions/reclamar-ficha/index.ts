@@ -100,8 +100,14 @@ Deno.serve(async (req) => {
     city: ficha.ciudad,
     country: 'MX',
     services_offered: ficha.especializacion,
-    membership_status: 'exempt',
-    is_published: false,
+    // 'pending' con fecha límite: así useMembership calcula la cotización y las
+    // opciones de pago, y la plataforma le muestra la cuota como a cualquier
+    // proveedor. Con 'exempt' el hook se las salta y no aparece nada que pagar.
+    membership_status: 'pending',
+    membership_due_at: new Date(Date.now() + 15 * 86400000).toISOString(),
+    // Su ficha ya era pública; reclamarla no debe hacerlo desaparecer del
+    // directorio mientras completa el perfil.
+    is_published: true,
   }, { onConflict: 'id' });
   if (ePerfil) return json({ error: 'no se pudo crear el perfil' }, 500);
 
