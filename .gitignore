@@ -31,3 +31,12 @@ Thumbs.db
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+dist-app/
+*.zip
+
+dist-app/
+*.zip
+
+# Cualquier archivo de variables, no solo el llamado .env
+*.env
