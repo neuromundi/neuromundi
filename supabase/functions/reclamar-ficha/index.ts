@@ -14,15 +14,36 @@
 
 import { createClient } from 'jsr:@supabase/supabase-js@2';
 
-const cors = {
-  'Access-Control-Allow-Origin': Deno.env.get('SITE_URL') ?? '*',
-  'Access-Control-Allow-Headers': 'content-type',
-  'Access-Control-Allow-Methods': 'POST, OPTIONS',
-};
-const json = (body: unknown, status = 200) =>
-  new Response(JSON.stringify(body), { status, headers: { ...cors, 'content-type': 'application/json' } });
+// El sitio se sirve con y sin www. Si el origen permitido es solo uno de los
+// dos, el navegador bloquea la petición desde el otro y el fallo se ve como un
+// error genérico. Se aceptan ambos, y se devuelve el que pidió.
+const SITIO = Deno.env.get('SITE_URL') ?? 'https://www.neuromundi.com';
+const permitidos = new Set([
+  SITIO,
+  SITIO.replace('://www.', '://'),
+  SITIO.replace('://', '://www.'),
+  'http://localhost:5173',
+]);
+
+function corsDe(req: Request) {
+  const origen = req.headers.get('origin') ?? '';
+  return {
+    'Access-Control-Allow-Origin': permitidos.has(origen) ? origen : SITIO,
+    'Vary': 'Origin',
+    // Deben ir TODOS los encabezados que manda la página. Si falta uno, el
+    // navegador aprueba el OPTIONS pero nunca envía el POST, y el fallo se ve
+    // como un error genérico sin nada en los registros.
+    'Access-Control-Allow-Headers': 'authorization, apikey, content-type, x-client-info',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Max-Age': '86400',
+  };
+}
 
 Deno.serve(async (req) => {
+  const cors = corsDe(req);
+  const json = (body: unknown, status = 200) =>
+    new Response(JSON.stringify(body), { status, headers: { ...cors, 'content-type': 'application/json' } });
+
   if (req.method === 'OPTIONS') return new Response('ok', { headers: cors });
   if (req.method !== 'POST')    return json({ error: 'método no permitido' }, 405);
 

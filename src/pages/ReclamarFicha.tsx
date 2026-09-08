@@ -74,10 +74,19 @@ export function ReclamarFicha() {
         body: JSON.stringify({ token }),
       });
       const j = await r.json();
-      if (!r.ok) { setEstado(r.status === 410 ? 'invalida' : 'error'); return; }
+      if (!r.ok) {
+        // Deja rastro del motivo real: un error genérico en pantalla sin detalle
+        // en la consola cuesta rondas enteras de diagnóstico.
+        console.error('[reclamar-ficha]', r.status, j);
+        setEstado(r.status === 410 ? 'invalida' : 'error');
+        return;
+      }
       setEnlace(j.enlace || null);
       setEstado('reclamada');
-    } catch { setEstado('error'); }
+    } catch (e) {
+      console.error('[reclamar-ficha] la petición no salió del navegador:', e);
+      setEstado('error');
+    }
     finally { setEnviando(false); }
   }
 
