@@ -22,7 +22,7 @@ const admin = createClient(
 );
 
 const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY') ?? '';
-const SUPPORT_FROM = Deno.env.get('SUPPORT_FROM') ?? 'Neuromundi <recordatorios@neuromundi.com>';
+const SUPPORT_FROM = Deno.env.get('SUPPORT_FROM') ?? 'Neuromundi <recordatorios@admin.neuromundi.com>';
 const TW_SID = Deno.env.get('TWILIO_ACCOUNT_SID') ?? '';
 const TW_TOKEN = Deno.env.get('TWILIO_AUTH_TOKEN') ?? '';
 const TW_FROM = Deno.env.get('TWILIO_WHATSAPP_FROM') ?? '';

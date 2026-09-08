@@ -20,7 +20,7 @@
 // ============================================================================
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
-const SUPPORT_FROM = Deno.env.get('SUPPORT_FROM') ?? 'Neuromundi <admin@neuromundi.com>';
+const SUPPORT_FROM = Deno.env.get('SUPPORT_FROM') ?? 'Neuromundi <admin@admin.neuromundi.com>';
 const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY') ?? '';
 
 const corsHeaders = {

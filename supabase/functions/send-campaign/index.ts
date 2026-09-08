@@ -20,7 +20,7 @@ const admin = createClient(SUPABASE_URL, Deno.env.get('SUPABASE_SERVICE_ROLE_KEY
 });
 
 const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY') ?? '';
-const SUPPORT_FROM = Deno.env.get('SUPPORT_FROM') ?? 'Neuromundi <avisos@neuromundi.com>';
+const SUPPORT_FROM = Deno.env.get('SUPPORT_FROM') ?? 'Neuromundi <avisos@admin.neuromundi.com>';
 const TW_SID = Deno.env.get('TWILIO_ACCOUNT_SID') ?? '';
 const TW_TOKEN = Deno.env.get('TWILIO_AUTH_TOKEN') ?? '';
 const TW_SMS_FROM = Deno.env.get('TWILIO_SMS_FROM') ?? '';

@@ -65,7 +65,12 @@ export function ReclamarFicha() {
     try {
       const r = await fetch(FUNCION, {
         method: 'POST',
-        headers: { 'content-type': 'application/json' },
+        headers: {
+          'content-type': 'application/json',
+          // Sin esto Supabase responde 401 antes de que la función se ejecute.
+          apikey: import.meta.env.VITE_SUPABASE_ANON_KEY,
+          Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+        },
         body: JSON.stringify({ token }),
       });
       const j = await r.json();
@@ -92,7 +97,7 @@ export function ReclamarFicha() {
       <div className="rf-caja">
         <h1>Esta invitación ya no está vigente</h1>
         <p>Puede que alguien de tu equipo ya la haya usado, o que haya vencido.
-           Escríbenos a <a href="mailto:hola@neuromundi.com">hola@neuromundi.com</a> y
+           Escríbenos a <a href="mailto:admin@admin.neuromundi.com">admin@admin.neuromundi.com</a> y
            lo resolvemos.</p>
       </div>
     </div>
@@ -103,7 +108,7 @@ export function ReclamarFicha() {
       <div className="rf-caja">
         <h1>Algo falló de nuestro lado</h1>
         <p>Vuelve a intentarlo en un momento. Si sigue igual, escríbenos a
-           <a href="mailto:hola@neuromundi.com"> hola@neuromundi.com</a>.</p>
+           <a href="mailto:admin@admin.neuromundi.com"> admin@admin.neuromundi.com</a>.</p>
       </div>
     </div>
   );
@@ -143,8 +148,9 @@ export function ReclamarFicha() {
       <div className="rf-caja">
         <p className="rf-antetitulo">Invitación para {ficha.nombre}</p>
         <h1>Tu lugar ya aparece en Neuromundi</h1>
-        <p>Esto es lo que está publicado hoy. Lo tomamos de un registro público;
-           no lo escribió nadie de tu equipo.</p>
+        <p>Hemos realizado una profunda investigación y creemos que tu perfil es
+           idóneo para ser promovido en nuestra comunidad internacional. Esto es lo
+           que está publicado hoy.</p>
 
         <div className="rf-ficha">
           <h2>{ficha.nombre}</h2>

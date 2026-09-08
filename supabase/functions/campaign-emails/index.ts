@@ -9,7 +9,7 @@
 //
 // Secrets:
 //   RESEND_API_KEY   → API key de Resend (obligatoria).
-//   CAMPAIGN_FROM    → remitente verificado (por defecto admin@neuromundi.com).
+//   CAMPAIGN_FROM    → remitente verificado (por defecto admin@admin.neuromundi.com).
 //   PUBLIC_SITE_URL  → base para los enlaces (por defecto www.neuromundi.com).
 //
 // Despliegue (la llama el cron, sin sesión):
@@ -24,7 +24,7 @@ const admin = createClient(
 );
 
 const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY') ?? '';
-const FROM = Deno.env.get('CAMPAIGN_FROM') ?? 'Neuromundi <admin@neuromundi.com>';
+const FROM = Deno.env.get('CAMPAIGN_FROM') ?? 'Neuromundi <admin@admin.neuromundi.com>';
 const SITE = Deno.env.get('PUBLIC_SITE_URL') ?? 'https://www.neuromundi.com';
 
 const json = (status: number, body: unknown) =>

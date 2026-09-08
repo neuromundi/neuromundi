@@ -7,7 +7,7 @@
 //   RESEND_API_KEY  → API key de Resend (obligatoria).
 //   SUPPORT_TO      → destinatario. Por defecto: admin@neuromundi.com
 //   SUPPORT_FROM    → remitente verificado en Resend.
-//                     Por defecto: "Soporte Neuromundi <soporte@neuromundi.com>"
+//                     Por defecto: "Soporte Neuromundi <soporte@admin.neuromundi.com>"
 //                     (el dominio debe estar verificado en Resend).
 //
 // Despliegue:
@@ -19,7 +19,7 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
 const SUPPORT_TO = Deno.env.get('SUPPORT_TO') ?? 'admin@neuromundi.com';
-const SUPPORT_FROM = Deno.env.get('SUPPORT_FROM') ?? 'Soporte Neuromundi <soporte@neuromundi.com>';
+const SUPPORT_FROM = Deno.env.get('SUPPORT_FROM') ?? 'Soporte Neuromundi <soporte@admin.neuromundi.com>';
 const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY') ?? '';
 
 const corsHeaders = {
