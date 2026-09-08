@@ -14,6 +14,8 @@ import {
 import { ArrowLeft, MapPin, ShieldCheck, Tag, Users, Sparkles, Waves, LifeBuoy, Heart, Star, BadgeCheck } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useCatLabel } from '@/lib/catLabel';
+import { cn } from '@/lib/utils';
+import { SECTION_BY_VALUE } from '@/data/sections';
 import { Button, EVSBadge, SkeletonCard, DistintivoBadge, FounderBadge } from '@/components/ui';
 import { ConnectButton, SaveToListButton } from '@/components/directory';
 import { BookAppointment } from '@/components/booking/BookAppointment';
@@ -125,12 +127,27 @@ export function ProviderProfile() {
               <MapPin className="h-4 w-4" aria-hidden="true" /> {profile.city}
             </p>
           )}
+          {(profile.sections ?? []).length > 0 && (
+            <div className="mt-1.5 flex flex-wrap gap-1.5">
+              {(profile.sections ?? []).map((sv) => {
+                const def = SECTION_BY_VALUE[sv];
+                if (!def) return null;
+                return (
+                  <span key={sv} className={cn('rounded-full px-2.5 py-0.5 text-xs font-semibold', def.chip)}>
+                    {t(`sections.${sv}.name`)}
+                  </span>
+                );
+              })}
+            </div>
+          )}
           <div className="mt-2 flex flex-wrap items-center gap-3">
             <EVSBadge score={rating?.evs_score ?? null} totalReviews={rating?.total_reviews ?? 0} size="lg" />
             <DistintivoBadge badge={badge} size="md" showLabel showReview={userId === id} />
           </div>
         </div>
       </header>
+
+      {profile.bio && <p className="text-slate-700 leading-relaxed">{profile.bio}</p>}
 
       {(isParent || isConsumer || (isProvider && userId !== id)) && (
         // onClickCapture cuenta un CONTACTO al pulsar cualquier botón de esta
@@ -159,8 +176,6 @@ export function ProviderProfile() {
 
       {/* Gratitud contextual: a la familia que acaba de encontrar especialista. */}
       {(isParent || isConsumer) && <DonateCallout variant="directory" />}
-
-      {profile.bio && <p className="text-slate-700">{profile.bio}</p>}
 
       {/* Programa de inclusión (escuelas y clínicas). */}
       {(profile.provider_type === 'school' || profile.provider_type === 'clinic') && (

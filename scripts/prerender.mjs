@@ -28,6 +28,7 @@ try {
   await run({
     source: 'dist',
     include: ['/'], // solo la portada, para acotar riesgo
+    crawl: false, // NO seguir enlaces: prerenderiza únicamente '/', no las 23 rutas
     inlineCss: false,
     skipThirdPartyRequests: true, // no dispares Supabase/analytics durante el snapshot
     puppeteerArgs: ['--no-sandbox', '--disable-setuid-sandbox'],

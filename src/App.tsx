@@ -24,6 +24,7 @@ const Dashboard = lazy(() => import('@/pages/Dashboard').then((m) => ({ default:
 const Auth = lazy(() => import('@/pages/Auth').then((m) => ({ default: m.Auth })));
 const Settings = lazy(() => import('@/pages/Settings').then((m) => ({ default: m.Settings })));
 const SharedList = lazy(() => import('@/pages/SharedList').then((m) => ({ default: m.SharedList })));
+const ReclamarFicha = lazy(() => import('@/pages/ReclamarFicha').then((m) => ({ default: m.ReclamarFicha })));
 const Terms = lazy(() => import('@/pages/Terms').then((m) => ({ default: m.Terms })));
 const Privacy = lazy(() => import('@/pages/Privacy').then((m) => ({ default: m.Privacy })));
 const InfoNeuromundi = lazy(() =>
@@ -64,6 +65,7 @@ const router = createBrowserRouter([
       { path: '/directorio', element: <DirectoryGate><Directory /></DirectoryGate> },
       { path: '/proveedor/:id', element: <DirectoryGate><ProviderProfile /></DirectoryGate> },
       { path: '/lista/:token', element: <SharedList /> },
+      { path: '/reclamar/:token', element: <ReclamarFicha /> },
       { path: '/terminos', element: <Terms /> },
       { path: '/privacidad', element: <Privacy /> },
       { path: '/conocer-mas', element: <InfoNeuromundi /> },

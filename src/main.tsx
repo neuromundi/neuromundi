@@ -40,7 +40,13 @@ function reloadOnce(reason: string): void {
 // tomar el index.html nuevo (con los hashes correctos).
 window.addEventListener('vite:preloadError', () => reloadOnce('chunk no encontrado'));
 
-if ('serviceWorker' in navigator) {
+// Bajo react-snap (prerender) NO registramos el SW: su ciclo skipWaiting +
+// clientsClaim dispara `controllerchange` → recarga → "Execution context was
+// destroyed" y react-snap aborta el snapshot. En el HTML servido a usuarios el
+// SW sí se registra normalmente (esta guarda solo aplica durante el prerender).
+const isReactSnap = typeof navigator !== 'undefined' && navigator.userAgent === 'ReactSnap';
+
+if (!isReactSnap && 'serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker
       .register('/sw.js')

@@ -142,6 +142,13 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
+  build: {
+    // 'es2019' transpila optional chaining (?.) y nullish (??) — sintaxis ES2020
+    // que el Chromium ANTIGUO de react-snap (puppeteer 1.20 ≈ Chrome 71) no sabe
+    // parsear (daba "SyntaxError: Unexpected token '?'" y abortaba el prerender).
+    // Con es2019 el snapshot funciona; el costo en tamaño/rendimiento es mínimo.
+    target: 'es2019',
+  },
   // Pre-empaqueta las dependencias (sobre todo las que se cargan en rutas lazy)
   // para que el optimizador de Vite no las descubra de a poco y recargue cada
   // vez que entras a una página nueva.

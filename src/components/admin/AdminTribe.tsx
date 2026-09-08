@@ -266,7 +266,7 @@ export function AdminTribe() {
       </div>
       <div className="flex flex-wrap gap-2">
         {AREAS.map(({ key, icon: Icon }) => (
-          <button key={key} type="button" onClick={() => setArea(key)} className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm font-medium ${area === key ? 'border-brand-500 bg-brand-500 text-white' : 'border-slate-200 text-slate-700 hover:bg-slate-50'}`}>
+          <button key={key} type="button" onClick={() => setArea(key)} className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm font-medium ${area === key ? 'border-brand-500 bg-brand-500 text-white' : 'border-brand-100 bg-brand-50 text-brand-700 hover:bg-brand-100'}`}>
             <Icon className="h-4 w-4" /> {t(`adm.tribe.area.${key}`)}
           </button>
         ))}

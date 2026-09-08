@@ -36,7 +36,7 @@ export function useAdminMessages() {
   const load = useCallback(async () => {
     setLoading(true);
     const { data } = await supabase
-      .from('admin_messages' as never)
+      .from('admin_messages')
       .select('*')
       .order('created_at', { ascending: false })
       .limit(50);
@@ -49,12 +49,12 @@ export function useAdminMessages() {
   const send = useCallback(
     async (input: SendMessageInput): Promise<Result<number>> => {
       setBusy(true);
-      const { data, error } = await supabase.rpc('admin_send_message' as never, {
+      const { data, error } = await supabase.rpc('admin_send_message', {
         p_title: input.title ?? null,
         p_body: input.body,
         p_audience: input.audience,
         p_recipient_member_no: input.audience === 'direct' ? (input.memberNo ?? null) : null,
-      } as never);
+      });
       setBusy(false);
       if (error) return { ok: false, error: toMessage(error) };
       const res = data as { ok: boolean; error?: string; count?: number };

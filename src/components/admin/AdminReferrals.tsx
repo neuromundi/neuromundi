@@ -135,7 +135,7 @@ export function AdminReferrals() {
           aria-pressed={onlyReward}
           className={cn(
             'rounded-full border px-3 py-1.5 text-sm font-medium',
-            onlyReward ? 'border-brand-500 bg-brand-500 text-white' : 'border-slate-200 text-slate-700 hover:bg-slate-50',
+            onlyReward ? 'border-brand-500 bg-brand-500 text-white' : 'border-brand-100 bg-brand-50 text-brand-700 hover:bg-brand-100',
           )}
         >
           {t('ref.onlyRewards')}

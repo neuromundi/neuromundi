@@ -37,7 +37,7 @@ export function useProductReviews(productId: string | null) {
     if (!productId) { setLoading(false); return; }
     setLoading(true);
     const { data } = await supabase
-      .from('product_reviews' as never)
+      .from('product_reviews')
       .select('id, product_id, reviewer_id, rating, comment, created_at')
       .eq('product_id', productId)
       .order('created_at', { ascending: false })
@@ -61,14 +61,14 @@ export function useProductReviews(productId: string | null) {
       if (rating < 1 || rating > 5) return { ok: false, error: 'shop.reviewNeedStars' };
       setSaving(true);
       const { error } = await supabase
-        .from('product_reviews' as never)
+        .from('product_reviews')
         .upsert(
           {
             product_id: productId,
             reviewer_id: userId,
             rating,
             comment: comment.trim() || null,
-          } as never,
+          },
           { onConflict: 'product_id,reviewer_id' },
         );
       setSaving(false);
@@ -83,7 +83,7 @@ export function useProductReviews(productId: string | null) {
     if (!userId || !myReview) return { ok: false, error: 'No review' };
     setSaving(true);
     const { error } = await supabase
-      .from('product_reviews' as never)
+      .from('product_reviews')
       .delete()
       .eq('id', myReview.id);
     setSaving(false);

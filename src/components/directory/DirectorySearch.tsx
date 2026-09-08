@@ -207,7 +207,7 @@ export function DirectorySearch({ onViewProfile }: DirectorySearchProps) {
               onClick={() => { setSection(null); setNeuroCondition(''); }}
               className={cn(
                 'rounded-xl border px-3 py-2.5 text-sm font-semibold transition-colors',
-                !section ? 'border-slate-800 bg-slate-800 text-white' : 'border-slate-200 text-slate-700 hover:bg-slate-50',
+                !section ? 'border-transparent bg-slate-800 text-white shadow-sm' : 'border-slate-200 bg-slate-100 text-slate-700 hover:bg-slate-200',
               )}
             >
               {t('directory.sectionAll')}
@@ -223,7 +223,7 @@ export function DirectorySearch({ onViewProfile }: DirectorySearchProps) {
                   onClick={() => { setSection(active ? null : s.value); if (s.value !== 'afecciones') setNeuroCondition(''); }}
                   className={cn(
                     'flex items-center justify-center gap-1.5 rounded-xl border px-3 py-2.5 text-sm font-semibold transition-colors',
-                    active ? `border-transparent bg-gradient-to-br text-white ${s.gradient}` : 'border-slate-200 text-slate-700 hover:bg-slate-50',
+                    active ? `border-transparent bg-gradient-to-br text-white shadow-sm ${s.gradient}` : s.softInactive,
                   )}
                 >
                   <Icon className="h-4 w-4 shrink-0" aria-hidden="true" /> {t(`sections.${s.value}.name`)}
@@ -294,7 +294,7 @@ export function DirectorySearch({ onViewProfile }: DirectorySearchProps) {
                 onClick={() => (d.href ? navigate(d.href) : setDomain(active ? null : key))}
                 className={cn(
                   'inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm font-medium transition-colors',
-                  active ? 'border-brand-500 bg-brand-500 text-white' : 'border-slate-200 text-slate-700 hover:bg-slate-50',
+                  active ? 'border-brand-500 bg-brand-500 text-white' : 'border-brand-100 bg-brand-50 text-brand-700 hover:bg-brand-100',
                 )}
               >
                 <Icon className="h-4 w-4" aria-hidden="true" /> {t(d.labelKey)}

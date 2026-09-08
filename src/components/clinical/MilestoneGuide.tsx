@@ -65,7 +65,7 @@ export function MilestoneGuide() {
             onClick={() => setBandId(b.id)}
             className={cn(
               'rounded-full border px-3 py-1.5 text-sm font-medium',
-              b.id === bandId ? 'border-brand-500 bg-brand-500 text-white' : 'border-slate-200 text-slate-700 hover:bg-slate-50',
+              b.id === bandId ? 'border-brand-500 bg-brand-500 text-white' : 'border-brand-100 bg-brand-50 text-brand-700 hover:bg-brand-100',
             )}
           >
             {bandLabel(b.from, b.to)}

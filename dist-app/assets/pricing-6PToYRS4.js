@@ -1,0 +1,1 @@
+function r(n){return Math.round((n+Number.EPSILON)*100)/100}function o(n){return r(n*10)}function N(n){return r(n*12)}function A(n,t){if(n==null||t==null)return 0;const u=r(t-n);return u>0?u:0}export{o as a,A as b,N as l};

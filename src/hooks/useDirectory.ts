@@ -84,10 +84,11 @@ export function useDirectory(filters: DirectoryFilters): UseDirectoryValue {
     setLoading(true);
     setError(null);
     try {
-      // 1) Perfiles de proveedores publicados, YA segmentados por país en el
-      //    servidor. Clave para escalar: no traemos proveedores de otros países.
+      // 1) Catálogo público: perfiles de proveedores con cuenta MÁS fichas del
+      //    directorio que todavía no tienen dueño (vista directorio_publico).
+      //    Segmentado por país en el servidor: no traemos otros países.
       let query = supabase
-        .from('profiles')
+        .from('directorio_publico')
         .select('*')
         .eq('role', 'provider')
         .eq('is_published', true);

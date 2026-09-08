@@ -113,7 +113,7 @@ export function Blog() {
             type="button"
             onClick={() => setTopic('')}
             aria-pressed={topic === ''}
-            className={cn('rounded-full border px-3 py-1.5 text-sm font-medium', topic === '' ? 'border-brand-500 bg-brand-500 text-white' : 'border-slate-200 text-slate-700 hover:bg-slate-50')}
+            className={cn('rounded-full border px-3 py-1.5 text-sm font-medium', topic === '' ? 'border-brand-500 bg-brand-500 text-white' : 'border-brand-100 bg-brand-50 text-brand-700 hover:bg-brand-100')}
           >
             {t('blog.allTopics')}
           </button>
@@ -123,7 +123,7 @@ export function Blog() {
               type="button"
               onClick={() => setTopic(topic === topicItem.value ? '' : topicItem.value)}
               aria-pressed={topic === topicItem.value}
-              className={cn('rounded-full border px-3 py-1.5 text-sm font-medium', topic === topicItem.value ? 'border-brand-500 bg-brand-500 text-white' : 'border-slate-200 text-slate-700 hover:bg-slate-50')}
+              className={cn('rounded-full border px-3 py-1.5 text-sm font-medium', topic === topicItem.value ? 'border-brand-500 bg-brand-500 text-white' : 'border-brand-100 bg-brand-50 text-brand-700 hover:bg-brand-100')}
             >
               {catLabel(topicItem.value, topicItem.label)}
             </button>

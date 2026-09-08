@@ -63,7 +63,7 @@ export function useEvents() {
     // Desde ayer para no ocultar los que empiezan hoy; próximos primero.
     const since = new Date(Date.now() - 86400000).toISOString();
     let q = supabase
-      .from('events' as never)
+      .from('events')
       .select('*')
       .gte('starts_at', since)
       .order('starts_at', { ascending: true })
@@ -78,21 +78,21 @@ export function useEvents() {
   useEffect(() => { void load(); }, [load]);
 
   const createEvent = useCallback(async (input: EventInput): Promise<Result<true>> => {
-    const { error } = await supabase.from('events' as never).insert(input as never);
+    const { error } = await supabase.from('events').insert(input);
     if (error) return { ok: false, error: toMessage(error) };
     await load();
     return { ok: true, data: true };
   }, [load]);
 
   const updateEvent = useCallback(async (id: string, patch: Partial<EventInput>): Promise<Result<true>> => {
-    const { error } = await supabase.from('events' as never).update(patch as never).eq('id', id);
+    const { error } = await supabase.from('events').update(patch).eq('id', id);
     if (error) return { ok: false, error: toMessage(error) };
     await load();
     return { ok: true, data: true };
   }, [load]);
 
   const deleteEvent = useCallback(async (id: string): Promise<Result<true>> => {
-    const { error } = await supabase.from('events' as never).delete().eq('id', id);
+    const { error } = await supabase.from('events').delete().eq('id', id);
     if (error) return { ok: false, error: toMessage(error) };
     await load();
     return { ok: true, data: true };

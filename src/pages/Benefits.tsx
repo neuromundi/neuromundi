@@ -10,6 +10,18 @@ import { Award, Check, Users } from 'lucide-react';
 import { Button } from '@/components/ui';
 import { useCampaign } from '@/hooks/useCampaign';
 
+/** Perfiles de pago + gratuitos, con color por tipo. Los textos viven en i18n
+ *  (campaign.benefits.profiles.<key>), con paridad en los 11 idiomas. */
+const PROFILES: { key: string; color: string }[] = [
+  { key: 'specialists', color: 'bg-gradient-to-br from-sky-500 to-brand-700' },
+  { key: 'clinics', color: 'bg-gradient-to-br from-teal-500 to-emerald-700' },
+  { key: 'merchants', color: 'bg-gradient-to-br from-orange-500 to-amber-600' },
+  { key: 'schools', color: 'bg-gradient-to-br from-indigo-500 to-indigo-700' },
+  { key: 'companies', color: 'bg-gradient-to-br from-slate-600 to-slate-800' },
+  { key: 'leisure', color: 'bg-gradient-to-br from-emerald-500 to-green-700' },
+  { key: 'ngos', color: 'bg-gradient-to-br from-rose-500 to-rose-700' },
+];
+
 function ProfileCard({ title, items, color }: { title: string; items: string[]; color: string }) {
   return (
     <div className="rounded-3xl border border-slate-100 bg-white p-5 shadow-sm">
@@ -47,6 +59,18 @@ export function Benefits() {
         <ProfileCard title={t('campaign.benefits.paid.title')} items={arr('campaign.benefits.paid.items')} color="bg-gradient-to-br from-violet-600 to-indigo-600" />
         <ProfileCard title={t('campaign.benefits.consumer.title')} items={arr('campaign.benefits.consumer.items')} color="bg-gradient-to-br from-sky-500 to-brand-600" />
         <ProfileCard title={t('campaign.benefits.orgs.title')} items={arr('campaign.benefits.orgs.items')} color="bg-gradient-to-br from-slate-600 to-slate-800" />
+      </div>
+
+      <h2 className="mt-12 text-center text-2xl font-extrabold text-slate-900">{t('campaign.benefits.profilesTitle')}</h2>
+      <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {PROFILES.map(({ key, color }) => (
+          <ProfileCard
+            key={key}
+            title={t(`campaign.benefits.profiles.${key}.title`)}
+            items={arr(`campaign.benefits.profiles.${key}.items`)}
+            color={color}
+          />
+        ))}
       </div>
 
       <div className="mt-8 rounded-3xl border border-brand-100 bg-brand-50/50 p-6 text-center">

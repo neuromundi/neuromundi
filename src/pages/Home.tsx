@@ -5,7 +5,11 @@
  */
 import { useMemo, lazy, Suspense } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Compass, ShieldCheck, Heart, Lock, BookOpenCheck } from 'lucide-react';
+import { Compass, ShieldCheck, Heart, Lock, BookOpenCheck, ArrowRight, UserPlus, MessageCircleQuestion, Sprout, Sparkles, Stethoscope } from 'lucide-react';
+import { SECTIONS } from '@/data/sections';
+
+/** Iconos por sección (SECTIONS.icon es un nombre; aquí se mapea). */
+const SECTION_ICONS = { Sprout, Sparkles, Stethoscope } as const;
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui';
 import { HeroCarousel } from '@/components/home/HeroCarousel';
@@ -54,15 +58,18 @@ export function Home() {
           <h1 className="text-3xl font-extrabold leading-tight text-slate-900 sm:text-4xl">
             {t('home.title')}
           </h1>
-          <ul className="mt-4 max-w-xl space-y-2 rounded-2xl border border-slate-100 bg-slate-50 p-4">
-            <li className="flex gap-2 text-sm leading-relaxed text-slate-700">
-              <span aria-hidden="true">✅</span>
-              <span>{t('home.subtitle')}</span>
-            </li>
-            <li className="flex gap-2 text-sm leading-relaxed text-slate-700">
-              <span aria-hidden="true">✅</span>
-              <span>{t('home.community')}</span>
-            </li>
+          <ul className="mt-4 flex flex-col items-start gap-2">
+            {SECTIONS.map((s) => {
+              const Icon = SECTION_ICONS[s.icon];
+              return (
+                <li key={s.value}>
+                  <span className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-base font-bold ${s.chip}`}>
+                    <Icon className="h-5 w-5 shrink-0" aria-hidden="true" />
+                    {t(`sections.${s.value}.name`)}
+                  </span>
+                </li>
+              );
+            })}
           </ul>
 
           {/* Selector de país */}
@@ -93,6 +100,19 @@ export function Home() {
           </div>
 
           <p className="mt-3 text-sm text-muted">{t('home.search.free')}</p>
+
+          {/* Accesos rápidos a la comunidad, al experto y a los kits */}
+          <div className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-3">
+            <Button variant="secondary" fullWidth onClick={() => navigate('/crear-cuenta')} leadingIcon={<UserPlus className="h-5 w-5" />}>
+              {t('home.cta.join')}
+            </Button>
+            <Button variant="secondary" fullWidth onClick={() => navigate('/pregunta-al-experto')} leadingIcon={<MessageCircleQuestion className="h-5 w-5" />}>
+              {t('home.cta.expert')}
+            </Button>
+            <Button variant="secondary" fullWidth onClick={() => navigate('/kit')} leadingIcon={<BookOpenCheck className="h-5 w-5" />}>
+              {t('home.cta.kits')}
+            </Button>
+          </div>
         </div>
 
         <div className="order-first lg:order-last">
@@ -114,6 +134,11 @@ export function Home() {
           <h2 className="text-2xl font-bold text-slate-900">{t('home.about.title')}</h2>
           <p className="mt-3 text-muted">{t('home.about.body1')}</p>
           <p className="mt-3 text-muted">{t('home.about.body2')}</p>
+          <div className="mt-5">
+            <Button variant="secondary" aria-label={t('info.title')} onClick={() => navigate('/conocer-mas')} trailingIcon={<ArrowRight className="h-4 w-4" />}>
+              {t('home.about.more')}
+            </Button>
+          </div>
         </div>
 
         <div className="overflow-hidden rounded-3xl border border-brand-100 bg-gradient-to-br from-brand-50 to-white p-6 sm:p-8">

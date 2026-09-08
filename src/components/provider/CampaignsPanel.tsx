@@ -66,7 +66,7 @@ export function CampaignsPanel() {
                 aria-pressed={audience === a}
                 className={cn(
                   'rounded-full border px-3 py-1.5 text-sm font-medium',
-                  audience === a ? 'border-brand-500 bg-brand-500 text-white' : 'border-slate-200 text-slate-700 hover:bg-slate-50',
+                  audience === a ? 'border-brand-500 bg-brand-500 text-white' : 'border-brand-100 bg-brand-50 text-brand-700 hover:bg-brand-100',
                 )}
               >
                 {t(`camp.aud.${a}`)}
@@ -86,7 +86,7 @@ export function CampaignsPanel() {
                 aria-pressed={channels.includes(c)}
                 className={cn(
                   'rounded-full border px-3 py-1.5 text-sm font-medium',
-                  channels.includes(c) ? 'border-brand-500 bg-brand-500 text-white' : 'border-slate-200 text-slate-700 hover:bg-slate-50',
+                  channels.includes(c) ? 'border-brand-500 bg-brand-500 text-white' : 'border-brand-100 bg-brand-50 text-brand-700 hover:bg-brand-100',
                 )}
               >
                 {t(`camp.ch.${c}`)}

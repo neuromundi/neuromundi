@@ -29,6 +29,42 @@ export type PrescriptionStatus = 'draft' | 'sent' | 'viewed' | 'ordered' | 'arch
 export interface Database {
   public: {
     Tables: {
+      calendar_entries: {
+        Row: { id: string; user_id: string; title: string; description: string | null; starts_at: string; ends_at: string | null; location: string | null; online_url: string | null; kind: string; source_event_id: string | null; color: string | null; created_at: string };
+        Insert: { id?: string; user_id: string; title: string; description?: string | null; starts_at: string; ends_at?: string | null; location?: string | null; online_url?: string | null; kind?: string; source_event_id?: string | null; color?: string | null; created_at?: string };
+        Update: { id?: string; user_id?: string; title?: string; description?: string | null; starts_at?: string; ends_at?: string | null; location?: string | null; online_url?: string | null; kind?: string; source_event_id?: string | null; color?: string | null; created_at?: string };
+        Relationships: [];
+      };
+      events: {
+        Row: { id: string; title: string; description: string | null; category: string | null; is_online: boolean; online_url: string | null; country: string | null; city: string | null; venue: string | null; starts_at: string; ends_at: string | null; cover_url: string | null; created_by: string | null; is_published: boolean; created_at: string; updated_at: string };
+        Insert: { id?: string; title: string; description?: string | null; category?: string | null; is_online?: boolean; online_url?: string | null; country?: string | null; city?: string | null; venue?: string | null; starts_at: string; ends_at?: string | null; cover_url?: string | null; created_by?: string | null; is_published?: boolean; created_at?: string; updated_at?: string };
+        Update: { id?: string; title?: string; description?: string | null; category?: string | null; is_online?: boolean; online_url?: string | null; country?: string | null; city?: string | null; venue?: string | null; starts_at?: string; ends_at?: string | null; cover_url?: string | null; created_by?: string | null; is_published?: boolean; created_at?: string; updated_at?: string };
+        Relationships: [];
+      };
+      product_reviews: {
+        Row: { id: string; product_id: string; reviewer_id: string; rating: number; comment: string | null; created_at: string; updated_at: string };
+        Insert: { id?: string; product_id: string; reviewer_id: string; rating: number; comment?: string | null; created_at?: string; updated_at?: string };
+        Update: { id?: string; product_id?: string; reviewer_id?: string; rating?: number; comment?: string | null; created_at?: string; updated_at?: string };
+        Relationships: [];
+      };
+      booking_requests: {
+        Row: { id: string; provider_id: string; name: string; contact: string; preferred: string | null; note: string | null; status: string; created_at: string };
+        Insert: { id?: string; provider_id: string; name: string; contact: string; preferred?: string | null; note?: string | null; status?: string; created_at?: string };
+        Update: { id?: string; provider_id?: string; name?: string; contact?: string; preferred?: string | null; note?: string | null; status?: string; created_at?: string };
+        Relationships: [];
+      };
+      appointment_requests: {
+        Row: { id: string; specialist_id: string; recipient_id: string; title: string; starts_at: string; ends_at: string | null; location: string | null; online_url: string | null; note: string | null; status: string; rejection_reason: string | null; calendar_entry_id: string | null; reminded_at: string | null; responded_at: string | null; created_at: string; updated_at: string; mode: string; charge_total: number | null; charge_percent: number; charge_currency: string | null; payment_status: string; email_reminded_at: string | null };
+        Insert: { id?: string; specialist_id: string; recipient_id: string; title: string; starts_at: string; ends_at?: string | null; location?: string | null; online_url?: string | null; note?: string | null; status?: string; rejection_reason?: string | null; calendar_entry_id?: string | null; reminded_at?: string | null; responded_at?: string | null; created_at?: string; updated_at?: string; mode?: string; charge_total?: number | null; charge_percent?: number; charge_currency?: string | null; payment_status?: string; email_reminded_at?: string | null };
+        Update: { id?: string; specialist_id?: string; recipient_id?: string; title?: string; starts_at?: string; ends_at?: string | null; location?: string | null; online_url?: string | null; note?: string | null; status?: string; rejection_reason?: string | null; calendar_entry_id?: string | null; reminded_at?: string | null; responded_at?: string | null; created_at?: string; updated_at?: string; mode?: string; charge_total?: number | null; charge_percent?: number; charge_currency?: string | null; payment_status?: string; email_reminded_at?: string | null };
+        Relationships: [];
+      };
+      admin_messages: {
+        Row: { id: string; sender_id: string | null; title: string | null; body: string; audience: string; recipient_id: string | null; recipient_count: number; created_at: string };
+        Insert: { id?: string; sender_id?: string | null; title?: string | null; body: string; audience: string; recipient_id?: string | null; recipient_count?: number; created_at?: string };
+        Update: { id?: string; sender_id?: string | null; title?: string | null; body?: string; audience?: string; recipient_id?: string | null; recipient_count?: number; created_at?: string };
+        Relationships: [];
+      };
       profiles: {
         Row: {
           id: string;
@@ -1161,6 +1197,14 @@ export interface Database {
     };
 
     Views: {
+      public_provider_comments: {
+        Row: { id: string | null; provider_id: string | null; comments: string | null; created_at: string | null; overall: number | null; provider_response: string | null; provider_response_at: string | null };
+        Relationships: [];
+      };
+      public_product_ratings: {
+        Row: { product_id: string | null; avg_rating: number | null; review_count: number | null };
+        Relationships: [];
+      };
       provider_badge_inputs: {
         Row: { provider_id: string; documental_verified: boolean; avg_quality: number | null; avg_human_treatment: number | null; avg_professionalism: number | null; evs_score: number | null; total_reviews: number; discount_pct: number; content_count: number; response_rate_pct: number; retention_pct: number };
         Relationships: [];
@@ -1201,10 +1245,93 @@ export interface Database {
         };
         Relationships: [];
       };
+      /**
+       * Catálogo público del buscador: une los perfiles de proveedores con
+       * cuenta y las fichas del directorio que todavía no tienen dueño.
+       * Expone las mismas columnas que profiles, más tres:
+       *   origen      'perfil' | 'ficha'
+       *   clee        llave del DENUE cuando la ficha viene de ahí
+       *   reclamable  true si nadie la ha reclamado todavía
+       */
+      directorio_publico: {
+        Row: Database['public']['Tables']['profiles']['Row'] & {
+          origen: 'perfil' | 'ficha';
+          clee: string | null;
+          reclamable: boolean;
+        };
+        Relationships: [];
+      };
     };
 
     Functions: {
+      /** Datos de la ficha que corresponde a un token de invitación vigente. */
+      ficha_por_token: {
+        Args: { p_token: string };
+        Returns: {
+          ficha_id: string;
+          nombre: string;
+          provider_type: string;
+          estado: string | null;
+          ciudad: string | null;
+          direccion: string | null;
+          telefono: string | null;
+          correo: string;
+          sitio_web: string | null;
+          especializacion: string | null;
+          fuente: string;
+          fuente_url: string | null;
+        }[];
+      };
+      /** Baja de la ficha a petición de su dueño. No requiere cuenta. */
+      solicitar_baja_ficha: {
+        Args: { p_token: string; p_motivo: string | null };
+        Returns: boolean;
+      };
       expire_stale_transactions: {
+        Args: Record<string, never>;
+        Returns: undefined;
+      };
+      admin_metrics: {
+        Args: Record<string, never>;
+        Returns: Json;
+      };
+      admin_send_message: {
+        Args: { p_title: string | null; p_body: string; p_audience: string; p_recipient_member_no: number | null };
+        Returns: Json;
+      };
+      request_appointment: {
+        Args: {
+          p_recipient_member_no: number;
+          p_title: string;
+          p_starts: string;
+          p_ends: string | null;
+          p_location: string | null;
+          p_online_url: string | null;
+          p_note: string | null;
+          p_mode: string;
+          p_charge_total: number | null;
+          p_charge_percent: number;
+          p_charge_currency: string | null;
+        };
+        Returns: Json;
+      };
+      respond_appointment: {
+        Args: { p_request: string; p_accept: boolean; p_reason: string | null };
+        Returns: Json;
+      };
+      search_patients: {
+        Args: { p_query: string };
+        Returns: Json;
+      };
+      booking_provider_name: {
+        Args: { p_member_no: number };
+        Returns: string;
+      };
+      request_booking: {
+        Args: { p_provider_member_no: number; p_name: string; p_contact: string; p_preferred: string | null; p_note: string | null };
+        Returns: Json;
+      };
+      emit_due_appointment_reminders: {
         Args: Record<string, never>;
         Returns: undefined;
       };

@@ -1,0 +1,1 @@
+import{aH as r}from"./index-DbkOHtKI.js";const o="neuromundi.section";function c(){try{const e=localStorage.getItem(o);return e==="neurodesarrollo"||e==="neurodivergencias"||e==="afecciones"?e:null}catch{return null}}const a=r(e=>({section:c(),setSection:t=>{try{t?localStorage.setItem(o,t):localStorage.removeItem(o)}catch{}e({section:t})}}));export{a as u};

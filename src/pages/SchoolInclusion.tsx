@@ -26,7 +26,7 @@ export function SchoolInclusion() {
     (async () => {
       // Segmentación por país en el servidor (no traemos escuelas de otros países).
       let query = supabase
-        .from('profiles')
+        .from('directorio_publico')
         .select('*')
         .eq('role', 'provider')
         .eq('provider_type', 'school')

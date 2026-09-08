@@ -66,7 +66,7 @@ export function useCalendar() {
 
     // Entradas propias.
     const { data: ce } = await supabase
-      .from('calendar_entries' as never)
+      .from('calendar_entries')
       .select('*')
       .eq('user_id', userId)
       .order('starts_at', { ascending: true });
@@ -132,7 +132,7 @@ export function useCalendar() {
   const addEntry = useCallback(async (input: NewEntry): Promise<Result<true>> => {
     if (!userId) return { ok: false, error: 'auth.required' };
     setSaving(true);
-    const { error } = await supabase.from('calendar_entries' as never).insert({
+    const { error } = await supabase.from('calendar_entries').insert({
       user_id: userId,
       title: input.title.trim(),
       description: input.description ?? null,
@@ -141,7 +141,7 @@ export function useCalendar() {
       location: input.location ?? null,
       online_url: input.online_url ?? null,
       kind: input.kind ?? 'personal',
-    } as never);
+    });
     setSaving(false);
     if (error) return { ok: false, error: toMessage(error) };
     await load();
@@ -150,7 +150,7 @@ export function useCalendar() {
 
   const removeEntry = useCallback(async (entryId: string): Promise<Result<true>> => {
     setSaving(true);
-    const { error } = await supabase.from('calendar_entries' as never).delete().eq('id', entryId);
+    const { error } = await supabase.from('calendar_entries').delete().eq('id', entryId);
     setSaving(false);
     if (error) return { ok: false, error: toMessage(error) };
     await load();
@@ -164,7 +164,7 @@ export function useCalendar() {
       ? null
       : [ev.venue, ev.city, ev.country].filter(Boolean).join(', ') || null;
     setSaving(true);
-    const { error } = await supabase.from('calendar_entries' as never).insert({
+    const { error } = await supabase.from('calendar_entries').insert({
       user_id: userId,
       title: ev.title,
       description: ev.description ?? null,
@@ -174,7 +174,7 @@ export function useCalendar() {
       online_url: ev.is_online ? ev.online_url ?? null : null,
       kind: 'event',
       source_event_id: ev.id,
-    } as never);
+    });
     setSaving(false);
     if (error) return { ok: false, error: toMessage(error) };
     await load();

@@ -32,7 +32,7 @@ export function BookingWidgetPanel() {
     if (!profile) return;
     setLoading(true);
     const { data } = await supabase
-      .from('booking_requests' as never)
+      .from('booking_requests')
       .select('id, name, contact, preferred, note, status, created_at')
       .order('created_at', { ascending: false })
       .limit(30);

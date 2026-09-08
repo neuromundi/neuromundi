@@ -33,7 +33,7 @@ export function Book() {
   useEffect(() => {
     (async () => {
       if (!memberNo) { setNotFound(true); return; }
-      const { data } = await supabase.rpc('booking_provider_name' as never, { p_member_no: memberNo } as never);
+      const { data } = await supabase.rpc('booking_provider_name', { p_member_no: memberNo });
       if (data) setProviderName(data as unknown as string);
       else setNotFound(true);
     })();
@@ -44,13 +44,13 @@ export function Book() {
   const submit = async () => {
     if (!valid) return;
     setBusy(true); setError(null);
-    const { data, error: err } = await supabase.rpc('request_booking' as never, {
+    const { data, error: err } = await supabase.rpc('request_booking', {
       p_provider_member_no: memberNo,
       p_name: name.trim(),
       p_contact: contact.trim(),
       p_preferred: preferred || null,
       p_note: note.trim() || null,
-    } as never);
+    });
     setBusy(false);
     const res = data as { ok: boolean; error?: string } | null;
     if (err || !res?.ok) { setError(t('book.error')); return; }

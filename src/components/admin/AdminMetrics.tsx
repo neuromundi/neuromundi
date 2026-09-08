@@ -32,7 +32,7 @@ export function AdminMetrics() {
   const load = async () => {
     setLoading(true);
     setError(false);
-    const { data, error: err } = await supabase.rpc('admin_metrics' as never);
+    const { data, error: err } = await supabase.rpc('admin_metrics');
     setLoading(false);
     if (err || !data) { setError(true); return; }
     setM(data as unknown as Metrics);

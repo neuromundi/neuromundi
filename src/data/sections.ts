@@ -20,6 +20,8 @@ export interface SectionDef {
   gradient: string;
   /** Chip suave (fondo + texto). */
   chip: string;
+  /** Chip suave con borde tenue, para el estado INACTIVO de los selectores. */
+  softInactive: string;
   /** Color de acento (texto/borde). */
   accent: string;
 }
@@ -31,6 +33,7 @@ export const SECTIONS: SectionDef[] = [
     icon: 'Sprout',
     gradient: 'from-emerald-500 to-teal-600',
     chip: 'bg-emerald-50 text-emerald-700',
+    softInactive: 'border-emerald-100 bg-emerald-50 text-emerald-700 hover:bg-emerald-100',
     accent: 'text-emerald-700',
   },
   {
@@ -39,6 +42,7 @@ export const SECTIONS: SectionDef[] = [
     icon: 'Sparkles',
     gradient: 'from-violet-500 to-indigo-600',
     chip: 'bg-violet-50 text-violet-700',
+    softInactive: 'border-violet-100 bg-violet-50 text-violet-700 hover:bg-violet-100',
     accent: 'text-violet-700',
   },
   {
@@ -47,6 +51,7 @@ export const SECTIONS: SectionDef[] = [
     icon: 'Stethoscope',
     gradient: 'from-sky-500 to-blue-700',
     chip: 'bg-sky-50 text-sky-700',
+    softInactive: 'border-sky-100 bg-sky-50 text-sky-700 hover:bg-sky-100',
     accent: 'text-sky-700',
   },
 ];

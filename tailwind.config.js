@@ -30,7 +30,7 @@ export default {
           700: '#15803d',
         },
         muted: '#586577',
-        surface: '#f8fafc',
+        surface: '#e2f6f4', // Aqua suave — fondo global de la app
         // Colores semánticos del EVS (degradado 1–5)
         evs: {
           1: '#ef4444',

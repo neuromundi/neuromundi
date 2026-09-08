@@ -54,7 +54,7 @@ export function useStore() {
         const vendorIds = [...new Set(list.map((p) => p.vendor_id))];
         // Promedios de reseñas (vista pública; degrada si 0017 no está aplicada).
         const { data: rt } = await supabase
-          .from('public_product_ratings' as never)
+          .from('public_product_ratings')
           .select('product_id, avg_rating, review_count')
           .in('product_id', productIds);
         const rmap: Record<string, ProductRating> = {};

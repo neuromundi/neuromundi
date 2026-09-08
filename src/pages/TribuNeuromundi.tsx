@@ -282,7 +282,7 @@ export function TribuNeuromundi() {
       <section className="mt-6">
         <h2 className="mb-2 text-sm font-semibold text-slate-800">{t('tribe.pickNeurocamp')}</h2>
         <div className="flex flex-wrap gap-2">
-          <button type="button" aria-pressed={!section} onClick={() => setSection(null)} className={`rounded-full border px-3 py-1.5 text-sm font-semibold ${!section ? 'border-slate-800 bg-slate-800 text-white' : 'border-slate-200 text-slate-700 hover:bg-slate-50'}`}>{t('tribe.allNeurocamps')}</button>
+          <button type="button" aria-pressed={!section} onClick={() => setSection(null)} className={`rounded-full border px-3 py-1.5 text-sm font-semibold ${!section ? 'border-slate-800 bg-slate-800 text-white' : 'border-brand-100 bg-brand-50 text-brand-700 hover:bg-brand-100'}`}>{t('tribe.allNeurocamps')}</button>
           {SECTIONS.map((s) => (
             <button key={s.value} type="button" aria-pressed={section === s.value} onClick={() => setSection(section === s.value ? null : s.value)} className={`rounded-full border px-3 py-1.5 text-sm font-semibold ${section === s.value ? `border-transparent bg-gradient-to-br text-white ${s.gradient}` : 'border-slate-200 text-slate-700 hover:bg-slate-50'}`}>{t(`sections.${s.value}.name`)}</button>
           ))}

@@ -30,7 +30,7 @@ export function ProviderReviews({ providerId, providerName }: { providerId: stri
     let alive = true;
     (async () => {
       const { data } = await supabase
-        .from('public_provider_comments' as never)
+        .from('public_provider_comments')
         .select('id, comments, created_at, overall, provider_response, provider_response_at')
         .eq('provider_id', providerId)
         .order('created_at', { ascending: false })

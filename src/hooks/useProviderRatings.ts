@@ -126,7 +126,7 @@ export function useProviderRatings(
 
       // 4) Comentarios públicos (id + respuesta del prestador).
       const { data: cmts, error: cmtErr } = await supabase
-        .from('public_provider_comments' as never)
+        .from('public_provider_comments')
         .select('id, comments, created_at, overall, provider_response, provider_response_at')
         .eq('provider_id', providerId)
         .order('created_at', { ascending: false })

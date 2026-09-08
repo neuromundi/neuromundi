@@ -47,7 +47,7 @@ export function SectionsField({ sections, onToggleSection, neuroConditions, onTo
               onClick={() => onToggleSection(s.value)}
               className={cn(
                 'inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm font-semibold transition-colors',
-                active ? `border-transparent bg-gradient-to-br text-white ${s.gradient}` : 'border-slate-200 text-slate-700 hover:bg-slate-50',
+                active ? `border-transparent bg-gradient-to-br text-white shadow-sm ${s.gradient}` : s.softInactive,
               )}
             >
               <Icon className="h-4 w-4" aria-hidden="true" /> {t(`sections.${s.value}.name`)}
@@ -71,7 +71,7 @@ export function SectionsField({ sections, onToggleSection, neuroConditions, onTo
                   onClick={() => onToggleCondition(c.value)}
                   className={cn(
                     'rounded-full border px-3 py-1.5 text-sm font-medium transition-colors',
-                    active ? 'border-sky-600 bg-sky-600 text-white' : 'border-sky-200 bg-white text-sky-800 hover:bg-sky-100',
+                    active ? 'border-sky-600 bg-sky-600 text-white' : 'border-sky-100 bg-sky-50 text-sky-800 hover:bg-sky-100',
                   )}
                 >
                   {catLabel(c.value, c.label)}

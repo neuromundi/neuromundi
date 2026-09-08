@@ -27,6 +27,15 @@
   RewriteBase /
   RewriteRule ^index\.html$ - [L]
 
+  # Colisión ruta-SPA vs carpeta física: /kit (PDFs del kit) y /tribu (logo de
+  # Neurocamps) existen como CARPETAS en el disco, así que la regla genérica de
+  # abajo (!-d) las saltaría y Apache devolvería 403 (carpeta sin índice) — eso
+  # rompía /kit en Google (error de indexación). Forzamos que EXACTAMENTE esas
+  # rutas (con o sin barra) sirvan la SPA; los archivos internos (/kit/…​.pdf,
+  # /tribu/…​.webp) siguen sirviéndose normal porque no coinciden con ^ruta/?$.
+  DirectorySlash Off
+  RewriteRule ^(kit|tribu)/?$ /index.html [L]
+
   # IMPORTANTE: si falta un archivo dentro de /assets/ (p. ej. un chunk con hash
   # viejo tras un nuevo despliegue), devolver un 404 REAL en vez de index.html.
   # Si se reescribiera a index.html, el navegador recibiría HTML donde espera JS

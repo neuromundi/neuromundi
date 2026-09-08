@@ -8,7 +8,7 @@
  * puede reabrirse desde Ajustes. Respeta "reducir movimiento" y es accesible por
  * teclado.
  */
-import { useMemo, useState } from 'react';
+import { useId, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 import { Compass, CalendarDays, BookOpenCheck, GraduationCap, ShieldAlert, Smartphone, Accessibility, CalendarClock, MessageSquare, BarChart3, X } from 'lucide-react';
@@ -40,6 +40,9 @@ export function GuidedTour({ onClose }: { onClose: () => void }) {
   const { isProvider } = useAuth();
   const reduceMotion = useA11y((s) => s.reduceMotion);
   const [step, setStep] = useState(0);
+  // id único por instancia: si dos tours llegaran a montarse a la vez (o quedara
+  // un nodo huérfano de un prerender), no colisionan en el DOM.
+  const titleId = useId();
   const STEPS = useMemo(() => (isProvider ? PROVIDER_STEPS : FAMILY_STEPS), [isProvider]);
   const last = STEPS.length - 1;
   const safeStep = Math.min(step, last);
@@ -54,7 +57,7 @@ export function GuidedTour({ onClose }: { onClose: () => void }) {
       <div
         role="dialog"
         aria-modal="true"
-        aria-labelledby="tour-title"
+        aria-labelledby={titleId}
         className="relative w-full max-w-md rounded-3xl bg-white p-6 shadow-2xl"
         style={{ animation: reduceMotion ? undefined : 'nm-pop 260ms ease-out' }}
       >
@@ -72,7 +75,7 @@ export function GuidedTour({ onClose }: { onClose: () => void }) {
         <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-50 text-brand-700">
           <Icon className="h-7 w-7" aria-hidden="true" />
         </div>
-        <h2 id="tour-title" className="text-center text-xl font-extrabold text-slate-900">
+        <h2 id={titleId} className="text-center text-xl font-extrabold text-slate-900">
           {t(`tour.${k}.title`)}
         </h2>
         <p className="mt-2 text-center text-slate-600">{t(`tour.${k}.body`)}</p>

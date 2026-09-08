@@ -1,0 +1,95 @@
+/* Página de reclamo de ficha · Neuromundi
+   Sigue el tema de la plataforma: claro por omisión, oscuro con data-theme. */
+
+.rf {
+  --rf-fondo: #f7f7f5;
+  --rf-tarjeta: #ffffff;
+  --rf-texto: #1c1b19;
+  --rf-suave: #6b6a66;
+  --rf-linea: #e3e2de;
+  --rf-acento: #2f6f6a;
+  --rf-acento-texto: #ffffff;
+  --rf-peligro: #9a3b34;
+
+  min-height: 100dvh;
+  background: var(--rf-fondo);
+  color: var(--rf-texto);
+  padding: clamp(1rem, 4vw, 3rem) 1rem;
+  display: flex; justify-content: center; align-items: flex-start;
+  font: 400 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .rf {
+    --rf-fondo: #16161a; --rf-tarjeta: #1e1e23; --rf-texto: #ececea;
+    --rf-suave: #a3a29e; --rf-linea: #33333a; --rf-acento: #58a8a0;
+    --rf-acento-texto: #0f1f1e; --rf-peligro: #d98a83;
+  }
+}
+:root[data-theme="dark"] .rf {
+  --rf-fondo: #16161a; --rf-tarjeta: #1e1e23; --rf-texto: #ececea;
+  --rf-suave: #a3a29e; --rf-linea: #33333a; --rf-acento: #58a8a0;
+  --rf-acento-texto: #0f1f1e; --rf-peligro: #d98a83;
+}
+
+.rf-caja {
+  background: var(--rf-tarjeta);
+  border: 1px solid var(--rf-linea);
+  border-radius: 14px;
+  padding: clamp(1.25rem, 4vw, 2.5rem);
+  max-width: 42rem; width: 100%;
+}
+
+.rf-espera { color: var(--rf-suave); }
+.rf-antetitulo { color: var(--rf-suave); font-size: .875rem; margin: 0 0 .25rem; }
+.rf h1 { font-size: clamp(1.35rem, 3.5vw, 1.85rem); line-height: 1.2; margin: 0 0 .75rem; }
+.rf p { margin: 0 0 1rem; }
+.rf a { color: var(--rf-acento); }
+
+/* La ficha, tal como se publica */
+.rf-ficha {
+  border: 1px solid var(--rf-linea); border-radius: 10px;
+  padding: 1rem 1.15rem; margin: 1.5rem 0;
+  background: color-mix(in srgb, var(--rf-fondo) 55%, transparent);
+}
+.rf-ficha h2 { font-size: 1.1rem; margin: 0 0 .75rem; }
+.rf-ficha dl { margin: 0; display: grid; gap: .45rem; }
+.rf-ficha dl > div { display: grid; grid-template-columns: 7.5rem 1fr; gap: .75rem; }
+.rf-ficha dt { color: var(--rf-suave); font-size: .875rem; }
+.rf-ficha dd { margin: 0; overflow-wrap: anywhere; }
+@media (max-width: 30rem) {
+  .rf-ficha dl > div { grid-template-columns: 1fr; gap: 0; }
+  .rf-ficha dt { font-size: .8rem; }
+}
+.rf-fuente {
+  margin: 1rem 0 0; padding-top: .85rem;
+  border-top: 1px dashed var(--rf-linea);
+  font-size: .85rem; color: var(--rf-suave);
+}
+
+.rf-pregunta { font-weight: 600; margin-bottom: .75rem; }
+
+/* Los dos botones pesan igual: la salida no se esconde */
+.rf-botones { display: flex; flex-wrap: wrap; gap: .75rem; }
+.rf-boton {
+  flex: 1 1 14rem; text-align: center;
+  padding: .8rem 1.1rem; border-radius: 9px;
+  font: inherit; font-weight: 600; cursor: pointer;
+  border: 1px solid var(--rf-acento); text-decoration: none;
+}
+.rf-boton:disabled { opacity: .55; cursor: progress; }
+.rf-principal { background: var(--rf-acento); color: var(--rf-acento-texto); }
+.rf-secundario { background: transparent; color: var(--rf-acento); }
+.rf-peligro {
+  background: transparent; color: var(--rf-peligro);
+  border-color: var(--rf-peligro); flex: 0 1 auto;
+}
+
+.rf-baja { margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--rf-linea); }
+.rf-baja input {
+  width: 100%; padding: .7rem .8rem; margin-bottom: .8rem;
+  border: 1px solid var(--rf-linea); border-radius: 8px;
+  background: var(--rf-fondo); color: var(--rf-texto); font: inherit;
+}
+
+.rf-fino { font-size: .85rem; color: var(--rf-suave); margin-top: 1.5rem; }

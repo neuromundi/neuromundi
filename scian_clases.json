@@ -1,0 +1,596 @@
+[
+  {
+    "codigo": "621211",
+    "nombre": "Consultorios dentales del sector privado",
+    "n": 1807,
+    "interes": false
+  },
+  {
+    "codigo": "624191",
+    "nombre": "Agrupaciones de autoayuda para alcohólicos y personas con otras adicciones",
+    "n": 1041,
+    "interes": false
+  },
+  {
+    "codigo": "611122",
+    "nombre": "Escuelas de educación primaria del sector público",
+    "n": 1037,
+    "interes": false
+  },
+  {
+    "codigo": "611171",
+    "nombre": "Escuelas del sector privado que combinan diversos niveles de educación",
+    "n": 988,
+    "interes": false
+  },
+  {
+    "codigo": "621113",
+    "nombre": "Consultorios de medicina especializada del sector privado",
+    "n": 951,
+    "interes": true
+  },
+  {
+    "codigo": "611621",
+    "nombre": "Escuelas de deporte del sector privado",
+    "n": 752,
+    "interes": false
+  },
+  {
+    "codigo": "611611",
+    "nombre": "Escuelas de arte del sector privado",
+    "n": 678,
+    "interes": false
+  },
+  {
+    "codigo": "611111",
+    "nombre": "Escuelas de educación preescolar del sector privado",
+    "n": 674,
+    "interes": false
+  },
+  {
+    "codigo": "611112",
+    "nombre": "Escuelas de educación preescolar del sector público",
+    "n": 666,
+    "interes": false
+  },
+  {
+    "codigo": "611691",
+    "nombre": "Servicios de profesores particulares",
+    "n": 574,
+    "interes": false
+  },
+  {
+    "codigo": "621111",
+    "nombre": "Consultorios de medicina general del sector privado",
+    "n": 452,
+    "interes": false
+  },
+  {
+    "codigo": "621116",
+    "nombre": "Clínicas de consultorios médicos del sector público",
+    "n": 431,
+    "interes": false
+  },
+  {
+    "codigo": "611162",
+    "nombre": "Escuelas de educación media superior del sector público",
+    "n": 427,
+    "interes": false
+  },
+  {
+    "codigo": "621398",
+    "nombre": "Otros consultorios del sector privado para el cuidado de la salud",
+    "n": 409,
+    "interes": false
+  },
+  {
+    "codigo": "624112",
+    "nombre": "Servicios de orientación y trabajo social para la niñez y la juventud prestados por el sector público",
+    "n": 392,
+    "interes": false
+  },
+  {
+    "codigo": "611121",
+    "nombre": "Escuelas de educación primaria del sector privado",
+    "n": 391,
+    "interes": false
+  },
+  {
+    "codigo": "621331",
+    "nombre": "Consultorios de psicología del sector privado",
+    "n": 381,
+    "interes": true
+  },
+  {
+    "codigo": "621341",
+    "nombre": "Consultorios del sector privado de audiología y de terapia ocupacional, física y del lenguaje",
+    "n": 368,
+    "interes": true
+  },
+  {
+    "codigo": "611311",
+    "nombre": "Escuelas de educación superior del sector privado",
+    "n": 294,
+    "interes": false
+  },
+  {
+    "codigo": "611511",
+    "nombre": "Escuelas del sector privado dedicadas a la enseñanza de oficios",
+    "n": 288,
+    "interes": false
+  },
+  {
+    "codigo": "611631",
+    "nombre": "Escuelas de idiomas del sector privado",
+    "n": 267,
+    "interes": false
+  },
+  {
+    "codigo": "611182",
+    "nombre": "Escuelas del sector público de educación para necesidades especiales",
+    "n": 258,
+    "interes": true
+  },
+  {
+    "codigo": "611312",
+    "nombre": "Escuelas de educación superior del sector público",
+    "n": 240,
+    "interes": false
+  },
+  {
+    "codigo": "621511",
+    "nombre": "Laboratorios médicos y de diagnóstico del sector privado",
+    "n": 220,
+    "interes": false
+  },
+  {
+    "codigo": "621112",
+    "nombre": "Consultorios de medicina general del sector público",
+    "n": 207,
+    "interes": false
+  },
+  {
+    "codigo": "621391",
+    "nombre": "Consultorios de nutriólogos y dietistas del sector privado",
+    "n": 200,
+    "interes": false
+  },
+  {
+    "codigo": "611161",
+    "nombre": "Escuelas de educación media superior del sector privado",
+    "n": 184,
+    "interes": false
+  },
+  {
+    "codigo": "621311",
+    "nombre": "Consultorios de quiropráctica del sector privado",
+    "n": 175,
+    "interes": false
+  },
+  {
+    "codigo": "624412",
+    "nombre": "Guarderías del sector público",
+    "n": 171,
+    "interes": false
+  },
+  {
+    "codigo": "623221",
+    "nombre": "Residencias del sector privado para el cuidado de personas con problemas de trastorno mental y adicción",
+    "n": 155,
+    "interes": false
+  },
+  {
+    "codigo": "623311",
+    "nombre": "Asilos y otras residencias del sector privado para el cuidado de ancianos",
+    "n": 149,
+    "interes": false
+  },
+  {
+    "codigo": "624199",
+    "nombre": "Otros servicios de orientación y trabajo social prestados por el sector público",
+    "n": 145,
+    "interes": false
+  },
+  {
+    "codigo": "624411",
+    "nombre": "Guarderías del sector privado",
+    "n": 142,
+    "interes": false
+  },
+  {
+    "codigo": "611132",
+    "nombre": "Escuelas de educación secundaria general del sector público",
+    "n": 127,
+    "interes": false
+  },
+  {
+    "codigo": "621115",
+    "nombre": "Clínicas de consultorios médicos del sector privado",
+    "n": 125,
+    "interes": false
+  },
+  {
+    "codigo": "624212",
+    "nombre": "Servicios de alimentación comunitarios prestados por el sector público",
+    "n": 117,
+    "interes": false
+  },
+  {
+    "codigo": "623991",
+    "nombre": "Orfanatos y otras residencias de asistencia social del sector privado",
+    "n": 108,
+    "interes": true
+  },
+  {
+    "codigo": "624122",
+    "nombre": "Centros del sector público dedicados a la atención y cuidado diurno de ancianos y discapacitados",
+    "n": 104,
+    "interes": false
+  },
+  {
+    "codigo": "611512",
+    "nombre": "Escuelas del sector público dedicadas a la enseñanza de oficios",
+    "n": 102,
+    "interes": false
+  },
+  {
+    "codigo": "611698",
+    "nombre": "Otros servicios educativos proporcionados por el sector privado",
+    "n": 98,
+    "interes": false
+  },
+  {
+    "codigo": "611172",
+    "nombre": "Escuelas del sector público que combinan diversos niveles de educación",
+    "n": 97,
+    "interes": false
+  },
+  {
+    "codigo": "611131",
+    "nombre": "Escuelas de educación secundaria general del sector privado",
+    "n": 86,
+    "interes": false
+  },
+  {
+    "codigo": "621421",
+    "nombre": "Centros del sector privado de atención médica externa para enfermos mentales y adictos",
+    "n": 81,
+    "interes": false
+  },
+  {
+    "codigo": "624111",
+    "nombre": "Servicios de orientación y trabajo social para la niñez y la juventud prestados por el sector privado",
+    "n": 64,
+    "interes": false
+  },
+  {
+    "codigo": "611181",
+    "nombre": "Escuelas del sector privado de educación para necesidades especiales",
+    "n": 59,
+    "interes": true
+  },
+  {
+    "codigo": "611211",
+    "nombre": "Escuelas de educación técnica superior del sector privado",
+    "n": 54,
+    "interes": false
+  },
+  {
+    "codigo": "621320",
+    "nombre": "Consultorios de optometría",
+    "n": 52,
+    "interes": false
+  },
+  {
+    "codigo": "622111",
+    "nombre": "Hospitales generales del sector privado",
+    "n": 51,
+    "interes": false
+  },
+  {
+    "codigo": "611612",
+    "nombre": "Escuelas de arte del sector público",
+    "n": 45,
+    "interes": false
+  },
+  {
+    "codigo": "623992",
+    "nombre": "Orfanatos y otras residencias de asistencia social del sector público",
+    "n": 39,
+    "interes": true
+  },
+  {
+    "codigo": "611142",
+    "nombre": "Escuelas de educación secundaria técnica del sector público",
+    "n": 39,
+    "interes": false
+  },
+  {
+    "codigo": "622311",
+    "nombre": "Hospitales del sector privado de otras especialidades médicas",
+    "n": 38,
+    "interes": true
+  },
+  {
+    "codigo": "621491",
+    "nombre": "Otros centros del sector privado para la atención de pacientes que no requieren hospitalización",
+    "n": 38,
+    "interes": false
+  },
+  {
+    "codigo": "611699",
+    "nombre": "Otros servicios educativos proporcionados por el sector público",
+    "n": 38,
+    "interes": false
+  },
+  {
+    "codigo": "611622",
+    "nombre": "Escuelas de deporte del sector público",
+    "n": 37,
+    "interes": false
+  },
+  {
+    "codigo": "622112",
+    "nombre": "Hospitales generales del sector público",
+    "n": 36,
+    "interes": false
+  },
+  {
+    "codigo": "624211",
+    "nombre": "Servicios de alimentación comunitarios prestados por el sector privado",
+    "n": 35,
+    "interes": false
+  },
+  {
+    "codigo": "611421",
+    "nombre": "Escuelas de computación del sector privado",
+    "n": 31,
+    "interes": false
+  },
+  {
+    "codigo": "623312",
+    "nombre": "Asilos y otras residencias del sector público para el cuidado de ancianos",
+    "n": 29,
+    "interes": false
+  },
+  {
+    "codigo": "624121",
+    "nombre": "Centros del sector privado dedicados a la atención y cuidado diurno de ancianos y discapacitados",
+    "n": 27,
+    "interes": false
+  },
+  {
+    "codigo": "611151",
+    "nombre": "Escuelas de educación media técnica terminal del sector privado",
+    "n": 26,
+    "interes": false
+  },
+  {
+    "codigo": "621910",
+    "nombre": "Servicios de ambulancias",
+    "n": 21,
+    "interes": false
+  },
+  {
+    "codigo": "623211",
+    "nombre": "Residencias del sector privado para el cuidado de personas con problemas de retardo mental",
+    "n": 21,
+    "interes": false
+  },
+  {
+    "codigo": "621422",
+    "nombre": "Centros del sector público de atención médica externa para enfermos mentales y adictos",
+    "n": 21,
+    "interes": false
+  },
+  {
+    "codigo": "624198",
+    "nombre": "Otros servicios de orientación y trabajo social prestados por el sector privado",
+    "n": 19,
+    "interes": false
+  },
+  {
+    "codigo": "624312",
+    "nombre": "Servicios de capacitación para el trabajo prestados por el sector público para personas desempleadas, subempleadas o discapacitadas",
+    "n": 17,
+    "interes": false
+  },
+  {
+    "codigo": "611431",
+    "nombre": "Escuelas para la capacitación de ejecutivos del sector privado",
+    "n": 17,
+    "interes": false
+  },
+  {
+    "codigo": "621212",
+    "nombre": "Consultorios dentales del sector público",
+    "n": 16,
+    "interes": false
+  },
+  {
+    "codigo": "621399",
+    "nombre": "Otros consultorios del sector público para el cuidado de la salud",
+    "n": 16,
+    "interes": false
+  },
+  {
+    "codigo": "621332",
+    "nombre": "Consultorios de psicología del sector público",
+    "n": 16,
+    "interes": true
+  },
+  {
+    "codigo": "624221",
+    "nombre": "Refugios temporales comunitarios del sector privado",
+    "n": 15,
+    "interes": false
+  },
+  {
+    "codigo": "624222",
+    "nombre": "Refugios temporales comunitarios del sector público",
+    "n": 15,
+    "interes": false
+  },
+  {
+    "codigo": "621342",
+    "nombre": "Consultorios del sector público de audiología y de terapia ocupacional, física y del lenguaje",
+    "n": 14,
+    "interes": true
+  },
+  {
+    "codigo": "623111",
+    "nombre": "Residencias del sector privado con cuidados de enfermeras para enfermos convalecientes, en rehabilitación, incurables y terminales",
+    "n": 12,
+    "interes": true
+  },
+  {
+    "codigo": "611710",
+    "nombre": "Servicios de apoyo a la educación",
+    "n": 12,
+    "interes": false
+  },
+  {
+    "codigo": "611422",
+    "nombre": "Escuelas de computación del sector público",
+    "n": 10,
+    "interes": false
+  },
+  {
+    "codigo": "611212",
+    "nombre": "Escuelas de educación técnica superior del sector público",
+    "n": 10,
+    "interes": false
+  },
+  {
+    "codigo": "611632",
+    "nombre": "Escuelas de idiomas del sector público",
+    "n": 9,
+    "interes": false
+  },
+  {
+    "codigo": "621411",
+    "nombre": "Centros de planificación familiar del sector privado",
+    "n": 8,
+    "interes": false
+  },
+  {
+    "codigo": "621114",
+    "nombre": "Consultorios de medicina especializada del sector público",
+    "n": 8,
+    "interes": true
+  },
+  {
+    "codigo": "623222",
+    "nombre": "Residencias del sector público para el cuidado de personas con problemas de trastorno mental y adicción",
+    "n": 8,
+    "interes": false
+  },
+  {
+    "codigo": "624311",
+    "nombre": "Servicios de capacitación para el trabajo prestados por el sector privado para personas desempleadas, subempleadas o discapacitadas",
+    "n": 5,
+    "interes": false
+  },
+  {
+    "codigo": "621991",
+    "nombre": "Servicios de bancos de órganos, bancos de sangre y otros servicios auxiliares al tratamiento médico prestados por el sector privado",
+    "n": 5,
+    "interes": false
+  },
+  {
+    "codigo": "621610",
+    "nombre": "Servicios de enfermería a domicilio",
+    "n": 4,
+    "interes": false
+  },
+  {
+    "codigo": "611411",
+    "nombre": "Escuelas comerciales y secretariales del sector privado",
+    "n": 4,
+    "interes": false
+  },
+  {
+    "codigo": "621992",
+    "nombre": "Servicios de bancos de órganos, bancos de sangre y otros servicios auxiliares al tratamiento médico prestados por el sector público",
+    "n": 3,
+    "interes": false
+  },
+  {
+    "codigo": "622211",
+    "nombre": "Hospitales psiquiátricos y para el tratamiento por adicción del sector privado",
+    "n": 3,
+    "interes": false
+  },
+  {
+    "codigo": "621512",
+    "nombre": "Laboratorios médicos y de diagnóstico del sector público",
+    "n": 3,
+    "interes": false
+  },
+  {
+    "codigo": "611141",
+    "nombre": "Escuelas de educación secundaria técnica del sector privado",
+    "n": 3,
+    "interes": false
+  },
+  {
+    "codigo": "621392",
+    "nombre": "Consultorios de nutriólogos y dietistas del sector público",
+    "n": 2,
+    "interes": false
+  },
+  {
+    "codigo": "611152",
+    "nombre": "Escuelas de educación media técnica terminal del sector público",
+    "n": 2,
+    "interes": false
+  },
+  {
+    "codigo": "621492",
+    "nombre": "Otros centros del sector público para la atención de pacientes que no requieren hospitalización",
+    "n": 1,
+    "interes": false
+  },
+  {
+    "codigo": "622212",
+    "nombre": "Hospitales psiquiátricos y para el tratamiento por adicción del sector público",
+    "n": 1,
+    "interes": false
+  },
+  {
+    "codigo": "623212",
+    "nombre": "Residencias del sector público para el cuidado de personas con problemas de retardo mental",
+    "n": 1,
+    "interes": false
+  },
+  {
+    "codigo": "624232",
+    "nombre": "Servicios de emergencia comunitarios prestados por el sector público",
+    "n": 1,
+    "interes": false
+  },
+  {
+    "codigo": "621412",
+    "nombre": "Centros de planificación familiar del sector público",
+    "n": 1,
+    "interes": false
+  },
+  {
+    "codigo": "622312",
+    "nombre": "Hospitales del sector público de otras especialidades médicas",
+    "n": 1,
+    "interes": true
+  },
+  {
+    "codigo": "621312",
+    "nombre": "Consultorios de quiropráctica del sector público",
+    "n": 1,
+    "interes": false
+  },
+  {
+    "codigo": "623112",
+    "nombre": "Residencias del sector público con cuidados de enfermeras para enfermos convalecientes, en rehabilitación, incurables y terminales",
+    "n": 1,
+    "interes": true
+  }
+]

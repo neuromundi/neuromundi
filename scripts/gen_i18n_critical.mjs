@@ -15,6 +15,8 @@ const CRITICAL = [
   // La portada también pinta la invitación al Kit y el título de aliados en el
   // primer render → sin estos, se veían las claves crudas (kit.home.title…).
   'kit', 'allies',
+  // El héroe muestra los nombres de las tres secciones en el primer render.
+  'sections',
 ];
 
 const locDir = 'src/i18n/locales';

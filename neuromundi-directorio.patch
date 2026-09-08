@@ -1,0 +1,346 @@
+From 38bda6de3fd114b02c930e8fff5ddffcf2f0c682 Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Tue, 8 Sep 2026 00:34:42 +0000
+Subject: [PATCH] =?UTF-8?q?feat:=20secci=C3=B3n=20Directorio=20en=20ajuste?=
+ =?UTF-8?q?s=20del=20proveedor?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Agrega campos de especialización al perfil del proveedor:
+- profileSchema: profession, specialties, intervention_areas,
+  neuro_conditions, sections, modalities, neuroaffirming,
+  whatsapp, booking_url, instagram, facebook
+- Settings.tsx: nueva sección "Directorio y especialización"
+  con checkboxes de categorías Neuromundi, modalidades, toggle
+  neuroafirmativo y campos de contacto/redes sociales
+- i18n es/en: claves de traducción para la nueva sección
+
+Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01WanBnJmpZDrTG2AKAMEEpb
+---
+ src/i18n/locales/en.json |  23 +++++-
+ src/i18n/locales/es.json |  23 +++++-
+ src/lib/schemas.ts       |  12 +++
+ src/pages/Settings.tsx   | 172 ++++++++++++++++++++++++++++++++++++++-
+ 4 files changed, 227 insertions(+), 3 deletions(-)
+
+diff --git a/src/i18n/locales/en.json b/src/i18n/locales/en.json
+index 958030e..e0b5260 100644
+--- a/src/i18n/locales/en.json
++++ b/src/i18n/locales/en.json
+@@ -214,7 +214,23 @@
+     "recoveryHint": "You're recovering your account. Set your new password below.",
+     "pwMatch": "Passwords match.",
+     "pwSameAsOld": "You must create a new password, different from the previous one.",
+-    "pwLocked": "For security, wait {{s}} s before trying again."
++    "pwLocked": "For security, wait {{s}} s before trying again.",
++    "directory": "Directory & Specialization",
++    "profession": "Profession",
++    "professionPlaceholder": "E.g. Neuropsychologist, Occupational Therapist, Speech Therapist…",
++    "specialties": "Specialties",
++    "specialtiesPlaceholder": "E.g. ASD, ADHD, Down Syndrome, ABA Therapy…",
++    "specialtiesHint": "Separate each item with a comma.",
++    "interventionAreas": "Intervention Areas",
++    "areasPlaceholder": "E.g. Language, Motor Skills, Behavior, Attention…",
++    "neuroCategories": "Neuromundi Categories",
++    "modalities": "Care Modalities",
++    "modalPresencial": "In-person",
++    "modalOnline": "Online",
++    "modalHibrido": "Hybrid",
++    "modalDomicilio": "Home visits",
++    "neuroaffirming": "Neuroaffirming approach",
++    "bookingUrl": "Booking link"
+   },
+   "val": {
+     "email": "Enter a valid email",
+@@ -4547,6 +4563,11 @@
+       "Toolkit resources and how to make the most of them."
+     ]
+   },
++  "dir": {
++    "neurodesarrollo": "Neurodevelopment",
++    "neurodivergencias": "Neurodivergences",
++    "afecciones": "Neurological Conditions"
++  },
+   "sections": {
+     "neurodesarrollo": {
+       "name": "Neurodevelopment",
+diff --git a/src/i18n/locales/es.json b/src/i18n/locales/es.json
+index 464e0ac..ad2de11 100644
+--- a/src/i18n/locales/es.json
++++ b/src/i18n/locales/es.json
+@@ -214,7 +214,23 @@
+     "recoveryHint": "Estás recuperando tu cuenta. Define tu nueva contraseña a continuación.",
+     "pwMatch": "Las contraseñas coinciden.",
+     "pwSameAsOld": "Debes crear una contraseña nueva y distinta a la anterior.",
+-    "pwLocked": "Por seguridad, espera {{s}} s antes de volver a intentar."
++    "pwLocked": "Por seguridad, espera {{s}} s antes de volver a intentar.",
++    "directory": "Directorio y especialización",
++    "profession": "Profesión",
++    "professionPlaceholder": "Ej. Neuropsicólogo, Terapeuta Ocupacional, Psicopedagogo…",
++    "specialties": "Especialidades",
++    "specialtiesPlaceholder": "Ej. TEA, TDAH, Síndrome de Down, Terapia ABA…",
++    "specialtiesHint": "Separa cada elemento con una coma.",
++    "interventionAreas": "Áreas de intervención",
++    "areasPlaceholder": "Ej. Lenguaje, Motricidad, Conducta, Atención…",
++    "neuroCategories": "Categorías en Neuromundi",
++    "modalities": "Modalidades de atención",
++    "modalPresencial": "Presencial",
++    "modalOnline": "En línea",
++    "modalHibrido": "Híbrido",
++    "modalDomicilio": "A domicilio",
++    "neuroaffirming": "Enfoque neuroafirmativo",
++    "bookingUrl": "Enlace para agendar cita"
+   },
+   "val": {
+     "email": "Escribe un correo válido",
+@@ -4547,6 +4563,11 @@
+       "Recursos del Kit y cómo sacarles provecho."
+     ]
+   },
++  "dir": {
++    "neurodesarrollo": "Neurodesarrollo",
++    "neurodivergencias": "Neurodivergencias",
++    "afecciones": "Afecciones neurológicas"
++  },
+   "sections": {
+     "neurodesarrollo": {
+       "name": "Neurodesarrollo",
+diff --git a/src/lib/schemas.ts b/src/lib/schemas.ts
+index c2b91e1..f109678 100644
+--- a/src/lib/schemas.ts
++++ b/src/lib/schemas.ts
+@@ -352,6 +352,18 @@ export const profileSchema = z.object({
+     .nullable()
+     .optional(),
+   is_published: z.boolean().optional().default(false),
++  // ── Directorio ──────────────────────────────────────────────────────────────
++  profession: z.string().trim().max(140).optional().default(''),
++  specialties: z.array(z.string()).optional().default([]),
++  intervention_areas: z.array(z.string()).optional().default([]),
++  neuro_conditions: z.array(z.string()).optional().default([]),
++  sections: z.array(z.string()).optional().default([]),
++  modalities: z.array(z.string()).optional().default([]),
++  neuroaffirming: z.boolean().optional().default(false),
++  whatsapp: z.string().trim().max(30).optional().default(''),
++  booking_url: z.string().trim().url('val.url').optional().or(z.literal('')),
++  instagram: z.string().trim().max(200).optional().default(''),
++  facebook: z.string().trim().max(200).optional().default(''),
+ });
+ 
+ export type ProfileFormValues = z.input<typeof profileSchema>;
+diff --git a/src/pages/Settings.tsx b/src/pages/Settings.tsx
+index ece26e4..62f02cb 100644
+--- a/src/pages/Settings.tsx
++++ b/src/pages/Settings.tsx
+@@ -9,7 +9,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
+ import { useForm } from 'react-hook-form';
+ import { zodResolver } from '@hookform/resolvers/zod';
+ import { useTranslation } from 'react-i18next';
+-import { Camera, LogOut, Trash2, KeyRound, HelpCircle, BellRing } from 'lucide-react';
++import { Camera, LogOut, Trash2, KeyRound, HelpCircle, BellRing, Globe, MessageCircle, CalendarCheck, Instagram, Facebook } from 'lucide-react';
+ import { usePushSubscribe } from '@/hooks/usePushSubscribe';
+ import { Button, useToast, SkeletonCard, PasswordInput} from '@/components/ui';
+ import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher';
+@@ -127,6 +127,7 @@ export function Settings() {
+     register,
+     handleSubmit,
+     watch,
++    setValue,
+     formState: { errors, isDirty },
+   } = useForm<ProfileFormValues>({
+     resolver: zodResolver(profileSchema),
+@@ -159,6 +160,18 @@ export function Settings() {
+           services_offered: profile.services_offered ?? '',
+           provider_type: profile.provider_type,
+           is_published: profile.is_published,
++          // Directorio
++          profession: profile.profession ?? '',
++          specialties: profile.specialties ?? [],
++          intervention_areas: profile.intervention_areas ?? [],
++          neuro_conditions: profile.neuro_conditions ?? [],
++          sections: profile.sections ?? [],
++          modalities: profile.modalities ?? [],
++          neuroaffirming: profile.neuroaffirming ?? false,
++          whatsapp: profile.whatsapp ?? '',
++          booking_url: profile.booking_url ?? '',
++          instagram: profile.instagram ?? '',
++          facebook: profile.facebook ?? '',
+         }
+       : undefined,
+   });
+@@ -207,6 +220,19 @@ export function Settings() {
+       patch.fiscal_country = orNull(values.fiscal_country);
+       // Grados escolares (solo escuelas).
+       patch.school_grades = values.provider_type === 'school' ? (values.school_grades ?? []) : [];
++      // Directorio y especialización.
++      patch.profession = orNull(values.profession);
++      patch.specialties = values.specialties ?? [];
++      patch.intervention_areas = values.intervention_areas ?? [];
++      const nc = values.neuro_conditions ?? [];
++      patch.neuro_conditions = nc;
++      patch.sections = nc; // sections mirrors neuro_conditions for directorio
++      patch.modalities = values.modalities ?? [];
++      patch.neuroaffirming = values.neuroaffirming ?? false;
++      patch.whatsapp = orNull(values.whatsapp);
++      patch.booking_url = orNull(values.booking_url);
++      patch.instagram = orNull(values.instagram);
++      patch.facebook = orNull(values.facebook);
+     }
+     const res = await updateProfile(patch);
+     toast[res.ok ? 'success' : 'error'](res.ok ? t('settings.savedToast') : res.error);
+@@ -366,6 +392,150 @@ export function Settings() {
+           </fieldset>
+         )}
+ 
++        {/* ── Directorio y especialización (solo proveedores) ──────────────── */}
++        {isProvider && (
++          <fieldset className="space-y-4 rounded-2xl border border-brand-100 bg-brand-50/30 p-4">
++            <legend className="px-1 font-semibold text-slate-900">{t('settings.directory')}</legend>
++
++            {/* Profesión */}
++            <div>
++              <label htmlFor="s-prof" className={labelCls}>{t('settings.profession')}</label>
++              <input id="s-prof" className={inputCls} placeholder={t('settings.professionPlaceholder')} {...register('profession')} />
++            </div>
++
++            {/* Especialidades (texto libre, coma-separado) */}
++            <div>
++              <label htmlFor="s-spec" className={labelCls}>{t('settings.specialties')}</label>
++              <input
++                id="s-spec"
++                className={inputCls}
++                placeholder={t('settings.specialtiesPlaceholder')}
++                value={(watch('specialties') ?? []).join(', ')}
++                onChange={(e) =>
++                  setValue('specialties', e.target.value.split(',').map((s) => s.trim()).filter(Boolean), { shouldDirty: true })
++                }
++              />
++              <p className="mt-1 text-xs text-muted">{t('settings.specialtiesHint')}</p>
++            </div>
++
++            {/* Áreas de intervención */}
++            <div>
++              <label htmlFor="s-areas" className={labelCls}>{t('settings.interventionAreas')}</label>
++              <input
++                id="s-areas"
++                className={inputCls}
++                placeholder={t('settings.areasPlaceholder')}
++                value={(watch('intervention_areas') ?? []).join(', ')}
++                onChange={(e) =>
++                  setValue('intervention_areas', e.target.value.split(',').map((s) => s.trim()).filter(Boolean), { shouldDirty: true })
++                }
++              />
++              <p className="mt-1 text-xs text-muted">{t('settings.specialtiesHint')}</p>
++            </div>
++
++            {/* Categorías Neuromundi (neuro_conditions → sections) */}
++            <div>
++              <p className={labelCls}>{t('settings.neuroCategories')}</p>
++              <div className="mt-2 space-y-2">
++                {[
++                  { value: 'neurodesarrollo', label: t('dir.neurodesarrollo') },
++                  { value: 'neurodivergencias', label: t('dir.neurodivergencias') },
++                  { value: 'afecciones', label: t('dir.afecciones') },
++                ].map(({ value, label }) => {
++                  const current = watch('neuro_conditions') ?? [];
++                  return (
++                    <label key={value} className="flex items-center gap-3">
++                      <input
++                        type="checkbox"
++                        className="h-5 w-5 rounded border-slate-300 text-brand-500"
++                        checked={current.includes(value)}
++                        onChange={() => {
++                          const next = current.includes(value)
++                            ? current.filter((v) => v !== value)
++                            : [...current, value];
++                          setValue('neuro_conditions', next, { shouldDirty: true });
++                          setValue('sections', next, { shouldDirty: true });
++                        }}
++                      />
++                      <span className="text-sm text-slate-700">{label}</span>
++                    </label>
++                  );
++                })}
++              </div>
++            </div>
++
++            {/* Modalidades de atención */}
++            <div>
++              <p className={labelCls}>{t('settings.modalities')}</p>
++              <div className="mt-2 grid grid-cols-2 gap-2">
++                {[
++                  { value: 'presencial', label: t('settings.modalPresencial') },
++                  { value: 'en_linea', label: t('settings.modalOnline') },
++                  { value: 'hibrido', label: t('settings.modalHibrido') },
++                  { value: 'domicilio', label: t('settings.modalDomicilio') },
++                ].map(({ value, label }) => {
++                  const current = watch('modalities') ?? [];
++                  return (
++                    <label key={value} className="flex items-center gap-3">
++                      <input
++                        type="checkbox"
++                        className="h-5 w-5 rounded border-slate-300 text-brand-500"
++                        checked={current.includes(value)}
++                        onChange={() => {
++                          const next = current.includes(value)
++                            ? current.filter((v) => v !== value)
++                            : [...current, value];
++                          setValue('modalities', next, { shouldDirty: true });
++                        }}
++                      />
++                      <span className="text-sm text-slate-700">{label}</span>
++                    </label>
++                  );
++                })}
++              </div>
++            </div>
++
++            {/* Neuroafirmativo */}
++            <label className="flex items-center gap-3">
++              <input type="checkbox" className="h-5 w-5 rounded border-slate-300 text-brand-500" {...register('neuroaffirming')} />
++              <span className="text-sm text-slate-700">{t('settings.neuroaffirming')}</span>
++            </label>
++
++            {/* Contacto y citas */}
++            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
++              <div>
++                <label htmlFor="s-wa" className={labelCls}>
++                  <span className="flex items-center gap-1.5"><MessageCircle className="h-4 w-4 text-green-600" /> WhatsApp</span>
++                </label>
++                <input id="s-wa" className={inputCls} placeholder="+52 55 1234 5678" {...register('whatsapp')} />
++              </div>
++              <div>
++                <label htmlFor="s-book" className={labelCls}>
++                  <span className="flex items-center gap-1.5"><CalendarCheck className="h-4 w-4 text-brand-600" /> {t('settings.bookingUrl')}</span>
++                </label>
++                <input id="s-book" className={inputCls} placeholder="https://cal.com/…" {...register('booking_url')} />
++                {errors.booking_url && <p role="alert" className="mt-1 text-sm text-evs-1">{t(errors.booking_url.message!)}</p>}
++              </div>
++            </div>
++
++            {/* Redes sociales */}
++            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
++              <div>
++                <label htmlFor="s-ig" className={labelCls}>
++                  <span className="flex items-center gap-1.5"><Instagram className="h-4 w-4 text-pink-500" /> Instagram</span>
++                </label>
++                <input id="s-ig" className={inputCls} placeholder="@usuario" {...register('instagram')} />
++              </div>
++              <div>
++                <label htmlFor="s-fb" className={labelCls}>
++                  <span className="flex items-center gap-1.5"><Facebook className="h-4 w-4 text-blue-600" /> Facebook</span>
++                </label>
++                <input id="s-fb" className={inputCls} placeholder="facebook.com/página" {...register('facebook')} />
++              </div>
++            </div>
++          </fieldset>
++        )}
++
+         <Button type="submit" loading={saving} disabled={!isDirty} fullWidth>
+           {t('settings.save')}
+         </Button>
+-- 
+2.43.0
+

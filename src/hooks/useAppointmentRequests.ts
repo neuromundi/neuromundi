@@ -63,7 +63,7 @@ export function useAppointmentRequests() {
     if (!userId) { setRows([]); setLoading(false); return; }
     setLoading(true);
     const { data } = await supabase
-      .from('appointment_requests' as never)
+      .from('appointment_requests')
       .select('*')
       .or(`specialist_id.eq.${userId},recipient_id.eq.${userId}`)
       .order('created_at', { ascending: false });
@@ -113,7 +113,7 @@ export function useAppointmentRequests() {
   const sendRequest = useCallback(
     async (memberNo: number, payload: RequestPayload): Promise<Result<true>> => {
       setBusy(true);
-      const { data, error } = await supabase.rpc('request_appointment' as never, {
+      const { data, error } = await supabase.rpc('request_appointment', {
         p_recipient_member_no: memberNo,
         p_title: payload.title,
         p_starts: payload.starts_at,
@@ -125,7 +125,7 @@ export function useAppointmentRequests() {
         p_charge_total: payload.charge_total ?? null,
         p_charge_percent: payload.charge_percent ?? 100,
         p_charge_currency: payload.charge_currency ?? null,
-      } as never);
+      });
       setBusy(false);
       if (error) return { ok: false, error: toMessage(error) };
       const res = data as { ok: boolean; error?: string };
@@ -139,11 +139,11 @@ export function useAppointmentRequests() {
   const respond = useCallback(
     async (requestId: string, accept: boolean, reason?: string): Promise<Result<true>> => {
       setBusy(true);
-      const { data, error } = await supabase.rpc('respond_appointment' as never, {
+      const { data, error } = await supabase.rpc('respond_appointment', {
         p_request: requestId,
         p_accept: accept,
         p_reason: reason ?? null,
-      } as never);
+      });
       setBusy(false);
       if (error) return { ok: false, error: toMessage(error) };
       const res = data as { ok: boolean; error?: string };
@@ -155,7 +155,7 @@ export function useAppointmentRequests() {
   );
 
   const searchPatients = useCallback(async (query: string): Promise<PatientHit[]> => {
-    const { data, error } = await supabase.rpc('search_patients' as never, { p_query: query } as never);
+    const { data, error } = await supabase.rpc('search_patients', { p_query: query });
     if (error) return [];
     return (data ?? []) as unknown as PatientHit[];
   }, []);
@@ -168,6 +168,6 @@ export function useAppointmentReminders() {
   const { userId } = useAuth();
   useEffect(() => {
     if (!userId) return;
-    void supabase.rpc('emit_due_appointment_reminders' as never);
+    void supabase.rpc('emit_due_appointment_reminders');
   }, [userId]);
 }

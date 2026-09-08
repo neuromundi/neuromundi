@@ -5,11 +5,12 @@
  * La navegación se adapta al estado de sesión y al rol. Áreas táctiles ≥44px,
  * estado activo visible y labels claros (poca carga cognitiva).
  */
-import { NavLink, Outlet, useNavigate, Link } from 'react-router-dom';
+import { NavLink, Outlet, useNavigate, Link, useLocation } from 'react-router-dom';
 import { Compass, LayoutDashboard, Settings, LogIn, LogOut, ShieldCheck, MessageCircleQuestion, School, GraduationCap, Grid3x3, X, BookOpenCheck, BookOpen, ShieldAlert, CalendarDays, ShoppingBag, MessageSquare, MessageCircle, Heart, Lightbulb, Award, Briefcase, Users, BadgeCheck } from 'lucide-react';
 import { Suspense, lazy, useEffect, useState, type ComponentType } from 'react';
 import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
+import logoHeaderUrl from '@/assets/logo-header.png';
 import { useAuth } from '@/hooks/useAuth';
 import { useMembership } from '@/hooks/useMembership';
 import { Button, SkeletonCard, useToast } from '@/components/ui';
@@ -96,6 +97,23 @@ export function AppLayout() {
   const { t } = useTranslation();
   const toast = useToast();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // SEO: canónica dinámica POR RUTA. Sin esto, el `<link rel=canonical>` estático
+  // de index.html (la portada) se aplicaría a TODAS las rutas de la SPA y Google
+  // las trataría como duplicadas de la home. Aquí la fijamos a la URL actual
+  // (origen + pathname, sin query) en cada cambio de página.
+  useEffect(() => {
+    const href = `${window.location.origin}${location.pathname}`;
+    let link = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+    if (!link) {
+      link = document.createElement('link');
+      link.rel = 'canonical';
+      document.head.appendChild(link);
+    }
+    link.href = href;
+  }, [location.pathname]);
+
   // Perfil suspendido: bloquea con un aviso de reactivación al iniciar sesión.
   const suspendedAt = useAuthStore((s) => s.profile?.suspended_at ?? null);
   const suspendUntil = useAuthStore((s) => s.profile?.suspend_until ?? null);
@@ -406,12 +424,12 @@ export function AppLayout() {
         )}
         {deferUi && !campaignActive && <SoftSignupBanner onSignup={() => navigate('/crear-cuenta')} />}
       </Suspense>
-      <header className="sticky top-0 z-30 border-b border-slate-100 bg-white/90 backdrop-blur">
+      <header className="sticky top-0 z-30 border-b border-slate-100 bg-[#eefbfa]/95 backdrop-blur">
         <div className="mx-auto max-w-6xl px-4 py-3">
           <div className="flex items-center justify-between">
             <NavLink to="/" className="inline-flex items-center gap-2 leading-none">
               <img
-                src="/logo-header.png?v=2026"
+                src={logoHeaderUrl}
                 alt=""
                 width={48}
                 height={48}
@@ -548,12 +566,14 @@ export function AppLayout() {
               href={campaign.whatsapp_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#1ebe5b] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25D366] focus-visible:ring-offset-2"
+              className="inline-flex items-center gap-2 rounded-full bg-[#0b8043] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#0a6d39] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0b8043] focus-visible:ring-offset-2"
             >
               <MessageCircle className="h-4 w-4" aria-hidden="true" /> {t('footer.whatsappChannel')}
             </a>
           </div>
         )}
+        <Link to="/conocer-mas" className="hover:text-brand-700" aria-label={t('info.title')}>{t('home.about.more')}</Link>
+        <span className="mx-2">·</span>
         <Link to="/proteccion-datos" className="hover:text-brand-700">{t('nav.dataProtection')}</Link>
         <span className="mx-2">·</span>
         <Link to="/privacidad" className="hover:text-brand-700">{t('auth.privacy')}</Link>
@@ -564,7 +584,7 @@ export function AppLayout() {
         <span className="mx-2">·</span>
         <Link to="/fundadores" className="hover:text-brand-700">{t('nav.founders')}</Link>
         <span className="mx-2">·</span>
-        <Link to="/donar" className="font-semibold text-[#8C6D1F] hover:underline">{t('nav.donate')}</Link>
+        <Link to="/donar" className="font-semibold text-[#6f5314] hover:underline">{t('nav.donate')}</Link>
         <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
           <button
             type="button"

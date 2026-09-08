@@ -180,7 +180,7 @@ export function Store() {
             type="button"
             onClick={() => setCat('')}
             aria-pressed={cat === ''}
-            className={cn('rounded-full border px-3 py-1.5 text-sm font-medium', cat === '' ? 'border-brand-500 bg-brand-500 text-white' : 'border-slate-200 text-slate-700 hover:bg-slate-50')}
+            className={cn('rounded-full border px-3 py-1.5 text-sm font-medium', cat === '' ? 'border-brand-500 bg-brand-500 text-white' : 'border-brand-100 bg-brand-50 text-brand-700 hover:bg-brand-100')}
           >
             {t('shop.allCategories')}
           </button>
@@ -190,7 +190,7 @@ export function Store() {
               type="button"
               onClick={() => setCat(cat === c.value ? '' : c.value)}
               aria-pressed={cat === c.value}
-              className={cn('rounded-full border px-3 py-1.5 text-sm font-medium', cat === c.value ? 'border-brand-500 bg-brand-500 text-white' : 'border-slate-200 text-slate-700 hover:bg-slate-50')}
+              className={cn('rounded-full border px-3 py-1.5 text-sm font-medium', cat === c.value ? 'border-brand-500 bg-brand-500 text-white' : 'border-brand-100 bg-brand-50 text-brand-700 hover:bg-brand-100')}
             >
               {catLabel(c.value, c.label)}
             </button>

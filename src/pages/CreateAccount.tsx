@@ -125,18 +125,20 @@ export function CreateAccount() {
   // Selección de tipo
   return (
     <div className="mx-auto max-w-4xl px-4 py-10">
-      <h1 className="text-center text-3xl font-extrabold text-slate-900">{t('create.title')}</h1>
-      <p className="mx-auto mt-2 max-w-xl text-center text-muted">{t('create.subtitle')}</p>
-
-      <div className="mt-4 flex justify-center">
+      {/* Acceso destacado para quien YA tiene cuenta: botón primario visible arriba. */}
+      <div className="flex flex-col items-center gap-2">
+        <p className="text-sm text-muted">{t('create.haveAccount')}</p>
         <button
           type="button"
           onClick={() => setLogin(true)}
-          className="inline-flex items-center gap-1.5 rounded-full border border-brand-200 bg-brand-50 px-4 py-2 text-sm font-semibold text-brand-700 transition-colors hover:bg-brand-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+          className="inline-flex items-center gap-2 rounded-full bg-brand-600 px-7 py-3 text-base font-semibold text-white shadow-sm transition-colors hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
         >
-          <LogIn className="h-4 w-4" aria-hidden="true" /> {t('create.haveAccount')} {t('access.login')}
+          <LogIn className="h-5 w-5" aria-hidden="true" /> {t('access.login')}
         </button>
       </div>
+
+      <h1 className="mt-10 text-center text-3xl font-extrabold text-slate-900">{t('create.title')}</h1>
+      <p className="mx-auto mt-2 max-w-xl text-center text-muted">{t('create.subtitle')}</p>
 
       <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {CARDS.map(({ type, icon: Icon, color, soon }) => (

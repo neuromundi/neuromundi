@@ -41,8 +41,7 @@
     "red": "Rede Neuromundi"
   },
   "home": {
-    "title": "A primeira comunidade global que conecta pacientes, famílias, especialistas e prestadores em neurodesenvolvimento, neurodivergência e afecções neurológicas.",
-    "subtitle": "Compartilhe experiências, mantenha-se atualizado e encontre serviços e produtos validados por outras famílias, com descontos e recomendações de confiança.",
+    "title": "A primeira comunidade global especializada em:",
     "explore": "Explorar o diretório",
     "auth": "Criar conta ou entrar",
     "f1": {
@@ -64,7 +63,8 @@
     "about": {
       "title": "O que é o Neuromundi?",
       "body1": "O Neuromundi é uma comunidade e um marketplace global para a neurodivergência. Conectamos famílias e pessoas neurodivergentes a prestadores de serviços, comércios e escolas inclusivas, além de um diretório de profissionais verificados, uma loja de produtos e recursos e uma academia com cursos.",
-      "body2": "As famílias e as pessoas neurodivergentes se cadastram e usam a plataforma gratuitamente. O objetivo do Neuromundi é facilitar o acesso a um acompanhamento de qualidade—com avaliações reais, informações confiáveis e ferramentas seguras—em um só lugar."
+      "body2": "As famílias e as pessoas neurodivergentes se cadastram e usam a plataforma gratuitamente. O objetivo do Neuromundi é facilitar o acesso a um acompanhamento de qualidade—com avaliações reais, informações confiáveis e ferramentas seguras—em um só lugar.",
+      "more": "Saiba mais"
     },
     "search": {
       "placeholder": "Especialidade, condição, serviço ou nome",
@@ -72,7 +72,6 @@
       "button": "Buscar",
       "free": "O cadastro é gratuito para famílias e pessoas neurodivergentes."
     },
-    "community": "Não somos apenas mais um diretório — somos uma comunidade genuína de apoio, orientação e acompanhamento criada por pacientes e famílias junto com especialistas e prestadores focados em neurodesenvolvimento, neurodivergência e afecções neurológicas. Este é o seu espaço para crescer com inclusão.",
     "country": {
       "label": "De qual país você nos visita?",
       "all": "Todos os países",
@@ -113,6 +112,11 @@
       "title": "Conheça nossos fundadores",
       "body": "Pessoas e organizações pioneiras que acreditaram na Neuromundi desde o início e ajudam a construir esta comunidade.",
       "cta": "Conheça os fundadores"
+    },
+    "cta": {
+      "join": "Junte-se à comunidade",
+      "expert": "Consulte um especialista",
+      "kits": "Use nossos kits de orientação"
     }
   },
   "auth": {
@@ -984,7 +988,6 @@
     "noAddress": "Sem endereço"
   },
   "legal": {
-    "badge": "Modelo base",
     "lastUpdated": "Última atualização",
     "disclaimer": "Este é um documento modelo para fins de exemplo. Antes de publicar, revise e adapte com assessoria jurídica qualificada para a sua jurisdição.",
     "bodyNote": "O conteúdo abaixo está em espanhol como base; substitua-o pelo seu texto jurídico definitivo."
@@ -1021,13 +1024,19 @@
   },
   "info": {
     "title": "Saber mais sobre o Neuromundi",
-    "tagline": "Uma comunidade que conecta pessoas neurodivergentes a serviços e fornecedores acolhedores.",
+    "tagline": "A primeira plataforma global que reúne famílias, pacientes, especialistas, comércios, escolas, empresas e organizações em torno do neurodesenvolvimento, das neurodivergências e das afecções neurológicas.",
     "whatTitle": "O que é o Neuromundi?",
-    "whatBody": "O Neuromundi é um diretório que reúne prestadores de serviços e fornecedores de produtos comprometidos com a neurodivergência, com descontos, avaliações de experiência (EVS) e recomendações confiáveis.",
+    "whatBody": "A Neuromundi é a primeira comunidade e marketplace global dedicada inteiramente ao neurodesenvolvimento, às neurodivergências e às afecções neurológicas. Reúne num só lugar —multipaís e em 11 idiomas— o que antes estava disperso: diretório, agenda, comunidade, formação e inclusão escolar e laboral.",
     "forTitle": "Para quem é?",
-    "forBody": "Para pessoas neurodivergentes, famílias, profissionais e fornecedores que buscam ou oferecem apoios de qualidade.",
-    "visit": "Visitar site oficial",
-    "officialNote": "Esta é uma página de modelo dentro do app. O site oficial fica em neuromundi.com."
+    "forBody": "Para todos os que integram o ecossistema: famílias, pacientes e pessoas neurodivergentes; especialistas e clínicas; comércios e criadores; escolas; espaços de lazer; empresas inclusivas e organizações.",
+    "uniqueTitle": "Algo inédito em nível internacional",
+    "uniqueBody": "O mundo da neurodivergência e das afecções neurológicas viveu fragmentado por idioma, país e disciplina. A Neuromundi é a primeira plataforma a integrar todo esse ecossistema num só espaço, pensado desde a origem para escala internacional: multipaís e em 11 idiomas, incluindo árabe e hebraico com leitura da direita para a esquerda.",
+    "inclusiveTitle": "Inclusiva por concepção",
+    "inclusiveBody": "A acessibilidade é a base, não um acréscimo: modo calma, ajustes para dislexia, alto contraste e tamanho do texto; guias de antecipação e espaços de baixo impacto sensorial; selo Neuroafirmativo e Neuromundi ID. O acesso também é equitativo: grátis para famílias e pacientes, grátis para empresas inclusivas e com tarifa preferencial para ONGs.",
+    "ecosystemTitle": "Um ecossistema, muitos perfis",
+    "ecosystemBody": "Sua força está na diversidade de quem a integra, todos conectados na mesma rede: especialistas, clínicas, comércios, escolas, espaços de lazer, empresas e organizações e, no centro, as famílias e pessoas neurodivergentes. Cada perfil dá e recebe: diretório, agenda e cobranças sem comissão, loja, mensagens com videochamada, inclusão escolar e laboral, formação e a comunidade Neurocamps.",
+    "closingTitle": "Uma causa que vira rede",
+    "closingBody": "A Neuromundi transforma a neurodivergência, muitas vezes enfrentada na solidão, numa comunidade global que se acompanha, se informa e se fortalece: a casa comum, internacional e inclusiva, do neurodesenvolvimento, das neurodivergências e das afecções neurológicas."
   },
   "membership": {
     "title": "Cota de afiliação",
@@ -4529,6 +4538,72 @@
           "Curso online de boas-vindas ao confirmar o e-mail.",
           "Acesso à comunidade privada de pioneiros."
         ]
+      },
+      "profilesTitle": "Benefícios por tipo de perfil",
+      "profiles": {
+        "specialists": {
+          "title": "Especialistas e profissionais",
+          "items": [
+            "Diretório global e agenda de consultas com lembretes.",
+            "Cobre suas consultas online e fique com 100% (sem comissão).",
+            "Avaliações verificadas, pontuação de experiência e selo Neuroafirmativo.",
+            "Publique artigos no Blog com sua página de autor."
+          ]
+        },
+        "clinics": {
+          "title": "Clínicas e centros",
+          "items": [
+            "Mostre seu programa de inclusão, admissões e serviços.",
+            "Agenda para toda a equipe com lembretes antifaltas.",
+            "Cobrança online de consultas e serviços, sem comissão.",
+            "Verificação institucional, avaliações e métricas de perfil."
+          ]
+        },
+        "merchants": {
+          "title": "Comércios e lojas",
+          "items": [
+            "Sua própria loja na plataforma, com estoque.",
+            "Fique com 100% das suas vendas (sem comissão).",
+            "Categorias especializadas, incluindo Arte e Artesanato.",
+            "Programa de afiliados com a comissão que você define."
+          ]
+        },
+        "schools": {
+          "title": "Escolas e instituições",
+          "items": [
+            "Perfil com programa de inclusão, admissões e séries.",
+            "Visibilidade para famílias por país e proximidade.",
+            "Verificação institucional e avaliações da comunidade.",
+            "Blog para compartilhar sua abordagem pedagógica."
+          ]
+        },
+        "companies": {
+          "title": "Empresas inclusivas",
+          "items": [
+            "Assinatura gratuita para empresas inclusivas.",
+            "Publique vagas, voluntariado e serviço social.",
+            "Selos de empresa inclusiva para download.",
+            "Vagas de Fundador de Empresas com reconhecimento."
+          ]
+        },
+        "leisure": {
+          "title": "Lazer e espaços sensorialmente amigáveis",
+          "items": [
+            "Localização no mapa e perfil verificado.",
+            "Horários de baixo impacto sensorial.",
+            "Visibilidade para famílias que buscam passeios acessíveis.",
+            "Mensagens diretas para reservas e dúvidas."
+          ]
+        },
+        "ngos": {
+          "title": "ONGs e organizações",
+          "items": [
+            "Mensalidade preferencial para ONGs.",
+            "Convoque voluntariado e serviço social.",
+            "Comunidade Neurocamps: fóruns, mentoria e eventos.",
+            "Blog para divulgar sua causa e pesquisas."
+          ]
+        }
       }
     }
   },

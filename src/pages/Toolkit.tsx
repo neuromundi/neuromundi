@@ -89,7 +89,7 @@ export function Toolkit() {
                 onClick={() => selectSection(s.value)}
                 className={cn(
                   'flex items-center justify-center gap-2 rounded-xl border px-3 py-2.5 text-sm font-semibold transition-colors',
-                  active ? `border-transparent bg-gradient-to-br text-white ${s.gradient}` : 'border-slate-200 text-slate-700 hover:bg-slate-50',
+                  active ? `border-transparent bg-gradient-to-br text-white shadow-sm ${s.gradient}` : s.softInactive,
                 )}
               >
                 <SIcon className="h-4 w-4 shrink-0" aria-hidden="true" /> {t(`sections.${s.value}.name`)}

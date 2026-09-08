@@ -22,6 +22,10 @@ import { cn } from '@/lib/utils';
 const COUNT = 15;
 const INTERVAL = 4600; // imagen (~1.1s fundido) + texto a 1s + lectura ~2.5s
 const SIZES = '(max-width: 640px) 92vw, (max-width: 1024px) 60vw, 448px';
+// Token de versión: fuerza a los clientes a re-descargar copias frescas y evita
+// que una caché envenenada (de builds rotos previos) sirva imágenes corruptas
+// —que en móvil se veían rotas—. Súbelo si vuelves a regenerar las imágenes.
+const IMG_V = 'v4';
 
 const KEYFRAMES = `
 .nm-hero-slide { opacity: 0; transition: opacity 1100ms ease-in-out; }
@@ -36,8 +40,8 @@ const KEYFRAMES = `
 
 function srcset(n: number) {
   // 700w cubre el hueco típico de móvil (~665 px mostrados) sin bajar a la de
-  // 800w, que Lighthouse marcaba como sobredimensionada.
-  return `/hero/slides/${n}-500-v3.webp 500w, /hero/slides/${n}-700-v3.webp 700w, /hero/slides/${n}-800-v3.webp 800w`;
+  // 800w, que Lighthouse marcaba como sobredimensionada. `?${IMG_V}` cache-bustea.
+  return `/hero/slides/${n}-500-v3.webp?${IMG_V} 500w, /hero/slides/${n}-700-v3.webp?${IMG_V} 700w, /hero/slides/${n}-800-v3.webp?${IMG_V} 800w`;
 }
 
 export function HeroCarousel({ className }: { className?: string }) {
@@ -95,7 +99,7 @@ export function HeroCarousel({ className }: { className?: string }) {
         return (
           <figure key={n} className="nm-hero-slide absolute inset-0 m-0" data-active={active} aria-hidden={!active}>
             <img
-              src={`/hero/slides/${n}-800-v3.webp`}
+              src={`/hero/slides/${n}-800-v3.webp?${IMG_V}`}
               srcSet={srcset(n)}
               sizes={SIZES}
               alt={caption || t('home.heroAlt')}
@@ -106,6 +110,15 @@ export function HeroCarousel({ className }: { className?: string }) {
               // @ts-expect-error fetchpriority es válido en HTML aunque el tipo lo omita
               fetchpriority={idx === 0 ? 'high' : undefined}
               decoding="async"
+              onError={(e) => {
+                // Último recurso: si una variante falla (p. ej. caché corrupta),
+                // reintenta con la 800w directa (sin srcset) una sola vez.
+                const img = e.currentTarget;
+                if (img.dataset.fallback) return;
+                img.dataset.fallback = '1';
+                img.removeAttribute('srcset');
+                img.src = `/hero/slides/${n}-800-v3.webp?${IMG_V}r`;
+              }}
             />
             {caption && (
               <figcaption className="nm-hero-cap absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 via-black/35 to-transparent p-4 pt-10">
