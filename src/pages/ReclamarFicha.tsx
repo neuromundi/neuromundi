@@ -30,7 +30,7 @@ interface Ficha {
   correo: string;
   sitio_web: string | null;
   especializacion: string | null;
-  fuente: string;
+  fuente: string;          // se conserva en la base, ya no se muestra
   fuente_url: string | null;
 }
 import { useParams } from 'react-router-dom';
@@ -97,7 +97,7 @@ export function ReclamarFicha() {
       <div className="rf-caja">
         <h1>Esta invitación ya no está vigente</h1>
         <p>Puede que alguien de tu equipo ya la haya usado, o que haya vencido.
-           Escríbenos a <a href="mailto:admin@admin.neuromundi.com">admin@admin.neuromundi.com</a> y
+           Escríbenos a <a href="mailto:admin@neuromundi.com">admin@neuromundi.com</a> y
            lo resolvemos.</p>
       </div>
     </div>
@@ -108,7 +108,7 @@ export function ReclamarFicha() {
       <div className="rf-caja">
         <h1>Algo falló de nuestro lado</h1>
         <p>Vuelve a intentarlo en un momento. Si sigue igual, escríbenos a
-           <a href="mailto:admin@admin.neuromundi.com"> admin@admin.neuromundi.com</a>.</p>
+           <a href="mailto:admin@neuromundi.com"> admin@neuromundi.com</a>.</p>
       </div>
     </div>
   );
@@ -148,9 +148,9 @@ export function ReclamarFicha() {
       <div className="rf-caja">
         <p className="rf-antetitulo">Invitación para {ficha.nombre}</p>
         <h1>Tu lugar ya aparece en Neuromundi</h1>
-        <p>Hemos realizado una profunda investigación y creemos que tu perfil es
-           idóneo para ser promovido en nuestra comunidad internacional. Esto es lo
-           que está publicado hoy.</p>
+        <p>Hicimos una investigación en bases de datos públicas y redes sociales, y
+           creemos que tu perfil es idóneo para ser promovido en nuestra comunidad
+           internacional. Esto es lo que está publicado hoy.</p>
 
         <div className="rf-ficha">
           <h2>{ficha.nombre}</h2>
@@ -162,12 +162,6 @@ export function ReclamarFicha() {
             {ficha.sitio_web    && <div><dt>Sitio</dt><dd>{ficha.sitio_web}</dd></div>}
             {ficha.especializacion && <div><dt>Giro</dt><dd>{ficha.especializacion}</dd></div>}
           </dl>
-          <p className="rf-fuente">
-            Fuente: {ficha.fuente === 'denue'
-              ? <>Directorio Estadístico Nacional de Unidades Económicas (DENUE) del INEGI,
-                  registro público. <a href={ficha.fuente_url ?? undefined} target="_blank" rel="noreferrer">Consultarlo</a></>
-              : <>investigación propia a partir de fuentes públicas</>}
-          </p>
         </div>
 
         <p className="rf-pregunta">¿Qué quieres hacer con ella?</p>
