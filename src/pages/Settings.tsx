@@ -9,7 +9,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
-import { Camera, LogOut, Trash2, KeyRound, HelpCircle, BellRing, Globe, MessageCircle, CalendarCheck, Instagram, Facebook } from 'lucide-react';
+import { Camera, LogOut, Trash2, KeyRound, HelpCircle, BellRing, MessageCircle, CalendarCheck, Instagram, Facebook } from 'lucide-react';
 import { usePushSubscribe } from '@/hooks/usePushSubscribe';
 import { Button, useToast, SkeletonCard, PasswordInput} from '@/components/ui';
 import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher';
