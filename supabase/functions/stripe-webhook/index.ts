@@ -12,7 +12,9 @@
 // En Stripe → Developers → Webhooks, apunta a:
 //   https://<project-ref>.functions.supabase.co/stripe-webhook
 // Eventos: checkout.session.completed, invoice.paid, invoice.payment_failed,
-//          customer.subscription.deleted
+//          account.updated, charge.refunded, customer.subscription.deleted
+//   (los 5 primeros son OBLIGATORIOS; charge.refunded revierte la comisión del
+//    promotor, sin él un reembolso no se entera).
 // ============================================================================
 import Stripe from 'https://esm.sh/stripe@16.12.0?target=denonext';
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';

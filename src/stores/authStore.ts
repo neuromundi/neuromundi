@@ -142,16 +142,23 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   profile: null,
 
   initialize: () => {
-    // Estado inicial desde sesión persistida.
-    supabase.auth.getSession().then(async ({ data }) => {
-      const session = data.session;
-      if (session?.user) {
-        const profile = await fetchProfile(session.user.id);
-        set({ status: 'authenticated', session, user: session.user, profile });
-      } else {
+    // Estado inicial desde sesión persistida. Si getSession o fetchProfile
+    // rechazan (red/RLS), NO dejamos la app colgada en 'loading': caemos a
+    // 'unauthenticated' para que se pinte la UI pública.
+    supabase.auth
+      .getSession()
+      .then(async ({ data }) => {
+        const session = data.session;
+        if (session?.user) {
+          const profile = await fetchProfile(session.user.id);
+          set({ status: 'authenticated', session, user: session.user, profile });
+        } else {
+          set({ status: 'unauthenticated', session: null, user: null, profile: null });
+        }
+      })
+      .catch(() => {
         set({ status: 'unauthenticated', session: null, user: null, profile: null });
-      }
-    });
+      });
 
     // Suscripción a cambios de sesión.
     const { data: sub } = supabase.auth.onAuthStateChange(async (_event, session) => {

@@ -32,6 +32,7 @@ function isoCountry(label: string): string {
 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: cors });
+  try {
   const stripeKey = Deno.env.get('STRIPE_SECRET_KEY') ?? '';
   if (!stripeKey) return json(500, { error: 'Falta STRIPE_SECRET_KEY' });
 
@@ -79,4 +80,8 @@ Deno.serve(async (req) => {
   });
 
   return json(200, { url: link.url });
+  } catch (e) {
+    console.error('[connect-onboarding]', e);
+    return json(500, { error: e instanceof Error ? e.message : 'Error interno del servidor' });
+  }
 });

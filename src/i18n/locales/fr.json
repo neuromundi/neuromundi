@@ -181,7 +181,23 @@
     "recoveryHint": "Vous récupérez votre compte. Définissez votre nouveau mot de passe ci-dessous.",
     "pwMatch": "Les mots de passe correspondent.",
     "pwSameAsOld": "Vous devez créer un nouveau mot de passe, différent du précédent.",
-    "pwLocked": "Pour votre sécurité, attendez {{s}} s avant de réessayer."
+    "pwLocked": "Pour votre sécurité, attendez {{s}} s avant de réessayer.",
+    "areasPlaceholder": "Ex. Langage, Motricité, Comportement, Attention…",
+    "bookingUrl": "Lien pour prendre rendez-vous",
+    "directory": "Annuaire et spécialisation",
+    "interventionAreas": "Domaines d'intervention",
+    "modalDomicilio": "À domicile",
+    "modalHibrido": "Hybride",
+    "modalOnline": "En ligne",
+    "modalPresencial": "En présentiel",
+    "modalities": "Modalités de prise en charge",
+    "neuroCategories": "Catégories dans Neuromundi",
+    "neuroaffirming": "Approche neuro-affirmative",
+    "profession": "Profession",
+    "professionPlaceholder": "Ex. Neuropsychologue, Ergothérapeute, Psychopédagogue…",
+    "specialties": "Spécialités",
+    "specialtiesHint": "Séparez chaque élément par une virgule.",
+    "specialtiesPlaceholder": "Ex. TSA, TDAH, Syndrome de Down, Thérapie ABA…"
   },
   "val": {
     "email": "Saisissez un e-mail valide",
@@ -4656,5 +4672,10 @@
     "active": "Actif",
     "inactive": "Inactif",
     "empty": "Aucune remise par pays pour le moment."
+  },
+  "dir": {
+    "neurodesarrollo": "Neurodéveloppement",
+    "neurodivergencias": "Neurodivergence",
+    "afecciones": "Affections neurologiques"
   }
 }

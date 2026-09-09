@@ -181,7 +181,23 @@
     "recoveryHint": "アカウントを復旧しています。以下で新しいパスワードを設定してください。",
     "pwMatch": "パスワードが一致しています。",
     "pwSameAsOld": "以前とは異なる新しいパスワードを作成してください。",
-    "pwLocked": "安全のため、{{s}}秒待ってから再試行してください。"
+    "pwLocked": "安全のため、{{s}}秒待ってから再試行してください。",
+    "areasPlaceholder": "例: 言語、運動、行動、注意…",
+    "bookingUrl": "予約用リンク",
+    "directory": "ディレクトリと専門分野",
+    "interventionAreas": "介入領域",
+    "modalDomicilio": "訪問",
+    "modalHibrido": "ハイブリッド",
+    "modalOnline": "オンライン",
+    "modalPresencial": "対面",
+    "modalities": "対応の形式",
+    "neuroCategories": "Neuromundi のカテゴリ",
+    "neuroaffirming": "ニューロアファーミングの姿勢",
+    "profession": "職業",
+    "professionPlaceholder": "例: 神経心理士、作業療法士、心理教育士…",
+    "specialties": "専門",
+    "specialtiesHint": "各項目はカンマで区切ってください。",
+    "specialtiesPlaceholder": "例: ASD、ADHD、ダウン症、ABAセラピー…"
   },
   "val": {
     "email": "有効なメールアドレスを入力してください",
@@ -4656,5 +4672,10 @@
     "active": "有効",
     "inactive": "無効",
     "empty": "国別割引はまだありません。"
+  },
+  "dir": {
+    "neurodesarrollo": "神経発達",
+    "neurodivergencias": "神経多様性",
+    "afecciones": "神経疾患"
   }
 }

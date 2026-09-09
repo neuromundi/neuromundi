@@ -88,6 +88,10 @@ export function ProviderProfile() {
 
   const name = profile.business_name ?? profile.full_name;
   const radarData = radar.map((d) => ({ label: t(DIMENSION_LABEL_KEY[d.key]), value: d.value }));
+  // Una FICHA del directorio (sin cuenta) no admite reservar/conectar/reseñar:
+  // esas acciones exigen un perfil real. La vista directorio_publico marca
+  // origen='ficha' en esas filas.
+  const isFicha = (profile as { origen?: string }).origen === 'ficha';
 
   return (
     <div className="mx-auto max-w-2xl space-y-6 p-4">
@@ -149,7 +153,7 @@ export function ProviderProfile() {
 
       {profile.bio && <p className="text-slate-700 leading-relaxed">{profile.bio}</p>}
 
-      {(isParent || isConsumer || (isProvider && userId !== id)) && (
+      {!isFicha && (isParent || isConsumer || (isProvider && userId !== id)) && (
         // onClickCapture cuenta un CONTACTO al pulsar cualquier botón de esta
         // fila (conectar, reservar, guardar). Una vez por carga de perfil.
         <div className="flex flex-wrap gap-2" onClickCapture={() => trackContactOnce(id)}>

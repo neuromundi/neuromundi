@@ -218,7 +218,23 @@
     "recoveryHint": "أنت تستعيد حسابك. عيّن كلمة المرور الجديدة أدناه.",
     "pwMatch": "كلمتا المرور متطابقتان.",
     "pwSameAsOld": "يجب إنشاء كلمة مرور جديدة مختلفة عن السابقة.",
-    "pwLocked": "للأمان، انتظر {{s}} ثانية قبل المحاولة مجددًا."
+    "pwLocked": "للأمان، انتظر {{s}} ثانية قبل المحاولة مجددًا.",
+    "areasPlaceholder": "مثال: اللغة، المهارات الحركية، السلوك، الانتباه…",
+    "bookingUrl": "رابط لحجز موعد",
+    "directory": "الدليل والتخصص",
+    "interventionAreas": "مجالات التدخل",
+    "modalDomicilio": "في المنزل",
+    "modalHibrido": "مختلط",
+    "modalOnline": "عبر الإنترنت",
+    "modalPresencial": "حضوري",
+    "modalities": "أنماط الرعاية",
+    "neuroCategories": "الفئات في Neuromundi",
+    "neuroaffirming": "نهج داعم للتنوع العصبي",
+    "profession": "المهنة",
+    "professionPlaceholder": "مثال: أخصائي نفسي عصبي، معالج وظيفي، أخصائي نفسي تربوي…",
+    "specialties": "التخصصات",
+    "specialtiesHint": "افصل كل عنصر بفاصلة.",
+    "specialtiesPlaceholder": "مثال: اضطراب طيف التوحد، فرط الحركة، متلازمة داون، علاج ABA…"
   },
   "val": {
     "email": "أدخل بريدًا إلكترونيًا صالحًا",
@@ -4656,5 +4672,10 @@
     "active": "مفعّل",
     "inactive": "معطّل",
     "empty": "لا توجد خصومات حسب البلد بعد."
+  },
+  "dir": {
+    "neurodesarrollo": "النمو العصبي",
+    "neurodivergencias": "التنوع العصبي",
+    "afecciones": "الحالات العصبية"
   }
 }

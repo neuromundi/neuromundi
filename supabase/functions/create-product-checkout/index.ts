@@ -34,6 +34,7 @@ const ZERO_DECIMAL = new Set(['jpy', 'krw', 'clp', 'vnd']);
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: cors });
   if (req.method !== 'POST') return json(405, { error: 'Método no permitido' });
+  try {
   const stripeKey = Deno.env.get('STRIPE_SECRET_KEY') ?? '';
   if (!stripeKey) return json(500, { error: 'Falta STRIPE_SECRET_KEY' });
 
@@ -124,4 +125,8 @@ Deno.serve(async (req) => {
   });
 
   return json(200, { url: session.url });
+  } catch (e) {
+    console.error('[create-product-checkout]', e);
+    return json(500, { error: e instanceof Error ? e.message : 'Error interno del servidor' });
+  }
 });

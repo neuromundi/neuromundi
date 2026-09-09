@@ -181,7 +181,23 @@
     "recoveryHint": "Stai recuperando il tuo account. Imposta la nuova password qui sotto.",
     "pwMatch": "Le password coincidono.",
     "pwSameAsOld": "Devi creare una nuova password, diversa dalla precedente.",
-    "pwLocked": "Per sicurezza, attendi {{s}} s prima di riprovare."
+    "pwLocked": "Per sicurezza, attendi {{s}} s prima di riprovare.",
+    "areasPlaceholder": "Es. Linguaggio, Motricità, Comportamento, Attenzione…",
+    "bookingUrl": "Link per prenotare un appuntamento",
+    "directory": "Directory e specializzazione",
+    "interventionAreas": "Aree di intervento",
+    "modalDomicilio": "A domicilio",
+    "modalHibrido": "Ibrido",
+    "modalOnline": "Online",
+    "modalPresencial": "In presenza",
+    "modalities": "Modalità di intervento",
+    "neuroCategories": "Categorie in Neuromundi",
+    "neuroaffirming": "Approccio neuroaffermativo",
+    "profession": "Professione",
+    "professionPlaceholder": "Es. Neuropsicologo, Terapista occupazionale, Psicopedagogista…",
+    "specialties": "Specializzazioni",
+    "specialtiesHint": "Separa ogni voce con una virgola.",
+    "specialtiesPlaceholder": "Es. ASD, ADHD, Sindrome di Down, Terapia ABA…"
   },
   "val": {
     "email": "Inserisci un'email valida",
@@ -4656,5 +4672,10 @@
     "active": "Attivo",
     "inactive": "Inattivo",
     "empty": "Nessuno sconto per Paese ancora."
+  },
+  "dir": {
+    "neurodesarrollo": "Neurosviluppo",
+    "neurodivergencias": "Neurodivergenza",
+    "afecciones": "Patologie neurologiche"
   }
 }

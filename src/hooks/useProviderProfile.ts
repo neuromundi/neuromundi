@@ -35,8 +35,12 @@ export function useProviderProfile(id: string | null): UseProviderProfileValue {
       setLoading(true);
       setError(null);
       try {
+        // Lee de la VISTA directorio_publico (superconjunto de profiles + fichas
+        // sin cuenta), no de profiles: si no, las 700+ fichas del directorio
+        // —que son la mayoría de los resultados— abrían un perfil vacío porque
+        // su id no existe en profiles. La vista ya filtra publicado/no-reclamado.
         const { data: prof, error: pErr } = await supabase
-          .from('profiles')
+          .from('directorio_publico')
           .select('*')
           .eq('id', id)
           .eq('is_published', true)

@@ -218,7 +218,23 @@
     "recoveryHint": "계정을 복구하고 있습니다. 아래에 새 비밀번호를 설정하세요.",
     "pwMatch": "비밀번호가 일치합니다.",
     "pwSameAsOld": "이전과 다른 새 비밀번호를 만들어야 합니다.",
-    "pwLocked": "보안을 위해 다시 시도하기 전에 {{s}}초 기다리세요."
+    "pwLocked": "보안을 위해 다시 시도하기 전에 {{s}}초 기다리세요.",
+    "areasPlaceholder": "예: 언어, 운동, 행동, 주의…",
+    "bookingUrl": "예약 링크",
+    "directory": "디렉터리 및 전문 분야",
+    "interventionAreas": "중재 영역",
+    "modalDomicilio": "방문",
+    "modalHibrido": "하이브리드",
+    "modalOnline": "온라인",
+    "modalPresencial": "대면",
+    "modalities": "지원 방식",
+    "neuroCategories": "Neuromundi 카테고리",
+    "neuroaffirming": "신경긍정 접근",
+    "profession": "직업",
+    "professionPlaceholder": "예: 신경심리사, 작업치료사, 심리교육사…",
+    "specialties": "전문 분야",
+    "specialtiesHint": "각 항목을 쉼표로 구분하세요.",
+    "specialtiesPlaceholder": "예: ASD, ADHD, 다운증후군, ABA 치료…"
   },
   "val": {
     "email": "유효한 이메일을 입력하세요",
@@ -4656,5 +4672,10 @@
     "active": "활성",
     "inactive": "비활성",
     "empty": "아직 국가별 할인이 없습니다."
+  },
+  "dir": {
+    "neurodesarrollo": "신경발달",
+    "neurodivergencias": "신경다양성",
+    "afecciones": "신경계 질환"
   }
 }

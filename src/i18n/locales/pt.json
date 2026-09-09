@@ -181,7 +181,23 @@
     "recoveryHint": "Você está recuperando sua conta. Defina sua nova senha abaixo.",
     "pwMatch": "As senhas coincidem.",
     "pwSameAsOld": "Você deve criar uma nova senha, diferente da anterior.",
-    "pwLocked": "Por segurança, aguarde {{s}} s antes de tentar novamente."
+    "pwLocked": "Por segurança, aguarde {{s}} s antes de tentar novamente.",
+    "areasPlaceholder": "Ex. Linguagem, Motricidade, Comportamento, Atenção…",
+    "bookingUrl": "Link para agendar consulta",
+    "directory": "Diretório e especialização",
+    "interventionAreas": "Áreas de intervenção",
+    "modalDomicilio": "Ao domicílio",
+    "modalHibrido": "Híbrido",
+    "modalOnline": "Online",
+    "modalPresencial": "Presencial",
+    "modalities": "Modalidades de atendimento",
+    "neuroCategories": "Categorias no Neuromundi",
+    "neuroaffirming": "Abordagem neuroafirmativa",
+    "profession": "Profissão",
+    "professionPlaceholder": "Ex. Neuropsicólogo, Terapeuta Ocupacional, Psicopedagogo…",
+    "specialties": "Especialidades",
+    "specialtiesHint": "Separe cada item com uma vírgula.",
+    "specialtiesPlaceholder": "Ex. TEA, TDAH, Síndrome de Down, Terapia ABA…"
   },
   "val": {
     "email": "Digite um e-mail válido",
@@ -4656,5 +4672,10 @@
     "active": "Ativo",
     "inactive": "Inativo",
     "empty": "Ainda não há descontos por país."
+  },
+  "dir": {
+    "neurodesarrollo": "Neurodesenvolvimento",
+    "neurodivergencias": "Neurodivergência",
+    "afecciones": "Afecções neurológicas"
   }
 }

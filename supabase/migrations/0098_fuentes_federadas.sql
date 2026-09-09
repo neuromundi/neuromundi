@@ -17,9 +17,9 @@
 -- raspar los padrones cada tanto porque crecen.
 -- ============================================================================
 
-alter table directorio drop constraint directorio_fuente_valida;
+alter table public.directorio drop constraint if exists directorio_fuente_valida;
 
-alter table directorio add constraint directorio_fuente_valida
+alter table public.directorio add constraint directorio_fuente_valida
   check (fuente = any (array[
     'denue',              -- Directorio Estadístico Nacional de Unidades Económicas (INEGI)
     'curado',             -- investigación propia, ficha por ficha

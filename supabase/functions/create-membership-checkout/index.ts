@@ -27,6 +27,7 @@ Deno.serve(async (req: Request) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders });
   if (req.method !== 'POST') return json(405, { error: 'Método no permitido' });
 
+  try {
   const stripeKey = Deno.env.get('STRIPE_SECRET_KEY') ?? '';
   if (!stripeKey) return json(500, { error: 'Falta STRIPE_SECRET_KEY en el servidor.' });
 
@@ -230,4 +231,11 @@ Deno.serve(async (req: Request) => {
   });
 
   return json(200, { url: session.url });
+  } catch (e) {
+    // Sin este catch, un error de Stripe (clave inválida, cupón, Connect…) sube
+    // sin cabeceras CORS y el navegador solo ve "error de CORS", ocultando la
+    // causa. Aquí se registra y se devuelve el mensaje real con CORS.
+    console.error('[create-membership-checkout]', e);
+    return json(500, { error: e instanceof Error ? e.message : 'Error interno del servidor' });
+  }
 });

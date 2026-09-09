@@ -181,7 +181,23 @@
     "recoveryHint": "你正在找回账户。请在下方设置新密码。",
     "pwMatch": "两次密码一致。",
     "pwSameAsOld": "请设置与之前不同的新密码。",
-    "pwLocked": "为安全起见，请等待{{s}}秒后再试。"
+    "pwLocked": "为安全起见，请等待{{s}}秒后再试。",
+    "areasPlaceholder": "例如：语言、运动、行为、注意力…",
+    "bookingUrl": "预约链接",
+    "directory": "目录与专业领域",
+    "interventionAreas": "干预领域",
+    "modalDomicilio": "上门",
+    "modalHibrido": "混合",
+    "modalOnline": "线上",
+    "modalPresencial": "面对面",
+    "modalities": "服务方式",
+    "neuroCategories": "Neuromundi 中的分类",
+    "neuroaffirming": "神经肯定取向",
+    "profession": "职业",
+    "professionPlaceholder": "例如：神经心理学家、职业治疗师、心理教育师…",
+    "specialties": "专长",
+    "specialtiesHint": "每一项用逗号分隔。",
+    "specialtiesPlaceholder": "例如：ASD、ADHD、唐氏综合征、ABA疗法…"
   },
   "val": {
     "email": "请输入有效的邮箱",
@@ -4656,5 +4672,10 @@
     "active": "启用",
     "inactive": "停用",
     "empty": "暂无按国家/地区的折扣。"
+  },
+  "dir": {
+    "neurodesarrollo": "神经发育",
+    "neurodivergencias": "神经多样性",
+    "afecciones": "神经系统疾病"
   }
 }

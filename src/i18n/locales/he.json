@@ -218,7 +218,23 @@
     "recoveryHint": "אתה משחזר את חשבונך. הגדר את הסיסמה החדשה למטה.",
     "pwMatch": "הסיסמאות תואמות.",
     "pwSameAsOld": "עליך ליצור סיסמה חדשה, שונה מהקודמת.",
-    "pwLocked": "מטעמי אבטחה, המתן {{s}} שניות לפני ניסיון נוסף."
+    "pwLocked": "מטעמי אבטחה, המתן {{s}} שניות לפני ניסיון נוסף.",
+    "areasPlaceholder": "לדוגמה: שפה, מוטוריקה, התנהגות, קשב…",
+    "bookingUrl": "קישור לקביעת תור",
+    "directory": "מדריך והתמחות",
+    "interventionAreas": "תחומי התערבות",
+    "modalDomicilio": "בבית הלקוח",
+    "modalHibrido": "היברידי",
+    "modalOnline": "מקוון",
+    "modalPresencial": "פרונטלי",
+    "modalities": "אופני טיפול",
+    "neuroCategories": "קטגוריות ב-Neuromundi",
+    "neuroaffirming": "גישה מאששת נוירו-שונות",
+    "profession": "מקצוע",
+    "professionPlaceholder": "לדוגמה: נוירופסיכולוג, מרפא בעיסוק, פסיכופדגוג…",
+    "specialties": "התמחויות",
+    "specialtiesHint": "הפרד כל פריט בפסיק.",
+    "specialtiesPlaceholder": "לדוגמה: ASD, ADHD, תסמונת דאון, טיפול ABA…"
   },
   "val": {
     "email": "הזן אימייל תקין",
@@ -4656,5 +4672,10 @@
     "active": "פעיל",
     "inactive": "לא פעיל",
     "empty": "אין עדיין הנחות לפי מדינה."
+  },
+  "dir": {
+    "neurodesarrollo": "התפתחות עצבית",
+    "neurodivergencias": "שונות עצבית",
+    "afecciones": "מצבים נוירולוגיים"
   }
 }

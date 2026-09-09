@@ -181,7 +181,23 @@
     "recoveryHint": "Du stellst dein Konto wieder her. Lege unten dein neues Passwort fest.",
     "pwMatch": "Passwörter stimmen überein.",
     "pwSameAsOld": "Du musst ein neues Passwort erstellen, das sich vom vorherigen unterscheidet.",
-    "pwLocked": "Aus Sicherheitsgründen warte {{s}} s, bevor du es erneut versuchst."
+    "pwLocked": "Aus Sicherheitsgründen warte {{s}} s, bevor du es erneut versuchst.",
+    "areasPlaceholder": "z. B. Sprache, Motorik, Verhalten, Aufmerksamkeit…",
+    "bookingUrl": "Link zur Terminbuchung",
+    "directory": "Verzeichnis und Spezialisierung",
+    "interventionAreas": "Interventionsbereiche",
+    "modalDomicilio": "Hausbesuch",
+    "modalHibrido": "Hybrid",
+    "modalOnline": "Online",
+    "modalPresencial": "Vor Ort",
+    "modalities": "Behandlungsformen",
+    "neuroCategories": "Kategorien in Neuromundi",
+    "neuroaffirming": "Neuroaffirmativer Ansatz",
+    "profession": "Beruf",
+    "professionPlaceholder": "z. B. Neuropsychologe, Ergotherapeut, Heilpädagoge…",
+    "specialties": "Spezialgebiete",
+    "specialtiesHint": "Trennen Sie die Einträge mit einem Komma.",
+    "specialtiesPlaceholder": "z. B. ASS, ADHS, Down-Syndrom, ABA-Therapie…"
   },
   "val": {
     "email": "Gib eine gültige E-Mail ein",
@@ -4656,5 +4672,10 @@
     "active": "Aktiv",
     "inactive": "Inaktiv",
     "empty": "Noch keine Länderrabatte."
+  },
+  "dir": {
+    "neurodesarrollo": "Neuroentwicklung",
+    "neurodivergencias": "Neurodivergenz",
+    "afecciones": "Neurologische Erkrankungen"
   }
 }
