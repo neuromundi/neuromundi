@@ -55,10 +55,15 @@ function shell(title: string, bodyHtml: string, ctaText: string, ctaUrl: string)
   </div>`;
 }
 
-function welcomeHtml(row: { name: string; role: string; provider_type: string | null; opens_at: string | null }): { subject: string; html: string } {
+function welcomeHtml(row: { name: string; role: string; provider_type: string | null; opens_at: string | null; sector?: string | null }): { subject: string; html: string } {
   const opens = fmtDate(row.opens_at);
   const isConsumer = row.role === 'parent' || row.role === 'patient';
-  const isOrg = row.provider_type === 'company' || row.provider_type === 'ngo';
+  // El sector manda sobre el provider_type. Un DIF estatal está clasificado
+  // como 'clinic' o 'school', así que la regla vieja —solo company y ngo— le
+  // mandaba la oferta de pago a organismos públicos. El sector viene del SCIAN
+  // del INEGI y de la figura jurídica del nombre.
+  const isOrg = row.provider_type === 'company' || row.provider_type === 'ngo'
+    || row.sector === 'publico' || row.sector === 'social';
   let reward: string;
   if (isConsumer) {
     reward = `<p>Tu membresía es <b>gratuita, nivel Fundador, de por vida</b>. Además participas en el programa de referidos y en el sorteo del día del lanzamiento.</p>`;

@@ -83,9 +83,17 @@ Deno.serve(async (req) => {
   }
   if (!userId) return json({ error: 'no se pudo resolver la cuenta' }, 500);
 
-  // 3 · Crear su perfil con los datos de la ficha. is_published queda en false:
-  //     sale al público cuando la persona lo complete y lo publique. Nada suyo
-  //     se muestra como verificado hasta que ella lo confirme.
+  // 3 · Crear su perfil con los datos de la ficha.
+  //
+  //     A quién se le pide cuota lo decide el sector, que viene del propio dato:
+  //     el SCIAN del INEGI distingue sector público de privado en el código
+  //     (611182 pública, 611181 privada), y para las fichas de investigación
+  //     propia se usa la figura jurídica del nombre.
+  //
+  //     · publico y social  → 'exempt': no se les pide nada.
+  //     · privado           → 'pending' con 15 días, y la plataforma le muestra
+  //                           la tarifa que le toca por tipo de perfil y país.
+  const cobrable = ficha.sector === 'privado';
   const { error: ePerfil } = await admin.from('profiles').upsert({
     id: userId,
     role: 'provider',
@@ -103,8 +111,10 @@ Deno.serve(async (req) => {
     // 'pending' con fecha límite: así useMembership calcula la cotización y las
     // opciones de pago, y la plataforma le muestra la cuota como a cualquier
     // proveedor. Con 'exempt' el hook se las salta y no aparece nada que pagar.
-    membership_status: 'pending',
-    membership_due_at: new Date(Date.now() + 15 * 86400000).toISOString(),
+    membership_status: cobrable ? 'pending' : 'exempt',
+    membership_due_at: cobrable
+      ? new Date(Date.now() + 15 * 86400000).toISOString()
+      : null,
     // Su ficha ya era pública; reclamarla no debe hacerlo desaparecer del
     // directorio mientras completa el perfil.
     is_published: true,
