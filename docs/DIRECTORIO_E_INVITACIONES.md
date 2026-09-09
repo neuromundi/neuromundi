@@ -152,3 +152,52 @@ clave de servicio:
 | `emparejar-local.mjs` | cruza el DENUE contra un CSV propio, llena huecos |
 | `contar-clases.mjs` | cuenta establecimientos por clase y estado |
 | `enviar-invitaciones.mjs` | manda las invitaciones · **exige `--autorizado`** |
+| `sonda-residencias.mjs` | descubre y cuenta las clases de residencias, asilos y hospitales |
+| `clasificar-residencias.mjs` | aplica el criterio de admisión por deterioro cognitivo |
+
+Los dos últimos viven en la raíz del repo y leen `denue.env`, que está ignorado
+por git (`*.env`, línea 42 del `.gitignore`).
+
+---
+
+## 7 · Criterio de admisión: residencias de adultos mayores
+
+Decidido el 9 de septiembre de 2026.
+
+Neuromundi cubre neurodesarrollo, neurodivergencias y afecciones neurológicas.
+Una residencia geriátrica general no cabe ahí. Una que atiende deterioro
+cognitivo, sí, y de lleno.
+
+**La regla es la condición atendida, no el giro del establecimiento.** Una
+residencia de adultos mayores entra si atiende Alzheimer, demencias, deterioro
+cognitivo, Parkinson o daño cerebral. No entra por ser residencia.
+
+Sin esta regla, un barrido de las clases 6231–6233 mete cientos de asilos
+generales, y el buscador se llena de resultados que no le sirven a la persona
+que está buscando.
+
+**Cómo se aplica.** El DENUE no dice qué atiende cada establecimiento: da
+nombre, clase, domicilio y contacto. Así que la admisión no se resuelve con el
+dato del INEGI y hacen falta dos etapas:
+
+1. `clasificar-residencias.mjs` separa en tres. Entra directo lo que el nombre
+   ya prueba (dice Alzheimer, memoria, demencia, neuro). Sale lo que es otra
+   cosa (orfanatos, casas hogar infantiles, anexos de adicciones) y lo que no
+   tiene sitio ni correo, porque no hay cómo verificarlo ni cómo invitarlo.
+   El resto queda por verificar.
+2. Las de "por verificar" se revisan en su propio sitio buscando la evidencia.
+   Solo las que la tengan entran al directorio.
+
+**Caso de referencia: Ballesol México.** Cadena española con dos residencias en
+el país (Corregidora, Querétaro y Lomas Verdes, Naucalpan). Su nombre no dice
+nada, así que caería en "por verificar". Su sitio prueba el ámbito: equipo de
+enfermería especializado en Alzheimer, programas de estimulación cognitiva,
+talleres de memoria y orientación a la realidad. **Entra.**
+
+Conviene notar que su oferta se presenta como cuidados paliativos con
+estimulación cognitiva, no como unidad de memoria separada. Aun así cumple: la
+regla pregunta si atiende la condición, no cómo organiza el servicio.
+
+**El sector no se decide a mano.** Sale del último dígito de la clase SCIAN:
+par es sector público, impar privado. Es la misma regla que ya usamos con
+escuelas y consultorios.
