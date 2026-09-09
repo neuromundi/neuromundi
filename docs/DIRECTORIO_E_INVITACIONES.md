@@ -198,6 +198,18 @@ Conviene notar que su oferta se presenta como cuidados paliativos con
 estimulación cognitiva, no como unidad de memoria separada. Aun así cumple: la
 regla pregunta si atiende la condición, no cómo organiza el servicio.
 
-**El sector no se decide a mano.** Sale del último dígito de la clase SCIAN:
-par es sector público, impar privado. Es la misma regla que ya usamos con
-escuelas y consultorios.
+**El sector se lee del nombre de la clase, no de la paridad del código.**
+
+Veníamos usando un atajo: último dígito par = sector público. Funciona en los
+pares terminados en 1/2 (611181 privado / 611182 público) y por eso nunca falló
+antes. Pero se rompe en los terminados en 8/9, donde la convención se invierte:
+**621398 es privado y 621399 es público**. En la sonda del sector 62 el atajo
+falla en 8 de 64 clases, y una de ellas, 621398, tiene 9,565 establecimientos.
+
+El dato bueno estaba a la vista todo el tiempo: el INEGI escribe el sector en el
+propio nombre de la clase ("del sector privado", "del sector público"). De ahí se
+lee. Hay clases sin división de sector — enfermería a domicilio, optometría,
+ambulancias — y ahí el campo queda vacío y lo resuelve la verificación.
+
+Las fichas ya cargadas no están afectadas: todas son de clases 1/2, verificado
+contra la base.

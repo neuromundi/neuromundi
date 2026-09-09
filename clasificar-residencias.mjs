@@ -29,9 +29,25 @@ import fs from 'node:fs/promises';
 
 // ---------- sector y tipo, deducidos del código -------------------------------
 
-/** Último dígito par = sector público. Regla del propio SCIAN. */
-const sectorDeClase = clase =>
-  /^\d{6}$/.test(clase) ? (Number(clase[5]) % 2 === 0 ? 'publico' : 'privado') : '';
+/** El sector se lee del NOMBRE de la clase, que el propio INEGI escribe
+ *  ("del sector privado" / "del sector público"). NO de la paridad del último
+ *  dígito.
+ *
+ *  La regla de paridad que veníamos usando es un atajo que funciona en los
+ *  pares terminados en 1/2 y se rompe en los terminados en 8/9, donde la
+ *  convención se invierte: 621398 es PRIVADO y 621399 es PÚBLICO. En la sonda
+ *  del sector 62 falla en 8 de 64 clases, y una de ellas, 621398, tiene 9,565
+ *  establecimientos: los habría marcado a todos al revés.
+ *
+ *  Hay además clases sin división de sector (enfermería a domicilio,
+ *  optometría, ambulancias). Ahí no se inventa nada: queda vacío y lo resuelve
+ *  la verificación. */
+function sectorDeNombre(nombreClase) {
+  const n = String(nombreClase || '').toLowerCase();
+  if (n.includes('sector privado')) return 'privado';
+  if (n.includes('sector público') || n.includes('sector publico')) return 'publico';
+  return '';   // la clase no distingue: se resuelve caso por caso
+}
 
 /** El tipo se deduce de la rama de cuatro dígitos, no de una lista de códigos
  *  escritos a mano: así funciona con las clases que descubra la sonda. */
@@ -39,6 +55,8 @@ function tipoDeClase(clase) {
   const rama = String(clase).slice(0, 4);
   if (['6221', '6222', '6223'].includes(rama)) return 'clinic';      // hospitales
   if (['6231', '6232', '6233'].includes(rama)) return 'caregiver';   // residencias y asilos
+  if (rama === '6241') return 'caregiver';                           // centros de día
+  if (rama === '6216') return 'caregiver';                           // enfermería a domicilio
   return null;                                                        // 6239 y demás: fuera
 }
 
@@ -56,6 +74,11 @@ const COGNITIVO = [
   ['parkinson',  /PARKINSON/],
   ['otras',      /ESCLEROSIS|EPILEPS|PARALISIS CEREBRAL|DAÑO CEREBRAL|EVENTO VASCULAR|\bEVC\b/],
 ];
+
+/** Clases que por sí solas ya prueban el ámbito, sin mirar el nombre del
+ *  establecimiento. 623211 y 623212 son, en el lenguaje anticuado del SCIAN,
+ *  residencias para discapacidad intelectual: eso es Neuromundi entero. */
+const CLASES_DE_AMBITO = new Set(['623211', '623212']);
 
 /** Fuera por lo que son, aunque la clase encaje. */
 const FUERA = [
@@ -88,7 +111,7 @@ const cuenta = { sin_tipo: 0 };
 
 for (const d of fichas) {
   const tipo = tipoDeClase(d.clase_id);
-  const sector = sectorDeClase(d.clase_id);
+  const sector = sectorDeNombre(d.clase);
   const base = { ...d, provider_type: tipo || '', sector };
 
   if (!tipo) { cuenta.sin_tipo++; descartadas.push({ ...base, motivo: `clase fuera de alcance (${d.clase_id})` }); continue; }
@@ -97,6 +120,11 @@ for (const d of fichas) {
 
   const fuera = FUERA.find(([, re]) => re.test(nom));
   if (fuera) { descartadas.push({ ...base, motivo: `fuera: ${fuera[0]}` }); continue; }
+
+  if (CLASES_DE_AMBITO.has(String(d.clase_id))) {
+    admitidas.push({ ...base, motivo: `la clase ya prueba el ámbito: ${d.clase}` });
+    continue;
+  }
 
   const senal = COGNITIVO.find(([, re]) => re.test(nom));
   if (senal) { admitidas.push({ ...base, motivo: `el nombre prueba el ámbito: ${senal[0]}` }); continue; }
