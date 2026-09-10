@@ -95,7 +95,16 @@ function reminderHtml(row: { name: string; pct: number; opens_at: string | null 
   return { subject: row.pct > 0 ? `Tu ${row.pct}% de descuento de Fundador te espera` : 'Asegura tu estatus de Fundador', html };
 }
 
-Deno.serve(async () => {
+Deno.serve(async (req: Request) => {
+  // Candado de invocación (fail-closed): esta función se despliega
+  // --no-verify-jwt (la llama el cron), así que sin este control sería un
+  // endpoint público capaz de disparar envíos masivos (vector del incidente
+  // del 2026-09-08). Exige el header x-cron-secret == CRON_SECRET; si el
+  // secreto no está configurado, rechaza (no hay llamador legítimo sin él).
+  const cronSecret = Deno.env.get('CRON_SECRET') ?? '';
+  if (!cronSecret || req.headers.get('x-cron-secret') !== cronSecret) {
+    return json(401, { error: 'No autorizado' });
+  }
   if (!RESEND_API_KEY) return json(500, { error: 'Falta RESEND_API_KEY' });
   let welcome = 0, reminders = 0;
 
