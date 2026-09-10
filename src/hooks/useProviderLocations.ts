@@ -92,15 +92,24 @@ export function usePublicLocations(providerIds: string[]) {
       return;
     }
     (async () => {
-      const { data, error } = await supabase
-        .from('provider_locations')
-        .select('*')
-        .in('provider_id', providerIds);
-      if (error) {
-        logger.error('No se pudieron cargar ubicaciones del mapa', error);
+      // Trocear en lotes: con cientos de fichas en el directorio, un solo
+      // .in('provider_id', [...]) genera una URL enorme que PostgREST rechaza
+      // (414), y el mapa se quedaba sin pines. 100 ids por lote es seguro.
+      const chunks: string[][] = [];
+      for (let i = 0; i < providerIds.length; i += 100) {
+        chunks.push(providerIds.slice(i, i + 100));
+      }
+      const results = await Promise.all(
+        chunks.map((ids) =>
+          supabase.from('provider_locations').select('*').in('provider_id', ids),
+        ),
+      );
+      const firstError = results.find((r) => r.error)?.error;
+      if (firstError) {
+        logger.error('No se pudieron cargar ubicaciones del mapa', firstError);
         return;
       }
-      if (active) setLocations(data ?? []);
+      if (active) setLocations(results.flatMap((r) => r.data ?? []));
     })();
     return () => {
       active = false;
