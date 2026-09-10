@@ -5,16 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0ea5e9" />
     <meta name="application-name" content="Neuromundi" />
-    <meta name="description" content="Neuromundi es la comunidad global para la neurodivergencia: conecta a familias y personas neurodivergentes con prestadores de servicios, comercios y escuelas inclusivas validados, con directorio, tienda, formación y agenda de citas." />
-    
-    <!-- Sin hreflang por idioma: el idioma se negocia del lado del cliente sobre
-         la MISMA URL (no hay rutas /en/, /de/…), así que declararlas engañaría a
-         Google (páginas inexistentes). Un solo juego de URLs, autocanónicas. -->
+    <meta name="description" content="La comunidad global para el neurodesarrollo, la neurodivergencia y las afecciones neurológicas. Conecta a familias y personas con especialistas, escuelas inclusivas, comercios y prestadores validados por la comunidad. Directorio, tienda, formación y agenda de citas." />
+
+    <!-- hreflang: la raíz es español (x-default). Las versiones por idioma se
+         sirven como snapshots estáticos en /{idioma}/ (generados en el build por
+         scripts/gen-seo-langs.mjs), cada uno con su título/descripción y este
+         mismo juego de alternates. Así Google muestra a cada usuario el snippet
+         en su idioma. Barra final obligatoria (DirectorySlash Off en .htaccess). -->
+    <link rel="alternate" hreflang="es" href="https://www.neuromundi.com/" />
+    <link rel="alternate" hreflang="en" href="https://www.neuromundi.com/en/" />
+    <link rel="alternate" hreflang="fr" href="https://www.neuromundi.com/fr/" />
+    <link rel="alternate" hreflang="de" href="https://www.neuromundi.com/de/" />
+    <link rel="alternate" hreflang="it" href="https://www.neuromundi.com/it/" />
+    <link rel="alternate" hreflang="pt" href="https://www.neuromundi.com/pt/" />
+    <link rel="alternate" hreflang="ja" href="https://www.neuromundi.com/ja/" />
+    <link rel="alternate" hreflang="zh" href="https://www.neuromundi.com/zh/" />
+    <link rel="alternate" hreflang="ar" href="https://www.neuromundi.com/ar/" />
+    <link rel="alternate" hreflang="he" href="https://www.neuromundi.com/he/" />
+    <link rel="alternate" hreflang="ko" href="https://www.neuromundi.com/ko/" />
+    <link rel="alternate" hreflang="x-default" href="https://www.neuromundi.com/" />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Neuromundi" />
-    <meta property="og:title" content="Neuromundi — Comunidad global para la neurodivergencia" />
-    <meta property="og:description" content="Conecta a familias y personas neurodivergentes con prestadores, comercios y escuelas inclusivas validados. Directorio, tienda, formación y citas." />
+    <meta property="og:title" content="Neuromundi — Neurodesarrollo, neurodivergencia y afecciones neurológicas" />
+    <meta property="og:description" content="La comunidad global para el neurodesarrollo, la neurodivergencia y las afecciones neurológicas. Conecta a familias y personas con especialistas, escuelas inclusivas, comercios y prestadores validados. Directorio, tienda, formación y citas." />
     <meta property="og:url" content="https://www.neuromundi.com" />
     
     <meta property="og:image" content="https://www.neuromundi.com/og-neuromundi.jpg?v=2026" />
@@ -25,8 +39,8 @@
     <meta property="og:image:alt" content="Logo de Neuromundi" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Neuromundi — Comunidad global para la neurodivergencia" />
-    <meta name="twitter:description" content="Conecta a familias y personas neurodivergentes con prestadores, comercios y escuelas inclusivas validados. Directorio, tienda, formación y citas." />
+    <meta name="twitter:title" content="Neuromundi — Neurodesarrollo, neurodivergencia y afecciones neurológicas" />
+    <meta name="twitter:description" content="La comunidad global para el neurodesarrollo, la neurodivergencia y las afecciones neurológicas. Conecta a familias y personas con especialistas, escuelas inclusivas, comercios y prestadores validados. Directorio, tienda, formación y citas." />
     <meta name="twitter:image" content="https://www.neuromundi.com/og-neuromundi.jpg?v=2026" />
 
 
@@ -90,7 +104,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=2026" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2026" />
     <link rel="canonical" href="https://www.neuromundi.com/" />
-    <title>Neuromundi: your global community</title>
+    <title>Neuromundi: neurodesarrollo, neurodivergencia y afecciones neurológicas</title>
 
     <!-- Google tag (gtag.js)
          Se inyecta DESPUÉS de que la página ya cargó (o al primer gesto del
@@ -140,13 +154,13 @@
       <div data-nm-shell style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">
         <main style="font-family:system-ui,sans-serif;color:#0f172a">
           <h1 style="color:#0284c7">Neuromundi</h1>
-          <p>Neuromundi es una comunidad y un marketplace global para la neurodivergencia.</p>
+          <p>Neuromundi es una comunidad y un marketplace global para el neurodesarrollo, la neurodivergencia y las afecciones neurológicas.</p>
           <p>
-            Neuromundi conecta a familias y personas neurodivergentes con prestadores de
-            servicios, comercios y escuelas inclusivas validados por la comunidad. La
-            plataforma ofrece un directorio de profesionales, una tienda de productos y
-            recursos, formación (Academy), inclusión escolar y agenda de citas. El registro
-            de familias y personas neurodivergentes es gratuito.
+            Neuromundi conecta a familias y personas con prestadores de servicios, comercios
+            y escuelas inclusivas validados por la comunidad, en tres áreas: neurodesarrollo,
+            neurodivergencia y afecciones neurológicas. La plataforma ofrece un directorio de
+            profesionales, una tienda de productos y recursos, formación (Academy), inclusión
+            escolar y agenda de citas. El registro de familias y personas es gratuito.
           </p>
         </main>
         <footer style="font-family:system-ui,sans-serif">
