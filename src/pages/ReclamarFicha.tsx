@@ -6,10 +6,13 @@
  *      el directorio; lo primero que merece es ver qué hay publicado.
  *   2. Los dos botones pesan lo mismo. "Quitar mi ficha" no se esconde.
  *   3. Usa la paleta de la plataforma (brand / slate / muted), sin CSS aparte.
+ *
+ * Textos 100% i18n (claves reclamar.*), a11y en el panel de baja.
  */
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { CheckCircle2, Trash2, Building2, AlertCircle, ArrowRight } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 
@@ -30,21 +33,8 @@ interface Ficha {
   fuente_url: string | null;
 }
 
-const ETIQUETAS: Record<string, string> = {
-  clinic: 'Clínica o consultorio',
-  school: 'Escuela o centro educativo',
-  service_provider: 'Terapeuta o prestador de servicios',
-  ngo: 'Asociación civil',
-  merchant: 'Comercio',
-  wellness: 'Bienestar',
-  legal: 'Servicios legales',
-  caregiver: 'Cuidador',
-  company: 'Empresa',
-  tourism: 'Turismo',
-};
-const etiqueta = (t: string) => ETIQUETAS[t] ?? t;
-
 const FUNCION = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/reclamar-ficha`;
+const ADMIN_EMAIL = 'admin@neuromundi.com';
 
 /** Envoltura común: centra el contenido y aplica el fondo de la app. */
 function Marco({ children }: { children: React.ReactNode }) {
@@ -62,7 +52,14 @@ function Aviso({ titulo, children }: { titulo: string; children: React.ReactNode
   );
 }
 
+const mailLink = (
+  <a className="font-medium text-brand-700 hover:underline" href={`mailto:${ADMIN_EMAIL}`}>
+    {ADMIN_EMAIL}
+  </a>
+);
+
 export function ReclamarFicha() {
+  const { t } = useTranslation();
   const { token = '' } = useParams<{ token: string }>();
   const [ficha, setFicha] = useState<Ficha | null>(null);
   const [estado, setEstado] = useState<Estado>('cargando');
@@ -70,6 +67,8 @@ export function ReclamarFicha() {
   const [enlace, setEnlace] = useState<string | null>(null);
   const [motivo, setMotivo] = useState<string>('');
   const [pidiendoBaja, setPidiendoBaja] = useState(false);
+
+  const etiqueta = (tipo: string) => t(`reclamar.tipos.${tipo}`, { defaultValue: tipo });
 
   useEffect(() => {
     let vivo = true;
@@ -127,32 +126,21 @@ export function ReclamarFicha() {
   }
 
   if (estado === 'cargando')
-    return <Marco><p className="text-muted">Buscando la ficha…</p></Marco>;
+    return <Marco><p className="text-muted">{t('reclamar.loading')}</p></Marco>;
 
   if (estado === 'invalida')
     return (
-      <Aviso titulo="Esta invitación ya no está vigente">
-        <p>Puede que alguien de tu equipo ya la haya usado, o que haya vencido.</p>
-        <p>
-          Escríbenos a{' '}
-          <a className="font-medium text-brand-700 hover:underline" href="mailto:admin@neuromundi.com">
-            admin@neuromundi.com
-          </a>{' '}
-          y lo resolvemos.
-        </p>
+      <Aviso titulo={t('reclamar.invalidTitle')}>
+        <p>{t('reclamar.invalidBody')}</p>
+        <p>{t('reclamar.writeUsPre')} {mailLink} {t('reclamar.writeUsResolve')}</p>
       </Aviso>
     );
 
   if (estado === 'error')
     return (
-      <Aviso titulo="Algo falló de nuestro lado">
-        <p>Vuelve a intentarlo en un momento.</p>
-        <p>
-          Si sigue igual, escríbenos a{' '}
-          <a className="font-medium text-brand-700 hover:underline" href="mailto:admin@neuromundi.com">
-            admin@neuromundi.com
-          </a>.
-        </p>
+      <Aviso titulo={t('reclamar.errorTitle')}>
+        <p>{t('reclamar.errorBody')}</p>
+        <p>{t('reclamar.writeUsIfContinues')} {mailLink}.</p>
       </Aviso>
     );
 
@@ -163,13 +151,10 @@ export function ReclamarFicha() {
           <div className="flex items-start gap-3">
             <CheckCircle2 className="mt-0.5 h-6 w-6 shrink-0 text-sage-500" />
             <div>
-              <h1 className="text-2xl font-bold text-slate-900">Listo, tu ficha ya no aparece</h1>
-              <p className="mt-3 text-muted">
-                La quitamos del directorio en este momento. No hace falta que hagas nada más y no
-                volveremos a escribirte sobre esto.
-              </p>
+              <h1 className="text-2xl font-bold text-slate-900">{t('reclamar.bajaTitle')}</h1>
+              <p className="mt-3 text-muted">{t('reclamar.bajaBody')}</p>
               <p className="mt-3 text-sm text-slate-500">
-                Si algún día cambias de opinión, puedes registrarte en{' '}
+                {t('reclamar.bajaChangeMindPre')}{' '}
                 <a className="font-medium text-brand-700 hover:underline" href="/crear-cuenta">
                   neuromundi.com
                 </a>.
@@ -189,25 +174,24 @@ export function ReclamarFicha() {
           <div className="flex items-start gap-3">
             <CheckCircle2 className="mt-0.5 h-6 w-6 shrink-0 text-sage-500" />
             <div className="min-w-0">
-              <h1 className="text-2xl font-bold text-slate-900">Tu perfil ya es tuyo</h1>
+              <h1 className="text-2xl font-bold text-slate-900">{t('reclamar.reclamadaTitle')}</h1>
               <p className="mt-3 text-muted">
-                Creamos tu cuenta con <strong className="text-slate-900">{ficha.correo}</strong> y le
-                pasamos los datos de la ficha. Falta que lo completes y lo publiques.
+                {t('reclamar.reclamadaCreatedPre')}{' '}
+                <strong className="text-slate-900">{ficha.correo}</strong>{' '}
+                {t('reclamar.reclamadaCreatedPost')}
               </p>
               {enlace ? (
                 <a
                   href={enlace}
                   className="mt-6 inline-flex items-center justify-center gap-2 rounded-xl bg-brand-700 px-5 py-3 font-semibold text-white shadow-sm hover:bg-brand-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
                 >
-                  Entrar y completar mi perfil
+                  {t('reclamar.reclamadaEnter')}
                   <ArrowRight className="h-4 w-4" />
                 </a>
               ) : (
-                <p className="mt-4 text-muted">Te mandamos un correo con el enlace de acceso.</p>
+                <p className="mt-4 text-muted">{t('reclamar.reclamadaEmailSent')}</p>
               )}
-              <p className="mt-6 text-sm text-slate-500">
-                Tu perfil no se muestra al público hasta que tú lo publiques.
-              </p>
+              <p className="mt-6 text-sm text-slate-500">{t('reclamar.reclamadaNotPublic')}</p>
             </div>
           </div>
         </div>
@@ -216,23 +200,20 @@ export function ReclamarFicha() {
 
   // ── estado 'lista' ────────────────────────────────────────────────────────
   const datos: Array<[string, string | null]> = [
-    ['Tipo', etiqueta(ficha.provider_type)],
-    ['Dirección', ficha.direccion],
-    ['Ciudad', ficha.ciudad ? `${ficha.ciudad}${ficha.estado ? `, ${ficha.estado}` : ''}` : null],
-    ['Teléfono', ficha.telefono],
-    ['Sitio', ficha.sitio_web],
-    ['Giro', ficha.especializacion],
+    [t('reclamar.fields.tipo'), etiqueta(ficha.provider_type)],
+    [t('reclamar.fields.direccion'), ficha.direccion],
+    [t('reclamar.fields.ciudad'), ficha.ciudad ? `${ficha.ciudad}${ficha.estado ? `, ${ficha.estado}` : ''}` : null],
+    [t('reclamar.fields.telefono'), ficha.telefono],
+    [t('reclamar.fields.sitio'), ficha.sitio_web],
+    [t('reclamar.fields.giro'), ficha.especializacion],
   ];
 
   return (
     <Marco>
       <section className="rounded-3xl bg-gradient-to-br from-teal-600 to-emerald-600 p-8 text-white sm:p-10">
-        <p className="text-sm/6 font-medium text-white/80">Invitación para {ficha.nombre}</p>
-        <h1 className="mt-1 text-3xl font-extrabold sm:text-4xl">Tu lugar ya aparece en Neuromundi</h1>
-        <p className="mt-4 max-w-2xl text-white/90">
-          Hicimos una investigación en bases de datos públicas y redes sociales, y creemos que tu
-          perfil es idóneo para ser promovido en nuestra comunidad internacional.
-        </p>
+        <p className="text-sm/6 font-medium text-white/80">{t('reclamar.heroBadge', { name: ficha.nombre })}</p>
+        <h1 className="mt-1 text-3xl font-extrabold sm:text-4xl">{t('reclamar.heroTitle')}</h1>
+        <p className="mt-4 max-w-2xl text-white/90">{t('reclamar.heroBody')}</p>
       </section>
 
       <div className="mt-8 rounded-2xl border border-slate-100 bg-white p-5 shadow-sm sm:p-6">
@@ -240,7 +221,7 @@ export function ReclamarFicha() {
           <Building2 className="h-5 w-5 shrink-0 text-brand-600" />
           <h2 className="text-lg font-bold text-slate-900">{ficha.nombre}</h2>
         </div>
-        <p className="mt-1 text-sm text-muted">Esto es lo que está publicado hoy.</p>
+        <p className="mt-1 text-sm text-muted">{t('reclamar.publishedToday')}</p>
 
         <dl className="mt-5 grid gap-3 sm:grid-cols-[9rem_1fr]">
           {datos.filter(([, v]) => v).map(([k, v]) => (
@@ -253,7 +234,7 @@ export function ReclamarFicha() {
       </div>
 
       <div className="mt-8">
-        <h3 className="text-base font-semibold text-slate-900">¿Qué quieres hacer con ella?</h3>
+        <h3 className="text-base font-semibold text-slate-900">{t('reclamar.whatToDo')}</h3>
         <div className="mt-4 flex flex-col gap-3 sm:flex-row">
           <button
             type="button"
@@ -261,34 +242,34 @@ export function ReclamarFicha() {
             disabled={enviando}
             className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-brand-700 px-5 py-3 font-semibold text-white shadow-sm hover:bg-brand-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 disabled:opacity-60"
           >
-            {enviando ? 'Un momento…' : 'Es mío, quiero completarlo'}
+            {enviando ? t('reclamar.claimBtnBusy') : t('reclamar.claimBtn')}
           </button>
           <button
             type="button"
             onClick={() => setPidiendoBaja((v) => !v)}
             disabled={enviando}
+            aria-expanded={pidiendoBaja}
+            aria-controls="reclamar-baja-panel"
             className="inline-flex flex-1 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-3 font-semibold text-slate-700 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 disabled:opacity-60"
           >
             <Trash2 className="h-4 w-4" />
-            Quitar mi ficha
+            {t('reclamar.removeBtn')}
           </button>
         </div>
 
         {pidiendoBaja && (
-          <div className="mt-4 rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
+          <div id="reclamar-baja-panel" className="mt-4 rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
             <div className="flex items-start gap-3">
               <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-warm-500" />
               <div className="w-full">
-                <p className="text-slate-800">
-                  La quitamos ahora mismo, sin preguntar más. Si quieres decirnos por qué, nos sirve
-                  para no repetir el error.
-                </p>
+                <p className="text-slate-800">{t('reclamar.removeExplain')}</p>
                 <input
                   type="text"
                   value={motivo}
                   maxLength={200}
                   onChange={(e) => setMotivo(e.target.value)}
-                  placeholder="Opcional — por ejemplo: los datos no son correctos"
+                  aria-label={t('reclamar.removeInputLabel')}
+                  placeholder={t('reclamar.removePlaceholder')}
                   className="mt-3 w-full rounded-xl border border-slate-200 px-4 py-2.5 text-slate-800 placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
                 />
                 <button
@@ -297,7 +278,7 @@ export function ReclamarFicha() {
                   disabled={enviando}
                   className="mt-3 rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-slate-800 disabled:opacity-60"
                 >
-                  Confirmar y quitar mi ficha
+                  {t('reclamar.removeConfirm')}
                 </button>
               </div>
             </div>
@@ -305,11 +286,12 @@ export function ReclamarFicha() {
         )}
 
         <p className="mt-8 text-sm text-slate-500">
-          Al completar tu perfil aceptas el{' '}
-          <a className="text-brand-700 hover:underline" href="/reglamento">reglamento</a> y el{' '}
-          <a className="text-brand-700 hover:underline" href="/privacidad">aviso de privacidad</a>.
-          Puedes conocer y ejercer tus derechos sobre estos datos en{' '}
-          <a className="text-brand-700 hover:underline" href="/proteccion-datos">protección de datos</a>.
+          {t('reclamar.termsPre')}{' '}
+          <a className="text-brand-700 hover:underline" href="/reglamento">{t('reclamar.termsRules')}</a>{' '}
+          {t('reclamar.termsAnd')}{' '}
+          <a className="text-brand-700 hover:underline" href="/privacidad">{t('reclamar.termsPrivacy')}</a>.{' '}
+          {t('reclamar.termsRightsPre')}{' '}
+          <a className="text-brand-700 hover:underline" href="/proteccion-datos">{t('reclamar.termsDataProtection')}</a>.
         </p>
       </div>
     </Marco>
