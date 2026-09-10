@@ -80,7 +80,7 @@ function NavItem({ to, icon, label }: { to: string; icon: ReactNode; label: stri
       to={to}
       className={({ isActive }) =>
         cn(
-          'flex flex-1 flex-col items-center justify-center gap-0.5 py-2 text-xs font-medium md:flex-none md:flex-row md:gap-2 md:px-3 md:py-2 md:text-sm',
+          'flex flex-1 flex-col items-center justify-center gap-0.5 py-2 text-xs font-medium lg:flex-none lg:flex-row lg:gap-2 lg:px-3 lg:py-2 lg:text-sm',
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500',
           isActive ? 'text-brand-700' : 'text-muted hover:text-slate-700',
         )
@@ -426,8 +426,13 @@ export function AppLayout() {
       </Suspense>
       <header className="sticky top-0 z-30 border-b border-slate-100 bg-[#eefbfa]/95 backdrop-blur">
         <div className="mx-auto max-w-6xl px-4 py-3">
-          <div className="flex items-center justify-between">
-            <NavLink to="/" className="inline-flex items-center gap-2 leading-none">
+          {/* flex-wrap + gap-x fijo: si el logo y la navegación no caben en una
+              línea, la barra baja a la siguiente en vez de solaparse con el
+              logo. El gap nunca es negativo, así que NUNCA se montan encima
+              (el bug de "logo detrás del botón" venía de justify-between con
+              espacio negativo en anchos intermedios). El logo no se encoge. */}
+          <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+            <NavLink to="/" className="inline-flex shrink-0 items-center gap-2 leading-none">
               <img
                 src={logoHeaderUrl}
                 alt=""
@@ -443,7 +448,7 @@ export function AppLayout() {
                 </span>
               </span>
             </NavLink>
-            <nav className="hidden items-center gap-x-2 gap-y-1.5 md:flex md:flex-wrap md:justify-end" aria-label={t('nav.directory')}>
+            <nav className="hidden min-w-0 items-center gap-x-2 gap-y-1.5 lg:flex lg:flex-wrap lg:justify-end" aria-label={t('nav.directory')}>
               {/* Enlaces principales */}
               <NavPill to="/kit" label={t('nav.kit')} colorClass="bg-gradient-to-br from-brand-500 via-brand-600 to-brand-800" />
               <NavPill to="/directorio" label={t('nav.directory')} colorClass="bg-brand-600" />
@@ -491,7 +496,7 @@ export function AppLayout() {
               )}
             </nav>
             {/* Controles siempre visibles en móvil: accesibilidad (control visual) e idioma. */}
-            <div className="flex items-center gap-1 md:hidden">
+            <div className="flex items-center gap-1 lg:hidden">
               {isAuthenticated && fullName && (
                 <span className="mr-1 max-w-[6.5rem] truncate text-sm text-muted">{t('nav.greeting', { name: fullName.split(' ')[0] })}</span>
               )}
@@ -503,7 +508,7 @@ export function AppLayout() {
           {/* Segunda fila: panel del usuario, separada de la navegación general */}
           {isAuthenticated && (
             <nav
-              className="mt-2 hidden flex-wrap items-center justify-start gap-2 border-t border-slate-100 pt-2 md:flex"
+              className="mt-2 hidden flex-wrap items-center justify-start gap-2 border-t border-slate-100 pt-2 lg:flex"
               aria-label={t('nav.myPanel')}
             >
               <NavPill to="/panel" label={t('nav.dashboard')} colorClass="bg-slate-700" disabled={blocked} onDisabledClick={() => setGateOpen(true)} />
@@ -539,7 +544,7 @@ export function AppLayout() {
         </div>
       )}
 
-      <main className="pb-20 md:pb-0">
+      <main className="pb-20 lg:pb-0">
         <Suspense
           fallback={
             <div className="mx-auto max-w-2xl p-4" aria-busy="true">
@@ -551,7 +556,7 @@ export function AppLayout() {
         </Suspense>
       </main>
 
-      <footer className="border-t border-slate-100 px-4 pt-4 pb-24 text-center text-sm text-muted md:pb-6">
+      <footer className="border-t border-slate-100 px-4 pt-4 pb-24 text-center text-sm text-muted lg:pb-6">
         <p className="mb-3 font-semibold text-slate-700">{t('followUs.title')}</p>
         <SocialLinks className="mb-4" />
         {/* Instalar app: va JUSTO debajo de las redes, en la parte alta del pie,
@@ -606,7 +611,7 @@ export function AppLayout() {
       {/* Barra inferior móvil */}
       {/* Hoja "Más" (solo móvil): opciones que no caben en la barra inferior. */}
       {moreOpen && (
-        <div className="fixed inset-0 z-40 md:hidden" role="dialog" aria-modal="true">
+        <div className="fixed inset-0 z-40 lg:hidden" role="dialog" aria-modal="true">
           <div className="absolute inset-0 bg-slate-900/40" onClick={() => setMoreOpen(false)} />
           <div className="absolute inset-x-0 bottom-0 max-h-[85dvh] overflow-y-auto overscroll-contain rounded-t-3xl bg-white p-4 pb-24 shadow-2xl">
             <div className="mb-2 flex items-center justify-between">
@@ -664,7 +669,7 @@ export function AppLayout() {
       )}
 
       <nav
-        className="fixed inset-x-0 bottom-0 z-30 flex border-t border-slate-100 bg-white md:hidden"
+        className="fixed inset-x-0 bottom-0 z-30 flex border-t border-slate-100 bg-white lg:hidden"
         aria-label={t('nav.dashboard')}
       >
         <NavItem to="/directorio" icon={<Compass className="h-5 w-5" />} label={t('nav.directory')} />
