@@ -95,11 +95,11 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist/
-          # El usuario FTP de este dominio aterriza en /domains/neuromundi.com/,
-          # así que hay que subir a public_html/ (el document root del dominio).
-          # Con `./` el build caía en la raíz del dominio y Apache servía su 404
-          # por defecto (apex y www) porque public_html quedaba vacío.
-          server-dir: public_html/
+          # El usuario FTP de este dominio aterriza DIRECTO en el document root
+          # (ahí vive el .htaccess y el index.html que sirve Apache), así que el
+          # destino correcto es `./`. Un intento de usar `public_html/` creó una
+          # carpeta public_html ANIDADA dentro del document root que no se sirve.
+          server-dir: ./
           # Hostinger corta o retrasa conexiones de forma intermitente (en una
           # tanda de 10 despliegues fallaron 4, con la MISMA configuración que
           # los 6 que pasaron). 60 s en vez de los 30 por defecto le dan margen.
@@ -113,5 +113,5 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist/
-          server-dir: public_html/
+          server-dir: ./
           timeout: 60000
