@@ -4,12 +4,40 @@
  * Públicas: portada, directorio y perfil de proveedor. Protegidas (requieren
  * sesión): panel y ajustes. Todo bajo el layout con navegación por rol.
  */
-import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
-import { lazy, Suspense } from 'react';
+import { createBrowserRouter, RouterProvider, Navigate, useLocation } from 'react-router-dom';
+import { lazy, Suspense, useEffect } from 'react';
 import { AppLayout } from '@/components/layout/AppLayout';
 import { ProtectedRoute } from '@/components/layout/ProtectedRoute';
 import { DirectoryGate } from '@/components/campaign/DirectoryGate';
 import { Home } from '@/pages/Home';
+import { SUPPORTED_LANGUAGES, changeLanguage, type LanguageCode } from '@/i18n';
+
+/**
+ * Raíces de idioma para el SEO multilingüe (/en, /fr, /ar, …). Cada idioma se
+ * sirve como snapshot estático en /{idioma}/index.html (título/descripción
+ * localizados, canonical propio, hreflang) generado en el build por
+ * scripts/gen-seo-langs.mjs. Antes ese snapshot reescribía la URL a "/" con
+ * history.replaceState, pero Googlebot lo interpretaba como una redirección y
+ * NO indexaba /{idioma}/ por separado ("Página con redirección"). Ahora la URL
+ * se queda en /{idioma}/ y estas rutas montan la portada en ese idioma, así que
+ * Google indexa cada versión con su propio snippet. El español es la raíz "/".
+ */
+const LANG_ROOT_CODES: LanguageCode[] = SUPPORTED_LANGUAGES.map((l) => l.code).filter(
+  (c): c is LanguageCode => c !== 'es',
+);
+
+/** Portada en un idioma concreto: fija el idioma según el prefijo de la URL
+ *  (/en → inglés) sin cambiar la ruta, y renderiza Home. */
+function LangHome() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    const seg = pathname.split('/').filter(Boolean)[0];
+    if (seg && (LANG_ROOT_CODES as string[]).includes(seg)) {
+      changeLanguage(seg as LanguageCode);
+    }
+  }, [pathname]);
+  return <Home />;
+}
 
 // Widget de reserva embebible: ruta propia sin layout; fuera del bundle inicial.
 const Book = lazy(() => import('@/pages/Book').then((m) => ({ default: m.Book })));
@@ -62,6 +90,8 @@ const router = createBrowserRouter([
     element: <AppLayout />,
     children: [
       { path: '/', element: <Home /> },
+      // Raíces de idioma para SEO (indexables por separado; ver LangHome).
+      ...LANG_ROOT_CODES.map((code) => ({ path: `/${code}`, element: <LangHome /> })),
       { path: '/directorio', element: <DirectoryGate><Directory /></DirectoryGate> },
       { path: '/proveedor/:id', element: <DirectoryGate><ProviderProfile /></DirectoryGate> },
       { path: '/lista/:token', element: <SharedList /> },

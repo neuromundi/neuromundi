@@ -12,8 +12,10 @@
 // versión por idioma y muestra a cada usuario el snippet en su lengua.
 //
 // Cada snapshot lleva un script mínimo que fija el idioma (localStorage
-// 'neuro.lang') y devuelve la URL a '/' con replaceState, para que la SPA
-// arranque en '/' en ese idioma (sin necesidad de basename ni reglas nuevas).
+// 'neuro.lang'). La URL se QUEDA en /{idioma}/ (ya NO se reescribe a '/' con
+// replaceState: Googlebot lo tomaba como redirección y no indexaba la versión
+// por idioma). La SPA reconoce /{idioma}/ como raíz de idioma vía la ruta
+// LangHome de src/App.tsx, que fija el idioma y monta la portada.
 // La barra final es obligatoria porque el .htaccess usa DirectorySlash Off:
 // /{idioma}/ sirve su index.html directamente (mod_dir), sin reescritura.
 //
@@ -85,7 +87,13 @@ try {
 
   for (const [code, cfg] of Object.entries(LANGS)) {
     const dir = cfg.dir === 'rtl' ? ' dir="rtl"' : '';
-    const boot = `    <script>try{localStorage.setItem('neuro.lang','${code}')}catch(e){}history.replaceState(null,'','/');</script>\n  </head>`;
+    // Fija el idioma para el primer pintado. NO reescribimos la URL a "/": antes
+    // se hacía con history.replaceState, pero Googlebot lo tomaba como una
+    // redirección y marcaba /{idioma}/ como "Página con redirección" (no
+    // indexada). Ahora la URL se queda en /{idioma}/ y la SPA la reconoce como
+    // raíz de idioma (ruta LangHome en src/App.tsx), así Google indexa cada
+    // versión con su propio título/descripción.
+    const boot = `    <script>try{localStorage.setItem('neuro.lang','${code}')}catch(e){}</script>\n  </head>`;
     const html = src
       .replace(/<html lang="[^"]*"[^>]*>/, `<html lang="${code}"${dir}>`)
       .replace(/<title>[\s\S]*?<\/title>/, `<title>${esc(cfg.title)}</title>`)
