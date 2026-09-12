@@ -425,13 +425,13 @@ export function AppLayout() {
         {deferUi && !campaignActive && <SoftSignupBanner onSignup={() => navigate('/crear-cuenta')} />}
       </Suspense>
       <header className="sticky top-0 z-30 border-b border-slate-100 bg-[#eefbfa]/95 backdrop-blur">
-        <div className="mx-auto max-w-6xl px-4 py-3">
+        <div className="mx-auto max-w-6xl px-4 py-2">
           {/* flex-wrap + gap-x fijo: si el logo y la navegación no caben en una
               línea, la barra baja a la siguiente en vez de solaparse con el
               logo. El gap nunca es negativo, así que NUNCA se montan encima
               (el bug de "logo detrás del botón" venía de justify-between con
               espacio negativo en anchos intermedios). El logo no se encoge. */}
-          <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+          <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
             <NavLink to="/" className="inline-flex shrink-0 items-center gap-2 leading-none">
               <img
                 src={logoHeaderUrl}
@@ -508,7 +508,7 @@ export function AppLayout() {
           {/* Segunda fila: panel del usuario, separada de la navegación general */}
           {isAuthenticated && (
             <nav
-              className="mt-2 hidden flex-wrap items-center justify-start gap-2 border-t border-slate-100 pt-2 lg:flex"
+              className="mt-1 hidden flex-wrap items-center justify-start gap-2 border-t border-slate-100 pt-1 lg:flex"
               aria-label={t('nav.myPanel')}
             >
               <NavPill to="/panel" label={t('nav.dashboard')} colorClass="bg-slate-700" disabled={blocked} onDisabledClick={() => setGateOpen(true)} />
