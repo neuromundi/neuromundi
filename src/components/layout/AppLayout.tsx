@@ -448,7 +448,43 @@ export function AppLayout() {
                 </span>
               </span>
             </NavLink>
-            <nav className="hidden min-w-0 items-center gap-x-2 gap-y-1.5 lg:flex lg:flex-wrap lg:justify-end" aria-label={t('nav.directory')}>
+            {/* Fila 1 (escritorio): controles de cuenta a la derecha del logo.
+                Así la fila superior queda completa (sin hueco junto al logo) y
+                "Iniciar sesión" nunca salta a una fila suelta. */}
+            <div className="hidden items-center gap-x-2 lg:flex">
+              {/* Donación: botón sólido con color de acento (dorado de marca). */}
+              <NavLink
+                to="/donar"
+                className="inline-flex items-center gap-1.5 rounded-full bg-[#8C6D1F] px-3.5 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#75591a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8C6D1F] focus-visible:ring-offset-2"
+              >
+                <Heart className="h-4 w-4" aria-hidden="true" /> {t('nav.donate')}
+              </NavLink>
+              {isAuthenticated && <NotificationsBell />}
+              <AccessibilityMenu />
+              <LanguageSwitcher className="ml-1" />
+              {isAuthenticated ? (
+                <Button size="sm" variant="ghost" onClick={handleSignOut} leadingIcon={<LogOut className="h-4 w-4" />}>
+                  {t('nav.logout')}
+                </Button>
+              ) : (
+                <Button size="sm" onClick={() => navigate('/crear-cuenta')} leadingIcon={<LogIn className="h-4 w-4" />}>
+                  {t('nav.login')}
+                </Button>
+              )}
+            </div>
+            {/* Controles siempre visibles en móvil: accesibilidad (control visual) e idioma. */}
+            <div className="flex items-center gap-1 lg:hidden">
+              {isAuthenticated && fullName && (
+                <span className="mr-1 max-w-[6.5rem] truncate text-sm text-muted">{t('nav.greeting', { name: fullName.split(' ')[0] })}</span>
+              )}
+              <AccessibilityMenu />
+              <LanguageSwitcher />
+            </div>
+            {/* Fila 2 (escritorio): enlaces de sección a lo ancho, debajo del logo.
+                w-full fuerza esta barra a su propia fila para que no compita por
+                espacio con el logo y los controles (evita el wrap parcial en es/de,
+                donde las etiquetas son más largas). */}
+            <nav className="hidden w-full min-w-0 flex-wrap items-center gap-x-2 gap-y-1.5 lg:flex" aria-label={t('nav.directory')}>
               {/* Enlaces principales */}
               <NavPill to="/kit" label={t('nav.kit')} colorClass="bg-gradient-to-br from-brand-500 via-brand-600 to-brand-800" />
               <NavPill to="/directorio" label={t('nav.directory')} colorClass="bg-brand-600" />
@@ -469,40 +505,7 @@ export function AppLayout() {
                   { to: '/pregunta-al-experto', label: t('nav.askExpert'), icon: <MessageCircleQuestion className="h-4 w-4" /> },
                 ]}
               />
-
-              {/* Separador visual entre navegación y controles de cuenta */}
-              <span className="mx-1 hidden h-6 w-px bg-slate-200 lg:block" aria-hidden="true" />
-
-              {/* Donación: botón sólido con color de acento (dorado de marca)
-                  para que destaque del resto de la navegación. */}
-              <NavLink
-                to="/donar"
-                className="inline-flex items-center gap-1.5 rounded-full bg-[#8C6D1F] px-3.5 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[#75591a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8C6D1F] focus-visible:ring-offset-2"
-              >
-                <Heart className="h-4 w-4" aria-hidden="true" /> {t('nav.donate')}
-              </NavLink>
-
-              {isAuthenticated && <NotificationsBell />}
-              <AccessibilityMenu />
-              <LanguageSwitcher className="ml-1" />
-              {isAuthenticated ? (
-                <Button size="sm" variant="ghost" onClick={handleSignOut} leadingIcon={<LogOut className="h-4 w-4" />}>
-                  {t('nav.logout')}
-                </Button>
-              ) : (
-                <Button size="sm" onClick={() => navigate('/crear-cuenta')} leadingIcon={<LogIn className="h-4 w-4" />}>
-                  {t('nav.login')}
-                </Button>
-              )}
             </nav>
-            {/* Controles siempre visibles en móvil: accesibilidad (control visual) e idioma. */}
-            <div className="flex items-center gap-1 lg:hidden">
-              {isAuthenticated && fullName && (
-                <span className="mr-1 max-w-[6.5rem] truncate text-sm text-muted">{t('nav.greeting', { name: fullName.split(' ')[0] })}</span>
-              )}
-              <AccessibilityMenu />
-              <LanguageSwitcher />
-            </div>
           </div>
 
           {/* Segunda fila: panel del usuario, separada de la navegación general */}
