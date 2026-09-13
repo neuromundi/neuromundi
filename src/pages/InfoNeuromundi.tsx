@@ -5,7 +5,7 @@
  */
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { ArrowLeft, ArrowRight, Sparkles, Users, Globe, HeartHandshake, Network } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Sparkles, Users, Globe, HeartHandshake, Network, ShieldCheck } from 'lucide-react';
 
 export function InfoNeuromundi() {
   const { t } = useTranslation();
@@ -33,6 +33,15 @@ export function InfoNeuromundi() {
           {t('info.uniqueTitle')}
         </h2>
         <p className="text-slate-700">{t('info.uniqueBody')}</p>
+      </section>
+
+      <section className="mt-4 space-y-2 rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
+        <h2 className="flex items-center gap-2 text-lg font-semibold text-slate-900">
+          <ShieldCheck className="h-5 w-5 text-brand-500" aria-hidden="true" />
+          {t('info.evidenceTitle')}
+        </h2>
+        <p className="text-slate-700">{t('info.evidenceBody')}</p>
+        <p className="text-xs text-slate-500">{t('info.evidenceNote')}</p>
       </section>
 
       <section className="mt-4 space-y-2 rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
