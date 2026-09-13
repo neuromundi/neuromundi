@@ -1079,22 +1079,22 @@
   },
   "info": {
     "title": "Saber mais sobre o Neuromundi",
-    "tagline": "A plataforma global que reúne numa só rede famílias, pacientes, especialistas, comércios, escolas, empresas e organizações em torno do neurodesenvolvimento, das neurodivergências e das afecções neurológicas. Em 11 idiomas.",
+    "tagline": "A plataforma global que reúne em uma só rede famílias, pacientes, especialistas, comércios, escolas, empresas e organizações em torno do neurodesenvolvimento, das neurodivergências e das afecções neurológicas. Em 11 idiomas.",
     "whatTitle": "O que é o Neuromundi?",
-    "whatBody": "A Neuromundi é a comunidade e marketplace global dedicada inteiramente ao neurodesenvolvimento, às neurodivergências e às afecções neurológicas. Reúne num só lugar —multipaís e em 11 idiomas— o que antes vivia disperso: diretório, agenda, comunidade, formação e inclusão escolar e laboral.",
+    "whatBody": "A Neuromundi é a comunidade e marketplace global dedicada inteiramente ao neurodesenvolvimento, às neurodivergências e às afecções neurológicas. Reúne em um só lugar —multipaís e em 11 idiomas— o que antes vivia disperso: diretório, agenda, comunidade, formação e inclusão escolar e laboral.",
     "forTitle": "Para quem é?",
-    "forBody": "Para todos os que integram o ecossistema: famílias, pacientes e pessoas neurodivergentes; especialistas e clínicas; comércios e criadores; escolas; espaços de lazer; empresas inclusivas e organizações.",
-    "uniqueTitle": "Algo inédito em nível internacional",
-    "uniqueBody": "O mundo do neurodesenvolvimento, das neurodivergências e das afecções neurológicas viveu fragmentado por idioma, país e disciplina. Em setembro de 2026 revimos 49 plataformas de 20 países: nenhuma reúne diretório, agenda, loja, formação e inclusão num mesmo lugar para as três áreas; apenas três funcionam em mais de um idioma; e nenhuma, em nenhuma região, oferece leitura da direita para a esquerda. A Neuromundi foi desenhada desde a origem para essa escala: multipaís, 11 idiomas, árabe e hebraico incluídos.",
+    "forBody": "Para todos que integram o ecossistema: famílias, pacientes e pessoas neurodivergentes; especialistas e clínicas; comércios e criadores; escolas; espaços de lazer; empresas inclusivas e organizações.",
+    "uniqueTitle": "Algo inédito em escala internacional",
+    "uniqueBody": "O mundo do neurodesenvolvimento, das neurodivergências e das afecções neurológicas viveu fragmentado por idioma, país e disciplina. Em setembro de 2026 analisamos 49 plataformas de 20 países: nenhuma reúne diretório, agenda, loja, formação e inclusão em um mesmo lugar para as três áreas; apenas três funcionam em mais de um idioma; e nenhuma, em nenhuma região, oferece leitura da direita para a esquerda. A Neuromundi foi concebida desde a origem para essa escala: multipaís, 11 idiomas, árabe e hebraico incluídos.",
     "evidenceTitle": "Como verificamos",
-    "evidenceBody": "Revimos 49 plataformas de 20 países, pesquisando em seis idiomas e verificando função a função em cada site, sem dar por boa a autodescrição de ninguém. O mercado divide-se em quatro modelos que nunca se cruzam: diretórios onde não é possível agendar, portais associativos sem marketplace, clínicas que se apresentam como plataforma, e certificadores de espaços sem diretório de especialistas. Apenas uma das 49 oferece às famílias um buscador de lugares inclusivos, e nenhuma inclui a inclusão laboral.",
-    "evidenceNote": "Estudo comparativo, setembro de 2026. Metodologia e listagem completa disponíveis mediante pedido.",
-    "inclusiveTitle": "Inclusiva por concepção",
-    "inclusiveBody": "A acessibilidade é a base, não um acréscimo: modo calma, ajustes para dislexia, alto contraste e tamanho do texto; guias de antecipação e espaços de baixo impacto sensorial; selo Neuroafirmativo e Neuromundi ID. O acesso também é equitativo: grátis para famílias e pacientes, grátis para empresas inclusivas e com tarifa preferencial para ONGs.",
+    "evidenceBody": "Analisamos 49 plataformas de 20 países, pesquisando em seis idiomas e verificando função a função em cada site, sem tomar como certa a autodescrição de ninguém. O mercado se divide em quatro modelos que nunca se cruzam: diretórios onde não é possível agendar, portais associativos sem marketplace, clínicas que se apresentam como plataforma, e certificadores de espaços sem diretório de especialistas. Apenas uma das 49 oferece às famílias um buscador de lugares inclusivos, e nenhuma inclui a inclusão laboral.",
+    "evidenceNote": "Estudo comparativo, setembro de 2026. Metodologia e listagem completa disponíveis mediante solicitação.",
+    "inclusiveTitle": "Inclusiva por design",
+    "inclusiveBody": "A acessibilidade é a base, não um acessório: modo calma, ajustes para dislexia, alto contraste e tamanho do texto; guias de antecipação e espaços de baixo impacto sensorial; selo Neuroafirmativo e Neuromundi ID. O acesso também é equitativo: grátis para famílias e pacientes, grátis para empresas inclusivas e com tarifa preferencial para ONGs.",
     "ecosystemTitle": "Um ecossistema, muitos perfis",
     "ecosystemBody": "Sua força está na diversidade de quem a integra, todos conectados na mesma rede: especialistas, clínicas, comércios, escolas, espaços de lazer, empresas e organizações e, no centro, as famílias, os pacientes e as pessoas neurodivergentes. Cada perfil dá e recebe: diretório, agenda e cobranças sem comissão, loja, mensagens com videochamada, inclusão escolar e laboral, formação e a comunidade Neurocamps.",
     "closingTitle": "Uma causa que vira rede",
-    "closingBody": "A Neuromundi transforma o que hoje se enfrenta na solidão numa comunidade global que se acompanha, se informa e se fortalece: a casa comum, internacional e inclusiva, do neurodesenvolvimento, das neurodivergências e das afecções neurológicas."
+    "closingBody": "A Neuromundi transforma o que hoje se enfrenta na solidão em uma comunidade global que se acompanha, se informa e se fortalece: a casa comum, internacional e inclusiva, do neurodesenvolvimento, das neurodivergências e das afecções neurológicas."
   },
   "membership": {
     "title": "Cota de afiliação",
@@ -1741,9 +1741,9 @@
     "acceptRules": "Li e aceito o Regulamento e o aviso de isenção.",
     "finish": "Concluir cadastro",
     "cancel": "Cancelar e sair",
-    "pickRequired": "Escolhe o teu tipo de conta para continuar.",
-    "cancelConfirmTitle": "Cancelar o teu registo?",
-    "cancelConfirmBody": "Se confirmares, o teu registo será anulado e a tua conta será eliminada da plataforma. Terás de iniciar o processo de registo novamente.",
+    "pickRequired": "Escolha seu tipo de conta para continuar.",
+    "cancelConfirmTitle": "Cancelar seu cadastro?",
+    "cancelConfirmBody": "Se você confirmar, seu cadastro será anulado e sua conta será excluída da plataforma. Você terá que iniciar o processo de cadastro novamente.",
     "cancelConfirmBtn": "Confirmar cancelamento",
     "cancelBack": "Voltar"
   },
@@ -2587,7 +2587,7 @@
       "As tuas dúvidas ou histórias podem ser fixadas no fórum para mais apoio. (famílias e pacientes)",
       "Sorteios exclusivos para fundadores. (todos)"
     ],
-    "reqsBox": "Os requisitos para obter e manter o distintivo variam conforme o perfil. Poderás consultá-los ao registares-te, no quadro \"Programa Fundador\" do teu formulário.",
+    "reqsBox": "Os requisitos para obter e manter o distintivo variam conforme o perfil. Você poderá consultá-los ao se cadastrar, no quadro \"Programa Fundador\" do seu formulário.",
     "reqsBoxTitle": "Requisitos por perfil"
   },
   "founderBadge": {
@@ -2924,7 +2924,7 @@
     "last30": "{{n}} em 30 dias",
     "conversionHelp": "contatos ÷ visualizações",
     "empty": "Ainda não há visualizações registradas. Compartilhe seu perfil para começar a medir.",
-    "incomplete": "Registos não concluídos"
+    "incomplete": "Cadastros não concluídos"
   },
   "events": {
     "title": "Eventos",
@@ -3397,7 +3397,7 @@
       "postal": "Código postal",
       "country": "País",
       "registeredNote": "Enviaremos para o endereço salvo no seu perfil.",
-      "costNote": "Alguns envios podem ter custos adicionais consoante o destino. Se aplicável, avisamos-te antes de enviar a tua recompensa."
+      "costNote": "Alguns envios podem ter custos adicionais conforme o destino. Se for o caso, avisamos você antes de enviar sua recompensa."
     },
     "who": {
       "title": "Dados do doador",
@@ -3407,7 +3407,7 @@
       "contactName": "Nome da pessoa de contato",
       "personName": "Seu nome",
       "email": "E-mail de contato",
-      "confirmEmail": "Confirma o teu email"
+      "confirmEmail": "Confirme seu e-mail"
     },
     "wall": {
       "consent": "Autorizo a publicação do meu nome (ou o da minha empresa/organização) no mural de doadores.",
@@ -3997,7 +3997,7 @@
   },
   "founderCongrats": {
     "title": "Parabéns, és Membro Fundador!",
-    "body": "O teu perfil já mostra o distintivo \"Soy Fundador Neuromundi\". Tens 3 meses para cumprir os requisitos do teu perfil e mantê-lo; caso contrário, o distintivo será removido automaticamente.",
+    "body": "Seu perfil já mostra o distintivo \"Soy Fundador Neuromundi\". Você tem 3 meses para cumprir os requisitos do seu perfil e mantê-lo; caso contrário, o distintivo será removido automaticamente.",
     "reqs": "Ver os meus requisitos",
     "ok": "Entendido"
   },
