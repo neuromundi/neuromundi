@@ -505,22 +505,21 @@ export function AppLayout() {
                   { to: '/pregunta-al-experto', label: t('nav.askExpert'), icon: <MessageCircleQuestion className="h-4 w-4" /> },
                 ]}
               />
+              {/* Panel del usuario fusionado en la misma fila para ahorrar una
+                  tira de altura. Separador visual para distinguir los enlaces de
+                  cuenta de los públicos; fluye/envuelve junto con los demás. */}
+              {isAuthenticated && (
+                <>
+                  <span className="mx-1 hidden h-6 w-px bg-slate-200 lg:block" aria-hidden="true" />
+                  <NavPill to="/panel" label={t('nav.dashboard')} colorClass="bg-slate-700" disabled={blocked} onDisabledClick={() => setGateOpen(true)} />
+                  <NavPill to="/calendario" label={t('nav.calendar')} colorClass="bg-slate-600" disabled={blocked} onDisabledClick={() => setGateOpen(true)} />
+                  <NavPill to="/mensajes" label={t('nav.messages')} colorClass="bg-slate-600" disabled={blocked} onDisabledClick={() => setGateOpen(true)} />
+                  {/* Mi Perfil sigue accesible: ahí puede pagar y gestionar su cuenta. */}
+                  <NavPill to="/ajustes" label={t('nav.settings')} colorClass="bg-slate-600" />
+                </>
+              )}
             </nav>
           </div>
-
-          {/* Segunda fila: panel del usuario, separada de la navegación general */}
-          {isAuthenticated && (
-            <nav
-              className="mt-1 hidden flex-wrap items-center justify-start gap-2 border-t border-slate-100 pt-1 lg:flex"
-              aria-label={t('nav.myPanel')}
-            >
-              <NavPill to="/panel" label={t('nav.dashboard')} colorClass="bg-slate-700" disabled={blocked} onDisabledClick={() => setGateOpen(true)} />
-              <NavPill to="/calendario" label={t('nav.calendar')} colorClass="bg-slate-600" disabled={blocked} onDisabledClick={() => setGateOpen(true)} />
-              <NavPill to="/mensajes" label={t('nav.messages')} colorClass="bg-slate-600" disabled={blocked} onDisabledClick={() => setGateOpen(true)} />
-              {/* Mi Perfil sigue accesible: ahí puede pagar y gestionar su cuenta. */}
-              <NavPill to="/ajustes" label={t('nav.settings')} colorClass="bg-slate-600" />
-            </nav>
-          )}
         </div>
       </header>
 
