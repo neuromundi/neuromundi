@@ -102,12 +102,14 @@ La verificación que NO debe fallar antes de entregar: `npm run build`.
 
 ### 1. i18n con paridad total
 - Las cadenas visibles usan `t('clave')`. Las claves viven en `src/i18n/locales/*.json`.
-- **Toda clave nueva debe existir en los 10 idiomas.** La paridad debe ser exacta (0).
+- **Toda clave nueva debe existir en los 11 idiomas.** La paridad debe ser exacta (0).
+- **Si añades un idioma, añádelo también a la lista `L` del script de abajo**, o el chequeo
+  lo dejará fuera y la paridad saldrá en verde con claves faltantes (le pasó a `ko`).
 - Verifica la paridad tras cualquier cambio de textos:
 ```
 python3 - <<'PY'
 import json,glob
-L=['es','en','fr','de','it','pt','ja','zh','ar','he']
+L=['es','en','fr','de','it','pt','ja','zh','ar','he','ko']
 def flat(d,p=''):
     o=set()
     for k,v in d.items():
@@ -322,9 +324,9 @@ PY
 - `src/lib` utilidades puras (buenas para tests) · `src/i18n/locales` traducciones
 - **Catálogos de registro/búsqueda** en `src/data` (`specialistCatalog`, `clinicCatalog`,
   `providerCatalog`, `kCatalog`, `storeCatalog`, `blogTopics`): el `label` es el RESPALDO en
-  español; la **localización a los 8 idiomas** se hace por i18n con la clave `cat.<value>`
+  español; la **localización a los 11 idiomas** se hace por i18n con la clave `cat.<value>`
   (helper `useCatLabel()` en `src/lib/catLabel.ts`, que hace `t('cat.'+value, { defaultValue: label })`).
-  **REQUISITO: toda entrada nueva de cualquier catálogo debe llevar su `cat.<value>` en los 8
+  **REQUISITO: toda entrada nueva de cualquier catálogo debe llevar su `cat.<value>` en los 11
   locales** (plataforma de alcance global; si falta, cae al español y rompe la UX). Ya están
   localizados: profesiones, especialidades, áreas, modalidades, certificaciones… NO —`CERTIFICATIONS`
   son nombres propios internacionales (ADOS-2, PECS, TEACCH…) y se dejan igual—, `TITLE_PREFIXES`
@@ -424,7 +426,7 @@ PY
   familia/paciente ve directorio · kit · academy · eventos · seguridad · app; el prestador
   ve directorio · agenda · mensajería · métricas · seguridad · app. Pasos comunes en ambos.
   `safeStep = Math.min(step, last)` acota el índice si el rol se resuelve tras el primer
-  render. Si cambias los pasos de un rol, añade sus claves `tour.*.{title,body}` en los 8
+  render. Si cambias los pasos de un rol, añade sus claves `tour.*.{title,body}` en los 11
   idiomas · `pwa/InstallAppButton` · `ui/*` (`Button`, `Modal`, `PasswordInput`, `StarRating`…)
 - `toolkit/ContinueLearning` — "continuar donde me quedé" del Kit; lee `useToolkitProgress`,
   enlaza al siguiente módulo sin leer (`/kit?m=<id>`). Montado en `ParentDashboard`.
