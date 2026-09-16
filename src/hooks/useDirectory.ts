@@ -189,7 +189,15 @@ export function useDirectory(filters: DirectoryFilters): UseDirectoryValue {
         if (!anyOf.some((v) => pool.includes(v))) return false;
       }
       if (providerTypes && providerTypes.length > 0) {
-        if (!p.provider_type || !providerTypes.includes(p.provider_type)) return false;
+        // Una organización puede pertenecer a VARIAS categorías (migración
+        // 0097): `provider_types` trae la lista completa y `provider_type` la
+        // principal. El respaldo importa: los perfiles con cuenta y las fichas
+        // anteriores al backfill solo tienen la principal, y sin él dejarían
+        // de salir en el directorio.
+        const tipos = ((p as { provider_types?: string[] | null }).provider_types?.length
+          ? (p as { provider_types?: string[] | null }).provider_types!
+          : [p.provider_type]).filter(Boolean) as string[];
+        if (!tipos.some((t) => providerTypes.includes(t))) return false;
       }
       if (ageRange && !(p.age_ranges ?? []).includes(ageRange)) return false;
       if (modality && !(p.modalities ?? []).includes(modality)) return false;
