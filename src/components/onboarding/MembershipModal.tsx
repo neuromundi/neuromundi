@@ -28,7 +28,7 @@ const PROMO_ERRORS: Record<string, string> = {
 export function MembershipModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   const { t } = useTranslation();
   const toast = useToast();
-  const { status, daysLeft, quote, options, loading, referralPct, countryPct, startCheckout, redeemPromo } = useMembership();
+  const { status, daysLeft, quote, options, loading, referralPct, countryPct, promo: activePromo, startCheckout, redeemPromo } = useMembership();
   const { founderDiscount: campaignDisc } = useCampaign();
   const [promo, setPromo] = useState('');
   const [showPromo, setShowPromo] = useState(false);
@@ -89,17 +89,20 @@ export function MembershipModal({ open, onClose }: { open: boolean; onClose: () 
   // Vista previa del PRIMER pago con todos los descuentos combinados, igual que
   // el servidor (recomendación ∘ promo ∘ fundador[solo anual] ∘ país, tope 90%;
   // un monto fijo de promo en la moneda de cobro prevalece sobre los %).
+  // Promo efectiva: la canjeada en esta sesión tiene prioridad (feedback
+  // inmediato); si no, la que ya tuviera el usuario (my_membership_promo).
+  const effectivePromo = appliedPromo ?? activePromo;
   const previewBase = options ? (period === 'annual' ? options.annual_amount : options.monthly_amount) : null;
   let previewFinal: number | null = null;
   let previewOffPct = 0;
   if (options && previewBase != null) {
     const curr = options.currency.toLowerCase();
     const promoIsAmount =
-      appliedPromo?.benefit === 'amount' && appliedPromo.amount > 0 && appliedPromo.currency.toLowerCase() === curr;
+      effectivePromo?.benefit === 'amount' && effectivePromo.amount > 0 && effectivePromo.currency.toLowerCase() === curr;
     if (promoIsAmount) {
-      previewFinal = Math.max(0, Math.round((previewBase - appliedPromo!.amount) * 100) / 100);
+      previewFinal = Math.max(0, Math.round((previewBase - effectivePromo!.amount) * 100) / 100);
     } else {
-      const promoPct = appliedPromo?.benefit === 'percent' ? appliedPromo.pct : 0;
+      const promoPct = effectivePromo?.benefit === 'percent' ? effectivePromo.pct : 0;
       const founderPct = period === 'annual' ? campaignDisc.pct : 0;
       previewOffPct = combinedDiscountPct([referralPct, promoPct, founderPct, countryPct]);
       if (previewOffPct > 0) previewFinal = priceAfterPct(previewBase, previewOffPct);

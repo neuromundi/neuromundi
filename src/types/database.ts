@@ -1826,6 +1826,10 @@ export interface Database {
         Args: Record<string, never>;
         Returns: { referral_pct: number; referrer_pct: number; total_pct: number }[];
       };
+      my_membership_promo: {
+        Args: Record<string, never>;
+        Returns: { benefit: string; percent_off: number; amount_off: number; amount_currency: string }[];
+      };
       membership_discount: {
         Args: { p_user: string };
         Returns: { referral_pct: number; referrer_pct: number; total_pct: number }[];

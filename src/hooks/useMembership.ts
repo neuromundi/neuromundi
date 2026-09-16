@@ -37,6 +37,8 @@ export interface MembershipState {
   referralPct: number;
   /** % de descuento por política de país (country_discount_pct). */
   countryPct: number;
+  /** Código promocional activo del usuario (my_membership_promo), si lo hay. */
+  promo: { benefit: string; pct: number; amount: number; currency: string } | null;
   loading: boolean;
 }
 
@@ -51,6 +53,7 @@ export function useMembership() {
     options: null,
     referralPct: 0,
     countryPct: 0,
+    promo: null,
     loading: true,
   });
 
@@ -90,6 +93,7 @@ export function useMembership() {
     // precio del primer pago sin diferir de Stripe. Fallan a 0 sin bloquear.
     let referralPct = 0;
     let countryPct = 0;
+    let promo: MembershipState['promo'] = null;
     if (p && p.membership_status !== 'exempt' && p.membership_status !== 'active') {
       try {
         const { data: d } = await supabase.rpc('my_membership_discount');
@@ -100,6 +104,18 @@ export function useMembership() {
         const { data: cd } = await supabase.rpc('country_discount_pct', { p_country: p.country ?? '' });
         countryPct = Number(cd ?? 0);
       } catch { countryPct = 0; }
+      try {
+        const { data: pr } = await supabase.rpc('my_membership_promo');
+        const row = Array.isArray(pr) ? pr[0] : pr;
+        if (row?.benefit) {
+          promo = {
+            benefit: String(row.benefit),
+            pct: Number(row.percent_off ?? 0),
+            amount: Number(row.amount_off ?? 0),
+            currency: String(row.amount_currency ?? ''),
+          };
+        }
+      } catch { promo = null; }
     }
 
     const dueAt = p?.membership_due_at ?? null;
@@ -117,6 +133,7 @@ export function useMembership() {
       options,
       referralPct,
       countryPct,
+      promo,
       loading: false,
     });
   }, [userId, role, providerType]);
