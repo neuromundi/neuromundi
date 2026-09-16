@@ -33,6 +33,10 @@ export interface MembershipState {
   daysLeft: number | null;
   quote: { currency: string; amount: number } | null;
   options: MembershipOptions | null;
+  /** % de descuento por recomendación (total_pct de my_membership_discount). */
+  referralPct: number;
+  /** % de descuento por política de país (country_discount_pct). */
+  countryPct: number;
   loading: boolean;
 }
 
@@ -45,6 +49,8 @@ export function useMembership() {
     daysLeft: null,
     quote: null,
     options: null,
+    referralPct: 0,
+    countryPct: 0,
     loading: true,
   });
 
@@ -80,6 +86,22 @@ export function useMembership() {
       if (row) options = row as MembershipOptions;
     }
 
+    // Descuentos que se componen en el checkout, para poder previsualizar el
+    // precio del primer pago sin diferir de Stripe. Fallan a 0 sin bloquear.
+    let referralPct = 0;
+    let countryPct = 0;
+    if (p && p.membership_status !== 'exempt' && p.membership_status !== 'active') {
+      try {
+        const { data: d } = await supabase.rpc('my_membership_discount');
+        const row = Array.isArray(d) ? d[0] : d;
+        referralPct = Number(row?.total_pct ?? 0);
+      } catch { referralPct = 0; }
+      try {
+        const { data: cd } = await supabase.rpc('country_discount_pct', { p_country: p.country ?? '' });
+        countryPct = Number(cd ?? 0);
+      } catch { countryPct = 0; }
+    }
+
     const dueAt = p?.membership_due_at ?? null;
     const daysLeft =
       dueAt != null
@@ -93,6 +115,8 @@ export function useMembership() {
       daysLeft,
       quote,
       options,
+      referralPct,
+      countryPct,
       loading: false,
     });
   }, [userId, role, providerType]);

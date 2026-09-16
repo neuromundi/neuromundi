@@ -1134,6 +1134,8 @@
     "closingBody": "Neuromundi convierte lo que hoy se enfrenta en soledad en una comunidad global que se acompaña, se informa y se fortalece: la casa común, internacional e inclusiva, del neurodesarrollo, las neurodivergencias y las afecciones neurológicas."
   },
   "membership": {
+    "firstPaymentTitle": "Total del primer pago",
+    "firstPaymentNote": "El descuento aplica solo al primer pago; la renovación es al precio normal.",
     "title": "Cuota de afiliación",
     "annual": "Suscripción anual",
     "perYear": "/ año",

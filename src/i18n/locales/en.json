@@ -1134,6 +1134,8 @@
     "closingBody": "Neuromundi turns what is faced alone today into a global community that supports, informs and strengthens one another: the shared, international and inclusive home of neurodevelopment, neurodivergence and neurological conditions."
   },
   "membership": {
+    "firstPaymentTitle": "First payment total",
+    "firstPaymentNote": "The discount applies to the first payment only; renewal is at the regular price.",
     "title": "Membership fee",
     "annual": "Annual subscription",
     "perYear": "/ year",

@@ -14,7 +14,7 @@ import { CreditCard, Ticket, CheckCircle2, Crown } from 'lucide-react';
 import { Modal, Button, useToast } from '@/components/ui';
 import { useMembership, type BillingPeriod } from '@/hooks/useMembership';
 import { cn } from '@/lib/utils';
-import { annualSaving } from '@/lib/pricing';
+import { annualSaving, combinedDiscountPct, priceAfterPct } from '@/lib/pricing';
 import { useCampaign } from '@/hooks/useCampaign';
 
 const PROMO_ERRORS: Record<string, string> = {
@@ -28,12 +28,15 @@ const PROMO_ERRORS: Record<string, string> = {
 export function MembershipModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   const { t } = useTranslation();
   const toast = useToast();
-  const { status, daysLeft, quote, options, loading, startCheckout, redeemPromo } = useMembership();
+  const { status, daysLeft, quote, options, loading, referralPct, countryPct, startCheckout, redeemPromo } = useMembership();
   const { founderDiscount: campaignDisc } = useCampaign();
   const [promo, setPromo] = useState('');
   const [showPromo, setShowPromo] = useState(false);
   const [busy, setBusy] = useState(false);
   const [period, setPeriod] = useState<BillingPeriod>('annual');
+  // Promo canjeada EN ESTA sesión (el % o monto lo devuelve redeem_promo_code),
+  // para incluirla en la vista previa del primer pago.
+  const [appliedPromo, setAppliedPromo] = useState<{ benefit: string; pct: number; amount: number; currency: string } | null>(null);
 
   const exempt = status === 'exempt';
   const active = status === 'active';
@@ -57,10 +60,12 @@ export function MembershipModal({ open, onClose }: { open: boolean; onClose: () 
       if (res.benefit === 'percent') {
         // Descuento porcentual: no exenta; se aplica al pagar. Deja el modal
         // abierto para continuar con el checkout ya rebajado.
+        setAppliedPromo({ benefit: 'percent', pct: res.percentOff ?? 0, amount: 0, currency: '' });
         toast.success(t('membership.promoDiscountOk', { pct: res.percentOff ?? 0 }));
         setShowPromo(false);
         setPromo('');
       } else if (res.benefit === 'amount') {
+        setAppliedPromo({ benefit: 'amount', pct: 0, amount: res.amountOff ?? 0, currency: res.amountCurrency ?? '' });
         toast.success(t('membership.promoAmountOk', { amount: res.amountOff ?? 0, currency: res.amountCurrency ?? '' }));
         setShowPromo(false);
         setPromo('');
@@ -80,6 +85,27 @@ export function MembershipModal({ open, onClose }: { open: boolean; onClose: () 
     quote != null
       ? new Intl.NumberFormat(undefined, { style: 'currency', currency: quote.currency }).format(quote.amount)
       : t('membership.calculating');
+
+  // Vista previa del PRIMER pago con todos los descuentos combinados, igual que
+  // el servidor (recomendación ∘ promo ∘ fundador[solo anual] ∘ país, tope 90%;
+  // un monto fijo de promo en la moneda de cobro prevalece sobre los %).
+  const previewBase = options ? (period === 'annual' ? options.annual_amount : options.monthly_amount) : null;
+  let previewFinal: number | null = null;
+  let previewOffPct = 0;
+  if (options && previewBase != null) {
+    const curr = options.currency.toLowerCase();
+    const promoIsAmount =
+      appliedPromo?.benefit === 'amount' && appliedPromo.amount > 0 && appliedPromo.currency.toLowerCase() === curr;
+    if (promoIsAmount) {
+      previewFinal = Math.max(0, Math.round((previewBase - appliedPromo!.amount) * 100) / 100);
+    } else {
+      const promoPct = appliedPromo?.benefit === 'percent' ? appliedPromo.pct : 0;
+      const founderPct = period === 'annual' ? campaignDisc.pct : 0;
+      previewOffPct = combinedDiscountPct([referralPct, promoPct, founderPct, countryPct]);
+      if (previewOffPct > 0) previewFinal = priceAfterPct(previewBase, previewOffPct);
+    }
+  }
+  const showPreview = previewFinal != null;
 
   return (
     <Modal open={open} onClose={onClose} title={t('membership.title')}>
@@ -177,6 +203,24 @@ export function MembershipModal({ open, onClose }: { open: boolean; onClose: () 
                   <span className="text-base font-medium text-muted"> {t('membership.perYear')}</span>
                 )}
               </p>
+            </div>
+          )}
+
+          {/* Total del primer pago con los descuentos ya combinados. */}
+          {showPreview && (
+            <div className="rounded-2xl border border-sage-200 bg-sage-50/70 p-3 text-center">
+              <p className="text-xs font-semibold uppercase tracking-wide text-sage-700">
+                {t('membership.firstPaymentTitle')}
+              </p>
+              <p className="mt-0.5 text-2xl font-bold text-slate-900">
+                {fmt(previewFinal!, options!.currency)}
+                {previewOffPct > 0 && (
+                  <span className="ml-2 inline-block rounded-full bg-sage-100 px-2 py-0.5 align-middle text-xs font-bold text-sage-700">
+                    −{previewOffPct}%
+                  </span>
+                )}
+              </p>
+              <p className="mt-1 text-[11px] text-muted">{t('membership.firstPaymentNote')}</p>
             </div>
           )}
 

@@ -1097,6 +1097,8 @@
     "closingBody": "Neuromundi 让原本的孤军奋战，变为彼此陪伴、相互了解、共同壮大的全球社区：神经发育、神经多样性与神经系统疾病的国际化、包容性的共同家园。"
   },
   "membership": {
+    "firstPaymentTitle": "首次付款总额",
+    "firstPaymentNote": "折扣仅适用于首次付款；续订按正常价格计费。",
     "title": "会员费",
     "annual": "年度订阅",
     "perYear": "/ 年",

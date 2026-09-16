@@ -50,3 +50,20 @@ export function annualSavingPct(annual: number | null, list: number | null): num
   if (saving === 0 || list == null || list <= 0) return 0;
   return Math.round((saving / list) * 100);
 }
+
+/**
+ * Descuento combinado (recomendación ∘ promo% ∘ fundador ∘ país) EXACTAMENTE como
+ * lo calcula el servidor en `create-membership-checkout`: composición
+ * multiplicativa (no aditiva), redondeo al entero y tope del 90%. Se usa para
+ * previsualizar el precio del primer pago en el modal, sin que difiera de Stripe.
+ */
+export function combinedDiscountPct(pcts: Array<number | null | undefined>): number {
+  const product = pcts.reduce<number>((acc, p) => acc * (1 - (Number(p) || 0) / 100), 1);
+  const combined = (1 - product) * 100;
+  return Math.min(Math.round(combined), 90);
+}
+
+/** Precio tras aplicar un % de descuento (redondeo a 2 decimales para mostrar). */
+export function priceAfterPct(amount: number, pct: number): number {
+  return round2(amount * (1 - (Number(pct) || 0) / 100));
+}
