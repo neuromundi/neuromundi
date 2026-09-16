@@ -8,16 +8,38 @@ import { useTranslation } from 'react-i18next';
 import { Sparkles, CreditCard, Ticket } from 'lucide-react';
 import { Button, Modal, useToast } from '@/components/ui';
 import { useMembership } from '@/hooks/useMembership';
+import { useCampaign } from '@/hooks/useCampaign';
+import { combinedDiscountPct, priceAfterPct } from '@/lib/pricing';
 
 export function AccountInactiveModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   const { t } = useTranslation();
   const toast = useToast();
-  const { quote, status, startCheckout, redeemPromo } = useMembership();
+  const { quote, status, referralPct, countryPct, promo: activePromo, startCheckout, redeemPromo } = useMembership();
+  const { founderDiscount: campaignDisc } = useCampaign();
   const [busy, setBusy] = useState(false);
   const [showPromo, setShowPromo] = useState(false);
   const [promo, setPromo] = useState('');
 
   const isRenewal = status === 'past_due';
+
+  // Vista previa del primer pago con descuentos combinados (igual que el
+  // servidor). Aquí el cobro es anual (startCheckout sin argumento), así que el
+  // descuento de fundador por etapa aplica sobre la cuota mostrada.
+  let previewFinal: number | null = null;
+  let previewOffPct = 0;
+  if (quote) {
+    const curr = quote.currency.toLowerCase();
+    const promoIsAmount =
+      activePromo?.benefit === 'amount' && activePromo.amount > 0 && activePromo.currency.toLowerCase() === curr;
+    if (promoIsAmount) {
+      previewFinal = Math.max(0, Math.round((quote.amount - activePromo!.amount) * 100) / 100);
+    } else {
+      const promoPct = activePromo?.benefit === 'percent' ? activePromo.pct : 0;
+      previewOffPct = combinedDiscountPct([referralPct, promoPct, campaignDisc.pct, countryPct]);
+      if (previewOffPct > 0) previewFinal = priceAfterPct(quote.amount, previewOffPct);
+    }
+  }
+  const showPreview = previewFinal != null;
 
   const onPay = async () => {
     setBusy(true);
@@ -64,6 +86,23 @@ export function AccountInactiveModal({ open, onClose }: { open: boolean; onClose
             <p className="text-2xl font-bold text-slate-900">
               {quote.currency} {Number(quote.amount).toLocaleString()}
             </p>
+          </div>
+        )}
+
+        {showPreview && (
+          <div className="rounded-2xl border border-sage-200 bg-sage-50/70 p-3 text-center">
+            <p className="text-xs font-semibold uppercase tracking-wide text-sage-700">
+              {t('membership.firstPaymentTitle')}
+            </p>
+            <p className="mt-0.5 text-2xl font-bold text-slate-900">
+              {quote!.currency} {Number(previewFinal).toLocaleString()}
+              {previewOffPct > 0 && (
+                <span className="ml-2 inline-block rounded-full bg-sage-100 px-2 py-0.5 align-middle text-xs font-bold text-sage-700">
+                  −{previewOffPct}%
+                </span>
+              )}
+            </p>
+            <p className="mt-1 text-[11px] text-muted">{t('membership.firstPaymentNote')}</p>
           </div>
         )}
 
