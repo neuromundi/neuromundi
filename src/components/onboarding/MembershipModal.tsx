@@ -26,7 +26,7 @@ const PROMO_ERRORS: Record<string, string> = {
 };
 
 export function MembershipModal({ open, onClose }: { open: boolean; onClose: () => void }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const toast = useToast();
   const { status, daysLeft, quote, options, loading, referralPct, countryPct, promo: activePromo, startCheckout, redeemPromo } = useMembership();
   const { founderDiscount: campaignDisc } = useCampaign();
@@ -141,7 +141,7 @@ export function MembershipModal({ open, onClose }: { open: boolean; onClose: () 
               <Crown className="h-4 w-4 shrink-0" aria-hidden="true" />
               {t('membership.founderCampaign', {
                 pct: campaignDisc.pct,
-                date: campaignDisc.endsAt ? campaignDisc.endsAt.toLocaleDateString(undefined, { day: 'numeric', month: 'long' }) : '',
+                date: campaignDisc.endsAt ? campaignDisc.endsAt.toLocaleDateString(i18n.language, { day: 'numeric', month: 'long' }) : '',
               })}
             </p>
           )}
