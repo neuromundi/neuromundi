@@ -4,6 +4,7 @@ node_modules/
 # ── Build / salida ────────────────────────────────────────────
 dist/
 dist-ssr/
+neuromundi-dist-v3-mapa/
 *.local
 
 # ── Caché y temporales (se regeneran) ─────────────────────────
@@ -31,9 +32,6 @@ Thumbs.db
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-dist-app/
-*.zip
 
 dist-app/
 *.zip
