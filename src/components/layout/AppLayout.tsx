@@ -579,7 +579,9 @@ export function AppLayout() {
             </a>
           </div>
         )}
-        <Link to="/conocer-mas" className="hover:text-brand-700" aria-label={t('info.title')}>{t('home.about.more')}</Link>
+        {/* Texto visible descriptivo (no "Conocer más" a secas): la auditoría SEO
+            de enlaces evalúa el texto visible, no el aria-label. */}
+        <Link to="/conocer-mas" className="hover:text-brand-700">{t('info.title')}</Link>
         <span className="mx-2">·</span>
         <Link to="/proteccion-datos" className="hover:text-brand-700">{t('nav.dataProtection')}</Link>
         <span className="mx-2">·</span>
