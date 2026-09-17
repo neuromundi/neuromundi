@@ -75,6 +75,96 @@ const LANGS = {
   },
 };
 
+// Rutas profundas públicas (español). Son SPA: sin snapshot, su HTML crudo
+// declara canónica = raíz (la de index.html), y Googlebot —sin ejecutar JS— las
+// veía como duplicadas de la portada ("Duplicada: Google eligió otra canónica" /
+// "el usuario no indicó canónica"). Cada snapshot fija su canónica propia (y su
+// título/descripción). NO llevan hreflang: no tienen equivalentes por idioma
+// (las variantes por idioma son solo de la portada). El .htaccess sirve
+// dist/<ruta>.html cuando existe (regla de "snapshot por ruta").
+const ROUTES = {
+  'directorio': {
+    title: 'Directorio de especialistas y servicios | Neuromundi',
+    desc: 'Encuentra especialistas validados, clínicas, escuelas inclusivas y comercios de neurodesarrollo, neurodivergencia y afecciones neurológicas. Filtra por país, sección y especialidad.',
+  },
+  'tienda': {
+    title: 'Tienda inclusiva | Neuromundi',
+    desc: 'Productos y recursos para neurodesarrollo, neurodivergencia y afecciones neurológicas: material sensorial, comunicación, aprendizaje y más, de marcas de la comunidad.',
+  },
+  'inclusion-escolar': {
+    title: 'Inclusión escolar | Neuromundi',
+    desc: 'Escuelas y centros con programas de inclusión y apoyos razonables para estudiantes con neurodivergencia y afecciones neurológicas.',
+  },
+  'inclusion-laboral': {
+    title: 'Inclusión laboral: empleo, voluntariado y servicio social | Neuromundi',
+    desc: 'Oportunidades de empleo, voluntariado y servicio social inclusivas, publicadas por empresas y organizaciones. Busca por país y tipo de oportunidad.',
+  },
+  'academy': {
+    title: 'Academy: formación en neurodesarrollo | Neuromundi',
+    desc: 'Cursos y formación sobre neurodesarrollo, neurodivergencia y afecciones neurológicas para familias y profesionales.',
+  },
+  'blog': {
+    title: 'Blog | Neuromundi',
+    desc: 'Artículos y guías sobre neurodesarrollo, neurodivergencia y afecciones neurológicas, escritos por la comunidad y especialistas.',
+  },
+  'eventos': {
+    title: 'Eventos | Neuromundi',
+    desc: 'Talleres, charlas y encuentros sobre neurodesarrollo, neurodivergencia y afecciones neurológicas.',
+  },
+  'kit': {
+    title: 'Herramientas por sección | Neuromundi',
+    desc: 'Kit de herramientas prácticas por sección: neurodesarrollo, neurodivergencia y afecciones neurológicas, con módulos y recursos descargables.',
+  },
+  'pregunta-al-experto': {
+    title: 'Pregunta al experto | Neuromundi',
+    desc: 'Resuelve tus dudas sobre neurodesarrollo, neurodivergencia y afecciones neurológicas con especialistas de la comunidad.',
+  },
+  'red': {
+    title: 'Red Neuromundi: aliados de la Neuromundi ID | Neuromundi',
+    desc: 'Portal de aliados de la Neuromundi ID: cómo validar la credencial, beneficios y sellos para prestadores.',
+  },
+  'fundadores': {
+    title: 'Miembros Fundadores | Neuromundi',
+    desc: 'Conoce a los Miembros Fundadores de Neuromundi por país: especialistas, escuelas, comercios y organizaciones que impulsan la comunidad.',
+  },
+  'donantes': {
+    title: 'Muro de donantes | Neuromundi',
+    desc: 'Personas y organizaciones que apoyan a Neuromundi con sus donativos.',
+  },
+  'donar': {
+    title: 'Haz un donativo | Neuromundi',
+    desc: 'Apoya a la comunidad global de neurodesarrollo, neurodivergencia y afecciones neurológicas con un donativo, con o sin cuenta.',
+  },
+  'beneficios': {
+    title: 'Beneficios de la comunidad | Neuromundi',
+    desc: 'Beneficios de pertenecer a Neuromundi según tu tipo de perfil: familias, especialistas, escuelas, comercios y organizaciones.',
+  },
+  'conocer-mas': {
+    title: 'Conocer más | Neuromundi',
+    desc: 'Qué es Neuromundi: la comunidad global de neurodesarrollo, neurodivergencia y afecciones neurológicas, y cómo participar.',
+  },
+  'manifiesto': {
+    title: 'Manifiesto de la Comunidad | Neuromundi',
+    desc: 'El Manifiesto de la Comunidad Neuromundi: nuestros principios de respeto, inclusión y enfoque neuroafirmativo.',
+  },
+  'crear-cuenta': {
+    title: 'Crear cuenta | Neuromundi',
+    desc: 'Únete a Neuromundi: familias y pacientes gratis; especialistas, escuelas, clínicas, comercios y organizaciones con perfil en el directorio.',
+  },
+  'terminos': {
+    title: 'Términos y Condiciones | Neuromundi',
+    desc: 'Términos y Condiciones de uso de la plataforma Neuromundi.',
+  },
+  'privacidad': {
+    title: 'Aviso de Privacidad | Neuromundi',
+    desc: 'Aviso de Privacidad de Neuromundi: cómo tratamos y protegemos tus datos.',
+  },
+  'proteccion-datos': {
+    title: 'Protección de datos | Neuromundi',
+    desc: 'Cómo proteger y ejercer tus derechos sobre tus datos personales en Neuromundi.',
+  },
+};
+
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const escAttr = (s) => esc(s).replace(/"/g, '&quot;');
 
@@ -112,6 +202,29 @@ try {
   }
 
   console.log(`[gen-seo-langs] Generados ${count} snapshots por idioma en dist/{idioma}/index.html`);
+
+  // Snapshots por RUTA profunda (español): canónica propia por página. Sin
+  // hreflang (no tienen equivalentes por idioma). El .htaccess sirve
+  // dist/<ruta>.html cuando existe; si no, la ruta cae a la SPA como siempre.
+  let rcount = 0;
+  for (const [path, cfg] of Object.entries(ROUTES)) {
+    const html = src
+      // Elimina el bloque de alternativas hreflang (incluido x-default): estas
+      // páginas existen en una sola URL, no por idioma.
+      .replace(/\s*<link rel="alternate" hreflang="[^"]*" href="[^"]*"\s*\/>/g, '')
+      .replace(/<title>[\s\S]*?<\/title>/, `<title>${esc(cfg.title)}</title>`)
+      .replace(/(<meta name="description" content=")[^"]*(")/, `$1${escAttr(cfg.desc)}$2`)
+      .replace(/(<meta property="og:title" content=")[^"]*(")/, `$1${escAttr(cfg.title)}$2`)
+      .replace(/(<meta property="og:description" content=")[^"]*(")/, `$1${escAttr(cfg.desc)}$2`)
+      .replace(/(<meta property="og:url" content=")[^"]*(")/, `$1${ORIGIN}/${path}$2`)
+      .replace(/(<meta name="twitter:title" content=")[^"]*(")/, `$1${escAttr(cfg.title)}$2`)
+      .replace(/(<meta name="twitter:description" content=")[^"]*(")/, `$1${escAttr(cfg.desc)}$2`)
+      .replace(/(<link rel="canonical" href=")[^"]*(")/, `$1${ORIGIN}/${path}$2`);
+
+    writeFileSync(join(DIST, `${path}.html`), html, 'utf8');
+    rcount++;
+  }
+  console.log(`[gen-seo-langs] Generados ${rcount} snapshots por ruta en dist/<ruta>.html`);
 } catch (e) {
   console.warn('[gen-seo-langs] AVISO: no se generaron los snapshots SEO por idioma:', e?.message ?? e);
   process.exit(0); // nunca bloquear el despliegue por la capa de SEO

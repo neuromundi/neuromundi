@@ -43,6 +43,18 @@
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteRule ^assets/ - [R=404,L]
 
+  # SEO: snapshot por RUTA. Si existe dist/<ruta>.html (generado por
+  # gen-seo-langs.mjs con su canónica/título propios) y la URL es de UN solo
+  # segmento que no es archivo/carpeta real, servir ese snapshot en vez de la
+  # portada. Así Googlebot ve la canónica correcta de cada página profunda sin
+  # depender de JS (antes las tomaba como duplicadas de la home). Si no hay
+  # snapshot, la ruta cae a la SPA (regla de abajo). Las carpetas físicas
+  # (/en, /kit, /tribu) no entran aquí porque son -d.
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+  RewriteRule ^([^/]+)/?$ /$1.html [L]
+
   # El resto de rutas (de la SPA) sí van a index.html
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
@@ -83,7 +95,7 @@
   #    cada carga con ETag), NO `no-store`: `no-store` impide el back/forward
   #    cache (bfcache) del navegador —lo marcaba Lighthouse— sin ninguna ventaja,
   #    porque `no-cache, must-revalidate` ya evita servir HTML/SW viejos.
-  <FilesMatch "(index\.html|sw\.js|registerSW\.js|push-sw\.js|manifest\.webmanifest)$">
+  <FilesMatch "(\.html|sw\.js|registerSW\.js|push-sw\.js|manifest\.webmanifest)$">
     Header set Cache-Control "no-cache, must-revalidate"
   </FilesMatch>
 </IfModule>

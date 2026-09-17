@@ -14,6 +14,12 @@
   <url><loc>https://www.neuromundi.com/directorio</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
   <url><loc>https://www.neuromundi.com/tienda</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
   <url><loc>https://www.neuromundi.com/inclusion-escolar</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.neuromundi.com/inclusion-laboral</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.neuromundi.com/red</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.neuromundi.com/fundadores</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.neuromundi.com/donantes</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://www.neuromundi.com/donar</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://www.neuromundi.com/beneficios</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://www.neuromundi.com/academy</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://www.neuromundi.com/blog</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
   <url><loc>https://www.neuromundi.com/eventos</loc><changefreq>daily</changefreq><priority>0.7</priority></url>
