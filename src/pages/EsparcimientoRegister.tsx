@@ -239,7 +239,7 @@ export function EsparcimientoRegister({ onSuccess, complete = false }: { onSucce
           <h3 className={sectionTitle}>{t('esp.s4')}</h3>
           <div className="grid gap-3 sm:grid-cols-2">
             <div><label className={labelCls}>{t('k.whatsapp')}</label><input className={inputCls} value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="+52 55…" /></div>
-            <div><label className={labelCls}>{t('company.contactEmail')}</label><input type="email" className={inputCls} value={contactEmail} onChange={(e) => setContactEmail(e.target.value)} /></div>
+            <div><label className={labelCls}>{t('k.contactEmail')}</label><input type="email" className={inputCls} value={contactEmail} onChange={(e) => setContactEmail(e.target.value)} /></div>
             <div><label className={labelCls}>{t('k.website')}</label><input className={inputCls} value={website} onChange={(e) => setWebsite(e.target.value)} placeholder="https://" /></div>
             <div><label className={labelCls}>{t('reg.instagram')}</label><input className={inputCls} value={instagram} onChange={(e) => setInstagram(e.target.value)} placeholder="@usuario" /></div>
             <div><label className={labelCls}>{t('reg.facebook')}</label><input className={inputCls} value={facebook} onChange={(e) => setFacebook(e.target.value)} placeholder="https://facebook.com/…" /></div>

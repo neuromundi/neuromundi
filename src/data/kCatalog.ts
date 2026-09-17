@@ -1,11 +1,15 @@
 /**
- * kCatalog — configuración de los 5 tipos de proveedor del bloque K.
+ * kCatalog — configuración de los tipos de proveedor del bloque K.
  * Cada tipo aporta su lista de "ofertas" (chips) que se guardan en specialties[]
  * (indexable, buscable por texto). Etiquetas en español.
+ *
+ * NOTA: "tourism" (Esparcimiento) NO está aquí: tiene su propio formulario
+ * dedicado (EsparcimientoRegister) con lat/long y horarios, así que se enruta
+ * aparte y nunca pasa por KProviderRegister.
  */
 import type { CatItem } from '@/data/specialistCatalog';
 
-export type KType = 'wellness' | 'tourism' | 'legal' | 'ngo' | 'caregiver';
+export type KType = 'wellness' | 'legal' | 'ngo' | 'caregiver';
 
 export const K_OFFERINGS: Record<KType, CatItem[]> = {
   wellness: [
@@ -15,13 +19,6 @@ export const K_OFFERINGS: Record<KType, CatItem[]> = {
     { value: 'artes_marciales', label: 'Artes marciales' },
     { value: 'danza_movimiento', label: 'Danza y movimiento' },
     { value: 'acondicionamiento', label: 'Acondicionamiento físico' },
-  ],
-  tourism: [
-    { value: 'hoteles_sensory', label: 'Hoteles sensory-friendly' },
-    { value: 'tours_adaptados', label: 'Tours adaptados' },
-    { value: 'campamentos', label: 'Campamentos inclusivos' },
-    { value: 'transporte_accesible', label: 'Transporte accesible' },
-    { value: 'experiencias_calma', label: 'Experiencias de baja carga sensorial' },
   ],
   legal: [
     { value: 'derechos_discapacidad', label: 'Discapacidad y derechos' },
@@ -50,10 +47,9 @@ export const K_OFFERINGS: Record<KType, CatItem[]> = {
 /** Config visual de cada tipo (icono se asigna en el componente). */
 export const K_CONFIG: Record<KType, { color: string; cardColor: string }> = {
   wellness:  { color: 'from-lime-500 to-emerald-600',  cardColor: 'from-lime-500 to-emerald-600' },
-  tourism:   { color: 'from-sky-500 to-cyan-600',       cardColor: 'from-sky-500 to-cyan-600' },
   legal:     { color: 'from-slate-600 to-slate-800',    cardColor: 'from-slate-600 to-slate-800' },
   ngo:       { color: 'from-rose-500 to-pink-600',       cardColor: 'from-rose-500 to-pink-600' },
   caregiver: { color: 'from-violet-500 to-purple-600',   cardColor: 'from-violet-500 to-purple-600' },
 };
 
-export const K_TYPES: KType[] = ['wellness', 'tourism', 'legal', 'ngo', 'caregiver'];
+export const K_TYPES: KType[] = ['wellness', 'legal', 'ngo', 'caregiver'];

@@ -31,9 +31,10 @@ import type { KType } from '@/data/kCatalog';
 import type { RegType } from '@/lib/schemas';
 
 type Role = 'patient' | 'parent' | 'provider';
-type PType = 'service_provider' | 'merchant' | 'school' | 'clinic' | KType | 'company';
+// 'tourism' es su propio literal (usa EsparcimientoRegister, no KProviderRegister).
+type PType = 'service_provider' | 'merchant' | 'school' | 'clinic' | KType | 'tourism' | 'company';
 
-const K_SET = new Set<string>(['wellness', 'tourism', 'legal', 'ngo', 'caregiver']);
+const K_SET = new Set<string>(['wellness', 'legal', 'ngo', 'caregiver']);
 
 const TYPES: { role: Role; ptype?: PType; key: string }[] = [
   { role: 'parent', key: 'reg.typeParent' },

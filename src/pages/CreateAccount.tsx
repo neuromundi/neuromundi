@@ -22,7 +22,9 @@ import { SocialButtons } from '@/components/onboarding/SocialButtons';
 import type { RegType } from '@/lib/schemas';
 import type { KType } from '@/data/kCatalog';
 
-type CardType = RegType | 'clinic' | KType | 'company';
+// 'tourism' (Esparcimiento) es su propio literal: no está en KType porque usa
+// EsparcimientoRegister en vez de KProviderRegister.
+type CardType = RegType | 'clinic' | KType | 'tourism' | 'company';
 
 const CARDS: { type: CardType; icon: typeof User; color: string; soon?: boolean }[] = [
   { type: 'patient', icon: User, color: 'from-emerald-500 to-teal-600' },
@@ -39,7 +41,7 @@ const CARDS: { type: CardType; icon: typeof User; color: string; soon?: boolean 
   { type: 'company', icon: Briefcase, color: 'from-slate-600 to-slate-800' },
 ];
 
-const K_SET = new Set<CardType>(['wellness', 'tourism', 'legal', 'ngo', 'caregiver']);
+const K_SET = new Set<CardType>(['wellness', 'legal', 'ngo', 'caregiver']);
 
 export function CreateAccount() {
   const { t } = useTranslation();

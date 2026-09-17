@@ -185,6 +185,17 @@ export function Settings() {
   }
 
   const watchType = watch('provider_type');
+  // Coherencia de campos por tipo de perfil:
+  //  - merchant (comercio de productos): sin profesión/especialidades/áreas, sin citas.
+  //  - company (empresa de empleo, exenta): sin directorio de servicios, sin citas, sin secciones.
+  //  - school (escuela): sin modalidad ni enlace de citas personales.
+  const isMerchant = watchType === 'merchant';
+  const isCompany = watchType === 'company';
+  const isSchool = watchType === 'school';
+  // Perfiles SIN "profesión / especialidades / áreas" de servicio clínico.
+  const noServiceDirectory = isMerchant || isCompany;
+  // Perfiles que NO atienden citas individuales (modalidad + enlace de agenda).
+  const noAppointments = isMerchant || isCompany || isSchool;
 
   const onSubmit = async (values: ProfileFormValues) => {
     const orNull = (s?: string) => (s && s.trim() ? s.trim() : null);
@@ -220,17 +231,23 @@ export function Settings() {
       patch.fiscal_country = orNull(values.fiscal_country);
       // Grados escolares (solo escuelas).
       patch.school_grades = values.provider_type === 'school' ? (values.school_grades ?? []) : [];
-      // Directorio y especializaciÃ³n.
-      patch.profession = orNull(values.profession);
-      patch.specialties = values.specialties ?? [];
-      patch.intervention_areas = values.intervention_areas ?? [];
-      const nc = values.neuro_conditions ?? [];
+      // Coherencia por tipo (mismo criterio que la UI):
+      //  - comercio (merchant) y empresa de empleo (company): sin profesión/
+      //    especialidades/áreas de servicio; company además sin secciones.
+      //  - merchant/company/school: sin modalidad ni enlace de citas.
+      const pt = values.provider_type;
+      const svcDirectory = pt !== 'merchant' && pt !== 'company';
+      const attendsAppointments = pt !== 'merchant' && pt !== 'company' && pt !== 'school';
+      patch.profession = svcDirectory ? orNull(values.profession) : null;
+      patch.specialties = svcDirectory ? (values.specialties ?? []) : [];
+      patch.intervention_areas = svcDirectory ? (values.intervention_areas ?? []) : [];
+      const nc = pt === 'company' ? [] : (values.neuro_conditions ?? []);
       patch.neuro_conditions = nc;
       patch.sections = nc; // sections mirrors neuro_conditions for directorio
-      patch.modalities = values.modalities ?? [];
+      patch.modalities = attendsAppointments ? (values.modalities ?? []) : [];
       patch.neuroaffirming = values.neuroaffirming ?? false;
       patch.whatsapp = orNull(values.whatsapp);
-      patch.booking_url = orNull(values.booking_url);
+      patch.booking_url = attendsAppointments ? orNull(values.booking_url) : null;
       patch.instagram = orNull(values.instagram);
       patch.facebook = orNull(values.facebook);
     }
@@ -299,10 +316,12 @@ export function Settings() {
           <label htmlFor="s-phone" className={labelCls}>{t('settings.phone')}</label>
           <input id="s-phone" className={inputCls} {...register('phone')} />
         </div>
-        <div>
-          <label htmlFor="s-rfc" className={labelCls}>{t('pay.rfc')}</label>
-          <input id="s-rfc" className={inputCls} placeholder={t('pay.rfcHint')} {...register('rfc')} />
-        </div>
+        {isProvider && (
+          <div>
+            <label htmlFor="s-rfc" className={labelCls}>{t('pay.rfc')}</label>
+            <input id="s-rfc" className={inputCls} placeholder={t('pay.rfcHint')} {...register('rfc')} />
+          </div>
+        )}
         <div>
           <label htmlFor="s-bio" className={labelCls}>{t('settings.about')}</label>
           <textarea id="s-bio" rows={3} className={inputCls} {...register('bio')} />
@@ -357,9 +376,16 @@ export function Settings() {
               <label htmlFor="s-type" className={labelCls}>{t('settings.providerType')}</label>
               <select id="s-type" className={inputCls} {...register('provider_type', { setValueAs: (v) => (v === '' ? null : v) })}>
                 <option value="">{t('settings.typeUndefined')}</option>
-                <option value="service_provider">{t('settings.typeService')}</option>
-                <option value="merchant">{t('settings.typeMerchant')}</option>
-                <option value="school">{t('reg.typeSchool')}</option>
+                <option value="service_provider">{t('reclamar.tipos.service_provider')}</option>
+                <option value="clinic">{t('reclamar.tipos.clinic')}</option>
+                <option value="school">{t('reclamar.tipos.school')}</option>
+                <option value="merchant">{t('reclamar.tipos.merchant')}</option>
+                <option value="wellness">{t('reclamar.tipos.wellness')}</option>
+                <option value="tourism">{t('reclamar.tipos.tourism')}</option>
+                <option value="legal">{t('reclamar.tipos.legal')}</option>
+                <option value="ngo">{t('reclamar.tipos.ngo')}</option>
+                <option value="caregiver">{t('reclamar.tipos.caregiver')}</option>
+                <option value="company">{t('reclamar.tipos.company')}</option>
               </select>
             </div>
             <div>
@@ -383,7 +409,10 @@ export function Settings() {
                 <input id="s-addr" className={inputCls} {...register('address')} />
               </div>
             </div>
-            <FiscalSchoolFields register={register} country={watch('country')} providerType={watchType} />
+            {/* Datos de facturación: las empresas de empleo están exentas de cuota. */}
+            {!isCompany && (
+              <FiscalSchoolFields register={register} country={watch('country')} providerType={watchType} />
+            )}
 
             <label className="flex items-center gap-3">
               <input type="checkbox" className="h-5 w-5 rounded border-slate-300 text-brand-500" {...register('is_published')} />
@@ -397,6 +426,9 @@ export function Settings() {
           <fieldset className="space-y-4 rounded-2xl border border-brand-100 bg-brand-50/30 p-4">
             <legend className="px-1 font-semibold text-slate-900">{t('settings.directory')}</legend>
 
+            {/* Profesión / Especialidades / Áreas: perfiles de servicio, no comercios ni empresas de empleo */}
+            {!noServiceDirectory && (
+            <>
             {/* ProfesiÃ³n */}
             <div>
               <label htmlFor="s-prof" className={labelCls}>{t('settings.profession')}</label>
@@ -432,8 +464,12 @@ export function Settings() {
               />
               <p className="mt-1 text-xs text-muted">{t('settings.specialtiesHint')}</p>
             </div>
+            </>
+            )}
 
-            {/* CategorÃ­as Neuromundi (neuro_conditions â†’ sections) */}
+            {/* CategorÃ­as Neuromundi (neuro_conditions â†’ sections). Las empresas
+                de empleo no declaran secciones. */}
+            {!isCompany && (
             <div>
               <p className={labelCls}>{t('settings.neuroCategories')}</p>
               <div className="mt-2 space-y-2">
@@ -463,8 +499,10 @@ export function Settings() {
                 })}
               </div>
             </div>
+            )}
 
-            {/* Modalidades de atenciÃ³n */}
+            {/* Modalidades de atenciÃ³n (solo perfiles que atienden citas) */}
+            {!noAppointments && (
             <div>
               <p className={labelCls}>{t('settings.modalities')}</p>
               <div className="mt-2 grid grid-cols-2 gap-2">
@@ -494,6 +532,7 @@ export function Settings() {
                 })}
               </div>
             </div>
+            )}
 
             {/* Neuroafirmativo */}
             <label className="flex items-center gap-3">
@@ -509,6 +548,7 @@ export function Settings() {
                 </label>
                 <input id="s-wa" className={inputCls} placeholder="+52 55 1234 5678" {...register('whatsapp')} />
               </div>
+              {!noAppointments && (
               <div>
                 <label htmlFor="s-book" className={labelCls}>
                   <span className="flex items-center gap-1.5"><CalendarCheck className="h-4 w-4 text-brand-600" /> {t('settings.bookingUrl')}</span>
@@ -516,6 +556,7 @@ export function Settings() {
                 <input id="s-book" className={inputCls} placeholder="https://cal.com/â€¦" {...register('booking_url')} />
                 {errors.booking_url && <p role="alert" className="mt-1 text-sm text-evs-1">{t(errors.booking_url.message!)}</p>}
               </div>
+              )}
             </div>
 
             {/* Redes sociales */}

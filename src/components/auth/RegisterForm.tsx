@@ -429,7 +429,7 @@ export function RegisterForm({ onSuccess, initialType, complete = false }: { onS
         {errors.state && <p role="alert" className={errCls}>{t(errors.state.message!)}</p>}
         {errors.municipality && <p role="alert" className={errCls}>{t(errors.municipality.message!)}</p>}
 
-        {isProvider && isMexico && (
+        {regType === 'service_provider' && isMexico && (
           <div>
             <label htmlFor="reg-cedula" className={labelCls}>{t('reg.cedula')}</label>
             <input id="reg-cedula" className={inputCls} placeholder={t('reg.cedulaPlaceholder')} {...register('cedula_profesional')} />

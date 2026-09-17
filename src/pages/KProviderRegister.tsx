@@ -11,7 +11,7 @@ import { useCountryLabel } from '@/lib/countryLabel';
 import { FounderProgressCard } from '@/components/founder/FounderProgressCard';
 import { SectionsField } from '@/components/onboarding/SectionsField';
 import { founderKindFor } from '@/hooks/useFounder';
-import { Camera, Eye, ChevronDown, MapPin, BadgeCheck, HeartPulse, Plane, Scale, HeartHandshake, HandHeart } from 'lucide-react';
+import { Camera, Eye, ChevronDown, MapPin, BadgeCheck, HeartPulse, Scale, HeartHandshake, HandHeart } from 'lucide-react';
 import { Button, useToast, PasswordInput} from '@/components/ui';
 import { useAuth } from '@/hooks/useAuth';
 import { useCatLabel } from '@/lib/catLabel';
@@ -25,7 +25,7 @@ const labelCls = 'mb-1 block font-semibold text-slate-900';
 const sectionTitle = 'text-sm font-semibold uppercase tracking-wide text-muted';
 
 const ICONS: Record<KType, typeof HeartPulse> = {
-  wellness: HeartPulse, tourism: Plane, legal: Scale, ngo: HeartHandshake, caregiver: HandHeart,
+  wellness: HeartPulse, legal: Scale, ngo: HeartHandshake, caregiver: HandHeart,
 };
 
 function useToggleList(initial: string[] = []) {
