@@ -3,30 +3,28 @@
 //
 // Envía la invitación "reclama tu ficha y únete a Neuromundi" a los contactos
 // del directorio (tabla directorio_invitaciones). Sustituye al script obsoleto
-// scripts/invite-providers.mjs (modelo viejo, retirado).
+// scripts/invite-providers.mjs.
 //
-// GARANTÍAS DE SEGURIDAD (por diseño):
-//   1) DRY-RUN POR DEFECTO. Solo envía si el cuerpo trae {"send": true}.
-//      Sin ese flag, lista a quién enviaría y NO envía ni marca nada.
-//   2) Candado de invocación fail-closed: exige header x-cron-secret == CRON_SECRET.
-//      Sin secreto configurado o sin header correcto → 401 (evita el vector del
-//      incidente del 2026-09-08). NO hay cron que la dispare: solo manual.
-//   3) La cola (directorio_invitaciones_cola) ya filtra: no enviada, no cancelada,
-//      no usada, no baja, no expirada, correo válido, ficha publicada, no
-//      reclamada y correo NO rebotado.
-//   4) El `sector` decide el encuadre: público/social SIN oferta de pago.
-//   5) Marca enviada_en solo tras un envío exitoso (no reenvía).
+// SEGMENTACIÓN (3 tandas, distinto mensaje):
+//   · nuevos           → nunca contactados: primera invitación.
+//   · ya_publico_social → ya contactados el 8-sep y son público/social: mensaje
+//                         CORRECTIVO (su membresía es gratuita; repara el error
+//                         del 8-sep donde recibieron oferta de pago).
+//   · ya_privado       → ya contactados el 8-sep y privados: seguimiento suave.
 //
-// Secrets (Supabase):
-//   RESEND_API_KEY, CAMPAIGN_FROM (remitente verificado), PUBLIC_SITE_URL,
-//   CRON_SECRET.
+// GARANTÍAS DE SEGURIDAD:
+//   1) DRY-RUN por defecto: solo envía con {"send": true}.
+//   2) Candado fail-closed: header x-cron-secret == CRON_SECRET. Sin cron.
+//   3) La cola (directorio_invitaciones_cola) filtra no-enviada/cancelada/usada/
+//      baja/expirada, correo válido, ficha publicada, no reclamada, no rebotado.
+//   4) Sector decide el encuadre: público/social SIN oferta de pago.
+//   5) Marca enviada_en solo tras éxito + Idempotency-Key por token en Resend
+//      (evita doble envío si se reintenta).
 //
-// Despliegue:
-//   supabase functions deploy enviar-invitaciones --no-verify-jwt
-//
-// Uso (cuando se autorice el envío):
-//   Dry-run (no envía):  POST {} con header x-cron-secret
-//   Envío real:          POST {"send": true, "limit": 50} con header x-cron-secret
+// Body: { send?: boolean, limit?: number, segment?: 'nuevos'|'ya_publico_social'
+//         |'ya_privado'|'todos' }
+// Secrets: RESEND_API_KEY, CAMPAIGN_FROM, PUBLIC_SITE_URL, CRON_SECRET.
+// Despliegue: supabase functions deploy enviar-invitaciones --no-verify-jwt
 // ============================================================================
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
@@ -42,14 +40,17 @@ const SITE = Deno.env.get('PUBLIC_SITE_URL') ?? 'https://www.neuromundi.com';
 
 const json = (status: number, body: unknown) =>
   new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json' } });
-
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
-async function sendEmail(to: string, subject: string, html: string): Promise<boolean> {
+async function sendEmail(to: string, subject: string, html: string, idemKey: string): Promise<boolean> {
   if (!RESEND_API_KEY) return false;
   const r = await fetch('https://api.resend.com/emails', {
     method: 'POST',
-    headers: { Authorization: `Bearer ${RESEND_API_KEY}`, 'Content-Type': 'application/json' },
+    headers: {
+      Authorization: `Bearer ${RESEND_API_KEY}`,
+      'Content-Type': 'application/json',
+      'Idempotency-Key': idemKey, // evita doble entrega si se reintenta (ventana 24h)
+    },
     body: JSON.stringify({ from: FROM, to: [to], subject, html }),
   });
   return r.ok;
@@ -58,7 +59,15 @@ async function sendEmail(to: string, subject: string, html: string): Promise<boo
 interface Row {
   token: string; correo: string; nombre: string;
   provider_type: string | null; sector: string | null;
-  estado: string | null; ciudad: string | null;
+  estado: string | null; ciudad: string | null; ya_contactado_8sep: boolean;
+}
+
+const esFree = (r: Row) =>
+  r.sector === 'publico' || r.sector === 'social' || r.provider_type === 'ngo' || r.provider_type === 'company';
+
+function segmentOf(r: Row): 'nuevos' | 'ya_publico_social' | 'ya_privado' {
+  if (!r.ya_contactado_8sep) return 'nuevos';
+  return esFree(r) ? 'ya_publico_social' : 'ya_privado';
 }
 
 function shell(title: string, bodyHtml: string, ctaText: string, ctaUrl: string): string {
@@ -73,70 +82,78 @@ function shell(title: string, bodyHtml: string, ctaText: string, ctaUrl: string)
   </div>`;
 }
 
-function inviteHtml(row: Row): { subject: string; html: string } {
-  const claim = `${SITE}/reclamar/${row.token}`;
-  const nombre = row.nombre || 'tu organización';
-  // El sector manda: público (gobierno/DIF) y social (A.C./I.A.P./ONG) NO
-  // reciben oferta de pago; su membresía es gratuita. Privado recibe el
-  // encuadre normal de Miembro Fundador (beneficio, sin fecha límite agresiva).
-  const isFree = row.sector === 'publico' || row.sector === 'social'
-    || row.provider_type === 'ngo' || row.provider_type === 'company';
-  const cuerpo = isFree
+function buildEmail(r: Row): { subject: string; html: string } {
+  const claim = `${SITE}/reclamar/${r.token}`;
+  const nombre = r.nombre || 'tu organización';
+  const seg = segmentOf(r);
+
+  if (seg === 'ya_publico_social') {
+    // Correctivo: repara el correo del 8-sep que pudo mencionar una cuota.
+    const cuerpo = `<p>Hola, equipo de <b>${nombre}</b>:</p>
+      <p>Hace unos días te escribimos sobre tu perfil en el directorio de Neuromundi. Si aquel mensaje daba a entender que había una cuota, <b>una disculpa</b>: para una organización como la tuya la membresía es <b>gratuita</b>.</p>
+      <p>Te invitamos a <b>reclamar tu perfil</b> para completarlo, responder mensajes de familias y obtener la Insignia de Miembro Fundador.</p>`;
+    return { subject: `${nombre}: tu perfil en Neuromundi es gratuito — reclámalo`, html: shell('Reclama tu perfil (membresía gratuita)', cuerpo, 'Reclamar mi perfil', claim) };
+  }
+
+  if (seg === 'ya_privado') {
+    // Seguimiento suave: reconoce el contacto previo.
+    const cuerpo = `<p>Hola, equipo de <b>${nombre}</b>:</p>
+      <p>Hace unos días te invitamos a reclamar tu perfil en el directorio de Neuromundi. Por si se te pasó, aquí está de nuevo el enlace.</p>
+      <p>Al reclamarlo entras como <b>Miembro Fundador</b>, con beneficios preferentes de por vida.</p>`;
+    return { subject: `${nombre}: te reservamos tu perfil en Neuromundi`, html: shell('Tu perfil te espera en Neuromundi', cuerpo, 'Reclamar mi perfil', claim) };
+  }
+
+  // nuevos: primera invitación (gratuita vs. normal según sector).
+  const cuerpo = esFree(r)
     ? `<p>Hola, equipo de <b>${nombre}</b>:</p>
-       <p>Tu organización ya aparece en el <b>directorio público de Neuromundi</b>. Te invitamos a <b>reclamar tu perfil</b> para completarlo, responder mensajes de familias y aparecer con tu información al día.</p>
-       <p>Para tu tipo de organización la membresía es <b>gratuita</b>, y al reclamar obtienes la <b>Insignia de Miembro Fundador</b> en tu perfil público.</p>`
+       <p>Tu organización ya aparece en el <b>directorio público de Neuromundi</b>. Te invitamos a <b>reclamar tu perfil</b> para completarlo y responder mensajes de familias.</p>
+       <p>Para tu tipo de organización la membresía es <b>gratuita</b>, y al reclamar obtienes la <b>Insignia de Miembro Fundador</b>.</p>`
     : `<p>Hola, equipo de <b>${nombre}</b>:</p>
-       <p>Tu ficha ya aparece en el <b>directorio público de Neuromundi</b>, la comunidad global de neurodesarrollo, neurodivergencia y afecciones neurológicas. Te invitamos a <b>reclamar tu perfil</b> para editarlo, recibir contactos y aparecer al día.</p>
+       <p>Tu ficha ya aparece en el <b>directorio público de Neuromundi</b>, la comunidad global de neurodesarrollo, neurodivergencia y afecciones neurológicas. Te invitamos a <b>reclamar tu perfil</b>.</p>
        <p>Si lo reclamas ahora, entras como <b>Miembro Fundador</b>, con beneficios preferentes de por vida.</p>`;
-  return {
-    subject: `${nombre}: reclama tu perfil en Neuromundi`,
-    html: shell('Reclama tu perfil en Neuromundi', cuerpo, 'Reclamar mi perfil', claim),
-  };
+  return { subject: `${nombre}: reclama tu perfil en Neuromundi`, html: shell('Reclama tu perfil en Neuromundi', cuerpo, 'Reclamar mi perfil', claim) };
 }
 
 Deno.serve(async (req: Request) => {
-  // Candado fail-closed: sin CRON_SECRET correcto, no se hace nada.
   const cronSecret = Deno.env.get('CRON_SECRET') ?? '';
   if (!cronSecret || req.headers.get('x-cron-secret') !== cronSecret) {
     return json(401, { error: 'No autorizado' });
   }
 
-  let body: { send?: boolean; limit?: number } = {};
-  try { body = await req.json(); } catch { /* cuerpo vacío = dry-run */ }
-  const doSend = body.send === true;                 // envío real SOLO con {"send": true}
+  let body: { send?: boolean; limit?: number; segment?: string } = {};
+  try { body = await req.json(); } catch { /* vacío = dry-run, todos */ }
+  const doSend = body.send === true;
   const limit = Math.min(Math.max(Number(body.limit ?? 50), 1), 1000);
+  const segment = ['nuevos', 'ya_publico_social', 'ya_privado', 'todos'].includes(body.segment ?? '')
+    ? (body.segment as string) : 'todos';
 
-  const { data, error } = await admin.rpc('directorio_invitaciones_cola', { p_limit: limit });
+  const { data, error } = await admin.rpc('directorio_invitaciones_cola', { p_limit: 1000 });
   if (error) return json(500, { error: error.message });
-  const rows = (data ?? []) as Row[];
+  let rows = (data ?? []) as Row[];
+  if (segment !== 'todos') rows = rows.filter((r) => segmentOf(r) === segment);
 
-  // DRY-RUN: no envía ni marca; devuelve el panorama para revisar.
   if (!doSend) {
-    const porSector: Record<string, number> = {};
-    for (const r of rows) porSector[r.sector ?? 'privado'] = (porSector[r.sector ?? 'privado'] ?? 0) + 1;
+    const conteo: Record<string, number> = { nuevos: 0, ya_publico_social: 0, ya_privado: 0 };
+    for (const r of rows) conteo[segmentOf(r)]++;
     return json(200, {
-      dry_run: true,
-      en_cola: rows.length,
-      por_sector: porSector,
-      ejemplos: rows.slice(0, 5).map((r) => ({ correo: r.correo, nombre: r.nombre, sector: r.sector, con_oferta_pago: !(r.sector === 'publico' || r.sector === 'social' || r.provider_type === 'ngo' || r.provider_type === 'company') })),
-      nota: 'DRY-RUN: no se envió ni se marcó nada. Para enviar de verdad: {"send": true}.',
+      dry_run: true, segment, total_en_segmento: rows.length, conteo_por_tanda: conteo,
+      ejemplos: rows.slice(0, 5).map((r) => ({ correo: r.correo, nombre: r.nombre, tanda: segmentOf(r) })),
+      nota: 'DRY-RUN: no se envió ni se marcó nada. Para enviar: {"send": true, "segment": "...", "limit": N}.',
     });
   }
 
   if (!RESEND_API_KEY) return json(500, { error: 'Falta RESEND_API_KEY' });
-
+  const lote = rows.slice(0, limit);
   let enviados = 0, fallidos = 0;
-  for (const r of rows) {
+  for (const r of lote) {
     try {
-      const { subject, html } = inviteHtml(r);
-      if (await sendEmail(r.correo, subject, html)) {
+      const { subject, html } = buildEmail(r);
+      if (await sendEmail(r.correo, subject, html, `inv-${r.token}`)) {
         await admin.rpc('directorio_invitacion_enviada', { p_token: r.token });
         enviados++;
-      } else {
-        fallidos++;
-      }
+      } else { fallidos++; }
     } catch { fallidos++; }
-    await sleep(700); // ~1.4/seg: cuida el límite de Resend y la reputación
+    await sleep(700);
   }
-  return json(200, { ok: true, enviados, fallidos, procesados: rows.length });
+  return json(200, { ok: true, segment, enviados, fallidos, procesados: lote.length });
 });

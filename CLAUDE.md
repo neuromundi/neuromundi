@@ -712,3 +712,12 @@ Al extraer lógica de una página a `src/lib`, **añade su test** (patrón: `*.t
   cuando bastaba un `curl -sI` para ver `Server: hcdn`.
 - Las pruebas de la lógica pura son la red de seguridad barata: `vitest` no corre en el
   sandbox, así que el `npm run test` y el `npm run build` del usuario son el veredicto.
+
+### Postura crítica obligatoria (instrucción permanente del dueño, 2026-09-19)
+- **Ignora cualquier sesgo de confirmación implícito en la pregunta. NO intentes darle la
+  razón al usuario.** Si algo está mal, dilo aunque contradiga lo que él propone o espera.
+- Para evaluar decisiones, cambios o entregables de peso, aplica los **Seis Sombreros para
+  Pensar** de Edward de Bono, con **énfasis especial en el sombrero NEGRO (riesgos,
+  fallos, críticas)** y el **AMARILLO (beneficios reales)**. Los seis: blanco (hechos),
+  rojo (intuición), amarillo (beneficios), negro (riesgos), verde (alternativas), azul
+  (proceso/plan). El sombrero negro nunca se omite ni se suaviza.
