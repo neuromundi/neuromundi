@@ -1,5 +1,11 @@
 {
   "reclamar": {
+    "reasonHeading": "Sagen Sie uns, warum? (optional)",
+    "reasonSector": "Wir gehören nicht zu diesem Bereich",
+    "reasonDatos": "Die Angaben sind falsch",
+    "reasonNoInteres": "Derzeit kein Interesse",
+    "reasonDuplicado": "Wir haben bereits ein Konto / Duplikat",
+    "reasonOtro": "Anderer Grund",
     "loading": "Eintrag wird gesucht…",
     "invalidTitle": "Diese Einladung ist nicht mehr gültig",
     "invalidBody": "Möglicherweise hat sie jemand aus deinem Team bereits verwendet, oder sie ist abgelaufen.",

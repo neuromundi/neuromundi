@@ -1,5 +1,11 @@
 {
   "reclamar": {
+    "reasonHeading": "Diga-nos por quê? (opcional)",
+    "reasonSector": "Não somos deste setor",
+    "reasonDatos": "Os dados não estão corretos",
+    "reasonNoInteres": "Sem interesse por enquanto",
+    "reasonDuplicado": "Já temos conta / duplicado",
+    "reasonOtro": "Outro motivo",
     "loading": "Procurando a ficha…",
     "invalidTitle": "Este convite não é mais válido",
     "invalidBody": "Talvez alguém da sua equipe já o tenha usado, ou ele expirou.",

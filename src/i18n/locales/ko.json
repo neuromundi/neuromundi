@@ -1,5 +1,11 @@
 {
   "reclamar": {
+    "reasonHeading": "이유를 알려주세요 (선택)",
+    "reasonSector": "이 분야가 아닙니다",
+    "reasonDatos": "정보가 정확하지 않습니다",
+    "reasonNoInteres": "지금은 관심 없습니다",
+    "reasonDuplicado": "이미 계정이 있음 / 중복",
+    "reasonOtro": "기타 사유",
     "loading": "등록 정보를 찾는 중…",
     "invalidTitle": "이 초대는 더 이상 유효하지 않습니다",
     "invalidBody": "팀의 누군가가 이미 사용했거나 만료되었을 수 있습니다.",

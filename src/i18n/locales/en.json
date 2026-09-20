@@ -1,5 +1,11 @@
 {
   "reclamar": {
+    "reasonHeading": "Tell us why? (optional)",
+    "reasonSector": "We're not in this field",
+    "reasonDatos": "The details are incorrect",
+    "reasonNoInteres": "Not interested for now",
+    "reasonDuplicado": "We already have an account / duplicate",
+    "reasonOtro": "Other reason",
     "loading": "Looking for the listing…",
     "invalidTitle": "This invitation is no longer valid",
     "invalidBody": "Someone on your team may have already used it, or it may have expired.",

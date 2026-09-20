@@ -1,5 +1,11 @@
 {
   "reclamar": {
+    "reasonHeading": "أخبرنا لماذا؟ (اختياري)",
+    "reasonSector": "لسنا من هذا المجال",
+    "reasonDatos": "البيانات غير صحيحة",
+    "reasonNoInteres": "غير مهتمين حاليًا",
+    "reasonDuplicado": "لدينا حساب بالفعل / مكرر",
+    "reasonOtro": "سبب آخر",
     "loading": "جارٍ البحث عن البطاقة…",
     "invalidTitle": "لم تعد هذه الدعوة صالحة",
     "invalidBody": "ربما استخدمها أحد أعضاء فريقك بالفعل، أو انتهت صلاحيتها.",

@@ -1,5 +1,11 @@
 {
   "reclamar": {
+    "reasonHeading": "Ci dici perché? (facoltativo)",
+    "reasonSector": "Non siamo di questo settore",
+    "reasonDatos": "I dati non sono corretti",
+    "reasonNoInteres": "Non ci interessa per ora",
+    "reasonDuplicado": "Abbiamo già un account / duplicato",
+    "reasonOtro": "Altro motivo",
     "loading": "Ricerca della scheda…",
     "invalidTitle": "Questo invito non è più valido",
     "invalidBody": "Forse qualcuno del tuo team l'ha già usato, oppure è scaduto.",

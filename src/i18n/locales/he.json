@@ -1,5 +1,11 @@
 {
   "reclamar": {
+    "reasonHeading": "ספרו לנו למה? (רשות)",
+    "reasonSector": "איננו מהתחום הזה",
+    "reasonDatos": "הפרטים אינם נכונים",
+    "reasonNoInteres": "לא מעוניינים כרגע",
+    "reasonDuplicado": "כבר יש לנו חשבון / כפילות",
+    "reasonOtro": "סיבה אחרת",
     "loading": "מחפשים את הכרטיס…",
     "invalidTitle": "ההזמנה הזו כבר אינה בתוקף",
     "invalidBody": "ייתכן שמישהו בצוות שלך כבר השתמש בה, או שפג תוקפה.",

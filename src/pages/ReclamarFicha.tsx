@@ -66,7 +66,18 @@ export function ReclamarFicha() {
   const [enviando, setEnviando] = useState(false);
   const [enlace, setEnlace] = useState<string | null>(null);
   const [motivo, setMotivo] = useState<string>('');
+  const [motivoTipo, setMotivoTipo] = useState<string>('');
   const [pidiendoBaja, setPidiendoBaja] = useState(false);
+
+  // Micro-encuesta de 1 clic: motivos predefinidos (valor canónico estable para
+  // poder medir; la etiqueta se traduce). "otro" abre el texto libre.
+  const MOTIVOS = [
+    { code: 'sector', label: t('reclamar.reasonSector') },
+    { code: 'datos_incorrectos', label: t('reclamar.reasonDatos') },
+    { code: 'no_interesa', label: t('reclamar.reasonNoInteres') },
+    { code: 'duplicado', label: t('reclamar.reasonDuplicado') },
+    { code: 'otro', label: t('reclamar.reasonOtro') },
+  ] as const;
 
   const etiqueta = (tipo: string) => t(`reclamar.tipos.${tipo}`, { defaultValue: tipo });
 
@@ -116,9 +127,12 @@ export function ReclamarFicha() {
 
   async function darDeBaja() {
     setEnviando(true);
+    const motivoFinal = motivoTipo === 'otro'
+      ? (motivo.trim() ? `otro: ${motivo.trim()}` : 'otro')
+      : (motivoTipo || null);
     const { data, error } = await supabase.rpc('solicitar_baja_ficha', {
       p_token: token,
-      p_motivo: motivo || null,
+      p_motivo: motivoFinal,
     });
     setEnviando(false);
     if (error || !data) { console.error('[reclamar-ficha] baja', error); setEstado('error'); return; }
@@ -263,15 +277,31 @@ export function ReclamarFicha() {
               <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-warm-500" />
               <div className="w-full">
                 <p className="text-slate-800">{t('reclamar.removeExplain')}</p>
-                <input
-                  type="text"
-                  value={motivo}
-                  maxLength={200}
-                  onChange={(e) => setMotivo(e.target.value)}
-                  aria-label={t('reclamar.removeInputLabel')}
-                  placeholder={t('reclamar.removePlaceholder')}
-                  className="mt-3 w-full rounded-xl border border-slate-200 px-4 py-2.5 text-slate-800 placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
-                />
+                <p className="mt-3 text-sm font-semibold text-slate-700">{t('reclamar.reasonHeading')}</p>
+                <div className="mt-2 flex flex-wrap gap-2" role="group" aria-label={t('reclamar.reasonHeading')}>
+                  {MOTIVOS.map((m) => (
+                    <button
+                      key={m.code}
+                      type="button"
+                      onClick={() => setMotivoTipo(m.code)}
+                      aria-pressed={motivoTipo === m.code}
+                      className={`rounded-full border px-3 py-1.5 text-sm transition-colors ${motivoTipo === m.code ? 'border-brand-500 bg-brand-500 text-white' : 'border-slate-200 text-slate-700 hover:border-brand-300'}`}
+                    >
+                      {m.label}
+                    </button>
+                  ))}
+                </div>
+                {motivoTipo === 'otro' && (
+                  <input
+                    type="text"
+                    value={motivo}
+                    maxLength={200}
+                    onChange={(e) => setMotivo(e.target.value)}
+                    aria-label={t('reclamar.removeInputLabel')}
+                    placeholder={t('reclamar.removePlaceholder')}
+                    className="mt-3 w-full rounded-xl border border-slate-200 px-4 py-2.5 text-slate-800 placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+                  />
+                )}
                 <button
                   type="button"
                   onClick={darDeBaja}

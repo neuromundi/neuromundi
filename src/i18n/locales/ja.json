@@ -1,5 +1,11 @@
 {
   "reclamar": {
+    "reasonHeading": "理由を教えてください（任意）",
+    "reasonSector": "この分野ではありません",
+    "reasonDatos": "情報が正しくありません",
+    "reasonNoInteres": "今は興味がありません",
+    "reasonDuplicado": "すでにアカウントがある／重複",
+    "reasonOtro": "その他の理由",
     "loading": "掲載情報を検索しています…",
     "invalidTitle": "この招待は有効期限が切れています",
     "invalidBody": "チームの誰かがすでに使用したか、期限が切れた可能性があります。",

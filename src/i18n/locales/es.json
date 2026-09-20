@@ -1,5 +1,11 @@
 {
   "reclamar": {
+    "reasonHeading": "¿Nos dices por qué? (opcional)",
+    "reasonSector": "No somos de este sector",
+    "reasonDatos": "Los datos no son correctos",
+    "reasonNoInteres": "No nos interesa por ahora",
+    "reasonDuplicado": "Ya tenemos cuenta o está duplicado",
+    "reasonOtro": "Otro motivo",
     "loading": "Buscando la ficha…",
     "invalidTitle": "Esta invitación ya no está vigente",
     "invalidBody": "Puede que alguien de tu equipo ya la haya usado, o que haya vencido.",
