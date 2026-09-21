@@ -27,7 +27,14 @@
     "heroTitle": "Il tuo posto è già su Neuromundi",
     "heroBody": "Abbiamo svolto una ricerca su banche dati pubbliche e social media e riteniamo che il tuo profilo sia ideale per essere promosso nella nostra comunità internazionale.",
     "publishedToday": "Ecco cosa è pubblicato oggi.",
-    "fields": { "tipo": "Tipo", "direccion": "Indirizzo", "ciudad": "Città", "telefono": "Telefono", "sitio": "Sito web", "giro": "Ambito" },
+    "fields": {
+      "tipo": "Tipo",
+      "direccion": "Indirizzo",
+      "ciudad": "Città",
+      "telefono": "Telefono",
+      "sitio": "Sito web",
+      "giro": "Ambito"
+    },
     "whatToDo": "Cosa vuoi farne?",
     "claimBtn": "È mio, voglio completarlo",
     "claimBtnBusy": "Un momento…",
@@ -42,7 +49,18 @@
     "termsPrivacy": "informativa sulla privacy",
     "termsRightsPre": "Puoi conoscere ed esercitare i tuoi diritti su questi dati in",
     "termsDataProtection": "protezione dei dati",
-    "tipos": { "clinic": "Clinica o studio", "school": "Scuola o centro educativo", "service_provider": "Terapeuta o fornitore di servizi", "ngo": "Organizzazione no profit", "merchant": "Negozio", "wellness": "Benessere", "legal": "Servizi legali", "caregiver": "Caregiver", "company": "Azienda", "tourism": "Turismo" }
+    "tipos": {
+      "clinic": "Clinica o studio",
+      "school": "Scuola o centro educativo",
+      "service_provider": "Terapeuta o fornitore di servizi",
+      "ngo": "Organizzazione no profit",
+      "merchant": "Negozio",
+      "wellness": "Benessere",
+      "legal": "Servizi legali",
+      "caregiver": "Caregiver",
+      "company": "Azienda",
+      "tourism": "Turismo"
+    }
   },
   "common": {
     "appName": "Neuromundi",
@@ -162,6 +180,41 @@
       "join": "Unisciti alla comunità",
       "expert": "Consulta uno specialista",
       "kits": "Usa i nostri kit di orientamento"
+    },
+    "compare": {
+      "badge": "Confronto",
+      "title": "Perché scegliere Neuromundi",
+      "subtitle": "Altre piattaforme mettono in contatto pazienti e medici. Neuromundi è un ecosistema completo, creato dalla e per la comunità della neurodivergenza, del neurosviluppo e delle patologie neurologiche.",
+      "colFeature": "Caratteristica",
+      "nmTag": "Specializzata",
+      "tagDirectory": "Elenco medico",
+      "rows": {
+        "specialized": "Prima piattaforma al mondo specializzata in neurodivergenza, neurosviluppo e patologie neurologiche",
+        "free": "Gratis per famiglie e pazienti",
+        "booking": "Elenco con prenotazione appuntamenti online (in presenza o in video)",
+        "reviews": "Recensioni e valutazioni dei professionisti",
+        "neuroaffirm": "Sigillo e recensioni neuroaffermative",
+        "neuroaffirmSub": "Adattamento sensoriale · flessibilità · trattamento umano",
+        "community": "Comunità di supporto tra pari",
+        "communitySub": "Forum, mentoring ed eventi a basso impatto sensoriale",
+        "kit": "Kit di strumenti e corso di benvenuto gratuiti",
+        "inclusion": "Inclusione lavorativa (offerte inclusive) e inclusione scolastica",
+        "store": "Negozio di prodotti e risorse specializzati"
+      },
+      "price": {
+        "label": "Prezzo",
+        "sub": "Quota del professionista · pazienti sempre gratis",
+        "nm": "Quota annuale fissa",
+        "nmSub": "senza commissioni · diverse categorie gratuite",
+        "doctoralia": "≈ $1,500–$4,000",
+        "doctoraliaSub": "MXN / mese",
+        "topdoctors": "Su invito",
+        "topdoctorsSub": "non pubblico",
+        "doctoreslat": "Non pubblico"
+      },
+      "footnote": "Confronto basato su informazioni pubbliche di ciascuna piattaforma a settembre 2026. Doctoralia, Top Doctors e Doctores.lat sono marchi dei rispettivi titolari; citati solo a fini comparativi e informativi.",
+      "yes": "Sì",
+      "no": "No"
     }
   },
   "auth": {

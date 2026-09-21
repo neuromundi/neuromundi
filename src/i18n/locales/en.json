@@ -27,7 +27,14 @@
     "heroTitle": "Your place already appears on Neuromundi",
     "heroBody": "We did some research across public databases and social media, and we believe your profile is a great fit to be promoted in our international community.",
     "publishedToday": "This is what's published today.",
-    "fields": { "tipo": "Type", "direccion": "Address", "ciudad": "City", "telefono": "Phone", "sitio": "Website", "giro": "Field" },
+    "fields": {
+      "tipo": "Type",
+      "direccion": "Address",
+      "ciudad": "City",
+      "telefono": "Phone",
+      "sitio": "Website",
+      "giro": "Field"
+    },
     "whatToDo": "What would you like to do with it?",
     "claimBtn": "It's mine, I want to complete it",
     "claimBtnBusy": "One moment…",
@@ -42,7 +49,18 @@
     "termsPrivacy": "privacy notice",
     "termsRightsPre": "You can learn about and exercise your rights over this data at",
     "termsDataProtection": "data protection",
-    "tipos": { "clinic": "Clinic or practice", "school": "School or educational center", "service_provider": "Therapist or service provider", "ngo": "Nonprofit", "merchant": "Shop", "wellness": "Wellness", "legal": "Legal services", "caregiver": "Caregiver", "company": "Company", "tourism": "Tourism" }
+    "tipos": {
+      "clinic": "Clinic or practice",
+      "school": "School or educational center",
+      "service_provider": "Therapist or service provider",
+      "ngo": "Nonprofit",
+      "merchant": "Shop",
+      "wellness": "Wellness",
+      "legal": "Legal services",
+      "caregiver": "Caregiver",
+      "company": "Company",
+      "tourism": "Tourism"
+    }
   },
   "common": {
     "appName": "Neuromundi",
@@ -199,6 +217,41 @@
       "join": "Join the community",
       "expert": "Consult a specialist",
       "kits": "Use our guidance kits"
+    },
+    "compare": {
+      "badge": "Comparison",
+      "title": "Why choose Neuromundi",
+      "subtitle": "Other platforms connect patients with doctors. Neuromundi is a complete ecosystem, built from and for the neurodivergence, neurodevelopment and neurological conditions community.",
+      "colFeature": "Feature",
+      "nmTag": "Specialized",
+      "tagDirectory": "Medical directory",
+      "rows": {
+        "specialized": "World's first platform specialized in neurodivergence, neurodevelopment and neurological conditions",
+        "free": "Free for families and patients",
+        "booking": "Directory with online appointment booking (in person or video)",
+        "reviews": "Provider reviews and ratings",
+        "neuroaffirm": "Neuroaffirming seal and reviews",
+        "neuroaffirmSub": "Sensory adaptation · flexibility · humane treatment",
+        "community": "Peer support community",
+        "communitySub": "Forums, mentoring and low-sensory-impact events",
+        "kit": "Free toolkit and welcome course",
+        "inclusion": "Employment inclusion (inclusive job openings) and school inclusion",
+        "store": "Store of specialized products and resources"
+      },
+      "price": {
+        "label": "Price",
+        "sub": "Provider fee · patients always free",
+        "nm": "Flat annual fee",
+        "nmSub": "no commission · several categories free",
+        "doctoralia": "≈ $1,500–$4,000",
+        "doctoraliaSub": "MXN / month",
+        "topdoctors": "By invitation",
+        "topdoctorsSub": "not public",
+        "doctoreslat": "Not public"
+      },
+      "footnote": "Comparison based on publicly available information from each platform as of September 2026. Doctoralia, Top Doctors and Doctores.lat are trademarks of their respective owners; mentioned for comparative and informational purposes only.",
+      "yes": "Yes",
+      "no": "No"
     }
   },
   "auth": {
@@ -4687,11 +4740,6 @@
       "Discounts, reviews and how to take part in the community.",
       "Toolkit resources and how to make the most of them."
     ]
-  },
-  "dir": {
-    "neurodesarrollo": "Neurodevelopment",
-    "neurodivergencias": "Neurodivergences",
-    "afecciones": "Neurological Conditions"
   },
   "dir": {
     "neurodesarrollo": "Neurodevelopment",

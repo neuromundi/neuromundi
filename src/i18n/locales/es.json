@@ -27,7 +27,14 @@
     "heroTitle": "Tu lugar ya aparece en Neuromundi",
     "heroBody": "Hicimos una investigación en bases de datos públicas y redes sociales, y creemos que tu perfil es idóneo para ser promovido en nuestra comunidad internacional.",
     "publishedToday": "Esto es lo que está publicado hoy.",
-    "fields": { "tipo": "Tipo", "direccion": "Dirección", "ciudad": "Ciudad", "telefono": "Teléfono", "sitio": "Sitio", "giro": "Giro" },
+    "fields": {
+      "tipo": "Tipo",
+      "direccion": "Dirección",
+      "ciudad": "Ciudad",
+      "telefono": "Teléfono",
+      "sitio": "Sitio",
+      "giro": "Giro"
+    },
     "whatToDo": "¿Qué quieres hacer con ella?",
     "claimBtn": "Es mío, quiero completarlo",
     "claimBtnBusy": "Un momento…",
@@ -42,7 +49,18 @@
     "termsPrivacy": "aviso de privacidad",
     "termsRightsPre": "Puedes conocer y ejercer tus derechos sobre estos datos en",
     "termsDataProtection": "protección de datos",
-    "tipos": { "clinic": "Clínica o consultorio", "school": "Escuela o centro educativo", "service_provider": "Terapeuta o prestador de servicios", "ngo": "Asociación civil", "merchant": "Comercio", "wellness": "Bienestar", "legal": "Servicios legales", "caregiver": "Cuidador", "company": "Empresa", "tourism": "Turismo" }
+    "tipos": {
+      "clinic": "Clínica o consultorio",
+      "school": "Escuela o centro educativo",
+      "service_provider": "Terapeuta o prestador de servicios",
+      "ngo": "Asociación civil",
+      "merchant": "Comercio",
+      "wellness": "Bienestar",
+      "legal": "Servicios legales",
+      "caregiver": "Cuidador",
+      "company": "Empresa",
+      "tourism": "Turismo"
+    }
   },
   "common": {
     "appName": "Neuromundi",
@@ -199,6 +217,41 @@
       "join": "Únete a la comunidad",
       "expert": "Consulta a un especialista",
       "kits": "Usa nuestros kits de orientación"
+    },
+    "compare": {
+      "badge": "Comparativa",
+      "title": "Por qué elegir Neuromundi",
+      "subtitle": "Otras plataformas conectan pacientes con médicos. Neuromundi es un ecosistema completo, creado desde y para la comunidad de neurodivergencia, neurodesarrollo y afecciones neurológicas.",
+      "colFeature": "Característica",
+      "nmTag": "Especializada",
+      "tagDirectory": "Directorio médico",
+      "rows": {
+        "specialized": "Primera plataforma mundial especializada en neurodivergencia, neurodesarrollo y afecciones neurológicas",
+        "free": "Gratis para familias y pacientes",
+        "booking": "Directorio con agenda de citas en línea (presencial o video)",
+        "reviews": "Reseñas y calificaciones de prestadores",
+        "neuroaffirm": "Sello y reseñas neuroafirmativas",
+        "neuroaffirmSub": "Adaptación sensorial · flexibilidad · trato humano",
+        "community": "Comunidad de apoyo entre pares",
+        "communitySub": "Foros, mentoría y eventos de bajo impacto sensorial",
+        "kit": "Kit de herramientas y curso de bienvenida gratuitos",
+        "inclusion": "Inclusión laboral (vacantes inclusivas) e inclusión escolar",
+        "store": "Tienda de productos y recursos especializados"
+      },
+      "price": {
+        "label": "Precio",
+        "sub": "Cuota para el prestador · pacientes siempre gratis",
+        "nm": "Cuota anual fija",
+        "nmSub": "sin comisión · varias categorías gratis",
+        "doctoralia": "≈ $1,500–$4,000",
+        "doctoraliaSub": "MXN / mes",
+        "topdoctors": "Bajo invitación",
+        "topdoctorsSub": "no público",
+        "doctoreslat": "No público"
+      },
+      "footnote": "Comparativa elaborada con información pública de cada plataforma a septiembre de 2026. Doctoralia, Top Doctors y Doctores.lat son marcas de sus respectivos titulares; su mención es solo con fines comparativos e informativos.",
+      "yes": "Sí",
+      "no": "No"
     }
   },
   "auth": {
@@ -4687,11 +4740,6 @@
       "Descuentos, reseñas y cómo participar en la comunidad.",
       "Recursos del Kit y cómo sacarles provecho."
     ]
-  },
-  "dir": {
-    "neurodesarrollo": "Neurodesarrollo",
-    "neurodivergencias": "Neurodivergencias",
-    "afecciones": "Afecciones neurológicas"
   },
   "dir": {
     "neurodesarrollo": "Neurodesarrollo",

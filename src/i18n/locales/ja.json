@@ -27,7 +27,14 @@
     "heroTitle": "あなたの拠点はすでに Neuromundi に掲載されています",
     "heroBody": "公開データベースやソーシャルメディアで調査を行い、あなたのプロフィールが当社の国際的なコミュニティで紹介するのに最適だと考えました。",
     "publishedToday": "現在公開されている内容です。",
-    "fields": { "tipo": "種別", "direccion": "住所", "ciudad": "市区町村", "telefono": "電話", "sitio": "ウェブサイト", "giro": "分野" },
+    "fields": {
+      "tipo": "種別",
+      "direccion": "住所",
+      "ciudad": "市区町村",
+      "telefono": "電話",
+      "sitio": "ウェブサイト",
+      "giro": "分野"
+    },
     "whatToDo": "これをどうしますか？",
     "claimBtn": "自分のものです。完成させたい",
     "claimBtnBusy": "少々お待ちください…",
@@ -42,7 +49,18 @@
     "termsPrivacy": "プライバシーに関する通知",
     "termsRightsPre": "これらのデータに関する権利は次で確認・行使できます：",
     "termsDataProtection": "データ保護",
-    "tipos": { "clinic": "クリニックまたは診療所", "school": "学校または教育センター", "service_provider": "セラピストまたはサービス提供者", "ngo": "非営利団体", "merchant": "店舗", "wellness": "ウェルネス", "legal": "法律サービス", "caregiver": "介護者", "company": "企業", "tourism": "観光" }
+    "tipos": {
+      "clinic": "クリニックまたは診療所",
+      "school": "学校または教育センター",
+      "service_provider": "セラピストまたはサービス提供者",
+      "ngo": "非営利団体",
+      "merchant": "店舗",
+      "wellness": "ウェルネス",
+      "legal": "法律サービス",
+      "caregiver": "介護者",
+      "company": "企業",
+      "tourism": "観光"
+    }
   },
   "common": {
     "appName": "Neuromundi",
@@ -162,6 +180,41 @@
       "join": "コミュニティに参加",
       "expert": "専門家に相談",
       "kits": "オリエンテーションキットを使う"
+    },
+    "compare": {
+      "badge": "比較",
+      "title": "Neuromundi を選ぶ理由",
+      "subtitle": "他のプラットフォームは患者と医師をつなぎます。Neuromundi は、神経多様性・神経発達・神経疾患のコミュニティによって、そのために作られた総合的なエコシステムです。",
+      "colFeature": "機能",
+      "nmTag": "専門特化",
+      "tagDirectory": "医療ディレクトリ",
+      "rows": {
+        "specialized": "神経多様性・神経発達・神経疾患に特化した世界初のプラットフォーム",
+        "free": "家族と患者は無料",
+        "booking": "オンライン予約付きディレクトリ（対面またはビデオ）",
+        "reviews": "提供者のレビューと評価",
+        "neuroaffirm": "ニューロアファーミングの認証とレビュー",
+        "neuroaffirmSub": "感覚への配慮 · 柔軟性 · 人間的な対応",
+        "community": "当事者どうしの支え合いコミュニティ",
+        "communitySub": "フォーラム、メンタリング、感覚に配慮したイベント",
+        "kit": "無料のツールキットとウェルカムコース",
+        "inclusion": "就労インクルージョン（インクルーシブな求人）と就学インクルージョン",
+        "store": "専門的な製品・リソースのストア"
+      },
+      "price": {
+        "label": "料金",
+        "sub": "提供者の会費 · 患者は常に無料",
+        "nm": "定額の年会費",
+        "nmSub": "手数料なし · 複数のカテゴリは無料",
+        "doctoralia": "≈ $1,500–$4,000",
+        "doctoraliaSub": "MXN／月",
+        "topdoctors": "招待制",
+        "topdoctorsSub": "非公開",
+        "doctoreslat": "非公開"
+      },
+      "footnote": "各プラットフォームの2026年9月時点の公開情報に基づく比較です。Doctoralia、Top Doctors、Doctores.lat は各権利者の商標であり、比較・情報提供のみを目的として記載しています。",
+      "yes": "はい",
+      "no": "いいえ"
     }
   },
   "auth": {

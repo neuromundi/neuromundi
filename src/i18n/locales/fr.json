@@ -27,7 +27,14 @@
     "heroTitle": "Votre établissement figure déjà sur Neuromundi",
     "heroBody": "Nous avons mené une recherche dans des bases de données publiques et sur les réseaux sociaux, et nous pensons que votre profil est idéal pour être mis en avant dans notre communauté internationale.",
     "publishedToday": "Voici ce qui est publié aujourd'hui.",
-    "fields": { "tipo": "Type", "direccion": "Adresse", "ciudad": "Ville", "telefono": "Téléphone", "sitio": "Site web", "giro": "Domaine" },
+    "fields": {
+      "tipo": "Type",
+      "direccion": "Adresse",
+      "ciudad": "Ville",
+      "telefono": "Téléphone",
+      "sitio": "Site web",
+      "giro": "Domaine"
+    },
     "whatToDo": "Que souhaitez-vous en faire ?",
     "claimBtn": "C'est à moi, je veux le compléter",
     "claimBtnBusy": "Un instant…",
@@ -42,7 +49,18 @@
     "termsPrivacy": "avis de confidentialité",
     "termsRightsPre": "Vous pouvez connaître et exercer vos droits sur ces données dans",
     "termsDataProtection": "protection des données",
-    "tipos": { "clinic": "Clinique ou cabinet", "school": "École ou centre éducatif", "service_provider": "Thérapeute ou prestataire de services", "ngo": "Association", "merchant": "Commerce", "wellness": "Bien-être", "legal": "Services juridiques", "caregiver": "Aidant", "company": "Entreprise", "tourism": "Tourisme" }
+    "tipos": {
+      "clinic": "Clinique ou cabinet",
+      "school": "École ou centre éducatif",
+      "service_provider": "Thérapeute ou prestataire de services",
+      "ngo": "Association",
+      "merchant": "Commerce",
+      "wellness": "Bien-être",
+      "legal": "Services juridiques",
+      "caregiver": "Aidant",
+      "company": "Entreprise",
+      "tourism": "Tourisme"
+    }
   },
   "common": {
     "appName": "Neuromundi",
@@ -162,6 +180,41 @@
       "join": "Rejoindre la communauté",
       "expert": "Consulter un spécialiste",
       "kits": "Utilisez nos kits d’orientation"
+    },
+    "compare": {
+      "badge": "Comparatif",
+      "title": "Pourquoi choisir Neuromundi",
+      "subtitle": "D'autres plateformes mettent en relation patients et médecins. Neuromundi est un écosystème complet, créé par et pour la communauté de la neurodivergence, du neurodéveloppement et des affections neurologiques.",
+      "colFeature": "Caractéristique",
+      "nmTag": "Spécialisée",
+      "tagDirectory": "Annuaire médical",
+      "rows": {
+        "specialized": "Première plateforme mondiale spécialisée dans la neurodivergence, le neurodéveloppement et les affections neurologiques",
+        "free": "Gratuit pour les familles et les patients",
+        "booking": "Annuaire avec prise de rendez-vous en ligne (en présentiel ou en visio)",
+        "reviews": "Avis et évaluations des prestataires",
+        "neuroaffirm": "Label et avis neuro-affirmatifs",
+        "neuroaffirmSub": "Adaptation sensorielle · flexibilité · traitement humain",
+        "community": "Communauté de soutien entre pairs",
+        "communitySub": "Forums, mentorat et événements à faible impact sensoriel",
+        "kit": "Boîte à outils et cours de bienvenue gratuits",
+        "inclusion": "Inclusion professionnelle (offres inclusives) et inclusion scolaire",
+        "store": "Boutique de produits et ressources spécialisés"
+      },
+      "price": {
+        "label": "Prix",
+        "sub": "Cotisation du prestataire · patients toujours gratuits",
+        "nm": "Cotisation annuelle fixe",
+        "nmSub": "sans commission · plusieurs catégories gratuites",
+        "doctoralia": "≈ $1,500–$4,000",
+        "doctoraliaSub": "MXN / mois",
+        "topdoctors": "Sur invitation",
+        "topdoctorsSub": "non public",
+        "doctoreslat": "Non public"
+      },
+      "footnote": "Comparatif établi à partir d'informations publiques de chaque plateforme en septembre 2026. Doctoralia, Top Doctors et Doctores.lat sont des marques de leurs titulaires respectifs ; mention à des fins comparatives et informatives uniquement.",
+      "yes": "Oui",
+      "no": "Non"
     }
   },
   "auth": {

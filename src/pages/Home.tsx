@@ -13,6 +13,7 @@ const SECTION_ICONS = { Sprout, Sparkles, Stethoscope } as const;
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui';
 import { HeroCarousel } from '@/components/home/HeroCarousel';
+import { ComparisonTable } from '@/components/home/ComparisonTable';
 import { SearchableSelect } from '@/components/directory/SearchableSelect';
 
 // Debajo del pliegue y diferidos por scroll: se sacan del bundle inicial (su
@@ -154,6 +155,9 @@ export function Home() {
           </div>
         </div>
       </section>
+
+      {/* Comparativa: Neuromundi frente a los directorios/plataformas más usados. */}
+      <ComparisonTable />
 
       {/* Fundadores + Donantes: dos tarjetas gemelas (mismo contenedor degradado
           que la sección del Kit). Cada una conduce a su muro. En móvil se apilan. */}

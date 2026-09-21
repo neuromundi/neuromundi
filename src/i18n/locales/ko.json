@@ -27,7 +27,14 @@
     "heroTitle": "귀하의 장소는 이미 Neuromundi에 표시되어 있습니다",
     "heroBody": "공개 데이터베이스와 소셜 미디어를 조사한 결과, 귀하의 프로필이 저희 국제 커뮤니티에서 소개하기에 매우 적합하다고 판단했습니다.",
     "publishedToday": "오늘 게시된 내용입니다.",
-    "fields": { "tipo": "유형", "direccion": "주소", "ciudad": "도시", "telefono": "전화", "sitio": "웹사이트", "giro": "분야" },
+    "fields": {
+      "tipo": "유형",
+      "direccion": "주소",
+      "ciudad": "도시",
+      "telefono": "전화",
+      "sitio": "웹사이트",
+      "giro": "분야"
+    },
     "whatToDo": "이것을 어떻게 하시겠습니까?",
     "claimBtn": "제 것입니다, 완성하고 싶어요",
     "claimBtnBusy": "잠시만요…",
@@ -42,7 +49,18 @@
     "termsPrivacy": "개인정보 고지",
     "termsRightsPre": "이 데이터에 대한 권리는 다음에서 확인하고 행사할 수 있습니다:",
     "termsDataProtection": "데이터 보호",
-    "tipos": { "clinic": "클리닉 또는 진료소", "school": "학교 또는 교육 센터", "service_provider": "치료사 또는 서비스 제공자", "ngo": "비영리 단체", "merchant": "상점", "wellness": "웰니스", "legal": "법률 서비스", "caregiver": "돌봄 제공자", "company": "기업", "tourism": "관광" }
+    "tipos": {
+      "clinic": "클리닉 또는 진료소",
+      "school": "학교 또는 교육 센터",
+      "service_provider": "치료사 또는 서비스 제공자",
+      "ngo": "비영리 단체",
+      "merchant": "상점",
+      "wellness": "웰니스",
+      "legal": "법률 서비스",
+      "caregiver": "돌봄 제공자",
+      "company": "기업",
+      "tourism": "관광"
+    }
   },
   "common": {
     "appName": "Neuromundi",
@@ -199,6 +217,41 @@
       "join": "커뮤니티에 참여하기",
       "expert": "전문가에게 상담하기",
       "kits": "안내 키트 사용하기"
+    },
+    "compare": {
+      "badge": "비교",
+      "title": "Neuromundi를 선택하는 이유",
+      "subtitle": "다른 플랫폼은 환자와 의사를 연결합니다. Neuromundi는 신경다양성, 신경발달 및 신경계 질환 커뮤니티가 함께 만들고 그들을 위한 완전한 생태계입니다.",
+      "colFeature": "기능",
+      "nmTag": "전문 플랫폼",
+      "tagDirectory": "의료 디렉터리",
+      "rows": {
+        "specialized": "신경다양성, 신경발달 및 신경계 질환에 특화된 세계 최초의 플랫폼",
+        "free": "가족과 환자에게 무료",
+        "booking": "온라인 예약이 가능한 디렉터리(대면 또는 화상)",
+        "reviews": "제공자 리뷰 및 평점",
+        "neuroaffirm": "신경긍정 인증 및 리뷰",
+        "neuroaffirmSub": "감각 배려 · 유연성 · 인간적인 대우",
+        "community": "당사자 간 지지 커뮤니티",
+        "communitySub": "포럼, 멘토링, 감각 부담이 적은 행사",
+        "kit": "무료 도구 키트와 환영 코스",
+        "inclusion": "고용 포용(포용적 채용)과 학교 포용",
+        "store": "전문 제품 및 자료 스토어"
+      },
+      "price": {
+        "label": "가격",
+        "sub": "제공자 회비 · 환자는 항상 무료",
+        "nm": "정액 연회비",
+        "nmSub": "수수료 없음 · 여러 범주 무료",
+        "doctoralia": "≈ $1,500–$4,000",
+        "doctoraliaSub": "MXN / 월",
+        "topdoctors": "초대 방식",
+        "topdoctorsSub": "비공개",
+        "doctoreslat": "비공개"
+      },
+      "footnote": "2026년 9월 기준 각 플랫폼의 공개 정보를 바탕으로 작성한 비교입니다. Doctoralia, Top Doctors, Doctores.lat는 각 소유자의 상표이며 비교 및 정보 제공 목적으로만 언급되었습니다.",
+      "yes": "예",
+      "no": "아니요"
     }
   },
   "auth": {

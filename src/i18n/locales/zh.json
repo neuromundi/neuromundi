@@ -27,7 +27,14 @@
     "heroTitle": "您的机构已经出现在 Neuromundi 上",
     "heroBody": "我们在公开数据库和社交媒体上进行了调研，认为您的资料非常适合在我们的国际社区中推广。",
     "publishedToday": "这是今天已发布的内容。",
-    "fields": { "tipo": "类型", "direccion": "地址", "ciudad": "城市", "telefono": "电话", "sitio": "网站", "giro": "领域" },
+    "fields": {
+      "tipo": "类型",
+      "direccion": "地址",
+      "ciudad": "城市",
+      "telefono": "电话",
+      "sitio": "网站",
+      "giro": "领域"
+    },
     "whatToDo": "您想如何处理它？",
     "claimBtn": "这是我的，我要完善它",
     "claimBtnBusy": "请稍候…",
@@ -42,7 +49,18 @@
     "termsPrivacy": "隐私声明",
     "termsRightsPre": "您可以在以下位置了解并行使您对这些数据的权利：",
     "termsDataProtection": "数据保护",
-    "tipos": { "clinic": "诊所或门诊", "school": "学校或教育中心", "service_provider": "治疗师或服务提供者", "ngo": "非营利组织", "merchant": "商店", "wellness": "健康养护", "legal": "法律服务", "caregiver": "照护者", "company": "公司", "tourism": "旅游" }
+    "tipos": {
+      "clinic": "诊所或门诊",
+      "school": "学校或教育中心",
+      "service_provider": "治疗师或服务提供者",
+      "ngo": "非营利组织",
+      "merchant": "商店",
+      "wellness": "健康养护",
+      "legal": "法律服务",
+      "caregiver": "照护者",
+      "company": "公司",
+      "tourism": "旅游"
+    }
   },
   "common": {
     "appName": "Neuromundi",
@@ -162,6 +180,41 @@
       "join": "加入社区",
       "expert": "咨询专家",
       "kits": "使用我们的指导工具包"
+    },
+    "compare": {
+      "badge": "对比",
+      "title": "为什么选择 Neuromundi",
+      "subtitle": "其他平台把患者与医生连接起来。Neuromundi 是一个完整的生态系统，由神经多样性、神经发育与神经系统疾病社区创建、并为其服务。",
+      "colFeature": "功能",
+      "nmTag": "专业化",
+      "tagDirectory": "医疗目录",
+      "rows": {
+        "specialized": "全球首个专注于神经多样性、神经发育与神经系统疾病的平台",
+        "free": "对家庭和患者免费",
+        "booking": "带在线预约的目录（线下或视频）",
+        "reviews": "服务提供者的评价与评分",
+        "neuroaffirm": "神经肯定认证与评价",
+        "neuroaffirmSub": "感官适应 · 灵活性 · 人性化对待",
+        "community": "同伴支持社区",
+        "communitySub": "论坛、辅导以及低感官刺激的活动",
+        "kit": "免费工具包与欢迎课程",
+        "inclusion": "就业融合（包容性职位）与就学融合",
+        "store": "专业产品与资源商店"
+      },
+      "price": {
+        "label": "价格",
+        "sub": "服务提供者会费 · 患者始终免费",
+        "nm": "固定年费",
+        "nmSub": "无佣金 · 多个类别免费",
+        "doctoralia": "≈ $1,500–$4,000",
+        "doctoraliaSub": "MXN／月",
+        "topdoctors": "受邀加入",
+        "topdoctorsSub": "未公开",
+        "doctoreslat": "未公开"
+      },
+      "footnote": "本对比基于各平台截至2026年9月的公开信息。Doctoralia、Top Doctors 与 Doctores.lat 为其各自所有者的商标；此处仅用于对比与信息目的。",
+      "yes": "是",
+      "no": "否"
     }
   },
   "auth": {
