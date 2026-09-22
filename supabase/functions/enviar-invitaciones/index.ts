@@ -132,6 +132,7 @@ function beneficios(r: Row): string {
   const li = items.map((t) => `<li style="margin:6px 0">${t}</li>`).join('');
   return `<ul style="margin:8px 0 0;padding:0;list-style:none;color:#334155;font-size:14px;line-height:1.5">${li}
     <li style="margin:6px 0">🎓&nbsp; Acceso <b>gratuito</b> al <b>curso de bienvenida</b> y al <b>kit de herramientas</b>.</li>
+    <li style="margin:6px 0">🏆&nbsp; <b>Distintivo Fundador Neuromundi</b> para tu perfil, tu web y tus redes.</li>
   </ul>`;
 }
 
@@ -186,30 +187,30 @@ function buildEmail(r: Row): { subject: string; html: string } {
   if (seg === 'ya_publico_social') {
     const cuerpo = `<p>Hola, equipo de <b>${nombre}</b>:</p>
       <p>Hace unos días te escribimos sobre tu perfil en el directorio de Neuromundi. Si aquel mensaje daba a entender que había una cuota, <b>una disculpa</b>: para una organización como la tuya la membresía es <b>gratuita</b>.</p>
-      <p>Al <b>reclamar tu perfil</b> obtienes:</p>
+      <p>Al <b>completar tu perfil</b> obtienes:</p>
       ${beneficios(r)}
       <p style="margin-top:12px">Y la <b>Insignia de Miembro Fundador</b>, con beneficios preferentes de por vida.</p>
       ${tablaComparativa()}`;
-    return { subject: `${nombre}: tu perfil en Neuromundi es gratuito — reclámalo`, html: shell('Reclama tu perfil (membresía gratuita)', cuerpo, 'Quiero ser fundador', claim) };
+    return { subject: `${nombre}: tu perfil en Neuromundi es gratuito — complétalo`, html: shell('Conviértete en Fundador Neuromundi', cuerpo, 'Quiero ser fundador', claim) };
   }
   if (seg === 'ya_privado') {
     const cuerpo = `<p>Hola, equipo de <b>${nombre}</b>:</p>
-      <p>Hace unos días te invitamos a reclamar tu perfil en el directorio de Neuromundi. Por si se te pasó, aquí está de nuevo lo que obtienes al reclamarlo:</p>
+      <p>Hace unos días te invitamos a completar tu perfil en el directorio de Neuromundi. Por si se te pasó, aquí está de nuevo lo que obtienes al completarlo:</p>
       ${beneficios(r)}
-      <p style="margin-top:12px">Además, al reclamarlo ahora entras como <b>Miembro Fundador</b>, con beneficios preferentes de por vida.</p>
+      <p style="margin-top:12px">Además, al completarlo ahora entras como <b>Miembro Fundador</b>, con beneficios preferentes de por vida.</p>
       ${tablaComparativa()}`;
-    return { subject: `${nombre}: te reservamos tu perfil en Neuromundi`, html: shell('Tu perfil te espera en Neuromundi', cuerpo, 'Quiero ser fundador', claim) };
+    return { subject: `${nombre}: te reservamos tu perfil en Neuromundi`, html: shell('Conviértete en Fundador Neuromundi', cuerpo, 'Quiero ser fundador', claim) };
   }
   const intro = esFree(r)
     ? `<p>Hola, equipo de <b>${nombre}</b>:</p>
-       <p>Tu organización ya aparece en el <b>directorio público de Neuromundi</b>. Para tu tipo de organización la membresía es <b>gratuita</b>. Al <b>reclamar tu perfil</b> obtienes:</p>`
+       <p>Tu organización ya aparece en el <b>directorio público de Neuromundi</b>. Para tu tipo de organización la membresía es <b>gratuita</b>. Al <b>completar tu perfil</b> obtienes:</p>`
     : `<p>Hola, equipo de <b>${nombre}</b>:</p>
-       <p>Tu ficha ya aparece en el <b>directorio público de Neuromundi</b>, la comunidad global de neurodesarrollo, neurodivergencia y afecciones neurológicas. Al <b>reclamar tu perfil</b> obtienes:</p>`;
+       <p>Tu ficha ya aparece en el <b>directorio público de Neuromundi</b>, la comunidad global de neurodesarrollo, neurodivergencia y afecciones neurológicas. Al <b>completar tu perfil</b> obtienes:</p>`;
   const cuerpo = `${intro}
     ${beneficios(r)}
-    <p style="margin-top:12px">Y si lo reclamas ahora, entras como <b>Miembro Fundador</b>, con beneficios preferentes de por vida.</p>
+    <p style="margin-top:12px">Y si lo completas ahora, entras como <b>Miembro Fundador</b>, con beneficios preferentes de por vida.</p>
     ${tablaComparativa()}`;
-  return { subject: `${nombre}: reclama tu perfil en Neuromundi`, html: shell('Reclama tu perfil en Neuromundi', cuerpo, 'Quiero ser fundador', claim) };
+  return { subject: `${nombre}: conviértete en Fundador Neuromundi`, html: shell('Conviértete en Fundador Neuromundi', cuerpo, 'Quiero ser fundador', claim) };
 }
 
 Deno.serve(async (req: Request) => {
