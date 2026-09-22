@@ -88,49 +88,94 @@ function shell(title: string, bodyHtml: string, ctaText: string, ctaUrl: string)
 // en la landing. Todos cierran con curso+kit gratis. Devuelve un <ul> con estilo.
 function beneficios(r: Row): string {
   const pt = r.provider_type ?? '';
+  // Cada viñeta lleva UN emoji relevante (calidez + escaneabilidad sin exceso;
+  // glifos muy soportados para minimizar problemas de render en Outlook).
   let items: string[];
   if (pt === 'company') {
     items = [
-      'Publica <b>vacantes y oportunidades inclusivas</b> y llega a talento neurodivergente.',
-      'Obtén el <b>distintivo de Empresa Inclusiva</b> descargable para tu web y redes.',
-      'Membresía <b>gratuita</b> para empresas inclusivas.',
+      '🏷️&nbsp; Publica <b>vacantes y oportunidades inclusivas</b> y llega a talento neurodivergente.',
+      '🏅&nbsp; Obtén el <b>distintivo de Empresa Inclusiva</b> descargable para tu web y redes.',
+      '🆓&nbsp; Membresía <b>gratuita</b> para empresas inclusivas.',
     ];
   } else if (pt === 'ngo') {
     items = [
-      'Membresía <b>gratuita</b> para organizaciones de la sociedad civil.',
-      'Publica <b>oportunidades</b> (voluntariado, servicio social) y difunde tu labor.',
-      'Aparece ante <b>familias</b> que buscan apoyo en tu región.',
+      '🆓&nbsp; Membresía <b>gratuita</b> para organizaciones de la sociedad civil.',
+      '🤝&nbsp; Publica <b>oportunidades</b> (voluntariado, servicio social) y difunde tu labor.',
+      '👪&nbsp; Aparece ante <b>familias</b> que buscan apoyo en tu región.',
     ];
   } else if (pt === 'school' || pt === 'clinic') {
     items = [
-      'Muestra tu <b>programa de inclusión</b>, grados y admisiones a las familias.',
-      'Recibe solicitudes y <b>agenda citas</b> desde tu perfil.',
-      'Mensajería directa con familias que buscan tus servicios.',
+      '🏫&nbsp; Muestra tu <b>programa de inclusión</b>, grados y admisiones a las familias.',
+      '📅&nbsp; Recibe solicitudes y <b>agenda citas</b> desde tu perfil.',
+      '💬&nbsp; Mensajería directa con familias que buscan tus servicios.',
     ];
   } else if (pt === 'merchant') {
     items = [
-      'Vende tus productos en la <b>Tienda</b> y cobra directo — Neuromundi <b>no retiene comisión</b>.',
-      'Aparece ante familias que buscan productos neuroafirmativos.',
-      'Recibe <b>reseñas</b> que dan confianza a nuevos clientes.',
+      '🛍️&nbsp; Vende tus productos en la <b>Tienda</b> y cobra directo — Neuromundi <b>no retiene comisión</b>.',
+      '🔎&nbsp; Aparece ante familias que buscan productos neuroafirmativos.',
+      '⭐&nbsp; Recibe <b>reseñas</b> que dan confianza a nuevos clientes.',
     ];
   } else if (pt === 'tourism') {
     items = [
-      'Preséntate como <b>espacio de bajo impacto sensorial</b> con tus horarios amigables.',
-      'Aparece ante familias que buscan lugares de esparcimiento inclusivos.',
-      'Recibe <b>reseñas</b> de la comunidad.',
+      '🌿&nbsp; Preséntate como <b>espacio de bajo impacto sensorial</b> con tus horarios amigables.',
+      '🔎&nbsp; Aparece ante familias que buscan lugares de esparcimiento inclusivos.',
+      '⭐&nbsp; Recibe <b>reseñas</b> de la comunidad.',
     ];
   } else {
     // especialistas y prestadores de servicio (service_provider, wellness, legal, caregiver, etc.)
     items = [
-      'Recibe citas con tu <b>agenda y widget de reserva</b>, presencial o en línea.',
-      'Mensajería directa con las <b>familias</b> que buscan tu especialidad.',
-      'Consulta <b>métricas</b> de tu perfil (vistas y contactos).',
+      '📅&nbsp; Recibe citas con tu <b>agenda y widget de reserva</b>, presencial o en línea.',
+      '💬&nbsp; Mensajería directa con las <b>familias</b> que buscan tu especialidad.',
+      '📈&nbsp; Consulta <b>métricas</b> de tu perfil (vistas y contactos).',
     ];
   }
-  const li = items.map((t) => `<li style="margin:4px 0">${t}</li>`).join('');
-  return `<ul style="margin:8px 0 0;padding-left:20px;color:#334155;font-size:14px;line-height:1.5">${li}
-    <li style="margin:4px 0">Acceso <b>gratuito</b> al <b>curso de bienvenida</b> y al <b>kit de herramientas</b>.</li>
+  const li = items.map((t) => `<li style="margin:6px 0">${t}</li>`).join('');
+  return `<ul style="margin:8px 0 0;padding:0;list-style:none;color:#334155;font-size:14px;line-height:1.5">${li}
+    <li style="margin:6px 0">🎓&nbsp; Acceso <b>gratuito</b> al <b>curso de bienvenida</b> y al <b>kit de herramientas</b>.</li>
   </ul>`;
+}
+
+// Tabla comparativa (versión CORREO, región México): HTML de tablas + estilos en
+// línea + palomitas/taches de texto (Gmail/Outlook no soportan flex/grid ni SVG).
+function tablaComparativa(): string {
+  const yes = '<td align="center" style="padding:9px 4px;color:#16a34a;font-weight:bold;border-bottom:1px solid #f1f5f9">✓</td>';
+  const yesNm = '<td align="center" style="padding:9px 4px;background:#eff9ff;color:#16a34a;font-weight:bold;border-bottom:1px solid #f1f5f9">✓</td>';
+  const no = '<td align="center" style="padding:9px 4px;color:#cbd5e1;font-weight:bold;border-bottom:1px solid #f1f5f9">✗</td>';
+  const feat = (t: string) => `<td style="padding:9px 6px;border-bottom:1px solid #f1f5f9">${t}</td>`;
+  // filas: [label, nm, doctoralia, topdoctors, doctoreslat]
+  const rows: [string, boolean, boolean, boolean, boolean][] = [
+    ['Especializada en neurodivergencia, neurodesarrollo y afecciones neurológicas', true, false, false, false],
+    ['Gratis para familias y pacientes', true, true, true, true],
+    ['Agenda de citas en línea (presencial o video)', true, true, true, true],
+    ['Reseñas de prestadores', true, true, true, true],
+    ['Sello y reseñas neuroafirmativas', true, false, false, false],
+    ['Comunidad de apoyo entre pares', true, false, false, false],
+    ['Kit de herramientas y curso gratuitos', true, false, false, false],
+    ['Inclusión laboral y escolar', true, false, false, false],
+    ['Tienda especializada', true, false, false, false],
+  ];
+  const body = rows.map(([label, nm, d, td2, dl]) =>
+    `<tr>${feat(label)}${nm ? yesNm : no}${d ? yes : no}${td2 ? yes : no}${dl ? yes : no}</tr>`).join('');
+  return `
+    <p style="margin:22px 0 8px;font-weight:800;font-size:16px">Cómo se compara Neuromundi</p>
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;font-size:12px;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden">
+      <tr>
+        <td style="padding:8px 6px;background:#f8fafc;color:#64748b;font-weight:bold;text-transform:uppercase;font-size:10px;border-bottom:1px solid #e2e8f0">Característica</td>
+        <td align="center" style="padding:8px 4px;background:#0369a1;color:#fff;font-weight:bold;border-bottom:1px solid #e2e8f0">Neuromundi</td>
+        <td align="center" style="padding:8px 4px;background:#f1f5f9;font-weight:bold;border-bottom:1px solid #e2e8f0">Doctoralia</td>
+        <td align="center" style="padding:8px 4px;background:#f1f5f9;font-weight:bold;border-bottom:1px solid #e2e8f0">Top Doctors</td>
+        <td align="center" style="padding:8px 4px;background:#f1f5f9;font-weight:bold;border-bottom:1px solid #e2e8f0">Doctores.lat</td>
+      </tr>
+      ${body}
+      <tr>
+        <td style="padding:9px 6px;background:#f8fafc;font-weight:800;border-top:2px solid #e2e8f0">Precio<br><span style="font-weight:400;color:#64748b;font-size:10px">Cuota del prestador · pacientes siempre gratis</span></td>
+        <td align="center" style="padding:9px 4px;background:#e0f2fe;color:#0369a1;font-weight:800;border-top:2px solid #e2e8f0">≈ $250–$800<br><span style="font-weight:500;color:#64748b;font-size:10px">MXN/mes · fundadores</span></td>
+        <td align="center" style="padding:9px 4px;background:#f8fafc;font-weight:800;border-top:2px solid #e2e8f0">≈ $1,500–$4,000<br><span style="font-weight:500;color:#64748b;font-size:10px">MXN/mes</span></td>
+        <td align="center" style="padding:9px 4px;background:#f8fafc;font-weight:800;border-top:2px solid #e2e8f0">Bajo invitación<br><span style="font-weight:500;color:#64748b;font-size:10px">no público</span></td>
+        <td align="center" style="padding:9px 4px;background:#f8fafc;font-weight:800;border-top:2px solid #e2e8f0">No público</td>
+      </tr>
+    </table>
+    <p style="color:#94a3b8;font-size:10px;margin:6px 2px 0;line-height:1.4">Comparativa con información pública de cada plataforma a septiembre de 2026. Las plataformas mencionadas son marcas de sus respectivos titulares; se citan solo con fines comparativos e informativos.</p>`;
 }
 
 function buildEmail(r: Row): { subject: string; html: string } {
@@ -143,15 +188,17 @@ function buildEmail(r: Row): { subject: string; html: string } {
       <p>Hace unos días te escribimos sobre tu perfil en el directorio de Neuromundi. Si aquel mensaje daba a entender que había una cuota, <b>una disculpa</b>: para una organización como la tuya la membresía es <b>gratuita</b>.</p>
       <p>Al <b>reclamar tu perfil</b> obtienes:</p>
       ${beneficios(r)}
-      <p style="margin-top:12px">Y la <b>Insignia de Miembro Fundador</b>, con beneficios preferentes de por vida.</p>`;
-    return { subject: `${nombre}: tu perfil en Neuromundi es gratuito — reclámalo`, html: shell('Reclama tu perfil (membresía gratuita)', cuerpo, 'Reclamar mi perfil', claim) };
+      <p style="margin-top:12px">Y la <b>Insignia de Miembro Fundador</b>, con beneficios preferentes de por vida.</p>
+      ${tablaComparativa()}`;
+    return { subject: `${nombre}: tu perfil en Neuromundi es gratuito — reclámalo`, html: shell('Reclama tu perfil (membresía gratuita)', cuerpo, 'Quiero ser fundador', claim) };
   }
   if (seg === 'ya_privado') {
     const cuerpo = `<p>Hola, equipo de <b>${nombre}</b>:</p>
       <p>Hace unos días te invitamos a reclamar tu perfil en el directorio de Neuromundi. Por si se te pasó, aquí está de nuevo lo que obtienes al reclamarlo:</p>
       ${beneficios(r)}
-      <p style="margin-top:12px">Además, al reclamarlo ahora entras como <b>Miembro Fundador</b>, con beneficios preferentes de por vida.</p>`;
-    return { subject: `${nombre}: te reservamos tu perfil en Neuromundi`, html: shell('Tu perfil te espera en Neuromundi', cuerpo, 'Reclamar mi perfil', claim) };
+      <p style="margin-top:12px">Además, al reclamarlo ahora entras como <b>Miembro Fundador</b>, con beneficios preferentes de por vida.</p>
+      ${tablaComparativa()}`;
+    return { subject: `${nombre}: te reservamos tu perfil en Neuromundi`, html: shell('Tu perfil te espera en Neuromundi', cuerpo, 'Quiero ser fundador', claim) };
   }
   const intro = esFree(r)
     ? `<p>Hola, equipo de <b>${nombre}</b>:</p>
@@ -160,8 +207,9 @@ function buildEmail(r: Row): { subject: string; html: string } {
        <p>Tu ficha ya aparece en el <b>directorio público de Neuromundi</b>, la comunidad global de neurodesarrollo, neurodivergencia y afecciones neurológicas. Al <b>reclamar tu perfil</b> obtienes:</p>`;
   const cuerpo = `${intro}
     ${beneficios(r)}
-    <p style="margin-top:12px">Y si lo reclamas ahora, entras como <b>Miembro Fundador</b>, con beneficios preferentes de por vida.</p>`;
-  return { subject: `${nombre}: reclama tu perfil en Neuromundi`, html: shell('Reclama tu perfil en Neuromundi', cuerpo, 'Reclamar mi perfil', claim) };
+    <p style="margin-top:12px">Y si lo reclamas ahora, entras como <b>Miembro Fundador</b>, con beneficios preferentes de por vida.</p>
+    ${tablaComparativa()}`;
+  return { subject: `${nombre}: reclama tu perfil en Neuromundi`, html: shell('Reclama tu perfil en Neuromundi', cuerpo, 'Quiero ser fundador', claim) };
 }
 
 Deno.serve(async (req: Request) => {
