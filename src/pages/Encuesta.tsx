@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { supabase } from '@/lib/supabase';
 import { Button } from '@/components/ui';
 import { COUNTRIES } from '@/data/countries';
-import { ROLES, SECTION_OPTIONS, BRANCHES, CLOSING, type Question } from '@/data/surveyContent';
+import { ROLES, SECTION_OPTIONS, BRANCHES, SECTION_QUESTIONS, CLOSING, audienceOf, type Question } from '@/data/surveyContent';
 
 type Val = string | string[];
 
@@ -150,10 +150,22 @@ export function Encuesta() {
       {/* Rama por rol */}
       {branch.length > 0 && (
         <div className="mt-5 rounded-3xl border border-brand-100 bg-white p-6 shadow-sm">
-          <p className="text-xs font-extrabold uppercase tracking-wide text-brand-700">2 · Tu experiencia</p>
+          <p className="text-xs font-extrabold uppercase tracking-wide text-brand-700">2 · Tu perfil y experiencia</p>
           {branch.map(renderQ)}
         </div>
       )}
+
+      {/* Bloques específicos por cada sección elegida */}
+      {role && SECTION_OPTIONS.filter((s) => sections.includes(s.value)).map((s) => {
+        const qs = SECTION_QUESTIONS[s.value]?.[audienceOf(role)] ?? [];
+        if (qs.length === 0) return null;
+        return (
+          <div key={s.value} className="mt-5 rounded-3xl border border-brand-100 bg-white p-6 shadow-sm">
+            <p className="text-xs font-extrabold uppercase tracking-wide text-brand-700">Sección · {s.label}</p>
+            {qs.map(renderQ)}
+          </div>
+        );
+      })}
 
       {/* Cierre */}
       {role && (
