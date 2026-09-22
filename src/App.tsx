@@ -84,6 +84,7 @@ const Messages = lazy(() => import('@/pages/Messages').then((m) => ({ default: m
 const MyId = lazy(() => import('@/pages/MyId').then((m) => ({ default: m.MyId })));
 const Benefits = lazy(() => import('@/pages/Benefits').then((m) => ({ default: m.Benefits })));
 const WelcomeCourse = lazy(() => import('@/pages/WelcomeCourse').then((m) => ({ default: m.WelcomeCourse })));
+const Encuesta = lazy(() => import('@/pages/Encuesta').then((m) => ({ default: m.Encuesta })));
 
 const router = createBrowserRouter([
   {
@@ -121,6 +122,7 @@ const router = createBrowserRouter([
       { path: '/donantes', element: <DonorWall /> },
       { path: '/fundadores', element: <Founders /> },
       { path: '/beneficios', element: <Benefits /> },
+      { path: '/encuesta', element: <Encuesta /> },
       { path: '/entrar', element: <Auth /> },
       // Pública: el landing explica Tribu e invita a crear cuenta/entrar. El
       // contenido de la Tribu (foros, mentoría…) sigue exigiendo sesión y

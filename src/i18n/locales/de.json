@@ -966,7 +966,8 @@
       "winnersCsv": "Gewinner herunterladen (CSV)",
       "whatsappTitle": "WhatsApp-Kanal",
       "whatsappHint": "Füge den WhatsApp-Kanal-Link ein. Im Footer erscheint ein Beitritts-Button."
-    }
+    },
+    "secSurvey": "Umfrage"
   },
   "reg": {
     "typePatient": "Patient",

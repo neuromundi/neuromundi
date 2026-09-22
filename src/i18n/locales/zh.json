@@ -966,7 +966,8 @@
       "winnersCsv": "下载中奖者（CSV）",
       "whatsappTitle": "WhatsApp 频道",
       "whatsappHint": "粘贴 WhatsApp 频道链接，页脚会出现加入按钮。"
-    }
+    },
+    "secSurvey": "问卷"
   },
   "reg": {
     "typePatient": "患者",

@@ -1003,7 +1003,8 @@
       "winnersCsv": "تنزيل الفائزين (CSV)",
       "whatsappTitle": "قناة واتساب",
       "whatsappHint": "الصق رابط قناة واتساب. يظهر زر للانضمام في تذييل المنصة."
-    }
+    },
+    "secSurvey": "استبيان"
   },
   "reg": {
     "typePatient": "مريض",

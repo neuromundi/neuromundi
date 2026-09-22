@@ -966,7 +966,8 @@
       "winnersCsv": "当選者をダウンロード（CSV）",
       "whatsappTitle": "WhatsAppチャンネル",
       "whatsappHint": "WhatsAppチャンネルのリンクを貼り付け。フッターに参加ボタンが表示されます。"
-    }
+    },
+    "secSurvey": "アンケート"
   },
   "reg": {
     "typePatient": "患者",

@@ -966,7 +966,8 @@
       "winnersCsv": "Télécharger les gagnants (CSV)",
       "whatsappTitle": "Canal WhatsApp",
       "whatsappHint": "Collez le lien du canal WhatsApp. Un bouton pour rejoindre apparaît dans le pied de page."
-    }
+    },
+    "secSurvey": "Enquête"
   },
   "reg": {
     "typePatient": "Patient",

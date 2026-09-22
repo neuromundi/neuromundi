@@ -1003,7 +1003,8 @@
       "winnersCsv": "Download winners (CSV)",
       "whatsappTitle": "WhatsApp channel",
       "whatsappHint": "Paste the WhatsApp channel link. A join button appears in the site footer."
-    }
+    },
+    "secSurvey": "Survey"
   },
   "reg": {
     "typePatient": "Patient",

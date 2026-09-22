@@ -1003,7 +1003,8 @@
       "winnersCsv": "당첨자 다운로드(CSV)",
       "whatsappTitle": "WhatsApp 채널",
       "whatsappHint": "WhatsApp 채널 링크를 붙여넣으세요. 하단에 참여 버튼이 표시됩니다."
-    }
+    },
+    "secSurvey": "설문"
   },
   "reg": {
     "typePatient": "환자",
