@@ -54,6 +54,9 @@ export function ComparisonTable() {
                   {t('home.compare.colFeature')}
                 </th>
                 <th className="bg-gradient-to-b from-brand-500 to-brand-700 p-4 text-center align-middle text-white">
+                  <span className="mx-auto mb-2 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-sm">
+                    <img src="/icon-192.png" alt="" aria-hidden="true" className="h-8 w-8 rounded-full" loading="lazy" width={32} height={32} />
+                  </span>
                   <span className="block text-[15px] font-bold">Neuromundi</span>
                   <span className="mt-0.5 block text-xs font-medium text-brand-100">{t('home.compare.nmTag')}</span>
                 </th>
