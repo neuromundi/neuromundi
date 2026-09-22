@@ -206,15 +206,29 @@
         "sub": "Anbietergebühr · Patienten immer kostenlos",
         "nm": "Feste Jahresgebühr",
         "nmSub": "keine Provision · mehrere Kategorien kostenlos",
-        "doctoralia": "≈ $1,500–$4,000",
-        "doctoraliaSub": "MXN / Monat",
-        "topdoctors": "Auf Einladung",
-        "topdoctorsSub": "nicht öffentlich",
-        "doctoreslat": "Nicht öffentlich"
+        "byInvitation": "Auf Einladung",
+        "notPublic": "Nicht öffentlich",
+        "paidPlans": "Kostenpflichtige Pläne",
+        "perBooking": "Pro Buchung",
+        "freeBasicPaid": "Basis kostenlos · kostenpflichtige Upgrades",
+        "variesByCountry": "Je nach Land unterschiedlich",
+        "mxnMonth": "MXN / Monat",
+        "eurMonth": "EUR / Monat",
+        "usdMonth": "USD / Monat",
+        "nmMxSub": "MXN / Monat · Gründungsmitglieder"
       },
-      "footnote": "Vergleich auf Grundlage öffentlich verfügbarer Informationen der einzelnen Plattformen (Stand September 2026). Doctoralia, Top Doctors und Doctores.lat sind Marken ihrer jeweiligen Inhaber; Nennung nur zu Vergleichs- und Informationszwecken.",
+      "footnote": "Vergleich auf Grundlage öffentlich verfügbarer Informationen der einzelnen Plattformen (Stand September 2026). Die genannten Plattformen sind Marken ihrer jeweiligen Inhaber; Nennung nur zu Vergleichs- und Informationszwecken.",
       "yes": "Ja",
-      "no": "Nein"
+      "no": "Nein",
+      "tags": {
+        "telemed": "Telemedizin",
+        "software": "Praxissoftware"
+      },
+      "cats": {
+        "directories": "Allgemeine Ärzteverzeichnisse",
+        "telemed": "Telemedizin-Plattformen",
+        "software": "Praxisverwaltungssoftware"
+      }
     }
   },
   "auth": {

@@ -243,15 +243,29 @@
         "sub": "제공자 회비 · 환자는 항상 무료",
         "nm": "정액 연회비",
         "nmSub": "수수료 없음 · 여러 범주 무료",
-        "doctoralia": "≈ $1,500–$4,000",
-        "doctoraliaSub": "MXN / 월",
-        "topdoctors": "초대 방식",
-        "topdoctorsSub": "비공개",
-        "doctoreslat": "비공개"
+        "byInvitation": "초대 방식",
+        "notPublic": "비공개",
+        "paidPlans": "유료 요금제",
+        "perBooking": "예약당",
+        "freeBasicPaid": "기본 무료 · 유료 업그레이드",
+        "variesByCountry": "국가별 상이",
+        "mxnMonth": "MXN / 월",
+        "eurMonth": "EUR / 월",
+        "usdMonth": "USD / 월",
+        "nmMxSub": "MXN / 월 · 창립 회원"
       },
-      "footnote": "2026년 9월 기준 각 플랫폼의 공개 정보를 바탕으로 작성한 비교입니다. Doctoralia, Top Doctors, Doctores.lat는 각 소유자의 상표이며 비교 및 정보 제공 목적으로만 언급되었습니다.",
+      "footnote": "2026년 9월 기준 각 플랫폼의 공개 정보를 바탕으로 작성한 비교입니다. 언급된 플랫폼은 각 소유자의 상표이며 비교 및 정보 제공 목적으로만 언급되었습니다.",
       "yes": "예",
-      "no": "아니요"
+      "no": "아니요",
+      "tags": {
+        "telemed": "원격의료",
+        "software": "진료 소프트웨어"
+      },
+      "cats": {
+        "directories": "일반 의료 디렉터리",
+        "telemed": "원격의료 플랫폼",
+        "software": "진료 관리 소프트웨어"
+      }
     }
   },
   "auth": {

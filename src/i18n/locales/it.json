@@ -206,15 +206,29 @@
         "sub": "Quota del professionista · pazienti sempre gratis",
         "nm": "Quota annuale fissa",
         "nmSub": "senza commissioni · diverse categorie gratuite",
-        "doctoralia": "≈ $1,500–$4,000",
-        "doctoraliaSub": "MXN / mese",
-        "topdoctors": "Su invito",
-        "topdoctorsSub": "non pubblico",
-        "doctoreslat": "Non pubblico"
+        "byInvitation": "Su invito",
+        "notPublic": "Non pubblico",
+        "paidPlans": "Piani a pagamento",
+        "perBooking": "Per prenotazione",
+        "freeBasicPaid": "Base gratis · upgrade a pagamento",
+        "variesByCountry": "Varia in base al paese",
+        "mxnMonth": "MXN / mese",
+        "eurMonth": "EUR / mese",
+        "usdMonth": "USD / mese",
+        "nmMxSub": "MXN / mese · fondatori"
       },
-      "footnote": "Confronto basato su informazioni pubbliche di ciascuna piattaforma a settembre 2026. Doctoralia, Top Doctors e Doctores.lat sono marchi dei rispettivi titolari; citati solo a fini comparativi e informativi.",
+      "footnote": "Confronto basato su informazioni pubbliche di ciascuna piattaforma a settembre 2026. Le piattaforme citate sono marchi dei rispettivi titolari; citate solo a fini comparativi e informativi.",
       "yes": "Sì",
-      "no": "No"
+      "no": "No",
+      "tags": {
+        "telemed": "Telemedicina",
+        "software": "Software per studi"
+      },
+      "cats": {
+        "directories": "Elenchi medici generali",
+        "telemed": "Piattaforme di telemedicina",
+        "software": "Software gestionale per studi"
+      }
     }
   },
   "auth": {

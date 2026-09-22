@@ -206,15 +206,29 @@
         "sub": "Cotisation du prestataire · patients toujours gratuits",
         "nm": "Cotisation annuelle fixe",
         "nmSub": "sans commission · plusieurs catégories gratuites",
-        "doctoralia": "≈ $1,500–$4,000",
-        "doctoraliaSub": "MXN / mois",
-        "topdoctors": "Sur invitation",
-        "topdoctorsSub": "non public",
-        "doctoreslat": "Non public"
+        "byInvitation": "Sur invitation",
+        "notPublic": "Non public",
+        "paidPlans": "Formules payantes",
+        "perBooking": "Par réservation",
+        "freeBasicPaid": "Gratuit de base · options payantes",
+        "variesByCountry": "Variable selon le pays",
+        "mxnMonth": "MXN / mois",
+        "eurMonth": "EUR / mois",
+        "usdMonth": "USD / mois",
+        "nmMxSub": "MXN / mois · fondateurs"
       },
-      "footnote": "Comparatif établi à partir d'informations publiques de chaque plateforme en septembre 2026. Doctoralia, Top Doctors et Doctores.lat sont des marques de leurs titulaires respectifs ; mention à des fins comparatives et informatives uniquement.",
+      "footnote": "Comparatif établi à partir d'informations publiques de chaque plateforme en septembre 2026. Les plateformes mentionnées sont des marques de leurs titulaires respectifs ; citées à des fins comparatives et informatives uniquement.",
       "yes": "Oui",
-      "no": "Non"
+      "no": "Non",
+      "tags": {
+        "telemed": "Télémédecine",
+        "software": "Logiciel de cabinet"
+      },
+      "cats": {
+        "directories": "Annuaires médicaux généraux",
+        "telemed": "Plateformes de télémédecine",
+        "software": "Logiciels de gestion de cabinet"
+      }
     }
   },
   "auth": {

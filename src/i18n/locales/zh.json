@@ -206,15 +206,29 @@
         "sub": "服务提供者会费 · 患者始终免费",
         "nm": "固定年费",
         "nmSub": "无佣金 · 多个类别免费",
-        "doctoralia": "≈ $1,500–$4,000",
-        "doctoraliaSub": "MXN／月",
-        "topdoctors": "受邀加入",
-        "topdoctorsSub": "未公开",
-        "doctoreslat": "未公开"
+        "byInvitation": "受邀加入",
+        "notPublic": "未公开",
+        "paidPlans": "付费方案",
+        "perBooking": "按预约收费",
+        "freeBasicPaid": "基础免费 · 付费升级",
+        "variesByCountry": "因国家而异",
+        "mxnMonth": "MXN／月",
+        "eurMonth": "EUR／月",
+        "usdMonth": "USD／月",
+        "nmMxSub": "MXN／月 · 创始会员"
       },
-      "footnote": "本对比基于各平台截至2026年9月的公开信息。Doctoralia、Top Doctors 与 Doctores.lat 为其各自所有者的商标；此处仅用于对比与信息目的。",
+      "footnote": "本对比基于各平台截至2026年9月的公开信息。所提及的平台为其各自所有者的商标；仅用于对比与信息目的。",
       "yes": "是",
-      "no": "否"
+      "no": "否",
+      "tags": {
+        "telemed": "远程医疗",
+        "software": "诊所软件"
+      },
+      "cats": {
+        "directories": "综合医疗目录",
+        "telemed": "远程医疗平台",
+        "software": "诊所管理软件"
+      }
     }
   },
   "auth": {

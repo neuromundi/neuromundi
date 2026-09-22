@@ -206,15 +206,29 @@
         "sub": "Taxa do prestador · pacientes sempre grátis",
         "nm": "Taxa anual fixa",
         "nmSub": "sem comissão · várias categorias grátis",
-        "doctoralia": "≈ $1,500–$4,000",
-        "doctoraliaSub": "MXN / mês",
-        "topdoctors": "Por convite",
-        "topdoctorsSub": "não público",
-        "doctoreslat": "Não público"
+        "byInvitation": "Por convite",
+        "notPublic": "Não público",
+        "paidPlans": "Planos pagos",
+        "perBooking": "Por agendamento",
+        "freeBasicPaid": "Básico grátis · melhorias pagas",
+        "variesByCountry": "Varia por país",
+        "mxnMonth": "MXN / mês",
+        "eurMonth": "EUR / mês",
+        "usdMonth": "USD / mês",
+        "nmMxSub": "MXN / mês · fundadores"
       },
-      "footnote": "Comparativo elaborado com informações públicas de cada plataforma em setembro de 2026. Doctoralia, Top Doctors e Doctores.lat são marcas de seus respectivos titulares; mencionadas apenas para fins comparativos e informativos.",
+      "footnote": "Comparativo elaborado com informações públicas de cada plataforma em setembro de 2026. As plataformas mencionadas são marcas de seus respectivos titulares; citadas apenas para fins comparativos e informativos.",
       "yes": "Sim",
-      "no": "Não"
+      "no": "Não",
+      "tags": {
+        "telemed": "Telemedicina",
+        "software": "Software de consultório"
+      },
+      "cats": {
+        "directories": "Diretórios médicos gerais",
+        "telemed": "Plataformas de telemedicina",
+        "software": "Software de gestão de consultório"
+      }
     }
   },
   "auth": {

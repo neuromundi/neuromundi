@@ -1,32 +1,18 @@
 /**
- * ComparisonTable — tabla comparativa de la portada: Neuromundi frente a los
- * directorios/plataformas de salud más usados (Doctoralia, Top Doctors,
- * Doctores.lat). Palomita = tiene la función; tache = no. Incluye una fila de
- * precios al final. Los nombres de marca son propios y NO se traducen; el resto
- * de textos salen de i18n (home.compare.*). La columna de Neuromundi va
- * resaltada. La tabla scrollea horizontalmente en móvil.
+ * ComparisonTable — tabla comparativa de la portada. Neuromundi frente a las
+ * plataformas de salud más usadas EN CADA REGIÓN (los datos por región están en
+ * `lib/comparisonRegions`). La región se decide por el país elegido o, si no
+ * eligió, por la zona horaria del navegador; siempre hay una región válida, así
+ * que la tabla se muestra en todo el mundo (fuera de LatAm/Europa/EE. UU. cae a
+ * una comparación genérica sin marcas). Palomita = tiene la función; tache = no.
  *
- * Nota de marca/legal: comparativa con información pública a la fecha del pie;
- * las marcas mencionadas pertenecen a sus titulares (fin informativo).
+ * Los nombres de marca son propios y NO se traducen; el resto sale de i18n.
+ * La columna de Neuromundi va resaltada. La tabla scrollea en móvil.
  */
 import { useTranslation } from 'react-i18next';
 import { Check, X, ListChecks } from 'lucide-react';
 import { useCountry } from '@/stores/countryStore';
-import { isLatamAudience } from '@/lib/latamAudience';
-
-type Marks = [boolean, boolean, boolean, boolean];
-
-const ROWS: { key: string; sub?: boolean; marks: Marks }[] = [
-  { key: 'specialized', marks: [true, false, false, false] },
-  { key: 'free', marks: [true, true, true, true] },
-  { key: 'booking', marks: [true, true, true, true] },
-  { key: 'reviews', marks: [true, true, true, true] },
-  { key: 'neuroaffirm', sub: true, marks: [true, false, false, false] },
-  { key: 'community', sub: true, marks: [true, false, false, false] },
-  { key: 'kit', marks: [true, false, false, false] },
-  { key: 'inclusion', marks: [true, false, false, false] },
-  { key: 'store', marks: [true, false, false, false] },
-];
+import { comparisonRegionOf, nmPrice, REGIONS, FEATURE_KEYS, type Col } from '@/lib/comparisonRegions';
 
 function Mark({ on, yes, no }: { on: boolean; yes: string; no: string }) {
   return on ? (
@@ -43,14 +29,13 @@ function Mark({ on, yes, no }: { on: boolean; yes: string; no: string }) {
 export function ComparisonTable() {
   const { t } = useTranslation();
   const { country } = useCountry();
-
-  // La tabla nombra plataformas y precios de México/LatAm: solo se muestra a esa
-  // audiencia (país elegido de LatAm, o zona horaria de la región si no eligió).
-  if (!isLatamAudience(country)) return null;
+  const region = comparisonRegionOf(country);
+  const { cols } = REGIONS[region];
+  const nm = nmPrice(country);
 
   const yes = t('home.compare.yes');
   const no = t('home.compare.no');
-  const dirTag = t('home.compare.tagDirectory');
+  const colName = (c: Col) => (c.brand ? c.brand : t(c.nameKey ?? ''));
 
   return (
     <section className="mt-16">
@@ -72,37 +57,33 @@ export function ComparisonTable() {
                   <span className="block text-[15px] font-bold">Neuromundi</span>
                   <span className="mt-0.5 block text-xs font-medium text-brand-100">{t('home.compare.nmTag')}</span>
                 </th>
-                <th className="p-4 text-center align-middle">
-                  <span className="block text-[15px] font-bold text-slate-900">Doctoralia</span>
-                  <span className="mt-0.5 block text-xs font-medium text-muted">{dirTag}</span>
-                </th>
-                <th className="p-4 text-center align-middle">
-                  <span className="block text-[15px] font-bold text-slate-900">Top Doctors</span>
-                  <span className="mt-0.5 block text-xs font-medium text-muted">{dirTag}</span>
-                </th>
-                <th className="p-4 text-center align-middle">
-                  <span className="block text-[15px] font-bold text-slate-900">Doctores.lat</span>
-                  <span className="mt-0.5 block text-xs font-medium text-muted">{dirTag}</span>
-                </th>
+                {cols.map((c, i) => (
+                  <th key={i} className="p-4 text-center align-middle">
+                    <span className="block text-[15px] font-bold text-slate-900">{colName(c)}</span>
+                    <span className="mt-0.5 block text-xs font-medium text-muted">{t(c.tagKey)}</span>
+                  </th>
+                ))}
               </tr>
             </thead>
             <tbody>
-              {ROWS.map((row) => (
-                <tr key={row.key} className="border-b border-slate-100 last:border-0">
+              {FEATURE_KEYS.map((fk) => (
+                <tr key={fk} className="border-b border-slate-100 last:border-0">
                   <td className="max-w-[340px] p-4 text-start align-middle">
-                    <span className="font-semibold text-slate-800">{t(`home.compare.rows.${row.key}`)}</span>
-                    {row.sub && (
+                    <span className="font-semibold text-slate-800">{t(`home.compare.rows.${fk}`)}</span>
+                    {(fk === 'neuroaffirm' || fk === 'community') && (
                       <span className="mt-0.5 block text-xs font-normal text-muted">
-                        {t(`home.compare.rows.${row.key}Sub`)}
+                        {t(`home.compare.rows.${fk}Sub`)}
                       </span>
                     )}
                   </td>
                   <td className="bg-brand-50/60 p-4 text-center align-middle">
-                    <Mark on={row.marks[0]} yes={yes} no={no} />
+                    <Mark on yes={yes} no={no} />
                   </td>
-                  <td className="p-4 text-center align-middle"><Mark on={row.marks[1]} yes={yes} no={no} /></td>
-                  <td className="p-4 text-center align-middle"><Mark on={row.marks[2]} yes={yes} no={no} /></td>
-                  <td className="p-4 text-center align-middle"><Mark on={row.marks[3]} yes={yes} no={no} /></td>
+                  {cols.map((c, i) => (
+                    <td key={i} className="p-4 text-center align-middle">
+                      <Mark on={c.marks[fk]} yes={yes} no={no} />
+                    </td>
+                  ))}
                 </tr>
               ))}
               {/* Fila de precios */}
@@ -112,20 +93,19 @@ export function ComparisonTable() {
                   <span className="mt-0.5 block text-xs font-normal text-muted">{t('home.compare.price.sub')}</span>
                 </td>
                 <td className="bg-brand-100/70 p-4 text-center align-middle">
-                  <span className="font-extrabold text-brand-700">{t('home.compare.price.nm')}</span>
-                  <span className="mt-0.5 block text-xs font-medium text-muted">{t('home.compare.price.nmSub')}</span>
+                  <span className="font-extrabold text-brand-700">{nm.value ?? t(nm.key ?? '')}</span>
+                  <span className="mt-0.5 block text-xs font-medium text-muted">{t(nm.subKey)}</span>
                 </td>
-                <td className="p-4 text-center align-middle">
-                  <span className="font-extrabold text-slate-900">{t('home.compare.price.doctoralia')}</span>
-                  <span className="mt-0.5 block text-xs font-medium text-muted">{t('home.compare.price.doctoraliaSub')}</span>
-                </td>
-                <td className="p-4 text-center align-middle">
-                  <span className="font-extrabold text-slate-900">{t('home.compare.price.topdoctors')}</span>
-                  <span className="mt-0.5 block text-xs font-medium text-muted">{t('home.compare.price.topdoctorsSub')}</span>
-                </td>
-                <td className="p-4 text-center align-middle">
-                  <span className="font-extrabold text-slate-900">{t('home.compare.price.doctoreslat')}</span>
-                </td>
+                {cols.map((c, i) => (
+                  <td key={i} className="p-4 text-center align-middle">
+                    <span className="font-extrabold text-slate-900">
+                      {c.priceValue ?? t(c.priceKey ?? '')}
+                    </span>
+                    {c.priceSubKey && (
+                      <span className="mt-0.5 block text-xs font-medium text-muted">{t(c.priceSubKey)}</span>
+                    )}
+                  </td>
+                ))}
               </tr>
             </tbody>
           </table>

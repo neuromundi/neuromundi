@@ -206,15 +206,29 @@
         "sub": "提供者の会費 · 患者は常に無料",
         "nm": "定額の年会費",
         "nmSub": "手数料なし · 複数のカテゴリは無料",
-        "doctoralia": "≈ $1,500–$4,000",
-        "doctoraliaSub": "MXN／月",
-        "topdoctors": "招待制",
-        "topdoctorsSub": "非公開",
-        "doctoreslat": "非公開"
+        "byInvitation": "招待制",
+        "notPublic": "非公開",
+        "paidPlans": "有料プラン",
+        "perBooking": "予約ごと",
+        "freeBasicPaid": "基本無料・有料オプション",
+        "variesByCountry": "国により異なる",
+        "mxnMonth": "MXN／月",
+        "eurMonth": "EUR／月",
+        "usdMonth": "USD／月",
+        "nmMxSub": "MXN／月・創設メンバー"
       },
-      "footnote": "各プラットフォームの2026年9月時点の公開情報に基づく比較です。Doctoralia、Top Doctors、Doctores.lat は各権利者の商標であり、比較・情報提供のみを目的として記載しています。",
+      "footnote": "各プラットフォームの2026年9月時点の公開情報に基づく比較です。記載のプラットフォームは各権利者の商標であり、比較・情報提供のみを目的として記載しています。",
       "yes": "はい",
-      "no": "いいえ"
+      "no": "いいえ",
+      "tags": {
+        "telemed": "遠隔医療",
+        "software": "診療管理ソフト"
+      },
+      "cats": {
+        "directories": "一般的な医療ディレクトリ",
+        "telemed": "遠隔医療プラットフォーム",
+        "software": "診療管理ソフトウェア"
+      }
     }
   },
   "auth": {
