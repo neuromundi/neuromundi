@@ -19,7 +19,7 @@ export const legalDe: LegalBundle = {
       {
         "h": "2. Beschreibung des Dienstes",
         "p": [
-          "Neuromundi ist ein Verzeichnis, das neurodivergente Menschen, Eltern oder Erziehungsberechtigte und Patienten mit neurodivergenzfreundlichen Dienstleistern und Produktanbietern verbindet. Die Plattform ermöglicht das Entdecken, das Einlösen von Rabatten über QR-Codes, das Bewerten von Erfahrungen und das Empfehlen von Produkten.",
+          "Neuromundi ist ein auf Neuroentwicklung, Neurodivergenz und neurologische Erkrankungen spezialisiertes Verzeichnis, das Menschen, Eltern oder Erziehungsberechtigte und Patienten mit inklusiven Dienstleistern und Produktanbietern verbindet. Die Plattform ermöglicht das Entdecken, das Einlösen von Rabatten über QR-Codes, das Bewerten von Erfahrungen und das Empfehlen von Produkten.",
           "Neuromundi handelt als Vermittler. Käufe, Dienstleistungsverträge und deren Erbringung erfolgen direkt zwischen Nutzer und Anbieter; die Plattform ist nicht Vertragspartei dieser Beziehungen und wickelt keine Zahlungen dafür ab."
         ]
       },
@@ -118,7 +118,7 @@ export const legalDe: LegalBundle = {
         ],
         "li": [
           "Identifikation und Kontakt: vollständiger Name oder Firmenname, E-Mail, Telefon, Geburtsdatum und Geschlecht (optional).",
-          "Gesundheits-/Neurodivergenzdaten: die Art der Neurodivergenz oder Erkrankung (eigene oder die des Kindes). Siehe Abschnitt 3.",
+          "Gesundheits-/Neurodivergenzdaten: die Art der Neurodivergenz, Neuroentwicklung oder neurologischen Erkrankung (eigene oder die des Kindes). Siehe Abschnitt 3.",
           "Standort: Land, Bundesland/Provinz, Gemeinde und – bei Anbietern – Adressen und Koordinaten der Standorte.",
           "Aktivität auf der Plattform: Angebote, Einlösungen, Bewertungen, Kommentare, Verordnungen und Listen.",
           "Technische Daten: die für den Betrieb der Sitzung und die Kontosicherheit erforderlichen."
@@ -127,7 +127,7 @@ export const legalDe: LegalBundle = {
       {
         "h": "3. Sensible personenbezogene Daten",
         "p": [
-          "Die Art der Neurodivergenz oder Erkrankung ist ein sensibles personenbezogenes Datum (gesundheitsbezogen). Wir verarbeiten es nur mit Ihrer ausdrücklichen Einwilligung, die Sie mit der Annahme dieser Erklärung bei der Registrierung erteilen, und zum Zweck, Ihnen ein relevantes Verzeichnis und Empfehlungen anzubieten. Sie können Ihre Einwilligung jederzeit widerrufen (siehe Abschnitt 8)."
+          "Die Art der Neurodivergenz, Neuroentwicklung oder neurologischen Erkrankung ist ein sensibles personenbezogenes Datum (gesundheitsbezogen). Wir verarbeiten es nur mit Ihrer ausdrücklichen Einwilligung, die Sie mit der Annahme dieser Erklärung bei der Registrierung erteilen, und zum Zweck, Ihnen ein relevantes Verzeichnis und Empfehlungen anzubieten. Sie können Ihre Einwilligung jederzeit widerrufen (siehe Abschnitt 8)."
         ]
       },
       {
@@ -200,7 +200,7 @@ export const legalDe: LegalBundle = {
   },
   "manifesto": {
     "tagline": "Finden. Verbinden. Wachsen.",
-    "lead": "Wir leben in einer vielfältigen Welt mit einzigartigen Köpfen und unterschiedlichen Entwicklungsrhythmen. Zu lange wurde der Weg der Neurodivergenz und der Neuroentwicklung von Zersplitterung, verstreuten Informationen und oft von Einsamkeit geprägt. Heute beschließen wir, diese Realität zu ändern.",
+    "lead": "Wir leben in einer vielfältigen Welt mit einzigartigen Köpfen und unterschiedlichen Entwicklungsrhythmen. Zu lange wurde der Weg der Neuroentwicklung, der Neurodivergenz und der neurologischen Erkrankungen von Zersplitterung, verstreuten Informationen und oft von Einsamkeit geprägt. Heute beschließen wir, diese Realität zu ändern.",
     "intro": [
       "Die Neuromundi-Community entsteht. Wir sind kein bloßes Verzeichnis; wir sind eine globale Bewegung, ein lebendiges Ökosystem aus Unterstützung, Orientierung und echter Begleitung. Wir sind der erste Treffpunkt, an dem Patienten, Familien, Fachleute, Pädagogen und Dienstleister zusammenkommen, geeint durch eine gemeinsame Vision.",
       "Bei Neuromundi erklären und verteidigen wir die folgenden Grundprinzipien:"

@@ -19,7 +19,7 @@ export const legalFr: LegalBundle = {
       {
         "h": "2. Description du service",
         "p": [
-          "Neuromundi est un annuaire qui met en relation les personnes neurodivergentes, les parents ou tuteurs et les patients avec des prestataires de services et des fournisseurs de produits adaptés à la neurodivergence. La Plateforme facilite la découverte, l’application de remises via des codes QR, l’évaluation des expériences et la recommandation de produits.",
+          "Neuromundi est un annuaire spécialisé dans le neurodéveloppement, la neurodivergence et les affections neurologiques qui met en relation les personnes, les parents ou tuteurs et les patients avec des prestataires de services et des fournisseurs de produits inclusifs. La Plateforme facilite la découverte, l’application de remises via des codes QR, l’évaluation des expériences et la recommandation de produits.",
           "Neuromundi agit en tant qu’intermédiaire. Les achats, les prestations de services et leur exécution ont lieu directement entre l’utilisateur et le prestataire ; la Plateforme n’est pas partie à ces relations et ne traite pas les paiements correspondants."
         ]
       },
@@ -118,7 +118,7 @@ export const legalFr: LegalBundle = {
         ],
         "li": [
           "Identification et contact : nom complet ou raison sociale, e-mail, téléphone, date de naissance et genre (facultatif).",
-          "Données de santé / neurodivergence : le type de neurodivergence ou de condition (la vôtre ou celle de votre enfant). Voir la section 3.",
+          "Données de santé / neurodivergence : le type de neurodivergence, de neurodéveloppement ou d’affection neurologique (la vôtre ou celle de votre enfant). Voir la section 3.",
           "Localisation : pays, État/province, municipalité et, pour les prestataires, adresses et coordonnées des établissements.",
           "Activité sur la Plateforme : offres, échanges, évaluations, commentaires, ordonnances et listes.",
           "Données techniques : celles nécessaires au fonctionnement de la session et à la sécurité du compte."
@@ -127,7 +127,7 @@ export const legalFr: LegalBundle = {
       {
         "h": "3. Données personnelles sensibles",
         "p": [
-          "Le type de neurodivergence ou de condition est une donnée personnelle sensible (liée à la santé). Nous ne la traitons qu’avec votre consentement explicite, donné lors de l’acceptation de cet Avis à l’inscription, et dans le but de vous proposer un annuaire et des recommandations pertinents. Vous pouvez retirer votre consentement à tout moment (voir section 8)."
+          "Le type de neurodivergence, de neurodéveloppement ou d’affection neurologique est une donnée personnelle sensible (liée à la santé). Nous ne la traitons qu’avec votre consentement explicite, donné lors de l’acceptation de cet Avis à l’inscription, et dans le but de vous proposer un annuaire et des recommandations pertinents. Vous pouvez retirer votre consentement à tout moment (voir section 8)."
         ]
       },
       {
@@ -200,7 +200,7 @@ export const legalFr: LegalBundle = {
   },
   "manifesto": {
     "tagline": "Trouver. Se connecter. Grandir.",
-    "lead": "Nous vivons dans un monde divers, avec des esprits uniques et des rythmes de développement différents. Trop longtemps, le chemin de la neurodivergence et du neurodéveloppement s’est parcouru dans la fragmentation, la dispersion de l’information et, bien souvent, la solitude. Aujourd’hui, nous décidons de changer cette réalité.",
+    "lead": "Nous vivons dans un monde divers, avec des esprits uniques et des rythmes de développement différents. Trop longtemps, le chemin du neurodéveloppement, de la neurodivergence et des affections neurologiques s’est parcouru dans la fragmentation, la dispersion de l’information et, bien souvent, la solitude. Aujourd’hui, nous décidons de changer cette réalité.",
     "intro": [
       "La Communauté Neuromundi voit le jour. Nous ne sommes pas un simple annuaire ; nous sommes un mouvement mondial, un écosystème vivant de soutien, d’orientation et d’accompagnement authentique. Nous sommes le premier point de rencontre où convergent patients, familles, spécialistes, éducateurs et prestataires de services, unis par une même vision.",
       "Chez Neuromundi, nous déclarons et défendons les principes fondamentaux suivants :"

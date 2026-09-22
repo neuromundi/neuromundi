@@ -19,7 +19,7 @@ export const legalPt: LegalBundle = {
       {
         "h": "2. Descrição do serviço",
         "p": [
-          "A Neuromundi é um diretório que conecta pessoas neurodivergentes, pais/mães ou responsáveis e pacientes com prestadores de serviços e fornecedores de produtos amigáveis à neurodivergência. A Plataforma facilita a descoberta, a aplicação de descontos por meio de códigos QR, a avaliação de experiências e a recomendação de produtos.",
+          "A Neuromundi é um diretório especializado em neurodesenvolvimento, neurodivergência e condições neurológicas que conecta pessoas, pais/mães ou responsáveis e pacientes com prestadores de serviços e fornecedores de produtos inclusivos. A Plataforma facilita a descoberta, a aplicação de descontos por meio de códigos QR, a avaliação de experiências e a recomendação de produtos.",
           "A Neuromundi atua como intermediária. As compras, contratações de serviços e sua prestação ocorrem diretamente entre o usuário e o fornecedor; a Plataforma não é parte dessas relações nem processa pagamentos por elas."
         ]
       },
@@ -118,7 +118,7 @@ export const legalPt: LegalBundle = {
         ],
         "li": [
           "Identificação e contato: nome completo ou razão social, e-mail, telefone, data de nascimento e gênero (opcional).",
-          "Dados de saúde / neurodivergência: o tipo de neurodivergência ou condição (própria ou do filho(a)). Ver a seção 3.",
+          "Dados de saúde / neurodivergência: o tipo de neurodivergência, neurodesenvolvimento ou condição neurológica (própria ou do filho(a)). Ver a seção 3.",
           "Localização: país, estado/província, município e, no caso de fornecedores, endereços e coordenadas de filiais.",
           "Atividade na Plataforma: ofertas, resgates, avaliações, comentários, prescrições e listas.",
           "Dados técnicos: os necessários para operar a sessão e a segurança da conta."
@@ -127,7 +127,7 @@ export const legalPt: LegalBundle = {
       {
         "h": "3. Dados pessoais sensíveis",
         "p": [
-          "O tipo de neurodivergência ou condição é um dado pessoal sensível (relacionado à saúde). Só o tratamos com o seu consentimento expresso, concedido ao aceitar este Aviso durante o cadastro, e com a finalidade de oferecer um diretório e recomendações pertinentes. Você pode retirar o consentimento a qualquer momento (ver seção 8)."
+          "O tipo de neurodivergência, neurodesenvolvimento ou condição neurológica é um dado pessoal sensível (relacionado à saúde). Só o tratamos com o seu consentimento expresso, concedido ao aceitar este Aviso durante o cadastro, e com a finalidade de oferecer um diretório e recomendações pertinentes. Você pode retirar o consentimento a qualquer momento (ver seção 8)."
         ]
       },
       {
@@ -200,7 +200,7 @@ export const legalPt: LegalBundle = {
   },
   "manifesto": {
     "tagline": "Encontrar. Conectar. Crescer.",
-    "lead": "Vivemos em um mundo diverso, com mentes únicas e ritmos de desenvolvimento distintos. Por tempo demais, o caminho da neurodivergência e do neurodesenvolvimento foi percorrido a partir da fragmentação, da dispersão de informação e, muitas vezes, da solidão. Hoje decidimos mudar essa realidade.",
+    "lead": "Vivemos em um mundo diverso, com mentes únicas e ritmos de desenvolvimento distintos. Por tempo demais, o caminho do neurodesenvolvimento, da neurodivergência e das condições neurológicas foi percorrido a partir da fragmentação, da dispersão de informação e, muitas vezes, da solidão. Hoje decidimos mudar essa realidade.",
     "intro": [
       "Nasce a Comunidade Neuromundi. Não somos um simples diretório; somos um movimento global, um ecossistema vivo de apoio, orientação e acompanhamento genuíno. Somos o primeiro ponto de encontro onde convergem pacientes, famílias, especialistas, educadores e prestadores de serviços, unidos por uma mesma visão.",
       "Na Neuromundi, declaramos e defendemos os seguintes princípios fundamentais:"
