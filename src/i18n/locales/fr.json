@@ -133,7 +133,7 @@
       "placeholder": "Spécialité, condition, service ou nom",
       "allCategories": "Toutes les catégories",
       "button": "Rechercher",
-      "free": "L’inscription est gratuite pour les familles et les personnes neurodivergentes."
+      "free": "L'inscription est gratuite pour les familles et les personnes."
     },
     "country": {
       "label": "Depuis quel pays nous visitez-vous ?",
@@ -144,7 +144,7 @@
       "search": "Cherchez votre pays",
       "noMatch": "Aucun résultat"
     },
-    "heroAlt": "Communauté de familles, de personnes neurodivergentes et de spécialistes du neurodéveloppement",
+    "heroAlt": "Communauté de familles, de personnes et de spécialistes du neurodéveloppement, de la neurodivergence et des affections neurologiques",
     "donors": {
       "badge": "Gratitude",
       "title": "Découvrez nos donateurs",
@@ -1021,7 +1021,7 @@
     "errTerms": "Vous devez accepter les Conditions Générales et l'Avis de Confidentialité pour continuer",
     "dialCode": "Indicatif pays",
     "freeTitle": "Votre accès est gratuit",
-    "freeNotice": "Chez Neuromundi, les familles et les personnes neurodivergentes ne paient pas. Un accompagnement de qualité est un droit, pas un privilège : votre place dans la communauté est gratuite, pour toujours.",
+    "freeNotice": "Chez Neuromundi, les familles et les personnes ne paient pas. Nous croyons qu'un accompagnement de qualité est un droit, pas un privilège : votre place dans la communauté est gratuite, pour toujours.",
     "socialOptional": "Site web et réseaux sociaux (facultatif)",
     "website": "Site web",
     "instagram": "Instagram",
@@ -1664,7 +1664,7 @@
   },
   "lms": {
     "title": "Neuromundi Academy",
-    "subtitle": "Apprenez sur la neurodivergence avec des spécialistes. Cours pour familles et professionnels.",
+    "subtitle": "Apprenez le neurodéveloppement, la neurodivergence et les affections neurologiques avec des spécialistes. Des cours pour les familles et les professionnels.",
     "empty": "Cours bientôt disponibles.",
     "enroll": "S'inscrire",
     "enrolled": "Inscrit",
@@ -1842,7 +1842,7 @@
   "signup": {
     "banner": {
       "title": "Créez votre compte gratuit",
-      "body": "Enregistrez des favoris, prenez rendez-vous et recevez des recommandations. L’inscription est gratuite pour les familles et les personnes neurodivergentes.",
+      "body": "Enregistrez vos favoris, prenez rendez-vous et recevez des recommandations. L'inscription est gratuite pour les familles et les personnes.",
       "cta": "Créer un compte"
     }
   },
@@ -1900,7 +1900,7 @@
   "expert": {
     "hero": {
       "title": "Posez une question à un expert",
-      "subtitle": "Obtenez des réponses sur le neurodéveloppement et la neurodivergence.",
+      "subtitle": "Trouvez des réponses sur le neurodéveloppement, la neurodivergence et les affections neurologiques.",
       "b1": "Réponse fiable et de qualité",
       "b2": "Nous répondons par e-mail",
       "b3": "Gratuitement"
@@ -2580,7 +2580,7 @@
     "chooseProfile": "Choisissez votre profil",
     "close": "Fermer",
     "cta": "Je veux être Fondateur",
-    "intro": "Neuromundi naît comme un mouvement mondial de soutien à la neurodivergence. Rejoindre à ce stade initial laisse une empreinte : vous aidez à bâtir la communauté dès son origine et obtenez une reconnaissance que seuls les premiers auront.",
+    "intro": "Neuromundi naît comme un mouvement mondial de soutien au neurodéveloppement, à la neurodivergence et aux affections neurologiques. Rejoindre à ce stade initial laisse une empreinte : vous aidez à construire la communauté dès son origine et recevez des distinctions réservées à celles et ceux présents au début.",
     "kicker": "Communauté fondatrice",
     "later": "Peut-être plus tard",
     "persuasive": "Consultez les avantages et conditions pour votre profil. Les places de fondateur sont limitées par pays.",
@@ -3424,7 +3424,7 @@
   "donate": {
     "badge": "Soutenez l'inclusion",
     "title": "Faire un don à Neuromundi",
-    "subtitle": "Votre don soutient et fait grandir une communauté d'entraide pour la neurodivergence et le neurodéveloppement.",
+    "subtitle": "Votre contribution soutient et fait grandir une communauté d'entraide pour le neurodéveloppement, la neurodivergence et les affections neurologiques.",
     "currency": {
       "label": "Devise"
     },

@@ -170,7 +170,7 @@
       "placeholder": "Especialidad, padecimiento, servicio o nombre",
       "allCategories": "Todas las categorías",
       "button": "Buscar",
-      "free": "El registro de familias y personas neurodivergentes es gratuito."
+      "free": "El registro de familias y personas es gratuito."
     },
     "country": {
       "label": "¿Desde qué país nos visitas?",
@@ -181,7 +181,7 @@
       "search": "Busca tu país",
       "noMatch": "Sin resultados"
     },
-    "heroAlt": "Comunidad de familias, personas neurodivergentes y especialistas en neurodesarrollo",
+    "heroAlt": "Comunidad de familias, personas y especialistas en neurodesarrollo, neurodivergencia y afecciones neurológicas",
     "donors": {
       "badge": "Gratitud",
       "title": "Conoce a nuestros donantes",
@@ -1058,7 +1058,7 @@
     "errTerms": "Debes aceptar los Términos y Condiciones y el Aviso de Privacidad para continuar",
     "dialCode": "Código de país",
     "freeTitle": "Tu acceso es gratuito",
-    "freeNotice": "En Neuromundi, las familias y las personas neurodivergentes no pagan. Creemos que el acompañamiento de calidad es un derecho, no un privilegio: tu lugar en la comunidad es gratuito, para siempre.",
+    "freeNotice": "En Neuromundi, las familias y las personas no pagan. Creemos que el acompañamiento de calidad es un derecho, no un privilegio: tu lugar en la comunidad es gratuito, para siempre.",
     "socialOptional": "Sitio web y redes sociales (opcional)",
     "website": "Sitio web",
     "instagram": "Instagram",
@@ -1701,7 +1701,7 @@
   },
   "lms": {
     "title": "Neuromundi Academy",
-    "subtitle": "Aprende sobre neurodivergencia con especialistas. Cursos para familias y profesionales.",
+    "subtitle": "Aprende sobre neurodesarrollo, neurodivergencia y afecciones neurológicas con especialistas. Cursos para familias y profesionales.",
     "empty": "Pronto habrá cursos disponibles.",
     "enroll": "Inscribirme",
     "enrolled": "Inscrito",
@@ -1879,7 +1879,7 @@
   "signup": {
     "banner": {
       "title": "Crea tu cuenta gratuita",
-      "body": "Guarda favoritos, agenda citas y recibe recomendaciones. El registro de familias y personas neurodivergentes es gratuito.",
+      "body": "Guarda favoritos, agenda citas y recibe recomendaciones. El registro de familias y personas es gratuito.",
       "cta": "Crear cuenta"
     }
   },
@@ -1937,7 +1937,7 @@
   "expert": {
     "hero": {
       "title": "Pregunta a un experto",
-      "subtitle": "Resuelve tus dudas sobre neurodesarrollo y neurodivergencia.",
+      "subtitle": "Resuelve tus dudas sobre neurodesarrollo, neurodivergencia y afecciones neurológicas.",
       "b1": "Respuesta orientativa y de calidad",
       "b2": "Te respondemos por correo",
       "b3": "De forma gratuita"
@@ -2541,7 +2541,7 @@
   "founder": {
     "kicker": "Comunidad fundadora",
     "title": "¡Únete al Origen! Sé un Miembro Fundador de Neuromundi",
-    "intro": "Neuromundi nace como un movimiento global de apoyo a la neurodivergencia. Unirte en esta etapa inicial deja huella: ayudas a construir la comunidad desde su origen y recibes reconocimientos que solo tendrán quienes estuvieron al principio.",
+    "intro": "Neuromundi nace como un movimiento global de apoyo al neurodesarrollo, la neurodivergencia y las afecciones neurológicas. Unirte en esta etapa inicial deja huella: ayudas a construir la comunidad desde su origen y recibes reconocimientos que solo tendrán quienes estuvieron al principio.",
     "persuasive": "Consulta los beneficios y requisitos según tu perfil. Los cupos de fundador son limitados por país.",
     "chooseProfile": "Elige tu perfil",
     "tabs": {
@@ -3424,7 +3424,7 @@
   "donate": {
     "badge": "Impulsa la inclusión",
     "title": "Dona a Neuromundi",
-    "subtitle": "Tu aporte sostiene y hace crecer una comunidad de apoyo para la neurodivergencia y el neurodesarrollo.",
+    "subtitle": "Tu aporte sostiene y hace crecer una comunidad de apoyo para el neurodesarrollo, la neurodivergencia y las afecciones neurológicas.",
     "currency": {
       "label": "Moneda"
     },

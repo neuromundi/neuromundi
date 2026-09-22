@@ -133,7 +133,7 @@
       "placeholder": "Specialità, condizione, servizio o nome",
       "allCategories": "Tutte le categorie",
       "button": "Cerca",
-      "free": "La registrazione è gratuita per famiglie e persone neurodivergenti."
+      "free": "La registrazione è gratuita per famiglie e persone."
     },
     "country": {
       "label": "Da quale paese ci visiti?",
@@ -144,7 +144,7 @@
       "search": "Cerca il tuo Paese",
       "noMatch": "Nessun risultato"
     },
-    "heroAlt": "Comunità di famiglie, persone neurodivergenti e specialisti del neurosviluppo",
+    "heroAlt": "Comunità di famiglie, persone e specialisti in neurosviluppo, neurodivergenza e patologie neurologiche",
     "donors": {
       "badge": "Gratitudine",
       "title": "Scopri i nostri donatori",
@@ -1021,7 +1021,7 @@
     "errTerms": "Devi accettare i Termini e Condizioni e l'Informativa sulla Privacy per continuare",
     "dialCode": "Prefisso paese",
     "freeTitle": "Il tuo accesso è gratuito",
-    "freeNotice": "In Neuromundi, le famiglie e le persone neurodivergenti non pagano. Un supporto di qualità è un diritto, non un privilegio: il tuo posto nella comunità è gratuito, per sempre.",
+    "freeNotice": "In Neuromundi, le famiglie e le persone non pagano. Crediamo che un supporto di qualità sia un diritto, non un privilegio: il tuo posto nella comunità è gratuito, per sempre.",
     "socialOptional": "Sito web e social (facoltativo)",
     "website": "Sito web",
     "instagram": "Instagram",
@@ -1664,7 +1664,7 @@
   },
   "lms": {
     "title": "Neuromundi Academy",
-    "subtitle": "Impara sulla neurodivergenza con specialisti. Corsi per famiglie e professionisti.",
+    "subtitle": "Impara neurosviluppo, neurodivergenza e patologie neurologiche con specialisti. Corsi per famiglie e professionisti.",
     "empty": "Corsi in arrivo.",
     "enroll": "Iscriviti",
     "enrolled": "Iscritto",
@@ -1842,7 +1842,7 @@
   "signup": {
     "banner": {
       "title": "Crea il tuo account gratuito",
-      "body": "Salva preferiti, prenota appuntamenti e ricevi consigli. La registrazione è gratuita per famiglie e persone neurodivergenti.",
+      "body": "Salva preferiti, prenota appuntamenti e ricevi consigli. La registrazione è gratuita per famiglie e persone.",
       "cta": "Crea account"
     }
   },
@@ -1900,7 +1900,7 @@
   "expert": {
     "hero": {
       "title": "Chiedi a un esperto",
-      "subtitle": "Ricevi risposte su neurosviluppo e neurodivergenza.",
+      "subtitle": "Trova risposte su neurosviluppo, neurodivergenza e patologie neurologiche.",
       "b1": "Risposta affidabile e di qualità",
       "b2": "Rispondiamo via email",
       "b3": "Gratuitamente"
@@ -2580,7 +2580,7 @@
     "chooseProfile": "Scegli il tuo profilo",
     "close": "Chiudi",
     "cta": "Voglio essere Fondatore",
-    "intro": "Neuromundi nasce come movimento globale a sostegno della neurodivergenza. Unirti in questa fase iniziale lascia il segno: aiuti a costruire la comunità fin dall’origine e ottieni un riconoscimento che solo i primi avranno.",
+    "intro": "Neuromundi nasce come un movimento globale a sostegno del neurosviluppo, della neurodivergenza e delle patologie neurologiche. Unirti in questa fase iniziale lascia il segno: aiuti a costruire la comunità fin dall'origine e ricevi riconoscimenti riservati a chi c'era all'inizio.",
     "kicker": "Comunità fondatrice",
     "later": "Forse più tardi",
     "persuasive": "Consulta vantaggi e requisiti per il tuo profilo. I posti da fondatore sono limitati per Paese.",
@@ -3424,7 +3424,7 @@
   "donate": {
     "badge": "Sostieni l'inclusione",
     "title": "Dona a Neuromundi",
-    "subtitle": "Il tuo contributo sostiene e fa crescere una comunità di supporto per la neurodivergenza e il neurosviluppo.",
+    "subtitle": "Il tuo contributo sostiene e fa crescere una comunità di supporto per il neurosviluppo, la neurodivergenza e le patologie neurologiche.",
     "currency": {
       "label": "Valuta"
     },

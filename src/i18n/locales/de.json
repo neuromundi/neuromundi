@@ -133,7 +133,7 @@
       "placeholder": "Fachgebiet, Diagnose, Leistung oder Name",
       "allCategories": "Alle Kategorien",
       "button": "Suchen",
-      "free": "Die Registrierung ist für Familien und neurodivergente Menschen kostenlos."
+      "free": "Die Registrierung ist für Familien und Einzelpersonen kostenlos."
     },
     "country": {
       "label": "Aus welchem Land besuchen Sie uns?",
@@ -144,7 +144,7 @@
       "search": "Land suchen",
       "noMatch": "Keine Treffer"
     },
-    "heroAlt": "Gemeinschaft aus Familien, neurodivergenten Menschen und Fachleuten für Neuroentwicklung",
+    "heroAlt": "Gemeinschaft aus Familien, Menschen und Fachleuten für Neuroentwicklung, Neurodivergenz und neurologische Erkrankungen",
     "donors": {
       "badge": "Dankbarkeit",
       "title": "Lerne unsere Spender kennen",
@@ -1021,7 +1021,7 @@
     "errTerms": "Du musst die AGB und den Datenschutzhinweis akzeptieren, um fortzufahren",
     "dialCode": "Ländervorwahl",
     "freeTitle": "Dein Zugang ist kostenlos",
-    "freeNotice": "Bei Neuromundi zahlen Familien und neurodivergente Menschen nicht. Hochwertige Begleitung ist ein Recht, kein Privileg: Dein Platz in der Gemeinschaft ist für immer kostenlos.",
+    "freeNotice": "Bei Neuromundi zahlen Familien und Einzelpersonen nicht. Wir glauben, dass hochwertige Begleitung ein Recht ist, kein Privileg: Dein Platz in der Gemeinschaft ist kostenlos, für immer.",
     "socialOptional": "Website und soziale Netzwerke (optional)",
     "website": "Website",
     "instagram": "Instagram",
@@ -1664,7 +1664,7 @@
   },
   "lms": {
     "title": "Neuromundi Academy",
-    "subtitle": "Lerne über Neurodivergenz mit Fachleuten. Kurse für Familien und Fachkräfte.",
+    "subtitle": "Lerne mit Fachleuten über Neuroentwicklung, Neurodivergenz und neurologische Erkrankungen. Kurse für Familien und Fachkräfte.",
     "empty": "Kurse folgen in Kürze.",
     "enroll": "Einschreiben",
     "enrolled": "Eingeschrieben",
@@ -1842,7 +1842,7 @@
   "signup": {
     "banner": {
       "title": "Erstelle dein kostenloses Konto",
-      "body": "Favoriten speichern, Termine buchen und Empfehlungen erhalten. Die Registrierung ist für Familien und neurodivergente Menschen kostenlos.",
+      "body": "Favoriten speichern, Termine buchen und Empfehlungen erhalten. Die Registrierung ist für Familien und Einzelpersonen kostenlos.",
       "cta": "Konto erstellen"
     }
   },
@@ -1900,7 +1900,7 @@
   "expert": {
     "hero": {
       "title": "Experten fragen",
-      "subtitle": "Erhalte Antworten zu Neuroentwicklung und Neurodivergenz.",
+      "subtitle": "Klär deine Fragen zu Neuroentwicklung, Neurodivergenz und neurologischen Erkrankungen.",
       "b1": "Verlässliche, hochwertige Orientierung",
       "b2": "Wir antworten per E-Mail",
       "b3": "Kostenlos"
@@ -2580,7 +2580,7 @@
     "chooseProfile": "Wähle dein Profil",
     "close": "Schließen",
     "cta": "Ich möchte Gründer werden",
-    "intro": "Neuromundi entsteht als weltweite Bewegung zur Unterstützung von Neurodivergenz. Ein Beitritt in dieser frühen Phase hinterlässt Spuren: Du hilfst, die Community von Anfang an aufzubauen, und erhältst Anerkennung, die nur die Ersten haben.",
+    "intro": "Neuromundi entsteht als globale Bewegung zur Unterstützung von Neuroentwicklung, Neurodivergenz und neurologischen Erkrankungen. Ein Beitritt in dieser Anfangsphase hinterlässt Spuren: Du hilfst, die Gemeinschaft von Anfang an aufzubauen, und erhältst Auszeichnungen, die nur die Ersten bekommen.",
     "kicker": "Gründungscommunity",
     "later": "Vielleicht später",
     "persuasive": "Sieh dir die Vorteile und Voraussetzungen für dein Profil an. Die Gründerplätze pro Land sind begrenzt.",
@@ -3424,7 +3424,7 @@
   "donate": {
     "badge": "Inklusion fördern",
     "title": "An Neuromundi spenden",
-    "subtitle": "Deine Spende trägt und stärkt eine Unterstützungsgemeinschaft für Neurodivergenz und Neuroentwicklung.",
+    "subtitle": "Dein Beitrag trägt und vergrößert eine Unterstützungsgemeinschaft für Neuroentwicklung, Neurodivergenz und neurologische Erkrankungen.",
     "currency": {
       "label": "Währung"
     },

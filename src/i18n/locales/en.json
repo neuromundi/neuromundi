@@ -170,7 +170,7 @@
       "placeholder": "Specialty, condition, service or name",
       "allCategories": "All categories",
       "button": "Search",
-      "free": "Registration is free for families and neurodivergent people."
+      "free": "Registration is free for families and individuals."
     },
     "country": {
       "label": "Which country are you visiting from?",
@@ -181,7 +181,7 @@
       "search": "Search your country",
       "noMatch": "No matches"
     },
-    "heroAlt": "Community of families, neurodivergent people and neurodevelopment specialists",
+    "heroAlt": "Community of families, individuals and specialists in neurodevelopment, neurodivergence and neurological conditions",
     "donors": {
       "badge": "Gratitude",
       "title": "Meet our donors",
@@ -1058,7 +1058,7 @@
     "errTerms": "You must accept the Terms and Conditions and the Privacy Notice to continue",
     "dialCode": "Country code",
     "freeTitle": "Your access is free",
-    "freeNotice": "At Neuromundi, families and neurodivergent people don't pay. We believe quality support is a right, not a privilege: your place in the community is free, forever.",
+    "freeNotice": "At Neuromundi, families and individuals don't pay. We believe quality support is a right, not a privilege: your place in the community is free, forever.",
     "socialOptional": "Website and social media (optional)",
     "website": "Website",
     "instagram": "Instagram",
@@ -1701,7 +1701,7 @@
   },
   "lms": {
     "title": "Neuromundi Academy",
-    "subtitle": "Learn about neurodivergence with specialists. Courses for families and professionals.",
+    "subtitle": "Learn about neurodevelopment, neurodivergence and neurological conditions with specialists. Courses for families and professionals.",
     "empty": "Courses coming soon.",
     "enroll": "Enroll",
     "enrolled": "Enrolled",
@@ -1879,7 +1879,7 @@
   "signup": {
     "banner": {
       "title": "Create your free account",
-      "body": "Save favorites, book appointments and get recommendations. Registration is free for families and neurodivergent people.",
+      "body": "Save favorites, book appointments and get recommendations. Registration is free for families and individuals.",
       "cta": "Create account"
     }
   },
@@ -1937,7 +1937,7 @@
   "expert": {
     "hero": {
       "title": "Ask an expert",
-      "subtitle": "Get answers about neurodevelopment and neurodivergence.",
+      "subtitle": "Get answers about neurodevelopment, neurodivergence and neurological conditions.",
       "b1": "Reliable, quality guidance",
       "b2": "We reply by email",
       "b3": "Free of charge"
@@ -2541,7 +2541,7 @@
   "founder": {
     "kicker": "Founding community",
     "title": "Join the Origin! Become a Neuromundi Founding Member",
-    "intro": "Neuromundi is born as a global movement supporting neurodivergence. Joining at this early stage leaves a mark: you help build the community from its origin and earn recognition only the first ones will have.",
+    "intro": "Neuromundi is born as a global movement supporting neurodevelopment, neurodivergence and neurological conditions. Joining at this early stage leaves a mark: you help build the community from its origin and receive recognitions only for those who were there at the start.",
     "persuasive": "Check the benefits and requirements for your profile. Founder spots are limited per country.",
     "chooseProfile": "Choose your profile",
     "tabs": {
@@ -3424,7 +3424,7 @@
   "donate": {
     "badge": "Fuel inclusion",
     "title": "Donate to Neuromundi",
-    "subtitle": "Your gift sustains and grows a support community for neurodivergence and neurodevelopment.",
+    "subtitle": "Your contribution sustains and grows a support community for neurodevelopment, neurodivergence and neurological conditions.",
     "currency": {
       "label": "Currency"
     },
