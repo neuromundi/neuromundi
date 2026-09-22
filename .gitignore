@@ -38,3 +38,12 @@ dist-app/
 
 # Cualquier archivo de variables, no solo el llamado .env
 *.env
+
+# Datos operativos y scratch
+Claude outputs/
+marketing/video/ssml/
+*.csv
+residencias_*.json
+sector62_clases.json
+avance_residencias.json
+PARCHE-*.md
