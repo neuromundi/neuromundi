@@ -103,6 +103,7 @@ export function KProviderRegister({ typeKey, onSuccess, complete = false }: { ty
     const miss: string[] = [];
     if (name.trim().length < 2) miss.push(t('reg.miss.institution'));
     if (picked.includes('otro') && !otherOffering.trim()) miss.push(t('reg.miss.otherSpecify'));
+    if (!country) miss.push(t('reg.miss.country'));
     if (!complete) {
       if (!email.trim()) miss.push(t('reg.miss.email'));
       if (email.trim() && !isStrictEmail(email)) miss.push(t('reg.miss.emailValid'));

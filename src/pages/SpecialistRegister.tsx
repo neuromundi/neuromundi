@@ -122,6 +122,7 @@ export function SpecialistRegister({ onSuccess, complete = false }: { onSuccess?
     if (areas.includes('otro') && !areaOther.trim()) miss.push(t('reg.miss.otherSpecify'));
     // En modo "completar" (login social) NO se piden email ni contraseña: la
     // cuenta ya existe.
+    if (!country) miss.push(t('reg.miss.country'));
     if (!complete) {
       if (!email.trim()) miss.push(t('reg.miss.email'));
       if (email.trim() && !isStrictEmail(email)) miss.push(t('reg.miss.emailValid'));

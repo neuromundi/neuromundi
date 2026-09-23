@@ -1092,7 +1092,9 @@
       "emailValid": "格式有效的电子邮箱",
       "emailMatch": "两次输入的邮箱必须一致",
       "otherSpecify": "选择\"其他\"时请填写具体内容。",
-      "passwordWeak": "密码至少8个字符，且需包含小写字母、大写字母、数字和符号各一个。"
+      "passwordWeak": "密码至少8个字符，且需包含小写字母、大写字母、数字和符号各一个。",
+      "emailTaken": "该邮箱已注册账户。请登录或使用其他邮箱。",
+      "country": "请选择你的国家（决定你的支付币种）。"
     },
     "errManifesto": "你必须接受社区宣言。",
     "acceptManifestoPre": "我已阅读并认同",

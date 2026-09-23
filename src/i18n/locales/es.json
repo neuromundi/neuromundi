@@ -1129,7 +1129,9 @@
       "emailValid": "Correo electrónico con formato válido",
       "emailMatch": "Los correos electrónicos deben coincidir",
       "otherSpecify": "Especifica el motivo cuando eliges \"Otro\".",
-      "passwordWeak": "La contraseña debe tener al menos 8 caracteres e incluir minúscula, mayúscula, número y símbolo."
+      "passwordWeak": "La contraseña debe tener al menos 8 caracteres e incluir minúscula, mayúscula, número y símbolo.",
+      "emailTaken": "Este correo ya tiene una cuenta. Inicia sesión o usa otro correo.",
+      "country": "Selecciona tu país (define la moneda de tu pago)."
     },
     "errManifesto": "Debes aceptar el Manifiesto de la Comunidad.",
     "acceptManifestoPre": "He leído y me adhiero al",

@@ -110,6 +110,7 @@ export function SchoolRegister({ onSuccess, complete = false }: { onSuccess?: ()
     if (name.trim().length < 2) miss.push(t('reg.miss.institution'));
     if (models.includes('otro') && !modelOther.trim()) miss.push(t('reg.miss.otherSpecify'));
     if (services.includes('otro') && !serviceOther.trim()) miss.push(t('reg.miss.otherSpecify'));
+    if (!country) miss.push(t('reg.miss.country'));
     if (!complete) {
       if (!email.trim()) miss.push(t('reg.miss.email'));
       if (email.trim() && !isStrictEmail(email)) miss.push(t('reg.miss.emailValid'));

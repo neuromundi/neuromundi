@@ -210,6 +210,10 @@ export function toMessage(error: unknown, fallback = 'Algo no salió bien.'): st
     if (/password should be at least/i.test(raw)) {
       return i18next.t('val.passwordMin');
     }
+    // Correo ya registrado: un correo = una sola cuenta (índice único de Auth).
+    if (/already.*regist/i.test(raw) || /user_already_exists/i.test(raw) || /email.*already.*(exist|regist)/i.test(raw)) {
+      return i18next.t('reg.miss.emailTaken');
+    }
   }
   if (error instanceof Error) return error.message;
   if (typeof error === 'string') return error;

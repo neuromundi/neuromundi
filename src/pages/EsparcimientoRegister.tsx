@@ -85,6 +85,7 @@ export function EsparcimientoRegister({ onSuccess, complete = false }: { onSucce
     const miss: string[] = [];
     if (name.trim().length < 2) miss.push(t('esp.miss.name'));
     if (contactEmail.trim() && !isStrictEmail(contactEmail)) miss.push(t('reg.miss.emailValid'));
+    if (!country) miss.push(t('reg.miss.country'));
     if (!complete) {
       if (!email.trim()) miss.push(t('reg.miss.email'));
       if (email.trim() && !isStrictEmail(email)) miss.push(t('reg.miss.emailValid'));

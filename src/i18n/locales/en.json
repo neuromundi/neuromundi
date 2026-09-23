@@ -1129,7 +1129,9 @@
       "emailValid": "A valid email format",
       "emailMatch": "Emails must match",
       "otherSpecify": "Please specify when you choose \"Other\".",
-      "passwordWeak": "Password must be at least 8 characters and include a lowercase letter, an uppercase letter, a number and a symbol."
+      "passwordWeak": "Password must be at least 8 characters and include a lowercase letter, an uppercase letter, a number and a symbol.",
+      "emailTaken": "This email already has an account. Sign in or use a different email.",
+      "country": "Select your country (it sets your payment currency)."
     },
     "errManifesto": "You must accept the Community Manifesto.",
     "acceptManifestoPre": "I have read and adhere to the",

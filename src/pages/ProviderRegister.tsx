@@ -115,6 +115,7 @@ export function ProviderRegister({ onSuccess, complete = false }: { onSuccess?: 
     if (brand.trim().length < 2) miss.push(t('reg.miss.brand'));
     if (categories.length === 0) miss.push(t('reg.miss.category'));
     if (categories.includes('otro') && !categoryOther.trim()) miss.push(t('reg.miss.otherSpecify'));
+    if (!country) miss.push(t('reg.miss.country'));
     if (!complete) {
       if (!email.trim()) miss.push(t('reg.miss.email'));
       if (email.trim() && !isStrictEmail(email)) miss.push(t('reg.miss.emailValid'));

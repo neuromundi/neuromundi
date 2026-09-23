@@ -1092,7 +1092,9 @@
       "emailValid": "Un’e-mail in formato valido",
       "emailMatch": "Le e-mail devono coincidere",
       "otherSpecify": "Specifica quando scegli \"Altro\".",
-      "passwordWeak": "La password deve contenere almeno 8 caratteri e includere una minuscola, una maiuscola, un numero e un simbolo."
+      "passwordWeak": "La password deve contenere almeno 8 caratteri e includere una minuscola, una maiuscola, un numero e un simbolo.",
+      "emailTaken": "Questa email ha già un account. Accedi o usa un'altra email.",
+      "country": "Seleziona il tuo paese (definisce la valuta del pagamento)."
     },
     "errManifesto": "Devi accettare il Manifesto della comunità.",
     "acceptManifestoPre": "Ho letto e aderisco al",

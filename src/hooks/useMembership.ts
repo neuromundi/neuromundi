@@ -147,7 +147,19 @@ export function useMembership() {
       const { data, error } = await supabase.functions.invoke('create-membership-checkout', {
         body: { period },
       });
-      if (error) throw error;
+      if (error) {
+        // supabase-js pone el motivo real en error.context (Response); sin leerlo
+        // solo se ve "Edge Function returned a non-2xx status code".
+        let detail = '';
+        try {
+          const ctx = (error as { context?: Response }).context;
+          if (ctx && typeof ctx.json === 'function') {
+            const body = await ctx.json();
+            detail = (body as { error?: string })?.error ?? '';
+          }
+        } catch { /* ignore */ }
+        throw new Error(detail || (error as Error).message);
+      }
       const url = (data as { url?: string })?.url;
       if (!url) throw new Error('Sin URL de pago');
       window.location.href = url;

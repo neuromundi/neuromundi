@@ -186,6 +186,7 @@ export function ClinicRegister({ onSuccess, complete = false }: { onSuccess?: ()
       if (categories.length === 0) m.push(t('reg.miss.category'));
     }
     if (step === 5) {
+      if (!country) m.push(t('reg.miss.country'));
       if (!complete) {
         if (!email.trim()) m.push(t('reg.miss.email'));
         if (email.trim() && !isStrictEmail(email)) m.push(t('reg.miss.emailValid'));
