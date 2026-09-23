@@ -40,7 +40,7 @@ export function notifCategory(type: string): NotifCategory {
     type === 'forum_mod_approved'
   )
     return 'comunidad';
-  if (type === 'commission_paid' || type === 'donation_thanks') return 'transacciones';
+  if (type === 'commission_paid' || type === 'donation_thanks' || type === 'membership_paid') return 'transacciones';
   if (type === 'campaign') return 'campanas';
   return 'otras';
 }
