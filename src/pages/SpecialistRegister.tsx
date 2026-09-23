@@ -219,6 +219,7 @@ export function SpecialistRegister({ onSuccess, complete = false }: { onSuccess?
     </div>
     <MembershipPrice
       boxed
+      className="mt-4"
       pending={!profession}
       pendingText={t('reg.price.specialistPending')}
       affiliate={profession ? (isMedicalProfession(profession) === true ? 'medical_specialist' : 'nonmedical_specialist') : undefined}

@@ -207,7 +207,7 @@ export function ProviderRegister({ onSuccess, complete = false }: { onSuccess?: 
         </p>
       )}
     </div>
-    <MembershipPrice boxed hideIfEmpty affiliate="merchant" />
+    <MembershipPrice boxed hideIfEmpty className="mt-4" affiliate="merchant" />
     {founderKind ? <FounderProgressCard kind={founderKind} country={country || null} /> : null}
     </>
   );

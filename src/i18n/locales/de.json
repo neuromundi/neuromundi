@@ -125,15 +125,15 @@
     },
     "about": {
       "title": "Was ist Neuromundi?",
-      "body1": "Neuromundi ist die weltweit erste Plattform, die auf Neuroentwicklung, Neurodivergenz und neurologische Erkrankungen spezialisiert ist: Community und Marktplatz an einem Ort. Wir verbinden Familien und Menschen mit Fachleuten, inklusiven Unternehmen und Schulen – mit einem Verzeichnis geprüfter Fachkräfte, einem Shop für Produkte und Ressourcen und einer Akademie mit Kursen.",
-      "body2": "Familien und Einzelpersonen registrieren sich und nutzen die Plattform kostenlos. Der Zweck von Neuromundi ist es, den Zugang zu hochwertiger Begleitung zu erleichtern – mit echten Bewertungen, verlässlichen Informationen und sicheren Tools, alles an einem Ort.",
+      "body1": "Neuromundi ist die weltweit erste Plattform, die auf Neuroentwicklung, Neurodivergenz und neurologische Erkrankungen spezialisiert ist: Community und Marktplatz an einem Ort. Wir verbinden Familien und Patienten mit Fachleuten, inklusiven Unternehmen und Schulen – mit einem Verzeichnis geprüfter Fachkräfte, einem Shop für Produkte und Ressourcen und einer Akademie mit Kursen.",
+      "body2": "Familien und Patienten registrieren sich und nutzen die Plattform kostenlos. Der Zweck von Neuromundi ist es, den Zugang zu hochwertiger Begleitung zu erleichtern – mit echten Bewertungen, verlässlichen Informationen und sicheren Tools, alles an einem Ort.",
       "more": "Mehr erfahren"
     },
     "search": {
       "placeholder": "Fachgebiet, Diagnose, Leistung oder Name",
       "allCategories": "Alle Kategorien",
       "button": "Suchen",
-      "free": "Die Registrierung ist für Familien und Einzelpersonen kostenlos."
+      "free": "Die Registrierung ist für Familien und Patienten kostenlos."
     },
     "country": {
       "label": "Aus welchem Land besuchen Sie uns?",
@@ -144,7 +144,7 @@
       "search": "Land suchen",
       "noMatch": "Keine Treffer"
     },
-    "heroAlt": "Gemeinschaft aus Familien, Menschen und Fachleuten für Neuroentwicklung, Neurodivergenz und neurologische Erkrankungen",
+    "heroAlt": "Gemeinschaft aus Familien, Patienten und Fachleuten für Neuroentwicklung, Neurodivergenz und neurologische Erkrankungen",
     "donors": {
       "badge": "Dankbarkeit",
       "title": "Lerne unsere Spender kennen",
@@ -1022,7 +1022,7 @@
     "errTerms": "Du musst die AGB und den Datenschutzhinweis akzeptieren, um fortzufahren",
     "dialCode": "Ländervorwahl",
     "freeTitle": "Dein Zugang ist kostenlos",
-    "freeNotice": "Bei Neuromundi zahlen Familien und Einzelpersonen nicht. Wir glauben, dass hochwertige Begleitung ein Recht ist, kein Privileg: Dein Platz in der Gemeinschaft ist kostenlos, für immer.",
+    "freeNotice": "Bei Neuromundi zahlen Familien und Patienten nicht. Wir glauben, dass hochwertige Begleitung ein Recht ist, kein Privileg: Dein Platz in der Gemeinschaft ist kostenlos, für immer.",
     "socialOptional": "Website und soziale Netzwerke (optional)",
     "website": "Website",
     "instagram": "Instagram",
@@ -1856,7 +1856,7 @@
   "signup": {
     "banner": {
       "title": "Erstelle dein kostenloses Konto",
-      "body": "Favoriten speichern, Termine buchen und Empfehlungen erhalten. Die Registrierung ist für Familien und Einzelpersonen kostenlos.",
+      "body": "Favoriten speichern, Termine buchen und Empfehlungen erhalten. Die Registrierung ist für Familien und Patienten kostenlos.",
       "cta": "Konto erstellen"
     }
   },

@@ -30,16 +30,16 @@ type CardType = RegType | 'clinic' | KType | 'tourism' | 'company';
 const CARDS: { type: CardType; icon: typeof User; color: string; soon?: boolean }[] = [
   { type: 'patient', icon: User, color: 'from-emerald-500 to-teal-600' },
   { type: 'parent', icon: Users, color: 'from-sky-500 to-brand-600' },
+  { type: 'company', icon: Briefcase, color: 'from-slate-600 to-slate-800' },
   { type: 'service_provider', icon: Stethoscope, color: 'from-brand-600 to-indigo-600' },
   { type: 'clinic', icon: Building2, color: 'from-cyan-600 to-teal-700' },
   { type: 'merchant', icon: Store, color: 'from-fuchsia-600 to-purple-600' },
   { type: 'school', icon: School, color: 'from-amber-500 to-orange-600' },
-  { type: 'wellness', icon: HeartPulse, color: 'from-lime-500 to-emerald-600' },
-  { type: 'tourism', icon: Ticket, color: 'from-sky-500 to-cyan-600' },
-  { type: 'legal', icon: Scale, color: 'from-slate-600 to-slate-800' },
-  { type: 'ngo', icon: HeartHandshake, color: 'from-rose-500 to-pink-600' },
   { type: 'caregiver', icon: HandHeart, color: 'from-violet-500 to-purple-600' },
-  { type: 'company', icon: Briefcase, color: 'from-slate-600 to-slate-800' },
+  { type: 'wellness', icon: HeartPulse, color: 'from-lime-500 to-emerald-600' },
+  { type: 'legal', icon: Scale, color: 'from-slate-600 to-slate-800' },
+  { type: 'tourism', icon: Ticket, color: 'from-sky-500 to-cyan-600' },
+  { type: 'ngo', icon: HeartHandshake, color: 'from-rose-500 to-pink-600' },
 ];
 
 const K_SET = new Set<CardType>(['wellness', 'legal', 'ngo', 'caregiver']);

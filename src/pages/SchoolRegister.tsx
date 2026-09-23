@@ -206,7 +206,7 @@ export function SchoolRegister({ onSuccess, complete = false }: { onSuccess?: ()
         </p>
       )}
     </div>
-    <MembershipPrice boxed hideIfEmpty affiliate="school" />
+    <MembershipPrice boxed hideIfEmpty className="mt-4" affiliate="school" />
     {founderKind ? <FounderProgressCard kind={founderKind} country={country || null} /> : null}
     </>
   );

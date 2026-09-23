@@ -48,8 +48,37 @@ export function MembershipPrice({ type, affiliate, pending, pendingText, boxed, 
   const { t } = useTranslation();
   const { country } = useCountry();
   const [q, setQ] = useState<Quote | null>(null);
+  // Miembro ya afiliado: si su cuota está cubierta y falta > 30 días para el
+  // vencimiento, ocultamos el costo (no tiene sentido mostrarlo). Reaparece en
+  // la ventana de renovación (30 días antes de vencer) o si NO está cubierto.
+  const [hideForMember, setHideForMember] = useState(false);
   const free = !!type && FREE.has(type);
   const pType = affiliate ?? (type ? (TYPE_MAP[type] ?? type) : null);
+
+  useEffect(() => {
+    let alive = true;
+    (async () => {
+      const { data: sess } = await supabase.auth.getSession();
+      const uid = sess?.session?.user?.id;
+      if (!uid) { if (alive) setHideForMember(false); return; }
+      const { data } = await (supabase as unknown as {
+        from: (t: string) => { select: (c: string) => { eq: (k: string, v: string) => { maybeSingle: () => Promise<{ data: { membership_status?: string; membership_paid_until?: string | null; membership_period?: string | null } | null }> } } };
+      }).from('profiles').select('membership_status, membership_paid_until, membership_period').eq('id', uid).maybeSingle();
+      if (!alive) return;
+      const status = data?.membership_status;
+      const paidUntil = data?.membership_paid_until;
+      const period = data?.membership_period;
+      const covered = status === 'active' || status === 'exempt';
+      // Mensual cubierto → ocultar siempre. Anual (o desconocido) → ocultar
+      // salvo en la ventana de renovación (30 días antes de vencer).
+      let renewSoon = false;
+      if (covered && period !== 'monthly' && paidUntil) {
+        renewSoon = (new Date(paidUntil).getTime() - Date.now()) <= 30 * 864e5;
+      }
+      setHideForMember(covered && !renewSoon);
+    })();
+    return () => { alive = false; };
+  }, []);
 
   useEffect(() => {
     if (free || pending || !pType || !country) { setQ(null); return; }
@@ -85,6 +114,9 @@ export function MembershipPrice({ type, affiliate, pending, pendingText, boxed, 
       </>
     );
   }
+
+  // Miembro con cuota cubierta (fuera de la ventana de renovación): nada.
+  if (hideForMember) return null;
 
   // Contenido según el estado.
   let inner: JSX.Element | null = null;

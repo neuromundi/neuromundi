@@ -162,15 +162,15 @@
     },
     "about": {
       "title": "¿Qué es Neuromundi?",
-      "body1": "Neuromundi es la primera plataforma mundial especializada en neurodesarrollo, neurodivergencia y afecciones neurológicas: comunidad y marketplace en un mismo lugar. Conectamos a familias y personas con especialistas, comercios y escuelas inclusivas, con un directorio de profesionales validados, una tienda de productos y recursos, y una academia con cursos.",
-      "body2": "Las familias y las personas se registran y usan la plataforma sin costo. El propósito de Neuromundi es facilitar el acceso a acompañamiento de calidad, con reseñas reales, información confiable y herramientas seguras, en un mismo lugar.",
+      "body1": "Neuromundi es la primera plataforma mundial especializada en neurodesarrollo, neurodivergencia y afecciones neurológicas: comunidad y marketplace en un mismo lugar. Conectamos a familias y pacientes con especialistas, comercios y escuelas inclusivas, con un directorio de profesionales validados, una tienda de productos y recursos, y una academia con cursos.",
+      "body2": "Las familias y los pacientes se registran y usan la plataforma sin costo. El propósito de Neuromundi es facilitar el acceso a acompañamiento de calidad, con reseñas reales, información confiable y herramientas seguras, en un mismo lugar.",
       "more": "Conozca más"
     },
     "search": {
       "placeholder": "Especialidad, padecimiento, servicio o nombre",
       "allCategories": "Todas las categorías",
       "button": "Buscar",
-      "free": "El registro de familias y personas es gratuito."
+      "free": "El registro de familias y pacientes es gratuito."
     },
     "country": {
       "label": "¿Desde qué país nos visitas?",
@@ -181,7 +181,7 @@
       "search": "Busca tu país",
       "noMatch": "Sin resultados"
     },
-    "heroAlt": "Comunidad de familias, personas y especialistas en neurodesarrollo, neurodivergencia y afecciones neurológicas",
+    "heroAlt": "Comunidad de familias, pacientes y especialistas en neurodesarrollo, neurodivergencia y afecciones neurológicas",
     "donors": {
       "badge": "Gratitud",
       "title": "Conoce a nuestros donantes",
@@ -1059,7 +1059,7 @@
     "errTerms": "Debes aceptar los Términos y Condiciones y el Aviso de Privacidad para continuar",
     "dialCode": "Código de país",
     "freeTitle": "Tu acceso es gratuito",
-    "freeNotice": "En Neuromundi, las familias y las personas no pagan. Creemos que el acompañamiento de calidad es un derecho, no un privilegio: tu lugar en la comunidad es gratuito, para siempre.",
+    "freeNotice": "En Neuromundi, las familias y los pacientes no pagan. Creemos que el acompañamiento de calidad es un derecho, no un privilegio: tu lugar en la comunidad es gratuito, para siempre.",
     "socialOptional": "Sitio web y redes sociales (opcional)",
     "website": "Sitio web",
     "instagram": "Instagram",
@@ -1893,7 +1893,7 @@
   "signup": {
     "banner": {
       "title": "Crea tu cuenta gratuita",
-      "body": "Guarda favoritos, agenda citas y recibe recomendaciones. El registro de familias y personas es gratuito.",
+      "body": "Guarda favoritos, agenda citas y recibe recomendaciones. El registro de familias y pacientes es gratuito.",
       "cta": "Crear cuenta"
     }
   },

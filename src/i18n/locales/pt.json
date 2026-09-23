@@ -125,15 +125,15 @@
     },
     "about": {
       "title": "O que é o Neuromundi?",
-      "body1": "A Neuromundi é a primeira plataforma mundial especializada em neurodesenvolvimento, neurodivergência e condições neurológicas: comunidade e marketplace num só lugar. Conectamos famílias e pessoas a especialistas, comércios e escolas inclusivas, com um diretório de profissionais verificados, uma loja de produtos e recursos e uma academia com cursos.",
-      "body2": "As famílias e as pessoas se cadastram e usam a plataforma sem custo. O propósito da Neuromundi é facilitar o acesso a acompanhamento de qualidade, com avaliações reais, informação confiável e ferramentas seguras, num só lugar.",
+      "body1": "A Neuromundi é a primeira plataforma mundial especializada em neurodesenvolvimento, neurodivergência e condições neurológicas: comunidade e marketplace num só lugar. Conectamos famílias e pacientes a especialistas, comércios e escolas inclusivas, com um diretório de profissionais verificados, uma loja de produtos e recursos e uma academia com cursos.",
+      "body2": "As famílias e os pacientes se cadastram e usam a plataforma sem custo. O propósito da Neuromundi é facilitar o acesso a acompanhamento de qualidade, com avaliações reais, informação confiável e ferramentas seguras, num só lugar.",
       "more": "Saiba mais"
     },
     "search": {
       "placeholder": "Especialidade, condição, serviço ou nome",
       "allCategories": "Todas as categorias",
       "button": "Buscar",
-      "free": "O cadastro é gratuito para famílias e pessoas."
+      "free": "O cadastro é gratuito para famílias e pacientes."
     },
     "country": {
       "label": "De qual país você nos visita?",
@@ -144,7 +144,7 @@
       "search": "Busque seu país",
       "noMatch": "Sem resultados"
     },
-    "heroAlt": "Comunidade de famílias, pessoas e especialistas em neurodesenvolvimento, neurodivergência e condições neurológicas",
+    "heroAlt": "Comunidade de famílias, pacientes e especialistas em neurodesenvolvimento, neurodivergência e condições neurológicas",
     "donors": {
       "badge": "Gratidão",
       "title": "Conheça nossos doadores",
@@ -1022,7 +1022,7 @@
     "errTerms": "Você deve aceitar os Termos e Condições e o Aviso de Privacidade para continuar",
     "dialCode": "Código do país",
     "freeTitle": "Seu acesso é gratuito",
-    "freeNotice": "Na Neuromundi, as famílias e as pessoas não pagam. Acreditamos que o acompanhamento de qualidade é um direito, não um privilégio: o seu lugar na comunidade é gratuito, para sempre.",
+    "freeNotice": "Na Neuromundi, as famílias e os pacientes não pagam. Acreditamos que o acompanhamento de qualidade é um direito, não um privilégio: o seu lugar na comunidade é gratuito, para sempre.",
     "socialOptional": "Site e redes sociais (opcional)",
     "website": "Site",
     "instagram": "Instagram",
@@ -1856,7 +1856,7 @@
   "signup": {
     "banner": {
       "title": "Crie sua conta gratuita",
-      "body": "Salve favoritos, agende consultas e receba recomendações. O cadastro é gratuito para famílias e pessoas.",
+      "body": "Salve favoritos, agende consultas e receba recomendações. O cadastro é gratuito para famílias e pacientes.",
       "cta": "Criar conta"
     }
   },

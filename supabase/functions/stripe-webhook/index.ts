@@ -166,6 +166,7 @@ Deno.serve(async (req: Request) => {
               stripe_customer_id: typeof s.customer === 'string' ? s.customer : s.customer?.id,
               stripe_subscription_id: subId,
               membership_paid_until: paidUntil,
+              membership_period: s.metadata?.period === 'monthly' ? 'monthly' : 'annual',
             })
             .eq('id', userId);
           // El referente de este usuario gana su recompensa (si aplica).
@@ -212,11 +213,22 @@ Deno.serve(async (req: Request) => {
       case 'invoice.paid': {
         const inv = event.data.object as Stripe.Invoice;
         const customerId = typeof inv.customer === 'string' ? inv.customer : inv.customer?.id;
-        const paidUntil = toIso(inv.lines?.data?.[0]?.period?.end ?? null);
+        const invLine = inv.lines?.data?.[0];
+        const paidUntil = toIso(invLine?.period?.end ?? null);
+        // Periodicidad inferida del intervalo de la línea (≤ 45 días = mensual).
+        let invPeriod: 'monthly' | 'annual' | null = null;
+        const pStart = invLine?.period?.start, pEnd = invLine?.period?.end;
+        if (typeof pStart === 'number' && typeof pEnd === 'number') {
+          invPeriod = (pEnd - pStart) <= 45 * 86400 ? 'monthly' : 'annual';
+        }
         if (customerId) {
           await admin
             .from('profiles')
-            .update({ membership_status: 'active', membership_paid_until: paidUntil })
+            .update({
+              membership_status: 'active',
+              membership_paid_until: paidUntil,
+              ...(invPeriod ? { membership_period: invPeriod } : {}),
+            })
             .eq('stripe_customer_id', customerId);
 
           const { data: payer } = await admin

@@ -125,15 +125,15 @@
     },
     "about": {
       "title": "Che cos’è Neuromundi?",
-      "body1": "Neuromundi è la prima piattaforma al mondo specializzata in neurosviluppo, neurodivergenza e patologie neurologiche: comunità e marketplace in un unico luogo. Colleghiamo famiglie e persone con specialisti, attività e scuole inclusive, con un elenco di professionisti verificati, un negozio di prodotti e risorse e un'accademia con corsi.",
-      "body2": "Le famiglie e le persone si registrano e usano la piattaforma gratuitamente. Lo scopo di Neuromundi è facilitare l'accesso a un supporto di qualità, con recensioni reali, informazioni affidabili e strumenti sicuri, in un unico luogo.",
+      "body1": "Neuromundi è la prima piattaforma al mondo specializzata in neurosviluppo, neurodivergenza e patologie neurologiche: comunità e marketplace in un unico luogo. Colleghiamo famiglie e pazienti con specialisti, attività e scuole inclusive, con un elenco di professionisti verificati, un negozio di prodotti e risorse e un'accademia con corsi.",
+      "body2": "Le famiglie e i pazienti si registrano e usano la piattaforma gratuitamente. Lo scopo di Neuromundi è facilitare l'accesso a un supporto di qualità, con recensioni reali, informazioni affidabili e strumenti sicuri, in un unico luogo.",
       "more": "Scopri di più"
     },
     "search": {
       "placeholder": "Specialità, condizione, servizio o nome",
       "allCategories": "Tutte le categorie",
       "button": "Cerca",
-      "free": "La registrazione è gratuita per famiglie e persone."
+      "free": "La registrazione è gratuita per famiglie e pazienti."
     },
     "country": {
       "label": "Da quale paese ci visiti?",
@@ -144,7 +144,7 @@
       "search": "Cerca il tuo Paese",
       "noMatch": "Nessun risultato"
     },
-    "heroAlt": "Comunità di famiglie, persone e specialisti in neurosviluppo, neurodivergenza e patologie neurologiche",
+    "heroAlt": "Comunità di famiglie, pazienti e specialisti in neurosviluppo, neurodivergenza e patologie neurologiche",
     "donors": {
       "badge": "Gratitudine",
       "title": "Scopri i nostri donatori",
@@ -1022,7 +1022,7 @@
     "errTerms": "Devi accettare i Termini e Condizioni e l'Informativa sulla Privacy per continuare",
     "dialCode": "Prefisso paese",
     "freeTitle": "Il tuo accesso è gratuito",
-    "freeNotice": "In Neuromundi, le famiglie e le persone non pagano. Crediamo che un supporto di qualità sia un diritto, non un privilegio: il tuo posto nella comunità è gratuito, per sempre.",
+    "freeNotice": "In Neuromundi, le famiglie e i pazienti non pagano. Crediamo che un supporto di qualità sia un diritto, non un privilegio: il tuo posto nella comunità è gratuito, per sempre.",
     "socialOptional": "Sito web e social (facoltativo)",
     "website": "Sito web",
     "instagram": "Instagram",
@@ -1856,7 +1856,7 @@
   "signup": {
     "banner": {
       "title": "Crea il tuo account gratuito",
-      "body": "Salva preferiti, prenota appuntamenti e ricevi consigli. La registrazione è gratuita per famiglie e persone.",
+      "body": "Salva preferiti, prenota appuntamenti e ricevi consigli. La registrazione è gratuita per famiglie e pazienti.",
       "cta": "Crea account"
     }
   },

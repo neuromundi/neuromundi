@@ -193,7 +193,7 @@ export function KProviderRegister({ typeKey, onSuccess, complete = false }: { ty
         </p>
       )}
     </div>
-    <MembershipPrice boxed hideIfEmpty affiliate={typeKey} />
+    <MembershipPrice boxed hideIfEmpty className="mt-4" affiliate={typeKey} />
     {founderKind ? <FounderProgressCard kind={founderKind} country={country || null} /> : null}
     </>
   );

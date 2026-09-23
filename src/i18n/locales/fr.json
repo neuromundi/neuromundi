@@ -125,15 +125,15 @@
     },
     "about": {
       "title": "Qu’est-ce que Neuromundi ?",
-      "body1": "Neuromundi est la première plateforme mondiale spécialisée dans le neurodéveloppement, la neurodivergence et les affections neurologiques : communauté et marketplace au même endroit. Nous mettons en relation les familles et les personnes avec des spécialistes, des commerces et des écoles inclusives, avec un annuaire de professionnels vérifiés, une boutique de produits et de ressources, et une académie de cours.",
-      "body2": "Les familles et les personnes s'inscrivent et utilisent la plateforme gratuitement. La mission de Neuromundi est de faciliter l'accès à un accompagnement de qualité, avec de vrais avis, une information fiable et des outils sûrs, au même endroit.",
+      "body1": "Neuromundi est la première plateforme mondiale spécialisée dans le neurodéveloppement, la neurodivergence et les affections neurologiques : communauté et marketplace au même endroit. Nous mettons en relation les familles et les patients avec des spécialistes, des commerces et des écoles inclusives, avec un annuaire de professionnels vérifiés, une boutique de produits et de ressources, et une académie de cours.",
+      "body2": "Les familles et les patients s'inscrivent et utilisent la plateforme gratuitement. La mission de Neuromundi est de faciliter l'accès à un accompagnement de qualité, avec de vrais avis, une information fiable et des outils sûrs, au même endroit.",
       "more": "En savoir plus"
     },
     "search": {
       "placeholder": "Spécialité, condition, service ou nom",
       "allCategories": "Toutes les catégories",
       "button": "Rechercher",
-      "free": "L'inscription est gratuite pour les familles et les personnes."
+      "free": "L'inscription est gratuite pour les familles et les patients."
     },
     "country": {
       "label": "Depuis quel pays nous visitez-vous ?",
@@ -144,7 +144,7 @@
       "search": "Cherchez votre pays",
       "noMatch": "Aucun résultat"
     },
-    "heroAlt": "Communauté de familles, de personnes et de spécialistes du neurodéveloppement, de la neurodivergence et des affections neurologiques",
+    "heroAlt": "Communauté de familles, de patients et de spécialistes du neurodéveloppement, de la neurodivergence et des affections neurologiques",
     "donors": {
       "badge": "Gratitude",
       "title": "Découvrez nos donateurs",
@@ -1022,7 +1022,7 @@
     "errTerms": "Vous devez accepter les Conditions Générales et l'Avis de Confidentialité pour continuer",
     "dialCode": "Indicatif pays",
     "freeTitle": "Votre accès est gratuit",
-    "freeNotice": "Chez Neuromundi, les familles et les personnes ne paient pas. Nous croyons qu'un accompagnement de qualité est un droit, pas un privilège : votre place dans la communauté est gratuite, pour toujours.",
+    "freeNotice": "Chez Neuromundi, les familles et les patients ne paient pas. Nous croyons qu'un accompagnement de qualité est un droit, pas un privilège : votre place dans la communauté est gratuite, pour toujours.",
     "socialOptional": "Site web et réseaux sociaux (facultatif)",
     "website": "Site web",
     "instagram": "Instagram",
@@ -1856,7 +1856,7 @@
   "signup": {
     "banner": {
       "title": "Créez votre compte gratuit",
-      "body": "Enregistrez vos favoris, prenez rendez-vous et recevez des recommandations. L'inscription est gratuite pour les familles et les personnes.",
+      "body": "Enregistrez vos favoris, prenez rendez-vous et recevez des recommandations. L'inscription est gratuite pour les familles et les patients.",
       "cta": "Créer un compte"
     }
   },
