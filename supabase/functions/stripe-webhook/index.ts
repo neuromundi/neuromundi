@@ -176,6 +176,28 @@ Deno.serve(async (req: Request) => {
             .eq('id', userId);
           // El referente de este usuario gana su recompensa (si aplica).
           await applyReferralReward(admin, stripe, userId);
+          // Confirmación de pago: notifica al miembro (el trigger trg_notify_push
+          // dispara el push nativo) y avisa a los admins. Best-effort: nunca debe
+          // tumbar el webhook.
+          try {
+            const notifPeriod = s.metadata?.period === 'monthly' ? 'mensual' : 'anual';
+            const affType = s.metadata?.affiliate_type ?? '';
+            await admin.from('notifications').insert({
+              user_id: userId,
+              type: 'membership_paid',
+              title: '¡Tu membresía está activa!',
+              body: 'Recibimos tu pago. Tu perfil ya puede recibir consultas e interactuar con la comunidad.',
+              data: { period: s.metadata?.period ?? 'annual', affiliate_type: affType },
+            });
+            await admin.rpc('notify_admins', {
+              p_type: 'membership_paid',
+              p_title: 'Nueva membresía pagada',
+              p_body: `Un miembro activó su membresía (${notifPeriod}).`,
+              p_data: { user_id: userId, affiliate_type: affType, period: s.metadata?.period ?? 'annual' },
+            });
+          } catch (e) {
+            console.error('membership notify', e);
+          }
         }
         break;
       }
