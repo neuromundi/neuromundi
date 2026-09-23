@@ -133,6 +133,7 @@ function beneficios(r: Row): string {
   return `<ul style="margin:8px 0 0;padding:0;list-style:none;color:#334155;font-size:14px;line-height:1.5">${li}
     <li style="margin:6px 0">🎓&nbsp; Acceso <b>gratuito</b> al <b>curso de bienvenida</b> y al <b>kit de herramientas</b>.</li>
     <li style="margin:6px 0">🏆&nbsp; <b>Distintivo Fundador Neuromundi</b> para tu perfil, tu web y tus redes.</li>
+    <li style="margin:6px 0">📋&nbsp; Participa en la <b>primera encuesta internacional</b> de la comunidad y recibe sus resultados.</li>
   </ul>`;
 }
 
@@ -189,7 +190,7 @@ function buildEmail(r: Row): { subject: string; html: string } {
       <p>Hace unos días te escribimos sobre tu perfil en el directorio de Neuromundi. Si aquel mensaje daba a entender que había una cuota, <b>una disculpa</b>: para una organización como la tuya la membresía es <b>gratuita</b>.</p>
       <p>Al <b>completar tu perfil</b> obtienes:</p>
       ${beneficios(r)}
-      <p style="margin-top:12px">Y la <b>Insignia de Miembro Fundador</b>, con beneficios preferentes de por vida.</p>
+      <p style="margin-top:12px">Y la <b>Insignia de Miembro Fundador</b>, con <u>beneficios preferentes de por vida</u>.</p>
       ${tablaComparativa()}`;
     return { subject: `${nombre}: tu perfil en Neuromundi es gratuito — complétalo`, html: shell('Conviértete en Fundador Neuromundi', cuerpo, 'Quiero ser fundador', claim) };
   }
@@ -197,7 +198,7 @@ function buildEmail(r: Row): { subject: string; html: string } {
     const cuerpo = `<p>Hola, equipo de <b>${nombre}</b>:</p>
       <p>Hace unos días te invitamos a completar tu perfil en el directorio de Neuromundi. Por si se te pasó, aquí está de nuevo lo que obtienes al completarlo:</p>
       ${beneficios(r)}
-      <p style="margin-top:12px">Además, al completarlo ahora entras como <b>Miembro Fundador</b>, con beneficios preferentes de por vida.</p>
+      <p style="margin-top:12px">Además, al completarlo ahora entras como <b>Miembro Fundador</b>, con <u>beneficios preferentes de por vida</u>.</p>
       ${tablaComparativa()}`;
     return { subject: `${nombre}: te reservamos tu perfil en Neuromundi`, html: shell('Conviértete en Fundador Neuromundi', cuerpo, 'Quiero ser fundador', claim) };
   }
@@ -208,7 +209,7 @@ function buildEmail(r: Row): { subject: string; html: string } {
        <p>Tu ficha ya aparece en el <b>directorio público de Neuromundi</b>, la comunidad global de neurodesarrollo, neurodivergencia y afecciones neurológicas. Al <b>completar tu perfil</b> obtienes:</p>`;
   const cuerpo = `${intro}
     ${beneficios(r)}
-    <p style="margin-top:12px">Y si lo completas ahora, entras como <b>Miembro Fundador</b>, con beneficios preferentes de por vida.</p>
+    <p style="margin-top:12px">Y si lo completas ahora, entras como <b>Miembro Fundador</b>, con <u>beneficios preferentes de por vida</u>.</p>
     ${tablaComparativa()}`;
   return { subject: `${nombre}: conviértete en Fundador Neuromundi`, html: shell('Conviértete en Fundador Neuromundi', cuerpo, 'Quiero ser fundador', claim) };
 }
