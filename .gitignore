@@ -47,3 +47,6 @@ residencias_*.json
 sector62_clases.json
 avance_residencias.json
 PARCHE-*.md
+
+# Cache local de skills/plugins
+.claude/
