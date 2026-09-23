@@ -32,6 +32,8 @@ Deno.serve(async (req) => {
   const providerType = String(b?.provider_type || '');
   const country = String(b?.country || '');
   const memberNo = b?.member_no != null ? String(b.member_no) : '';
+  const source = String(b?.source || '');
+  const origen = source === 'claim' ? 'Reclamo por invitación (ficha del directorio)' : 'Registro directo';
 
   const tipo = providerType || role || '—';
   const folio = memberNo ? `NM-${String(memberNo).padStart(6, '0')}` : '—';
@@ -40,6 +42,7 @@ Deno.serve(async (req) => {
     <div style="border:1px solid #e2e8f0;border-top:0;border-radius:0 0 12px 12px;padding:18px">
       <h1 style="font-size:18px;margin:0 0 10px">Nuevo perfil creado</h1>
       <p style="margin:4px 0"><b>Nombre:</b> ${esc(name)}</p>
+      <p style="margin:4px 0"><b>Origen:</b> ${esc(origen)}</p>
       <p style="margin:4px 0"><b>Tipo:</b> ${esc(tipo)}</p>
       <p style="margin:4px 0"><b>País:</b> ${esc(country || '—')}</p>
       <p style="margin:4px 0"><b>Folio:</b> ${esc(folio)}</p>
@@ -50,7 +53,7 @@ Deno.serve(async (req) => {
   const r = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: { Authorization: `Bearer ${RESEND_API_KEY}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ from: FROM, to: [TO], subject: `Nuevo perfil: ${name} (${tipo})`, html }),
+    body: JSON.stringify({ from: FROM, to: [TO], subject: `${source === 'claim' ? 'Ficha reclamada' : 'Nuevo registro'}: ${name} (${tipo})`, html }),
   });
   return json(r.ok ? 200 : 502, { sent: r.ok });
 });
