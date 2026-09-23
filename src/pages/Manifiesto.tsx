@@ -47,9 +47,9 @@ export function Manifiesto() {
       </article>
 
       <footer className="mt-8 border-t border-slate-100 pt-4 text-sm text-muted">
-        <Link to="/terminos" className="hover:text-brand-700">{t('auth.terms')}</Link>
+        <Link to="/terms" className="hover:text-brand-700">{t('auth.terms')}</Link>
         <span className="mx-2">·</span>
-        <Link to="/privacidad" className="hover:text-brand-700">{t('auth.privacy')}</Link>
+        <Link to="/privacy" className="hover:text-brand-700">{t('auth.privacy')}</Link>
       </footer>
     </main>
   );

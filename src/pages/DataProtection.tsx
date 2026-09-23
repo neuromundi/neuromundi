@@ -92,9 +92,9 @@ export function DataProtection() {
           admin@neuromundi.com
         </a>
         <p className="mt-4 text-sm text-teal-100">
-          <Link to="/privacidad" className="underline">{t('auth.privacy')}</Link>
+          <Link to="/privacy" className="underline">{t('auth.privacy')}</Link>
           <span className="mx-2">·</span>
-          <Link to="/terminos" className="underline">{t('auth.terms')}</Link>
+          <Link to="/terms" className="underline">{t('auth.terms')}</Link>
         </p>
       </section>
     </div>

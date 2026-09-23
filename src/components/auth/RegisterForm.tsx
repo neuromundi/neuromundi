@@ -597,11 +597,11 @@ export function RegisterForm({ onSuccess, initialType, complete = false }: { onS
           />
           <span className="text-sm text-slate-700">
             {t('reg.acceptPre')}{' '}
-            <a href="/terminos" target="_blank" rel="noopener noreferrer" className="font-semibold text-brand-700 underline">
+            <a href="/terms" target="_blank" rel="noopener noreferrer" className="font-semibold text-brand-700 underline">
               {t('auth.terms')}
             </a>{' '}
             {t('reg.acceptMid')}{' '}
-            <a href="/privacidad" target="_blank" rel="noopener noreferrer" className="font-semibold text-brand-700 underline">
+            <a href="/privacy" target="_blank" rel="noopener noreferrer" className="font-semibold text-brand-700 underline">
               {t('auth.privacy')}
             </a>
             {t('reg.acceptPost')}

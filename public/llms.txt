@@ -24,6 +24,6 @@
 
 ## Legal
 
-- [Términos y condiciones](https://www.neuromundi.com/terminos)
-- [Aviso de privacidad](https://www.neuromundi.com/privacidad)
+- [Términos y condiciones](https://www.neuromundi.com/terms)
+- [Aviso de privacidad](https://www.neuromundi.com/privacy)
 - [Protección de datos](https://www.neuromundi.com/proteccion-datos)

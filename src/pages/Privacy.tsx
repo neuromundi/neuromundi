@@ -1,5 +1,5 @@
 /**
- * Privacy — Aviso de Privacidad. Ruta pública: /privacidad.
+ * Privacy — Aviso de Privacidad. Ruta pública: /privacy.
  * El contenido se toma de legalContent según el idioma activo.
  */
 import { useTranslation } from 'react-i18next';

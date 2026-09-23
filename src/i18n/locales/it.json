@@ -1168,7 +1168,11 @@
     "emptyMsg": "Scrivi un messaggio prima di inviare.",
     "sending": "Invio…",
     "sent": "Messaggio inviato! Grazie, ti contatteremo presto.",
-    "error": "Invio non riuscito. Proveremo tramite la tua app di posta."
+    "error": "Invio non riuscito. Proveremo tramite la tua app di posta.",
+    "pageTitle": "Supporto e aiuto",
+    "pageIntro": "Hai bisogno di aiuto con il tuo account, un pagamento o l’uso della piattaforma? Contattaci con uno di questi mezzi e ti risponderemo il prima possibile.",
+    "emailCta": "Scrivici via email",
+    "reportNote": "Puoi anche segnalare un problema con il pulsante di supporto flottante (in basso a destra) in qualsiasi pagina."
   },
   "info": {
     "title": "Scopri di più su Neuromundi",

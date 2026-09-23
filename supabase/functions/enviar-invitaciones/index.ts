@@ -66,7 +66,7 @@ function segmentOf(r: Row): 'nuevos' | 'ya_publico_social' | 'ya_privado' {
 function footerLegal(): string {
   return `<p style="color:#64748b;font-size:12px;margin-top:18px;line-height:1.5">
     Recibes este correo porque tu organización aparece en directorios públicos (como el DENUE del INEGI) relacionados con neurodesarrollo, neurodivergencia y afecciones neurológicas, y por eso figura en el directorio público de Neuromundi.
-    Tratamos tus datos conforme a nuestro <a href="${SITE}/privacidad" style="color:#0369a1">Aviso de Privacidad</a>. Puedes ejercer tus derechos ARCO (acceso, rectificación, cancelación u oposición) o pedir que retiremos tu ficha usando el enlace de arriba, o respondiendo a este correo.
+    Tratamos tus datos conforme a nuestro <a href="${SITE}/privacy" style="color:#0369a1">Aviso de Privacidad</a>. Puedes ejercer tus derechos ARCO (acceso, rectificación, cancelación u oposición) o pedir que retiremos tu ficha usando el enlace de arriba, o respondiendo a este correo.
     <br><br>Neuromundi · comunidad global de neurodesarrollo, neurodivergencia y afecciones neurológicas.
   </p>`;
 }

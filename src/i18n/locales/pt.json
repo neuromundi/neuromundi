@@ -1168,7 +1168,11 @@
     "emptyMsg": "Escreva uma mensagem antes de enviar.",
     "sending": "Enviando…",
     "sent": "Mensagem enviada! Obrigado, entraremos em contato em breve.",
-    "error": "Não foi possível enviar. Tentaremos pelo seu app de e-mail."
+    "error": "Não foi possível enviar. Tentaremos pelo seu app de e-mail.",
+    "pageTitle": "Suporte e ajuda",
+    "pageIntro": "Precisa de ajuda com sua conta, um pagamento ou o uso da plataforma? Fale conosco por qualquer um destes meios e responderemos o quanto antes.",
+    "emailCta": "Envie-nos um e-mail",
+    "reportNote": "Você também pode relatar um problema com o botão de suporte flutuante (canto inferior direito) em qualquer página."
   },
   "info": {
     "title": "Saber mais sobre o Neuromundi",

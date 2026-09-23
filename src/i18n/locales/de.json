@@ -1168,7 +1168,11 @@
     "emptyMsg": "Schreibe eine Nachricht, bevor du sendest.",
     "sending": "Senden…",
     "sent": "Nachricht gesendet! Danke, wir melden uns bald.",
-    "error": "Senden fehlgeschlagen. Wir versuchen es über deine E-Mail-App."
+    "error": "Senden fehlgeschlagen. Wir versuchen es über deine E-Mail-App.",
+    "pageTitle": "Support und Hilfe",
+    "pageIntro": "Brauchst du Hilfe mit deinem Konto, einer Zahlung oder der Nutzung der Plattform? Kontaktiere uns über einen dieser Wege und wir antworten so schnell wie möglich.",
+    "emailCta": "Schreib uns eine E-Mail",
+    "reportNote": "Du kannst ein Problem auch über die schwebende Support-Schaltfläche (unten rechts) auf jeder Seite melden."
   },
   "info": {
     "title": "Mehr über Neuromundi erfahren",

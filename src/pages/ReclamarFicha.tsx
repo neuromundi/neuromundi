@@ -319,7 +319,7 @@ export function ReclamarFicha() {
           {t('reclamar.termsPre')}{' '}
           <a className="text-brand-700 hover:underline" href="/reglamento">{t('reclamar.termsRules')}</a>{' '}
           {t('reclamar.termsAnd')}{' '}
-          <a className="text-brand-700 hover:underline" href="/privacidad">{t('reclamar.termsPrivacy')}</a>.{' '}
+          <a className="text-brand-700 hover:underline" href="/privacy">{t('reclamar.termsPrivacy')}</a>.{' '}
           {t('reclamar.termsRightsPre')}{' '}
           <a className="text-brand-700 hover:underline" href="/proteccion-datos">{t('reclamar.termsDataProtection')}</a>.
         </p>

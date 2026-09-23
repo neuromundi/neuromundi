@@ -1,5 +1,5 @@
 /**
- * Terms — Términos y Condiciones. Ruta pública: /terminos.
+ * Terms — Términos y Condiciones. Ruta pública: /terms.
  * El contenido se toma de legalContent según el idioma activo (navegador o
  * selector), por lo que cambia de idioma como el resto de la plataforma.
  */

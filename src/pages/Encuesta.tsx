@@ -177,7 +177,7 @@ export function Encuesta() {
 
       {/* Consentimiento */}
       <div className="mt-5 rounded-2xl border border-sky-200 bg-sky-50 p-4 text-sm leading-relaxed text-slate-700">
-        Algunas respuestas pueden considerarse <b>datos sensibles de salud</b>. Participar es voluntario y anónimo; usaremos los datos <b>solo de forma agregada</b> para publicar resultados y mejorar la comunidad, conforme a nuestro <a href="/privacidad" className="text-brand-700 underline">Aviso de Privacidad</a>.
+        Algunas respuestas pueden considerarse <b>datos sensibles de salud</b>. Participar es voluntario y anónimo; usaremos los datos <b>solo de forma agregada</b> para publicar resultados y mejorar la comunidad, conforme a nuestro <a href="/privacy" className="text-brand-700 underline">Aviso de Privacidad</a>.
         <label className="mt-3 flex items-start gap-2 font-semibold text-slate-900">
           <input type="checkbox" className="mt-1" checked={consent} onChange={(e) => setConsent(e.target.checked)} />
           He leído y acepto participar de forma anónima y voluntaria, y consiento el tratamiento agregado de mis respuestas.

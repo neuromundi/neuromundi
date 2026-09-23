@@ -28,7 +28,8 @@
   <url><loc>https://www.neuromundi.com/conocer-mas</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://www.neuromundi.com/manifiesto</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
   <url><loc>https://www.neuromundi.com/crear-cuenta</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://www.neuromundi.com/terminos</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
-  <url><loc>https://www.neuromundi.com/privacidad</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://www.neuromundi.com/terms</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://www.neuromundi.com/privacy</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://www.neuromundi.com/support</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
   <url><loc>https://www.neuromundi.com/proteccion-datos</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 </urlset>

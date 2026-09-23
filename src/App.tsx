@@ -55,6 +55,7 @@ const SharedList = lazy(() => import('@/pages/SharedList').then((m) => ({ defaul
 const ReclamarFicha = lazy(() => import('@/pages/ReclamarFicha').then((m) => ({ default: m.ReclamarFicha })));
 const Terms = lazy(() => import('@/pages/Terms').then((m) => ({ default: m.Terms })));
 const Privacy = lazy(() => import('@/pages/Privacy').then((m) => ({ default: m.Privacy })));
+const Support = lazy(() => import('@/pages/Support').then((m) => ({ default: m.Support })));
 const InfoNeuromundi = lazy(() =>
   import('@/pages/InfoNeuromundi').then((m) => ({ default: m.InfoNeuromundi })),
 );
@@ -97,8 +98,14 @@ const router = createBrowserRouter([
       { path: '/proveedor/:id', element: <DirectoryGate><ProviderProfile /></DirectoryGate> },
       { path: '/lista/:token', element: <SharedList /> },
       { path: '/reclamar/:token', element: <ReclamarFicha /> },
+      // Rutas en inglés (principal) + alias en español para no romper enlaces
+      // existentes (pie, correos, documentos legales) ni SEO ya indexado.
+      { path: '/terms', element: <Terms /> },
       { path: '/terminos', element: <Terms /> },
+      { path: '/privacy', element: <Privacy /> },
       { path: '/privacidad', element: <Privacy /> },
+      { path: '/support', element: <Support /> },
+      { path: '/soporte', element: <Support /> },
       { path: '/conocer-mas', element: <InfoNeuromundi /> },
       { path: '/reglamento', element: <Rules /> },
       { path: '/contenido/:id', element: <Post /> },

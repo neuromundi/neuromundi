@@ -585,9 +585,11 @@ export function AppLayout() {
         <span className="mx-2">·</span>
         <Link to="/proteccion-datos" className="hover:text-brand-700">{t('nav.dataProtection')}</Link>
         <span className="mx-2">·</span>
-        <Link to="/privacidad" className="hover:text-brand-700">{t('auth.privacy')}</Link>
+        <Link to="/privacy" className="hover:text-brand-700">{t('auth.privacy')}</Link>
         <span className="mx-2">·</span>
-        <Link to="/terminos" className="hover:text-brand-700">{t('auth.terms')}</Link>
+        <Link to="/terms" className="hover:text-brand-700">{t('auth.terms')}</Link>
+        <span className="mx-2">·</span>
+        <Link to="/support" className="hover:text-brand-700">{t('support.pageTitle')}</Link>
         <span className="mx-2">·</span>
         <Link to="/manifiesto" className="hover:text-brand-700">{t('footer.manifesto')}</Link>
         <span className="mx-2">·</span>

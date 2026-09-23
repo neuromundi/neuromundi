@@ -1205,7 +1205,11 @@
     "emptyMsg": "Write a message before sending.",
     "sending": "Sending…",
     "sent": "Message sent! Thanks, we'll get back to you soon.",
-    "error": "Couldn't send. We'll try via your email app."
+    "error": "Couldn't send. We'll try via your email app.",
+    "pageTitle": "Support & help",
+    "pageIntro": "Need help with your account, a payment or using the platform? Reach us through any of these channels and we’ll reply as soon as possible.",
+    "emailCta": "Email us",
+    "reportNote": "You can also report an issue with the floating support button (bottom right) on any page."
   },
   "info": {
     "title": "Learn more about Neuromundi",

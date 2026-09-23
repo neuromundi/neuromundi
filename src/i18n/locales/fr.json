@@ -1168,7 +1168,11 @@
     "emptyMsg": "Écrivez un message avant d'envoyer.",
     "sending": "Envoi…",
     "sent": "Message envoyé ! Merci, nous vous recontacterons bientôt.",
-    "error": "Échec de l'envoi. Nous essaierons via votre application e-mail."
+    "error": "Échec de l'envoi. Nous essaierons via votre application e-mail.",
+    "pageTitle": "Support et aide",
+    "pageIntro": "Besoin d’aide avec votre compte, un paiement ou l’utilisation de la plateforme ? Contactez-nous par l’un de ces moyens et nous vous répondrons dès que possible.",
+    "emailCta": "Écrivez-nous",
+    "reportNote": "Vous pouvez aussi signaler un problème avec le bouton de support flottant (en bas à droite) sur n’importe quelle page."
   },
   "info": {
     "title": "En savoir plus sur Neuromundi",

@@ -163,6 +163,20 @@ const ROUTES = {
     title: 'Protección de datos | Neuromundi',
     desc: 'Cómo proteger y ejercer tus derechos sobre tus datos personales en Neuromundi.',
   },
+  // Rutas canónicas en inglés (plataforma internacional). Las españolas de arriba
+  // quedan como alias; ambas tienen snapshot para SEO.
+  'terms': {
+    title: 'Términos y Condiciones | Neuromundi',
+    desc: 'Términos y Condiciones de uso de la plataforma Neuromundi.',
+  },
+  'privacy': {
+    title: 'Aviso de Privacidad | Neuromundi',
+    desc: 'Aviso de Privacidad de Neuromundi: cómo tratamos y protegemos tus datos.',
+  },
+  'support': {
+    title: 'Soporte y ayuda | Neuromundi',
+    desc: 'Soporte al cliente de Neuromundi: correo, WhatsApp y reporte de incidencias.',
+  },
 };
 
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
