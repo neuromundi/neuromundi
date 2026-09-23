@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Encuesta Internacional · Neuromundi (mockup)</title>
+<style>
+  :root{--blue:#0369a1;--blue2:#0ea5e9;--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--mint:#e3f4ef}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--mint);font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--ink)}
+  .wrap{max-width:760px;margin:0 auto;padding:40px 20px}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--blue);font-weight:700;font-size:14px;padding:7px 14px;border-radius:999px;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+  h1{font-size:30px;line-height:1.2;margin:16px 0 8px}
+  .lead{color:var(--muted);font-size:16px;line-height:1.6;margin:0 0 10px}
+  .meta{display:flex;gap:18px;flex-wrap:wrap;color:var(--blue);font-weight:600;font-size:14px;margin:14px 0 22px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:24px;margin-bottom:20px;box-shadow:0 6px 20px rgba(2,73,116,.05)}
+  .sec{font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--blue);margin:0 0 4px}
+  .q{font-weight:700;margin:16px 0 8px}
+  .q:first-of-type{margin-top:6px}
+  label.opt{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;margin:6px 0;cursor:pointer;font-size:15px}
+  label.opt:hover{border-color:var(--blue2);background:#f0f9ff}
+  select,textarea,input[type=text]{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:12px;font-size:15px;font-family:inherit}
+  .consent{background:#eff9ff;border:1px solid #bae6fd;border-radius:14px;padding:16px;font-size:14px;line-height:1.5;color:#334155}
+  .consent label{display:flex;gap:10px;align-items:flex-start;margin-top:10px;font-weight:600;color:var(--ink)}
+  .cta{display:block;width:100%;background:var(--blue2);color:#fff;border:0;border-radius:14px;padding:16px;font-size:18px;font-weight:800;cursor:pointer}
+  .foot{color:#94a3b8;font-size:12px;line-height:1.5;margin-top:14px}
+  .pill{background:#f1f5f9;border-radius:999px;padding:2px 10px;font-size:12px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <span class="eyebrow">📋 Encuesta internacional</span>
+  <h1>Primera Encuesta Internacional de Neurodesarrollo, Neurodivergencia y Afecciones Neurológicas</h1>
+  <p class="lead">Ayúdanos a construir el primer panorama de la experiencia de las familias, las personas y los profesionales. Tus respuestas, siempre anónimas, guiarán mejoras reales en el acceso y la calidad del acompañamiento.</p>
+  <div class="meta"><span>⏱️ ~5 minutos</span><span>🔒 Anónima</span><span>🌎 Multipaís</span><span>📊 Resultados abiertos</span></div>
+
+  <div class="card">
+    <p class="sec">1 · Sobre ti</p>
+    <p class="q">¿Con qué perfil respondes?</p>
+    <label class="opt"><input type="radio" name="rol"> Familiar (padre/madre/tutor/pariente)</label>
+    <label class="opt"><input type="radio" name="rol"> Persona / paciente</label>
+    <label class="opt"><input type="radio" name="rol"> Profesional o especialista</label>
+    <label class="opt"><input type="radio" name="rol"> Institución (escuela, clínica, ONG, empresa)</label>
+    <p class="q">¿Desde qué país respondes?</p>
+    <select><option>Selecciona tu país…</option><option>México</option><option>Colombia</option><option>…</option></select>
+    <p class="q">¿A qué área se refiere principalmente tu experiencia?</p>
+    <label class="opt"><input type="checkbox"> Neurodesarrollo</label>
+    <label class="opt"><input type="checkbox"> Neurodivergencia</label>
+    <label class="opt"><input type="checkbox"> Afección neurológica</label>
+  </div>
+
+  <div class="card">
+    <p class="sec">2 · Acceso a servicios</p>
+    <p class="q">¿Qué tan fácil fue encontrar el apoyo o especialista que necesitabas?</p>
+    <label class="opt"><input type="radio" name="acc"> Muy fácil</label>
+    <label class="opt"><input type="radio" name="acc"> Fácil</label>
+    <label class="opt"><input type="radio" name="acc"> Difícil</label>
+    <label class="opt"><input type="radio" name="acc"> Muy difícil</label>
+    <p class="q">¿Cuáles fueron las principales barreras? <span class="pill">varias opciones</span></p>
+    <label class="opt"><input type="checkbox"> Costo</label>
+    <label class="opt"><input type="checkbox"> Distancia / disponibilidad local</label>
+    <label class="opt"><input type="checkbox"> Falta de información confiable</label>
+    <label class="opt"><input type="checkbox"> Listas de espera</label>
+    <label class="opt"><input type="checkbox"> Estigma o falta de comprensión</label>
+  </div>
+
+  <div class="card">
+    <p class="sec">3 · Calidad y trato</p>
+    <p class="q">En tu última experiencia, ¿el trato fue neuroafirmativo (adaptación sensorial, flexibilidad, trato humano)?</p>
+    <label class="opt"><input type="radio" name="cal"> Sí, claramente</label>
+    <label class="opt"><input type="radio" name="cal"> En parte</label>
+    <label class="opt"><input type="radio" name="cal"> No</label>
+    <label class="opt"><input type="radio" name="cal"> No aplica</label>
+  </div>
+
+  <div class="card">
+    <p class="sec">4 · Inclusión y necesidades</p>
+    <p class="q">¿Qué es lo que MÁS falta hoy en tu comunidad? <span class="pill">opcional</span></p>
+    <textarea rows="3" placeholder="Cuéntanos en pocas palabras…"></textarea>
+  </div>
+
+  <div class="card">
+    <p class="sec">Consentimiento</p>
+    <div class="consent">
+      Algunas respuestas pueden considerarse <b>datos sensibles de salud</b>. Participar es voluntario y anónimo; usaremos los datos <b>solo de forma agregada</b> para publicar resultados y mejorar la comunidad, conforme a nuestro <a href="/privacidad">Aviso de Privacidad</a>. Puedes abandonar la encuesta en cualquier momento.
+      <label><input type="checkbox"> He leído y acepto participar de forma anónima y voluntaria, y consiento el tratamiento agregado de mis respuestas.</label>
+    </div>
+  </div>
+
+  <button class="cta">Enviar mis respuestas</button>
+  <p class="foot">Encuesta de la Comunidad Neuromundi · muestreo por conveniencia (no probabilístico) · los resultados se publicarán de forma agregada en neuromundi.com. Neuromundi © 2026.</p>
+</div>
+</body>
+</html>

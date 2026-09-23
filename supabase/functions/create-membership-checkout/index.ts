@@ -174,7 +174,9 @@ Deno.serve(async (req: Request) => {
   if (promoBenefit === 'amount' && promoAmount > 0 && promoCurrency === curr) {
     // Monto fijo en la moneda de cobro; se acota al total para no ir negativo.
     const offMinor = pricing.zero_decimal ? Math.round(promoAmount) : Math.round(promoAmount * 100);
-    const amountOff = Math.min(offMinor, unitAmount);
+    // Tope duro del 90% también en la ruta de monto fijo (igual que en la de %):
+    // un cupón de monto no debe dejar la primera cuota en 0 (membresía gratis).
+    const amountOff = Math.min(offMinor, Math.floor(unitAmount * 0.9));
     if (amountOff > 0) {
       const coupon = await stripe.coupons.create({
         amount_off: amountOff,

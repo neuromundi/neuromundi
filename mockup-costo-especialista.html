@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Costo en registro de especialista · dummy interactivo</title>
+<style>
+  :root{--blue:#0369a1;--blue2:#0ea5e9;--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--mint:#e3f4ef;--green:#15803d}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--mint);font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--ink)}
+  .wrap{max-width:460px;margin:0 auto;padding:26px 16px}
+  h2{font-size:15px;margin:26px 0 10px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+  .card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin-bottom:14px}
+  .eyebrow{font-size:12px;font-weight:700;letter-spacing:.05em;color:var(--muted);text-transform:uppercase}
+  .prev{display:flex;gap:12px;align-items:center}
+  .previc{width:52px;height:52px;border-radius:50%;background:#eff9ff;display:flex;align-items:center;justify-content:center;font-size:24px}
+  .prevname{font-weight:800;font-size:18px}
+  .prevsub{color:var(--blue);font-size:14px}
+  /* recuadro de costo */
+  .costo{background:#f0f9ff;border:1px solid #bae6fd;border-radius:16px;padding:16px 18px;margin-bottom:14px}
+  .costo .lbl{font-size:12px;font-weight:800;letter-spacing:.05em;color:var(--blue);text-transform:uppercase}
+  .placeholder{color:#475569;font-size:14px;line-height:1.45;margin-top:6px}
+  .ask{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap}
+  .ask button{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 12px;font-size:14px;font-weight:600;cursor:pointer}
+  .ask button.sel{background:var(--blue);color:#fff;border-color:var(--blue)}
+  .strike{color:#94a3b8;text-decoration:line-through;font-size:13px}
+  .big{font-size:28px;font-weight:800;color:var(--blue);line-height:1.1}
+  .big .u{font-size:14px;font-weight:500;color:var(--muted)}
+  .big .from{font-size:14px;font-weight:600;color:var(--muted)}
+  .annual{color:var(--muted);font-size:12px;margin-top:2px}
+  .badge{display:inline-block;margin-top:8px;background:#e0f2fe;color:var(--blue);font-weight:700;font-size:11px;border-radius:999px;padding:3px 10px}
+  .founder{background:#f0f9ff;border:1px solid #dbeafe;border-radius:16px;padding:14px 18px}
+  .founder .eyebrow{color:var(--blue2)}
+  .fname{font-weight:800;font-size:17px;margin-top:2px}
+  .muted{color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h2>Modal de ESPECIALISTA (interactivo)</h2>
+
+  <div class="card">
+    <div class="eyebrow">Así se verá tu perfil</div>
+    <div class="prev" style="margin-top:8px">
+      <div class="previc">🩺</div>
+      <div><div class="prevname">Tu nombre</div><div class="prevsub">Psicología Infantil</div></div>
+    </div>
+  </div>
+
+  <!-- RECUADRO DE COSTO (entre el perfil y el programa fundador) -->
+  <div class="costo" id="costo">
+    <div class="lbl">Costo de tu membresía</div>
+    <div id="costoBody">
+      <div class="placeholder">Aquí se mostrará el costo de tu membresía cuando nos indiques qué tipo de especialista eres.</div>
+      <div class="ask">
+        <button onclick="setTipo('medico',this)">Soy especialista médico</button>
+        <button onclick="setTipo('nomedico',this)">No soy especialista médico</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="founder">
+    <div class="eyebrow">✦ Programa Fundador</div>
+    <div class="fname">Sé Miembro Fundador Neuromundi</div>
+    <div class="muted" style="margin-top:4px">🎖 Beneficios preferentes de por vida.</div>
+  </div>
+
+  <h2>Otros tipos de pago (ej. Clínica) — ya muestra su cuota</h2>
+  <div class="card">
+    <div class="eyebrow">Así se verá tu perfil</div>
+    <div class="prev" style="margin-top:8px"><div class="previc">🏥</div><div><div class="prevname">Nombre de la clínica</div><div class="prevsub">Centro terapéutico</div></div></div>
+  </div>
+  <div class="costo">
+    <div class="lbl">Costo de tu membresía</div>
+    <div class="strike" style="margin-top:6px">$1,000 MXN/mes</div>
+    <div class="big">$500 <span class="u">MXN/mes</span></div>
+    <div class="annual">o $5,000 MXN/año</div>
+    <span class="badge">PRECIO FUNDADOR</span>
+  </div>
+  <div class="founder"><div class="eyebrow">✦ Programa Fundador</div><div class="fname">Sé Miembro Fundador Neuromundi</div></div>
+</div>
+
+<script>
+function priceHTML(strike, big, annual){
+  return '<div class="strike">'+strike+'</div>'+
+         '<div class="big">'+big+' <span class="u">MXN/mes</span></div>'+
+         '<div class="annual">o '+annual+' MXN/año</div>'+
+         '<span class="badge">PRECIO FUNDADOR</span>'+
+         '<div class="ask"><button onclick="reset()">‹ cambiar</button></div>';
+}
+function setTipo(t, btn){
+  const body=document.getElementById('costoBody');
+  if(t==='medico'){
+    body.innerHTML = priceHTML('$1,500', '$1,000', '$10,000');
+  } else {
+    // Ejemplo ilustrativo: la cuota de especialista NO médico se tomaría de la
+    // base; hoy no está cargada en México (aparecería en cuanto se cargue).
+    body.innerHTML = '<div class="placeholder"><b>Especialista no médico.</b> Su cuota se mostrará aquí en cuanto esté cargada en la base para tu país.</div>'+
+                     '<div class="ask"><button onclick="reset()">‹ cambiar</button></div>';
+  }
+}
+function reset(){
+  document.getElementById('costoBody').innerHTML =
+    '<div class="placeholder">Aquí se mostrará el costo de tu membresía cuando nos indiques qué tipo de especialista eres.</div>'+
+    '<div class="ask"><button onclick="setTipo(\'medico\',this)">Soy especialista médico</button>'+
+    '<button onclick="setTipo(\'nomedico\',this)">No soy especialista médico</button></div>';
+}
+</script>
+</body>
+</html>

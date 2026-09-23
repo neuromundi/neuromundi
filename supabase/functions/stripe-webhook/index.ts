@@ -117,13 +117,18 @@ Deno.serve(async (req: Request) => {
         // Fase 6: compra de producto (mini-tienda).
         if (kind === 'product') {
           const pi = typeof s.payment_intent === 'string' ? s.payment_intent : s.payment_intent?.id;
-          await admin
+          // Marca pagada SOLO si aún no lo estaba: Stripe puede reentregar el
+          // mismo evento y el descuento de stock NO es idempotente. El `neq` +
+          // `select` nos dice si esta corrida fue la transición real a 'paid'.
+          const { data: flipped } = await admin
             .from('orders')
             .update({ status: 'paid', paid_at: new Date().toISOString(), stripe_session_id: s.id })
-            .eq('stripe_session_id', s.id);
-          // Inventario: descuenta una unidad si el producto lleva control de stock.
-          // decrement_stock es atómico y no baja de cero ni toca stock null.
-          if (s.metadata?.product_id) {
+            .eq('stripe_session_id', s.id)
+            .neq('status', 'paid')
+            .select('id');
+          // Inventario: descuenta una unidad SOLO en la transición a paid (nunca
+          // en una reentrega). decrement_stock es atómico y no baja de cero.
+          if (s.metadata?.product_id && flipped && flipped.length > 0) {
             await admin.rpc('decrement_stock', { p_product_id: s.metadata.product_id });
           }
           void pi;
@@ -198,6 +203,23 @@ Deno.serve(async (req: Request) => {
           .from('donations')
           .update({ status: 'refunded', wall_published: false })
           .eq('stripe_session_id', sessionId);
+        // Consulta/terapia: revierte el pago y el estado de la cita para que no
+        // quede como pagada tras el reembolso.
+        await admin
+          .from('payments')
+          .update({ status: 'refunded' })
+          .eq('stripe_session_id', sessionId);
+        const { data: refPay } = await admin
+          .from('payments')
+          .select('appointment_id')
+          .eq('stripe_session_id', sessionId)
+          .maybeSingle();
+        if (refPay?.appointment_id) {
+          await admin
+            .from('appointment_requests')
+            .update({ payment_status: 'refunded' })
+            .eq('id', refPay.appointment_id);
+        }
         break;
       }
 

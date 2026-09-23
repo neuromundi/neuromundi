@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neuromundi · Tabla comparativa por región (mockup)</title>
+<style>
+  :root{--nm-blue:#0369a1;--nm-blue2:#0ea5e9;--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--mint:#e3f4ef;--nmcol:#eff9ff;}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--mint)}
+  .section{padding:40px 20px}
+  .wrap{max-width:1080px;margin:0 auto}
+  .switch{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+  .switch button{border:1px solid var(--line);background:#fff;color:var(--ink);font-weight:700;font-size:14px;padding:8px 14px;border-radius:999px;cursor:pointer}
+  .switch button.on{background:linear-gradient(90deg,var(--nm-blue2),var(--nm-blue));color:#fff;border-color:transparent}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--nm-blue);font-weight:700;font-size:14px;padding:7px 14px;border-radius:999px;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+  h2{font-size:28px;line-height:1.15;margin:14px 0 8px;font-weight:800}
+  .sub{color:var(--muted);font-size:16px;margin:0 0 22px;max-width:640px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:0 10px 30px rgba(2,73,116,.08)}
+  .scroll{overflow-x:auto}
+  table{width:100%;border-collapse:collapse;min-width:720px}
+  thead th{padding:16px 14px;text-align:center;font-size:15px;font-weight:700;vertical-align:middle;border-bottom:1px solid var(--line)}
+  thead th.feat{text-align:left;font-size:13px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+  .comp-name{color:var(--ink);font-weight:700;font-size:15px;display:block}
+  .comp-tag{display:block;color:var(--muted);font-weight:500;font-size:12px;margin-top:2px}
+  th.nm-head{background:linear-gradient(180deg,var(--nm-blue2),var(--nm-blue));color:#fff}
+  th.nm-head .comp-name{color:#fff}
+  th.nm-head .comp-tag{color:#dbeafe}
+  td.nm-cell{background:var(--nmcol)}
+  tbody td{padding:14px;text-align:center;border-bottom:1px solid #f1f5f9;font-size:15px}
+  tbody td.feat{text-align:left;font-weight:600;color:var(--ink);max-width:340px}
+  tbody td.feat small{display:block;font-weight:400;color:var(--muted);font-size:12.5px;margin-top:3px}
+  .ic{display:inline-flex;width:26px;height:26px;border-radius:50%;align-items:center;justify-content:center}
+  .ic.yes{background:rgba(22,163,74,.12)} .ic.no{background:#f1f5f9} .ic svg{width:15px;height:15px}
+  .price-row td{background:#f8fafc;font-weight:800;font-size:14px;border-top:2px solid var(--line)}
+  .price-row td.nm-cell{background:#e0f2fe;color:var(--nm-blue)}
+  .price-row td small{display:block;font-weight:500;color:var(--muted);font-size:11.5px;margin-top:2px}
+  .foot{color:var(--muted);font-size:12.5px;margin:14px 4px 0;line-height:1.5}
+</style>
+</head>
+<body>
+  <section class="section">
+    <div class="wrap">
+      <div class="switch" id="switch"></div>
+      <span class="eyebrow">✓ Comparativa</span>
+      <h2>Por qué elegir Neuromundi</h2>
+      <p class="sub">Otras plataformas conectan pacientes con médicos. Neuromundi es un ecosistema completo, creado desde y para la comunidad de neurodivergencia, neurodesarrollo y afecciones neurológicas.</p>
+      <div class="card"><div class="scroll"><table id="tbl"></table></div></div>
+      <p class="foot">Comparativa elaborada con información pública de cada plataforma a septiembre de 2026. Las plataformas mencionadas son marcas de sus respectivos titulares; se citan solo con fines comparativos e informativos.</p>
+    </div>
+  </section>
+<script>
+const ROWS=[
+ ["Primera plataforma mundial especializada en neurodivergencia, neurodesarrollo y afecciones neurológicas",""],
+ ["Gratis para familias y pacientes",""],
+ ["Directorio con agenda de citas en línea (presencial o video)",""],
+ ["Reseñas y calificaciones de prestadores",""],
+ ["Sello y reseñas neuroafirmativas","Adaptación sensorial · flexibilidad · trato humano"],
+ ["Comunidad de apoyo entre pares","Foros, mentoría y eventos de bajo impacto sensorial"],
+ ["Kit de herramientas y curso de bienvenida gratuitos",""],
+ ["Inclusión laboral (vacantes inclusivas) e inclusión escolar",""],
+ ["Tienda de productos y recursos especializados",""],
+];
+// marcas por región: cada fila = [NM,c1,c2,c3]; NM siempre 1 salvo compartidas
+const M={
+ mexico:{cols:[["Doctoralia","Directorio médico"],["Top Doctors","Directorio médico"],["Doctores.lat","Directorio médico"]],
+   marks:[[1,0,0,0],[1,1,1,1],[1,1,1,1],[1,1,1,1],[1,0,0,0],[1,0,0,0],[1,0,0,0],[1,0,0,0],[1,0,0,0]],
+   nm:["≈ $250–$800","MXN / mes · fundadores"],
+   price:[["≈ $1,500–$4,000","MXN / mes"],["Bajo invitación","no público"],["No público",""]]},
+ europa:{cols:[["Doctolib","Directorio médico"],["Doctoralia","Directorio médico"],["Top Doctors","Directorio médico"]],
+   marks:[[1,0,0,0],[1,1,1,1],[1,1,1,1],[1,0,1,1],[1,0,0,0],[1,0,0,0],[1,0,0,0],[1,0,0,0],[1,0,0,0]],
+   nm:["Cuota anual fija","sin comisión · varias categorías gratis"],
+   price:[["≈ €129–139","EUR / mes"],["Planes de pago",""],["Bajo invitación","no público"]]},
+ usa:{cols:[["Zocdoc","Directorio médico"],["Psychology Today","Directorio médico"],["Healthgrades","Directorio médico"]],
+   marks:[[1,0,0,0],[1,1,1,1],[1,1,0,1],[1,1,0,1],[1,0,0,0],[1,0,0,0],[1,0,0,0],[1,0,0,0],[1,0,0,0]],
+   nm:["Cuota anual fija","sin comisión · varias categorías gratis"],
+   price:[["Por reserva",""],["≈ $29.95","USD / mes"],["Gratis básico · mejoras de pago",""]]},
+ mundo:{cols:[["Directorios médicos generales","Directorio médico"],["Plataformas de telemedicina","Telemedicina"],["Software de consultorio","Software de consultorio"]],
+   marks:[[1,0,0,0],[1,1,1,0],[1,1,1,1],[1,1,0,0],[1,0,0,0],[1,0,0,0],[1,0,0,0],[1,0,0,0],[1,0,0,0]],
+   nm:["Cuota anual fija","sin comisión · varias categorías gratis"],
+   price:[["Varía por país",""],["Varía por país",""],["Varía por país",""]]},
+};
+const LABELS={mexico:"México",europa:"Europa",usa:"EE. UU. / Canadá",mundo:"Resto del mundo"};
+const yes='<span class="ic yes"><svg viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>';
+const no='<span class="ic no"><svg viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg></span>';
+function render(rk){
+ const R=M[rk];
+ let h='<thead><tr><th class="feat">Característica</th><th class="nm-head"><span style="margin:0 auto 8px;display:flex;width:40px;height:40px;align-items:center;justify-content:center;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.15)"><img src="public/icon-192.png" alt="" width="32" height="32" style="border-radius:50%"></span><span class="comp-name">Neuromundi</span><span class="comp-tag">Especializada</span></th>';
+ R.cols.forEach(c=>h+=`<th><span class="comp-name">${c[0]}</span><span class="comp-tag">${c[1]}</span></th>`);
+ h+='</tr></thead><tbody>';
+ ROWS.forEach((r,i)=>{
+   h+=`<tr><td class="feat">${r[0]}${r[1]?`<small>${r[1]}</small>`:''}</td>`;
+   const mk=R.marks[i];
+   h+=`<td class="nm-cell">${mk[0]?yes:no}</td>`;
+   for(let j=1;j<4;j++) h+=`<td>${mk[j]?yes:no}</td>`;
+   h+='</tr>';
+ });
+ h+=`<tr class="price-row"><td class="feat">Precio<small>Cuota para el prestador · pacientes siempre gratis</small></td>`;
+ h+=`<td class="nm-cell">${R.nm[0]}${R.nm[1]?`<small>${R.nm[1]}</small>`:''}</td>`;
+ R.price.forEach(p=>h+=`<td>${p[0]}${p[1]?`<small>${p[1]}</small>`:''}</td>`);
+ h+='</tr></tbody>';
+ document.getElementById('tbl').innerHTML=h;
+ document.querySelectorAll('#switch button').forEach(b=>b.classList.toggle('on',b.dataset.r===rk));
+}
+const sw=document.getElementById('switch');
+Object.keys(M).forEach(rk=>{const b=document.createElement('button');b.textContent=LABELS[rk];b.dataset.r=rk;b.onclick=()=>render(rk);sw.appendChild(b);});
+render('mexico');
+</script>
+</body>
+</html>

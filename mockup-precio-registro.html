@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Precio en registro · dummy v2</title>
+<style>
+  :root{--blue:#0369a1;--blue2:#0ea5e9;--ink:#0f172a;--muted:#64748b;--line:#e2e8f0;--mint:#e3f4ef;--green:#15803d}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--mint);font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--ink)}
+  .wrap{max-width:960px;margin:0 auto;padding:34px 18px}
+  h1{font-size:24px;margin:0 0 6px}
+  .sub{color:var(--muted);margin:0 0 18px}
+  .banner{display:flex;gap:10px;align-items:center;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;border-radius:14px;padding:12px 16px;font-weight:600;font-size:14px;margin-bottom:20px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 6px 18px rgba(2,73,116,.05)}
+  .ic{width:44px;height:44px;border-radius:12px;background:#eff9ff;display:flex;align-items:center;justify-content:center;font-size:22px}
+  .name{font-weight:800;font-size:17px;margin:10px 0 2px}
+  .desc{color:var(--muted);font-size:13px;line-height:1.4;min-height:34px}
+  .pricebox{margin-top:12px;border-top:1px dashed var(--line);padding-top:12px}
+  .free{display:inline-block;background:#dcfce7;color:var(--green);font-weight:800;font-size:15px;border-radius:999px;padding:6px 14px}
+  .freede{color:var(--muted);font-size:12px;margin-top:6px}
+  .strike{color:#94a3b8;text-decoration:line-through;font-size:13px}
+  .big{font-size:28px;font-weight:800;color:var(--blue);line-height:1.1}
+  .big .u{font-size:14px;font-weight:500;color:var(--muted)}
+  .big .from{font-size:14px;font-weight:600;color:var(--muted)}
+  .annual{color:var(--muted);font-size:12px;margin-top:2px}
+  .badge{display:inline-block;margin-top:8px;background:#e0f2fe;color:var(--blue);font-weight:700;font-size:11px;border-radius:999px;padding:3px 10px}
+  .foot{color:#94a3b8;font-size:12px;margin-top:20px;line-height:1.5}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Precio en el registro — <span style="color:var(--blue)">dummy v2</span> (mensual destacado)</h1>
+  <p class="sub">México, etapa de fundadores. Mensual grande, anual pequeño; ordinaria tachada; "desde" para especialista.</p>
+  <div class="banner">⏳ Etapa de Miembros Fundadores — precios preferentes por tiempo limitado.</div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="ic">👪</div><div class="name">Familiar</div>
+      <div class="desc">Padre, madre, tutor o pariente.</div>
+      <div class="pricebox"><span class="free">Gratuito</span><div class="freede">Sin costo de membresía.</div></div>
+    </div>
+    <div class="card">
+      <div class="ic">🧑</div><div class="name">Persona / paciente</div>
+      <div class="desc">Usa el directorio, la comunidad y los kits.</div>
+      <div class="pricebox"><span class="free">Gratuito</span><div class="freede">Sin costo de membresía.</div></div>
+    </div>
+    <div class="card">
+      <div class="ic">🏢</div><div class="name">Empresa inclusiva</div>
+      <div class="desc">Publica vacantes inclusivas; distintivo de empresa.</div>
+      <div class="pricebox"><span class="free">Gratuito</span><div class="freede">Sin costo de membresía.</div></div>
+    </div>
+
+    <div class="card">
+      <div class="ic">🩺</div><div class="name">Especialista</div>
+      <div class="desc">Perfil, agenda de citas, mensajería y métricas.</div>
+      <div class="pricebox">
+        <div class="strike">$1,500 MXN/mes</div>
+        <div class="big"><span class="from">desde</span> $1,000 <span class="u">MXN/mes</span></div>
+        <div class="annual">o $10,000 MXN/año</div>
+        <span class="badge">PRECIO FUNDADOR</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ic">🏥</div><div class="name">Clínica</div>
+      <div class="desc">Perfil institucional, programa de inclusión, citas.</div>
+      <div class="pricebox">
+        <div class="strike">$1,000 MXN/mes</div>
+        <div class="big">$500 <span class="u">MXN/mes</span></div>
+        <div class="annual">o $5,000 MXN/año</div>
+        <span class="badge">PRECIO FUNDADOR</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ic">🛍️</div><div class="name">Comercio / Proveedor</div>
+      <div class="desc">Vende en la tienda; sin comisión de la plataforma.</div>
+      <div class="pricebox"><span style="color:#94a3b8;font-size:13px">— sin precio configurado para este país: no se muestra ninguna línea —</span></div>
+    </div>
+  </div>
+
+  <p class="foot">
+    El importe sale de <b>membership_prices</b> vía la RPC <b>registration_quote</b> (solo lee precios reales; sin fallback). Hoy en México solo están cargados <b>Especialista</b> (desde $1,000/mes) y <b>Clínica</b> ($500/mes); el resto de tipos de pago y los países sin configurar <b>no muestran precio</b>. Familias, personas y empresas inclusivas: siempre "Gratuito". Fuera de la etapa de fundadores se muestra solo el precio ordinario, sin tachado.
+  </p>
+</div>
+</body>
+</html>
