@@ -77,7 +77,6 @@ export function CreateAccount() {
           <ArrowLeft className="h-4 w-4" /> {t('create.back')}
         </button>
         <h1 className="text-2xl font-bold text-slate-900">{t(`create.cards.${selected}.title`)}</h1>
-        <MembershipPrice type={selected} className="mt-2" />
         {/* Paciente/familia ya traen el panel dentro de RegisterForm; para el
             resto de tipos lo mostramos aquí, encima de su formulario. */}
         {selected !== 'patient' && selected !== 'parent' && (

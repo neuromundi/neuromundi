@@ -1144,7 +1144,11 @@
       "or": "or",
       "perMonth": "/mo",
       "perYear": "/yr",
-      "founderBadge": "Founder price"
+      "founderBadge": "Founder price",
+      "boxLabel": "Your membership cost",
+      "pending": "The cost will appear once you complete your profile.",
+      "specialistPending": "Your membership cost will appear as soon as you choose your profession.",
+      "notConfigured": "The cost will show once it's configured for your country."
     }
   },
   "loc": {

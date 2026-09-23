@@ -1107,7 +1107,11 @@
       "or": "o",
       "perMonth": "/mese",
       "perYear": "/anno",
-      "founderBadge": "Prezzo fondatore"
+      "founderBadge": "Prezzo fondatore",
+      "boxLabel": "Il costo della tua iscrizione",
+      "pending": "Il costo apparirà al completamento del profilo.",
+      "specialistPending": "Il costo della tua iscrizione apparirà appena scegli la tua professione.",
+      "notConfigured": "Il costo verrà mostrato quando sarà configurato per il tuo paese."
     }
   },
   "loc": {

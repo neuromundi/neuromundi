@@ -12,6 +12,7 @@ import { setFounderOptoutFlag } from '@/lib/founderPref';
 import { isStrictEmail } from '@/lib/email';
 import { useCountryLabel } from '@/lib/countryLabel';
 import { FounderProgressCard } from '@/components/founder/FounderProgressCard';
+import { MembershipPrice } from '@/components/registration/MembershipPrice';
 import { SectionsField } from '@/components/onboarding/SectionsField';
 import { founderKindFor } from '@/hooks/useFounder';
 import { Camera, Eye, ChevronDown, MapPin, School, BadgeCheck } from 'lucide-react';
@@ -205,6 +206,7 @@ export function SchoolRegister({ onSuccess, complete = false }: { onSuccess?: ()
         </p>
       )}
     </div>
+    <MembershipPrice boxed hideIfEmpty affiliate="school" />
     {founderKind ? <FounderProgressCard kind={founderKind} country={country || null} /> : null}
     </>
   );

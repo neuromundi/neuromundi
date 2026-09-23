@@ -1144,7 +1144,11 @@
       "or": "또는",
       "perMonth": "/월",
       "perYear": "/년",
-      "founderBadge": "창립 가격"
+      "founderBadge": "창립 가격",
+      "boxLabel": "회원 비용",
+      "pending": "프로필을 완성하면 비용이 표시됩니다.",
+      "specialistPending": "직업을 선택하면 바로 회원 비용이 표시됩니다.",
+      "notConfigured": "해당 국가에 설정되면 비용이 표시됩니다."
     }
   },
   "loc": {

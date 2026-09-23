@@ -1107,7 +1107,11 @@
       "or": "oder",
       "perMonth": "/Mon.",
       "perYear": "/Jahr",
-      "founderBadge": "Gründerpreis"
+      "founderBadge": "Gründerpreis",
+      "boxLabel": "Deine Mitgliedsgebühr",
+      "pending": "Die Gebühr erscheint, sobald du dein Profil ausfüllst.",
+      "specialistPending": "Deine Mitgliedsgebühr erscheint, sobald du deinen Beruf wählst.",
+      "notConfigured": "Die Gebühr wird angezeigt, sobald sie für dein Land konfiguriert ist."
     }
   },
   "loc": {

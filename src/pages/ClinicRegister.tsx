@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { setFounderOptoutFlag } from '@/lib/founderPref';
 import { isStrictEmail } from '@/lib/email';
 import { useCountryLabel } from '@/lib/countryLabel';
+import { MembershipPrice } from '@/components/registration/MembershipPrice';
 import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
 import { Button, useToast, PasswordInput} from '@/components/ui';
 import { useAuth } from '@/hooks/useAuth';
@@ -553,6 +554,7 @@ export function ClinicRegister({ onSuccess, complete = false }: { onSuccess?: ()
           <input type="checkbox" className="mt-0.5 h-5 w-5 rounded border-slate-300 text-brand-500" checked={acceptManifesto} onChange={(e) => setAcceptManifesto(e.target.checked)} />
           <span>{t('reg.acceptManifestoPre')} <a href="/manifiesto" target="_blank" rel="noopener noreferrer" className="font-semibold text-brand-700 underline">{t('footer.manifesto')}</a>{t('reg.acceptManifestoPost')}</span>
         </label>
+        <MembershipPrice boxed hideIfEmpty affiliate="clinic" />
         <label className="flex items-start gap-3 rounded-xl border border-brand-100 bg-brand-50 p-3 text-sm text-slate-700">
           <input type="checkbox" className="mt-0.5 h-5 w-5 rounded border-slate-300 text-brand-500" checked={wantsFounder} onChange={(e) => setWantsFounder(e.target.checked)} />
           <span><span className="font-semibold text-slate-900">{t('reg.wantFounder')}</span> {t('reg.wantFounderHint')}{!wantsFounder ? ` — ${t('reg.ordinaryDiscount')}` : ''}</span>

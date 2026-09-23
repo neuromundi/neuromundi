@@ -1107,7 +1107,11 @@
       "or": "または",
       "perMonth": "/月",
       "perYear": "/年",
-      "founderBadge": "ファウンダー価格"
+      "founderBadge": "ファウンダー価格",
+      "boxLabel": "会費",
+      "pending": "プロフィールを完成すると費用が表示されます。",
+      "specialistPending": "職業を選ぶとすぐに会費が表示されます。",
+      "notConfigured": "あなたの国向けに設定されると費用が表示されます。"
     }
   },
   "loc": {

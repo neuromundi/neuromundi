@@ -25,7 +25,9 @@ import { COUNTRIES, MEXICO_NAME } from '@/data/countries';
 import { MX_ESTADOS, MX_MUNICIPIOS } from '@/data/mxStatesMunicipalities';
 import {
   TITLE_PREFIXES, PROFESSIONS, SPECIALTIES, MODALITIES, AGE_RANGES, INTERVENTION_AREAS, CERTIFICATIONS,
+  isMedicalProfession,
 } from '@/data/specialistCatalog';
+import { MembershipPrice } from '@/components/registration/MembershipPrice';
 
 const inputCls = 'w-full rounded-xl border border-slate-200 p-3 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500';
 const labelCls = 'mb-1 block font-semibold text-slate-900';
@@ -215,6 +217,12 @@ export function SpecialistRegister({ onSuccess, complete = false }: { onSuccess?
         </p>
       )}
     </div>
+    <MembershipPrice
+      boxed
+      pending={!profession}
+      pendingText={t('reg.price.specialistPending')}
+      affiliate={profession ? (isMedicalProfession(profession) === true ? 'medical_specialist' : 'nonmedical_specialist') : undefined}
+    />
     {founderKind ? <FounderProgressCard kind={founderKind} country={country || null} /> : null}
     </>
   );

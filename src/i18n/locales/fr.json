@@ -1107,7 +1107,11 @@
       "or": "ou",
       "perMonth": "/mois",
       "perYear": "/an",
-      "founderBadge": "Prix fondateur"
+      "founderBadge": "Prix fondateur",
+      "boxLabel": "Coût de ton adhésion",
+      "pending": "Le coût apparaîtra une fois ton profil complété.",
+      "specialistPending": "Le coût de ton adhésion apparaîtra dès que tu choisiras ta profession.",
+      "notConfigured": "Le coût s'affichera une fois configuré pour ton pays."
     }
   },
   "loc": {

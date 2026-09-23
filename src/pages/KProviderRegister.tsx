@@ -9,6 +9,7 @@ import { setFounderOptoutFlag } from '@/lib/founderPref';
 import { isStrictEmail } from '@/lib/email';
 import { useCountryLabel } from '@/lib/countryLabel';
 import { FounderProgressCard } from '@/components/founder/FounderProgressCard';
+import { MembershipPrice } from '@/components/registration/MembershipPrice';
 import { SectionsField } from '@/components/onboarding/SectionsField';
 import { founderKindFor } from '@/hooks/useFounder';
 import { Camera, Eye, ChevronDown, MapPin, BadgeCheck, HeartPulse, Scale, HeartHandshake, HandHeart } from 'lucide-react';
@@ -192,6 +193,7 @@ export function KProviderRegister({ typeKey, onSuccess, complete = false }: { ty
         </p>
       )}
     </div>
+    <MembershipPrice boxed hideIfEmpty affiliate={typeKey} />
     {founderKind ? <FounderProgressCard kind={founderKind} country={country || null} /> : null}
     </>
   );

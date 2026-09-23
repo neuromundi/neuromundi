@@ -1,14 +1,18 @@
 /**
- * MembershipPrice — muestra el costo de membresía en el registro por tipo de
- * perfil. Reglas:
- *   · patient / parent / company  → "Gratuito".
- *   · tipos de pago con precio configurado (registration_quote) → costo MENSUAL
- *     destacado + anual en pequeño; durante la etapa de fundadores, la cuota
- *     ordinaria aparece tachada y el precio fundador destacado.
- *   · especialista → "desde $" (mínimo entre especialista médico y no médico).
- *   · país/tipo sin precio configurado → no muestra nada.
- * El precio sale de la RPC `registration_quote` (0111), que solo lee
- * membership_prices (sin fallback).
+ * MembershipPrice — costo de membresía en el registro.
+ *
+ * Modos:
+ *  · Por tipo de tarjeta (`type`): patient/parent/company → "Gratuito";
+ *    tipos de pago con precio → cuota; sin precio → nada. 'service_provider' usa
+ *    "desde" (mínimo entre especialista médico/no médico).
+ *  · Por afiliación resuelta (`affiliate`): consulta ese tipo exacto (p. ej. el
+ *    formulario de especialista, una vez que la profesión define si es médica).
+ *  · `pending`: muestra un texto de espera (aún no hay dato para resolver).
+ *  · `boxed`: envuelve todo en un recuadro con `boxLabel` (para la barra lateral
+ *    del formulario).
+ *
+ * Costo MENSUAL destacado + anual pequeño; en etapa de fundadores la cuota
+ * ordinaria aparece tachada. Datos desde la RPC `registration_quote` (0111).
  */
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -28,16 +32,28 @@ interface Quote {
   ordinary_annual?: number | null;
 }
 
-export function MembershipPrice({ type, className = '' }: { type: string; className?: string }) {
+interface Props {
+  type?: string;
+  affiliate?: string;
+  pending?: boolean;
+  pendingText?: string;
+  boxed?: boolean;
+  boxLabel?: string;
+  /** Si el tipo/país no tiene precio configurado, no renderiza nada (oculta el recuadro). */
+  hideIfEmpty?: boolean;
+  className?: string;
+}
+
+export function MembershipPrice({ type, affiliate, pending, pendingText, boxed, boxLabel, hideIfEmpty, className = '' }: Props) {
   const { t } = useTranslation();
   const { country } = useCountry();
   const [q, setQ] = useState<Quote | null>(null);
-  const free = FREE.has(type);
+  const free = !!type && FREE.has(type);
+  const pType = affiliate ?? (type ? (TYPE_MAP[type] ?? type) : null);
 
   useEffect(() => {
-    if (free || !country) { setQ(null); return; }
+    if (free || pending || !pType || !country) { setQ(null); return; }
     let alive = true;
-    const pType = TYPE_MAP[type] ?? type;
     (async () => {
       const { data } = await (supabase as unknown as {
         rpc: (f: string, a: unknown) => Promise<{ data: unknown }>;
@@ -45,43 +61,56 @@ export function MembershipPrice({ type, className = '' }: { type: string; classN
       if (alive) setQ((data as Quote) ?? null);
     })();
     return () => { alive = false; };
-  }, [type, country, free]);
+  }, [pType, country, free, pending]);
 
   const fmt = (n: number, cur: string) => '$' + new Intl.NumberFormat('es-MX').format(n) + ' ' + cur;
 
-  if (free) {
+  function priceInner(): JSX.Element | null {
+    const cur = q?.currency || 'MXN';
+    const hasFounder = q?.founder_monthly != null;
+    const bigMonthly = hasFounder ? q?.founder_monthly : q?.ordinary_monthly;
+    const bigAnnual = hasFounder ? q?.founder_annual : q?.ordinary_annual;
+    if (!q || !q.configured || bigMonthly == null) return null;
     return (
-      <div className={className}>
-        <span className="inline-block rounded-full bg-emerald-100 px-3 py-1 text-sm font-extrabold text-emerald-700">{t('reg.price.free')}</span>
-        <span className="mt-1 block text-xs text-muted">{t('reg.price.freeNote')}</span>
-      </div>
+      <>
+        {hasFounder && q.ordinary_monthly != null && q.ordinary_monthly !== q.founder_monthly && (
+          <div className="text-xs text-slate-400"><span className="line-through">{fmt(q.ordinary_monthly, cur)}{t('reg.price.perMonth')}</span></div>
+        )}
+        <div className="text-2xl font-extrabold text-brand-700">
+          {q.is_from && <span className="text-sm font-semibold text-muted">{t('reg.price.from')} </span>}
+          {fmt(bigMonthly, cur)}<span className="text-sm font-medium text-muted">{t('reg.price.perMonth')}</span>
+        </div>
+        {bigAnnual != null && <div className="text-xs text-muted">{t('reg.price.or')} {fmt(bigAnnual, cur)}{t('reg.price.perYear')}</div>}
+        {hasFounder && <span className="mt-1 inline-block rounded-full bg-sky-100 px-2 py-0.5 text-[11px] font-bold text-brand-700">{t('reg.price.founderBadge')}</span>}
+      </>
     );
   }
-  if (!q || !q.configured) return null;
 
-  const cur = q.currency || 'MXN';
-  const hasFounder = q.founder_monthly != null;
-  const bigMonthly = hasFounder ? q.founder_monthly : q.ordinary_monthly;
-  const bigAnnual = hasFounder ? q.founder_annual : q.ordinary_annual;
-  if (bigMonthly == null) return null;
+  // Contenido según el estado.
+  let inner: JSX.Element | null = null;
+  if (pending) {
+    inner = <p className="text-sm leading-snug text-slate-600">{pendingText ?? t('reg.price.pending')}</p>;
+  } else if (free) {
+    inner = (
+      <>
+        <span className="inline-block rounded-full bg-emerald-100 px-3 py-1 text-sm font-extrabold text-emerald-700">{t('reg.price.free')}</span>
+        <span className="mt-1 block text-xs text-muted">{t('reg.price.freeNote')}</span>
+      </>
+    );
+  } else {
+    inner = priceInner();
+    if (!inner && boxed) {
+      if (hideIfEmpty) return null;
+      inner = <p className="text-sm leading-snug text-slate-500">{t('reg.price.notConfigured')}</p>;
+    }
+  }
+
+  if (!boxed) return inner ? <div className={className}>{inner}</div> : null;
 
   return (
-    <div className={className}>
-      {hasFounder && q.ordinary_monthly != null && q.ordinary_monthly !== q.founder_monthly && (
-        <div className="text-xs text-slate-400">
-          <span className="line-through">{fmt(q.ordinary_monthly, cur)}{t('reg.price.perMonth')}</span>
-        </div>
-      )}
-      <div className="text-2xl font-extrabold text-brand-700">
-        {q.is_from && <span className="text-sm font-semibold text-muted">{t('reg.price.from')} </span>}
-        {fmt(bigMonthly, cur)}<span className="text-sm font-medium text-muted">{t('reg.price.perMonth')}</span>
-      </div>
-      {bigAnnual != null && (
-        <div className="text-xs text-muted">{t('reg.price.or')} {fmt(bigAnnual, cur)}{t('reg.price.perYear')}</div>
-      )}
-      {hasFounder && (
-        <span className="mt-1 inline-block rounded-full bg-sky-100 px-2 py-0.5 text-[11px] font-bold text-brand-700">{t('reg.price.founderBadge')}</span>
-      )}
+    <div className={`rounded-2xl border border-sky-200 bg-sky-50 p-4 ${className}`}>
+      <p className="text-xs font-extrabold uppercase tracking-wide text-brand-700">{boxLabel ?? t('reg.price.boxLabel')}</p>
+      <div className="mt-1.5">{inner}</div>
     </div>
   );
 }

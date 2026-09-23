@@ -1107,7 +1107,11 @@
       "or": "ou",
       "perMonth": "/mês",
       "perYear": "/ano",
-      "founderBadge": "Preço fundador"
+      "founderBadge": "Preço fundador",
+      "boxLabel": "Custo da sua associação",
+      "pending": "O custo aparecerá ao completar o seu perfil.",
+      "specialistPending": "O custo da sua associação aparecerá assim que você escolher a sua profissão.",
+      "notConfigured": "O custo será exibido quando estiver configurado para o seu país."
     }
   },
   "loc": {

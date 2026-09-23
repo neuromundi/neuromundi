@@ -1107,7 +1107,11 @@
       "or": "或",
       "perMonth": "/月",
       "perYear": "/年",
-      "founderBadge": "创始价"
+      "founderBadge": "创始价",
+      "boxLabel": "你的会员费",
+      "pending": "完善资料后将显示费用。",
+      "specialistPending": "选择你的职业后将立即显示会员费。",
+      "notConfigured": "为你的国家配置后将显示费用。"
     }
   },
   "loc": {
