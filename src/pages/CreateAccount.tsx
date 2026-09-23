@@ -15,6 +15,7 @@ import { ProviderRegister } from '@/pages/ProviderRegister';
 import { ClinicRegister } from '@/pages/ClinicRegister';
 import { SchoolRegister } from '@/pages/SchoolRegister';
 import { KProviderRegister } from '@/pages/KProviderRegister';
+import { MembershipPrice } from '@/components/registration/MembershipPrice';
 import { CompanyRegister } from '@/pages/CompanyRegister';
 import { EsparcimientoRegister } from '@/pages/EsparcimientoRegister';
 import { LoginForm } from '@/components/auth/LoginForm';
@@ -76,6 +77,7 @@ export function CreateAccount() {
           <ArrowLeft className="h-4 w-4" /> {t('create.back')}
         </button>
         <h1 className="text-2xl font-bold text-slate-900">{t(`create.cards.${selected}.title`)}</h1>
+        <MembershipPrice type={selected} className="mt-2" />
         {/* Paciente/familia ya traen el panel dentro de RegisterForm; para el
             resto de tipos lo mostramos aquí, encima de su formulario. */}
         {selected !== 'patient' && selected !== 'parent' && (
@@ -161,6 +163,7 @@ export function CreateAccount() {
             </span>
             <h2 className="mt-3 font-bold text-slate-900">{t(`create.cards.${type}.title`)}</h2>
             <p className="mt-1 text-sm text-muted">{t(`create.cards.${type}.desc`)}</p>
+            <MembershipPrice type={type} className="mt-2" />
           </button>
         ))}
       </div>

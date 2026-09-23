@@ -1136,7 +1136,16 @@
     "ordinaryDiscount": "Aun sin ser Fundador, tendrás 50% de descuento en la membresía anual solo el primer año.",
     "freeLifetime": "Tu membresía como paciente o familiar es totalmente gratuita y vitalicia: no hay renovaciones ni cobros.",
     "sectionsInterest": "¿Qué secciones te interesan? (elige 1 o más)",
-    "sectionsInterestHelp": "Neuromundi abarca tres áreas. Marca las que te interesen."
+    "sectionsInterestHelp": "Neuromundi abarca tres áreas. Marca las que te interesen.",
+    "price": {
+      "free": "Gratuito",
+      "freeNote": "Sin costo de membresía",
+      "from": "desde",
+      "or": "o",
+      "perMonth": "/mes",
+      "perYear": "/año",
+      "founderBadge": "Precio fundador"
+    }
   },
   "loc": {
     "title": "Mis sucursales",

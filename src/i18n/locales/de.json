@@ -1099,7 +1099,16 @@
     "ordinaryDiscount": "Auch ohne Gründer zu sein, erhältst du 50 % Rabatt auf die Jahresmitgliedschaft, nur im ersten Jahr.",
     "freeLifetime": "Deine Mitgliedschaft als Patient oder Angehörige/r ist völlig kostenlos und lebenslang: keine Verlängerungen, keine Gebühren.",
     "sectionsInterest": "Welche Bereiche interessieren dich? (wähle 1 oder mehr)",
-    "sectionsInterestHelp": "Neuromundi umfasst drei Bereiche. Markiere die, die dich interessieren."
+    "sectionsInterestHelp": "Neuromundi umfasst drei Bereiche. Markiere die, die dich interessieren.",
+    "price": {
+      "free": "Kostenlos",
+      "freeNote": "Keine Mitgliedsgebühr",
+      "from": "ab",
+      "or": "oder",
+      "perMonth": "/Mon.",
+      "perYear": "/Jahr",
+      "founderBadge": "Gründerpreis"
+    }
   },
   "loc": {
     "title": "Meine Filialen",

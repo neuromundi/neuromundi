@@ -1099,7 +1099,16 @@
     "ordinaryDiscount": "創設メンバーでなくても、初年度に限り年会費が50%割引になります。",
     "freeLifetime": "患者または家族としての会員資格は完全無料で生涯有効です。更新も料金もありません。",
     "sectionsInterest": "興味のあるセクションは？（1つ以上選択）",
-    "sectionsInterestHelp": "Neuromundiは3つの領域を扱います。興味のあるものを選んでください。"
+    "sectionsInterestHelp": "Neuromundiは3つの領域を扱います。興味のあるものを選んでください。",
+    "price": {
+      "free": "無料",
+      "freeNote": "会費なし",
+      "from": "最低",
+      "or": "または",
+      "perMonth": "/月",
+      "perYear": "/年",
+      "founderBadge": "ファウンダー価格"
+    }
   },
   "loc": {
     "title": "店舗一覧",

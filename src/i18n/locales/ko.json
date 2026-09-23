@@ -1136,7 +1136,16 @@
     "ordinaryDiscount": "창립 회원이 아니어도 첫 해에 한해 연간 멤버십 50% 할인을 받습니다.",
     "freeLifetime": "환자 또는 가족으로서의 멤버십은 완전 무료이며 평생 유지됩니다. 갱신도 비용도 없습니다.",
     "sectionsInterest": "어떤 섹션에 관심 있나요? (1개 이상 선택)",
-    "sectionsInterestHelp": "Neuromundi는 세 영역을 다룹니다. 관심 있는 것을 선택하세요."
+    "sectionsInterestHelp": "Neuromundi는 세 영역을 다룹니다. 관심 있는 것을 선택하세요.",
+    "price": {
+      "free": "무료",
+      "freeNote": "회비 없음",
+      "from": "최저",
+      "or": "또는",
+      "perMonth": "/월",
+      "perYear": "/년",
+      "founderBadge": "창립 가격"
+    }
   },
   "loc": {
     "title": "내 지점",

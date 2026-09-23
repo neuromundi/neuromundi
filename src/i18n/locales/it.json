@@ -1099,7 +1099,16 @@
     "ordinaryDiscount": "Anche senza essere Fondatore, avrai il 50% di sconto sulla quota annuale solo il primo anno.",
     "freeLifetime": "La tua iscrizione come paziente o familiare è completamente gratuita e a vita: nessun rinnovo né costi.",
     "sectionsInterest": "Quali sezioni ti interessano? (scegline 1 o più)",
-    "sectionsInterestHelp": "Neuromundi copre tre aree. Seleziona quelle che ti interessano."
+    "sectionsInterestHelp": "Neuromundi copre tre aree. Seleziona quelle che ti interessano.",
+    "price": {
+      "free": "Gratis",
+      "freeNote": "Nessun costo di iscrizione",
+      "from": "da",
+      "or": "o",
+      "perMonth": "/mese",
+      "perYear": "/anno",
+      "founderBadge": "Prezzo fondatore"
+    }
   },
   "loc": {
     "title": "Le mie filiali",

@@ -1099,7 +1099,16 @@
     "ordinaryDiscount": "Même sans être Fondateur, vous bénéficierez de 50 % de réduction sur l’adhésion annuelle la première année uniquement.",
     "freeLifetime": "Votre adhésion en tant que patient ou proche est entièrement gratuite et à vie : aucun renouvellement ni frais.",
     "sectionsInterest": "Quelles sections vous intéressent ? (choisissez-en 1 ou plus)",
-    "sectionsInterestHelp": "Neuromundi couvre trois domaines. Cochez ceux qui vous intéressent."
+    "sectionsInterestHelp": "Neuromundi couvre trois domaines. Cochez ceux qui vous intéressent.",
+    "price": {
+      "free": "Gratuit",
+      "freeNote": "Sans frais d'adhésion",
+      "from": "dès",
+      "or": "ou",
+      "perMonth": "/mois",
+      "perYear": "/an",
+      "founderBadge": "Prix fondateur"
+    }
   },
   "loc": {
     "title": "Mes succursales",

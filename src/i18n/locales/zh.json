@@ -1099,7 +1099,16 @@
     "ordinaryDiscount": "即使不是创始会员，你也可享受首年年费五折优惠（仅限第一年）。",
     "freeLifetime": "作为患者或家属的会员资格完全免费且终身有效：无需续费，也不收费。",
     "sectionsInterest": "您对哪些板块感兴趣？（可选1个或多个）",
-    "sectionsInterestHelp": "Neuromundi 涵盖三个领域。勾选您感兴趣的。"
+    "sectionsInterestHelp": "Neuromundi 涵盖三个领域。勾选您感兴趣的。",
+    "price": {
+      "free": "免费",
+      "freeNote": "无会员费",
+      "from": "低至",
+      "or": "或",
+      "perMonth": "/月",
+      "perYear": "/年",
+      "founderBadge": "创始价"
+    }
   },
   "loc": {
     "title": "我的门店",
