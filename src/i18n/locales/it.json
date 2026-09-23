@@ -244,7 +244,7 @@
     "whoAreYou": "Chi sei?",
     "family": "Famiglia",
     "provider": "Fornitore",
-    "checkEmail": "Il tuo account è stato creato. Se ti chiediamo di confermare l'email, controlla la casella e accedi di nuovo.",
+    "checkEmail": "Il tuo account è stato creato! Ti abbiamo inviato un'email per confermare il tuo account. Aprila e conferma (controlla anche lo spam) per poter accedere.",
     "terms": "Termini e Condizioni",
     "privacy": "Informativa sulla Privacy",
     "emailNotConfirmed": "La tua e-mail non è ancora confermata. Controlla la posta in arrivo (e lo spam) o invia di nuovo la conferma.",
@@ -1091,7 +1091,8 @@
       "manifesto": "Accettare il Manifesto della comunità",
       "emailValid": "Un’e-mail in formato valido",
       "emailMatch": "Le e-mail devono coincidere",
-      "otherSpecify": "Specifica quando scegli \"Altro\"."
+      "otherSpecify": "Specifica quando scegli \"Altro\".",
+      "passwordWeak": "La password deve contenere almeno 8 caratteri e includere una minuscola, una maiuscola, un numero e un simbolo."
     },
     "errManifesto": "Devi accettare il Manifesto della comunità.",
     "acceptManifestoPre": "Ho letto e aderisco al",
@@ -1114,7 +1115,8 @@
       "pending": "Il costo apparirà al completamento del profilo.",
       "specialistPending": "Il costo della tua iscrizione apparirà appena scegli la tua professione.",
       "notConfigured": "Il costo verrà mostrato quando sarà configurato per il tuo paese."
-    }
+    },
+    "afterConfirmPay": "Dopo aver confermato l'email e aver effettuato l'accesso, ti verrà chiesto di completare il pagamento della tua iscrizione."
   },
   "loc": {
     "title": "Le mie filiali",

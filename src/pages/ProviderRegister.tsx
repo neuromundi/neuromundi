@@ -9,6 +9,7 @@
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { setFounderOptoutFlag } from '@/lib/founderPref';
+import { isStrongPassword } from '@/lib/password';
 import { isStrictEmail } from '@/lib/email';
 import { useCountryLabel } from '@/lib/countryLabel';
 import { FounderProgressCard } from '@/components/founder/FounderProgressCard';
@@ -119,6 +120,7 @@ export function ProviderRegister({ onSuccess, complete = false }: { onSuccess?: 
       if (email.trim() && !isStrictEmail(email)) miss.push(t('reg.miss.emailValid'));
       if (email.trim().toLowerCase() !== confirmEmail.trim().toLowerCase()) miss.push(t('reg.miss.emailMatch'));
       if (password.length < 8) miss.push(t('reg.miss.password'));
+      else if (!isStrongPassword(password)) miss.push(t('reg.miss.passwordWeak'));
       if (password !== confirmPassword) miss.push(t('reg.miss.passwordMatch'));
     }
     if (!acceptTerms) miss.push(t('reg.miss.terms'));
@@ -166,6 +168,7 @@ export function ProviderRegister({ onSuccess, complete = false }: { onSuccess?: 
       <div className="rounded-xl bg-brand-50 p-4 text-center text-sm text-slate-700">
         {t('auth.checkEmail')}
         <p className="mt-2 text-muted">{t('prov.afterInfo')}</p>
+        <p className="mt-2 text-sm font-medium text-brand-700">{t('reg.afterConfirmPay')}</p>
       </div>
     );
   }

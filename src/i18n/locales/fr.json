@@ -244,7 +244,7 @@
     "whoAreYou": "Qui êtes-vous ?",
     "family": "Famille",
     "provider": "Prestataire",
-    "checkEmail": "Votre compte a été créé. Si nous vous demandons de confirmer votre e-mail, vérifiez votre boîte de réception et reconnectez-vous.",
+    "checkEmail": "Votre compte a été créé ! Nous vous avons envoyé un e-mail pour confirmer votre compte. Ouvrez-le et confirmez (vérifiez aussi vos spams) pour pouvoir vous connecter.",
     "terms": "Conditions Générales",
     "privacy": "Avis de Confidentialité",
     "emailNotConfirmed": "Votre e-mail n’est pas encore confirmé. Vérifiez votre boîte de réception (et les spams) ou renvoyez la confirmation.",
@@ -1091,7 +1091,8 @@
       "manifesto": "Accepter le Manifeste de la communauté",
       "emailValid": "Un e-mail au format valide",
       "emailMatch": "Les e-mails doivent correspondre",
-      "otherSpecify": "Précisez lorsque vous choisissez « Autre »."
+      "otherSpecify": "Précisez lorsque vous choisissez « Autre ».",
+      "passwordWeak": "Le mot de passe doit comporter au moins 8 caractères et inclure une minuscule, une majuscule, un chiffre et un symbole."
     },
     "errManifesto": "Vous devez accepter le Manifeste de la communauté.",
     "acceptManifestoPre": "J’ai lu et j’adhère au",
@@ -1114,7 +1115,8 @@
       "pending": "Le coût apparaîtra une fois ton profil complété.",
       "specialistPending": "Le coût de ton adhésion apparaîtra dès que tu choisiras ta profession.",
       "notConfigured": "Le coût s'affichera une fois configuré pour ton pays."
-    }
+    },
+    "afterConfirmPay": "Après avoir confirmé votre e-mail et vous être connecté, il vous sera demandé de finaliser le paiement de votre adhésion."
   },
   "loc": {
     "title": "Mes succursales",

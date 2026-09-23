@@ -281,7 +281,7 @@
     "whoAreYou": "¿Quién eres?",
     "family": "Familia",
     "provider": "Proveedor",
-    "checkEmail": "Tu cuenta se creó. Si te pedimos confirmar tu correo, revisa tu bandeja y vuelve a entrar.",
+    "checkEmail": "¡Tu cuenta se creó! Te enviamos un correo para confirmar tu cuenta. Ábrelo y confírmalo (revisa también la carpeta de spam) para poder iniciar sesión.",
     "terms": "Términos y Condiciones",
     "privacy": "Aviso de Privacidad",
     "emailNotConfirmed": "Tu correo aún no está confirmado. Revisa tu bandeja de entrada (y spam) o reenvía la confirmación.",
@@ -1128,7 +1128,8 @@
       "manifesto": "Aceptar el Manifiesto de la Comunidad",
       "emailValid": "Correo electrónico con formato válido",
       "emailMatch": "Los correos electrónicos deben coincidir",
-      "otherSpecify": "Especifica el motivo cuando eliges \"Otro\"."
+      "otherSpecify": "Especifica el motivo cuando eliges \"Otro\".",
+      "passwordWeak": "La contraseña debe tener al menos 8 caracteres e incluir minúscula, mayúscula, número y símbolo."
     },
     "errManifesto": "Debes aceptar el Manifiesto de la Comunidad.",
     "acceptManifestoPre": "He leído y me adhiero al",
@@ -1151,7 +1152,8 @@
       "pending": "El costo aparecerá al completar tu perfil.",
       "specialistPending": "Aquí se mostrará el costo de tu membresía en cuanto elijas tu profesión.",
       "notConfigured": "El costo se mostrará cuando esté configurado para tu país."
-    }
+    },
+    "afterConfirmPay": "Al confirmar tu correo e iniciar sesión, se te pedirá completar el pago de tu membresía."
   },
   "loc": {
     "title": "Mis sucursales",

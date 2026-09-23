@@ -6,6 +6,7 @@
  */
 import { z } from 'zod';
 import { dimensionsForProviderType } from '@/types/app';
+import { isStrongPassword } from './password';
 import type { ProviderType } from '@/types/app';
 import { isStrictEmail, isDisposableEmail } from '@/lib/email';
 
@@ -233,7 +234,7 @@ export const registerSchema = z
       .email('val.email')
       .refine(isStrictEmail, 'val.emailInvalid')
       .refine((v) => !isDisposableEmail(v), 'val.emailDisposable'),
-    password: z.string().min(8, 'val.passwordMin'),
+    password: z.string().min(8, 'val.passwordMin').refine((p) => p.length < 8 || isStrongPassword(p), 'reg.miss.passwordWeak'),
     confirm_password: z.string().optional().default(''),
     confirm_email: z.string().trim().optional().default(''),
     is_company: z.boolean().default(false),

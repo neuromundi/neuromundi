@@ -244,7 +244,7 @@
     "whoAreYou": "您是？",
     "family": "家庭",
     "provider": "服务商",
-    "checkEmail": "账户已创建。如需确认邮箱，请查看收件箱并重新登录。",
+    "checkEmail": "账户已创建！我们已向你发送确认邮件。请打开并确认（也请检查垃圾邮件），确认后即可登录。",
     "terms": "条款与条件",
     "privacy": "隐私声明",
     "emailNotConfirmed": "你的邮箱尚未确认。请检查收件箱（及垃圾邮件），或重新发送确认邮件。",
@@ -1091,7 +1091,8 @@
       "manifesto": "接受社区宣言",
       "emailValid": "格式有效的电子邮箱",
       "emailMatch": "两次输入的邮箱必须一致",
-      "otherSpecify": "选择\"其他\"时请填写具体内容。"
+      "otherSpecify": "选择\"其他\"时请填写具体内容。",
+      "passwordWeak": "密码至少8个字符，且需包含小写字母、大写字母、数字和符号各一个。"
     },
     "errManifesto": "你必须接受社区宣言。",
     "acceptManifestoPre": "我已阅读并认同",
@@ -1114,7 +1115,8 @@
       "pending": "完善资料后将显示费用。",
       "specialistPending": "选择你的职业后将立即显示会员费。",
       "notConfigured": "为你的国家配置后将显示费用。"
-    }
+    },
+    "afterConfirmPay": "确认邮箱并登录后，系统会提示你完成会员费的支付。"
   },
   "loc": {
     "title": "我的门店",

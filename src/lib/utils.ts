@@ -4,6 +4,7 @@
  */
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import i18next from 'i18next';
 
 /** Combina clases de Tailwind resolviendo conflictos (p. ej. px-2 vs px-4). */
 export function cn(...inputs: ClassValue[]): string {
@@ -198,6 +199,18 @@ export const logger = {
 
 /** Normaliza errores desconocidos a un mensaje legible para la UI. */
 export function toMessage(error: unknown, fallback = 'Algo no salió bien.'): string {
+  const raw = error instanceof Error ? error.message : typeof error === 'string' ? error : '';
+  // Red de seguridad i18n: Supabase Auth (GoTrue) devuelve el requisito de
+  // contraseña SIEMPRE en inglés (texto fijo). Lo mostramos en el idioma del
+  // usuario si llega a colarse pese a la validación de cliente.
+  if (raw) {
+    if (/password should contain/i.test(raw) || /weak[_ ]?password/i.test(raw)) {
+      return i18next.t('reg.miss.passwordWeak');
+    }
+    if (/password should be at least/i.test(raw)) {
+      return i18next.t('val.passwordMin');
+    }
+  }
   if (error instanceof Error) return error.message;
   if (typeof error === 'string') return error;
   return fallback;

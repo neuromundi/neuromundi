@@ -18,6 +18,7 @@ import { Plus, Trash2, Gift, Globe, Instagram, Facebook } from 'lucide-react';
 import { RoleFeaturesPanel } from './RoleFeaturesPanel';
 import { Button, PasswordInput} from '@/components/ui';
 import { useAuth } from '@/hooks/useAuth';
+import { supabase } from '@/lib/supabase';
 import { registerSchema, REG_TYPES, type RegisterValues, type RegType } from '@/lib/schemas';
 import { RULES_VERSION } from '@/lib/legal';
 import { setFounderOptoutFlag } from '@/lib/founderPref';
@@ -152,11 +153,18 @@ export function RegisterForm({ onSuccess, initialType, complete = false }: { onS
     }
     // Marca que, al confirmar el correo y volver, se muestre la bienvenida (1 vez).
     try { localStorage.setItem('neuromundi.pendingWelcome', '1'); } catch { /* ignore */ }
-    setTimeout(() => onSuccess?.(values.regType), 0);
-    // En modo "completar" (login social) no hay confirmación por correo: al
-    // guardar, el perfil queda listo y la app se muestra.
-    if (complete) return;
-    setCheckEmail(true);
+    // En modo "completar" (login social) el perfil ya queda listo: se muestra la app.
+    if (complete) { setTimeout(() => onSuccess?.(values.regType), 0); return; }
+    // Tras el alta por correo: si Supabase devolvió sesión (confirmación de correo
+    // DESACTIVADA) entramos directo al panel; si NO hay sesión (confirmación de
+    // correo ACTIVADA, alta pendiente de confirmar) mostramos la pantalla de
+    // "confirma tu correo" en vez de rebotar al login.
+    const { data: sessData } = await supabase.auth.getSession();
+    if (sessData?.session) {
+      setTimeout(() => onSuccess?.(values.regType), 0);
+    } else {
+      setCheckEmail(true);
+    }
   };
 
   if (checkEmail) {

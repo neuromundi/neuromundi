@@ -281,7 +281,7 @@
     "whoAreYou": "Who are you?",
     "family": "Family",
     "provider": "Provider",
-    "checkEmail": "Your account was created. If we ask you to confirm your email, check your inbox and sign in again.",
+    "checkEmail": "Your account was created! We've sent you an email to confirm your account. Open it and confirm (check your spam folder too) so you can sign in.",
     "terms": "Terms and Conditions",
     "privacy": "Privacy Notice",
     "emailNotConfirmed": "Your email is not confirmed yet. Check your inbox (and spam) or resend the confirmation.",
@@ -1128,7 +1128,8 @@
       "manifesto": "Accept the Community Manifesto",
       "emailValid": "A valid email format",
       "emailMatch": "Emails must match",
-      "otherSpecify": "Please specify when you choose \"Other\"."
+      "otherSpecify": "Please specify when you choose \"Other\".",
+      "passwordWeak": "Password must be at least 8 characters and include a lowercase letter, an uppercase letter, a number and a symbol."
     },
     "errManifesto": "You must accept the Community Manifesto.",
     "acceptManifestoPre": "I have read and adhere to the",
@@ -1151,7 +1152,8 @@
       "pending": "The cost will appear once you complete your profile.",
       "specialistPending": "Your membership cost will appear as soon as you choose your profession.",
       "notConfigured": "The cost will show once it's configured for your country."
-    }
+    },
+    "afterConfirmPay": "After you confirm your email and sign in, you'll be asked to complete your membership payment."
   },
   "loc": {
     "title": "My branches",
