@@ -58,13 +58,13 @@ export function AdminAdvisors() {
 
         <div className="mt-3 flex gap-2">
           <div className="relative flex-1">
-            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" aria-hidden="true" />
+            <Search className="pointer-events-none absolute left-3 rtl:left-auto rtl:right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" aria-hidden="true" />
             <input
               value={q}
               onChange={(e) => setQ(e.target.value)}
               onKeyDown={(e) => { if (e.key === 'Enter') void search(); }}
               placeholder={t('admin.adv.searchPh')}
-              className="w-full rounded-lg border border-slate-200 py-2 pl-9 pr-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+              className="w-full rounded-lg border border-slate-200 py-2 pl-9 pr-3 rtl:pl-3 rtl:pr-9 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
             />
           </div>
           <Button size="sm" onClick={() => void search()} loading={searching}>{t('admin.adv.search')}</Button>

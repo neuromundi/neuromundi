@@ -156,17 +156,17 @@ export function CompanyRegister({ onSuccess, complete = false }: { onSuccess?: (
             </label>
             <p className="text-xs text-muted">{t('k.logoHint')}</p>
           </div>
-          <div><label className={labelCls}>{t('company.name')} *</label><input className={inputCls} value={name} onChange={(e) => setName(e.target.value)} /></div>
+          <div><label className={labelCls} htmlFor="compan-f0">{t('company.name')} *</label><input id="compan-f0" className={inputCls} value={name} onChange={(e) => setName(e.target.value)} /></div>
           <div>
-            <label className={labelCls}>{t('company.sector')}</label>
-            <select className={inputCls} value={sector} onChange={(e) => setSector(e.target.value)}>
+            <label className={labelCls} htmlFor="compan-f1">{t('company.sector')}</label>
+            <select id="compan-f1" className={inputCls} value={sector} onChange={(e) => setSector(e.target.value)}>
               <option value="">{t('company.selectSector')}</option>
               {COMPANY_SECTORS.map((s) => <option key={s.value} value={s.value}>{catLabel(s.value, s.label)}</option>)}
             </select>
           </div>
           <div>
-            <label className={labelCls}>{t('company.description')}</label>
-            <textarea maxLength={400} rows={3} className={inputCls} value={description} onChange={(e) => setDescription(e.target.value)} />
+            <label className={labelCls} htmlFor="compan-f2">{t('company.description')}</label>
+            <textarea id="compan-f2" maxLength={400} rows={3} className={inputCls} value={description} onChange={(e) => setDescription(e.target.value)} />
             <p className="mt-1 text-right text-xs text-muted">{description.length}/400</p>
           </div>
         </section>
@@ -175,19 +175,19 @@ export function CompanyRegister({ onSuccess, complete = false }: { onSuccess?: (
         <section className="space-y-4">
           <h3 className={sectionTitle}>{t('company.s2')}</h3>
           <div className="grid gap-3 sm:grid-cols-2">
-            <div><label className={labelCls}>{t('company.contactName')}</label><input className={inputCls} value={contactName} onChange={(e) => setContactName(e.target.value)} /></div>
-            <div><label className={labelCls}>{t('company.contactEmail')}</label><input type="email" className={inputCls} value={contactEmail} onChange={(e) => setContactEmail(e.target.value)} /></div>
-            <div className="sm:col-span-2"><label className={labelCls}>{t('k.website')}</label><input className={inputCls} value={website} onChange={(e) => setWebsite(e.target.value)} placeholder="https://" /></div>
+            <div><label className={labelCls} htmlFor="compan-f3">{t('company.contactName')}</label><input id="compan-f3" className={inputCls} value={contactName} onChange={(e) => setContactName(e.target.value)} /></div>
+            <div><label className={labelCls} htmlFor="compan-f4">{t('company.contactEmail')}</label><input id="compan-f4" type="email" className={inputCls} value={contactEmail} onChange={(e) => setContactEmail(e.target.value)} /></div>
+            <div className="sm:col-span-2"><label className={labelCls} htmlFor="compan-f5">{t('k.website')}</label><input id="compan-f5" className={inputCls} value={website} onChange={(e) => setWebsite(e.target.value)} placeholder="https://" /></div>
           </div>
           <div className="grid gap-3 sm:grid-cols-2">
             <div>
-              <label className={labelCls}>{t('reg.country')}</label>
-              <select className={inputCls} value={country} onChange={(e) => setCountry(e.target.value)}>
+              <label className={labelCls} htmlFor="compan-f6">{t('reg.country')}</label>
+              <select id="compan-f6" className={inputCls} value={country} onChange={(e) => setCountry(e.target.value)}>
                 <option value="">{t('reg.selectCountry')}</option>
                 {COUNTRIES.map((c) => <option key={c.code} value={c.name}>{countryLabel(c.code, c.name)}</option>)}
               </select>
             </div>
-            <div><label className={labelCls}>{t('company.city')}</label><input className={inputCls} value={city} onChange={(e) => setCity(e.target.value)} /></div>
+            <div><label className={labelCls} htmlFor="compan-f7">{t('company.city')}</label><input id="compan-f7" className={inputCls} value={city} onChange={(e) => setCity(e.target.value)} /></div>
           </div>
         </section>
 
@@ -195,10 +195,10 @@ export function CompanyRegister({ onSuccess, complete = false }: { onSuccess?: (
         <section className="space-y-4">
           <h3 className={sectionTitle}>{t('reg.socialOptional')}</h3>
           <div className="grid gap-3 sm:grid-cols-2">
-            <div><label className={labelCls}>{t('reg.instagram')}</label><input className={inputCls} value={instagram} onChange={(e) => setInstagram(e.target.value)} placeholder="@usuario" /></div>
-            <div><label className={labelCls}>{t('reg.tiktok')}</label><input className={inputCls} value={tiktok} onChange={(e) => setTiktok(e.target.value)} placeholder="@usuario" /></div>
-            <div><label className={labelCls}>{t('reg.facebook')}</label><input className={inputCls} value={facebook} onChange={(e) => setFacebook(e.target.value)} placeholder="https://facebook.com/…" /></div>
-            <div><label className={labelCls}>LinkedIn</label><input className={inputCls} value={linkedin} onChange={(e) => setLinkedin(e.target.value)} placeholder="https://linkedin.com/…" /></div>
+            <div><label className={labelCls} htmlFor="compan-f8">{t('reg.instagram')}</label><input id="compan-f8" className={inputCls} value={instagram} onChange={(e) => setInstagram(e.target.value)} placeholder="@usuario" /></div>
+            <div><label className={labelCls} htmlFor="compan-f9">{t('reg.tiktok')}</label><input id="compan-f9" className={inputCls} value={tiktok} onChange={(e) => setTiktok(e.target.value)} placeholder="@usuario" /></div>
+            <div><label className={labelCls} htmlFor="compan-f10">{t('reg.facebook')}</label><input id="compan-f10" className={inputCls} value={facebook} onChange={(e) => setFacebook(e.target.value)} placeholder="https://facebook.com/…" /></div>
+            <div><label className={labelCls} htmlFor="compan-f11">LinkedIn</label><input id="compan-f11" className={inputCls} value={linkedin} onChange={(e) => setLinkedin(e.target.value)} placeholder="https://linkedin.com/…" /></div>
           </div>
         </section>
 
@@ -206,8 +206,8 @@ export function CompanyRegister({ onSuccess, complete = false }: { onSuccess?: (
         {!complete && (
           <section className="space-y-4">
             <h3 className={sectionTitle}>{t('k.s6')}</h3>
-            <div><label className={labelCls}>{t('auth.email')}</label><input type="email" className={inputCls} value={email} onChange={(e) => setEmail(e.target.value)} /></div>
-            <div><label className={labelCls}>{t('auth.confirmEmail')}</label><input type="email" inputMode="email" autoComplete="off" onPaste={(e) => e.preventDefault()} className={inputCls} value={confirmEmail} onChange={(e) => setConfirmEmail(e.target.value)} /></div>
+            <div><label className={labelCls} htmlFor="compan-f12">{t('auth.email')}</label><input id="compan-f12" type="email" className={inputCls} value={email} onChange={(e) => setEmail(e.target.value)} /></div>
+            <div><label className={labelCls} htmlFor="compan-f13">{t('auth.confirmEmail')}</label><input id="compan-f13" type="email" inputMode="email" autoComplete="off" onPaste={(e) => e.preventDefault()} className={inputCls} value={confirmEmail} onChange={(e) => setConfirmEmail(e.target.value)} /></div>
             <div><label className={labelCls}>{t('auth.password')}</label><PasswordInput className={inputCls} value={password} onChange={(e) => setPassword(e.target.value)} /></div>
             <div><label className={labelCls}>{t('auth.confirmPassword')}</label><PasswordInput className={inputCls} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} /></div>
           </section>

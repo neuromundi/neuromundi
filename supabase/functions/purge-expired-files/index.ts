@@ -15,7 +15,12 @@ const admin = createClient(
   { auth: { persistSession: false } },
 );
 
-Deno.serve(async () => {
+Deno.serve(async (req) => {
+  // Endpoint interno (cron purge-expired-files-cada-hora): exige el secreto compartido.
+  const _cs = Deno.env.get('CRON_SECRET') ?? '';
+  if (!_cs || req.headers.get('x-cron-secret') !== _cs) {
+    return new Response(JSON.stringify({ error: 'no autorizado' }), { status: 401, headers: { 'Content-Type': 'application/json' } });
+  }
   const { data: expired, error } = await admin
     .from('secure_files')
     .select('id, storage_path')

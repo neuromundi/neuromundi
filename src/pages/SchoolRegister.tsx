@@ -224,17 +224,17 @@ export function SchoolRegister({ onSuccess, complete = false }: { onSuccess?: ()
             </label>
             <p className="text-xs text-muted">{t('sch.logoHint')}</p>
           </div>
-          <div><label className={labelCls}>{t('sch.name')} *</label><input className={inputCls} value={name} onChange={(e) => setName(e.target.value)} /></div>
+          <div><label className={labelCls} htmlFor="school-f0">{t('sch.name')} *</label><input id="school-f0" className={inputCls} value={name} onChange={(e) => setName(e.target.value)} /></div>
           <div>
-            <label className={labelCls}>{t('sch.institutionType')}</label>
-            <select className={inputCls} value={institutionType} onChange={(e) => setInstitutionType(e.target.value)}>
+            <label className={labelCls} htmlFor="school-f1">{t('sch.institutionType')}</label>
+            <select id="school-f1" className={inputCls} value={institutionType} onChange={(e) => setInstitutionType(e.target.value)}>
               <option value="">{t('sch.institutionSelect')}</option>
               {INSTITUTION_TYPES.map((i) => <option key={i.value} value={i.value}>{catLabel(i.value, i.label)}</option>)}
             </select>
           </div>
           <div>
-            <label className={labelCls}>{t('sch.description')}</label>
-            <textarea maxLength={300} rows={3} className={inputCls} value={description} onChange={(e) => setDescription(e.target.value)} />
+            <label className={labelCls} htmlFor="school-f2">{t('sch.description')}</label>
+            <textarea id="school-f2" maxLength={300} rows={3} className={inputCls} value={description} onChange={(e) => setDescription(e.target.value)} />
             <p className="mt-1 text-right text-xs text-muted">{description.length}/300</p>
           </div>
         </section>
@@ -244,8 +244,8 @@ export function SchoolRegister({ onSuccess, complete = false }: { onSuccess?: ()
           <h3 className={sectionTitle}>{t('sch.s2')}</h3>
           <div className="grid gap-3 sm:grid-cols-3">
             <div>
-              <label className={labelCls}>{t('reg.country')}</label>
-              <select className={inputCls} value={country} onChange={(e) => { setCountry(e.target.value); setStateName(''); setMunicipality(''); }}>
+              <label className={labelCls} htmlFor="school-f3">{t('reg.country')}</label>
+              <select id="school-f3" className={inputCls} value={country} onChange={(e) => { setCountry(e.target.value); setStateName(''); setMunicipality(''); }}>
                 <option value="">{t('reg.selectCountry')}</option>
                 {COUNTRIES.map((c) => <option key={c.code} value={c.name}>{countryLabel(c.code, c.name)}</option>)}
               </select>
@@ -253,15 +253,15 @@ export function SchoolRegister({ onSuccess, complete = false }: { onSuccess?: ()
             {isMexico && (
               <>
                 <div>
-                  <label className={labelCls}>{t('reg.state')}</label>
-                  <select className={inputCls} value={stateName} onChange={(e) => { setStateName(e.target.value); setMunicipality(''); }}>
+                  <label className={labelCls} htmlFor="school-f4">{t('reg.state')}</label>
+                  <select id="school-f4" className={inputCls} value={stateName} onChange={(e) => { setStateName(e.target.value); setMunicipality(''); }}>
                     <option value="">{t('reg.selectState')}</option>
                     {MX_ESTADOS.map((s) => <option key={s} value={s}>{s}</option>)}
                   </select>
                 </div>
                 <div>
-                  <label className={labelCls}>{t('reg.municipality')}</label>
-                  <select className={inputCls} value={municipality} onChange={(e) => setMunicipality(e.target.value)} disabled={!stateName}>
+                  <label className={labelCls} htmlFor="school-f5">{t('reg.municipality')}</label>
+                  <select id="school-f5" className={inputCls} value={municipality} onChange={(e) => setMunicipality(e.target.value)} disabled={!stateName}>
                     <option value="">{t('reg.selectMunicipality')}</option>
                     {municipios.map((mn) => <option key={mn} value={mn}>{mn}</option>)}
                   </select>
@@ -269,12 +269,12 @@ export function SchoolRegister({ onSuccess, complete = false }: { onSuccess?: ()
               </>
             )}
           </div>
-          <div><label className={labelCls}>{t('sch.address')}</label><input className={inputCls} value={address} onChange={(e) => setAddress(e.target.value)} /></div>
+          <div><label className={labelCls} htmlFor="school-f6">{t('sch.address')}</label><input id="school-f6" className={inputCls} value={address} onChange={(e) => setAddress(e.target.value)} /></div>
           <div className="grid gap-3 sm:grid-cols-2">
-            <div><label className={labelCls}>{t('sch.phone')}</label><input className={inputCls} value={phone} onChange={(e) => setPhone(e.target.value)} /></div>
-            <div><label className={labelCls}>{t('sch.whatsapp')}</label><input className={inputCls} value={whatsapp} onChange={(e) => setWhatsapp(e.target.value)} /></div>
-            <div><label className={labelCls}>{t('sch.publicEmail')}</label><input type="email" className={inputCls} value={publicEmail} onChange={(e) => setPublicEmail(e.target.value)} /></div>
-            <div><label className={labelCls}>{t('sch.website')}</label><input className={inputCls} value={website} onChange={(e) => setWebsite(e.target.value)} placeholder="https://" /></div>
+            <div><label className={labelCls} htmlFor="school-f7">{t('sch.phone')}</label><input id="school-f7" className={inputCls} value={phone} onChange={(e) => setPhone(e.target.value)} /></div>
+            <div><label className={labelCls} htmlFor="school-f8">{t('sch.whatsapp')}</label><input id="school-f8" className={inputCls} value={whatsapp} onChange={(e) => setWhatsapp(e.target.value)} /></div>
+            <div><label className={labelCls} htmlFor="school-f9">{t('sch.publicEmail')}</label><input id="school-f9" type="email" className={inputCls} value={publicEmail} onChange={(e) => setPublicEmail(e.target.value)} /></div>
+            <div><label className={labelCls} htmlFor="school-f10">{t('sch.website')}</label><input id="school-f10" className={inputCls} value={website} onChange={(e) => setWebsite(e.target.value)} placeholder="https://" /></div>
           </div>
         </section>
 
@@ -307,41 +307,41 @@ export function SchoolRegister({ onSuccess, complete = false }: { onSuccess?: ()
         <section className="space-y-4">
           <h3 className={sectionTitle}>{t('sch.s4')}</h3>
           <div className="grid gap-3 sm:grid-cols-2">
-            <div><label className={labelCls}>{t('sch.rvoe')}</label><input className={inputCls} placeholder={t('sch.rvoePlaceholder')} value={rvoe} onChange={(e) => setRvoe(e.target.value)} /></div>
-            {isMexico && <div><label className={labelCls}>RFC</label><input className={inputCls} value={rfc} onChange={(e) => setRfc(e.target.value)} /></div>}
+            <div><label className={labelCls} htmlFor="school-f11">{t('sch.rvoe')}</label><input id="school-f11" className={inputCls} placeholder={t('sch.rvoePlaceholder')} value={rvoe} onChange={(e) => setRvoe(e.target.value)} /></div>
+            {isMexico && <div><label className={labelCls} htmlFor="school-f12">RFC</label><input id="school-f12" className={inputCls} value={rfc} onChange={(e) => setRfc(e.target.value)} /></div>}
           </div>
-          <div><label className={labelCls}>{t('sch.director')}</label><input className={inputCls} value={directorName} onChange={(e) => setDirectorName(e.target.value)} /></div>
+          <div><label className={labelCls} htmlFor="school-f13">{t('sch.director')}</label><input id="school-f13" className={inputCls} value={directorName} onChange={(e) => setDirectorName(e.target.value)} /></div>
           <p className="text-xs text-muted">{t('sch.docNote')}</p>
         </section>
 
         {/* 5. Beneficio / QR */}
         <section className="space-y-4">
           <h3 className={sectionTitle}>{t('sch.s5')}</h3>
-          <div><label className={labelCls}>{t('sch.benefit')}</label><input className={inputCls} placeholder={t('sch.benefitPlaceholder')} value={benefitDesc} onChange={(e) => setBenefitDesc(e.target.value)} /></div>
-          <div><label className={labelCls}>{t('reg.discountPct')}</label><input type="number" min="0" max="100" className={inputCls} placeholder="0" value={discountPct} onChange={(e) => setDiscountPct(e.target.value)} /><p className="mt-1 text-xs text-muted">{t('reg.discountPctHelp')}</p></div>
-          <div><label className={labelCls}>{t('sch.benefitTerms')}</label><input className={inputCls} placeholder={t('sch.benefitTermsPlaceholder')} value={benefitTerms} onChange={(e) => setBenefitTerms(e.target.value)} /></div>
-          <div><label className={labelCls}>{t('sch.validator')}</label><input className={inputCls} placeholder={t('sch.validatorPlaceholder')} value={benefitValidator} onChange={(e) => setBenefitValidator(e.target.value)} /></div>
+          <div><label className={labelCls} htmlFor="school-f14">{t('sch.benefit')}</label><input id="school-f14" className={inputCls} placeholder={t('sch.benefitPlaceholder')} value={benefitDesc} onChange={(e) => setBenefitDesc(e.target.value)} /></div>
+          <div><label className={labelCls} htmlFor="school-f15">{t('reg.discountPct')}</label><input id="school-f15" type="number" min="0" max="100" className={inputCls} placeholder="0" value={discountPct} onChange={(e) => setDiscountPct(e.target.value)} /><p className="mt-1 text-xs text-muted">{t('reg.discountPctHelp')}</p></div>
+          <div><label className={labelCls} htmlFor="school-f16">{t('sch.benefitTerms')}</label><input id="school-f16" className={inputCls} placeholder={t('sch.benefitTermsPlaceholder')} value={benefitTerms} onChange={(e) => setBenefitTerms(e.target.value)} /></div>
+          <div><label className={labelCls} htmlFor="school-f17">{t('sch.validator')}</label><input id="school-f17" className={inputCls} placeholder={t('sch.validatorPlaceholder')} value={benefitValidator} onChange={(e) => setBenefitValidator(e.target.value)} /></div>
         </section>
 
         {/* Redes sociales (opcional) */}
         <section className="space-y-4">
           <h3 className={sectionTitle}>{t('reg.socialOptional')}</h3>
           <div className="grid gap-3 sm:grid-cols-2">
-            <div><label className={labelCls}>{t('reg.instagram')}</label><input className={inputCls} value={instagram} onChange={(e) => setInstagram(e.target.value)} placeholder="@usuario" /></div>
-            <div><label className={labelCls}>{t('reg.tiktok')}</label><input className={inputCls} value={tiktok} onChange={(e) => setTiktok(e.target.value)} placeholder="@usuario" /></div>
-            <div><label className={labelCls}>{t('reg.facebook')}</label><input className={inputCls} value={facebook} onChange={(e) => setFacebook(e.target.value)} placeholder="https://facebook.com/…" /></div>
-            <div><label className={labelCls}>LinkedIn</label><input className={inputCls} value={linkedin} onChange={(e) => setLinkedin(e.target.value)} placeholder="https://linkedin.com/…" /></div>
+            <div><label className={labelCls} htmlFor="school-f18">{t('reg.instagram')}</label><input id="school-f18" className={inputCls} value={instagram} onChange={(e) => setInstagram(e.target.value)} placeholder="@usuario" /></div>
+            <div><label className={labelCls} htmlFor="school-f19">{t('reg.tiktok')}</label><input id="school-f19" className={inputCls} value={tiktok} onChange={(e) => setTiktok(e.target.value)} placeholder="@usuario" /></div>
+            <div><label className={labelCls} htmlFor="school-f20">{t('reg.facebook')}</label><input id="school-f20" className={inputCls} value={facebook} onChange={(e) => setFacebook(e.target.value)} placeholder="https://facebook.com/…" /></div>
+            <div><label className={labelCls} htmlFor="school-f21">LinkedIn</label><input id="school-f21" className={inputCls} value={linkedin} onChange={(e) => setLinkedin(e.target.value)} placeholder="https://linkedin.com/…" /></div>
           </div>
         </section>
 
         {/* 6. Cuenta */}
         <section className="space-y-4">
           <h3 className={sectionTitle}>{t('sch.s6')}</h3>
-          <div><label className={labelCls}>{t('sch.adminName')}</label><input className={inputCls} value={adminName} onChange={(e) => setAdminName(e.target.value)} /></div>
+          <div><label className={labelCls} htmlFor="school-f22">{t('sch.adminName')}</label><input id="school-f22" className={inputCls} value={adminName} onChange={(e) => setAdminName(e.target.value)} /></div>
           {!complete && (
             <>
-              <div><label className={labelCls}>{t('auth.email')}</label><input type="email" className={inputCls} value={email} onChange={(e) => setEmail(e.target.value)} /></div>
-              <div><label className={labelCls}>{t('auth.confirmEmail')}</label><input type="email" inputMode="email" autoComplete="off" onPaste={(e) => e.preventDefault()} className={inputCls} value={confirmEmail} onChange={(e) => setConfirmEmail(e.target.value)} /></div>
+              <div><label className={labelCls} htmlFor="school-f23">{t('auth.email')}</label><input id="school-f23" type="email" className={inputCls} value={email} onChange={(e) => setEmail(e.target.value)} /></div>
+              <div><label className={labelCls} htmlFor="school-f24">{t('auth.confirmEmail')}</label><input id="school-f24" type="email" inputMode="email" autoComplete="off" onPaste={(e) => e.preventDefault()} className={inputCls} value={confirmEmail} onChange={(e) => setConfirmEmail(e.target.value)} /></div>
               <div><label className={labelCls}>{t('auth.password')}</label><PasswordInput className={inputCls} value={password} onChange={(e) => setPassword(e.target.value)} /></div>
               <div><label className={labelCls}>{t('auth.confirmPassword')}</label><PasswordInput className={inputCls} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} /></div>
             </>

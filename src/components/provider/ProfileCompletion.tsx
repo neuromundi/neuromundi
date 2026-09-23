@@ -70,7 +70,7 @@ export function ProfileCompletion() {
 
   return (
     <div className="relative overflow-hidden rounded-2xl border border-brand-100 bg-gradient-to-br from-brand-50 to-white p-5 shadow-sm">
-      <button onClick={dismiss} aria-label={t('common.close')} className="absolute right-3 top-3 rounded-lg p-1.5 text-muted hover:bg-white">
+      <button onClick={dismiss} aria-label={t('common.close')} className="absolute right-3 top-3 rtl:right-auto rtl:left-3 rounded-lg p-1.5 text-muted hover:bg-white">
         <X className="h-4 w-4" />
       </button>
       <div className="flex items-start gap-4">

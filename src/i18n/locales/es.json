@@ -77,7 +77,9 @@
     "confirm": "Confirmar",
     "tagline": "Encuentra. conecta. crece.",
     "delete": "Eliminar",
-    "edit": "Editar"
+    "edit": "Editar",
+    "errorGeneric": "Algo salió mal. Inténtalo de nuevo.",
+    "refresh": "Actualizar"
   },
   "followUs": {
     "title": "Síguenos",
@@ -3013,7 +3015,9 @@
     "last30": "{{n}} en 30 días",
     "conversionHelp": "contactos ÷ vistas",
     "empty": "Aún no hay vistas registradas. Comparte tu perfil para empezar a medir.",
-    "incomplete": "Registros sin concluir"
+    "incomplete": "Registros sin concluir",
+    "refresh": "Actualizar",
+    "unavailable": "Métricas no disponibles por ahora."
   },
   "events": {
     "title": "Eventos",

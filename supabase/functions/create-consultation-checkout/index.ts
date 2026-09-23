@@ -56,14 +56,31 @@ Deno.serve(async (req) => {
   if (!provider.accepts_payments || !provider.stripe_connect_id || !provider.stripe_charges_enabled) {
     return json(400, { error: 'El prestador aún no tiene pagos habilitados.' });
   }
-  if ((body.amount == null || Number(body.amount) <= 0) && (!provider.consultation_amount || !provider.consultation_currency)) {
-    return json(400, { error: 'El prestador no configuró el precio de la consulta.' });
+  // Importe SIEMPRE calculado en el servidor (NUNCA se confía en body.amount/
+  // body.currency, que un pagador podría manipular). Con appointmentId, se toma
+  // del cobro guardado en la cita, validando que la cita sea de ESTE prestador y
+  // de ESTE paciente; sin cita, el precio fijo de consulta del prestador.
+  let amount: number;
+  let currency: string;
+  if (body.appointmentId) {
+    const { data: appt } = await admin
+      .from('appointment_requests')
+      .select('specialist_id, recipient_id, charge_total, charge_currency, payment_status')
+      .eq('id', body.appointmentId)
+      .single();
+    if (!appt) return json(404, { error: 'Cita no encontrada' });
+    if (appt.specialist_id !== body.providerId || appt.recipient_id !== u.user.id) {
+      return json(403, { error: 'La cita no corresponde a este pago.' });
+    }
+    if (appt.payment_status === 'paid') return json(400, { error: 'La cita ya está pagada.' });
+    amount = Number(appt.charge_total);
+    currency = String(appt.charge_currency || provider.consultation_currency || '').toLowerCase();
+    if (!(amount > 0) || !currency) return json(400, { error: 'La cita no tiene un cobro configurado.' });
+  } else {
+    amount = Number(provider.consultation_amount);
+    currency = String(provider.consultation_currency || '').toLowerCase();
+    if (!(amount > 0) || !currency) return json(400, { error: 'El prestador no configuró el precio de la consulta.' });
   }
-
-  // Importe: si el cuerpo trae un monto (cobro por cita con % del especialista) se usa
-  // ese; si no, el precio fijo de consulta del prestador.
-  const currency = String(body.currency || provider.consultation_currency).toLowerCase();
-  const amount = body.amount != null && Number(body.amount) > 0 ? Number(body.amount) : Number(provider.consultation_amount);
   const unitAmount = ZERO_DECIMAL.has(currency) ? Math.round(amount) : Math.round(amount * 100);
 
   // Datos del pagador para el reporte de facturación.

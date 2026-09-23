@@ -77,7 +77,9 @@
     "confirm": "Confirm",
     "tagline": "Find. connect. grow.",
     "delete": "Delete",
-    "edit": "Edit"
+    "edit": "Edit",
+    "errorGeneric": "Something went wrong. Please try again.",
+    "refresh": "Refresh"
   },
   "followUs": {
     "title": "Follow us",
@@ -3013,7 +3015,9 @@
     "last30": "{{n}} in 30 days",
     "conversionHelp": "contacts ÷ views",
     "empty": "No views recorded yet. Share your profile to start measuring.",
-    "incomplete": "Incomplete registrations"
+    "incomplete": "Incomplete registrations",
+    "refresh": "Refresh",
+    "unavailable": "Metrics unavailable right now."
   },
   "events": {
     "title": "Events",

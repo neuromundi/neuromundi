@@ -480,26 +480,26 @@ export function RegisterForm({ onSuccess, initialType, complete = false }: { onS
                 </button>
               </div>
               <div>
-                <label className={labelCls}>{t('reg.branchLabel')}</label>
-                <input className={inputCls} {...register(`locations.${i}.label` as const)} />
+                <label className={labelCls} htmlFor="form-f0">{t('reg.branchLabel')}</label>
+                <input id="form-f0" className={inputCls} {...register(`locations.${i}.label` as const)} />
               </div>
               <div>
-                <label className={labelCls}>{t('reg.address')}</label>
-                <input className={inputCls} {...register(`locations.${i}.address` as const)} />
+                <label className={labelCls} htmlFor="form-f1">{t('reg.address')}</label>
+                <input id="form-f1" className={inputCls} {...register(`locations.${i}.address` as const)} />
                 {errors.locations?.[i]?.address && (
                   <p role="alert" className={errCls}>{t(errors.locations[i]!.address!.message!)}</p>
                 )}
               </div>
               <div>
-                <label className={labelCls}>{t('reg.branchPhone')}</label>
-                <input className={inputCls} type="tel" {...register(`locations.${i}.phone` as const)} />
+                <label className={labelCls} htmlFor="form-f2">{t('reg.branchPhone')}</label>
+                <input id="form-f2" className={inputCls} type="tel" {...register(`locations.${i}.phone` as const)} />
                 {errors.locations?.[i]?.phone && (
                   <p role="alert" className={errCls}>{t(errors.locations[i]!.phone!.message!)}</p>
                 )}
               </div>
               <div>
-                <label className={labelCls}>{t('reg.hoursLabel')}</label>
-                <input className={inputCls} placeholder={t('reg.hoursPlaceholder')} {...register(`locations.${i}.hours` as const)} />
+                <label className={labelCls} htmlFor="form-f3">{t('reg.hoursLabel')}</label>
+                <input id="form-f3" className={inputCls} placeholder={t('reg.hoursPlaceholder')} {...register(`locations.${i}.hours` as const)} />
                 {errors.locations?.[i]?.hours && (
                   <p role="alert" className={errCls}>{t(errors.locations[i]!.hours!.message!)}</p>
                 )}

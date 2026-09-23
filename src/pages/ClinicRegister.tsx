@@ -307,11 +307,11 @@ export function ClinicRegister({ onSuccess, complete = false }: { onSuccess?: ()
                 {CLINIC_CATEGORIES.map((c) => <button type="button" key={c.value} onClick={() => toggleCategory(c.value)} className={chip(categories.includes(c.value))}>{catLabel(c.value, c.label)}</button>)}
               </div>
             </div>
-            <div><label className={labelCls}>{t('clin.name')} *</label><input className={inputCls} value={name} onChange={(e) => setName(e.target.value)} /></div>
-            <div><label className={labelCls}>{t('clin.razonSocial')}</label><input className={inputCls} value={razonSocial} onChange={(e) => setRazonSocial(e.target.value)} /></div>
+            <div><label className={labelCls} htmlFor="clinic-f0">{t('clin.name')} *</label><input id="clinic-f0" className={inputCls} value={name} onChange={(e) => setName(e.target.value)} /></div>
+            <div><label className={labelCls} htmlFor="clinic-f1">{t('clin.razonSocial')}</label><input id="clinic-f1" className={inputCls} value={razonSocial} onChange={(e) => setRazonSocial(e.target.value)} /></div>
             <div>
-              <label className={labelCls}>{t('clin.description')}</label>
-              <textarea maxLength={300} rows={3} className={inputCls} value={description} onChange={(e) => setDescription(e.target.value)} />
+              <label className={labelCls} htmlFor="clinic-f2">{t('clin.description')}</label>
+              <textarea id="clinic-f2" maxLength={300} rows={3} className={inputCls} value={description} onChange={(e) => setDescription(e.target.value)} />
               <p className="mt-1 text-right text-xs text-muted">{description.length}/300</p>
             </div>
             <div>
@@ -327,8 +327,8 @@ export function ClinicRegister({ onSuccess, complete = false }: { onSuccess?: ()
           <div className="space-y-4">
             <div className="grid gap-3 sm:grid-cols-3">
               <div>
-                <label className={labelCls}>{t('reg.country')}</label>
-                <select className={inputCls} value={country} onChange={(e) => { setCountry(e.target.value); setStateName(''); setMunicipality(''); }}>
+                <label className={labelCls} htmlFor="clinic-f3">{t('reg.country')}</label>
+                <select id="clinic-f3" className={inputCls} value={country} onChange={(e) => { setCountry(e.target.value); setStateName(''); setMunicipality(''); }}>
                   <option value="">{t('reg.selectCountry')}</option>
                   {COUNTRIES.map((c) => <option key={c.code} value={c.name}>{countryLabel(c.code, c.name)}</option>)}
                 </select>
@@ -336,15 +336,15 @@ export function ClinicRegister({ onSuccess, complete = false }: { onSuccess?: ()
               {isMexico && (
                 <>
                   <div>
-                    <label className={labelCls}>{t('reg.state')}</label>
-                    <select className={inputCls} value={stateName} onChange={(e) => { setStateName(e.target.value); setMunicipality(''); }}>
+                    <label className={labelCls} htmlFor="clinic-f4">{t('reg.state')}</label>
+                    <select id="clinic-f4" className={inputCls} value={stateName} onChange={(e) => { setStateName(e.target.value); setMunicipality(''); }}>
                       <option value="">{t('reg.selectState')}</option>
                       {MX_ESTADOS.map((s) => <option key={s} value={s}>{s}</option>)}
                     </select>
                   </div>
                   <div>
-                    <label className={labelCls}>{t('reg.municipality')}</label>
-                    <select className={inputCls} value={municipality} onChange={(e) => setMunicipality(e.target.value)} disabled={!stateName}>
+                    <label className={labelCls} htmlFor="clinic-f5">{t('reg.municipality')}</label>
+                    <select id="clinic-f5" className={inputCls} value={municipality} onChange={(e) => setMunicipality(e.target.value)} disabled={!stateName}>
                       <option value="">{t('reg.selectMunicipality')}</option>
                       {municipios.map((mn) => <option key={mn} value={mn}>{mn}</option>)}
                     </select>
@@ -352,21 +352,21 @@ export function ClinicRegister({ onSuccess, complete = false }: { onSuccess?: ()
                 </>
               )}
             </div>
-            <div><label className={labelCls}>{t('clin.address')}</label><input className={inputCls} value={address} onChange={(e) => setAddress(e.target.value)} /></div>
+            <div><label className={labelCls} htmlFor="clinic-f6">{t('clin.address')}</label><input id="clinic-f6" className={inputCls} value={address} onChange={(e) => setAddress(e.target.value)} /></div>
             <div className="grid gap-3 sm:grid-cols-2">
-              <div><label className={labelCls}>{t('clin.phone')}</label><input className={inputCls} value={phoneFixed} onChange={(e) => setPhoneFixed(e.target.value)} /></div>
-              <div><label className={labelCls}>{t('clin.whatsapp')}</label><input className={inputCls} value={whatsapp} onChange={(e) => setWhatsapp(e.target.value)} /></div>
-              <div><label className={labelCls}>{t('clin.publicEmail')}</label><input type="email" className={inputCls} value={publicEmail} onChange={(e) => setPublicEmail(e.target.value)} /></div>
-              <div><label className={labelCls}>{t('clin.website')}</label><input className={inputCls} value={website} onChange={(e) => setWebsite(e.target.value)} placeholder="https://" /></div>
+              <div><label className={labelCls} htmlFor="clinic-f7">{t('clin.phone')}</label><input id="clinic-f7" className={inputCls} value={phoneFixed} onChange={(e) => setPhoneFixed(e.target.value)} /></div>
+              <div><label className={labelCls} htmlFor="clinic-f8">{t('clin.whatsapp')}</label><input id="clinic-f8" className={inputCls} value={whatsapp} onChange={(e) => setWhatsapp(e.target.value)} /></div>
+              <div><label className={labelCls} htmlFor="clinic-f9">{t('clin.publicEmail')}</label><input id="clinic-f9" type="email" className={inputCls} value={publicEmail} onChange={(e) => setPublicEmail(e.target.value)} /></div>
+              <div><label className={labelCls} htmlFor="clinic-f10">{t('clin.website')}</label><input id="clinic-f10" className={inputCls} value={website} onChange={(e) => setWebsite(e.target.value)} placeholder="https://" /></div>
             </div>
             {/* Redes sociales (opcional) */}
             <div>
               <p className="mb-2 text-sm font-semibold uppercase tracking-wide text-muted">{t('reg.socialOptional')}</p>
               <div className="grid gap-3 sm:grid-cols-2">
-                <div><label className={labelCls}>{t('reg.instagram')}</label><input className={inputCls} value={instagram} onChange={(e) => setInstagram(e.target.value)} placeholder="@usuario" /></div>
-                <div><label className={labelCls}>{t('reg.tiktok')}</label><input className={inputCls} value={tiktok} onChange={(e) => setTiktok(e.target.value)} placeholder="@usuario" /></div>
-                <div><label className={labelCls}>{t('reg.facebook')}</label><input className={inputCls} value={facebook} onChange={(e) => setFacebook(e.target.value)} placeholder="https://facebook.com/…" /></div>
-                <div><label className={labelCls}>LinkedIn</label><input className={inputCls} value={linkedin} onChange={(e) => setLinkedin(e.target.value)} placeholder="https://linkedin.com/…" /></div>
+                <div><label className={labelCls} htmlFor="clinic-f11">{t('reg.instagram')}</label><input id="clinic-f11" className={inputCls} value={instagram} onChange={(e) => setInstagram(e.target.value)} placeholder="@usuario" /></div>
+                <div><label className={labelCls} htmlFor="clinic-f12">{t('reg.tiktok')}</label><input id="clinic-f12" className={inputCls} value={tiktok} onChange={(e) => setTiktok(e.target.value)} placeholder="@usuario" /></div>
+                <div><label className={labelCls} htmlFor="clinic-f13">{t('reg.facebook')}</label><input id="clinic-f13" className={inputCls} value={facebook} onChange={(e) => setFacebook(e.target.value)} placeholder="https://facebook.com/…" /></div>
+                <div><label className={labelCls} htmlFor="clinic-f14">LinkedIn</label><input id="clinic-f14" className={inputCls} value={linkedin} onChange={(e) => setLinkedin(e.target.value)} placeholder="https://linkedin.com/…" /></div>
               </div>
             </div>
           </div>
@@ -432,8 +432,8 @@ export function ClinicRegister({ onSuccess, complete = false }: { onSuccess?: ()
               <div className="space-y-3 rounded-xl border border-slate-200 bg-slate-50 p-4">
                 <p className="font-semibold text-slate-900">{t('clin.tacTitle')}</p>
                 <div>
-                  <label className={labelCls}>{t('clin.tacEquipment')}</label>
-                  <select className={inputCls} value={tacEquipment} onChange={(e) => setTacEquipment(e.target.value)}>
+                  <label className={labelCls} htmlFor="clinic-f15">{t('clin.tacEquipment')}</label>
+                  <select id="clinic-f15" className={inputCls} value={tacEquipment} onChange={(e) => setTacEquipment(e.target.value)}>
                     <option value="">{t('clin.select')}</option>
                     {TAC_EQUIPMENT.map((o) => <option key={o.value} value={o.value}>{catLabel(o.value, o.label)}</option>)}
                   </select>
@@ -445,7 +445,7 @@ export function ClinicRegister({ onSuccess, complete = false }: { onSuccess?: ()
                     <button type="button" onClick={() => setTacContrast('no')} className={chip(tacContrast === 'no')}>{t('clin.no')}</button>
                   </div>
                 </div>
-                <div><label className={labelCls}>{t('clin.deliveryTime')}</label><input className={inputCls} placeholder={t('clin.deliveryPlaceholder')} value={tacDelivery} onChange={(e) => setTacDelivery(e.target.value)} /></div>
+                <div><label className={labelCls} htmlFor="clinic-f16">{t('clin.deliveryTime')}</label><input id="clinic-f16" className={inputCls} placeholder={t('clin.deliveryPlaceholder')} value={tacDelivery} onChange={(e) => setTacDelivery(e.target.value)} /></div>
               </div>
             )}
 
@@ -453,16 +453,16 @@ export function ClinicRegister({ onSuccess, complete = false }: { onSuccess?: ()
               <div className="space-y-3 rounded-xl border border-slate-200 bg-slate-50 p-4">
                 <p className="font-semibold text-slate-900">{t('clin.bloodTitle')}</p>
                 <div>
-                  <label className={labelCls}>{t('clin.sampling')}</label>
-                  <select className={inputCls} value={bloodSampling} onChange={(e) => setBloodSampling(e.target.value)}>
+                  <label className={labelCls} htmlFor="clinic-f17">{t('clin.sampling')}</label>
+                  <select id="clinic-f17" className={inputCls} value={bloodSampling} onChange={(e) => setBloodSampling(e.target.value)}>
                     <option value="">{t('clin.select')}</option>
                     {SAMPLE_COLLECTION.map((o) => <option key={o.value} value={o.value}>{catLabel(o.value, o.label)}</option>)}
                   </select>
                 </div>
-                <div><label className={labelCls}>{t('clin.labCerts')}</label><input className={inputCls} placeholder={t('clin.labCertsPlaceholder')} value={labCerts} onChange={(e) => setLabCerts(e.target.value)} /></div>
+                <div><label className={labelCls} htmlFor="clinic-f18">{t('clin.labCerts')}</label><input id="clinic-f18" className={inputCls} placeholder={t('clin.labCertsPlaceholder')} value={labCerts} onChange={(e) => setLabCerts(e.target.value)} /></div>
                 <div>
-                  <label className={labelCls}>{t('clin.labProcessing')}</label>
-                  <select className={inputCls} value={labProcessing} onChange={(e) => setLabProcessing(e.target.value)}>
+                  <label className={labelCls} htmlFor="clinic-f19">{t('clin.labProcessing')}</label>
+                  <select id="clinic-f19" className={inputCls} value={labProcessing} onChange={(e) => setLabProcessing(e.target.value)}>
                     <option value="">{t('clin.select')}</option>
                     {LAB_PROCESSING.map((o) => <option key={o.value} value={o.value}>{catLabel(o.value, o.label)}</option>)}
                   </select>
@@ -515,29 +515,29 @@ export function ClinicRegister({ onSuccess, complete = false }: { onSuccess?: ()
 
         {step === 3 && (
           <div className="space-y-4">
-            <div><label className={labelCls}>{t('clin.directorCedulas')}</label><input className={inputCls} placeholder={t('clin.directorPlaceholder')} value={directorCedulas} onChange={(e) => setDirectorCedulas(e.target.value)} /></div>
-            {isMexico && <div><label className={labelCls}>RFC</label><input className={inputCls} value={rfc} onChange={(e) => setRfc(e.target.value)} /></div>}
-            <div><label className={labelCls}>{t('clin.permit')}</label><input className={inputCls} placeholder={t('clin.permitPlaceholder')} value={sanitaryPermit} onChange={(e) => setSanitaryPermit(e.target.value)} /></div>
+            <div><label className={labelCls} htmlFor="clinic-f20">{t('clin.directorCedulas')}</label><input id="clinic-f20" className={inputCls} placeholder={t('clin.directorPlaceholder')} value={directorCedulas} onChange={(e) => setDirectorCedulas(e.target.value)} /></div>
+            {isMexico && <div><label className={labelCls} htmlFor="clinic-f21">RFC</label><input id="clinic-f21" className={inputCls} value={rfc} onChange={(e) => setRfc(e.target.value)} /></div>}
+            <div><label className={labelCls} htmlFor="clinic-f22">{t('clin.permit')}</label><input id="clinic-f22" className={inputCls} placeholder={t('clin.permitPlaceholder')} value={sanitaryPermit} onChange={(e) => setSanitaryPermit(e.target.value)} /></div>
             <p className="text-xs text-muted">{t('clin.docNote')}</p>
           </div>
         )}
 
         {step === 4 && (
           <div className="space-y-4">
-            <div><label className={labelCls}>{t('clin.benefit')}</label><input className={inputCls} placeholder={t('clin.benefitPlaceholder')} value={benefitDesc} onChange={(e) => setBenefitDesc(e.target.value)} /></div>
-            <div><label className={labelCls}>{t('reg.discountPct')}</label><input type="number" min="0" max="100" className={inputCls} placeholder="0" value={discountPct} onChange={(e) => setDiscountPct(e.target.value)} /><p className="mt-1 text-xs text-muted">{t('reg.discountPctHelp')}</p></div>
-            <div><label className={labelCls}>{t('clin.benefitTerms')}</label><input className={inputCls} placeholder={t('clin.benefitTermsPlaceholder')} value={benefitTerms} onChange={(e) => setBenefitTerms(e.target.value)} /></div>
-            <div><label className={labelCls}>{t('clin.validator')}</label><input className={inputCls} placeholder={t('clin.validatorPlaceholder')} value={benefitValidator} onChange={(e) => setBenefitValidator(e.target.value)} /></div>
+            <div><label className={labelCls} htmlFor="clinic-f23">{t('clin.benefit')}</label><input id="clinic-f23" className={inputCls} placeholder={t('clin.benefitPlaceholder')} value={benefitDesc} onChange={(e) => setBenefitDesc(e.target.value)} /></div>
+            <div><label className={labelCls} htmlFor="clinic-f24">{t('reg.discountPct')}</label><input id="clinic-f24" type="number" min="0" max="100" className={inputCls} placeholder="0" value={discountPct} onChange={(e) => setDiscountPct(e.target.value)} /><p className="mt-1 text-xs text-muted">{t('reg.discountPctHelp')}</p></div>
+            <div><label className={labelCls} htmlFor="clinic-f25">{t('clin.benefitTerms')}</label><input id="clinic-f25" className={inputCls} placeholder={t('clin.benefitTermsPlaceholder')} value={benefitTerms} onChange={(e) => setBenefitTerms(e.target.value)} /></div>
+            <div><label className={labelCls} htmlFor="clinic-f26">{t('clin.validator')}</label><input id="clinic-f26" className={inputCls} placeholder={t('clin.validatorPlaceholder')} value={benefitValidator} onChange={(e) => setBenefitValidator(e.target.value)} /></div>
           </div>
         )}
 
         {step === 5 && (
           <div className="space-y-4">
-            <div><label className={labelCls}>{t('clin.adminName')}</label><input className={inputCls} value={adminName} onChange={(e) => setAdminName(e.target.value)} /></div>
+            <div><label className={labelCls} htmlFor="clinic-f27">{t('clin.adminName')}</label><input id="clinic-f27" className={inputCls} value={adminName} onChange={(e) => setAdminName(e.target.value)} /></div>
             {!complete && (
               <>
-                <div><label className={labelCls}>{t('auth.email')}</label><input type="email" className={inputCls} value={email} onChange={(e) => setEmail(e.target.value)} /></div>
-                <div><label className={labelCls}>{t('auth.confirmEmail')}</label><input type="email" inputMode="email" autoComplete="off" onPaste={(e) => e.preventDefault()} className={inputCls} value={confirmEmail} onChange={(e) => setConfirmEmail(e.target.value)} /></div>
+                <div><label className={labelCls} htmlFor="clinic-f28">{t('auth.email')}</label><input id="clinic-f28" type="email" className={inputCls} value={email} onChange={(e) => setEmail(e.target.value)} /></div>
+                <div><label className={labelCls} htmlFor="clinic-f29">{t('auth.confirmEmail')}</label><input id="clinic-f29" type="email" inputMode="email" autoComplete="off" onPaste={(e) => e.preventDefault()} className={inputCls} value={confirmEmail} onChange={(e) => setConfirmEmail(e.target.value)} /></div>
                 <div><label className={labelCls}>{t('auth.password')}</label><PasswordInput className={inputCls} value={password} onChange={(e) => setPassword(e.target.value)} /></div>
                 <div><label className={labelCls}>{t('auth.confirmPassword')}</label><PasswordInput className={inputCls} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} /></div>
               </>

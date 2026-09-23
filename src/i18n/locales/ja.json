@@ -77,7 +77,9 @@
     "confirm": "確認",
     "tagline": "見つける。つながる。育つ。",
     "delete": "削除",
-    "edit": "編集"
+    "edit": "編集",
+    "errorGeneric": "問題が発生しました。もう一度お試しください。",
+    "refresh": "更新"
   },
   "nav": {
     "directory": "ディレクトリ",
@@ -3013,7 +3015,9 @@
     "last30": "30日で{{n}}",
     "conversionHelp": "連絡 ÷ 閲覧",
     "empty": "まだ閲覧が記録されていません。プロフィールを共有して計測を始めましょう。",
-    "incomplete": "未完了の登録"
+    "incomplete": "未完了の登録",
+    "refresh": "更新",
+    "unavailable": "現在、指標を表示できません。"
   },
   "events": {
     "title": "イベント",

@@ -77,7 +77,9 @@
     "confirm": "Confirmar",
     "tagline": "Encontre. conecte. cresça.",
     "delete": "Excluir",
-    "edit": "Editar"
+    "edit": "Editar",
+    "errorGeneric": "Algo deu errado. Tente de novo.",
+    "refresh": "Atualizar"
   },
   "nav": {
     "directory": "Diretório",
@@ -3013,7 +3015,9 @@
     "last30": "{{n}} em 30 dias",
     "conversionHelp": "contatos ÷ visualizações",
     "empty": "Ainda não há visualizações registradas. Compartilhe seu perfil para começar a medir.",
-    "incomplete": "Cadastros não concluídos"
+    "incomplete": "Cadastros não concluídos",
+    "refresh": "Atualizar",
+    "unavailable": "Métricas indisponíveis no momento."
   },
   "events": {
     "title": "Eventos",

@@ -300,7 +300,7 @@ export function TribuNeuromundi() {
 
         <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
           <div className="relative sm:col-span-2 lg:col-span-1">
-            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" aria-hidden="true" />
+            <Search className="pointer-events-none absolute left-3 rtl:left-auto rtl:right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" aria-hidden="true" />
             <input value={q} onChange={(e) => setQ(e.target.value)} placeholder={t('tribe.searchPh')} className={`${inputCls} pl-9`} />
           </div>
           <select className={inputCls} value={country} onChange={(e) => setCountry(e.target.value)}>

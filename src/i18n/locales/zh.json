@@ -77,7 +77,9 @@
     "confirm": "确认",
     "tagline": "发现。连接。成长。",
     "delete": "删除",
-    "edit": "编辑"
+    "edit": "编辑",
+    "errorGeneric": "出了点问题，请重试。",
+    "refresh": "刷新"
   },
   "nav": {
     "directory": "目录",
@@ -3013,7 +3015,9 @@
     "last30": "30天内{{n}}",
     "conversionHelp": "联系 ÷ 浏览",
     "empty": "暂无浏览记录。分享您的主页以开始统计。",
-    "incomplete": "未完成的注册"
+    "incomplete": "未完成的注册",
+    "refresh": "刷新",
+    "unavailable": "暂时无法显示指标。"
   },
   "events": {
     "title": "活动",

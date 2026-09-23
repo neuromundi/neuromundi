@@ -211,10 +211,10 @@ export function KProviderRegister({ typeKey, onSuccess, complete = false }: { ty
             </label>
             <p className="text-xs text-muted">{t('k.logoHint')}</p>
           </div>
-          <div><label className={labelCls}>{t('k.name')} *</label><input className={inputCls} value={name} onChange={(e) => setName(e.target.value)} /></div>
+          <div><label className={labelCls} htmlFor="kprovi-f0">{t('k.name')} *</label><input id="kprovi-f0" className={inputCls} value={name} onChange={(e) => setName(e.target.value)} /></div>
           <div>
-            <label className={labelCls}>{isNgo ? t('k.mission') : t('k.description')}</label>
-            <textarea maxLength={300} rows={3} className={inputCls} value={description} onChange={(e) => setDescription(e.target.value)} />
+            <label className={labelCls} htmlFor="kprovi-f1">{isNgo ? t('k.mission') : t('k.description')}</label>
+            <textarea id="kprovi-f1" maxLength={300} rows={3} className={inputCls} value={description} onChange={(e) => setDescription(e.target.value)} />
             <p className="mt-1 text-right text-xs text-muted">{description.length}/300</p>
           </div>
         </section>
@@ -241,14 +241,14 @@ export function KProviderRegister({ typeKey, onSuccess, complete = false }: { ty
         <section className="space-y-4">
           <h3 className={sectionTitle}>{t('k.s3')}</h3>
           <div className="grid gap-3 sm:grid-cols-2">
-            <div><label className={labelCls}>{t('k.whatsapp')}</label><input className={inputCls} value={whatsapp} onChange={(e) => setWhatsapp(e.target.value)} placeholder="+52 55…" /></div>
-            <div><label className={labelCls}>{t('k.contactEmail')}</label><input type="email" className={inputCls} value={contactEmail} onChange={(e) => setContactEmail(e.target.value)} /></div>
-            <div className="sm:col-span-2"><label className={labelCls}>{t('k.website')}</label><input className={inputCls} value={website} onChange={(e) => setWebsite(e.target.value)} placeholder="https://" /></div>
+            <div><label className={labelCls} htmlFor="kprovi-f2">{t('k.whatsapp')}</label><input id="kprovi-f2" className={inputCls} value={whatsapp} onChange={(e) => setWhatsapp(e.target.value)} placeholder="+52 55…" /></div>
+            <div><label className={labelCls} htmlFor="kprovi-f3">{t('k.contactEmail')}</label><input id="kprovi-f3" type="email" className={inputCls} value={contactEmail} onChange={(e) => setContactEmail(e.target.value)} /></div>
+            <div className="sm:col-span-2"><label className={labelCls} htmlFor="kprovi-f4">{t('k.website')}</label><input id="kprovi-f4" className={inputCls} value={website} onChange={(e) => setWebsite(e.target.value)} placeholder="https://" /></div>
           </div>
           <div className="grid gap-3 sm:grid-cols-3">
             <div>
-              <label className={labelCls}>{t('reg.country')}</label>
-              <select className={inputCls} value={country} onChange={(e) => { setCountry(e.target.value); setStateName(''); setMunicipality(''); }}>
+              <label className={labelCls} htmlFor="kprovi-f5">{t('reg.country')}</label>
+              <select id="kprovi-f5" className={inputCls} value={country} onChange={(e) => { setCountry(e.target.value); setStateName(''); setMunicipality(''); }}>
                 <option value="">{t('reg.selectCountry')}</option>
                 {COUNTRIES.map((c) => <option key={c.code} value={c.name}>{countryLabel(c.code, c.name)}</option>)}
               </select>
@@ -256,15 +256,15 @@ export function KProviderRegister({ typeKey, onSuccess, complete = false }: { ty
             {isMexico && (
               <>
                 <div>
-                  <label className={labelCls}>{t('reg.state')}</label>
-                  <select className={inputCls} value={stateName} onChange={(e) => { setStateName(e.target.value); setMunicipality(''); }}>
+                  <label className={labelCls} htmlFor="kprovi-f6">{t('reg.state')}</label>
+                  <select id="kprovi-f6" className={inputCls} value={stateName} onChange={(e) => { setStateName(e.target.value); setMunicipality(''); }}>
                     <option value="">{t('reg.selectState')}</option>
                     {MX_ESTADOS.map((s) => <option key={s} value={s}>{s}</option>)}
                   </select>
                 </div>
                 <div>
-                  <label className={labelCls}>{t('reg.municipality')}</label>
-                  <select className={inputCls} value={municipality} onChange={(e) => setMunicipality(e.target.value)} disabled={!stateName}>
+                  <label className={labelCls} htmlFor="kprovi-f7">{t('reg.municipality')}</label>
+                  <select id="kprovi-f7" className={inputCls} value={municipality} onChange={(e) => setMunicipality(e.target.value)} disabled={!stateName}>
                     <option value="">{t('reg.selectMunicipality')}</option>
                     {municipios.map((mn) => <option key={mn} value={mn}>{mn}</option>)}
                   </select>
@@ -272,44 +272,44 @@ export function KProviderRegister({ typeKey, onSuccess, complete = false }: { ty
               </>
             )}
           </div>
-          <div><label className={labelCls}>{t('k.address')}</label><input className={inputCls} value={address} onChange={(e) => setAddress(e.target.value)} /></div>
+          <div><label className={labelCls} htmlFor="kprovi-f8">{t('k.address')}</label><input id="kprovi-f8" className={inputCls} value={address} onChange={(e) => setAddress(e.target.value)} /></div>
         </section>
 
         {/* 4. Validaciones */}
         <section className="space-y-4">
           <h3 className={sectionTitle}>{t('k.s4')}</h3>
-          <div><label className={labelCls}>{isNgo ? t('k.regNgo') : typeKey === 'legal' ? t('k.regLegal') : t('k.registration')}</label><input className={inputCls} value={registration} onChange={(e) => setRegistration(e.target.value)} /></div>
-          {isMexico && !isNgo && <div><label className={labelCls}>RFC</label><input className={inputCls} value={rfc} onChange={(e) => setRfc(e.target.value)} /></div>}
+          <div><label className={labelCls} htmlFor="kprovi-f9">{isNgo ? t('k.regNgo') : typeKey === 'legal' ? t('k.regLegal') : t('k.registration')}</label><input id="kprovi-f9" className={inputCls} value={registration} onChange={(e) => setRegistration(e.target.value)} /></div>
+          {isMexico && !isNgo && <div><label className={labelCls} htmlFor="kprovi-f10">RFC</label><input id="kprovi-f10" className={inputCls} value={rfc} onChange={(e) => setRfc(e.target.value)} /></div>}
         </section>
 
         {/* 5. Beneficio / QR */}
         <section className="space-y-4">
           <h3 className={sectionTitle}>{isNgo ? t('k.s5ngo') : t('k.s5')}</h3>
-          <div><label className={labelCls}>{isNgo ? t('k.benefitNgo') : t('k.benefit')}</label><input className={inputCls} placeholder={t('k.benefitPlaceholder')} value={benefitDesc} onChange={(e) => setBenefitDesc(e.target.value)} /></div>
-          <div><label className={labelCls}>{t('reg.discountPct')}</label><input type="number" min="0" max="100" className={inputCls} placeholder="0" value={discountPct} onChange={(e) => setDiscountPct(e.target.value)} /><p className="mt-1 text-xs text-muted">{t('reg.discountPctHelp')}</p></div>
-          <div><label className={labelCls}>{t('k.benefitTerms')}</label><input className={inputCls} value={benefitTerms} onChange={(e) => setBenefitTerms(e.target.value)} /></div>
-          <div><label className={labelCls}>{t('k.validator')}</label><input className={inputCls} value={benefitValidator} onChange={(e) => setBenefitValidator(e.target.value)} /></div>
+          <div><label className={labelCls} htmlFor="kprovi-f11">{isNgo ? t('k.benefitNgo') : t('k.benefit')}</label><input id="kprovi-f11" className={inputCls} placeholder={t('k.benefitPlaceholder')} value={benefitDesc} onChange={(e) => setBenefitDesc(e.target.value)} /></div>
+          <div><label className={labelCls} htmlFor="kprovi-f12">{t('reg.discountPct')}</label><input id="kprovi-f12" type="number" min="0" max="100" className={inputCls} placeholder="0" value={discountPct} onChange={(e) => setDiscountPct(e.target.value)} /><p className="mt-1 text-xs text-muted">{t('reg.discountPctHelp')}</p></div>
+          <div><label className={labelCls} htmlFor="kprovi-f13">{t('k.benefitTerms')}</label><input id="kprovi-f13" className={inputCls} value={benefitTerms} onChange={(e) => setBenefitTerms(e.target.value)} /></div>
+          <div><label className={labelCls} htmlFor="kprovi-f14">{t('k.validator')}</label><input id="kprovi-f14" className={inputCls} value={benefitValidator} onChange={(e) => setBenefitValidator(e.target.value)} /></div>
         </section>
 
         {/* Redes sociales (opcional) */}
         <section className="space-y-4">
           <h3 className={sectionTitle}>{t('reg.socialOptional')}</h3>
           <div className="grid gap-3 sm:grid-cols-2">
-            <div><label className={labelCls}>{t('reg.instagram')}</label><input className={inputCls} value={instagram} onChange={(e) => setInstagram(e.target.value)} placeholder="@usuario" /></div>
-            <div><label className={labelCls}>{t('reg.tiktok')}</label><input className={inputCls} value={tiktok} onChange={(e) => setTiktok(e.target.value)} placeholder="@usuario" /></div>
-            <div><label className={labelCls}>{t('reg.facebook')}</label><input className={inputCls} value={facebook} onChange={(e) => setFacebook(e.target.value)} placeholder="https://facebook.com/…" /></div>
-            <div><label className={labelCls}>LinkedIn</label><input className={inputCls} value={linkedin} onChange={(e) => setLinkedin(e.target.value)} placeholder="https://linkedin.com/…" /></div>
+            <div><label className={labelCls} htmlFor="kprovi-f15">{t('reg.instagram')}</label><input id="kprovi-f15" className={inputCls} value={instagram} onChange={(e) => setInstagram(e.target.value)} placeholder="@usuario" /></div>
+            <div><label className={labelCls} htmlFor="kprovi-f16">{t('reg.tiktok')}</label><input id="kprovi-f16" className={inputCls} value={tiktok} onChange={(e) => setTiktok(e.target.value)} placeholder="@usuario" /></div>
+            <div><label className={labelCls} htmlFor="kprovi-f17">{t('reg.facebook')}</label><input id="kprovi-f17" className={inputCls} value={facebook} onChange={(e) => setFacebook(e.target.value)} placeholder="https://facebook.com/…" /></div>
+            <div><label className={labelCls} htmlFor="kprovi-f18">LinkedIn</label><input id="kprovi-f18" className={inputCls} value={linkedin} onChange={(e) => setLinkedin(e.target.value)} placeholder="https://linkedin.com/…" /></div>
           </div>
         </section>
 
         {/* 6. Cuenta */}
         <section className="space-y-4">
           <h3 className={sectionTitle}>{t('k.s6')}</h3>
-          <div><label className={labelCls}>{t('k.contactName')}</label><input className={inputCls} value={contactName} onChange={(e) => setContactName(e.target.value)} /></div>
+          <div><label className={labelCls} htmlFor="kprovi-f19">{t('k.contactName')}</label><input id="kprovi-f19" className={inputCls} value={contactName} onChange={(e) => setContactName(e.target.value)} /></div>
           {!complete && (
             <>
-              <div><label className={labelCls}>{t('auth.email')}</label><input type="email" className={inputCls} value={email} onChange={(e) => setEmail(e.target.value)} /></div>
-              <div><label className={labelCls}>{t('auth.confirmEmail')}</label><input type="email" inputMode="email" autoComplete="off" onPaste={(e) => e.preventDefault()} className={inputCls} value={confirmEmail} onChange={(e) => setConfirmEmail(e.target.value)} /></div>
+              <div><label className={labelCls} htmlFor="kprovi-f20">{t('auth.email')}</label><input id="kprovi-f20" type="email" className={inputCls} value={email} onChange={(e) => setEmail(e.target.value)} /></div>
+              <div><label className={labelCls} htmlFor="kprovi-f21">{t('auth.confirmEmail')}</label><input id="kprovi-f21" type="email" inputMode="email" autoComplete="off" onPaste={(e) => e.preventDefault()} className={inputCls} value={confirmEmail} onChange={(e) => setConfirmEmail(e.target.value)} /></div>
               <div><label className={labelCls}>{t('auth.password')}</label><PasswordInput className={inputCls} value={password} onChange={(e) => setPassword(e.target.value)} /></div>
               <div><label className={labelCls}>{t('auth.confirmPassword')}</label><PasswordInput className={inputCls} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} /></div>
             </>

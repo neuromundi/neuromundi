@@ -77,7 +77,9 @@
     "confirm": "Confirmer",
     "tagline": "Trouvez. connectez. grandissez.",
     "delete": "Supprimer",
-    "edit": "Modifier"
+    "edit": "Modifier",
+    "errorGeneric": "Une erreur s'est produite. Réessaie.",
+    "refresh": "Actualiser"
   },
   "nav": {
     "directory": "Annuaire",
@@ -3013,7 +3015,9 @@
     "last30": "{{n}} en 30 jours",
     "conversionHelp": "contacts ÷ vues",
     "empty": "Aucune vue enregistrée pour l'instant. Partagez votre profil pour commencer à mesurer.",
-    "incomplete": "Inscriptions non terminées"
+    "incomplete": "Inscriptions non terminées",
+    "refresh": "Actualiser",
+    "unavailable": "Statistiques indisponibles pour le moment."
   },
   "events": {
     "title": "Événements",

@@ -246,27 +246,27 @@ export function SpecialistRegister({ onSuccess, complete = false }: { onSuccess?
           </div>
           <div className="grid grid-cols-[110px_1fr] gap-2">
             <div>
-              <label className={labelCls}>{t('spec.title')}</label>
-              <select className={inputCls} value={titlePrefix} onChange={(e) => setTitlePrefix(e.target.value)}>
+              <label className={labelCls} htmlFor="specia-f0">{t('spec.title')}</label>
+              <select id="specia-f0" className={inputCls} value={titlePrefix} onChange={(e) => setTitlePrefix(e.target.value)}>
                 <option value="">—</option>
                 {TITLE_PREFIXES.map((p) => <option key={p.value} value={p.value}>{catLabel(p.value, p.label)}</option>)}
               </select>
             </div>
             <div>
-              <label className={labelCls}>{t('reg.fullName')}</label>
-              <input className={inputCls} value={fullName} onChange={(e) => setFullName(e.target.value)} />
+              <label className={labelCls} htmlFor="specia-f1">{t('reg.fullName')}</label>
+              <input id="specia-f1" className={inputCls} value={fullName} onChange={(e) => setFullName(e.target.value)} />
             </div>
           </div>
           <div>
-            <label className={labelCls}>{t('spec.profession')}</label>
-            <select className={inputCls} value={profession} onChange={(e) => setProfession(e.target.value)}>
+            <label className={labelCls} htmlFor="specia-f2">{t('spec.profession')}</label>
+            <select id="specia-f2" className={inputCls} value={profession} onChange={(e) => setProfession(e.target.value)}>
               <option value="">{t('spec.professionSelect')}</option>
               {PROFESSIONS.map((p) => <option key={p.value} value={p.value}>{catLabel(p.value, p.label)}</option>)}
             </select>
           </div>
           <div>
-            <label className={labelCls}>{t('spec.bio')}</label>
-            <textarea maxLength={500} rows={3} className={inputCls} placeholder={t('spec.bioPlaceholder')} value={bio} onChange={(e) => setBio(e.target.value)} />
+            <label className={labelCls} htmlFor="specia-f3">{t('spec.bio')}</label>
+            <textarea id="specia-f3" maxLength={500} rows={3} className={inputCls} placeholder={t('spec.bioPlaceholder')} value={bio} onChange={(e) => setBio(e.target.value)} />
             <p className="mt-1 text-right text-xs text-muted">{bio.length}/500</p>
           </div>
           <div>
@@ -283,14 +283,14 @@ export function SpecialistRegister({ onSuccess, complete = false }: { onSuccess?
         <section className="space-y-4">
           <h3 className={sectionTitle}>{t('spec.s2')}</h3>
           <div className="grid gap-3 sm:grid-cols-2">
-            <div><label className={labelCls}>{t('spec.whatsapp')}</label><input className={inputCls} value={whatsapp} onChange={(e) => setWhatsapp(e.target.value)} placeholder="+52 55…" /></div>
-            <div><label className={labelCls}>{t('spec.contactEmail')}</label><input type="email" className={inputCls} value={contactEmail} onChange={(e) => setContactEmail(e.target.value)} /></div>
-            <div className="sm:col-span-2"><label className={labelCls}>{t('spec.booking')}</label><input type="url" className={inputCls} value={bookingUrl} onChange={(e) => setBookingUrl(e.target.value)} placeholder="https://calendly.com/…" /></div>
+            <div><label className={labelCls} htmlFor="specia-f4">{t('spec.whatsapp')}</label><input id="specia-f4" className={inputCls} value={whatsapp} onChange={(e) => setWhatsapp(e.target.value)} placeholder="+52 55…" /></div>
+            <div><label className={labelCls} htmlFor="specia-f5">{t('spec.contactEmail')}</label><input id="specia-f5" type="email" className={inputCls} value={contactEmail} onChange={(e) => setContactEmail(e.target.value)} /></div>
+            <div className="sm:col-span-2"><label className={labelCls} htmlFor="specia-f6">{t('spec.booking')}</label><input id="specia-f6" type="url" className={inputCls} value={bookingUrl} onChange={(e) => setBookingUrl(e.target.value)} placeholder="https://calendly.com/…" /></div>
           </div>
           <div className="grid gap-3 sm:grid-cols-3">
             <div>
-              <label className={labelCls}>{t('reg.country')}</label>
-              <select className={inputCls} value={country} onChange={(e) => { setCountry(e.target.value); setStateName(''); setMunicipality(''); }}>
+              <label className={labelCls} htmlFor="specia-f7">{t('reg.country')}</label>
+              <select id="specia-f7" className={inputCls} value={country} onChange={(e) => { setCountry(e.target.value); setStateName(''); setMunicipality(''); }}>
                 <option value="">{t('reg.selectCountry')}</option>
                 {COUNTRIES.map((c) => <option key={c.code} value={c.name}>{countryLabel(c.code, c.name)}</option>)}
               </select>
@@ -298,15 +298,15 @@ export function SpecialistRegister({ onSuccess, complete = false }: { onSuccess?
             {isMexico && (
               <>
                 <div>
-                  <label className={labelCls}>{t('reg.state')}</label>
-                  <select className={inputCls} value={stateName} onChange={(e) => { setStateName(e.target.value); setMunicipality(''); }}>
+                  <label className={labelCls} htmlFor="specia-f8">{t('reg.state')}</label>
+                  <select id="specia-f8" className={inputCls} value={stateName} onChange={(e) => { setStateName(e.target.value); setMunicipality(''); }}>
                     <option value="">{t('reg.selectState')}</option>
                     {MX_ESTADOS.map((s) => <option key={s} value={s}>{s}</option>)}
                   </select>
                 </div>
                 <div>
-                  <label className={labelCls}>{t('reg.municipality')}</label>
-                  <select className={inputCls} value={municipality} onChange={(e) => setMunicipality(e.target.value)} disabled={!stateName}>
+                  <label className={labelCls} htmlFor="specia-f9">{t('reg.municipality')}</label>
+                  <select id="specia-f9" className={inputCls} value={municipality} onChange={(e) => setMunicipality(e.target.value)} disabled={!stateName}>
                     <option value="">{t('reg.selectMunicipality')}</option>
                     {municipios.map((mn) => <option key={mn} value={mn}>{mn}</option>)}
                   </select>
@@ -315,7 +315,7 @@ export function SpecialistRegister({ onSuccess, complete = false }: { onSuccess?
             )}
           </div>
           {!onlineOnly && (
-            <div><label className={labelCls}>{t('spec.address')}</label><input className={inputCls} value={address} onChange={(e) => setAddress(e.target.value)} /></div>
+            <div><label className={labelCls} htmlFor="specia-f10">{t('spec.address')}</label><input id="specia-f10" className={inputCls} value={address} onChange={(e) => setAddress(e.target.value)} /></div>
           )}
         </section>
 
@@ -323,10 +323,10 @@ export function SpecialistRegister({ onSuccess, complete = false }: { onSuccess?
         <section className="space-y-4">
           <h3 className={sectionTitle}>{t('reg.socialOptional')}</h3>
           <div className="grid gap-3 sm:grid-cols-2">
-            <div><label className={labelCls}>{t('reg.instagram')}</label><input className={inputCls} value={instagram} onChange={(e) => setInstagram(e.target.value)} placeholder="@usuario" /></div>
-            <div><label className={labelCls}>{t('reg.tiktok')}</label><input className={inputCls} value={tiktok} onChange={(e) => setTiktok(e.target.value)} placeholder="@usuario" /></div>
-            <div><label className={labelCls}>{t('reg.facebook')}</label><input className={inputCls} value={facebook} onChange={(e) => setFacebook(e.target.value)} placeholder="https://facebook.com/…" /></div>
-            <div><label className={labelCls}>LinkedIn</label><input className={inputCls} value={linkedin} onChange={(e) => setLinkedin(e.target.value)} placeholder="https://linkedin.com/in/…" /></div>
+            <div><label className={labelCls} htmlFor="specia-f11">{t('reg.instagram')}</label><input id="specia-f11" className={inputCls} value={instagram} onChange={(e) => setInstagram(e.target.value)} placeholder="@usuario" /></div>
+            <div><label className={labelCls} htmlFor="specia-f12">{t('reg.tiktok')}</label><input id="specia-f12" className={inputCls} value={tiktok} onChange={(e) => setTiktok(e.target.value)} placeholder="@usuario" /></div>
+            <div><label className={labelCls} htmlFor="specia-f13">{t('reg.facebook')}</label><input id="specia-f13" className={inputCls} value={facebook} onChange={(e) => setFacebook(e.target.value)} placeholder="https://facebook.com/…" /></div>
+            <div><label className={labelCls} htmlFor="specia-f14">LinkedIn</label><input id="specia-f14" className={inputCls} value={linkedin} onChange={(e) => setLinkedin(e.target.value)} placeholder="https://linkedin.com/in/…" /></div>
           </div>
         </section>
 
@@ -383,8 +383,8 @@ export function SpecialistRegister({ onSuccess, complete = false }: { onSuccess?
         <section className="space-y-4">
           <h3 className={sectionTitle}>{t('spec.s4')}</h3>
           <div className="grid gap-3 sm:grid-cols-2">
-            <div><label className={labelCls}>{t('spec.cedula')} *</label><input className={inputCls} value={cedula} onChange={(e) => setCedula(e.target.value)} /></div>
-            {isMexico && <div><label className={labelCls}>RFC</label><input className={inputCls} value={rfc} onChange={(e) => setRfc(e.target.value)} /></div>}
+            <div><label className={labelCls} htmlFor="specia-f15">{t('spec.cedula')} *</label><input id="specia-f15" className={inputCls} value={cedula} onChange={(e) => setCedula(e.target.value)} /></div>
+            {isMexico && <div><label className={labelCls} htmlFor="specia-f16">RFC</label><input id="specia-f16" className={inputCls} value={rfc} onChange={(e) => setRfc(e.target.value)} /></div>}
           </div>
           <p className="text-xs text-muted">{t('spec.idNote')}</p>
         </section>
@@ -392,10 +392,10 @@ export function SpecialistRegister({ onSuccess, complete = false }: { onSuccess?
         {/* 5. Beneficio / QR */}
         <section className="space-y-4">
           <h3 className={sectionTitle}>{t('spec.s5')}</h3>
-          <div><label className={labelCls}>{t('spec.benefit')}</label><input className={inputCls} placeholder={t('spec.benefitPlaceholder')} value={benefitDesc} onChange={(e) => setBenefitDesc(e.target.value)} /></div>
-          <div><label className={labelCls}>{t('reg.discountPct')}</label><input type="number" min="0" max="100" className={inputCls} placeholder="0" value={discountPct} onChange={(e) => setDiscountPct(e.target.value)} /><p className="mt-1 text-xs text-muted">{t('reg.discountPctHelp')}</p></div>
-          <div><label className={labelCls}>{t('spec.benefitTerms')}</label><input className={inputCls} placeholder={t('spec.benefitTermsPlaceholder')} value={benefitTerms} onChange={(e) => setBenefitTerms(e.target.value)} /></div>
-          <div><label className={labelCls}>{t('spec.validator')}</label><input className={inputCls} placeholder={t('spec.validatorPlaceholder')} value={benefitValidator} onChange={(e) => setBenefitValidator(e.target.value)} /></div>
+          <div><label className={labelCls} htmlFor="specia-f17">{t('spec.benefit')}</label><input id="specia-f17" className={inputCls} placeholder={t('spec.benefitPlaceholder')} value={benefitDesc} onChange={(e) => setBenefitDesc(e.target.value)} /></div>
+          <div><label className={labelCls} htmlFor="specia-f18">{t('reg.discountPct')}</label><input id="specia-f18" type="number" min="0" max="100" className={inputCls} placeholder="0" value={discountPct} onChange={(e) => setDiscountPct(e.target.value)} /><p className="mt-1 text-xs text-muted">{t('reg.discountPctHelp')}</p></div>
+          <div><label className={labelCls} htmlFor="specia-f19">{t('spec.benefitTerms')}</label><input id="specia-f19" className={inputCls} placeholder={t('spec.benefitTermsPlaceholder')} value={benefitTerms} onChange={(e) => setBenefitTerms(e.target.value)} /></div>
+          <div><label className={labelCls} htmlFor="specia-f20">{t('spec.validator')}</label><input id="specia-f20" className={inputCls} placeholder={t('spec.validatorPlaceholder')} value={benefitValidator} onChange={(e) => setBenefitValidator(e.target.value)} /></div>
         </section>
 
         {/* 6. Cuenta — solo al crear cuenta nueva; en modo "completar" (login
@@ -403,8 +403,8 @@ export function SpecialistRegister({ onSuccess, complete = false }: { onSuccess?
         {!complete && (
           <section className="space-y-4">
             <h3 className={sectionTitle}>{t('reg.account')}</h3>
-            <div><label className={labelCls}>{t('auth.email')}</label><input type="email" className={inputCls} value={email} onChange={(e) => setEmail(e.target.value)} /></div>
-            <div><label className={labelCls}>{t('auth.confirmEmail')}</label><input type="email" inputMode="email" autoComplete="off" onPaste={(e) => e.preventDefault()} className={inputCls} value={confirmEmail} onChange={(e) => setConfirmEmail(e.target.value)} /></div>
+            <div><label className={labelCls} htmlFor="specia-f21">{t('auth.email')}</label><input id="specia-f21" type="email" className={inputCls} value={email} onChange={(e) => setEmail(e.target.value)} /></div>
+            <div><label className={labelCls} htmlFor="specia-f22">{t('auth.confirmEmail')}</label><input id="specia-f22" type="email" inputMode="email" autoComplete="off" onPaste={(e) => e.preventDefault()} className={inputCls} value={confirmEmail} onChange={(e) => setConfirmEmail(e.target.value)} /></div>
             <div><label className={labelCls}>{t('auth.password')}</label><PasswordInput className={inputCls} value={password} onChange={(e) => setPassword(e.target.value)} /></div>
             <div><label className={labelCls}>{t('auth.confirmPassword')}</label><PasswordInput className={inputCls} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} /></div>
           </section>

@@ -38,7 +38,7 @@ export function FounderPopup({ onClose }: { onClose: (reason: 'cta' | 'later' | 
           type="button"
           onClick={() => onClose('close')}
           aria-label={t('founder.close')}
-          className="absolute right-3 top-3 z-10 rounded-full bg-white/80 p-1.5 text-slate-500 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+          className="absolute right-3 top-3 rtl:right-auto rtl:left-3 z-10 rounded-full bg-white/80 p-1.5 text-slate-500 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
         >
           <X className="h-5 w-5" />
         </button>

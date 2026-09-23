@@ -138,12 +138,12 @@ export function LaborInclusion() {
 
       <div className="mt-4 flex flex-col gap-3 sm:flex-row">
         <div className="relative flex-1">
-          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" aria-hidden="true" />
+          <Search className="pointer-events-none absolute left-3 rtl:left-auto rtl:right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" aria-hidden="true" />
           <input
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder={t('labor.searchPlaceholder')}
-            className="w-full rounded-xl border border-slate-200 py-2.5 pl-9 pr-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+            className="w-full rounded-xl border border-slate-200 py-2.5 pl-9 pr-3 rtl:pl-3 rtl:pr-9 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
           />
         </div>
         <label className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm">

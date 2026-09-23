@@ -67,7 +67,7 @@ export function GuidedTour({ onClose }: { onClose: () => void }) {
           type="button"
           onClick={onClose}
           aria-label={t('common.close')}
-          className="absolute right-3 top-3 rounded-full p-1 text-slate-400 hover:bg-slate-100"
+          className="absolute right-3 top-3 rtl:right-auto rtl:left-3 rounded-full p-1 text-slate-400 hover:bg-slate-100"
         >
           <X className="h-5 w-5" />
         </button>

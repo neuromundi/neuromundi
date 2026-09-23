@@ -52,7 +52,12 @@ async function sendWhatsApp(toPhone: string, body: string) {
   return r.ok ? 'sent' : 'failed';
 }
 
-Deno.serve(async () => {
+Deno.serve(async (req) => {
+  // Endpoint interno (cron nm-send-reminders): exige el secreto compartido.
+  const _cs = Deno.env.get('CRON_SECRET') ?? '';
+  if (!_cs || req.headers.get('x-cron-secret') !== _cs) {
+    return new Response(JSON.stringify({ error: 'no autorizado' }), { status: 401, headers: { 'Content-Type': 'application/json' } });
+  }
   // Recordatorios vencidos y pendientes (tope para no saturar por corrida).
   const { data: due, error } = await admin
     .from('appointment_reminders')

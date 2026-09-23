@@ -77,7 +77,9 @@
     "confirm": "Conferma",
     "tagline": "Trova. connetti. cresci.",
     "delete": "Elimina",
-    "edit": "Modifica"
+    "edit": "Modifica",
+    "errorGeneric": "Qualcosa è andato storto. Riprova.",
+    "refresh": "Aggiorna"
   },
   "nav": {
     "directory": "Directory",
@@ -3013,7 +3015,9 @@
     "last30": "{{n}} in 30 giorni",
     "conversionHelp": "contatti ÷ visualizzazioni",
     "empty": "Ancora nessuna visualizzazione registrata. Condividi il tuo profilo per iniziare a misurare.",
-    "incomplete": "Registrazioni incomplete"
+    "incomplete": "Registrazioni incomplete",
+    "refresh": "Aggiorna",
+    "unavailable": "Metriche non disponibili al momento."
   },
   "events": {
     "title": "Eventi",

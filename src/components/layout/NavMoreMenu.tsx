@@ -39,7 +39,7 @@ export function NavMoreMenu({ label, items }: { label: string; items: MoreItem[]
       </button>
 
       {open && (
-        <div role="menu" className="absolute right-0 z-40 mt-2 min-w-[13rem] overflow-hidden rounded-xl border border-slate-100 bg-white p-1 shadow-xl">
+        <div role="menu" className="absolute right-0 rtl:right-auto rtl:left-0 z-40 mt-2 min-w-[13rem] overflow-hidden rounded-xl border border-slate-100 bg-white p-1 shadow-xl">
           {items.map((it) => (
             <NavLink
               key={it.to}

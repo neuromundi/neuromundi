@@ -108,7 +108,7 @@ function LocateButton({ onLocate }: { onLocate?: (c: { lat: number; lng: number 
       type="button"
       onClick={handle}
       aria-label={t('map.locate')}
-      className="absolute right-3 top-3 z-[1000] flex h-11 w-11 items-center justify-center rounded-full bg-white shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+      className="absolute right-3 top-3 rtl:right-auto rtl:left-3 z-[1000] flex h-11 w-11 items-center justify-center rounded-full bg-white shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
     >
       <LocateFixed className="h-5 w-5 text-brand-700" aria-hidden="true" />
     </button>

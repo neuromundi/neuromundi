@@ -185,17 +185,17 @@ export function EsparcimientoRegister({ onSuccess, complete = false }: { onSucce
             </label>
             <p className="text-xs text-muted">{t('k.logoHint')}</p>
           </div>
-          <div><label className={labelCls}>{t('esp.name')} *</label><input className={inputCls} value={name} onChange={(e) => setName(e.target.value)} /></div>
+          <div><label className={labelCls} htmlFor="esparc-f0">{t('esp.name')} *</label><input id="esparc-f0" className={inputCls} value={name} onChange={(e) => setName(e.target.value)} /></div>
           <div>
-            <label className={labelCls}>{t('esp.venueType')}</label>
-            <select className={inputCls} value={venueType} onChange={(e) => setVenueType(e.target.value)}>
+            <label className={labelCls} htmlFor="esparc-f1">{t('esp.venueType')}</label>
+            <select id="esparc-f1" className={inputCls} value={venueType} onChange={(e) => setVenueType(e.target.value)}>
               <option value="">{t('esp.selectVenue')}</option>
               {VENUE_TYPES.map((v) => <option key={v.value} value={v.value}>{catLabel(v.value, v.label)}</option>)}
             </select>
           </div>
           <div>
-            <label className={labelCls}>{t('esp.description')}</label>
-            <textarea maxLength={400} rows={3} className={inputCls} value={description} onChange={(e) => setDescription(e.target.value)} />
+            <label className={labelCls} htmlFor="esparc-f2">{t('esp.description')}</label>
+            <textarea id="esparc-f2" maxLength={400} rows={3} className={inputCls} value={description} onChange={(e) => setDescription(e.target.value)} />
             <p className="mt-1 text-right text-xs text-muted">{description.length}/400</p>
           </div>
         </section>
@@ -211,19 +211,19 @@ export function EsparcimientoRegister({ onSuccess, complete = false }: { onSucce
           />
           <div className="grid gap-3 sm:grid-cols-2">
             <div>
-              <label className={labelCls}>{t('reg.country')}</label>
-              <select className={inputCls} value={country} onChange={(e) => setCountry(e.target.value)}>
+              <label className={labelCls} htmlFor="esparc-f3">{t('reg.country')}</label>
+              <select id="esparc-f3" className={inputCls} value={country} onChange={(e) => setCountry(e.target.value)}>
                 <option value="">{t('reg.selectCountry')}</option>
                 {COUNTRIES.map((c) => <option key={c.code} value={c.name}>{countryLabel(c.code, c.name)}</option>)}
               </select>
             </div>
-            <div><label className={labelCls}>{t('esp.city')}</label><input className={inputCls} value={city} onChange={(e) => setCity(e.target.value)} /></div>
+            <div><label className={labelCls} htmlFor="esparc-f4">{t('esp.city')}</label><input id="esparc-f4" className={inputCls} value={city} onChange={(e) => setCity(e.target.value)} /></div>
           </div>
-          <div><label className={labelCls}>{t('esp.address')}</label><input className={inputCls} value={address} onChange={(e) => setAddress(e.target.value)} /></div>
-          <div><label className={labelCls}>{t('esp.mapUrl')}</label><input className={inputCls} value={mapUrl} onChange={(e) => setMapUrl(e.target.value)} placeholder="https://maps.google.com/…" /><p className="mt-1 text-xs text-muted">{t('esp.mapUrlHelp')}</p></div>
+          <div><label className={labelCls} htmlFor="esparc-f5">{t('esp.address')}</label><input id="esparc-f5" className={inputCls} value={address} onChange={(e) => setAddress(e.target.value)} /></div>
+          <div><label className={labelCls} htmlFor="esparc-f6">{t('esp.mapUrl')}</label><input id="esparc-f6" className={inputCls} value={mapUrl} onChange={(e) => setMapUrl(e.target.value)} placeholder="https://maps.google.com/…" /><p className="mt-1 text-xs text-muted">{t('esp.mapUrlHelp')}</p></div>
           <div className="grid gap-3 sm:grid-cols-2">
-            <div><label className={labelCls}>{t('esp.lat')}</label><input className={inputCls} inputMode="decimal" value={lat} onChange={(e) => setLat(e.target.value)} placeholder="19.4326" /></div>
-            <div><label className={labelCls}>{t('esp.lng')}</label><input className={inputCls} inputMode="decimal" value={lng} onChange={(e) => setLng(e.target.value)} placeholder="-99.1332" /></div>
+            <div><label className={labelCls} htmlFor="esparc-f7">{t('esp.lat')}</label><input id="esparc-f7" className={inputCls} inputMode="decimal" value={lat} onChange={(e) => setLat(e.target.value)} placeholder="19.4326" /></div>
+            <div><label className={labelCls} htmlFor="esparc-f8">{t('esp.lng')}</label><input id="esparc-f8" className={inputCls} inputMode="decimal" value={lng} onChange={(e) => setLng(e.target.value)} placeholder="-99.1332" /></div>
           </div>
           <p className="text-xs text-muted">{t('esp.coordsHelp')}</p>
         </section>
@@ -231,20 +231,20 @@ export function EsparcimientoRegister({ onSuccess, complete = false }: { onSucce
         {/* 3. Accesibilidad sensorial y cognitiva */}
         <section className="space-y-4">
           <h3 className={sectionTitle}>{t('esp.s3')}</h3>
-          <div><label className={labelCls}>{t('esp.sensoryHours')}</label><textarea rows={2} className={inputCls} value={sensoryHours} onChange={(e) => setSensoryHours(e.target.value)} placeholder={t('esp.sensoryHoursPlaceholder')} /></div>
-          <div><label className={labelCls}>{t('esp.cognitive')}</label><textarea rows={2} className={inputCls} value={cognitive} onChange={(e) => setCognitive(e.target.value)} placeholder={t('esp.cognitivePlaceholder')} /></div>
-          <div><label className={labelCls}>{t('esp.otherAdapt')}</label><textarea rows={2} className={inputCls} value={otherAdapt} onChange={(e) => setOtherAdapt(e.target.value)} /></div>
+          <div><label className={labelCls} htmlFor="esparc-f9">{t('esp.sensoryHours')}</label><textarea id="esparc-f9" rows={2} className={inputCls} value={sensoryHours} onChange={(e) => setSensoryHours(e.target.value)} placeholder={t('esp.sensoryHoursPlaceholder')} /></div>
+          <div><label className={labelCls} htmlFor="esparc-f10">{t('esp.cognitive')}</label><textarea id="esparc-f10" rows={2} className={inputCls} value={cognitive} onChange={(e) => setCognitive(e.target.value)} placeholder={t('esp.cognitivePlaceholder')} /></div>
+          <div><label className={labelCls} htmlFor="esparc-f11">{t('esp.otherAdapt')}</label><textarea id="esparc-f11" rows={2} className={inputCls} value={otherAdapt} onChange={(e) => setOtherAdapt(e.target.value)} /></div>
         </section>
 
         {/* 4. Contacto */}
         <section className="space-y-4">
           <h3 className={sectionTitle}>{t('esp.s4')}</h3>
           <div className="grid gap-3 sm:grid-cols-2">
-            <div><label className={labelCls}>{t('k.whatsapp')}</label><input className={inputCls} value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="+52 55…" /></div>
-            <div><label className={labelCls}>{t('k.contactEmail')}</label><input type="email" className={inputCls} value={contactEmail} onChange={(e) => setContactEmail(e.target.value)} /></div>
-            <div><label className={labelCls}>{t('k.website')}</label><input className={inputCls} value={website} onChange={(e) => setWebsite(e.target.value)} placeholder="https://" /></div>
-            <div><label className={labelCls}>{t('reg.instagram')}</label><input className={inputCls} value={instagram} onChange={(e) => setInstagram(e.target.value)} placeholder="@usuario" /></div>
-            <div><label className={labelCls}>{t('reg.facebook')}</label><input className={inputCls} value={facebook} onChange={(e) => setFacebook(e.target.value)} placeholder="https://facebook.com/…" /></div>
+            <div><label className={labelCls} htmlFor="esparc-f12">{t('k.whatsapp')}</label><input id="esparc-f12" className={inputCls} value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="+52 55…" /></div>
+            <div><label className={labelCls} htmlFor="esparc-f13">{t('k.contactEmail')}</label><input id="esparc-f13" type="email" className={inputCls} value={contactEmail} onChange={(e) => setContactEmail(e.target.value)} /></div>
+            <div><label className={labelCls} htmlFor="esparc-f14">{t('k.website')}</label><input id="esparc-f14" className={inputCls} value={website} onChange={(e) => setWebsite(e.target.value)} placeholder="https://" /></div>
+            <div><label className={labelCls} htmlFor="esparc-f15">{t('reg.instagram')}</label><input id="esparc-f15" className={inputCls} value={instagram} onChange={(e) => setInstagram(e.target.value)} placeholder="@usuario" /></div>
+            <div><label className={labelCls} htmlFor="esparc-f16">{t('reg.facebook')}</label><input id="esparc-f16" className={inputCls} value={facebook} onChange={(e) => setFacebook(e.target.value)} placeholder="https://facebook.com/…" /></div>
           </div>
         </section>
 
@@ -252,8 +252,8 @@ export function EsparcimientoRegister({ onSuccess, complete = false }: { onSucce
         {!complete && (
           <section className="space-y-4">
             <h3 className={sectionTitle}>{t('k.s6')}</h3>
-            <div><label className={labelCls}>{t('auth.email')}</label><input type="email" className={inputCls} value={email} onChange={(e) => setEmail(e.target.value)} /></div>
-            <div><label className={labelCls}>{t('auth.confirmEmail')}</label><input type="email" inputMode="email" autoComplete="off" onPaste={(e) => e.preventDefault()} className={inputCls} value={confirmEmail} onChange={(e) => setConfirmEmail(e.target.value)} /></div>
+            <div><label className={labelCls} htmlFor="esparc-f17">{t('auth.email')}</label><input id="esparc-f17" type="email" className={inputCls} value={email} onChange={(e) => setEmail(e.target.value)} /></div>
+            <div><label className={labelCls} htmlFor="esparc-f18">{t('auth.confirmEmail')}</label><input id="esparc-f18" type="email" inputMode="email" autoComplete="off" onPaste={(e) => e.preventDefault()} className={inputCls} value={confirmEmail} onChange={(e) => setConfirmEmail(e.target.value)} /></div>
             <div><label className={labelCls}>{t('auth.password')}</label><PasswordInput className={inputCls} value={password} onChange={(e) => setPassword(e.target.value)} /></div>
             <div><label className={labelCls}>{t('auth.confirmPassword')}</label><PasswordInput className={inputCls} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} /></div>
           </section>

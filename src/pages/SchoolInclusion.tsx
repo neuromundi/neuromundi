@@ -60,9 +60,9 @@ export function SchoolInclusion() {
 
       {/* Buscador */}
       <div className="relative">
-        <Search className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-muted" aria-hidden="true" />
+        <Search className="pointer-events-none absolute left-3 rtl:left-auto rtl:right-3 top-1/2 h-5 w-5 -translate-y-1/2 text-muted" aria-hidden="true" />
         <input
-          className="w-full rounded-xl border border-slate-200 py-3 pl-10 pr-3 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+          className="w-full rounded-xl border border-slate-200 py-3 pl-10 pr-3 rtl:pl-3 rtl:pr-10 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
           placeholder={t('school.searchPlaceholder')}
           aria-label={t('school.searchPlaceholder')}
           value={q}

@@ -30,6 +30,11 @@ function json(o: unknown, status = 200) {
 }
 
 Deno.serve(async (req) => {
+  // Endpoint interno: solo lo invoca el trigger tg_notify_push (vía pg_net) con
+  // el secreto compartido. Sin este candado, cualquiera podría enviar push
+  // arbitrarios a cualquier usuario. Fail-closed.
+  const _cs = Deno.env.get('CRON_SECRET') ?? '';
+  if (!_cs || req.headers.get('x-cron-secret') !== _cs) return json({ error: 'no autorizado' }, 401);
   if (!PUB || !PRIV) return json({ skipped: 'no-vapid' });
   const body = await req.json().catch(() => ({}));
   const userId = body?.user_id as string | undefined;

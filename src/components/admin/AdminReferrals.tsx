@@ -120,13 +120,13 @@ export function AdminReferrals() {
 
       <div className="flex flex-wrap items-center gap-2">
         <div className="relative flex-1">
-          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" aria-hidden="true" />
+          <Search className="pointer-events-none absolute left-3 rtl:left-auto rtl:right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" aria-hidden="true" />
           <input
             type="search"
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder={t('ref.searchPlaceholder')}
-            className="w-full rounded-xl border border-slate-200 py-2 pl-10 pr-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+            className="w-full rounded-xl border border-slate-200 py-2 pl-10 pr-3 rtl:pl-3 rtl:pr-10 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
           />
         </div>
         <button

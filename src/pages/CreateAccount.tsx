@@ -153,7 +153,7 @@ export function CreateAccount() {
             className={`group relative rounded-2xl border border-slate-100 bg-white p-5 text-left shadow-sm transition ${soon ? 'cursor-not-allowed opacity-70' : 'hover:-translate-y-0.5 hover:shadow-md'}`}
           >
             {soon && (
-              <span className="absolute right-3 top-3 rounded-full bg-slate-100 px-2 py-0.5 text-xs font-semibold text-slate-500">
+              <span className="absolute right-3 top-3 rtl:right-auto rtl:left-3 rounded-full bg-slate-100 px-2 py-0.5 text-xs font-semibold text-slate-500">
                 {t('create.soon')}
               </span>
             )}

@@ -45,7 +45,7 @@ export function AdminRenewals() {
       </div>
 
       <div className="relative">
-        <Search className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-muted" aria-hidden="true" />
+        <Search className="pointer-events-none absolute left-3 rtl:left-auto rtl:right-3 top-1/2 h-5 w-5 -translate-y-1/2 text-muted" aria-hidden="true" />
         <input
           type="search"
           value={q}

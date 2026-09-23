@@ -77,7 +77,9 @@
     "confirm": "Bestätigen",
     "tagline": "Finden. verbinden. wachsen.",
     "delete": "Löschen",
-    "edit": "Bearbeiten"
+    "edit": "Bearbeiten",
+    "errorGeneric": "Etwas ist schiefgelaufen. Bitte versuche es erneut.",
+    "refresh": "Aktualisieren"
   },
   "nav": {
     "directory": "Verzeichnis",
@@ -3013,7 +3015,9 @@
     "last30": "{{n}} in 30 Tagen",
     "conversionHelp": "Kontakte ÷ Aufrufe",
     "empty": "Noch keine Aufrufe erfasst. Teile dein Profil, um mit dem Messen zu beginnen.",
-    "incomplete": "Unvollständige Registrierungen"
+    "incomplete": "Unvollständige Registrierungen",
+    "refresh": "Aktualisieren",
+    "unavailable": "Metriken derzeit nicht verfügbar."
   },
   "events": {
     "title": "Veranstaltungen",

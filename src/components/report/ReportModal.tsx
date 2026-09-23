@@ -165,7 +165,7 @@ export function ReportModal({ onClose }: { onClose: () => void }) {
   const body = (
     <div className="fixed inset-0 z-[75] flex items-center justify-center bg-slate-900/60 p-4" role="dialog" aria-modal="true" aria-labelledby="report-title">
       <div className="relative flex max-h-[92vh] w-full max-w-lg flex-col overflow-hidden rounded-3xl bg-white shadow-2xl">
-        <button type="button" onClick={onClose} aria-label={t('common.close')} className="absolute right-3 top-3 z-10 rounded-full p-1 text-white/90 hover:bg-white/20">
+        <button type="button" onClick={onClose} aria-label={t('common.close')} className="absolute right-3 top-3 rtl:right-auto rtl:left-3 z-10 rounded-full p-1 text-white/90 hover:bg-white/20">
           <X className="h-5 w-5" />
         </button>
         {Header}

@@ -225,10 +225,10 @@ export function ProviderRegister({ onSuccess, complete = false }: { onSuccess?: 
             </label>
             <p className="text-xs text-muted">{t('prov.logoHint')}</p>
           </div>
-          <div><label className={labelCls}>{t('prov.brand')}</label><input className={inputCls} value={brand} onChange={(e) => setBrand(e.target.value)} /></div>
+          <div><label className={labelCls} htmlFor="provid-f0">{t('prov.brand')}</label><input id="provid-f0" className={inputCls} value={brand} onChange={(e) => setBrand(e.target.value)} /></div>
           <div>
-            <label className={labelCls}>{t('prov.description')}</label>
-            <textarea maxLength={300} rows={3} className={inputCls} placeholder={t('prov.descPlaceholder')} value={description} onChange={(e) => setDescription(e.target.value)} />
+            <label className={labelCls} htmlFor="provid-f1">{t('prov.description')}</label>
+            <textarea id="provid-f1" maxLength={300} rows={3} className={inputCls} placeholder={t('prov.descPlaceholder')} value={description} onChange={(e) => setDescription(e.target.value)} />
             <p className="mt-1 text-right text-xs text-muted">{description.length}/300</p>
           </div>
           <div>
@@ -298,7 +298,7 @@ export function ProviderRegister({ onSuccess, complete = false }: { onSuccess?: 
         {/* 3. Logística */}
         <section className="space-y-4">
           <h3 className={sectionTitle}>{t('prov.s3')}</h3>
-          <div><label className={labelCls}>{t('prov.ecommerce')}</label><input type="url" className={inputCls} placeholder="https://" value={ecommerce} onChange={(e) => setEcommerce(e.target.value)} /></div>
+          <div><label className={labelCls} htmlFor="provid-f2">{t('prov.ecommerce')}</label><input id="provid-f2" type="url" className={inputCls} placeholder="https://" value={ecommerce} onChange={(e) => setEcommerce(e.target.value)} /></div>
           <div>
             <label className={labelCls}>{t('prov.shipping')}</label>
             <div className="flex flex-wrap gap-2">
@@ -307,11 +307,11 @@ export function ProviderRegister({ onSuccess, complete = false }: { onSuccess?: 
               ))}
             </div>
           </div>
-          <div><label className={labelCls}>{t('prov.whatsapp')}</label><input className={inputCls} value={whatsapp} onChange={(e) => setWhatsapp(e.target.value)} placeholder="+52 55…" /></div>
+          <div><label className={labelCls} htmlFor="provid-f3">{t('prov.whatsapp')}</label><input id="provid-f3" className={inputCls} value={whatsapp} onChange={(e) => setWhatsapp(e.target.value)} placeholder="+52 55…" /></div>
           <div className="grid gap-3 sm:grid-cols-3">
             <div>
-              <label className={labelCls}>{t('reg.country')}</label>
-              <select className={inputCls} value={country} onChange={(e) => { setCountry(e.target.value); setStateName(''); setMunicipality(''); }}>
+              <label className={labelCls} htmlFor="provid-f4">{t('reg.country')}</label>
+              <select id="provid-f4" className={inputCls} value={country} onChange={(e) => { setCountry(e.target.value); setStateName(''); setMunicipality(''); }}>
                 <option value="">{t('reg.selectCountry')}</option>
                 {COUNTRIES.map((c) => <option key={c.code} value={c.name}>{countryLabel(c.code, c.name)}</option>)}
               </select>
@@ -319,15 +319,15 @@ export function ProviderRegister({ onSuccess, complete = false }: { onSuccess?: 
             {isMexico && (
               <>
                 <div>
-                  <label className={labelCls}>{t('reg.state')}</label>
-                  <select className={inputCls} value={stateName} onChange={(e) => { setStateName(e.target.value); setMunicipality(''); }}>
+                  <label className={labelCls} htmlFor="provid-f5">{t('reg.state')}</label>
+                  <select id="provid-f5" className={inputCls} value={stateName} onChange={(e) => { setStateName(e.target.value); setMunicipality(''); }}>
                     <option value="">{t('reg.selectState')}</option>
                     {MX_ESTADOS.map((s) => <option key={s} value={s}>{s}</option>)}
                   </select>
                 </div>
                 <div>
-                  <label className={labelCls}>{t('reg.municipality')}</label>
-                  <select className={inputCls} value={municipality} onChange={(e) => setMunicipality(e.target.value)} disabled={!stateName}>
+                  <label className={labelCls} htmlFor="provid-f6">{t('reg.municipality')}</label>
+                  <select id="provid-f6" className={inputCls} value={municipality} onChange={(e) => setMunicipality(e.target.value)} disabled={!stateName}>
                     <option value="">{t('reg.selectMunicipality')}</option>
                     {municipios.map((mn) => <option key={mn} value={mn}>{mn}</option>)}
                   </select>
@@ -336,23 +336,23 @@ export function ProviderRegister({ onSuccess, complete = false }: { onSuccess?: 
             )}
           </div>
           {!onlineOnly && (
-            <div><label className={labelCls}>{t('prov.storeAddress')}</label><input className={inputCls} value={address} onChange={(e) => setAddress(e.target.value)} /></div>
+            <div><label className={labelCls} htmlFor="provid-f7">{t('prov.storeAddress')}</label><input id="provid-f7" className={inputCls} value={address} onChange={(e) => setAddress(e.target.value)} /></div>
           )}
         </section>
 
         {/* 4. Confianza */}
         <section className="space-y-4">
           <h3 className={sectionTitle}>{t('prov.s4')}</h3>
-          {isMexico && <div><label className={labelCls}>{t('prov.rfc')}</label><input className={inputCls} value={rfc} onChange={(e) => setRfc(e.target.value)} /></div>}
-          <div><label className={labelCls}>{t('prov.returnPolicy')}</label><input className={inputCls} placeholder={t('prov.returnPlaceholder')} value={returnPolicy} onChange={(e) => setReturnPolicy(e.target.value)} /></div>
-          <div><label className={labelCls}>{t('prov.warranty')}</label><input className={inputCls} placeholder={t('prov.warrantyPlaceholder')} value={warranty} onChange={(e) => setWarranty(e.target.value)} /></div>
+          {isMexico && <div><label className={labelCls} htmlFor="provid-f8">{t('prov.rfc')}</label><input id="provid-f8" className={inputCls} value={rfc} onChange={(e) => setRfc(e.target.value)} /></div>}
+          <div><label className={labelCls} htmlFor="provid-f9">{t('prov.returnPolicy')}</label><input id="provid-f9" className={inputCls} placeholder={t('prov.returnPlaceholder')} value={returnPolicy} onChange={(e) => setReturnPolicy(e.target.value)} /></div>
+          <div><label className={labelCls} htmlFor="provid-f10">{t('prov.warranty')}</label><input id="provid-f10" className={inputCls} placeholder={t('prov.warrantyPlaceholder')} value={warranty} onChange={(e) => setWarranty(e.target.value)} /></div>
         </section>
 
         {/* 5. Beneficio / QR */}
         <section className="space-y-4">
           <h3 className={sectionTitle}>{t('prov.s5')}</h3>
-          <div><label className={labelCls}>{t('prov.benefit')}</label><input className={inputCls} placeholder={t('prov.benefitPlaceholder')} value={benefitDesc} onChange={(e) => setBenefitDesc(e.target.value)} /></div>
-          <div><label className={labelCls}>{t('reg.discountPct')}</label><input type="number" min="0" max="100" className={inputCls} placeholder="0" value={discountPct} onChange={(e) => setDiscountPct(e.target.value)} /><p className="mt-1 text-xs text-muted">{t('reg.discountPctHelp')}</p></div>
+          <div><label className={labelCls} htmlFor="provid-f11">{t('prov.benefit')}</label><input id="provid-f11" className={inputCls} placeholder={t('prov.benefitPlaceholder')} value={benefitDesc} onChange={(e) => setBenefitDesc(e.target.value)} /></div>
+          <div><label className={labelCls} htmlFor="provid-f12">{t('reg.discountPct')}</label><input id="provid-f12" type="number" min="0" max="100" className={inputCls} placeholder="0" value={discountPct} onChange={(e) => setDiscountPct(e.target.value)} /><p className="mt-1 text-xs text-muted">{t('reg.discountPctHelp')}</p></div>
           <div>
             <label className={labelCls}>{t('prov.redemption')}</label>
             <div className="space-y-2">
@@ -364,28 +364,28 @@ export function ProviderRegister({ onSuccess, complete = false }: { onSuccess?: 
               ))}
             </div>
           </div>
-          <div><label className={labelCls}>{t('prov.benefitTerms')}</label><input className={inputCls} placeholder={t('prov.benefitTermsPlaceholder')} value={benefitTerms} onChange={(e) => setBenefitTerms(e.target.value)} /></div>
+          <div><label className={labelCls} htmlFor="provid-f13">{t('prov.benefitTerms')}</label><input id="provid-f13" className={inputCls} placeholder={t('prov.benefitTermsPlaceholder')} value={benefitTerms} onChange={(e) => setBenefitTerms(e.target.value)} /></div>
         </section>
 
         {/* Redes sociales (opcional) */}
         <section className="space-y-4">
           <h3 className={sectionTitle}>{t('reg.socialOptional')}</h3>
           <div className="grid gap-3 sm:grid-cols-2">
-            <div><label className={labelCls}>{t('reg.instagram')}</label><input className={inputCls} value={instagram} onChange={(e) => setInstagram(e.target.value)} placeholder="@usuario" /></div>
-            <div><label className={labelCls}>{t('reg.tiktok')}</label><input className={inputCls} value={tiktok} onChange={(e) => setTiktok(e.target.value)} placeholder="@usuario" /></div>
-            <div><label className={labelCls}>{t('reg.facebook')}</label><input className={inputCls} value={facebook} onChange={(e) => setFacebook(e.target.value)} placeholder="https://facebook.com/…" /></div>
-            <div><label className={labelCls}>LinkedIn</label><input className={inputCls} value={linkedin} onChange={(e) => setLinkedin(e.target.value)} placeholder="https://linkedin.com/…" /></div>
+            <div><label className={labelCls} htmlFor="provid-f14">{t('reg.instagram')}</label><input id="provid-f14" className={inputCls} value={instagram} onChange={(e) => setInstagram(e.target.value)} placeholder="@usuario" /></div>
+            <div><label className={labelCls} htmlFor="provid-f15">{t('reg.tiktok')}</label><input id="provid-f15" className={inputCls} value={tiktok} onChange={(e) => setTiktok(e.target.value)} placeholder="@usuario" /></div>
+            <div><label className={labelCls} htmlFor="provid-f16">{t('reg.facebook')}</label><input id="provid-f16" className={inputCls} value={facebook} onChange={(e) => setFacebook(e.target.value)} placeholder="https://facebook.com/…" /></div>
+            <div><label className={labelCls} htmlFor="provid-f17">LinkedIn</label><input id="provid-f17" className={inputCls} value={linkedin} onChange={(e) => setLinkedin(e.target.value)} placeholder="https://linkedin.com/…" /></div>
           </div>
         </section>
 
         {/* 6. Cuenta */}
         <section className="space-y-4">
           <h3 className={sectionTitle}>{t('prov.s6')}</h3>
-          <div><label className={labelCls}>{t('prov.contactName')}</label><input className={inputCls} value={contactName} onChange={(e) => setContactName(e.target.value)} /></div>
+          <div><label className={labelCls} htmlFor="provid-f18">{t('prov.contactName')}</label><input id="provid-f18" className={inputCls} value={contactName} onChange={(e) => setContactName(e.target.value)} /></div>
           {!complete && (
             <>
-              <div><label className={labelCls}>{t('auth.email')}</label><input type="email" className={inputCls} value={email} onChange={(e) => setEmail(e.target.value)} /></div>
-              <div><label className={labelCls}>{t('auth.confirmEmail')}</label><input type="email" inputMode="email" autoComplete="off" onPaste={(e) => e.preventDefault()} className={inputCls} value={confirmEmail} onChange={(e) => setConfirmEmail(e.target.value)} /></div>
+              <div><label className={labelCls} htmlFor="provid-f19">{t('auth.email')}</label><input id="provid-f19" type="email" className={inputCls} value={email} onChange={(e) => setEmail(e.target.value)} /></div>
+              <div><label className={labelCls} htmlFor="provid-f20">{t('auth.confirmEmail')}</label><input id="provid-f20" type="email" inputMode="email" autoComplete="off" onPaste={(e) => e.preventDefault()} className={inputCls} value={confirmEmail} onChange={(e) => setConfirmEmail(e.target.value)} /></div>
               <div><label className={labelCls}>{t('auth.password')}</label><PasswordInput className={inputCls} value={password} onChange={(e) => setPassword(e.target.value)} /></div>
               <div><label className={labelCls}>{t('auth.confirmPassword')}</label><PasswordInput className={inputCls} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} /></div>
             </>

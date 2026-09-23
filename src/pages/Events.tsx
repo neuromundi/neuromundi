@@ -134,7 +134,7 @@ export function Events() {
 
       <div className="flex flex-wrap items-center gap-3">
         <div className="relative min-w-[12rem] flex-1">
-          <Search className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-muted" aria-hidden="true" />
+          <Search className="pointer-events-none absolute left-3 rtl:left-auto rtl:right-3 top-1/2 h-5 w-5 -translate-y-1/2 text-muted" aria-hidden="true" />
           <input
             type="search"
             value={q}

@@ -80,7 +80,7 @@ export function MembershipReminderPopup() {
   return createPortal(
     <div className="fixed inset-0 z-[70] flex items-center justify-center bg-slate-900/60 p-4" role="dialog" aria-modal="true" aria-labelledby="renew-title">
       <div className="relative w-full max-w-md overflow-hidden rounded-3xl bg-white shadow-2xl">
-        <button type="button" onClick={close} aria-label={t('common.close')} className="absolute right-3 top-3 rounded-full p-1 text-white/90 hover:bg-white/20">
+        <button type="button" onClick={close} aria-label={t('common.close')} className="absolute right-3 top-3 rtl:right-auto rtl:left-3 rounded-full p-1 text-white/90 hover:bg-white/20">
           <X className="h-5 w-5" />
         </button>
 
