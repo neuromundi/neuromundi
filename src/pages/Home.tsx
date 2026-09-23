@@ -102,17 +102,26 @@ export function Home() {
 
           <p className="mt-3 text-sm text-muted">{t('home.search.free')}</p>
 
-          {/* Accesos rápidos a la comunidad, al experto y a los kits */}
-          <div className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-3">
-            <Button variant="secondary" fullWidth onClick={() => navigate('/crear-cuenta')} leadingIcon={<UserPlus className="h-5 w-5" />}>
-              {t('home.cta.join')}
-            </Button>
-            <Button variant="secondary" fullWidth onClick={() => navigate('/pregunta-al-experto')} leadingIcon={<MessageCircleQuestion className="h-5 w-5" />}>
-              {t('home.cta.expert')}
-            </Button>
-            <Button variant="secondary" fullWidth onClick={() => navigate('/kit')} leadingIcon={<BookOpenCheck className="h-5 w-5" />}>
-              {t('home.cta.kits')}
-            </Button>
+          {/* Accesos rápidos a la comunidad, al experto y a los kits.
+             Tarjetas blancas elevadas: despegan del fondo pálido del héroe y se
+             leen como acciones pulsables, un escalón por debajo del buscador. */}
+          <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-3">
+            {[
+              { icon: <UserPlus className="h-5 w-5" />, label: t('home.cta.join'), to: '/crear-cuenta' },
+              { icon: <MessageCircleQuestion className="h-5 w-5" />, label: t('home.cta.expert'), to: '/pregunta-al-experto' },
+              { icon: <BookOpenCheck className="h-5 w-5" />, label: t('home.cta.kits'), to: '/kit' },
+            ].map((c) => (
+              <button
+                key={c.to}
+                onClick={() => navigate(c.to)}
+                className="group flex items-center gap-3 rounded-2xl border border-brand-200 bg-white px-4 py-3.5 text-start shadow-sm min-h-[44px] transition-all motion-safe:duration-150 hover:border-brand-400 hover:shadow-md motion-safe:hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-500"
+              >
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-100 text-brand-700 transition-colors group-hover:bg-brand-600 group-hover:text-white">
+                  {c.icon}
+                </span>
+                <span className="font-semibold leading-snug text-brand-800">{c.label}</span>
+              </button>
+            ))}
           </div>
         </div>
 
