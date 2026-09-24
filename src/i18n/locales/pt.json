@@ -4852,7 +4852,10 @@
       "reclamada": "Reivindicado",
       "rebotado": "Devolvido",
       "baja": "Removido",
-      "cancelada": "Cancelado"
+      "cancelada": "Cancelado",
+      "aceptada": "Aceito",
+      "rechazada": "Recusado",
+      "recibida": "Apenas recebido"
     },
     "newTitle": "Enviar convite individual",
     "newEmail": "E-mail",
@@ -4874,6 +4877,12 @@
       "ngo": "ONG",
       "tourism": "Lazer"
     },
-    "newFounder": "Convidar como Membro Fundador"
+    "newFounder": "Convidar como Membro Fundador",
+    "summaryReceived": "Recebidos",
+    "summaryAccepted": "Aceitos",
+    "summaryRejected": "Recusados",
+    "downloadCsv": "Baixar CSV",
+    "colOpens": "Aberturas",
+    "colRejected": "Recusado em"
   }
 }

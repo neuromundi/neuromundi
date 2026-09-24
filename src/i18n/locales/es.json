@@ -4852,7 +4852,10 @@
       "reclamada": "Reclamada",
       "rebotado": "Rebotado",
       "baja": "Dada de baja",
-      "cancelada": "Cancelada"
+      "cancelada": "Cancelada",
+      "aceptada": "Aceptada",
+      "rechazada": "Rechazada",
+      "recibida": "Solo recibida"
     },
     "newTitle": "Enviar invitación individual",
     "newEmail": "Correo",
@@ -4874,6 +4877,12 @@
       "ngo": "ONG",
       "tourism": "Esparcimiento"
     },
-    "newFounder": "Invitar como Miembro Fundador"
+    "newFounder": "Invitar como Miembro Fundador",
+    "summaryReceived": "Solo recibidas",
+    "summaryAccepted": "Aceptadas",
+    "summaryRejected": "Rechazadas",
+    "downloadCsv": "Descargar CSV",
+    "colOpens": "Aperturas",
+    "colRejected": "Rechazada el"
   }
 }

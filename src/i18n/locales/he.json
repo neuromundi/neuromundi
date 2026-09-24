@@ -4852,7 +4852,10 @@
       "reclamada": "נתבע",
       "rebotado": "הוחזר",
       "baja": "הוסר",
-      "cancelada": "בוטל"
+      "cancelada": "בוטל",
+      "aceptada": "התקבלה",
+      "rechazada": "נדחתה",
+      "recibida": "התקבלה בלבד"
     },
     "newTitle": "שליחת הזמנה בודדת",
     "newEmail": "אימייל",
@@ -4874,6 +4877,12 @@
       "ngo": "עמותה",
       "tourism": "פנאי"
     },
-    "newFounder": "הזמנה כחבר מייסד"
+    "newFounder": "הזמנה כחבר מייסד",
+    "summaryReceived": "התקבלו בלבד",
+    "summaryAccepted": "התקבלו",
+    "summaryRejected": "נדחו",
+    "downloadCsv": "הורדת CSV",
+    "colOpens": "פתיחות",
+    "colRejected": "תאריך דחייה"
   }
 }

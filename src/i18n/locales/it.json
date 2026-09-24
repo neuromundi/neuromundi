@@ -4852,7 +4852,10 @@
       "reclamada": "Reclamata",
       "rebotado": "Respinta",
       "baja": "Rimossa",
-      "cancelada": "Annullata"
+      "cancelada": "Annullata",
+      "aceptada": "Accettata",
+      "rechazada": "Rifiutata",
+      "recibida": "Solo ricevuta"
     },
     "newTitle": "Invia un invito singolo",
     "newEmail": "Email",
@@ -4874,6 +4877,12 @@
       "ngo": "ONG",
       "tourism": "Svago"
     },
-    "newFounder": "Invita come Membro Fondatore"
+    "newFounder": "Invita come Membro Fondatore",
+    "summaryReceived": "Ricevute",
+    "summaryAccepted": "Accettate",
+    "summaryRejected": "Rifiutate",
+    "downloadCsv": "Scarica CSV",
+    "colOpens": "Aperture",
+    "colRejected": "Rifiutata il"
   }
 }

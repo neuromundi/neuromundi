@@ -4852,7 +4852,10 @@
       "reclamada": "已认领",
       "rebotado": "退回",
       "baja": "已移除",
-      "cancelada": "已取消"
+      "cancelada": "已取消",
+      "aceptada": "已接受",
+      "rechazada": "已拒绝",
+      "recibida": "仅收到"
     },
     "newTitle": "发送单个邀请",
     "newEmail": "邮箱",
@@ -4874,6 +4877,12 @@
       "ngo": "非政府组织",
       "tourism": "休闲"
     },
-    "newFounder": "作为创始成员邀请"
+    "newFounder": "作为创始成员邀请",
+    "summaryReceived": "仅收到",
+    "summaryAccepted": "已接受",
+    "summaryRejected": "已拒绝",
+    "downloadCsv": "下载CSV",
+    "colOpens": "打开次数",
+    "colRejected": "拒绝时间"
   }
 }

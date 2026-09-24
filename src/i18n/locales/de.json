@@ -4852,7 +4852,10 @@
       "reclamada": "Beansprucht",
       "rebotado": "Unzustellbar",
       "baja": "Entfernt",
-      "cancelada": "Storniert"
+      "cancelada": "Storniert",
+      "aceptada": "Angenommen",
+      "rechazada": "Abgelehnt",
+      "recibida": "Nur erhalten"
     },
     "newTitle": "Einzelne Einladung senden",
     "newEmail": "E-Mail",
@@ -4874,6 +4877,12 @@
       "ngo": "NGO",
       "tourism": "Freizeit"
     },
-    "newFounder": "Als Gründungsmitglied einladen"
+    "newFounder": "Als Gründungsmitglied einladen",
+    "summaryReceived": "Erhalten",
+    "summaryAccepted": "Angenommen",
+    "summaryRejected": "Abgelehnt",
+    "downloadCsv": "CSV herunterladen",
+    "colOpens": "Öffnungen",
+    "colRejected": "Abgelehnt am"
   }
 }

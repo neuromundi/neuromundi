@@ -7,7 +7,7 @@
  */
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { RefreshCw, Search, MailCheck, MailOpen, UserCheck, AlertTriangle, Send } from 'lucide-react';
+import { RefreshCw, Search, MailCheck, MailOpen, UserCheck, XCircle, Send, Download } from 'lucide-react';
 import { Button, useToast } from '@/components/ui';
 import { supabase } from '@/lib/supabase';
 import { useAdminInvitations, type InvitationRow } from '@/hooks/useAdminInvitations';
@@ -15,26 +15,25 @@ import { formatDate, toMessage } from '@/lib/utils';
 
 const PROVIDER_TYPES = ['service_provider', 'clinic', 'school', 'merchant', 'company', 'ngo', 'tourism'] as const;
 
-type Estado = 'cancelada' | 'baja' | 'reclamada' | 'rebotado' | 'abierta' | 'enviada' | 'pendiente';
+// Cuatro estados del registro (mutuamente excluyentes, por prioridad):
+//  aceptada  = reclamó/completó su ficha (usada_en)
+//  rechazada = pidió quitar su ficha (baja_en)
+//  abierta   = abrió el enlace pero ni aceptó ni rechazó (abierta_en)
+//  recibida  = se le envió/registró pero aún no abre
+type Estado = 'aceptada' | 'rechazada' | 'abierta' | 'recibida';
 
 function estadoDe(r: InvitationRow): Estado {
-  if (r.cancelada_en) return 'cancelada';
-  if (r.baja_en) return 'baja';
-  if (r.usada_en) return 'reclamada';
-  if (r.rebotado) return 'rebotado';
+  if (r.usada_en) return 'aceptada';
+  if (r.baja_en || r.cancelada_en) return 'rechazada';
   if (r.abierta_en) return 'abierta';
-  if (r.enviada_en) return 'enviada';
-  return 'pendiente';
+  return 'recibida';
 }
 
 const ESTADO_CLS: Record<Estado, string> = {
-  cancelada: 'bg-slate-100 text-slate-600',
-  baja: 'bg-slate-100 text-slate-600',
-  reclamada: 'bg-green-100 text-green-800',
-  rebotado: 'bg-red-100 text-red-800',
+  aceptada: 'bg-green-100 text-green-800',
+  rechazada: 'bg-red-100 text-red-800',
   abierta: 'bg-amber-100 text-amber-800',
-  enviada: 'bg-sky-100 text-sky-800',
-  pendiente: 'bg-slate-100 text-slate-600',
+  recibida: 'bg-sky-100 text-sky-800',
 };
 
 export function AdminInvitations() {
@@ -83,17 +82,35 @@ export function AdminInvitations() {
   }, [rows, q]);
 
   const stats = useMemo(() => {
-    let sent = 0, opened = 0, claimed = 0, bounced = 0;
-    for (const r of rows) {
-      if (r.enviada_en) sent++;
-      if (r.abierta_en) opened++;
-      if (r.usada_en) claimed++;
-      if (r.rebotado) bounced++;
-    }
-    return { sent, opened, claimed, bounced };
+    const s = { recibida: 0, abierta: 0, aceptada: 0, rechazada: 0 };
+    for (const r of rows) s[estadoDe(r)]++;
+    return s;
   }, [rows]);
 
   const fecha = (s: string | null) => (s ? formatDate(s) : '—');
+
+  // Descarga el registro (filtrado) como CSV. BOM UTF-8 para que Excel respete acentos.
+  const descargarCsv = () => {
+    const esc = (v: unknown) => `"${String(v ?? '').replace(/"/g, '""')}"`;
+    const headers = [
+      t('invit.colName'), t('invit.newEmail'), t('invit.newType'), t('invit.colStatus'),
+      t('invit.colSent'), t('invit.colOpened'), t('invit.colOpens'), t('invit.colClaimed'), t('invit.colRejected'),
+    ];
+    const lines = [headers.map(esc).join(',')];
+    for (const r of filtered) {
+      lines.push([
+        r.nombre ?? '', r.correo ?? '', r.provider_type ?? '', t(`invit.status.${estadoDe(r)}`),
+        r.enviada_en ?? '', r.abierta_en ?? '', r.aperturas ?? 0, r.usada_en ?? '', r.baja_en ?? '',
+      ].map(esc).join(','));
+    }
+    const blob = new Blob(['﻿' + lines.join('\r\n')], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `invitaciones-${new Date().toISOString().slice(0, 10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
 
   return (
     <div className="space-y-4">
@@ -102,9 +119,14 @@ export function AdminInvitations() {
           <h2 className="text-xl font-bold text-slate-900">{t('invit.title')}</h2>
           <p className="text-sm text-muted">{t('invit.subtitle')}</p>
         </div>
-        <Button variant="secondary" size="sm" onClick={() => void reload()} leadingIcon={<RefreshCw className="h-4 w-4" />}>
-          {t('invit.reload')}
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button variant="secondary" size="sm" onClick={descargarCsv} disabled={filtered.length === 0} leadingIcon={<Download className="h-4 w-4" />}>
+            {t('invit.downloadCsv')}
+          </Button>
+          <Button variant="secondary" size="sm" onClick={() => void reload()} leadingIcon={<RefreshCw className="h-4 w-4" />}>
+            {t('invit.reload')}
+          </Button>
+        </div>
       </div>
 
       {/* Envío individual */}
@@ -171,12 +193,12 @@ export function AdminInvitations() {
         )}
       </div>
 
-      {/* Resumen */}
+      {/* Resumen por estado */}
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-        <StatCard icon={<MailCheck className="h-5 w-5" />} label={t('invit.summarySent')} value={stats.sent} />
-        <StatCard icon={<MailOpen className="h-5 w-5" />} label={t('invit.summaryOpened')} value={stats.opened} accent="amber" />
-        <StatCard icon={<UserCheck className="h-5 w-5" />} label={t('invit.summaryClaimed')} value={stats.claimed} accent="green" />
-        <StatCard icon={<AlertTriangle className="h-5 w-5" />} label={t('invit.summaryBounced')} value={stats.bounced} accent="red" />
+        <StatCard icon={<MailCheck className="h-5 w-5" />} label={t('invit.summaryReceived')} value={stats.recibida} />
+        <StatCard icon={<MailOpen className="h-5 w-5" />} label={t('invit.summaryOpened')} value={stats.abierta} accent="amber" />
+        <StatCard icon={<UserCheck className="h-5 w-5" />} label={t('invit.summaryAccepted')} value={stats.aceptada} accent="green" />
+        <StatCard icon={<XCircle className="h-5 w-5" />} label={t('invit.summaryRejected')} value={stats.rechazada} accent="red" />
       </div>
 
       {/* Buscador */}

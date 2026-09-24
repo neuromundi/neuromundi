@@ -4852,7 +4852,10 @@
       "reclamada": "인증됨",
       "rebotado": "반송됨",
       "baja": "삭제됨",
-      "cancelada": "취소됨"
+      "cancelada": "취소됨",
+      "aceptada": "수락됨",
+      "rechazada": "거절됨",
+      "recibida": "수신만"
     },
     "newTitle": "개별 초대 보내기",
     "newEmail": "이메일",
@@ -4874,6 +4877,12 @@
       "ngo": "비영리단체",
       "tourism": "여가"
     },
-    "newFounder": "창립 멤버로 초대"
+    "newFounder": "창립 멤버로 초대",
+    "summaryReceived": "수신만",
+    "summaryAccepted": "수락됨",
+    "summaryRejected": "거절됨",
+    "downloadCsv": "CSV 다운로드",
+    "colOpens": "열람 횟수",
+    "colRejected": "거절일"
   }
 }

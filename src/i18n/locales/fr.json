@@ -4852,7 +4852,10 @@
       "reclamada": "Réclamée",
       "rebotado": "Rejetée",
       "baja": "Retirée",
-      "cancelada": "Annulée"
+      "cancelada": "Annulée",
+      "aceptada": "Acceptée",
+      "rechazada": "Refusée",
+      "recibida": "Reçue seulement"
     },
     "newTitle": "Envoyer une invitation individuelle",
     "newEmail": "E-mail",
@@ -4874,6 +4877,12 @@
       "ngo": "ONG",
       "tourism": "Loisirs"
     },
-    "newFounder": "Inviter comme Membre Fondateur"
+    "newFounder": "Inviter comme Membre Fondateur",
+    "summaryReceived": "Reçues",
+    "summaryAccepted": "Acceptées",
+    "summaryRejected": "Refusées",
+    "downloadCsv": "Télécharger CSV",
+    "colOpens": "Ouvertures",
+    "colRejected": "Refusée le"
   }
 }

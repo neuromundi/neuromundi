@@ -4852,7 +4852,10 @@
       "reclamada": "مُطالَب بها",
       "rebotado": "مرتدة",
       "baja": "مُزالة",
-      "cancelada": "مُلغاة"
+      "cancelada": "مُلغاة",
+      "aceptada": "مقبولة",
+      "rechazada": "مرفوضة",
+      "recibida": "مستلمة فقط"
     },
     "newTitle": "إرسال دعوة فردية",
     "newEmail": "البريد",
@@ -4874,6 +4877,12 @@
       "ngo": "منظمة غير حكومية",
       "tourism": "ترفيه"
     },
-    "newFounder": "دعوة كعضو مؤسس"
+    "newFounder": "دعوة كعضو مؤسس",
+    "summaryReceived": "مستلمة فقط",
+    "summaryAccepted": "المقبولة",
+    "summaryRejected": "المرفوضة",
+    "downloadCsv": "تنزيل CSV",
+    "colOpens": "مرات الفتح",
+    "colRejected": "تاريخ الرفض"
   }
 }

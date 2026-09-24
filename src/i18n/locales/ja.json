@@ -4852,7 +4852,10 @@
       "reclamada": "取得済み",
       "rebotado": "不達",
       "baja": "削除済み",
-      "cancelada": "キャンセル済み"
+      "cancelada": "キャンセル済み",
+      "aceptada": "承諾済み",
+      "rechazada": "辞退",
+      "recibida": "受信のみ"
     },
     "newTitle": "個別に招待を送る",
     "newEmail": "メール",
@@ -4874,6 +4877,12 @@
       "ngo": "NGO",
       "tourism": "レジャー"
     },
-    "newFounder": "創設メンバーとして招待"
+    "newFounder": "創設メンバーとして招待",
+    "summaryReceived": "受信のみ",
+    "summaryAccepted": "承諾",
+    "summaryRejected": "辞退",
+    "downloadCsv": "CSVをダウンロード",
+    "colOpens": "開封回数",
+    "colRejected": "辞退日"
   }
 }
