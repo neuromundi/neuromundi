@@ -7,6 +7,7 @@
 import { create } from 'zustand';
 import type { Session, User } from '@supabase/supabase-js';
 import { supabase } from '@/lib/supabase';
+import i18n from '@/i18n';
 import { logger, toMessage } from '@/lib/utils';
 import type { Profile, Result, UserRole } from '@/types/app';
 import type { TablesUpdate } from '@/types/database';
@@ -232,7 +233,13 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     } = input;
 
     // El trigger handle_new_user lee TODOS estos metadatos y crea el perfil.
-    const meta: Record<string, unknown> = { full_name: fullName, role };
+    // `lang` lo lee además el hook de correo (send-auth-email) para enviar la
+    // confirmación en el idioma del usuario; cae a 'es' si por algo falta.
+    const meta: Record<string, unknown> = {
+      full_name: fullName,
+      role,
+      lang: (i18n.language || 'es').slice(0, 2),
+    };
     const put = (k: string, v: unknown) => {
       if (v !== undefined && v !== null && v !== '') meta[k] = String(v);
     };
