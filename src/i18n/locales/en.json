@@ -4853,6 +4853,26 @@
       "rebotado": "Bounced",
       "baja": "Removed",
       "cancelada": "Cancelled"
+    },
+    "newTitle": "Send a single invitation",
+    "newEmail": "Email",
+    "newName": "Name (optional)",
+    "newNamePh": "Person or organization name",
+    "newType": "Type",
+    "newSend": "Create and send email",
+    "newLinkOnly": "Create link only",
+    "newLinkLabel": "Invitation link",
+    "emailRequired": "Enter an email.",
+    "sentOk": "Invitation created and email sent.",
+    "createdOk": "Invitation link created.",
+    "type": {
+      "service_provider": "Specialist / service",
+      "clinic": "Clinic",
+      "school": "School",
+      "merchant": "Merchant",
+      "company": "Company",
+      "ngo": "NGO",
+      "tourism": "Leisure"
     }
   }
 }

@@ -4853,6 +4853,26 @@
       "rebotado": "不達",
       "baja": "削除済み",
       "cancelada": "キャンセル済み"
+    },
+    "newTitle": "個別に招待を送る",
+    "newEmail": "メール",
+    "newName": "名前（任意）",
+    "newNamePh": "個人または団体の名前",
+    "newType": "種別",
+    "newSend": "作成してメール送信",
+    "newLinkOnly": "リンクのみ作成",
+    "newLinkLabel": "招待リンク",
+    "emailRequired": "メールを入力してください。",
+    "sentOk": "招待を作成し、メールを送信しました。",
+    "createdOk": "招待リンクを作成しました。",
+    "type": {
+      "service_provider": "専門家／サービス",
+      "clinic": "クリニック",
+      "school": "学校",
+      "merchant": "販売店",
+      "company": "企業",
+      "ngo": "NGO",
+      "tourism": "レジャー"
     }
   }
 }

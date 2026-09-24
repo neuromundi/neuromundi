@@ -4853,6 +4853,26 @@
       "rebotado": "退回",
       "baja": "已移除",
       "cancelada": "已取消"
+    },
+    "newTitle": "发送单个邀请",
+    "newEmail": "邮箱",
+    "newName": "名称（可选）",
+    "newNamePh": "个人或组织名称",
+    "newType": "类型",
+    "newSend": "创建并发送邮件",
+    "newLinkOnly": "仅创建链接",
+    "newLinkLabel": "邀请链接",
+    "emailRequired": "请输入邮箱。",
+    "sentOk": "已创建邀请并发送邮件。",
+    "createdOk": "已创建邀请链接。",
+    "type": {
+      "service_provider": "专家／服务",
+      "clinic": "诊所",
+      "school": "学校",
+      "merchant": "商家",
+      "company": "公司",
+      "ngo": "非政府组织",
+      "tourism": "休闲"
     }
   }
 }

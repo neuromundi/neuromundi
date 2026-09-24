@@ -1292,6 +1292,11 @@ export interface Database {
         Args: { p_token: string };
         Returns: undefined;
       };
+      /** Crea/reutiliza una invitación individual y opcionalmente la envía. Devuelve el token. */
+      admin_enviar_invitacion: {
+        Args: { p_correo: string; p_nombre: string | null; p_provider_type?: string; p_send?: boolean };
+        Returns: { token: string; ficha_id: string; enviado: boolean }[];
+      };
       /** Listado de invitaciones del directorio para el admin (estado + rastreo de apertura). */
       admin_directorio_invitaciones: {
         Args: Record<string, never>;

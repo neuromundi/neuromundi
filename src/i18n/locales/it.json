@@ -4853,6 +4853,26 @@
       "rebotado": "Respinta",
       "baja": "Rimossa",
       "cancelada": "Annullata"
+    },
+    "newTitle": "Invia un invito singolo",
+    "newEmail": "Email",
+    "newName": "Nome (facoltativo)",
+    "newNamePh": "Nome della persona o organizzazione",
+    "newType": "Tipo",
+    "newSend": "Crea e invia email",
+    "newLinkOnly": "Crea solo il link",
+    "newLinkLabel": "Link dell’invito",
+    "emailRequired": "Inserisci un’email.",
+    "sentOk": "Invito creato ed email inviata.",
+    "createdOk": "Link dell’invito creato.",
+    "type": {
+      "service_provider": "Specialista / servizio",
+      "clinic": "Clinica",
+      "school": "Scuola",
+      "merchant": "Negozio",
+      "company": "Azienda",
+      "ngo": "ONG",
+      "tourism": "Svago"
     }
   }
 }

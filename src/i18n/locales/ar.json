@@ -4853,6 +4853,26 @@
       "rebotado": "مرتدة",
       "baja": "مُزالة",
       "cancelada": "مُلغاة"
+    },
+    "newTitle": "إرسال دعوة فردية",
+    "newEmail": "البريد",
+    "newName": "الاسم (اختياري)",
+    "newNamePh": "اسم الشخص أو المؤسسة",
+    "newType": "النوع",
+    "newSend": "إنشاء وإرسال بريد",
+    "newLinkOnly": "إنشاء الرابط فقط",
+    "newLinkLabel": "رابط الدعوة",
+    "emailRequired": "أدخل بريدًا إلكترونيًا.",
+    "sentOk": "تم إنشاء الدعوة وإرسال البريد.",
+    "createdOk": "تم إنشاء رابط الدعوة.",
+    "type": {
+      "service_provider": "أخصائي / خدمة",
+      "clinic": "عيادة",
+      "school": "مدرسة",
+      "merchant": "متجر",
+      "company": "شركة",
+      "ngo": "منظمة غير حكومية",
+      "tourism": "ترفيه"
     }
   }
 }

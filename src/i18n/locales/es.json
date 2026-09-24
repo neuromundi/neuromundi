@@ -4853,6 +4853,26 @@
       "rebotado": "Rebotado",
       "baja": "Dada de baja",
       "cancelada": "Cancelada"
+    },
+    "newTitle": "Enviar invitación individual",
+    "newEmail": "Correo",
+    "newName": "Nombre (opcional)",
+    "newNamePh": "Nombre de la persona u organización",
+    "newType": "Tipo",
+    "newSend": "Crear y enviar correo",
+    "newLinkOnly": "Solo crear enlace",
+    "newLinkLabel": "Enlace de invitación",
+    "emailRequired": "Escribe un correo.",
+    "sentOk": "Invitación creada y correo enviado.",
+    "createdOk": "Enlace de invitación creado.",
+    "type": {
+      "service_provider": "Especialista / servicio",
+      "clinic": "Clínica",
+      "school": "Escuela",
+      "merchant": "Comercio",
+      "company": "Empresa",
+      "ngo": "ONG",
+      "tourism": "Esparcimiento"
     }
   }
 }

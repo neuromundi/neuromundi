@@ -4853,6 +4853,26 @@
       "rebotado": "Unzustellbar",
       "baja": "Entfernt",
       "cancelada": "Storniert"
+    },
+    "newTitle": "Einzelne Einladung senden",
+    "newEmail": "E-Mail",
+    "newName": "Name (optional)",
+    "newNamePh": "Name der Person oder Organisation",
+    "newType": "Typ",
+    "newSend": "Erstellen und E-Mail senden",
+    "newLinkOnly": "Nur Link erstellen",
+    "newLinkLabel": "Einladungslink",
+    "emailRequired": "Gib eine E-Mail ein.",
+    "sentOk": "Einladung erstellt und E-Mail gesendet.",
+    "createdOk": "Einladungslink erstellt.",
+    "type": {
+      "service_provider": "Fachkraft / Dienst",
+      "clinic": "Klinik",
+      "school": "Schule",
+      "merchant": "Händler",
+      "company": "Unternehmen",
+      "ngo": "NGO",
+      "tourism": "Freizeit"
     }
   }
 }

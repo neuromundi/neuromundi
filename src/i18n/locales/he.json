@@ -4853,6 +4853,26 @@
       "rebotado": "הוחזר",
       "baja": "הוסר",
       "cancelada": "בוטל"
+    },
+    "newTitle": "שליחת הזמנה בודדת",
+    "newEmail": "אימייל",
+    "newName": "שם (רשות)",
+    "newNamePh": "שם האדם או הארגון",
+    "newType": "סוג",
+    "newSend": "ליצור ולשלוח אימייל",
+    "newLinkOnly": "יצירת קישור בלבד",
+    "newLinkLabel": "קישור ההזמנה",
+    "emailRequired": "הזן אימייל.",
+    "sentOk": "ההזמנה נוצרה והאימייל נשלח.",
+    "createdOk": "קישור ההזמנה נוצר.",
+    "type": {
+      "service_provider": "מומחה / שירות",
+      "clinic": "מרפאה",
+      "school": "בית ספר",
+      "merchant": "עסק",
+      "company": "חברה",
+      "ngo": "עמותה",
+      "tourism": "פנאי"
     }
   }
 }

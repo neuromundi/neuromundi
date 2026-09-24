@@ -220,7 +220,7 @@ Deno.serve(async (req: Request) => {
     return json(401, { error: 'No autorizado' });
   }
 
-  let body: { send?: boolean; limit?: number; segment?: string; tipo_correo?: string } = {};
+  let body: { send?: boolean; limit?: number; segment?: string; tipo_correo?: string; token?: string } = {};
   try { body = await req.json(); } catch { /* vacío = dry-run, todos */ }
   const doSend = body.send === true;
   const limit = Math.min(Math.max(Number(body.limit ?? 50), 1), 1000);
@@ -229,12 +229,36 @@ Deno.serve(async (req: Request) => {
   const tipoCorreo = ['personal', 'institucional', 'todos'].includes(body.tipo_correo ?? '')
     ? (body.tipo_correo as string) : 'todos';
 
-  const { data, error } = await admin.rpc('directorio_invitaciones_cola', { p_limit: 1000 });
-  if (error) return json(500, { error: error.message });
-  let rows = (data ?? []) as Row[];
-  if (segment !== 'todos') rows = rows.filter((r) => segmentOf(r) === segment);
-  if (tipoCorreo === 'personal') rows = rows.filter((r) => r.correo_personal);
-  else if (tipoCorreo === 'institucional') rows = rows.filter((r) => !r.correo_personal);
+  let rows: Row[] = [];
+  if (body.token) {
+    // Envío INDIVIDUAL: trae SOLO esa invitación directamente (no por la cola, así
+    // no exige estado_revision='publicado' ni crea listados públicos). Lo usa el
+    // panel admin vía admin_enviar_invitacion.
+    const { data: inv, error: e1 } = await admin
+      .from('directorio_invitaciones')
+      .select('token, correo, cancelada_en, usada_en, baja_en, expira_en, directorio:directorio_id (nombre, provider_type, sector, estado, ciudad)')
+      .eq('token', body.token)
+      .maybeSingle();
+    if (e1) return json(500, { error: e1.message });
+    if (!inv || inv.cancelada_en || inv.usada_en || inv.baja_en || (inv.expira_en && new Date(inv.expira_en) <= new Date())) {
+      return json(404, { error: 'invitación no disponible' });
+    }
+    const d = (inv as { directorio?: { nombre?: string; provider_type?: string; sector?: string; estado?: string; ciudad?: string } }).directorio ?? {};
+    rows = [{
+      token: inv.token, correo: inv.correo, nombre: d.nombre ?? '',
+      provider_type: d.provider_type ?? null, sector: d.sector ?? null,
+      estado: d.estado ?? null, ciudad: d.ciudad ?? null,
+      ya_contactado_8sep: false,
+      correo_personal: /@(gmail|hotmail|outlook|yahoo|live|icloud|me|aol|msn|gmx|prodigy)\./i.test(inv.correo),
+    }];
+  } else {
+    const { data, error } = await admin.rpc('directorio_invitaciones_cola', { p_limit: 1000 });
+    if (error) return json(500, { error: error.message });
+    rows = (data ?? []) as Row[];
+    if (segment !== 'todos') rows = rows.filter((r) => segmentOf(r) === segment);
+    if (tipoCorreo === 'personal') rows = rows.filter((r) => r.correo_personal);
+    else if (tipoCorreo === 'institucional') rows = rows.filter((r) => !r.correo_personal);
+  }
 
   if (!doSend) {
     const porTanda: Record<string, number> = { nuevos: 0, ya_publico_social: 0, ya_privado: 0 };

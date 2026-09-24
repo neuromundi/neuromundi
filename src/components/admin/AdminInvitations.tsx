@@ -7,10 +7,13 @@
  */
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { RefreshCw, Search, MailCheck, MailOpen, UserCheck, AlertTriangle } from 'lucide-react';
-import { Button } from '@/components/ui';
+import { RefreshCw, Search, MailCheck, MailOpen, UserCheck, AlertTriangle, Send } from 'lucide-react';
+import { Button, useToast } from '@/components/ui';
+import { supabase } from '@/lib/supabase';
 import { useAdminInvitations, type InvitationRow } from '@/hooks/useAdminInvitations';
-import { formatDate } from '@/lib/utils';
+import { formatDate, toMessage } from '@/lib/utils';
+
+const PROVIDER_TYPES = ['service_provider', 'clinic', 'school', 'merchant', 'company', 'ngo', 'tourism'] as const;
 
 type Estado = 'cancelada' | 'baja' | 'reclamada' | 'rebotado' | 'abierta' | 'enviada' | 'pendiente';
 
@@ -36,8 +39,36 @@ const ESTADO_CLS: Record<Estado, string> = {
 
 export function AdminInvitations() {
   const { t } = useTranslation();
+  const toast = useToast();
   const { rows, loading, error, reload } = useAdminInvitations();
   const [q, setQ] = useState('');
+
+  // Formulario de envío/creación individual.
+  const [correo, setCorreo] = useState('');
+  const [nombre, setNombre] = useState('');
+  const [tipo, setTipo] = useState<string>('service_provider');
+  const [enviando, setEnviando] = useState(false);
+  const [ultimoLink, setUltimoLink] = useState<string | null>(null);
+
+  const crear = async (enviar: boolean) => {
+    if (!correo.trim()) { toast.error(t('invit.emailRequired')); return; }
+    setEnviando(true);
+    setUltimoLink(null);
+    const { data, error: err } = await supabase.rpc('admin_enviar_invitacion', {
+      p_correo: correo.trim(),
+      p_nombre: nombre.trim() || null,
+      p_provider_type: tipo,
+      p_send: enviar,
+    });
+    setEnviando(false);
+    if (err) { toast.error(toMessage(err)); return; }
+    const row = Array.isArray(data) ? data[0] : data;
+    const tk = (row as { token?: string } | null)?.token;
+    if (tk) setUltimoLink(`${window.location.origin}/reclamar/${tk}`);
+    toast.success(enviar ? t('invit.sentOk') : t('invit.createdOk'));
+    setCorreo(''); setNombre('');
+    void reload();
+  };
 
   const filtered = useMemo(() => {
     const needle = q.trim().toLowerCase();
@@ -72,6 +103,61 @@ export function AdminInvitations() {
         <Button variant="secondary" size="sm" onClick={() => void reload()} leadingIcon={<RefreshCw className="h-4 w-4" />}>
           {t('invit.reload')}
         </Button>
+      </div>
+
+      {/* Envío individual */}
+      <div className="rounded-2xl border border-slate-100 bg-white p-4">
+        <h3 className="mb-3 font-semibold text-slate-900">{t('invit.newTitle')}</h3>
+        <div className="grid gap-3 sm:grid-cols-3">
+          <div>
+            <label htmlFor="inv-correo" className="mb-1 block text-xs font-semibold text-muted">{t('invit.newEmail')}</label>
+            <input
+              id="inv-correo"
+              type="email"
+              value={correo}
+              onChange={(e) => setCorreo(e.target.value)}
+              placeholder="correo@ejemplo.com"
+              className="w-full rounded-xl border border-slate-200 p-2.5 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+            />
+          </div>
+          <div>
+            <label htmlFor="inv-nombre" className="mb-1 block text-xs font-semibold text-muted">{t('invit.newName')}</label>
+            <input
+              id="inv-nombre"
+              type="text"
+              value={nombre}
+              onChange={(e) => setNombre(e.target.value)}
+              placeholder={t('invit.newNamePh')}
+              className="w-full rounded-xl border border-slate-200 p-2.5 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+            />
+          </div>
+          <div>
+            <label htmlFor="inv-tipo" className="mb-1 block text-xs font-semibold text-muted">{t('invit.newType')}</label>
+            <select
+              id="inv-tipo"
+              value={tipo}
+              onChange={(e) => setTipo(e.target.value)}
+              className="w-full rounded-xl border border-slate-200 p-2.5 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+            >
+              {PROVIDER_TYPES.map((v) => (
+                <option key={v} value={v}>{t(`invit.type.${v}`)}</option>
+              ))}
+            </select>
+          </div>
+        </div>
+        <div className="mt-3 flex flex-wrap items-center gap-2">
+          <Button size="sm" loading={enviando} onClick={() => void crear(true)} leadingIcon={<Send className="h-4 w-4" />}>
+            {t('invit.newSend')}
+          </Button>
+          <Button size="sm" variant="secondary" loading={enviando} onClick={() => void crear(false)}>
+            {t('invit.newLinkOnly')}
+          </Button>
+        </div>
+        {ultimoLink && (
+          <p className="mt-3 break-all text-xs text-muted">
+            {t('invit.newLinkLabel')}: <a href={ultimoLink} className="text-brand-700 underline" target="_blank" rel="noopener noreferrer">{ultimoLink}</a>
+          </p>
+        )}
       </div>
 
       {/* Resumen */}

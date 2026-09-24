@@ -4853,6 +4853,26 @@
       "rebotado": "Rejetée",
       "baja": "Retirée",
       "cancelada": "Annulée"
+    },
+    "newTitle": "Envoyer une invitation individuelle",
+    "newEmail": "E-mail",
+    "newName": "Nom (facultatif)",
+    "newNamePh": "Nom de la personne ou organisation",
+    "newType": "Type",
+    "newSend": "Créer et envoyer l’e-mail",
+    "newLinkOnly": "Créer seulement le lien",
+    "newLinkLabel": "Lien d’invitation",
+    "emailRequired": "Saisissez un e-mail.",
+    "sentOk": "Invitation créée et e-mail envoyé.",
+    "createdOk": "Lien d’invitation créé.",
+    "type": {
+      "service_provider": "Spécialiste / service",
+      "clinic": "Clinique",
+      "school": "École",
+      "merchant": "Commerce",
+      "company": "Entreprise",
+      "ngo": "ONG",
+      "tourism": "Loisirs"
     }
   }
 }

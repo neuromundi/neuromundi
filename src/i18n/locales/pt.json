@@ -4853,6 +4853,26 @@
       "rebotado": "Devolvido",
       "baja": "Removido",
       "cancelada": "Cancelado"
+    },
+    "newTitle": "Enviar convite individual",
+    "newEmail": "E-mail",
+    "newName": "Nome (opcional)",
+    "newNamePh": "Nome da pessoa ou organização",
+    "newType": "Tipo",
+    "newSend": "Criar e enviar e-mail",
+    "newLinkOnly": "Somente criar link",
+    "newLinkLabel": "Link do convite",
+    "emailRequired": "Digite um e-mail.",
+    "sentOk": "Convite criado e e-mail enviado.",
+    "createdOk": "Link do convite criado.",
+    "type": {
+      "service_provider": "Especialista / serviço",
+      "clinic": "Clínica",
+      "school": "Escola",
+      "merchant": "Comércio",
+      "company": "Empresa",
+      "ngo": "ONG",
+      "tourism": "Lazer"
     }
   }
 }

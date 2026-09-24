@@ -4853,6 +4853,26 @@
       "rebotado": "반송됨",
       "baja": "삭제됨",
       "cancelada": "취소됨"
+    },
+    "newTitle": "개별 초대 보내기",
+    "newEmail": "이메일",
+    "newName": "이름(선택)",
+    "newNamePh": "개인 또는 단체 이름",
+    "newType": "유형",
+    "newSend": "생성 후 이메일 전송",
+    "newLinkOnly": "링크만 생성",
+    "newLinkLabel": "초대 링크",
+    "emailRequired": "이메일을 입력하세요.",
+    "sentOk": "초대를 생성하고 이메일을 보냈습니다.",
+    "createdOk": "초대 링크를 생성했습니다.",
+    "type": {
+      "service_provider": "전문가 / 서비스",
+      "clinic": "클리닉",
+      "school": "학교",
+      "merchant": "판매자",
+      "company": "회사",
+      "ngo": "비영리단체",
+      "tourism": "여가"
     }
   }
 }
