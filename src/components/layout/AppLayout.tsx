@@ -221,6 +221,14 @@ export function AppLayout() {
   const closeTour = () => {
     try { localStorage.setItem(TOUR_KEY, '1'); } catch { /* noop */ }
     setShowTour(false);
+    // Al cerrar el tour, ofrecemos de inmediato el popup de Miembro Fundador
+    // (mismas condiciones que por scroll: sin sesión y no descartado en 24h).
+    if (isAuthenticated) return;
+    try {
+      const ts = Number(localStorage.getItem('neuro.founderPopup') || 0);
+      if (ts && Date.now() - ts < 24 * 60 * 60 * 1000) return;
+    } catch { /* noop */ }
+    setShowFounder(true);
   };
 
   // Guía rápida para quien no está viendo el video: o ya lo vio en una visita
