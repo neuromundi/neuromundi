@@ -4885,6 +4885,8 @@
     "colOpens": "打开次数",
     "colRejected": "拒绝时间",
     "summaryPending": "待发送（未发送）",
-    "colLocation": "位置"
+    "colLocation": "位置",
+    "newCourtesy": "礼遇邀请（免会员费）",
+    "courtesyCodeLabel": "礼遇代码"
   }
 }

@@ -4885,6 +4885,8 @@
     "colOpens": "Aperture",
     "colRejected": "Rifiutata il",
     "summaryPending": "In sospeso (non inviate)",
-    "colLocation": "Località"
+    "colLocation": "Località",
+    "newCourtesy": "Invito di cortesia (senza quota)",
+    "courtesyCodeLabel": "Codice di cortesia"
   }
 }

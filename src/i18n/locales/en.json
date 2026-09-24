@@ -4885,6 +4885,8 @@
     "colOpens": "Opens",
     "colRejected": "Rejected on",
     "summaryPending": "Pending (not sent)",
-    "colLocation": "Location"
+    "colLocation": "Location",
+    "newCourtesy": "Courtesy invitation (no membership fee)",
+    "courtesyCodeLabel": "Courtesy code"
   }
 }

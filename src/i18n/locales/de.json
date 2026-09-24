@@ -4885,6 +4885,8 @@
     "colOpens": "Öffnungen",
     "colRejected": "Abgelehnt am",
     "summaryPending": "Ausstehend (nicht gesendet)",
-    "colLocation": "Ort"
+    "colLocation": "Ort",
+    "newCourtesy": "Kulanz-Einladung (ohne Beitrag)",
+    "courtesyCodeLabel": "Kulanz-Code"
   }
 }

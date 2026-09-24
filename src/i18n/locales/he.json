@@ -4885,6 +4885,8 @@
     "colOpens": "פתיחות",
     "colRejected": "תאריך דחייה",
     "summaryPending": "ממתינות (לא נשלחו)",
-    "colLocation": "מיקום"
+    "colLocation": "מיקום",
+    "newCourtesy": "הזמנת חסות (ללא דמי חבר)",
+    "courtesyCodeLabel": "קוד חסות"
   }
 }

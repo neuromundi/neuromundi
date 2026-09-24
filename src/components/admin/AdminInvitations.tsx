@@ -53,25 +53,31 @@ export function AdminInvitations() {
   const [nombre, setNombre] = useState('');
   const [tipo, setTipo] = useState<string>('service_provider');
   const [fundador, setFundador] = useState(true);
+  const [cortesia, setCortesia] = useState(false);
   const [enviando, setEnviando] = useState(false);
   const [ultimoLink, setUltimoLink] = useState<string | null>(null);
+  const [ultimoPromo, setUltimoPromo] = useState<string | null>(null);
 
   const crear = async (enviar: boolean) => {
     if (!correo.trim()) { toast.error(t('invit.emailRequired')); return; }
     setEnviando(true);
     setUltimoLink(null);
+    setUltimoPromo(null);
     const { data, error: err } = await supabase.rpc('admin_enviar_invitacion', {
       p_correo: correo.trim(),
       p_nombre: nombre.trim() || null,
       p_provider_type: tipo,
       p_fundador: fundador,
+      p_cortesia: cortesia,
       p_send: enviar,
     });
     setEnviando(false);
     if (err) { toast.error(toMessage(err)); return; }
     const row = Array.isArray(data) ? data[0] : data;
     const tk = (row as { token?: string } | null)?.token;
+    const pr = (row as { promo?: string | null } | null)?.promo ?? null;
     if (tk) setUltimoLink(`${window.location.origin}/reclamar/${tk}`);
+    setUltimoPromo(pr);
     toast.success(enviar ? t('invit.sentOk') : t('invit.createdOk'));
     setCorreo(''); setNombre('');
     void reload();
@@ -215,6 +221,15 @@ export function AdminInvitations() {
           />
           {t('invit.newFounder')}
         </label>
+        <label className="mt-2 flex items-center gap-2 text-sm text-slate-700">
+          <input
+            type="checkbox"
+            checked={cortesia}
+            onChange={(e) => setCortesia(e.target.checked)}
+            className="h-4 w-4 rounded border-slate-300 text-brand-600 focus-visible:ring-brand-500"
+          />
+          {t('invit.newCourtesy')}
+        </label>
         <div className="mt-3 flex flex-wrap items-center gap-2">
           <Button size="sm" loading={enviando} onClick={() => void crear(true)} leadingIcon={<Send className="h-4 w-4" />}>
             {t('invit.newSend')}
@@ -223,8 +238,13 @@ export function AdminInvitations() {
             {t('invit.newLinkOnly')}
           </Button>
         </div>
+        {ultimoPromo && (
+          <p className="mt-3 text-sm text-green-700">
+            {t('invit.courtesyCodeLabel')}: <span className="font-bold">{ultimoPromo}</span>
+          </p>
+        )}
         {ultimoLink && (
-          <p className="mt-3 break-all text-xs text-muted">
+          <p className="mt-2 break-all text-xs text-muted">
             {t('invit.newLinkLabel')}: <a href={ultimoLink} className="text-brand-700 underline" target="_blank" rel="noopener noreferrer">{ultimoLink}</a>
           </p>
         )}

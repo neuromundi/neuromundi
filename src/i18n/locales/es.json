@@ -4885,6 +4885,8 @@
     "colOpens": "Aperturas",
     "colRejected": "Rechazada el",
     "summaryPending": "Pendientes (no enviadas)",
-    "colLocation": "Ubicación"
+    "colLocation": "Ubicación",
+    "newCourtesy": "Invitación de cortesía (sin costo de cuota)",
+    "courtesyCodeLabel": "Código de cortesía"
   }
 }

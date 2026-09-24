@@ -4885,6 +4885,8 @@
     "colOpens": "열람 횟수",
     "colRejected": "거절일",
     "summaryPending": "대기(미발송)",
-    "colLocation": "위치"
+    "colLocation": "위치",
+    "newCourtesy": "무료 초대(회비 없음)",
+    "courtesyCodeLabel": "무료 코드"
   }
 }

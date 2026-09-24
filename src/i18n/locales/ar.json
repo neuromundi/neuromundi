@@ -4885,6 +4885,8 @@
     "colOpens": "مرات الفتح",
     "colRejected": "تاريخ الرفض",
     "summaryPending": "قيد الانتظار (لم تُرسل)",
-    "colLocation": "الموقع"
+    "colLocation": "الموقع",
+    "newCourtesy": "دعوة مجاملة (بدون رسوم)",
+    "courtesyCodeLabel": "رمز المجاملة"
   }
 }

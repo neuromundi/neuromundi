@@ -4885,6 +4885,8 @@
     "colOpens": "Ouvertures",
     "colRejected": "Refusée le",
     "summaryPending": "En attente (non envoyées)",
-    "colLocation": "Lieu"
+    "colLocation": "Lieu",
+    "newCourtesy": "Invitation de courtoisie (sans frais)",
+    "courtesyCodeLabel": "Code de courtoisie"
   }
 }

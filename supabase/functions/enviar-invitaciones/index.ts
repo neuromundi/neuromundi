@@ -183,10 +183,18 @@ function tablaComparativa(): string {
     <p style="color:#94a3b8;font-size:10px;margin:6px 2px 0;line-height:1.4">Comparativa con información pública de cada plataforma a septiembre de 2026. Las plataformas mencionadas son marcas de sus respectivos titulares; se citan solo con fines comparativos e informativos.</p>`;
 }
 
-function buildEmail(r: Row, fundador = true): { subject: string; html: string } {
+function buildEmail(r: Row, fundador = true, promo: string | null = null): { subject: string; html: string } {
   const claim = `${SITE}/reclamar/${r.token}`;
   const nombre = r.nombre || 'tu organización';
   const seg = segmentOf(r);
+
+  // Bloque de cortesía: si viene un código exento, se anuncia arriba del cuerpo.
+  const promoBlock = promo
+    ? `<p style="margin:0 0 14px;font-size:15px;line-height:1.6;color:#065f46;background:#ecfdf5;border:1px solid #a7f3d0;border-radius:12px;padding:12px 14px">
+        🎁 <b>Invitación de cortesía:</b> tu membresía es <b>sin costo</b>. Al registrarte, ingresa este código en el paso de membresía:
+        <br><span style="display:inline-block;margin-top:6px;font-size:18px;font-weight:800;letter-spacing:.04em;color:#047857">${promo}</span>
+      </p>`
+    : '';
 
   // Invitación estándar (SIN encuadre de Fundador): la usa el envío individual
   // cuando el admin desmarca "invitar como fundador". No cambia la elegibilidad
@@ -200,7 +208,7 @@ function buildEmail(r: Row, fundador = true): { subject: string; html: string } 
     const cuerpo = `${intro}
       ${beneficios(r, false)}
       ${tablaComparativa()}`;
-    return { subject: `${nombre}: te invitamos a Neuromundi`, html: shell('Únete a Neuromundi', cuerpo, 'Completar mi perfil', claim) };
+    return { subject: `${nombre}: te invitamos a Neuromundi`, html: shell('Únete a Neuromundi', promoBlock + cuerpo, 'Completar mi perfil', claim) };
   }
 
   if (seg === 'ya_publico_social') {
@@ -210,7 +218,7 @@ function buildEmail(r: Row, fundador = true): { subject: string; html: string } 
       ${beneficios(r)}
       <p style="margin-top:12px">Y la <b>Insignia de Miembro Fundador</b>, con <u>beneficios preferentes de por vida</u>.</p>
       ${tablaComparativa()}`;
-    return { subject: `${nombre}: tu perfil en Neuromundi es gratuito — complétalo`, html: shell('Conviértete en Fundador Neuromundi', cuerpo, 'Quiero ser fundador', claim) };
+    return { subject: `${nombre}: tu perfil en Neuromundi es gratuito — complétalo`, html: shell('Conviértete en Fundador Neuromundi', promoBlock + cuerpo, 'Quiero ser fundador', claim) };
   }
   if (seg === 'ya_privado') {
     const cuerpo = `<p>Hola, equipo de <b>${nombre}</b>:</p>
@@ -218,7 +226,7 @@ function buildEmail(r: Row, fundador = true): { subject: string; html: string } 
       ${beneficios(r)}
       <p style="margin-top:12px">Además, al completarlo ahora entras como <b>Miembro Fundador</b>, con <u>beneficios preferentes de por vida</u>.</p>
       ${tablaComparativa()}`;
-    return { subject: `${nombre}: te reservamos tu perfil en Neuromundi`, html: shell('Conviértete en Fundador Neuromundi', cuerpo, 'Quiero ser fundador', claim) };
+    return { subject: `${nombre}: te reservamos tu perfil en Neuromundi`, html: shell('Conviértete en Fundador Neuromundi', promoBlock + cuerpo, 'Quiero ser fundador', claim) };
   }
   const intro = esFree(r)
     ? `<p>Hola, equipo de <b>${nombre}</b>:</p>
@@ -229,7 +237,7 @@ function buildEmail(r: Row, fundador = true): { subject: string; html: string } 
     ${beneficios(r)}
     <p style="margin-top:12px">Y si lo completas ahora, entras como <b>Miembro Fundador</b>, con <u>beneficios preferentes de por vida</u>.</p>
     ${tablaComparativa()}`;
-  return { subject: `${nombre}: conviértete en Fundador Neuromundi`, html: shell('Conviértete en Fundador Neuromundi', cuerpo, 'Quiero ser fundador', claim) };
+  return { subject: `${nombre}: conviértete en Fundador Neuromundi`, html: shell('Conviértete en Fundador Neuromundi', promoBlock + cuerpo, 'Quiero ser fundador', claim) };
 }
 
 Deno.serve(async (req: Request) => {
@@ -238,7 +246,7 @@ Deno.serve(async (req: Request) => {
     return json(401, { error: 'No autorizado' });
   }
 
-  let body: { send?: boolean; limit?: number; segment?: string; tipo_correo?: string; token?: string; fundador?: boolean } = {};
+  let body: { send?: boolean; limit?: number; segment?: string; tipo_correo?: string; token?: string; fundador?: boolean; promo?: string | null } = {};
   try { body = await req.json(); } catch { /* vacío = dry-run, todos */ }
   const doSend = body.send === true;
   // Encuadre de fundador en el correo (por defecto sí, como el envío masivo).
@@ -297,7 +305,7 @@ Deno.serve(async (req: Request) => {
   let enviados = 0, fallidos = 0;
   for (const r of lote) {
     try {
-      const { subject, html } = buildEmail(r, fundador);
+      const { subject, html } = buildEmail(r, fundador, body.promo ?? null);
       if (await sendEmail(r.correo, subject, html, `inv-${r.token}`)) {
         await admin.rpc('directorio_invitacion_enviada', { p_token: r.token });
         enviados++;

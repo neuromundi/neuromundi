@@ -4885,6 +4885,8 @@
     "colOpens": "開封回数",
     "colRejected": "辞退日",
     "summaryPending": "保留（未送信）",
-    "colLocation": "所在地"
+    "colLocation": "所在地",
+    "newCourtesy": "招待（会費無料）",
+    "courtesyCodeLabel": "招待コード"
   }
 }
