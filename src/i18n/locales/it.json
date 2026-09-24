@@ -969,7 +969,8 @@
       "whatsappTitle": "Canale WhatsApp",
       "whatsappHint": "Incolla il link del canale WhatsApp. Nel piè di pagina appare un pulsante per unirsi."
     },
-    "secSurvey": "Sondaggio"
+    "secSurvey": "Sondaggio",
+    "secInvitations": "Inviti"
   },
   "reg": {
     "typePatient": "Paziente",
@@ -1513,6 +1514,10 @@
     "forumModApproved": {
       "title": "Moderazione approvata",
       "body": "Ora moderi un forum della Neurocamps."
+    },
+    "inviteOpened": {
+      "title": "Invito aperto",
+      "body": "{{name}} ha aperto l’invito."
     }
   },
   "clin": {
@@ -4821,5 +4826,33 @@
     "neurodesarrollo": "Neurosviluppo",
     "neurodivergencias": "Neurodivergenza",
     "afecciones": "Patologie neurologiche"
+  },
+  "invit": {
+    "title": "Inviti della directory",
+    "subtitle": "Stato di ogni invito e quando è stato aperto il link.",
+    "reload": "Aggiorna",
+    "search": "Cerca per nome o email",
+    "loading": "Caricamento…",
+    "empty": "Nessun invito corrispondente.",
+    "summarySent": "Inviate",
+    "summaryOpened": "Aperte",
+    "summaryClaimed": "Reclamate",
+    "summaryBounced": "Respinte",
+    "colName": "Scheda / email",
+    "colStatus": "Stato",
+    "colSent": "Inviata",
+    "colOpened": "Aperta",
+    "colClaimed": "Reclamata",
+    "opens": "Aperture: {{count}}",
+    "lastOpen": "ultima",
+    "status": {
+      "pendiente": "In sospeso",
+      "enviada": "Inviata",
+      "abierta": "Aperta",
+      "reclamada": "Reclamata",
+      "rebotado": "Respinta",
+      "baja": "Rimossa",
+      "cancelada": "Annullata"
+    }
   }
 }

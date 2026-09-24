@@ -1006,7 +1006,8 @@
       "whatsappTitle": "ערוץ וואטסאפ",
       "whatsappHint": "הדביקו את קישור ערוץ הוואטסאפ. כפתור הצטרפות יופיע בתחתית האתר."
     },
-    "secSurvey": "סקר"
+    "secSurvey": "סקר",
+    "secInvitations": "הזמנות"
   },
   "reg": {
     "typePatient": "מטופל/ת",
@@ -1550,6 +1551,10 @@
     "forumModApproved": {
       "title": "הניהול אושר",
       "body": "אתם מנחים כעת פורום ב-Neurocamps."
+    },
+    "inviteOpened": {
+      "title": "ההזמנה נפתחה",
+      "body": "{{name}} פתח את ההזמנה."
     }
   },
   "clin": {
@@ -4821,5 +4826,33 @@
     "neurodesarrollo": "התפתחות עצבית",
     "neurodivergencias": "שונות עצבית",
     "afecciones": "מצבים נוירולוגיים"
+  },
+  "invit": {
+    "title": "הזמנות המדריך",
+    "subtitle": "הסטטוס של כל הזמנה ומתי נפתח הקישור.",
+    "reload": "רענון",
+    "search": "חיפוש לפי שם או אימייל",
+    "loading": "טוען…",
+    "empty": "אין הזמנות תואמות.",
+    "summarySent": "נשלחו",
+    "summaryOpened": "נפתחו",
+    "summaryClaimed": "נתבעו",
+    "summaryBounced": "הוחזרו",
+    "colName": "רשומה / אימייל",
+    "colStatus": "סטטוס",
+    "colSent": "נשלח",
+    "colOpened": "נפתח",
+    "colClaimed": "נתבע",
+    "opens": "פתיחות: {{count}}",
+    "lastOpen": "אחרונה",
+    "status": {
+      "pendiente": "ממתין",
+      "enviada": "נשלח",
+      "abierta": "נפתח",
+      "reclamada": "נתבע",
+      "rebotado": "הוחזר",
+      "baja": "הוסר",
+      "cancelada": "בוטל"
+    }
   }
 }

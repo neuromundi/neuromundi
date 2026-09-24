@@ -969,7 +969,8 @@
       "whatsappTitle": "WhatsApp 频道",
       "whatsappHint": "粘贴 WhatsApp 频道链接，页脚会出现加入按钮。"
     },
-    "secSurvey": "问卷"
+    "secSurvey": "问卷",
+    "secInvitations": "邀请"
   },
   "reg": {
     "typePatient": "患者",
@@ -1513,6 +1514,10 @@
     "forumModApproved": {
       "title": "版主已批准",
       "body": "你现在是Tribe论坛的版主。"
+    },
+    "inviteOpened": {
+      "title": "邀请已打开",
+      "body": "{{name}} 打开了邀请。"
     }
   },
   "clin": {
@@ -4821,5 +4826,33 @@
     "neurodesarrollo": "神经发育",
     "neurodivergencias": "神经多样性",
     "afecciones": "神经系统疾病"
+  },
+  "invit": {
+    "title": "目录邀请",
+    "subtitle": "每个邀请的状态以及链接的打开时间。",
+    "reload": "刷新",
+    "search": "按名称或邮箱搜索",
+    "loading": "加载中…",
+    "empty": "没有匹配的邀请。",
+    "summarySent": "已发送",
+    "summaryOpened": "已打开",
+    "summaryClaimed": "已认领",
+    "summaryBounced": "退回",
+    "colName": "记录 / 邮箱",
+    "colStatus": "状态",
+    "colSent": "发送",
+    "colOpened": "打开",
+    "colClaimed": "认领",
+    "opens": "打开次数：{{count}}",
+    "lastOpen": "最后",
+    "status": {
+      "pendiente": "待处理",
+      "enviada": "已发送",
+      "abierta": "已打开",
+      "reclamada": "已认领",
+      "rebotado": "退回",
+      "baja": "已移除",
+      "cancelada": "已取消"
+    }
   }
 }

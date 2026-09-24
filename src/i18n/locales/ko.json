@@ -1006,7 +1006,8 @@
       "whatsappTitle": "WhatsApp 채널",
       "whatsappHint": "WhatsApp 채널 링크를 붙여넣으세요. 하단에 참여 버튼이 표시됩니다."
     },
-    "secSurvey": "설문"
+    "secSurvey": "설문",
+    "secInvitations": "초대"
   },
   "reg": {
     "typePatient": "환자",
@@ -1550,6 +1551,10 @@
     "forumModApproved": {
       "title": "중재 승인됨",
       "body": "이제 Neurocamps 포럼을 중재합니다."
+    },
+    "inviteOpened": {
+      "title": "초대가 열림",
+      "body": "{{name}}님이 초대를 열었습니다."
     }
   },
   "clin": {
@@ -4821,5 +4826,33 @@
     "neurodesarrollo": "신경발달",
     "neurodivergencias": "신경다양성",
     "afecciones": "신경계 질환"
+  },
+  "invit": {
+    "title": "디렉터리 초대",
+    "subtitle": "각 초대의 상태와 링크가 열린 시점.",
+    "reload": "새로고침",
+    "search": "이름 또는 이메일로 검색",
+    "loading": "불러오는 중…",
+    "empty": "일치하는 초대가 없습니다.",
+    "summarySent": "보냄",
+    "summaryOpened": "열림",
+    "summaryClaimed": "인증됨",
+    "summaryBounced": "반송됨",
+    "colName": "레코드 / 이메일",
+    "colStatus": "상태",
+    "colSent": "보냄",
+    "colOpened": "열림",
+    "colClaimed": "인증",
+    "opens": "열람 횟수: {{count}}",
+    "lastOpen": "마지막",
+    "status": {
+      "pendiente": "대기",
+      "enviada": "보냄",
+      "abierta": "열림",
+      "reclamada": "인증됨",
+      "rebotado": "반송됨",
+      "baja": "삭제됨",
+      "cancelada": "취소됨"
+    }
   }
 }

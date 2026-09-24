@@ -1006,7 +1006,8 @@
       "whatsappTitle": "WhatsApp channel",
       "whatsappHint": "Paste the WhatsApp channel link. A join button appears in the site footer."
     },
-    "secSurvey": "Survey"
+    "secSurvey": "Survey",
+    "secInvitations": "Invitations"
   },
   "reg": {
     "typePatient": "Patient",
@@ -1550,6 +1551,10 @@
     "forumModApproved": {
       "title": "Moderation approved",
       "body": "You now moderate a Neurocamps forum."
+    },
+    "inviteOpened": {
+      "title": "Invitation opened",
+      "body": "{{name}} opened their invitation."
     }
   },
   "clin": {
@@ -4821,5 +4826,33 @@
     "active": "Active",
     "inactive": "Inactive",
     "empty": "No country discounts yet."
+  },
+  "invit": {
+    "title": "Directory invitations",
+    "subtitle": "Status of each invitation and when the link was opened.",
+    "reload": "Refresh",
+    "search": "Search by name or email",
+    "loading": "Loading…",
+    "empty": "No matching invitations.",
+    "summarySent": "Sent",
+    "summaryOpened": "Opened",
+    "summaryClaimed": "Claimed",
+    "summaryBounced": "Bounced",
+    "colName": "Record / email",
+    "colStatus": "Status",
+    "colSent": "Sent",
+    "colOpened": "Opened",
+    "colClaimed": "Claimed",
+    "opens": "Opens: {{count}}",
+    "lastOpen": "last",
+    "status": {
+      "pendiente": "Pending",
+      "enviada": "Sent",
+      "abierta": "Opened",
+      "reclamada": "Claimed",
+      "rebotado": "Bounced",
+      "baja": "Removed",
+      "cancelada": "Cancelled"
+    }
   }
 }

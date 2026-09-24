@@ -969,7 +969,8 @@
       "whatsappTitle": "WhatsAppチャンネル",
       "whatsappHint": "WhatsAppチャンネルのリンクを貼り付け。フッターに参加ボタンが表示されます。"
     },
-    "secSurvey": "アンケート"
+    "secSurvey": "アンケート",
+    "secInvitations": "招待"
   },
   "reg": {
     "typePatient": "患者",
@@ -1513,6 +1514,10 @@
     "forumModApproved": {
       "title": "モデレーター承認",
       "body": "Tribeのフォーラムのモデレーターになりました。"
+    },
+    "inviteOpened": {
+      "title": "招待が開かれました",
+      "body": "{{name}} が招待を開きました。"
     }
   },
   "clin": {
@@ -4821,5 +4826,33 @@
     "neurodesarrollo": "神経発達",
     "neurodivergencias": "神経多様性",
     "afecciones": "神経疾患"
+  },
+  "invit": {
+    "title": "ディレクトリの招待",
+    "subtitle": "各招待の状態とリンクが開かれた日時。",
+    "reload": "更新",
+    "search": "名前またはメールで検索",
+    "loading": "読み込み中…",
+    "empty": "該当する招待はありません。",
+    "summarySent": "送信済み",
+    "summaryOpened": "開封済み",
+    "summaryClaimed": "取得済み",
+    "summaryBounced": "不達",
+    "colName": "レコード / メール",
+    "colStatus": "状態",
+    "colSent": "送信",
+    "colOpened": "開封",
+    "colClaimed": "取得",
+    "opens": "開封回数: {{count}}",
+    "lastOpen": "最終",
+    "status": {
+      "pendiente": "保留中",
+      "enviada": "送信済み",
+      "abierta": "開封済み",
+      "reclamada": "取得済み",
+      "rebotado": "不達",
+      "baja": "削除済み",
+      "cancelada": "キャンセル済み"
+    }
   }
 }

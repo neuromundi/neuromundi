@@ -1287,6 +1287,33 @@ export interface Database {
         Args: { p_token: string; p_motivo: string | null };
         Returns: boolean;
       };
+      /** Registra la apertura del enlace de invitación (1ª/última/contador + aviso admin). */
+      marcar_invitacion_abierta: {
+        Args: { p_token: string };
+        Returns: undefined;
+      };
+      /** Listado de invitaciones del directorio para el admin (estado + rastreo de apertura). */
+      admin_directorio_invitaciones: {
+        Args: Record<string, never>;
+        Returns: {
+          id: string;
+          nombre: string | null;
+          correo: string | null;
+          provider_type: string | null;
+          estado_geo: string | null;
+          ciudad: string | null;
+          creada_en: string | null;
+          enviada_en: string | null;
+          abierta_en: string | null;
+          abierta_ultima_en: string | null;
+          aperturas: number;
+          usada_en: string | null;
+          baja_en: string | null;
+          cancelada_en: string | null;
+          rebotado: boolean;
+          expira_en: string | null;
+        }[];
+      };
       expire_stale_transactions: {
         Args: Record<string, never>;
         Returns: undefined;

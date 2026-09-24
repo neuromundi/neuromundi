@@ -1006,7 +1006,8 @@
       "whatsappTitle": "قناة واتساب",
       "whatsappHint": "الصق رابط قناة واتساب. يظهر زر للانضمام في تذييل المنصة."
     },
-    "secSurvey": "استبيان"
+    "secSurvey": "استبيان",
+    "secInvitations": "الدعوات"
   },
   "reg": {
     "typePatient": "مريض",
@@ -1550,6 +1551,10 @@
     "forumModApproved": {
       "title": "تمت الموافقة على الإشراف",
       "body": "أنت الآن تُشرف على منتدى في Neurocamps."
+    },
+    "inviteOpened": {
+      "title": "تم فتح الدعوة",
+      "body": "فتح {{name}} دعوته."
     }
   },
   "clin": {
@@ -4821,5 +4826,33 @@
     "neurodesarrollo": "النمو العصبي",
     "neurodivergencias": "التنوع العصبي",
     "afecciones": "الحالات العصبية"
+  },
+  "invit": {
+    "title": "دعوات الدليل",
+    "subtitle": "حالة كل دعوة ووقت فتح الرابط.",
+    "reload": "تحديث",
+    "search": "ابحث بالاسم أو البريد",
+    "loading": "جارٍ التحميل…",
+    "empty": "لا توجد دعوات مطابقة.",
+    "summarySent": "المُرسَلة",
+    "summaryOpened": "المفتوحة",
+    "summaryClaimed": "المُطالَب بها",
+    "summaryBounced": "مرتدة",
+    "colName": "البطاقة / البريد",
+    "colStatus": "الحالة",
+    "colSent": "أُرسلت",
+    "colOpened": "فُتحت",
+    "colClaimed": "طُولب بها",
+    "opens": "مرات الفتح: {{count}}",
+    "lastOpen": "الأخيرة",
+    "status": {
+      "pendiente": "قيد الانتظار",
+      "enviada": "مُرسَلة",
+      "abierta": "مفتوحة",
+      "reclamada": "مُطالَب بها",
+      "rebotado": "مرتدة",
+      "baja": "مُزالة",
+      "cancelada": "مُلغاة"
+    }
   }
 }

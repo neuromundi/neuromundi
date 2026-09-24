@@ -29,6 +29,7 @@ import { AdminAccountActions } from './AdminAccountActions';
 import { AdminImprovements } from './AdminImprovements';
 import { AdminAdvisors } from './AdminAdvisors';
 import { AdminCampaign } from './AdminCampaign';
+import { AdminInvitations } from './AdminInvitations';
 import { formatDate, cn } from '@/lib/utils';
 import type { Profile } from '@/types/app';
 import { useAdminBadges } from '@/hooks/useAdminBadges';
@@ -194,12 +195,12 @@ function ProviderList({ filter }: { filter: AdminFilter }) {
   );
 }
 
-type AdminSection = 'metrics' | 'messages' | 'moderation' | 'products' | 'store' | 'renewals' | 'referrals' | 'fees' | 'donations' | 'founders' | 'badges' | 'tribe' | 'accounts' | 'advisors' | 'campaign' | 'survey' | 'improve' | 'reports' | 'other';
+type AdminSection = 'metrics' | 'messages' | 'moderation' | 'products' | 'store' | 'renewals' | 'referrals' | 'fees' | 'donations' | 'founders' | 'badges' | 'tribe' | 'accounts' | 'advisors' | 'campaign' | 'survey' | 'improve' | 'invitations' | 'reports' | 'other';
 
 // Secciones que puede ver un ASESOR (explorador + moderador de Tribu): SOLO la
 // moderación de Tribu. Las demás (incluidas métricas) son de administrador.
 const ADVISOR_SECTIONS: AdminSection[] = ['tribe'];
-const ALL_SECTIONS: AdminSection[] = ['metrics', 'messages', 'moderation', 'products', 'store', 'renewals', 'referrals', 'fees', 'donations', 'founders', 'badges', 'tribe', 'accounts', 'advisors', 'campaign', 'survey', 'improve', 'reports', 'other'];
+const ALL_SECTIONS: AdminSection[] = ['metrics', 'messages', 'moderation', 'products', 'store', 'renewals', 'referrals', 'fees', 'donations', 'founders', 'badges', 'tribe', 'accounts', 'advisors', 'campaign', 'survey', 'improve', 'invitations', 'reports', 'other'];
 
 export function AdminDashboard({ advisor = false }: { advisor?: boolean } = {}) {
   const { t } = useTranslation();
@@ -233,7 +234,7 @@ export function AdminDashboard({ advisor = false }: { advisor?: boolean } = {}) 
               section === s ? 'bg-white text-slate-900 shadow-sm' : 'text-muted',
             )}
           >
-            {t(s === 'metrics' ? 'admin.secMetrics' : s === 'messages' ? 'admin.secMessages' : s === 'moderation' ? 'admin.secModeration' : s === 'products' ? 'admin.secProducts' : s === 'store' ? 'admin.secStore' : s === 'renewals' ? 'admin.secRenewals' : s === 'referrals' ? 'admin.secReferrals' : s === 'fees' ? 'admin.secFees' : s === 'donations' ? 'admin.secDonations' : s === 'founders' ? 'admin.secFounders' : s === 'badges' ? 'admin.secBadges' : s === 'tribe' ? 'admin.secTribe' : s === 'accounts' ? 'admin.secAccounts' : s === 'advisors' ? 'admin.secAdvisors' : s === 'campaign' ? 'admin.secCampaign' : s === 'survey' ? 'admin.secSurvey' : s === 'improve' ? 'admin.secImprove' : s === 'reports' ? 'admin.secReports' : 'admin.secOther')}
+            {t(s === 'metrics' ? 'admin.secMetrics' : s === 'messages' ? 'admin.secMessages' : s === 'moderation' ? 'admin.secModeration' : s === 'products' ? 'admin.secProducts' : s === 'store' ? 'admin.secStore' : s === 'renewals' ? 'admin.secRenewals' : s === 'referrals' ? 'admin.secReferrals' : s === 'fees' ? 'admin.secFees' : s === 'donations' ? 'admin.secDonations' : s === 'founders' ? 'admin.secFounders' : s === 'badges' ? 'admin.secBadges' : s === 'tribe' ? 'admin.secTribe' : s === 'accounts' ? 'admin.secAccounts' : s === 'advisors' ? 'admin.secAdvisors' : s === 'campaign' ? 'admin.secCampaign' : s === 'survey' ? 'admin.secSurvey' : s === 'improve' ? 'admin.secImprove' : s === 'invitations' ? 'admin.secInvitations' : s === 'reports' ? 'admin.secReports' : 'admin.secOther')}
           </button>
         ))}
       </div>
@@ -292,6 +293,8 @@ export function AdminDashboard({ advisor = false }: { advisor?: boolean } = {}) 
         <AdminSurvey />
       ) : section === 'improve' ? (
         <AdminImprovements />
+      ) : section === 'invitations' ? (
+        <AdminInvitations />
       ) : section === 'reports' ? (
         <AdminReports />
       ) : (

@@ -969,7 +969,8 @@
       "whatsappTitle": "WhatsApp-Kanal",
       "whatsappHint": "Füge den WhatsApp-Kanal-Link ein. Im Footer erscheint ein Beitritts-Button."
     },
-    "secSurvey": "Umfrage"
+    "secSurvey": "Umfrage",
+    "secInvitations": "Einladungen"
   },
   "reg": {
     "typePatient": "Patient",
@@ -1513,6 +1514,10 @@
     "forumModApproved": {
       "title": "Moderation freigegeben",
       "body": "Du moderierst jetzt ein Neurocamps-Forum."
+    },
+    "inviteOpened": {
+      "title": "Einladung geöffnet",
+      "body": "{{name}} hat die Einladung geöffnet."
     }
   },
   "clin": {
@@ -4821,5 +4826,33 @@
     "neurodesarrollo": "Neuroentwicklung",
     "neurodivergencias": "Neurodivergenz",
     "afecciones": "Neurologische Erkrankungen"
+  },
+  "invit": {
+    "title": "Verzeichnis-Einladungen",
+    "subtitle": "Status jeder Einladung und wann der Link geöffnet wurde.",
+    "reload": "Aktualisieren",
+    "search": "Nach Name oder E-Mail suchen",
+    "loading": "Wird geladen…",
+    "empty": "Keine passenden Einladungen.",
+    "summarySent": "Gesendet",
+    "summaryOpened": "Geöffnet",
+    "summaryClaimed": "Beansprucht",
+    "summaryBounced": "Unzustellbar",
+    "colName": "Eintrag / E-Mail",
+    "colStatus": "Status",
+    "colSent": "Gesendet",
+    "colOpened": "Geöffnet",
+    "colClaimed": "Beansprucht",
+    "opens": "Öffnungen: {{count}}",
+    "lastOpen": "letzte",
+    "status": {
+      "pendiente": "Ausstehend",
+      "enviada": "Gesendet",
+      "abierta": "Geöffnet",
+      "reclamada": "Beansprucht",
+      "rebotado": "Unzustellbar",
+      "baja": "Entfernt",
+      "cancelada": "Storniert"
+    }
   }
 }

@@ -1006,7 +1006,8 @@
       "whatsappTitle": "Canal de WhatsApp",
       "whatsappHint": "Pega el enlace del canal de WhatsApp. Se muestra un botón para unirse en el pie de la plataforma."
     },
-    "secSurvey": "Encuesta"
+    "secSurvey": "Encuesta",
+    "secInvitations": "Invitaciones"
   },
   "reg": {
     "typePatient": "Paciente",
@@ -1550,6 +1551,10 @@
     "forumModApproved": {
       "title": "Moderación aprobada",
       "body": "Ahora moderas un foro de la Neurocamps."
+    },
+    "inviteOpened": {
+      "title": "Invitación abierta",
+      "body": "{{name}} abrió su invitación."
     }
   },
   "clin": {
@@ -4821,5 +4826,33 @@
     "active": "Activo",
     "inactive": "Inactivo",
     "empty": "Aún no hay descuentos por país."
+  },
+  "invit": {
+    "title": "Invitaciones del directorio",
+    "subtitle": "Estado de cada invitación y cuándo se abrió el enlace.",
+    "reload": "Actualizar",
+    "search": "Buscar por nombre o correo",
+    "loading": "Cargando…",
+    "empty": "No hay invitaciones que coincidan.",
+    "summarySent": "Enviadas",
+    "summaryOpened": "Abiertas",
+    "summaryClaimed": "Reclamadas",
+    "summaryBounced": "Rebotadas",
+    "colName": "Ficha / correo",
+    "colStatus": "Estado",
+    "colSent": "Enviada",
+    "colOpened": "Abierta",
+    "colClaimed": "Reclamada",
+    "opens": "Aperturas: {{count}}",
+    "lastOpen": "última",
+    "status": {
+      "pendiente": "Pendiente",
+      "enviada": "Enviada",
+      "abierta": "Abierta",
+      "reclamada": "Reclamada",
+      "rebotado": "Rebotado",
+      "baja": "Dada de baja",
+      "cancelada": "Cancelada"
+    }
   }
 }
