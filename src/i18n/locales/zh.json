@@ -4888,5 +4888,16 @@
     "colLocation": "位置",
     "newCourtesy": "礼遇邀请（免会员费）",
     "courtesyCodeLabel": "礼遇代码"
+  },
+  "founderCd": {
+    "title": "你仍可成为创始成员",
+    "subtitle": "在截止前付款，即可终身享受五折并获得创始人徽章。",
+    "days": "天",
+    "hours": "时",
+    "mins": "分",
+    "secs": "秒",
+    "ctaPay": "锁定我的创始人价格",
+    "ctaSupport": "申请升级为创始人",
+    "deadline": "{{date}} 截止"
   }
 }

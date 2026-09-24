@@ -92,7 +92,13 @@ Deno.serve(async (req) => {
   const buyerName = buyer?.business_name || buyer?.full_name || u.user.email || '';
 
   const stripe = new Stripe(stripeKey, { apiVersion: '2024-06-20', httpClient: Stripe.createFetchHttpClient() });
-  const origin = req.headers.get('origin') ?? new URL(req.url).origin;
+  // Allowlist de origen para las URL de retorno de Stripe: evita que un cliente
+  // forje `Origin` y redirija el post-pago a un dominio ajeno.
+  const ALLOWED_ORIGINS = ['https://www.neuromundi.com', 'https://neuromundi.com'];
+  const reqOrigin = req.headers.get('origin') ?? '';
+  const origin = ALLOWED_ORIGINS.includes(reqOrigin)
+    ? reqOrigin
+    : (Deno.env.get('PUBLIC_SITE_URL') ?? 'https://www.neuromundi.com');
 
   const metadata: Record<string, string> = { kind: 'product', product_id: product.id, buyer_id: u.user.id, vendor_id: product.vendor_id };
   if (affiliateId) metadata.affiliate_id = affiliateId;

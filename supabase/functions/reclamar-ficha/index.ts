@@ -57,6 +57,22 @@ Deno.serve(async (req) => {
   try { ({ token } = await req.json()); } catch { return json({ error: 'cuerpo inválido' }, 400); }
   if (!token || typeof token !== 'string') return json({ error: 'falta el token' }, 400);
 
+  // Rate-limit por IP: máx 10 reclamos por hora. Evita el abuso de creación de
+  // cuentas / envío de magic-links. Reutiliza support_throttle con prefijo.
+  const ip = (req.headers.get('x-forwarded-for') ?? '').split(',')[0].trim() || 'unknown';
+  try {
+    const since = new Date(Date.now() - 60 * 60 * 1000).toISOString();
+    const { count } = await admin
+      .from('support_throttle')
+      .select('id', { count: 'exact', head: true })
+      .eq('ip', `reclamar:${ip}`)
+      .gte('created_at', since);
+    if ((count ?? 0) >= 10) return json({ error: 'demasiados intentos, intenta más tarde' }, 429);
+    await admin.from('support_throttle').insert({ ip: `reclamar:${ip}` });
+  } catch (_) {
+    // Si el control de tasa falla, no bloqueamos el reclamo legítimo.
+  }
+
   // 1 · ¿La invitación sigue viva? La función valida vigencia y estado.
   const { data: fichas, error: eFicha } = await admin.rpc('ficha_por_token', { p_token: token });
   if (eFicha) return json({ error: 'no se pudo leer la ficha' }, 500);

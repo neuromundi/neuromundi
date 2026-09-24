@@ -4888,5 +4888,16 @@
     "colLocation": "Località",
     "newCourtesy": "Invito di cortesia (senza quota)",
     "courtesyCodeLabel": "Codice di cortesia"
+  },
+  "founderCd": {
+    "title": "Puoi ancora diventare Membro Fondatore",
+    "subtitle": "Paga entro la scadenza e mantieni il 50% a vita più il distintivo di fondatore.",
+    "days": "Giorni",
+    "hours": "Ore",
+    "mins": "Min",
+    "secs": "Sec",
+    "ctaPay": "Blocca la mia tariffa fondatore",
+    "ctaSupport": "Richiedi il passaggio a fondatore",
+    "deadline": "Chiude il {{date}}"
   }
 }

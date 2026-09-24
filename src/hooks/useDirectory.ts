@@ -211,11 +211,18 @@ export function useDirectory(filters: DirectoryFilters): UseDirectoryValue {
       }
       return true;
     });
-    // SEO de fundadores: aparecen primero (orden estable para el resto).
-    return pass
-      .map((p, i) => [p, i] as const)
-      .sort((a, b) => (Number(b[0].is_founder) - Number(a[0].is_founder)) || (a[1] - b[1]))
-      .map(([p]) => p);
+    // Orden: fundadores primero (SEO); luego, si conocemos la ubicación del
+    // visitante (`center`), por CERCANÍA ascendente; si no, orden estable.
+    const withDist = pass.map((p, i) => {
+      const d = center && p.latitude != null && p.longitude != null
+        ? haversineKm(center, { lat: p.latitude, lng: p.longitude })
+        : Number.POSITIVE_INFINITY;
+      return { p, i, d };
+    });
+    withDist.sort((a, b) =>
+      (Number(b.p.is_founder) - Number(a.p.is_founder)) ||
+      (center ? a.d - b.d : a.i - b.i));
+    return withDist.map((x) => x.p);
   }, [providers, query, categoryId, specialty, productCategory, ageRange, modality, neuroaffirming, section, neuroCondition, city, center, radiusKm, anyOf, providerTypes]);
 
   return { providers, filtered, cities, loading, error, refetch };

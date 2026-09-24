@@ -4888,5 +4888,16 @@
     "colLocation": "Location",
     "newCourtesy": "Courtesy invitation (no membership fee)",
     "courtesyCodeLabel": "Courtesy code"
+  },
+  "founderCd": {
+    "title": "You can still become a Founding Member",
+    "subtitle": "Pay before the deadline and keep 50% off for life plus the founder badge.",
+    "days": "Days",
+    "hours": "Hours",
+    "mins": "Min",
+    "secs": "Sec",
+    "ctaPay": "Lock in my founder rate",
+    "ctaSupport": "Request founder upgrade",
+    "deadline": "Closes {{date}}"
   }
 }

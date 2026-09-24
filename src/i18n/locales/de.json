@@ -4888,5 +4888,16 @@
     "colLocation": "Ort",
     "newCourtesy": "Kulanz-Einladung (ohne Beitrag)",
     "courtesyCodeLabel": "Kulanz-Code"
+  },
+  "founderCd": {
+    "title": "Du kannst noch Gründungsmitglied werden",
+    "subtitle": "Zahle vor Fristende und behalte 50% Rabatt auf Lebenszeit plus das Gründerabzeichen.",
+    "days": "Tage",
+    "hours": "Std.",
+    "mins": "Min",
+    "secs": "Sek",
+    "ctaPay": "Gründertarif sichern",
+    "ctaSupport": "Wechsel zu Gründer anfragen",
+    "deadline": "Endet am {{date}}"
   }
 }

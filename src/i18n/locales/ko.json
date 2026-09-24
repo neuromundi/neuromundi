@@ -4888,5 +4888,16 @@
     "colLocation": "위치",
     "newCourtesy": "무료 초대(회비 없음)",
     "courtesyCodeLabel": "무료 코드"
+  },
+  "founderCd": {
+    "title": "아직 창립 멤버가 될 수 있어요",
+    "subtitle": "마감 전에 결제하면 평생 50% 할인과 창립자 배지를 받습니다.",
+    "days": "일",
+    "hours": "시",
+    "mins": "분",
+    "secs": "초",
+    "ctaPay": "창립자 요금 확정하기",
+    "ctaSupport": "창립자 전환 요청",
+    "deadline": "{{date}} 마감"
   }
 }

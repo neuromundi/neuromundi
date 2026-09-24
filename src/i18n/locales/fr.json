@@ -4888,5 +4888,16 @@
     "colLocation": "Lieu",
     "newCourtesy": "Invitation de courtoisie (sans frais)",
     "courtesyCodeLabel": "Code de courtoisie"
+  },
+  "founderCd": {
+    "title": "Vous pouvez encore devenir Membre Fondateur",
+    "subtitle": "Payez avant l’échéance et gardez 50% à vie, plus le badge de fondateur.",
+    "days": "Jours",
+    "hours": "Heures",
+    "mins": "Min",
+    "secs": "Sec",
+    "ctaPay": "Bloquer mon tarif fondateur",
+    "ctaSupport": "Demander le passage fondateur",
+    "deadline": "Se termine le {{date}}"
   }
 }

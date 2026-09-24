@@ -4888,5 +4888,16 @@
     "colLocation": "Ubicación",
     "newCourtesy": "Invitación de cortesía (sin costo de cuota)",
     "courtesyCodeLabel": "Código de cortesía"
+  },
+  "founderCd": {
+    "title": "Aún puedes entrar como Miembro Fundador",
+    "subtitle": "Paga tu cuota antes del cierre y conserva 50% de descuento de por vida más el distintivo de fundador.",
+    "days": "Días",
+    "hours": "Horas",
+    "mins": "Min",
+    "secs": "Seg",
+    "ctaPay": "Asegurar mi tarifa de fundador",
+    "ctaSupport": "Solicitar cambio a fundador",
+    "deadline": "Cierra el {{date}}"
   }
 }

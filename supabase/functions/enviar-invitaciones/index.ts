@@ -33,6 +33,10 @@ const json = (status: number, body: unknown) =>
   new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json' } });
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
+// Escapa texto que se interpola en el HTML del correo (nombre de ficha, código).
+const esc = (s: string) =>
+  String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
 async function sendEmail(to: string, subject: string, html: string, idemKey: string): Promise<boolean> {
   if (!RESEND_API_KEY) return false;
   const r = await fetch('https://api.resend.com/emails', {
@@ -185,14 +189,15 @@ function tablaComparativa(): string {
 
 function buildEmail(r: Row, fundador = true, promo: string | null = null): { subject: string; html: string } {
   const claim = `${SITE}/reclamar/${r.token}`;
-  const nombre = r.nombre || 'tu organización';
+  const rawNombre = r.nombre || 'tu organización';
+  const nombre = esc(rawNombre); // escapado para el HTML; el asunto usa rawNombre
   const seg = segmentOf(r);
 
   // Bloque de cortesía: si viene un código exento, se anuncia arriba del cuerpo.
   const promoBlock = promo
     ? `<p style="margin:0 0 14px;font-size:15px;line-height:1.6;color:#065f46;background:#ecfdf5;border:1px solid #a7f3d0;border-radius:12px;padding:12px 14px">
         🎁 <b>Invitación de cortesía:</b> tu membresía es <b>sin costo</b>. Al registrarte, ingresa este código en el paso de membresía:
-        <br><span style="display:inline-block;margin-top:6px;font-size:18px;font-weight:800;letter-spacing:.04em;color:#047857">${promo}</span>
+        <br><span style="display:inline-block;margin-top:6px;font-size:18px;font-weight:800;letter-spacing:.04em;color:#047857">${esc(promo)}</span>
       </p>`
     : '';
 
@@ -208,7 +213,7 @@ function buildEmail(r: Row, fundador = true, promo: string | null = null): { sub
     const cuerpo = `${intro}
       ${beneficios(r, false)}
       ${tablaComparativa()}`;
-    return { subject: `${nombre}: te invitamos a Neuromundi`, html: shell('Únete a Neuromundi', promoBlock + cuerpo, 'Completar mi perfil', claim) };
+    return { subject: `${rawNombre}: te invitamos a Neuromundi`, html: shell('Únete a Neuromundi', promoBlock + cuerpo, 'Completar mi perfil', claim) };
   }
 
   if (seg === 'ya_publico_social') {
@@ -218,7 +223,7 @@ function buildEmail(r: Row, fundador = true, promo: string | null = null): { sub
       ${beneficios(r)}
       <p style="margin-top:12px">Y la <b>Insignia de Miembro Fundador</b>, con <u>beneficios preferentes de por vida</u>.</p>
       ${tablaComparativa()}`;
-    return { subject: `${nombre}: tu perfil en Neuromundi es gratuito — complétalo`, html: shell('Conviértete en Fundador Neuromundi', promoBlock + cuerpo, 'Quiero ser fundador', claim) };
+    return { subject: `${rawNombre}: tu perfil en Neuromundi es gratuito — complétalo`, html: shell('Conviértete en Fundador Neuromundi', promoBlock + cuerpo, 'Quiero ser fundador', claim) };
   }
   if (seg === 'ya_privado') {
     const cuerpo = `<p>Hola, equipo de <b>${nombre}</b>:</p>
@@ -226,7 +231,7 @@ function buildEmail(r: Row, fundador = true, promo: string | null = null): { sub
       ${beneficios(r)}
       <p style="margin-top:12px">Además, al completarlo ahora entras como <b>Miembro Fundador</b>, con <u>beneficios preferentes de por vida</u>.</p>
       ${tablaComparativa()}`;
-    return { subject: `${nombre}: te reservamos tu perfil en Neuromundi`, html: shell('Conviértete en Fundador Neuromundi', promoBlock + cuerpo, 'Quiero ser fundador', claim) };
+    return { subject: `${rawNombre}: te reservamos tu perfil en Neuromundi`, html: shell('Conviértete en Fundador Neuromundi', promoBlock + cuerpo, 'Quiero ser fundador', claim) };
   }
   const intro = esFree(r)
     ? `<p>Hola, equipo de <b>${nombre}</b>:</p>
@@ -237,7 +242,7 @@ function buildEmail(r: Row, fundador = true, promo: string | null = null): { sub
     ${beneficios(r)}
     <p style="margin-top:12px">Y si lo completas ahora, entras como <b>Miembro Fundador</b>, con <u>beneficios preferentes de por vida</u>.</p>
     ${tablaComparativa()}`;
-  return { subject: `${nombre}: conviértete en Fundador Neuromundi`, html: shell('Conviértete en Fundador Neuromundi', promoBlock + cuerpo, 'Quiero ser fundador', claim) };
+  return { subject: `${rawNombre}: conviértete en Fundador Neuromundi`, html: shell('Conviértete en Fundador Neuromundi', promoBlock + cuerpo, 'Quiero ser fundador', claim) };
 }
 
 Deno.serve(async (req: Request) => {

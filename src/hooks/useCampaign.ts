@@ -25,6 +25,13 @@ export interface CampaignConfig {
   founder_discount: FounderStage[];
   community_url: string | null;
   whatsapp_url: string | null;
+  /** Si true, el directorio se muestra AUNQUE la campaña siga activa (sin cortina)
+   *  y el onboarding (tour/founder/banner) deja de suprimirse. Desacopla la
+   *  apertura del directorio del descuento de fundador. */
+  directory_open: boolean;
+  /** Fecha límite para optar por fundador, por país (ISO). Alimenta el contador
+   *  del panel; si no hay entrada para el país, no se muestra el contador. */
+  founder_deadline_by_country: Record<string, string>;
 }
 
 /** Descuento de fundador vigente HOY según las etapas y la fecha de inicio.
@@ -78,7 +85,9 @@ export function useCampaign() {
   };
 
   const directoryLockedFor = (country: string | null): { locked: boolean; unlockAt: Date | null } => {
-    if (!config?.active || !config.start_at) return { locked: false, unlockAt: null };
+    // directory_open desacopla: si el admin abrió el directorio, no hay cortina
+    // aunque la campaña (y el 50% de fundador) sigan activos.
+    if (!config?.active || !config.start_at || config.directory_open) return { locked: false, unlockAt: null };
     const unlock = unlockAtFor(country);
     const now = Date.now();
     const locked = now >= new Date(config.start_at).getTime() && unlock != null && now < unlock.getTime();

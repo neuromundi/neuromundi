@@ -83,6 +83,7 @@ import { CampaignsPanel } from './CampaignsPanel';
 import { ProductManager } from '@/components/merchant/ProductManager';
 import { useFounderStatus } from '@/hooks/useFounder';
 import { FounderRequirements } from '@/components/founder/FounderRequirements';
+import { FounderCountdownCard } from '@/components/membership/FounderCountdownCard';
 import { DonateCallout } from '@/components/donation/DonateCallout';
 import { RecommendPanel } from '@/components/referral/RecommendPanel';
 import { defaultOfferValues, type OfferFormValues } from '@/lib/schemas';
@@ -773,7 +774,7 @@ export function ProviderDashboard() {
 
   return (
     <div className="mx-auto w-full max-w-2xl p-4">
-      {isFounder && (
+      {isFounder ? (
         <div className="mb-4 flex items-center gap-3 rounded-2xl border border-brand-200 bg-brand-50 p-3">
           <FounderBadge isFounder size="md" />
           <div>
@@ -781,6 +782,8 @@ export function ProviderDashboard() {
             <p className="text-sm text-brand-700">{t('founderBadge.youAreDesc')}</p>
           </div>
         </div>
+      ) : (
+        <FounderCountdownCard />
       )}
       <div className="mb-4">
         <FounderRequirements />

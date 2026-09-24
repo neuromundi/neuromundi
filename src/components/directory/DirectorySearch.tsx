@@ -5,7 +5,7 @@
  * la lista de ProviderCard y el MapView, manteniéndolos sincronizados por
  * `selectedId`. En móvil alterna lista/mapa; en escritorio van lado a lado.
  */
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Search, List, MapPin, Globe, BellPlus, X, SlidersHorizontal, HeartPulse, PawPrint, Baby, GraduationCap, Package, Palette, Sparkles, LocateFixed, Loader2, Dumbbell, Ticket, Scale, HeartHandshake, HandHeart, Briefcase, Sprout, Stethoscope, LayoutGrid } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
@@ -114,6 +114,10 @@ export function DirectorySearch({ onViewProfile }: DirectorySearchProps) {
   const [center, setCenter] = useState<{ lat: number; lng: number } | null>(null);
   const [radiusKm, setRadiusKm] = useState<number>(25);
   const [locating, setLocating] = useState(false);
+  // autoLocated = la ubicación se obtuvo automáticamente (al elegir sección),
+  // NO por el botón manual. En ese caso ordenamos por cercanía SIN corte de radio.
+  const [autoLocated, setAutoLocated] = useState(false);
+  const geoTried = useRef(false);
 
   /** Pide la ubicación al navegador (solo con este gesto explícito del usuario)
    *  y activa el filtrado por cercanía. Respeta la privacidad: nunca se solicita
@@ -127,6 +131,7 @@ export function DirectorySearch({ onViewProfile }: DirectorySearchProps) {
     navigator.geolocation.getCurrentPosition(
       (pos) => {
         setCenter({ lat: pos.coords.latitude, lng: pos.coords.longitude });
+        setAutoLocated(false); // ubicación manual → aplica el corte por radio
         setLocating(false);
       },
       () => {
@@ -160,6 +165,19 @@ export function DirectorySearch({ onViewProfile }: DirectorySearchProps) {
     return () => clearTimeout(t);
   }, [searchInput]);
 
+  // Al elegir una sección (neurodesarrollo/neurodivergencias/afecciones) pedimos
+  // la ubicación UNA vez, en silencio, para mostrar las fichas más cercanas primero.
+  // Si el visitante la deniega, simplemente no se ordena por cercanía (sin error).
+  useEffect(() => {
+    if (!section || center || geoTried.current || !('geolocation' in navigator)) return;
+    geoTried.current = true;
+    navigator.geolocation.getCurrentPosition(
+      (pos) => { setCenter({ lat: pos.coords.latitude, lng: pos.coords.longitude }); setAutoLocated(true); },
+      () => { /* denegada o no disponible: sin orden por cercanía */ },
+      { enableHighAccuracy: false, timeout: 10000, maximumAge: 300000 },
+    );
+  }, [section, center]);
+
   const filters: DirectoryFilters = useMemo(
     () => ({
       query,
@@ -176,9 +194,11 @@ export function DirectorySearch({ onViewProfile }: DirectorySearchProps) {
       city,
       country: country || undefined,
       center: center ?? undefined,
-      radiusKm: center ? radiusKm : undefined,
+      // Corte por radio SOLO cuando la ubicación es manual; en auto (por sección)
+      // no se recorta: se muestran todas ordenadas por cercanía.
+      radiusKm: center && !autoLocated ? radiusKm : undefined,
     }),
-    [query, categoryId, specialty, productCategory, ageRange, modality, domain, neuro, section, neuroCondition, city, country, center, radiusKm],
+    [query, categoryId, specialty, productCategory, ageRange, modality, domain, neuro, section, neuroCondition, city, country, center, radiusKm, autoLocated],
   );
 
   const { filtered, cities, loading } = useDirectory(filters);

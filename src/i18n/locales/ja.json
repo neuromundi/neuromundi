@@ -4888,5 +4888,16 @@
     "colLocation": "所在地",
     "newCourtesy": "招待（会費無料）",
     "courtesyCodeLabel": "招待コード"
+  },
+  "founderCd": {
+    "title": "今なら創設メンバーになれます",
+    "subtitle": "締め切り前に支払うと、生涯50%割引と創設者バッジを獲得できます。",
+    "days": "日",
+    "hours": "時",
+    "mins": "分",
+    "secs": "秒",
+    "ctaPay": "創設者料金を確保する",
+    "ctaSupport": "創設者への変更を依頼",
+    "deadline": "{{date}} まで"
   }
 }

@@ -155,7 +155,11 @@ export function AppLayout() {
   // Campaña de pre-registro: mientras esté activa se apagan el popup de fundadores
   // y el banner de registro suave (se reemplazan por el embudo de campaña).
   const { config: campaign, popupActiveFor } = useCampaign();
-  const campaignActive = campaign?.active === true;
+  // "Campaña activa" para efectos de RECEPCIÓN (cortina, supresión de
+  // tour/founder/banner y popup de campaña). Si el admin abrió el directorio
+  // (directory_open), tratamos la recepción como fuera de campaña aunque la
+  // campaña —y el 50% de fundador en el checkout— sigan vigentes.
+  const campaignActive = campaign?.active === true && campaign?.directory_open !== true;
   const { country: selCountry } = useCountry();
   const profileCountry = useAuthStore((s) => s.profile?.country ?? null);
   const [showCampaignPopup, setShowCampaignPopup] = useState(false);

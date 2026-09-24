@@ -4888,5 +4888,16 @@
     "colLocation": "Localização",
     "newCourtesy": "Convite de cortesia (sem taxa)",
     "courtesyCodeLabel": "Código de cortesia"
+  },
+  "founderCd": {
+    "title": "Você ainda pode ser Membro Fundador",
+    "subtitle": "Pague antes do prazo e mantenha 50% de desconto vitalício mais o distintivo de fundador.",
+    "days": "Dias",
+    "hours": "Horas",
+    "mins": "Min",
+    "secs": "Seg",
+    "ctaPay": "Garantir minha tarifa de fundador",
+    "ctaSupport": "Solicitar mudança para fundador",
+    "deadline": "Encerra em {{date}}"
   }
 }
