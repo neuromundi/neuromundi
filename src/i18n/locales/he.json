@@ -4846,7 +4846,7 @@
     "opens": "פתיחות: {{count}}",
     "lastOpen": "אחרונה",
     "status": {
-      "pendiente": "ממתין",
+      "pendiente": "לא נשלחה",
       "enviada": "נשלח",
       "abierta": "נפתח",
       "reclamada": "נתבע",
@@ -4883,6 +4883,8 @@
     "summaryRejected": "נדחו",
     "downloadCsv": "הורדת CSV",
     "colOpens": "פתיחות",
-    "colRejected": "תאריך דחייה"
+    "colRejected": "תאריך דחייה",
+    "summaryPending": "ממתינות (לא נשלחו)",
+    "colLocation": "מיקום"
   }
 }

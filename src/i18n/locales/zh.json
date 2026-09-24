@@ -4846,7 +4846,7 @@
     "opens": "打开次数：{{count}}",
     "lastOpen": "最后",
     "status": {
-      "pendiente": "待处理",
+      "pendiente": "未发送",
       "enviada": "已发送",
       "abierta": "已打开",
       "reclamada": "已认领",
@@ -4883,6 +4883,8 @@
     "summaryRejected": "已拒绝",
     "downloadCsv": "下载CSV",
     "colOpens": "打开次数",
-    "colRejected": "拒绝时间"
+    "colRejected": "拒绝时间",
+    "summaryPending": "待发送（未发送）",
+    "colLocation": "位置"
   }
 }

@@ -4846,7 +4846,7 @@
     "opens": "開封回数: {{count}}",
     "lastOpen": "最終",
     "status": {
-      "pendiente": "保留中",
+      "pendiente": "未送信",
       "enviada": "送信済み",
       "abierta": "開封済み",
       "reclamada": "取得済み",
@@ -4883,6 +4883,8 @@
     "summaryRejected": "辞退",
     "downloadCsv": "CSVをダウンロード",
     "colOpens": "開封回数",
-    "colRejected": "辞退日"
+    "colRejected": "辞退日",
+    "summaryPending": "保留（未送信）",
+    "colLocation": "所在地"
   }
 }

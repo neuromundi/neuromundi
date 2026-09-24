@@ -4846,7 +4846,7 @@
     "opens": "Öffnungen: {{count}}",
     "lastOpen": "letzte",
     "status": {
-      "pendiente": "Ausstehend",
+      "pendiente": "Nicht gesendet",
       "enviada": "Gesendet",
       "abierta": "Geöffnet",
       "reclamada": "Beansprucht",
@@ -4883,6 +4883,8 @@
     "summaryRejected": "Abgelehnt",
     "downloadCsv": "CSV herunterladen",
     "colOpens": "Öffnungen",
-    "colRejected": "Abgelehnt am"
+    "colRejected": "Abgelehnt am",
+    "summaryPending": "Ausstehend (nicht gesendet)",
+    "colLocation": "Ort"
   }
 }

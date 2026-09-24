@@ -4846,7 +4846,7 @@
     "opens": "Aberturas: {{count}}",
     "lastOpen": "última",
     "status": {
-      "pendiente": "Pendente",
+      "pendiente": "Não enviado",
       "enviada": "Enviado",
       "abierta": "Aberto",
       "reclamada": "Reivindicado",
@@ -4883,6 +4883,8 @@
     "summaryRejected": "Recusados",
     "downloadCsv": "Baixar CSV",
     "colOpens": "Aberturas",
-    "colRejected": "Recusado em"
+    "colRejected": "Recusado em",
+    "summaryPending": "Pendentes (não enviados)",
+    "colLocation": "Localização"
   }
 }

@@ -4846,7 +4846,7 @@
     "opens": "مرات الفتح: {{count}}",
     "lastOpen": "الأخيرة",
     "status": {
-      "pendiente": "قيد الانتظار",
+      "pendiente": "لم تُرسل",
       "enviada": "مُرسَلة",
       "abierta": "مفتوحة",
       "reclamada": "مُطالَب بها",
@@ -4883,6 +4883,8 @@
     "summaryRejected": "المرفوضة",
     "downloadCsv": "تنزيل CSV",
     "colOpens": "مرات الفتح",
-    "colRejected": "تاريخ الرفض"
+    "colRejected": "تاريخ الرفض",
+    "summaryPending": "قيد الانتظار (لم تُرسل)",
+    "colLocation": "الموقع"
   }
 }

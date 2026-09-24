@@ -4846,7 +4846,7 @@
     "opens": "열람 횟수: {{count}}",
     "lastOpen": "마지막",
     "status": {
-      "pendiente": "대기",
+      "pendiente": "미발송",
       "enviada": "보냄",
       "abierta": "열림",
       "reclamada": "인증됨",
@@ -4883,6 +4883,8 @@
     "summaryRejected": "거절됨",
     "downloadCsv": "CSV 다운로드",
     "colOpens": "열람 횟수",
-    "colRejected": "거절일"
+    "colRejected": "거절일",
+    "summaryPending": "대기(미발송)",
+    "colLocation": "위치"
   }
 }
