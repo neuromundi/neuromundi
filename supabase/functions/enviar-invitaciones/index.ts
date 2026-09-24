@@ -86,7 +86,7 @@ function shell(title: string, bodyHtml: string, ctaText: string, ctaUrl: string)
 // Beneficios CURADOS por tipo de destinatario (2-3 puntos, NO feature-dump).
 // Mejor práctica: relevancia por rol > lista exhaustiva; el detalle completo vive
 // en la landing. Todos cierran con curso+kit gratis. Devuelve un <ul> con estilo.
-function beneficios(r: Row): string {
+function beneficios(r: Row, fundador = true): string {
   const pt = r.provider_type ?? '';
   // Cada viñeta lleva UN emoji relevante (calidez + escaneabilidad sin exceso;
   // glifos muy soportados para minimizar problemas de render en Outlook).
@@ -130,9 +130,12 @@ function beneficios(r: Row): string {
     ];
   }
   const li = items.map((t) => `<li style="margin:6px 0">${t}</li>`).join('');
+  const founderLi = fundador
+    ? '<li style="margin:6px 0">🏆&nbsp; <b>Distintivo Fundador Neuromundi</b> para tu perfil, tu web y tus redes.</li>'
+    : '';
   return `<ul style="margin:8px 0 0;padding:0;list-style:none;color:#334155;font-size:14px;line-height:1.5">${li}
     <li style="margin:6px 0">🎓&nbsp; Acceso <b>gratuito</b> al <b>curso de bienvenida</b> y al <b>kit de herramientas</b>.</li>
-    <li style="margin:6px 0">🏆&nbsp; <b>Distintivo Fundador Neuromundi</b> para tu perfil, tu web y tus redes.</li>
+    ${founderLi}
     <li style="margin:6px 0">📋&nbsp; Participa en la <b>primera encuesta internacional</b> de la comunidad y recibe sus resultados.</li>
   </ul>`;
 }
@@ -180,10 +183,25 @@ function tablaComparativa(): string {
     <p style="color:#94a3b8;font-size:10px;margin:6px 2px 0;line-height:1.4">Comparativa con información pública de cada plataforma a septiembre de 2026. Las plataformas mencionadas son marcas de sus respectivos titulares; se citan solo con fines comparativos e informativos.</p>`;
 }
 
-function buildEmail(r: Row): { subject: string; html: string } {
+function buildEmail(r: Row, fundador = true): { subject: string; html: string } {
   const claim = `${SITE}/reclamar/${r.token}`;
   const nombre = r.nombre || 'tu organización';
   const seg = segmentOf(r);
+
+  // Invitación estándar (SIN encuadre de Fundador): la usa el envío individual
+  // cuando el admin desmarca "invitar como fundador". No cambia la elegibilidad
+  // real de fundador (esa se gana automáticamente al cumplir requisitos).
+  if (!fundador) {
+    const intro = esFree(r)
+      ? `<p>Hola, equipo de <b>${nombre}</b>:</p>
+         <p>Te invitamos a <b>Neuromundi</b>, la comunidad global de neurodesarrollo, neurodivergencia y afecciones neurológicas. Para tu tipo de organización la membresía es <b>gratuita</b>. Al <b>completar tu perfil</b> obtienes:</p>`
+      : `<p>Hola, equipo de <b>${nombre}</b>:</p>
+         <p>Te invitamos a <b>Neuromundi</b>, la comunidad global de neurodesarrollo, neurodivergencia y afecciones neurológicas. Al <b>completar tu perfil</b> obtienes:</p>`;
+    const cuerpo = `${intro}
+      ${beneficios(r, false)}
+      ${tablaComparativa()}`;
+    return { subject: `${nombre}: te invitamos a Neuromundi`, html: shell('Únete a Neuromundi', cuerpo, 'Completar mi perfil', claim) };
+  }
 
   if (seg === 'ya_publico_social') {
     const cuerpo = `<p>Hola, equipo de <b>${nombre}</b>:</p>
@@ -220,9 +238,11 @@ Deno.serve(async (req: Request) => {
     return json(401, { error: 'No autorizado' });
   }
 
-  let body: { send?: boolean; limit?: number; segment?: string; tipo_correo?: string; token?: string } = {};
+  let body: { send?: boolean; limit?: number; segment?: string; tipo_correo?: string; token?: string; fundador?: boolean } = {};
   try { body = await req.json(); } catch { /* vacío = dry-run, todos */ }
   const doSend = body.send === true;
+  // Encuadre de fundador en el correo (por defecto sí, como el envío masivo).
+  const fundador = body.fundador !== false;
   const limit = Math.min(Math.max(Number(body.limit ?? 50), 1), 1000);
   const segment = ['nuevos', 'ya_publico_social', 'ya_privado', 'todos'].includes(body.segment ?? '')
     ? (body.segment as string) : 'todos';
@@ -277,7 +297,7 @@ Deno.serve(async (req: Request) => {
   let enviados = 0, fallidos = 0;
   for (const r of lote) {
     try {
-      const { subject, html } = buildEmail(r);
+      const { subject, html } = buildEmail(r, fundador);
       if (await sendEmail(r.correo, subject, html, `inv-${r.token}`)) {
         await admin.rpc('directorio_invitacion_enviada', { p_token: r.token });
         enviados++;

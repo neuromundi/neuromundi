@@ -47,6 +47,7 @@ export function AdminInvitations() {
   const [correo, setCorreo] = useState('');
   const [nombre, setNombre] = useState('');
   const [tipo, setTipo] = useState<string>('service_provider');
+  const [fundador, setFundador] = useState(true);
   const [enviando, setEnviando] = useState(false);
   const [ultimoLink, setUltimoLink] = useState<string | null>(null);
 
@@ -58,6 +59,7 @@ export function AdminInvitations() {
       p_correo: correo.trim(),
       p_nombre: nombre.trim() || null,
       p_provider_type: tipo,
+      p_fundador: fundador,
       p_send: enviar,
     });
     setEnviando(false);
@@ -145,6 +147,15 @@ export function AdminInvitations() {
             </select>
           </div>
         </div>
+        <label className="mt-3 flex items-center gap-2 text-sm text-slate-700">
+          <input
+            type="checkbox"
+            checked={fundador}
+            onChange={(e) => setFundador(e.target.checked)}
+            className="h-4 w-4 rounded border-slate-300 text-brand-600 focus-visible:ring-brand-500"
+          />
+          {t('invit.newFounder')}
+        </label>
         <div className="mt-3 flex flex-wrap items-center gap-2">
           <Button size="sm" loading={enviando} onClick={() => void crear(true)} leadingIcon={<Send className="h-4 w-4" />}>
             {t('invit.newSend')}
