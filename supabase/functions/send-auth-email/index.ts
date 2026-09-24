@@ -30,6 +30,10 @@ import { Webhook } from 'https://esm.sh/standardwebhooks@1.0.0';
 const HOOK_SECRET = Deno.env.get('SEND_EMAIL_HOOK_SECRET') ?? '';
 const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY') ?? '';
 const FROM = Deno.env.get('CAMPAIGN_FROM') ?? 'Neuromundi <admin@admin.neuromundi.com>';
+// El enlace de verificación DEBE apuntar al endpoint /auth/v1/verify del proyecto
+// Supabase (…​.supabase.co), NO a email_data.site_url (que es el Site URL, p. ej.
+// www.neuromundi.com). SUPABASE_URL se inyecta solo en las Edge Functions.
+const SUPABASE_URL = Deno.env.get('SUPABASE_URL') ?? '';
 
 const RTL = new Set(['ar', 'he']);
 
@@ -479,9 +483,17 @@ Deno.serve(async (req) => {
 
   try {
     const meta = data.user.user_metadata ?? {};
-    const rawLang = String(meta.lang ?? 'es').slice(0, 2).toLowerCase();
-    const lang = rawLang in T ? rawLang : 'es';
-    const action = actionFor(data.email_data.email_action_type);
+    const ed = data.email_data;
+    // Idioma: primero el `lang` que viaja en redirect_to (refleja el idioma ACTUAL,
+    // clave para el restablecimiento de cuentas viejas sin metadato), luego el de
+    // los metadatos del registro, y por último español.
+    let redirectLang = '';
+    try {
+      redirectLang = new URL(ed.redirect_to).searchParams.get('lang')?.slice(0, 2).toLowerCase() ?? '';
+    } catch { /* redirect_to podría no ser una URL absoluta */ }
+    const metaLang = String(meta.lang ?? '').slice(0, 2).toLowerCase();
+    const lang = redirectLang in T ? redirectLang : metaLang in T ? metaLang : 'es';
+    const action = actionFor(ed.email_action_type);
     const s = T[lang][action];
 
     // Prestador de pago = role 'provider' salvo empresa (siempre gratuita).
@@ -489,8 +501,10 @@ Deno.serve(async (req) => {
     const providerType = String(meta.provider_type ?? '');
     const showPay = action === 'signup' && role === 'provider' && providerType !== 'company';
 
-    const ed = data.email_data;
-    const link = `${ed.site_url}/auth/v1/verify?token=${encodeURIComponent(
+    // Host del proyecto Supabase (no el site_url). Fallback al site_url por si
+    // SUPABASE_URL faltara, aunque siempre está presente en Edge Functions.
+    const verifyHost = SUPABASE_URL || ed.site_url;
+    const link = `${verifyHost}/auth/v1/verify?token=${encodeURIComponent(
       ed.token_hash,
     )}&type=${encodeURIComponent(ed.email_action_type)}&redirect_to=${encodeURIComponent(ed.redirect_to)}`;
 

@@ -22,7 +22,7 @@ const labelCls = 'mb-1 block font-semibold text-slate-900';
 
 export function LoginForm({ onSuccess }: { onSuccess?: () => void }) {
   const { signIn } = useAuth();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const toast = useToast();
   const [formError, setFormError] = useState<string | null>(null);
   const [showHelp, setShowHelp] = useState(false);
@@ -58,8 +58,12 @@ export function LoginForm({ onSuccess }: { onSuccess?: () => void }) {
     const email = getValues('email');
     if (!email) { toast.error(t('auth.enterEmailFirst')); return; }
     setResetting(true);
+    // El idioma actual viaja en la URL de redirección para que el hook de correo
+    // (send-auth-email) mande el restablecimiento en ese idioma: en cuentas ya
+    // existentes no hay `lang` en los metadatos, así que esta es la señal fiable.
+    const lang = (i18n.language || 'es').slice(0, 2);
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/ajustes?recovery=1`,
+      redirectTo: `${window.location.origin}/ajustes?recovery=1&lang=${lang}`,
     });
     setResetting(false);
     if (error) toast.error(error.message);
