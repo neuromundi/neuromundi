@@ -85,7 +85,14 @@ export function ReclamarFicha() {
     let vivo = true;
     // Registra la apertura del enlace (fire-and-forget). En la 1ª apertura la RPC
     // avisa al admin (campana + correo). No bloquea ni afecta la carga de la ficha.
-    if (token) void supabase.rpc('marcar_invitacion_abierta', { p_token: token });
+    // OJO: supabase.rpc() es PEREZOSO — solo envía la petición al hacer .then()/await;
+    // por eso llamamos .then() explícito (un `void supabase.rpc()` a secas NO envía nada).
+    if (token) {
+      supabase.rpc('marcar_invitacion_abierta', { p_token: token }).then(
+        () => {},
+        () => {},
+      );
+    }
     (async () => {
       const { data, error } = await supabase.rpc('ficha_por_token', { p_token: token });
       if (!vivo) return;

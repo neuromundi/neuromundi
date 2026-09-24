@@ -168,6 +168,11 @@ export function useAppointmentReminders() {
   const { userId } = useAuth();
   useEffect(() => {
     if (!userId) return;
-    void supabase.rpc('emit_due_appointment_reminders');
+    // supabase.rpc() es perezoso: solo envía la petición al encadenar .then()/await.
+    // Sin él, este fallback de recordatorios nunca se disparaba.
+    supabase.rpc('emit_due_appointment_reminders').then(
+      () => {},
+      () => {},
+    );
   }, [userId]);
 }
