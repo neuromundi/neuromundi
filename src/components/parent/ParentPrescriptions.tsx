@@ -13,6 +13,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { usePrescriptions } from '@/hooks/usePrescriptions';
 import { formatDate } from '@/lib/utils';
 import type { Prescription, PrescriptionDetail, PrescriptionStatus } from '@/types/app';
+import { safeHttpUrl } from '@/lib/safeUrl';
 
 const STATUS: Record<PrescriptionStatus, { key: string; cls: string }> = {
   draft: { key: 'rx.status.draft', cls: 'bg-slate-100 text-muted' },
@@ -50,11 +51,12 @@ export function ParentPrescriptions() {
   );
 
   const buy = (url: string | null) => {
-    if (!url) {
+    const safe = safeHttpUrl(url);
+    if (!safe) {
       toast.info(t('rx.noPurchaseLink'));
       return;
     }
-    window.open(url, '_blank', 'noopener,noreferrer');
+    window.open(safe, '_blank', 'noopener,noreferrer');
   };
 
   const handleOrdered = async () => {

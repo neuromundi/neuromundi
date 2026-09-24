@@ -15,6 +15,7 @@ import { AppointmentRequests } from '@/components/calendar/AppointmentRequests';
 import { googleCalendarUrl, downloadICS } from '@/lib/calendar';
 import { groupItemsByDay, buildMonthCells, itemToCalendarEvent } from '@/lib/calendarView';
 import { cn } from '@/lib/utils';
+import { safeHttpUrl } from '@/lib/safeUrl';
 
 const inputCls =
   'w-full rounded-xl border border-slate-200 p-3 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500';
@@ -57,7 +58,7 @@ export function Calendar() {
           {(it.location || it.online_url) && (
             <p className="mt-0.5 flex items-center gap-1 text-sm text-slate-600">
               {it.online_url ? <Globe2 className="h-3.5 w-3.5 text-sage-600" aria-hidden="true" /> : <MapPin className="h-3.5 w-3.5 text-slate-400" aria-hidden="true" />}
-              {it.online_url ? <a href={it.online_url} target="_blank" rel="noopener noreferrer" className="text-sage-700 hover:underline">{t('events.join')}</a> : it.location}
+              {safeHttpUrl(it.online_url) ? <a href={safeHttpUrl(it.online_url)} target="_blank" rel="noopener noreferrer" className="text-sage-700 hover:underline">{t('events.join')}</a> : it.location}
             </p>
           )}
           <div className="mt-1 flex flex-wrap gap-2">

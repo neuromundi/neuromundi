@@ -8,6 +8,7 @@ import { SkeletonCard, useToast, useConfirm, HowTo} from '@/components/ui';
 import { useMyAppointments } from '@/hooks/useAgenda';
 import { useConsumerPayments } from '@/hooks/usePayments';
 import { downloadICS, googleCalendarUrl, type CalendarEvent } from '@/lib/calendar';
+import { safeHttpUrl } from '@/lib/safeUrl';
 
 const STATUS_KEY: Record<string, string> = {
   booked: 'agenda.statusBooked',
@@ -48,7 +49,7 @@ export function MyAppointments() {
             </div>
 
             {a.video_link && (
-              <a href={a.video_link} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex items-center gap-1.5 text-sm text-brand-700 hover:underline">
+              <a href={safeHttpUrl(a.video_link)} target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex items-center gap-1.5 text-sm text-brand-700 hover:underline">
                 <Video className="h-4 w-4" /> {a.video_link}
               </a>
             )}

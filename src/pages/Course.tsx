@@ -10,6 +10,7 @@ import { ArrowLeft, CheckCircle2, Circle, Play, ExternalLink, BookOpen } from 'l
 import { Button, SkeletonCard, useToast } from '@/components/ui';
 import { useAuth } from '@/hooks/useAuth';
 import { useCourse } from '@/hooks/useAcademy';
+import { safeHttpUrl } from '@/lib/safeUrl';
 
 /** Convierte URLs de YouTube/Vimeo a su forma embebible. */
 function embedUrl(url: string): string | null {
@@ -100,7 +101,7 @@ export function Course() {
                                     <iframe src={embed} title={l.title} className="h-full w-full" allowFullScreen loading="lazy" />
                                   </div>
                                 ) : (
-                                  <a href={l.video_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm text-brand-700 hover:underline">
+                                  <a href={safeHttpUrl(l.video_url)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm text-brand-700 hover:underline">
                                     <ExternalLink className="h-4 w-4" /> {t('lms.openVideo')}
                                   </a>
                                 )

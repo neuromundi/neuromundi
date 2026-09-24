@@ -19,6 +19,7 @@ import { COUNTRIES } from '@/data/countries';
 import { googleCalendarUrl, downloadICS } from '@/lib/calendar';
 import { filterEvents, eventToCalendarEvent, toLocalDatetimeInput } from '@/lib/calendarView';
 import { cn } from '@/lib/utils';
+import { safeHttpUrl } from '@/lib/safeUrl';
 
 const inputCls =
   'w-full rounded-xl border border-slate-200 p-3 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500';
@@ -106,7 +107,7 @@ export function Events() {
               <Download className="h-4 w-4" aria-hidden="true" /> {t('events.ics')}
             </button>
             {ev.is_online && ev.online_url && (
-              <a href={ev.online_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 rounded-lg px-2 py-1 text-sm font-semibold text-sage-700 hover:underline">
+              <a href={safeHttpUrl(ev.online_url)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 rounded-lg px-2 py-1 text-sm font-semibold text-sage-700 hover:underline">
                 <Globe2 className="h-4 w-4" aria-hidden="true" /> {t('events.join')}
               </a>
             )}

@@ -9,6 +9,7 @@ import { dimensionsForProviderType } from '@/types/app';
 import { isStrongPassword } from './password';
 import type { ProviderType } from '@/types/app';
 import { isStrictEmail, isDisposableEmail } from '@/lib/email';
+import { isSafeHttpUrl } from '@/lib/safeUrl';
 
 const REQUIRED = 'survey.required';
 const score = z
@@ -170,6 +171,7 @@ export const productSchema = z.object({
     .string()
     .trim()
     .url('product.errPurchaseUrl')
+    .refine(isSafeHttpUrl, 'product.errPurchaseUrl')
     .optional()
     .or(z.literal('')),
   category_id: z.number().int().nullable(),
@@ -327,7 +329,7 @@ export const profileSchema = z.object({
   phone: z.string().trim().max(30).optional().default(''),
   bio: z.string().max(500).optional().default(''),
   business_name: z.string().trim().max(140).optional().default(''),
-  website_url: z.string().trim().url('val.url').optional().or(z.literal('')),
+  website_url: z.string().trim().url('val.url').refine(isSafeHttpUrl, 'val.url').optional().or(z.literal('')),
   address: z.string().trim().max(200).optional().default(''),
   city: z.string().trim().max(100).optional().default(''),
   country: z.string().trim().max(100).optional().default(''),
@@ -362,7 +364,7 @@ export const profileSchema = z.object({
   modalities: z.array(z.string()).optional().default([]),
   neuroaffirming: z.boolean().optional().default(false),
   whatsapp: z.string().trim().max(30).optional().default(''),
-  booking_url: z.string().trim().url('val.url').optional().or(z.literal('')),
+  booking_url: z.string().trim().url('val.url').refine(isSafeHttpUrl, 'val.url').optional().or(z.literal('')),
   instagram: z.string().trim().max(200).optional().default(''),
   facebook: z.string().trim().max(200).optional().default(''),
 });

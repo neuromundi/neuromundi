@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { ExternalLink, FileText } from 'lucide-react';
 import { useContentFeed } from '@/hooks/useContent';
 import { Stars } from './Stars';
+import { safeHttpUrl } from '@/lib/safeUrl';
 
 export function ContentCarousel() {
   const { t } = useTranslation();
@@ -43,7 +44,7 @@ export function ContentCarousel() {
             </article>
           );
           return p.type === 'link' ? (
-            <a key={p.id} href={p.external_url ?? '#'} target="_blank" rel="noopener noreferrer" className="h-auto">
+            <a key={p.id} href={safeHttpUrl(p.external_url) ?? '#'} target="_blank" rel="noopener noreferrer" className="h-auto">
               {card}
             </a>
           ) : (

@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { BookOpen, Star, Eye, ExternalLink } from 'lucide-react';
 import type { BlogPost } from '@/hooks/useBlog';
+import { safeHttpUrl } from '@/lib/safeUrl';
 
 export function BlogPostCard({
   p,
@@ -47,7 +48,7 @@ export function BlogPostCard({
   );
 
   return isLink ? (
-    <a href={p.external_url!} target="_blank" rel="noopener noreferrer" className="block h-full">{inner}</a>
+    <a href={safeHttpUrl(p.external_url)} target="_blank" rel="noopener noreferrer" className="block h-full">{inner}</a>
   ) : (
     <Link to={`/contenido/${p.id}`} className="block h-full">{inner}</Link>
   );

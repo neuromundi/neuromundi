@@ -7,6 +7,7 @@
 import { useTranslation } from 'react-i18next';
 import { Ticket, Volume2, Brain, Sparkles, MapPin } from 'lucide-react';
 import { useCatLabel } from '@/lib/catLabel';
+import { safeHttpUrl } from '@/lib/safeUrl';
 import { VENUE_TYPES } from '@/data/esparcimientoCatalog';
 
 export function EsparcimientoInfo({ details }: { details: Record<string, unknown> | null }) {
@@ -51,8 +52,8 @@ export function EsparcimientoInfo({ details }: { details: Record<string, unknown
             <span><span className="font-semibold text-slate-900">{t('esp.otherAdapt')}:</span> {other}</span>
           </p>
         )}
-        {map && (
-          <a href={map} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700 hover:underline">
+        {safeHttpUrl(map) && (
+          <a href={safeHttpUrl(map)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700 hover:underline">
             <MapPin className="h-4 w-4" /> {t('esp.viewMap')}
           </a>
         )}

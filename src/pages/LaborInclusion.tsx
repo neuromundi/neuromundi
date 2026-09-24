@@ -13,6 +13,7 @@ import { usePublicJobs, usePublicJobsCountries, type PublicJob, type Opportunity
 import { useCountry } from '@/stores/countryStore';
 import { useCountryLabel } from '@/lib/countryLabel';
 import { COUNTRIES } from '@/data/countries';
+import { safeHttpUrl } from '@/lib/safeUrl';
 
 const OPP_TYPES: (OpportunityType | 'all')[] = ['all', 'employment', 'volunteering', 'social_service'];
 
@@ -62,8 +63,8 @@ function JobCard({ job }: { job: PublicJob }) {
               <Mail className="h-4 w-4" /> {t('labor.applyEmail')}
             </a>
           )}
-          {job.apply_url && (
-            <a href={job.apply_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 rounded-full border border-brand-200 bg-brand-50 px-4 py-2 text-sm font-semibold text-brand-700 hover:bg-brand-100">
+          {safeHttpUrl(job.apply_url) && (
+            <a href={safeHttpUrl(job.apply_url)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 rounded-full border border-brand-200 bg-brand-50 px-4 py-2 text-sm font-semibold text-brand-700 hover:bg-brand-100">
               <ExternalLink className="h-4 w-4" /> {t('labor.applyLink')}
             </a>
           )}

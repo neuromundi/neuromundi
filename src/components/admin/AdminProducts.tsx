@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { Check, X, ExternalLink, ShoppingBag, Star } from 'lucide-react';
 import { Button, SkeletonCard, useToast } from '@/components/ui';
 import { useProductModeration, type ProductFilter, type ModProduct } from '@/hooks/useProductModeration';
+import { safeHttpUrl } from '@/lib/safeUrl';
 
 function ProductRow({ p, filter, onApprove, onReject, onToggleFeatured }: {
   p: ModProduct;
@@ -37,7 +38,7 @@ function ProductRow({ p, filter, onApprove, onReject, onToggleFeatured }: {
           </p>
           {p.description && <p className="mt-1 line-clamp-2 text-sm text-slate-700">{p.description}</p>}
           {p.purchase_url && (
-            <a href={p.purchase_url} target="_blank" rel="noopener noreferrer" className="mt-1 inline-flex items-center gap-1 text-xs text-brand-700 hover:underline">
+            <a href={safeHttpUrl(p.purchase_url)} target="_blank" rel="noopener noreferrer" className="mt-1 inline-flex items-center gap-1 text-xs text-brand-700 hover:underline">
               <ExternalLink className="h-3.5 w-3.5" /> {t('admin.viewLink')}
             </a>
           )}

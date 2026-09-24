@@ -64,6 +64,30 @@ Deno.serve(async (req: Request) => {
 
   const category = (payload.category ?? 'other').slice(0, 40);
 
+  // Rate-limit por IP: máx 5 envíos por 10 minutos. Evita el bombardeo del buzón
+  // y el agotamiento de la cuota de Resend. Usa service_role (ignora RLS).
+  const ip = (req.headers.get('x-forwarded-for') ?? '').split(',')[0].trim() || 'unknown';
+  const svc = createClient(
+    Deno.env.get('SUPABASE_URL') ?? '',
+    Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '',
+    { auth: { persistSession: false } },
+  );
+  const since = new Date(Date.now() - 10 * 60 * 1000).toISOString();
+  try {
+    const { count } = await svc
+      .from('support_throttle')
+      .select('id', { count: 'exact', head: true })
+      .eq('ip', ip)
+      .gte('created_at', since);
+    if ((count ?? 0) >= 5) {
+      return json(429, { error: 'Demasiados envíos. Intenta de nuevo en unos minutos.' });
+    }
+    await svc.from('support_throttle').insert({ ip });
+  } catch (e) {
+    // Si el control de tasa falla, no bloqueamos el soporte legítimo; solo logueamos.
+    console.error('support_throttle', e);
+  }
+
   // Identidad del usuario autenticado (si la hay), leída de su JWT.
   let userEmail = 'anónimo';
   let userId = '—';
@@ -126,8 +150,9 @@ Deno.serve(async (req: Request) => {
   });
 
   if (!resp.ok) {
-    const detail = await resp.text();
-    return json(502, { error: 'El proveedor de correo rechazó el envío.', detail });
+    // No divulgamos el detalle del proveedor al cliente; lo dejamos en el log.
+    console.error('resend send-support', resp.status, await resp.text());
+    return json(502, { error: 'El proveedor de correo rechazó el envío.' });
   }
 
   return json(200, { ok: true });
