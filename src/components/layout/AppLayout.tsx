@@ -472,8 +472,7 @@ export function AppLayout() {
                 izquierda los enlaces de sección; a la derecha, EN LA MISMA barra,
                 los controles de cuenta (dona, notificaciones, accesibilidad,
                 idioma, entrar). w-full la fuerza a su propia línea bajo el logo. */}
-            <div className="hidden w-full min-w-0 items-center gap-x-3 lg:flex">
-            <nav className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1.5" aria-label={t('nav.directory')}>
+            <nav className="hidden w-full min-w-0 flex-wrap items-center gap-x-2 gap-y-1.5 lg:flex" aria-label={t('nav.directory')}>
               {/* Enlaces principales */}
               <NavPill to="/kit" label={t('nav.kit')} colorClass="bg-gradient-to-br from-brand-500 via-brand-600 to-brand-800" />
               <NavPill to="/directorio" label={t('nav.directory')} colorClass="bg-brand-600" />
@@ -507,29 +506,31 @@ export function AppLayout() {
                   <NavPill to="/ajustes" label={t('nav.settings')} colorClass="bg-slate-600" />
                 </>
               )}
+              {/* Controles de cuenta: fluyen en la MISMA barra, tras el último
+                  enlace (Mi Perfil si hay sesión; si no, Más). Agrupados en un div
+                  para que envuelvan juntos y se vea ordenado. */}
+              <span className="mx-1 hidden h-6 w-px bg-slate-200 lg:block" aria-hidden="true" />
+              <div className="flex items-center gap-x-1.5">
+                <NavLink
+                  to="/donar"
+                  className="inline-flex items-center gap-1.5 rounded-full bg-[#8C6D1F] px-3 py-1.5 text-[13px] font-semibold text-white shadow-sm transition-colors hover:bg-[#75591a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8C6D1F] focus-visible:ring-offset-2"
+                >
+                  <Heart className="h-3.5 w-3.5" aria-hidden="true" /> {t('nav.donate')}
+                </NavLink>
+                {isAuthenticated && <NotificationsBell />}
+                <AccessibilityMenu />
+                <LanguageSwitcher />
+                {isAuthenticated ? (
+                  <Button size="sm" variant="ghost" onClick={handleSignOut} leadingIcon={<LogOut className="h-4 w-4" />}>
+                    {t('nav.logout')}
+                  </Button>
+                ) : (
+                  <Button size="sm" onClick={() => navigate('/crear-cuenta')} leadingIcon={<LogIn className="h-4 w-4" />}>
+                    {t('nav.login')}
+                  </Button>
+                )}
+              </div>
             </nav>
-            {/* Controles de cuenta a la derecha, EN LA MISMA barra de opciones. */}
-            <div className="flex shrink-0 items-center gap-x-1.5">
-              <NavLink
-                to="/donar"
-                className="inline-flex items-center gap-1.5 rounded-full bg-[#8C6D1F] px-3 py-1.5 text-[13px] font-semibold text-white shadow-sm transition-colors hover:bg-[#75591a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8C6D1F] focus-visible:ring-offset-2"
-              >
-                <Heart className="h-3.5 w-3.5" aria-hidden="true" /> {t('nav.donate')}
-              </NavLink>
-              {isAuthenticated && <NotificationsBell />}
-              <AccessibilityMenu />
-              <LanguageSwitcher />
-              {isAuthenticated ? (
-                <Button size="sm" variant="ghost" onClick={handleSignOut} leadingIcon={<LogOut className="h-4 w-4" />}>
-                  {t('nav.logout')}
-                </Button>
-              ) : (
-                <Button size="sm" onClick={() => navigate('/crear-cuenta')} leadingIcon={<LogIn className="h-4 w-4" />}>
-                  {t('nav.login')}
-                </Button>
-              )}
-            </div>
-            </div>
           </div>
         </div>
       </header>
