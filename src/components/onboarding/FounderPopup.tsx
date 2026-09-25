@@ -12,11 +12,13 @@
  */
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
-import { X, Award, Check, Sparkles, ClipboardList } from 'lucide-react';
+import { X, Award, Check, Sparkles, ClipboardList, ArrowRight } from 'lucide-react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export function FounderPopup({ onClose }: { onClose: (reason: 'cta' | 'later' | 'close') => void }) {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [imgOk, setImgOk] = useState(true);
 
   const benefits = t('founder.allBenefits', { returnObjects: true, defaultValue: [] }) as string[];
@@ -97,6 +99,15 @@ export function FounderPopup({ onClose }: { onClose: (reason: 'cta' | 'later' | 
               <p className="mt-1 text-sm text-slate-700">{t('founder.reqsBox')}</p>
             </div>
           </div>
+
+          {/* Enlace a la página que explica cómo ser fundador por cada perfil. */}
+          <button
+            type="button"
+            onClick={() => { onClose('cta'); navigate('/become-a-founder'); }}
+            className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-brand-600 px-4 py-2.5 text-sm font-bold text-white transition-colors hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+          >
+            {t('becomeFounder.buttonHome')} <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </button>
         </div>
       </div>
     </div>,
