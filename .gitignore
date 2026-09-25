@@ -50,3 +50,8 @@ PARCHE-*.md
 
 # Cache local de skills/plugins
 .claude/
+
+# Basura de Windows y mockups de revisión (no van al repo)
+desktop.ini
+**/desktop.ini
+mockup*.html
