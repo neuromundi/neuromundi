@@ -1016,7 +1016,8 @@
       "whatsappHint": "Pega el enlace del canal de WhatsApp. Se muestra un botón para unirse en el pie de la plataforma."
     },
     "secSurvey": "Encuesta",
-    "secInvitations": "Invitaciones"
+    "secInvitations": "Invitaciones",
+    "secCarousel": "Carrusel"
   },
   "reg": {
     "typePatient": "Paciente",
@@ -3716,6 +3717,27 @@
       "callMods": "Convocar moderadores",
       "closeForum": "Cerrar foro",
       "forumLabel": "Foro"
+    },
+    "hero": {
+      "title": "Carrusel de la portada",
+      "intro": "Sube imágenes y edita las frases del carrusel del inicio. Si no hay escenas activas, se usan las 15 por defecto.",
+      "addTitle": "Agregar escena",
+      "image": "Imagen",
+      "captionEs": "Frase (español)",
+      "captionOptional": "Opcional",
+      "add": "Agregar",
+      "emptyDefault": "No hay escenas configuradas: la portada usa las 15 por defecto.",
+      "up": "Subir",
+      "down": "Bajar",
+      "hide": "Ocultar",
+      "show": "Mostrar",
+      "delete": "Eliminar",
+      "confirmDel": "¿Eliminar esta escena del carrusel?",
+      "translations": "Traducciones (opcional)",
+      "saveCaptions": "Guardar frases",
+      "replaceImage": "Reemplazar imagen",
+      "saved": "Guardado",
+      "needImage": "Selecciona una imagen"
     }
   },
   "callout": {

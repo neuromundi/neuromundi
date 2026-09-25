@@ -915,6 +915,13 @@ export interface Database {
         Relationships: [];
       };
 
+      hero_slides: {
+        Row: { id: string; image_url: string; captions: Record<string, string>; sort_order: number; is_active: boolean; created_at: string; updated_at: string };
+        Insert: { id?: string; image_url: string; captions?: Record<string, string>; sort_order?: number; is_active?: boolean; created_at?: string; updated_at?: string };
+        Update: Partial<Database['public']['Tables']['hero_slides']['Insert']>;
+        Relationships: [];
+      };
+
       topic_subscriptions: {
         Row: { user_id: string; topics: string[]; scope_country: string | null; scope_city: string | null; updated_at: string };
         Insert: { user_id: string; topics?: string[]; scope_country?: string | null; scope_city?: string | null; updated_at?: string };

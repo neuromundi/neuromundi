@@ -1016,7 +1016,8 @@
       "whatsappHint": "WhatsApp 채널 링크를 붙여넣으세요. 하단에 참여 버튼이 표시됩니다."
     },
     "secSurvey": "설문",
-    "secInvitations": "초대"
+    "secInvitations": "초대",
+    "secCarousel": "캐러셀"
   },
   "reg": {
     "typePatient": "환자",
@@ -3716,6 +3717,27 @@
       "callMods": "중재자 모집",
       "closeForum": "포럼 닫기",
       "forumLabel": "포럼"
+    },
+    "hero": {
+      "title": "홈 캐러셀",
+      "intro": "홈 캐러셀의 이미지와 문구를 편집합니다. 활성 장면이 없으면 기본 15개를 사용합니다.",
+      "addTitle": "장면 추가",
+      "image": "이미지",
+      "captionEs": "문구(스페인어)",
+      "captionOptional": "선택 사항",
+      "add": "추가",
+      "emptyDefault": "구성된 장면이 없습니다: 홈은 기본 15개를 사용합니다.",
+      "up": "위로",
+      "down": "아래로",
+      "hide": "숨기기",
+      "show": "표시",
+      "delete": "삭제",
+      "confirmDel": "이 캐러셀 장면을 삭제할까요?",
+      "translations": "번역(선택)",
+      "saveCaptions": "문구 저장",
+      "replaceImage": "이미지 교체",
+      "saved": "저장됨",
+      "needImage": "이미지를 선택하세요"
     }
   },
   "callout": {

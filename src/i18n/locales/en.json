@@ -1016,7 +1016,8 @@
       "whatsappHint": "Paste the WhatsApp channel link. A join button appears in the site footer."
     },
     "secSurvey": "Survey",
-    "secInvitations": "Invitations"
+    "secInvitations": "Invitations",
+    "secCarousel": "Carousel"
   },
   "reg": {
     "typePatient": "Patient",
@@ -3716,6 +3717,27 @@
       "callMods": "Call moderators",
       "closeForum": "Close forum",
       "forumLabel": "Forum"
+    },
+    "hero": {
+      "title": "Home carousel",
+      "intro": "Upload images and edit the home carousel captions. If there are no active scenes, the 15 defaults are used.",
+      "addTitle": "Add scene",
+      "image": "Image",
+      "captionEs": "Caption (Spanish)",
+      "captionOptional": "Optional",
+      "add": "Add",
+      "emptyDefault": "No scenes configured: the home uses the 15 defaults.",
+      "up": "Move up",
+      "down": "Move down",
+      "hide": "Hide",
+      "show": "Show",
+      "delete": "Delete",
+      "confirmDel": "Delete this carousel scene?",
+      "translations": "Translations (optional)",
+      "saveCaptions": "Save captions",
+      "replaceImage": "Replace image",
+      "saved": "Saved",
+      "needImage": "Select an image"
     }
   },
   "callout": {

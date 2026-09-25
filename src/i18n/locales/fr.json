@@ -979,7 +979,8 @@
       "whatsappHint": "Collez le lien du canal WhatsApp. Un bouton pour rejoindre apparaît dans le pied de page."
     },
     "secSurvey": "Enquête",
-    "secInvitations": "Invitations"
+    "secInvitations": "Invitations",
+    "secCarousel": "Carrousel"
   },
   "reg": {
     "typePatient": "Patient",
@@ -3716,6 +3717,27 @@
       "callMods": "Appeler des modérateurs",
       "closeForum": "Fermer le forum",
       "forumLabel": "Forum"
+    },
+    "hero": {
+      "title": "Carrousel d'accueil",
+      "intro": "Téléchargez des images et modifiez les phrases du carrousel d'accueil. S'il n'y a aucune scène active, les 15 par défaut sont utilisées.",
+      "addTitle": "Ajouter une scène",
+      "image": "Image",
+      "captionEs": "Phrase (espagnol)",
+      "captionOptional": "Facultatif",
+      "add": "Ajouter",
+      "emptyDefault": "Aucune scène configurée : l'accueil utilise les 15 par défaut.",
+      "up": "Monter",
+      "down": "Descendre",
+      "hide": "Masquer",
+      "show": "Afficher",
+      "delete": "Supprimer",
+      "confirmDel": "Supprimer cette scène du carrousel ?",
+      "translations": "Traductions (facultatif)",
+      "saveCaptions": "Enregistrer les phrases",
+      "replaceImage": "Remplacer l'image",
+      "saved": "Enregistré",
+      "needImage": "Sélectionnez une image"
     }
   },
   "callout": {

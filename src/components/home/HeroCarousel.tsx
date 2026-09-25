@@ -18,8 +18,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { cn } from '@/lib/utils';
+import { useHeroSlides } from '@/hooks/useHeroSlides';
 
-const COUNT = 15;
+const FALLBACK_COUNT = 15;
 const INTERVAL = 4600; // imagen (~1.1s fundido) + texto a 1s + lectura ~2.5s
 const SIZES = '(max-width: 640px) 92vw, (max-width: 1024px) 60vw, 448px';
 // Token de versión: fuerza a los clientes a re-descargar copias frescas y evita
@@ -45,39 +46,59 @@ function srcset(n: number) {
 }
 
 export function HeroCarousel({ className }: { className?: string }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const { slides } = useHeroSlides();
   const [i, setI] = useState(0);
   const reduce = useRef(false);
   const [mounted, setMounted] = useState<Set<number>>(() => new Set([0, 1]));
 
+  const lang = (i18n.language || 'es').slice(0, 2);
   const slidesRaw = t('home.slides', { returnObjects: true }) as unknown;
   const phrases: string[] = Array.isArray(slidesRaw) ? (slidesRaw as string[]) : [];
+
+  // Escenas: si el admin configuró el carrusel (BD), se usan esas; si no, las 15
+  // por defecto (con srcset optimizado). `srcSet` solo existe en las de respaldo.
+  const scenes: { src: string; srcSet?: string; caption: string }[] =
+    slides.length > 0
+      ? slides.map((s) => ({ src: s.image_url, caption: s.captions?.[lang] ?? s.captions?.es ?? '' }))
+      : Array.from({ length: FALLBACK_COUNT }, (_, idx) => ({
+          src: `/hero/slides/${idx + 1}-800-v3.webp?${IMG_V}`,
+          srcSet: srcset(idx + 1),
+          caption: phrases[idx] ?? '',
+        }));
+  const count = scenes.length;
 
   useEffect(() => {
     const r = typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
     reduce.current = !!r;
-    if (r) setI(1); // héroe estático accesible = dibujo de comunidad (no el logo)
+    if (r) setI(1); // héroe estático accesible (no el logo)
   }, []);
 
-  // Auto-avance continuo (bucle). Sin pausa por mouse/foco. Se detiene solo si el
-  // sistema pide reducir movimiento.
+  // Si cambia el nº de escenas (carga async de BD), acota el índice al rango.
   useEffect(() => {
-    if (reduce.current) return;
-    const id = window.setInterval(() => setI((p) => (p + 1) % COUNT), INTERVAL);
+    setI((p) => (count > 0 ? p % count : 0));
+  }, [count]);
+
+  // Auto-avance continuo (bucle). Sin pausa por mouse/foco. Se detiene solo si el
+  // sistema pide reducir movimiento o si hay una sola escena.
+  useEffect(() => {
+    if (reduce.current || count <= 1) return;
+    const id = window.setInterval(() => setI((p) => (p + 1) % count), INTERVAL);
     return () => window.clearInterval(id);
-  }, []);
+  }, [count]);
 
   // Monta la imagen actual y la siguiente (para un fundido ya precargado).
   useEffect(() => {
+    if (count === 0) return;
     setMounted((prev) => {
-      const next = (i + 1) % COUNT;
+      const next = (i + 1) % count;
       if (prev.has(i) && prev.has(next)) return prev;
       const s = new Set(prev);
       s.add(i);
       s.add(next);
       return s;
     });
-  }, [i]);
+  }, [i, count]);
 
   return (
     <div
@@ -91,18 +112,16 @@ export function HeroCarousel({ className }: { className?: string }) {
     >
       <style>{KEYFRAMES}</style>
 
-      {Array.from({ length: COUNT }, (_, idx) => {
-        const n = idx + 1; // archivo 1..15
+      {scenes.map((sc, idx) => {
         const active = idx === i;
-        const caption = phrases[idx] ?? '';
         if (!mounted.has(idx)) return null;
         return (
-          <figure key={n} className="nm-hero-slide absolute inset-0 m-0" data-active={active} aria-hidden={!active}>
+          <figure key={sc.src} className="nm-hero-slide absolute inset-0 m-0" data-active={active} aria-hidden={!active}>
             <img
-              src={`/hero/slides/${n}-800-v3.webp?${IMG_V}`}
-              srcSet={srcset(n)}
-              sizes={SIZES}
-              alt={caption || t('home.heroAlt')}
+              src={sc.src}
+              srcSet={sc.srcSet}
+              sizes={sc.srcSet ? SIZES : undefined}
+              alt={sc.caption || t('home.heroAlt')}
               className="h-full w-full object-cover"
               width={800}
               height={1000}
@@ -111,18 +130,17 @@ export function HeroCarousel({ className }: { className?: string }) {
               fetchpriority={idx === 0 ? 'high' : undefined}
               decoding="async"
               onError={(e) => {
-                // Último recurso: si una variante falla (p. ej. caché corrupta),
-                // reintenta con la 800w directa (sin srcset) una sola vez.
+                // Si una variante falla (p. ej. caché corrupta), reintenta sin
+                // srcset una sola vez para caer a la fuente base.
                 const img = e.currentTarget;
                 if (img.dataset.fallback) return;
                 img.dataset.fallback = '1';
                 img.removeAttribute('srcset');
-                img.src = `/hero/slides/${n}-800-v3.webp?${IMG_V}r`;
               }}
             />
-            {caption && (
+            {sc.caption && (
               <figcaption className="nm-hero-cap absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 via-black/35 to-transparent p-4 pt-10">
-                <p className="text-base font-semibold leading-snug text-white drop-shadow sm:text-lg">{caption}</p>
+                <p className="text-base font-semibold leading-snug text-white drop-shadow sm:text-lg">{sc.caption}</p>
               </figcaption>
             )}
           </figure>

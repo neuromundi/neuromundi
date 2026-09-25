@@ -979,7 +979,8 @@
       "whatsappHint": "粘贴 WhatsApp 频道链接，页脚会出现加入按钮。"
     },
     "secSurvey": "问卷",
-    "secInvitations": "邀请"
+    "secInvitations": "邀请",
+    "secCarousel": "轮播"
   },
   "reg": {
     "typePatient": "患者",
@@ -3716,6 +3717,27 @@
       "callMods": "招募版主",
       "closeForum": "关闭论坛",
       "forumLabel": "论坛"
+    },
+    "hero": {
+      "title": "首页轮播",
+      "intro": "上传图片并编辑首页轮播的文字。若没有启用的场景，则使用默认的15张。",
+      "addTitle": "添加场景",
+      "image": "图片",
+      "captionEs": "文字（西班牙语）",
+      "captionOptional": "可选",
+      "add": "添加",
+      "emptyDefault": "未配置场景：首页使用默认的15张。",
+      "up": "上移",
+      "down": "下移",
+      "hide": "隐藏",
+      "show": "显示",
+      "delete": "删除",
+      "confirmDel": "删除此轮播场景？",
+      "translations": "翻译（可选）",
+      "saveCaptions": "保存文字",
+      "replaceImage": "替换图片",
+      "saved": "已保存",
+      "needImage": "请选择图片"
     }
   },
   "callout": {

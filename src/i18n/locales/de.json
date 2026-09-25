@@ -979,7 +979,8 @@
       "whatsappHint": "Füge den WhatsApp-Kanal-Link ein. Im Footer erscheint ein Beitritts-Button."
     },
     "secSurvey": "Umfrage",
-    "secInvitations": "Einladungen"
+    "secInvitations": "Einladungen",
+    "secCarousel": "Karussell"
   },
   "reg": {
     "typePatient": "Patient",
@@ -3716,6 +3717,27 @@
       "callMods": "Moderatoren aufrufen",
       "closeForum": "Forum schließen",
       "forumLabel": "Forum"
+    },
+    "hero": {
+      "title": "Startseiten-Karussell",
+      "intro": "Lade Bilder hoch und bearbeite die Texte des Startseiten-Karussells. Ohne aktive Szenen werden die 15 Standardbilder verwendet.",
+      "addTitle": "Szene hinzufügen",
+      "image": "Bild",
+      "captionEs": "Text (Spanisch)",
+      "captionOptional": "Optional",
+      "add": "Hinzufügen",
+      "emptyDefault": "Keine Szenen konfiguriert: die Startseite nutzt die 15 Standardbilder.",
+      "up": "Nach oben",
+      "down": "Nach unten",
+      "hide": "Ausblenden",
+      "show": "Anzeigen",
+      "delete": "Löschen",
+      "confirmDel": "Diese Karussell-Szene löschen?",
+      "translations": "Übersetzungen (optional)",
+      "saveCaptions": "Texte speichern",
+      "replaceImage": "Bild ersetzen",
+      "saved": "Gespeichert",
+      "needImage": "Wähle ein Bild"
     }
   },
   "callout": {

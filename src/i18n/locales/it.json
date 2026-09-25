@@ -979,7 +979,8 @@
       "whatsappHint": "Incolla il link del canale WhatsApp. Nel piè di pagina appare un pulsante per unirsi."
     },
     "secSurvey": "Sondaggio",
-    "secInvitations": "Inviti"
+    "secInvitations": "Inviti",
+    "secCarousel": "Carosello"
   },
   "reg": {
     "typePatient": "Paziente",
@@ -3716,6 +3717,27 @@
       "callMods": "Convoca moderatori",
       "closeForum": "Chiudi forum",
       "forumLabel": "Forum"
+    },
+    "hero": {
+      "title": "Carosello della home",
+      "intro": "Carica immagini e modifica le frasi del carosello della home. Se non ci sono scene attive, si usano le 15 predefinite.",
+      "addTitle": "Aggiungi scena",
+      "image": "Immagine",
+      "captionEs": "Frase (spagnolo)",
+      "captionOptional": "Facoltativo",
+      "add": "Aggiungi",
+      "emptyDefault": "Nessuna scena configurata: la home usa le 15 predefinite.",
+      "up": "Su",
+      "down": "Giù",
+      "hide": "Nascondi",
+      "show": "Mostra",
+      "delete": "Elimina",
+      "confirmDel": "Eliminare questa scena del carosello?",
+      "translations": "Traduzioni (facoltative)",
+      "saveCaptions": "Salva frasi",
+      "replaceImage": "Sostituisci immagine",
+      "saved": "Salvato",
+      "needImage": "Seleziona un'immagine"
     }
   },
   "callout": {

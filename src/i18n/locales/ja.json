@@ -979,7 +979,8 @@
       "whatsappHint": "WhatsAppチャンネルのリンクを貼り付け。フッターに参加ボタンが表示されます。"
     },
     "secSurvey": "アンケート",
-    "secInvitations": "招待"
+    "secInvitations": "招待",
+    "secCarousel": "カルーセル"
   },
   "reg": {
     "typePatient": "患者",
@@ -3716,6 +3717,27 @@
       "callMods": "モデレーターを募集",
       "closeForum": "フォーラムを閉じる",
       "forumLabel": "フォーラム"
+    },
+    "hero": {
+      "title": "トップのカルーセル",
+      "intro": "トップページのカルーセルの画像とフレーズを編集します。アクティブなシーンがない場合は既定の15枚を使用します。",
+      "addTitle": "シーンを追加",
+      "image": "画像",
+      "captionEs": "フレーズ（スペイン語）",
+      "captionOptional": "任意",
+      "add": "追加",
+      "emptyDefault": "シーンが未設定です。トップは既定の15枚を使用します。",
+      "up": "上へ",
+      "down": "下へ",
+      "hide": "非表示",
+      "show": "表示",
+      "delete": "削除",
+      "confirmDel": "このカルーセルのシーンを削除しますか？",
+      "translations": "翻訳（任意）",
+      "saveCaptions": "フレーズを保存",
+      "replaceImage": "画像を差し替え",
+      "saved": "保存しました",
+      "needImage": "画像を選択してください"
     }
   },
   "callout": {
