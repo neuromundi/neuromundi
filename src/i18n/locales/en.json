@@ -2629,9 +2629,7 @@
           "Be among the first 100 per country.",
           "Pay the preferential annual fee.",
           "Answer 3 forum questions professionally and for free.",
-          "Photo, full bio and verified email/phone (and professional license if you are a specialist).",
-          "Offer a community benefit: ≥10% discount to 10 members, or 3 verified free consultations.",
-          "Recommend Neuromundi to at least 10 people."
+          "Photo, full bio and verified email/phone (and professional license if you are a specialist)."
         ]
       },
       "providers": {
@@ -2644,9 +2642,7 @@
           "Be among the first 100 per country.",
           "Pay the preferential annual fee.",
           "Answer 3 forum questions professionally and for free.",
-          "Photo, full bio and verified email/phone.",
-          "Offer a community benefit: ≥10% discount to 10 members, or 3 verified free services/consultations.",
-          "Recommend Neuromundi to at least 10 people."
+          "Photo, full bio and verified email/phone."
         ]
       },
       "companies": {
@@ -4975,8 +4971,7 @@
         "reqs": [
           "Profile photo, bio and phone",
           "Professional license (specialists)",
-          "Annual fee paid and an active ≥10% discount",
-          "10 QR-verified benefits and 10 referrals"
+          "Annual fee paid and an active ≥10% discount"
         ]
       },
       "merchants": {
@@ -4990,8 +4985,7 @@
         ],
         "reqs": [
           "Profile photo, bio and phone",
-          "Annual fee paid and an active ≥10% discount",
-          "10 QR-verified benefits and 10 referrals"
+          "Annual fee paid and an active ≥10% discount"
         ]
       },
       "companies": {

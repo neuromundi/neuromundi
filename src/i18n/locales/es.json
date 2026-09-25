@@ -2629,9 +2629,7 @@
           "Ser de los primeros 100 por país.",
           "Cubrir la cuota anual preferente.",
           "Responder 3 preguntas del foro de forma profesional y gratuita.",
-          "Foto, biografía completa y correo/teléfono verificados (y cédula profesional si eres especialista).",
-          "Ofrecer un beneficio a la comunidad: descuento ≥10% a 10 miembros, o 3 consultas gratuitas verificadas.",
-          "Recomienda Neuromundi al menos a 10 personas."
+          "Foto, biografía completa y correo/teléfono verificados (y cédula profesional si eres especialista)."
         ]
       },
       "providers": {
@@ -2644,9 +2642,7 @@
           "Ser de los primeros 100 por país.",
           "Cubrir la cuota anual preferente.",
           "Responder 3 preguntas del foro de forma profesional y gratuita.",
-          "Foto, biografía completa y correo/teléfono verificados.",
-          "Ofrecer un beneficio a la comunidad: descuento ≥10% a 10 miembros, o 3 servicios/consultas gratuitos verificados.",
-          "Recomienda Neuromundi al menos a 10 personas."
+          "Foto, biografía completa y correo/teléfono verificados."
         ]
       },
       "companies": {
@@ -4975,8 +4971,7 @@
         "reqs": [
           "Foto de perfil, biografía y teléfono",
           "Cédula profesional (especialistas)",
-          "Cuota anual cubierta y un descuento ≥10% activo",
-          "10 beneficios verificados por QR y 10 recomendaciones"
+          "Cuota anual cubierta y un descuento ≥10% activo"
         ]
       },
       "merchants": {
@@ -4990,8 +4985,7 @@
         ],
         "reqs": [
           "Foto de perfil, biografía y teléfono",
-          "Cuota anual cubierta y un descuento ≥10% activo",
-          "10 beneficios verificados por QR y 10 recomendaciones"
+          "Cuota anual cubierta y un descuento ≥10% activo"
         ]
       },
       "companies": {

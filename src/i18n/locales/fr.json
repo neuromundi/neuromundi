@@ -2666,9 +2666,7 @@
           "Faire partie des 100 premiers par pays.",
           "Régler la cotisation annuelle préférentielle.",
           "Répondre gratuitement et professionnellement à 3 questions du forum.",
-          "Photo, bio complète et e-mail/téléphone vérifiés (et licence professionnelle si vous êtes spécialiste).",
-          "Offrir un avantage communautaire : remise ≥10 % à 10 membres, ou 3 consultations gratuites vérifiées.",
-          "Recommandez Neuromundi à au moins 10 personnes."
+          "Photo, bio complète et e-mail/téléphone vérifiés (et licence professionnelle si vous êtes spécialiste)."
         ]
       },
       "providers": {
@@ -2681,9 +2679,7 @@
           "Faire partie des 100 premiers par pays.",
           "Régler la cotisation annuelle préférentielle.",
           "Répondre gratuitement et professionnellement à 3 questions du forum.",
-          "Photo, bio complète et e-mail/téléphone vérifiés.",
-          "Offrir un avantage communautaire : remise ≥10 % à 10 membres, ou 3 services/consultations gratuits vérifiés.",
-          "Recommandez Neuromundi à au moins 10 personnes."
+          "Photo, bio complète et e-mail/téléphone vérifiés."
         ]
       },
       "companies": {
@@ -4975,8 +4971,7 @@
         "reqs": [
           "Photo de profil, biographie et téléphone",
           "Diplôme professionnel (spécialistes)",
-          "Cotisation annuelle réglée et une remise ≥10% active",
-          "10 avantages vérifiés par QR et 10 recommandations"
+          "Cotisation annuelle réglée et une remise ≥10% active"
         ]
       },
       "merchants": {
@@ -4990,8 +4985,7 @@
         ],
         "reqs": [
           "Photo de profil, biographie et téléphone",
-          "Cotisation annuelle réglée et une remise ≥10% active",
-          "10 avantages vérifiés par QR et 10 recommandations"
+          "Cotisation annuelle réglée et une remise ≥10% active"
         ]
       },
       "companies": {

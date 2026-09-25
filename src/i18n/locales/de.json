@@ -2666,9 +2666,7 @@
           "Zu den ersten 100 pro Land gehören.",
           "Den vergünstigten Jahresbeitrag zahlen.",
           "3 Forumsfragen professionell und kostenlos beantworten.",
-          "Foto, vollständige Bio und verifizierte E-Mail/Telefon (und Berufszulassung, falls Sie Spezialist sind).",
-          "Einen Community-Vorteil bieten: ≥10 % Rabatt für 10 Mitglieder oder 3 verifizierte kostenlose Beratungen.",
-          "Empfiehl Neuromundi mindestens 10 Personen."
+          "Foto, vollständige Bio und verifizierte E-Mail/Telefon (und Berufszulassung, falls Sie Spezialist sind)."
         ]
       },
       "providers": {
@@ -2681,9 +2679,7 @@
           "Zu den ersten 100 pro Land gehören.",
           "Den vergünstigten Jahresbeitrag zahlen.",
           "3 Forumsfragen professionell und kostenlos beantworten.",
-          "Foto, vollständige Bio und verifizierte E-Mail/Telefon.",
-          "Einen Community-Vorteil bieten: ≥10 % Rabatt für 10 Mitglieder oder 3 verifizierte kostenlose Leistungen/Beratungen.",
-          "Empfiehl Neuromundi mindestens 10 Personen."
+          "Foto, vollständige Bio und verifizierte E-Mail/Telefon."
         ]
       },
       "companies": {
@@ -4975,8 +4971,7 @@
         "reqs": [
           "Profilfoto, Biografie und Telefon",
           "Berufsausweis (Spezialisten)",
-          "Jahresbeitrag bezahlt und aktiver Rabatt ≥10%",
-          "10 per QR bestätigte Vorteile und 10 Empfehlungen"
+          "Jahresbeitrag bezahlt und aktiver Rabatt ≥10%"
         ]
       },
       "merchants": {
@@ -4990,8 +4985,7 @@
         ],
         "reqs": [
           "Profilfoto, Biografie und Telefon",
-          "Jahresbeitrag bezahlt und aktiver Rabatt ≥10%",
-          "10 per QR bestätigte Vorteile und 10 Empfehlungen"
+          "Jahresbeitrag bezahlt und aktiver Rabatt ≥10%"
         ]
       },
       "companies": {

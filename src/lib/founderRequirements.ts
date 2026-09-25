@@ -10,11 +10,11 @@
  */
 import type { FounderKind } from '@/hooks/useFounder';
 
-/** Meta de beneficios comunitarios verificados por QR (10 miembros con descuento). */
-export const COMMUNITY_BENEFIT_TARGET = 10;
-/** Meta de recomendaciones: 5 para familias/pacientes, 10 para el resto de perfiles. */
+/** Meta de beneficios comunitarios verificados por QR (perfiles de pago). */
+export const COMMUNITY_BENEFIT_TARGET = 3;
+/** Meta de recomendaciones: 5 para familias/pacientes, 3 para los perfiles de pago. */
 export const REFERRAL_TARGET_FAMILIES = 5;
-export const REFERRAL_TARGET_OTHER = 10;
+export const REFERRAL_TARGET_OTHER = 3;
 /** Longitud mínima para considerar la biografía "completa". */
 export const BIO_MIN = 60;
 
@@ -79,23 +79,21 @@ export function computeFounderProgress(kind: FounderKind, i: FounderInputs): Fou
 
   if (kind === 'families') {
     push('blog', bin(i.blogPosts >= 1));
+    // Las familias conservan la recomendación a la comunidad (meta 5).
+    push('referrals', i.referralCount / REFERRAL_TARGET_FAMILIES, {
+      current: Math.min(i.referralCount, REFERRAL_TARGET_FAMILIES),
+      target: REFERRAL_TARGET_FAMILIES,
+    });
   } else {
-    // profesionales y prestadores.
+    // Profesionales y prestadores (perfiles de pago). Se ELIMINARON como
+    // requisitos los "beneficios verificados por QR" y las "recomendaciones";
+    // basta con cuota cubierta, descuento activo y los datos de perfil.
     if (kind === 'professionals' && i.providerType === 'service_provider') {
       push('cedula', bin(!!i.cedula));
     }
     push('fee', bin(i.membershipActive));
     push('discount', bin(i.hasDiscount10));
-    const cur = Math.min(i.verifiedBenefitCount, COMMUNITY_BENEFIT_TARGET);
-    push('benefit', i.verifiedBenefitCount / COMMUNITY_BENEFIT_TARGET, { current: cur, target: COMMUNITY_BENEFIT_TARGET });
   }
-
-  // Recomendaciones: meta 5 (familias/pacientes) o 10 (resto de perfiles).
-  const refTarget = kind === 'families' ? REFERRAL_TARGET_FAMILIES : REFERRAL_TARGET_OTHER;
-  push('referrals', i.referralCount / refTarget, {
-    current: Math.min(i.referralCount, refTarget),
-    target: refTarget,
-  });
 
   const total = items.length;
   const sum = items.reduce((a, it) => a + it.fraction, 0);

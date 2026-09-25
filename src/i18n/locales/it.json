@@ -2666,9 +2666,7 @@
           "Essere tra i primi 100 per Paese.",
           "Pagare la quota annuale agevolata.",
           "Rispondere gratuitamente e professionalmente a 3 domande del forum.",
-          "Foto, bio completa ed e-mail/telefono verificati (e licenza professionale se sei uno specialista).",
-          "Offrire un vantaggio alla comunità: sconto ≥10% a 10 membri, o 3 consulenze gratuite verificate.",
-          "Consiglia Neuromundi ad almeno 10 persone."
+          "Foto, bio completa ed e-mail/telefono verificati (e licenza professionale se sei uno specialista)."
         ]
       },
       "providers": {
@@ -2681,9 +2679,7 @@
           "Essere tra i primi 100 per Paese.",
           "Pagare la quota annuale agevolata.",
           "Rispondere gratuitamente e professionalmente a 3 domande del forum.",
-          "Foto, bio completa ed e-mail/telefono verificati.",
-          "Offrire un vantaggio alla comunità: sconto ≥10% a 10 membri, o 3 servizi/consulenze gratuiti verificati.",
-          "Consiglia Neuromundi ad almeno 10 persone."
+          "Foto, bio completa ed e-mail/telefono verificati."
         ]
       },
       "companies": {
@@ -4975,8 +4971,7 @@
         "reqs": [
           "Foto profilo, biografia e telefono",
           "Titolo professionale (specialisti)",
-          "Quota annuale pagata e uno sconto ≥10% attivo",
-          "10 vantaggi verificati con QR e 10 raccomandazioni"
+          "Quota annuale pagata e uno sconto ≥10% attivo"
         ]
       },
       "merchants": {
@@ -4990,8 +4985,7 @@
         ],
         "reqs": [
           "Foto profilo, biografia e telefono",
-          "Quota annuale pagata e uno sconto ≥10% attivo",
-          "10 vantaggi verificati con QR e 10 raccomandazioni"
+          "Quota annuale pagata e uno sconto ≥10% attivo"
         ]
       },
       "companies": {

@@ -2666,9 +2666,7 @@
           "Estar entre os primeiros 100 por país.",
           "Pagar a taxa anual preferencial.",
           "Responder gratuitamente e profissionalmente a 3 perguntas do fórum.",
-          "Foto, bio completa e e-mail/telefone verificados (e registro profissional se você for especialista).",
-          "Oferecer um benefício à comunidade: desconto ≥10% a 10 membros, ou 3 consultas gratuitas verificadas.",
-          "Recomende a Neuromundi para pelo menos 10 pessoas."
+          "Foto, bio completa e e-mail/telefone verificados (e registro profissional se você for especialista)."
         ]
       },
       "providers": {
@@ -2681,9 +2679,7 @@
           "Estar entre os primeiros 100 por país.",
           "Pagar a taxa anual preferencial.",
           "Responder gratuitamente e profissionalmente a 3 perguntas do fórum.",
-          "Foto, bio completa e e-mail/telefone verificados.",
-          "Oferecer um benefício à comunidade: desconto ≥10% a 10 membros, ou 3 serviços/consultas gratuitos verificados.",
-          "Recomende a Neuromundi para pelo menos 10 pessoas."
+          "Foto, bio completa e e-mail/telefone verificados."
         ]
       },
       "companies": {
@@ -4975,8 +4971,7 @@
         "reqs": [
           "Foto de perfil, biografia e telefone",
           "Registro profissional (especialistas)",
-          "Anuidade paga e um desconto ≥10% ativo",
-          "10 benefícios verificados por QR e 10 recomendações"
+          "Anuidade paga e um desconto ≥10% ativo"
         ]
       },
       "merchants": {
@@ -4990,8 +4985,7 @@
         ],
         "reqs": [
           "Foto de perfil, biografia e telefone",
-          "Anuidade paga e um desconto ≥10% ativo",
-          "10 benefícios verificados por QR e 10 recomendações"
+          "Anuidade paga e um desconto ≥10% ativo"
         ]
       },
       "companies": {
