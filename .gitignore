@@ -55,3 +55,7 @@ PARCHE-*.md
 desktop.ini
 **/desktop.ini
 mockup*.html
+
+# Assets de trabajo/marketing que no van versionados
+LOGO_NEUROMUNDI_IMPI.gif
+FLYERS/
