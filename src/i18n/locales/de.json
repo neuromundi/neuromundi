@@ -4921,5 +4921,97 @@
     "body": "Wenn Sie Ihr Profil nicht vervollständigen und bezahlen, erscheint es nicht mehr im Verzeichnis und in den Suchergebnissen (nur Ihr Name wird angezeigt).",
     "cta": "Vervollständigen und bezahlen",
     "deadline": "Frist: {{date}}"
+  },
+  "becomeFounder": {
+    "buttonHome": "Wie werde ich Gründungsmitglied?",
+    "kicker": "Gründergemeinschaft",
+    "title": "Become a Founder",
+    "subtitle": "So wirst du Gründungsmitglied von Neuromundi",
+    "lead": "Neuromundi entsteht als globale Bewegung zur Unterstützung von Neuroentwicklung, Neurodivergenz und neurologischen Erkrankungen. Von Anfang an dabei zu sein hinterlässt Spuren: Du hilfst, die Gemeinschaft von Beginn an aufzubauen, und erhältst Auszeichnungen, die nur die Ersten haben werden. Die Plätze sind pro Land begrenzt.",
+    "values": [
+      {
+        "t": "Du hinterlässt Spuren",
+        "d": "Du bist am Ursprung der Gemeinschaft."
+      },
+      {
+        "t": "Anerkennung",
+        "d": "Abzeichen und Gründerwand."
+      },
+      {
+        "t": "Beständigkeit",
+        "d": "Vorteile, die über die Zeit bestehen."
+      }
+    ],
+    "profilesTitle": "Nach deinem Profil",
+    "profilesSubtitle": "Jedes Profil hat sein eigenes Länderkontingent, seine Vorteile und Voraussetzungen.",
+    "capacity": "Nur {{n}} Gründerplätze pro Land",
+    "benefitsLabel": "Vorteile",
+    "reqsLabel": "Voraussetzungen",
+    "profiles": {
+      "families": {
+        "name": "Familien",
+        "who": "Eltern, Patienten und Angehörige",
+        "benefits": [
+          "Abzeichen „Ich bin Gründungsmitglied“",
+          "Rabatte und kostenlose Erstberatungen bei Gründern",
+          "Deine Fragen und Geschichten im Forum angeheftet",
+          "Webinare, früher Blog-Zugang und exklusive Verlosungen"
+        ],
+        "reqs": [
+          "Profilfoto, Biografie und Telefon",
+          "Mindestens 1 Blogbeitrag",
+          "5 Empfehlungen an die Gemeinschaft"
+        ]
+      },
+      "professionals": {
+        "name": "Fachkräfte",
+        "who": "Spezialisten, Schulen, Kliniken, Wellness…",
+        "benefits": [
+          "Abzeichen „Ich bin Gründungsmitglied“",
+          "Hervorgehobenes Profil in der Suche",
+          "Lebenslang vergünstigter Beitrag",
+          "Webinare, früher Blog-Zugang und exklusive Verlosungen"
+        ],
+        "reqs": [
+          "Profilfoto, Biografie und Telefon",
+          "Berufsausweis (Spezialisten)",
+          "Jahresbeitrag bezahlt und aktiver Rabatt ≥10%",
+          "10 per QR bestätigte Vorteile und 10 Empfehlungen"
+        ]
+      },
+      "merchants": {
+        "name": "Geschäfte",
+        "who": "Läden und Produkte",
+        "benefits": [
+          "Abzeichen „Ich bin Gründungsmitglied“",
+          "Hervorgehobenes Profil in der Suche",
+          "Lebenslang vergünstigter Beitrag",
+          "Webinare, früher Blog-Zugang und exklusive Verlosungen"
+        ],
+        "reqs": [
+          "Profilfoto, Biografie und Telefon",
+          "Jahresbeitrag bezahlt und aktiver Rabatt ≥10%",
+          "10 per QR bestätigte Vorteile und 10 Empfehlungen"
+        ]
+      },
+      "companies": {
+        "name": "Inklusive Unternehmen",
+        "who": "Arbeitgeber · kostenlose Registrierung",
+        "benefits": [
+          "Abzeichen „Ich bin Gründungsmitglied“",
+          "Sichtbarkeit als inklusiver Arbeitgeber",
+          "Exklusive Verlosungen"
+        ],
+        "reqs": [
+          "Mindestens 2 aktive Stellenangebote veröffentlichen",
+          "Ohne Beitrag, Foto oder Empfehlungen"
+        ]
+      }
+    },
+    "permanence": "Du hast ab der Registrierung 3 Monate Zeit, die Voraussetzungen zu erfüllen und das Abzeichen zu behalten. Es ist eine lebendige Auszeichnung: Sie bleibt, solange du weiter zur Gemeinschaft beiträgst.",
+    "ctaCreate": "Konto erstellen und Platz reservieren",
+    "ctaLogin": "Ich habe schon ein Konto, anmelden",
+    "ctaPanel": "Zu meinem Gründerbereich",
+    "fineprint": "Die Plätze werden pro Land nach Eingang vergeben."
   }
 }

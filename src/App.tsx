@@ -84,6 +84,7 @@ const CalendarPage = lazy(() => import('@/pages/Calendar').then((m) => ({ defaul
 const Messages = lazy(() => import('@/pages/Messages').then((m) => ({ default: m.Messages })));
 const MyId = lazy(() => import('@/pages/MyId').then((m) => ({ default: m.MyId })));
 const Benefits = lazy(() => import('@/pages/Benefits').then((m) => ({ default: m.Benefits })));
+const BecomeFounder = lazy(() => import('@/pages/BecomeFounder').then((m) => ({ default: m.BecomeFounder })));
 const WelcomeCourse = lazy(() => import('@/pages/WelcomeCourse').then((m) => ({ default: m.WelcomeCourse })));
 const Encuesta = lazy(() => import('@/pages/Encuesta').then((m) => ({ default: m.Encuesta })));
 
@@ -129,6 +130,7 @@ const router = createBrowserRouter([
       { path: '/donantes', element: <DonorWall /> },
       { path: '/fundadores', element: <Founders /> },
       { path: '/beneficios', element: <Benefits /> },
+      { path: '/become-a-founder', element: <BecomeFounder /> },
       { path: '/encuesta', element: <Encuesta /> },
       { path: '/entrar', element: <Auth /> },
       // Pública: el landing explica Tribu e invita a crear cuenta/entrar. El

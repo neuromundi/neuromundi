@@ -4921,5 +4921,97 @@
     "body": "Si no completas y pagas tu perfil, dejará de aparecer en el directorio y en las búsquedas (solo se mostrará tu nombre).",
     "cta": "Completar y pagar",
     "deadline": "Fecha límite: {{date}}"
+  },
+  "becomeFounder": {
+    "buttonHome": "¿Cómo ser fundador?",
+    "kicker": "Comunidad fundadora",
+    "title": "Become a Founder",
+    "subtitle": "Cómo ser Miembro Fundador de Neuromundi",
+    "lead": "Neuromundi nace como un movimiento global de apoyo al neurodesarrollo, la neurodivergencia y las afecciones neurológicas. Unirte en el origen deja huella: ayudas a construir la comunidad desde el principio y recibes reconocimientos que solo tendrán los primeros. Los cupos son limitados por país.",
+    "values": [
+      {
+        "t": "Dejas huella",
+        "d": "Estás en el origen de la comunidad."
+      },
+      {
+        "t": "Reconocimiento",
+        "d": "Distintivo y muro de fundadores."
+      },
+      {
+        "t": "Trascendencia",
+        "d": "Beneficios que perduran en el tiempo."
+      }
+    ],
+    "profilesTitle": "Según tu perfil",
+    "profilesSubtitle": "Cada perfil tiene su propio cupo por país, beneficios y requisitos.",
+    "capacity": "Solo hay {{n}} lugares de fundador por país",
+    "benefitsLabel": "Beneficios",
+    "reqsLabel": "Requisitos",
+    "profiles": {
+      "families": {
+        "name": "Familias",
+        "who": "Padres, pacientes y familiares",
+        "benefits": [
+          "Distintivo \"Soy Fundador\"",
+          "Descuentos y primeras consultas gratis con fundadores",
+          "Tus dudas e historias fijadas en el foro",
+          "Webinars, blog anticipado y sorteos exclusivos"
+        ],
+        "reqs": [
+          "Foto de perfil, biografía y teléfono",
+          "Al menos 1 publicación en el blog",
+          "5 recomendaciones a la comunidad"
+        ]
+      },
+      "professionals": {
+        "name": "Profesionales",
+        "who": "Especialistas, escuelas, clínicas, bienestar…",
+        "benefits": [
+          "Distintivo \"Soy Fundador\"",
+          "Perfil destacado en las búsquedas",
+          "Cuota preferente vitalicia",
+          "Webinars, blog anticipado y sorteos exclusivos"
+        ],
+        "reqs": [
+          "Foto de perfil, biografía y teléfono",
+          "Cédula profesional (especialistas)",
+          "Cuota anual cubierta y un descuento ≥10% activo",
+          "10 beneficios verificados por QR y 10 recomendaciones"
+        ]
+      },
+      "merchants": {
+        "name": "Comercios",
+        "who": "Tiendas y productos",
+        "benefits": [
+          "Distintivo \"Soy Fundador\"",
+          "Perfil destacado en las búsquedas",
+          "Cuota preferente vitalicia",
+          "Webinars, blog anticipado y sorteos exclusivos"
+        ],
+        "reqs": [
+          "Foto de perfil, biografía y teléfono",
+          "Cuota anual cubierta y un descuento ≥10% activo",
+          "10 beneficios verificados por QR y 10 recomendaciones"
+        ]
+      },
+      "companies": {
+        "name": "Empresas inclusivas",
+        "who": "Empleadores · registro gratuito",
+        "benefits": [
+          "Distintivo \"Soy Fundador\"",
+          "Visibilidad como empleador inclusivo",
+          "Sorteos exclusivos"
+        ],
+        "reqs": [
+          "Publicar al menos 2 vacantes activas",
+          "Sin cuota, foto ni recomendaciones"
+        ]
+      }
+    },
+    "permanence": "Tienes 3 meses desde tu registro para cumplir los requisitos y conservar el distintivo. Es un reconocimiento vivo: se mantiene mientras sigas aportando a la comunidad.",
+    "ctaCreate": "Crear mi cuenta y reservar mi lugar",
+    "ctaLogin": "Ya tengo cuenta, entrar",
+    "ctaPanel": "Ir a mi panel de fundador",
+    "fineprint": "Los cupos se reservan por orden de llegada en cada país."
   }
 }

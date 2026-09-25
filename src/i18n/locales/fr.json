@@ -4921,5 +4921,97 @@
     "body": "Si vous ne complétez pas et ne payez pas votre profil, il n'apparaîtra plus dans l'annuaire ni dans les recherches (seul votre nom sera affiché).",
     "cta": "Compléter et payer",
     "deadline": "Date limite : {{date}}"
+  },
+  "becomeFounder": {
+    "buttonHome": "Comment devenir fondateur ?",
+    "kicker": "Communauté fondatrice",
+    "title": "Become a Founder",
+    "subtitle": "Comment devenir Membre Fondateur de Neuromundi",
+    "lead": "Neuromundi naît comme un mouvement mondial de soutien au neurodéveloppement, à la neurodivergence et aux affections neurologiques. Rejoindre dès l'origine laisse une trace : vous aidez à bâtir la communauté depuis le début et recevez des reconnaissances que seuls les premiers auront. Les places sont limitées par pays.",
+    "values": [
+      {
+        "t": "Vous laissez une trace",
+        "d": "Vous êtes à l'origine de la communauté."
+      },
+      {
+        "t": "Reconnaissance",
+        "d": "Badge et mur des fondateurs."
+      },
+      {
+        "t": "Postérité",
+        "d": "Des avantages qui durent dans le temps."
+      }
+    ],
+    "profilesTitle": "Selon votre profil",
+    "profilesSubtitle": "Chaque profil a son propre quota par pays, ses avantages et ses conditions.",
+    "capacity": "Seulement {{n}} places de fondateur par pays",
+    "benefitsLabel": "Avantages",
+    "reqsLabel": "Conditions",
+    "profiles": {
+      "families": {
+        "name": "Familles",
+        "who": "Parents, patients et proches",
+        "benefits": [
+          "Badge « Je suis Fondateur »",
+          "Réductions et premières consultations gratuites avec les fondateurs",
+          "Vos questions et récits épinglés dans le forum",
+          "Webinaires, accès anticipé au blog et tirages exclusifs"
+        ],
+        "reqs": [
+          "Photo de profil, biographie et téléphone",
+          "Au moins 1 publication sur le blog",
+          "5 recommandations à la communauté"
+        ]
+      },
+      "professionals": {
+        "name": "Professionnels",
+        "who": "Spécialistes, écoles, cliniques, bien-être…",
+        "benefits": [
+          "Badge « Je suis Fondateur »",
+          "Profil mis en avant dans les recherches",
+          "Cotisation préférentielle à vie",
+          "Webinaires, accès anticipé au blog et tirages exclusifs"
+        ],
+        "reqs": [
+          "Photo de profil, biographie et téléphone",
+          "Diplôme professionnel (spécialistes)",
+          "Cotisation annuelle réglée et une remise ≥10% active",
+          "10 avantages vérifiés par QR et 10 recommandations"
+        ]
+      },
+      "merchants": {
+        "name": "Commerces",
+        "who": "Boutiques et produits",
+        "benefits": [
+          "Badge « Je suis Fondateur »",
+          "Profil mis en avant dans les recherches",
+          "Cotisation préférentielle à vie",
+          "Webinaires, accès anticipé au blog et tirages exclusifs"
+        ],
+        "reqs": [
+          "Photo de profil, biographie et téléphone",
+          "Cotisation annuelle réglée et une remise ≥10% active",
+          "10 avantages vérifiés par QR et 10 recommandations"
+        ]
+      },
+      "companies": {
+        "name": "Entreprises inclusives",
+        "who": "Employeurs · inscription gratuite",
+        "benefits": [
+          "Badge « Je suis Fondateur »",
+          "Visibilité en tant qu'employeur inclusif",
+          "Tirages exclusifs"
+        ],
+        "reqs": [
+          "Publier au moins 2 offres d'emploi actives",
+          "Sans cotisation, photo ni recommandations"
+        ]
+      }
+    },
+    "permanence": "Vous avez 3 mois à partir de votre inscription pour remplir les conditions et conserver le badge. C'est une reconnaissance vivante : elle se maintient tant que vous continuez à contribuer à la communauté.",
+    "ctaCreate": "Créer mon compte et réserver ma place",
+    "ctaLogin": "J'ai déjà un compte, se connecter",
+    "ctaPanel": "Aller à mon espace fondateur",
+    "fineprint": "Les places sont réservées par ordre d'arrivée dans chaque pays."
   }
 }

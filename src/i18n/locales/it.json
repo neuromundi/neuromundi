@@ -4921,5 +4921,97 @@
     "body": "Se non completi e paghi il tuo profilo, smetterà di comparire nella directory e nelle ricerche (verrà mostrato solo il tuo nome).",
     "cta": "Completa e paga",
     "deadline": "Scadenza: {{date}}"
+  },
+  "becomeFounder": {
+    "buttonHome": "Come diventare fondatore?",
+    "kicker": "Comunità fondatrice",
+    "title": "Become a Founder",
+    "subtitle": "Come diventare Membro Fondatore di Neuromundi",
+    "lead": "Neuromundi nasce come un movimento globale a sostegno del neurosviluppo, della neurodivergenza e delle affezioni neurologiche. Unirti all'origine lascia il segno: aiuti a costruire la comunità fin dall'inizio e ricevi riconoscimenti che avranno solo i primi. I posti sono limitati per Paese.",
+    "values": [
+      {
+        "t": "Lasci il segno",
+        "d": "Sei all'origine della comunità."
+      },
+      {
+        "t": "Riconoscimento",
+        "d": "Distintivo e muro dei fondatori."
+      },
+      {
+        "t": "Trascendenza",
+        "d": "Vantaggi che durano nel tempo."
+      }
+    ],
+    "profilesTitle": "In base al tuo profilo",
+    "profilesSubtitle": "Ogni profilo ha la propria quota per Paese, i suoi vantaggi e requisiti.",
+    "capacity": "Solo {{n}} posti da fondatore per Paese",
+    "benefitsLabel": "Vantaggi",
+    "reqsLabel": "Requisiti",
+    "profiles": {
+      "families": {
+        "name": "Famiglie",
+        "who": "Genitori, pazienti e familiari",
+        "benefits": [
+          "Distintivo \"Sono Fondatore\"",
+          "Sconti e prime consulenze gratuite con i fondatori",
+          "Le tue domande e storie in evidenza nel forum",
+          "Webinar, accesso anticipato al blog ed estrazioni esclusive"
+        ],
+        "reqs": [
+          "Foto profilo, biografia e telefono",
+          "Almeno 1 pubblicazione sul blog",
+          "5 raccomandazioni alla comunità"
+        ]
+      },
+      "professionals": {
+        "name": "Professionisti",
+        "who": "Specialisti, scuole, cliniche, benessere…",
+        "benefits": [
+          "Distintivo \"Sono Fondatore\"",
+          "Profilo in evidenza nelle ricerche",
+          "Quota preferenziale a vita",
+          "Webinar, accesso anticipato al blog ed estrazioni esclusive"
+        ],
+        "reqs": [
+          "Foto profilo, biografia e telefono",
+          "Titolo professionale (specialisti)",
+          "Quota annuale pagata e uno sconto ≥10% attivo",
+          "10 vantaggi verificati con QR e 10 raccomandazioni"
+        ]
+      },
+      "merchants": {
+        "name": "Negozi",
+        "who": "Negozi e prodotti",
+        "benefits": [
+          "Distintivo \"Sono Fondatore\"",
+          "Profilo in evidenza nelle ricerche",
+          "Quota preferenziale a vita",
+          "Webinar, accesso anticipato al blog ed estrazioni esclusive"
+        ],
+        "reqs": [
+          "Foto profilo, biografia e telefono",
+          "Quota annuale pagata e uno sconto ≥10% attivo",
+          "10 vantaggi verificati con QR e 10 raccomandazioni"
+        ]
+      },
+      "companies": {
+        "name": "Aziende inclusive",
+        "who": "Datori di lavoro · registrazione gratuita",
+        "benefits": [
+          "Distintivo \"Sono Fondatore\"",
+          "Visibilità come datore di lavoro inclusivo",
+          "Estrazioni esclusive"
+        ],
+        "reqs": [
+          "Pubblicare almeno 2 offerte di lavoro attive",
+          "Senza quota, foto né raccomandazioni"
+        ]
+      }
+    },
+    "permanence": "Hai 3 mesi dalla registrazione per soddisfare i requisiti e conservare il distintivo. È un riconoscimento vivo: resta finché continui a contribuire alla comunità.",
+    "ctaCreate": "Crea il mio account e prenota il mio posto",
+    "ctaLogin": "Ho già un account, accedi",
+    "ctaPanel": "Vai al mio pannello fondatore",
+    "fineprint": "I posti si riservano in ordine di arrivo in ogni Paese."
   }
 }

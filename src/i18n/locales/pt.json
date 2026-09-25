@@ -4921,5 +4921,97 @@
     "body": "Se não completar e pagar seu perfil, ele deixará de aparecer no diretório e nas buscas (apenas o seu nome será exibido).",
     "cta": "Completar e pagar",
     "deadline": "Prazo: {{date}}"
+  },
+  "becomeFounder": {
+    "buttonHome": "Como ser fundador?",
+    "kicker": "Comunidade fundadora",
+    "title": "Become a Founder",
+    "subtitle": "Como ser Membro Fundador da Neuromundi",
+    "lead": "A Neuromundi nasce como um movimento global de apoio ao neurodesenvolvimento, à neurodivergência e às afecções neurológicas. Juntar-se na origem deixa marca: você ajuda a construir a comunidade desde o início e recebe reconhecimentos que só os primeiros terão. As vagas são limitadas por país.",
+    "values": [
+      {
+        "t": "Você deixa marca",
+        "d": "Está na origem da comunidade."
+      },
+      {
+        "t": "Reconhecimento",
+        "d": "Selo e mural de fundadores."
+      },
+      {
+        "t": "Transcendência",
+        "d": "Benefícios que perduram no tempo."
+      }
+    ],
+    "profilesTitle": "De acordo com seu perfil",
+    "profilesSubtitle": "Cada perfil tem sua própria cota por país, benefícios e requisitos.",
+    "capacity": "Apenas {{n}} vagas de fundador por país",
+    "benefitsLabel": "Benefícios",
+    "reqsLabel": "Requisitos",
+    "profiles": {
+      "families": {
+        "name": "Famílias",
+        "who": "Pais, pacientes e familiares",
+        "benefits": [
+          "Selo \"Sou Fundador\"",
+          "Descontos e primeiras consultas grátis com fundadores",
+          "Suas dúvidas e histórias fixadas no fórum",
+          "Webinars, acesso antecipado ao blog e sorteios exclusivos"
+        ],
+        "reqs": [
+          "Foto de perfil, biografia e telefone",
+          "Pelo menos 1 publicação no blog",
+          "5 recomendações à comunidade"
+        ]
+      },
+      "professionals": {
+        "name": "Profissionais",
+        "who": "Especialistas, escolas, clínicas, bem-estar…",
+        "benefits": [
+          "Selo \"Sou Fundador\"",
+          "Perfil destacado nas buscas",
+          "Cota preferencial vitalícia",
+          "Webinars, acesso antecipado ao blog e sorteios exclusivos"
+        ],
+        "reqs": [
+          "Foto de perfil, biografia e telefone",
+          "Registro profissional (especialistas)",
+          "Anuidade paga e um desconto ≥10% ativo",
+          "10 benefícios verificados por QR e 10 recomendações"
+        ]
+      },
+      "merchants": {
+        "name": "Comércios",
+        "who": "Lojas e produtos",
+        "benefits": [
+          "Selo \"Sou Fundador\"",
+          "Perfil destacado nas buscas",
+          "Cota preferencial vitalícia",
+          "Webinars, acesso antecipado ao blog e sorteios exclusivos"
+        ],
+        "reqs": [
+          "Foto de perfil, biografia e telefone",
+          "Anuidade paga e um desconto ≥10% ativo",
+          "10 benefícios verificados por QR e 10 recomendações"
+        ]
+      },
+      "companies": {
+        "name": "Empresas inclusivas",
+        "who": "Empregadores · registro gratuito",
+        "benefits": [
+          "Selo \"Sou Fundador\"",
+          "Visibilidade como empregador inclusivo",
+          "Sorteios exclusivos"
+        ],
+        "reqs": [
+          "Publicar pelo menos 2 vagas ativas",
+          "Sem cota, foto nem recomendações"
+        ]
+      }
+    },
+    "permanence": "Você tem 3 meses desde o registro para cumprir os requisitos e conservar o selo. É um reconhecimento vivo: permanece enquanto você continuar contribuindo com a comunidade.",
+    "ctaCreate": "Criar minha conta e reservar meu lugar",
+    "ctaLogin": "Já tenho conta, entrar",
+    "ctaPanel": "Ir ao meu painel de fundador",
+    "fineprint": "As vagas são reservadas por ordem de chegada em cada país."
   }
 }

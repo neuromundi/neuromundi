@@ -4921,5 +4921,97 @@
     "body": "If you don't complete and pay for your profile, it will stop appearing in the directory and searches (only your name will show).",
     "cta": "Complete and pay",
     "deadline": "Deadline: {{date}}"
+  },
+  "becomeFounder": {
+    "buttonHome": "How to become a founder?",
+    "kicker": "Founding community",
+    "title": "Become a Founder",
+    "subtitle": "How to become a Founding Member of Neuromundi",
+    "lead": "Neuromundi is born as a global movement supporting neurodevelopment, neurodivergence and neurological conditions. Joining at the origin leaves a mark: you help build the community from the start and receive recognitions only the first ones will have. Slots are limited per country.",
+    "values": [
+      {
+        "t": "Leave a mark",
+        "d": "You're at the origin of the community."
+      },
+      {
+        "t": "Recognition",
+        "d": "Badge and founders' wall."
+      },
+      {
+        "t": "Legacy",
+        "d": "Benefits that last over time."
+      }
+    ],
+    "profilesTitle": "By your profile",
+    "profilesSubtitle": "Each profile has its own per-country quota, benefits and requirements.",
+    "capacity": "Only {{n}} founder spots per country",
+    "benefitsLabel": "Benefits",
+    "reqsLabel": "Requirements",
+    "profiles": {
+      "families": {
+        "name": "Families",
+        "who": "Parents, patients and relatives",
+        "benefits": [
+          "\"I'm a Founder\" badge",
+          "Discounts and free first consultations with founders",
+          "Your questions and stories pinned in the forum",
+          "Webinars, early blog access and exclusive giveaways"
+        ],
+        "reqs": [
+          "Profile photo, bio and phone",
+          "At least 1 blog post",
+          "5 referrals to the community"
+        ]
+      },
+      "professionals": {
+        "name": "Professionals",
+        "who": "Specialists, schools, clinics, wellness…",
+        "benefits": [
+          "\"I'm a Founder\" badge",
+          "Featured profile in searches",
+          "Lifetime preferential fee",
+          "Webinars, early blog access and exclusive giveaways"
+        ],
+        "reqs": [
+          "Profile photo, bio and phone",
+          "Professional license (specialists)",
+          "Annual fee paid and an active ≥10% discount",
+          "10 QR-verified benefits and 10 referrals"
+        ]
+      },
+      "merchants": {
+        "name": "Merchants",
+        "who": "Shops and products",
+        "benefits": [
+          "\"I'm a Founder\" badge",
+          "Featured profile in searches",
+          "Lifetime preferential fee",
+          "Webinars, early blog access and exclusive giveaways"
+        ],
+        "reqs": [
+          "Profile photo, bio and phone",
+          "Annual fee paid and an active ≥10% discount",
+          "10 QR-verified benefits and 10 referrals"
+        ]
+      },
+      "companies": {
+        "name": "Inclusive companies",
+        "who": "Employers · free registration",
+        "benefits": [
+          "\"I'm a Founder\" badge",
+          "Visibility as an inclusive employer",
+          "Exclusive giveaways"
+        ],
+        "reqs": [
+          "Post at least 2 active job openings",
+          "No fee, photo or referrals"
+        ]
+      }
+    },
+    "permanence": "You have 3 months from registration to meet the requirements and keep the badge. It's a living recognition: it stays as long as you keep contributing to the community.",
+    "ctaCreate": "Create my account and reserve my spot",
+    "ctaLogin": "I already have an account, sign in",
+    "ctaPanel": "Go to my founder panel",
+    "fineprint": "Spots are reserved first-come, first-served in each country."
   }
 }
