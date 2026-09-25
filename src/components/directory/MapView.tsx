@@ -97,6 +97,30 @@ function RecenterOnCenter({ center }: { center?: { lat: number; lng: number } | 
   return null;
 }
 
+/** Cuando NO conocemos la ubicación del visitante (`center` nulo), en vez de
+ *  quedarnos en CDMX (DEFAULT_CENTER) —que hace creer que esa es su cercanía—
+ *  encuadramos TODOS los resultados. Así el mapa es honesto: "esto es todo lo
+ *  que hay", coherente con la lista en orden natural. Se ejecuta una sola vez
+ *  por carga de resultados mientras no haya `center`. */
+function FitToPins({
+  center,
+  pins,
+}: {
+  center?: { lat: number; lng: number } | null;
+  pins: { lat: number; lng: number }[];
+}) {
+  const map = useMap();
+  const doneFor = useRef(0);
+  useEffect(() => {
+    if (center || pins.length === 0) return;
+    if (doneFor.current === pins.length) return; // ya encuadrado para este set
+    doneFor.current = pins.length;
+    const bounds = L.latLngBounds(pins.map((p) => [p.lat, p.lng] as [number, number]));
+    map.fitBounds(bounds, { padding: [40, 40], maxZoom: 12 });
+  }, [center, pins, map]);
+  return null;
+}
+
 /** Botón flotante para centrar en la ubicación del usuario. */
 function LocateButton({ onLocate }: { onLocate?: (c: { lat: number; lng: number }) => void }) {
   const map = useMap();
@@ -112,6 +136,7 @@ function LocateButton({ onLocate }: { onLocate?: (c: { lat: number; lng: number 
       () => {
         /* permiso denegado: mantener vista actual, sin forzar */
       },
+      { enableHighAccuracy: true, timeout: 12000, maximumAge: 60000 },
     );
   };
   return (
@@ -251,6 +276,7 @@ export function MapView({
 
         <FlyToSelected providers={withCoords} selectedId={selectedId} markerRefs={markerRefs} />
         <RecenterOnCenter center={center} />
+        <FitToPins center={center} pins={pins} />
         <LocateButton onLocate={onLocate} />
       </MapContainer>
     </div>

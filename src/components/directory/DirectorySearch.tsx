@@ -139,7 +139,7 @@ export function DirectorySearch({ onViewProfile }: DirectorySearchProps) {
         setLocating(false);
         toast.error(t('directory.geoDenied'));
       },
-      { enableHighAccuracy: false, timeout: 10000, maximumAge: 300000 },
+      { enableHighAccuracy: true, timeout: 12000, maximumAge: 60000 },
     );
   };
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -177,13 +177,20 @@ export function DirectorySearch({ onViewProfile }: DirectorySearchProps) {
 
   const allowGeo = () => {
     setShowGeoNotice(false);
-    if (!('geolocation' in navigator)) return;
+    if (!('geolocation' in navigator)) { toast.error(t('directory.geoUnavailable')); return; }
     geoTried.current = true;
     setLocating(true);
     navigator.geolocation.getCurrentPosition(
       (pos) => { setCenter({ lat: pos.coords.latitude, lng: pos.coords.longitude }); setAutoLocated(true); setLocating(false); },
-      () => { setLocating(false); },
-      { enableHighAccuracy: false, timeout: 10000, maximumAge: 300000 },
+      // No tragar el error en silencio: si el permiso está bloqueado o la
+      // geolocalización falla, hay que AVISAR. De lo contrario el usuario cree
+      // que autorizó pero el `center` queda nulo y ve el orden por defecto
+      // (lista en orden natural, mapa en CDMX) creyendo que es su cercanía.
+      (err) => {
+        setLocating(false);
+        toast.error(err.code === err.PERMISSION_DENIED ? t('directory.geoDenied') : t('directory.geoUnavailable'));
+      },
+      { enableHighAccuracy: true, timeout: 12000, maximumAge: 60000 },
     );
   };
 
