@@ -438,7 +438,9 @@
     "verifiedTip": "Proveedor verificado por Neuromundi",
     "reviews": "{{count}} reseñas",
     "founder": "Fundador",
-    "founderTip": "Miembro Fundador de Neuromundi"
+    "founderTip": "Miembro Fundador de Neuromundi",
+    "lockedUnclaimed": "Perfil por reclamar — visible solo con el nombre.",
+    "lockedUnpaid": "Pendiente de activación — visible solo con el nombre."
   },
   "map": {
     "locate": "Centrar en mi ubicación",
@@ -451,7 +453,9 @@
     "back": "Volver al directorio",
     "dimensions": "Experiencia por dimensión",
     "activeOffers": "Ofertas activas",
-    "noOffers": "Sin ofertas activas por ahora."
+    "noOffers": "Sin ofertas activas por ahora.",
+    "lockedUnclaimed": "Este perfil aún no ha sido reclamado. Se mostrará completo cuando su titular lo reclame, complete y active su membresía.",
+    "lockedUnpaid": "Este perfil está pendiente de activación. Se mostrará completo cuando su titular lo complete y pague su membresía."
   },
   "dim": {
     "quality": "Calidad",
@@ -1558,6 +1562,14 @@
     "inviteOpened": {
       "title": "Invitación abierta",
       "body": "{{name}} abrió su invitación."
+    },
+    "grace": {
+      "title": "Tu perfil se ocultará pronto",
+      "body": "Completa y paga tu perfil en {{days}} días o dejará de aparecer en las búsquedas.",
+      "final": {
+        "title": "Tu perfil se inactivó del directorio",
+        "body": "No apareces en las búsquedas hasta que completes y pagues tu perfil."
+      }
     }
   },
   "clin": {
@@ -4902,5 +4914,11 @@
     "ctaPay": "Asegurar mi tarifa de fundador",
     "ctaSupport": "Solicitar cambio a fundador",
     "deadline": "Cierra el {{date}}"
+  },
+  "dirGrace": {
+    "title": "Te quedan {{days}} días para activar tu perfil",
+    "body": "Si no completas y pagas tu perfil, dejará de aparecer en el directorio y en las búsquedas (solo se mostrará tu nombre).",
+    "cta": "Completar y pagar",
+    "deadline": "Fecha límite: {{date}}"
   }
 }

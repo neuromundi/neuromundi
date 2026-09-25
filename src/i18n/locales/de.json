@@ -401,7 +401,9 @@
     "verifiedTip": "Anbieter verifiziert von NeuroVerzeichnis",
     "reviews": "{{count}} Bewertungen",
     "founder": "Gründungsmitglied",
-    "founderTip": "Neuromundi-Gründungsmitglied"
+    "founderTip": "Neuromundi-Gründungsmitglied",
+    "lockedUnclaimed": "Profil zu beanspruchen – nur der Name wird angezeigt.",
+    "lockedUnpaid": "Aktivierung ausstehend – nur der Name wird angezeigt."
   },
   "map": {
     "locate": "Auf meinen Standort zentrieren",
@@ -414,7 +416,9 @@
     "back": "Zurück zum Verzeichnis",
     "dimensions": "Erfahrung nach Dimension",
     "activeOffers": "Aktive Angebote",
-    "noOffers": "Derzeit keine aktiven Angebote."
+    "noOffers": "Derzeit keine aktiven Angebote.",
+    "lockedUnclaimed": "Dieses Profil wurde noch nicht beansprucht. Es wird vollständig angezeigt, sobald der Inhaber es beansprucht, vervollständigt und seine Mitgliedschaft aktiviert.",
+    "lockedUnpaid": "Dieses Profil wartet auf Aktivierung. Es wird vollständig angezeigt, sobald der Inhaber es vervollständigt und seine Mitgliedschaft bezahlt hat."
   },
   "dim": {
     "quality": "Qualität",
@@ -1521,6 +1525,14 @@
     "inviteOpened": {
       "title": "Einladung geöffnet",
       "body": "{{name}} hat die Einladung geöffnet."
+    },
+    "grace": {
+      "title": "Ihr Profil wird bald ausgeblendet",
+      "body": "Vervollständigen und bezahlen Sie Ihr Profil innerhalb von {{days}} Tagen, sonst erscheint es nicht mehr in den Suchergebnissen.",
+      "final": {
+        "title": "Ihr Profil wurde aus dem Verzeichnis entfernt",
+        "body": "Sie erscheinen nicht in den Suchergebnissen, bis Sie Ihr Profil vervollständigen und bezahlen."
+      }
     }
   },
   "clin": {
@@ -4902,5 +4914,11 @@
     "ctaPay": "Gründertarif sichern",
     "ctaSupport": "Wechsel zu Gründer anfragen",
     "deadline": "Endet am {{date}}"
+  },
+  "dirGrace": {
+    "title": "Sie haben noch {{days}} Tage, um Ihr Profil zu aktivieren",
+    "body": "Wenn Sie Ihr Profil nicht vervollständigen und bezahlen, erscheint es nicht mehr im Verzeichnis und in den Suchergebnissen (nur Ihr Name wird angezeigt).",
+    "cta": "Vervollständigen und bezahlen",
+    "deadline": "Frist: {{date}}"
   }
 }

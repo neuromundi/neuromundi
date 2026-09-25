@@ -298,8 +298,9 @@ export function DirectorySearch({ onViewProfile }: DirectorySearchProps) {
               <button
                 type="button"
                 onClick={allowGeo}
-                className="rounded-xl bg-emerald-600 px-3 py-2 text-sm font-semibold text-white hover:bg-emerald-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+                className="inline-flex items-center gap-1.5 rounded-xl bg-orange-500 px-4 py-2.5 text-sm font-bold text-white shadow-md ring-1 ring-orange-600/20 transition-colors hover:bg-orange-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2"
               >
+                <LocateFixed className="h-4 w-4" aria-hidden="true" />
                 {t('directory.geoAllow')}
               </button>
               <button
@@ -460,7 +461,7 @@ export function DirectorySearch({ onViewProfile }: DirectorySearchProps) {
               type="button"
               onClick={locateMe}
               disabled={locating}
-              className="inline-flex items-center gap-2 rounded-xl border border-brand-200 bg-brand-50 px-3 py-2.5 text-sm font-semibold text-brand-800 transition-colors hover:bg-brand-100 disabled:opacity-60"
+              className="inline-flex items-center gap-2 rounded-xl border border-orange-300 bg-orange-50 px-3 py-2.5 text-sm font-semibold text-orange-700 transition-colors hover:bg-orange-100 disabled:opacity-60"
             >
               {locating ? (
                 <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />

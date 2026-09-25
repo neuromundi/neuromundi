@@ -438,7 +438,9 @@
     "verifiedTip": "Provider verified by Neuromundi",
     "reviews": "{{count}} reviews",
     "founder": "Founder",
-    "founderTip": "Neuromundi Founding Member"
+    "founderTip": "Neuromundi Founding Member",
+    "lockedUnclaimed": "Unclaimed profile — only the name is shown.",
+    "lockedUnpaid": "Pending activation — only the name is shown."
   },
   "map": {
     "locate": "Center on my location",
@@ -451,7 +453,9 @@
     "back": "Back to directory",
     "dimensions": "Experience by dimension",
     "activeOffers": "Active offers",
-    "noOffers": "No active offers right now."
+    "noOffers": "No active offers right now.",
+    "lockedUnclaimed": "This profile hasn't been claimed yet. It will appear in full once its owner claims, completes and activates their membership.",
+    "lockedUnpaid": "This profile is pending activation. It will appear in full once its owner completes and pays their membership."
   },
   "dim": {
     "quality": "Quality",
@@ -1558,6 +1562,14 @@
     "inviteOpened": {
       "title": "Invitation opened",
       "body": "{{name}} opened their invitation."
+    },
+    "grace": {
+      "title": "Your profile will be hidden soon",
+      "body": "Complete and pay for your profile within {{days}} days or it will stop appearing in searches.",
+      "final": {
+        "title": "Your profile was removed from the directory",
+        "body": "You won't appear in searches until you complete and pay for your profile."
+      }
     }
   },
   "clin": {
@@ -4902,5 +4914,11 @@
     "ctaPay": "Lock in my founder rate",
     "ctaSupport": "Request founder upgrade",
     "deadline": "Closes {{date}}"
+  },
+  "dirGrace": {
+    "title": "You have {{days}} days left to activate your profile",
+    "body": "If you don't complete and pay for your profile, it will stop appearing in the directory and searches (only your name will show).",
+    "cta": "Complete and pay",
+    "deadline": "Deadline: {{date}}"
   }
 }

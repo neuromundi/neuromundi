@@ -6,7 +6,7 @@
  * y "Nuevo". Emite eventos para ver el perfil o centrar el mapa.
  */
 import { useMemo, useState } from 'react';
-import { MapPin, Tag, MessageCircle, ShieldCheck, ChevronDown, Map as MapIcon, Sparkles, Crown } from 'lucide-react';
+import { MapPin, Tag, MessageCircle, ShieldCheck, ChevronDown, Map as MapIcon, Sparkles, Crown, Lock } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Button, EVSBadge, ProgressBar , Avatar, DistintivoBadge } from '@/components/ui';
 import { cn, evsColor } from '@/lib/utils';
@@ -58,6 +58,73 @@ export function ProviderCard({
   const visible = expanded ? dims : dims.slice(0, collapsedCount);
   const name = provider.business_name ?? provider.full_name;
   const primaryCategory = provider.categories[0]?.name;
+
+  // Estado "solo-nombre": la ficha aún no la reclama nadie (`reclamable`) o el
+  // titular no ha pagado su membresía (`membership_status` fuera de los estados
+  // cubiertos). En ese caso la búsqueda solo revela nombre/razón social + ciudad
+  // (decisión de producto): se ocultan EVS, reseñas, especialidades y contacto.
+  const reclamable = (provider as { reclamable?: boolean }).reclamable === true;
+  const locked = reclamable || !['active', 'exempt', 'past_due'].includes(provider.membership_status ?? '');
+
+  if (locked) {
+    return (
+      <article
+        role="article"
+        aria-label={`Proveedor ${name}`}
+        className={cn(
+          'rounded-2xl border bg-white p-5 shadow-sm transition-shadow motion-safe:duration-200 hover:shadow-md',
+          highlighted ? 'border-brand-500 ring-2 ring-brand-100' : 'border-slate-100',
+        )}
+      >
+        <header className="flex items-start gap-3">
+          <Avatar name={name} src={provider.avatar_url} size="md" />
+          <div className="min-w-0 flex-1">
+            <h3 className="truncate font-bold text-slate-900">{name}</h3>
+            {(provider.city || provider.state) && (
+              <p className="mt-0.5 flex items-center gap-1 text-sm text-muted">
+                <MapPin className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                <span className="truncate">{[provider.city, provider.state].filter(Boolean).join(', ')}</span>
+              </p>
+            )}
+            {(provider.sections ?? []).length > 0 && (
+              <div className="mt-1.5 flex flex-wrap gap-1">
+                {(provider.sections ?? []).map((sv) => {
+                  const def = SECTION_BY_VALUE[sv];
+                  if (!def) return null;
+                  return (
+                    <span key={sv} className={cn('rounded-full px-2 py-0.5 text-[11px] font-semibold', def.chip)}>
+                      {t(`sections.${sv}.name`)}
+                    </span>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        </header>
+
+        <p className="mt-4 flex items-start gap-2 rounded-lg bg-amber-50 px-3 py-2 text-xs text-amber-800">
+          <Lock className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+          {reclamable ? t('card.lockedUnclaimed') : t('card.lockedUnpaid')}
+        </p>
+
+        <div className="mt-4 flex gap-3">
+          <Button size="sm" fullWidth onClick={() => onViewProfile?.(provider.id)}>
+            {t('card.viewProfile')}
+          </Button>
+          {provider.latitude != null && provider.longitude != null && (
+            <Button
+              size="sm"
+              variant="secondary"
+              onClick={() => onShowOnMap?.(provider.id)}
+              leadingIcon={<MapIcon className="h-4 w-4" />}
+            >
+              {t('card.map')}
+            </Button>
+          )}
+        </div>
+      </article>
+    );
+  }
 
   return (
     <article

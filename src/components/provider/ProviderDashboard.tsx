@@ -84,6 +84,8 @@ import { ProductManager } from '@/components/merchant/ProductManager';
 import { useFounderStatus } from '@/hooks/useFounder';
 import { FounderRequirements } from '@/components/founder/FounderRequirements';
 import { FounderCountdownCard } from '@/components/membership/FounderCountdownCard';
+import { DirectoryGraceCard } from '@/components/membership/DirectoryGraceCard';
+import { useMembership } from '@/hooks/useMembership';
 import { DonateCallout } from '@/components/donation/DonateCallout';
 import { RecommendPanel } from '@/components/referral/RecommendPanel';
 import { defaultOfferValues, type OfferFormValues } from '@/lib/schemas';
@@ -567,6 +569,7 @@ const SOLIDARIO_KEY = 'nm-solidario-dismissed';
 export function ProviderDashboard() {
   const { userId, providerType } = useAuth();
   const { isFounder } = useFounderStatus(userId);
+  const { status: membershipStatus } = useMembership();
   const { t } = useTranslation();
   const [tab, setTab] = useState('offers');
   // Invitación "Especialista Solidario": se muestra una vez (al llegar al panel
@@ -782,6 +785,8 @@ export function ProviderDashboard() {
             <p className="text-sm text-brand-700">{t('founderBadge.youAreDesc')}</p>
           </div>
         </div>
+      ) : membershipStatus === 'pending' ? (
+        <DirectoryGraceCard />
       ) : (
         <FounderCountdownCard />
       )}

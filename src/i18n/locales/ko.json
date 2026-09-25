@@ -438,7 +438,9 @@
     "verifiedTip": "Neuromundi가 인증한 제공자",
     "reviews": "후기 {{count}}개",
     "founder": "창립 회원",
-    "founderTip": "Neuromundi 창립 회원"
+    "founderTip": "Neuromundi 창립 회원",
+    "lockedUnclaimed": "미등록 프로필 — 이름만 표시됩니다.",
+    "lockedUnpaid": "활성화 대기 중 — 이름만 표시됩니다."
   },
   "map": {
     "locate": "내 위치로 중심 이동",
@@ -451,7 +453,9 @@
     "back": "디렉터리로 돌아가기",
     "dimensions": "항목별 경험",
     "activeOffers": "진행 중인 혜택",
-    "noOffers": "현재 진행 중인 혜택이 없습니다."
+    "noOffers": "현재 진행 중인 혜택이 없습니다.",
+    "lockedUnclaimed": "이 프로필은 아직 등록되지 않았습니다. 소유자가 등록하고 완성하여 멤버십을 활성화하면 전체가 표시됩니다.",
+    "lockedUnpaid": "이 프로필은 활성화 대기 중입니다. 소유자가 완성하고 멤버십을 결제하면 전체가 표시됩니다."
   },
   "dim": {
     "quality": "품질",
@@ -1558,6 +1562,14 @@
     "inviteOpened": {
       "title": "초대가 열림",
       "body": "{{name}}님이 초대를 열었습니다."
+    },
+    "grace": {
+      "title": "곧 프로필이 숨겨집니다",
+      "body": "{{days}}일 이내에 프로필을 완성하고 결제하지 않으면 검색에 표시되지 않습니다.",
+      "final": {
+        "title": "프로필이 디렉터리에서 제거되었습니다",
+        "body": "프로필을 완성하고 결제할 때까지 검색에 표시되지 않습니다."
+      }
     }
   },
   "clin": {
@@ -4902,5 +4914,11 @@
     "ctaPay": "창립자 요금 확정하기",
     "ctaSupport": "창립자 전환 요청",
     "deadline": "{{date}} 마감"
+  },
+  "dirGrace": {
+    "title": "프로필을 활성화할 수 있는 기간이 {{days}}일 남았습니다",
+    "body": "프로필을 완성하고 결제하지 않으면 디렉터리와 검색에 표시되지 않습니다(이름만 표시됨).",
+    "cta": "완성하고 결제",
+    "deadline": "마감일: {{date}}"
   }
 }

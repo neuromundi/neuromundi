@@ -255,12 +255,14 @@ export function MapView({
                   </p>
                   {pin.label && <p className="text-sm font-medium text-slate-700">{pin.label}</p>}
                   {pin.provider.city && <p className="text-sm text-slate-500">{pin.provider.city}</p>}
-                  <p className="mt-1 text-sm">
-                    {t('card.evs')}:{' '}
-                    <span className="font-semibold" style={{ color: evsColor(pin.provider.rating?.evs_score) }}>
-                      {pin.provider.rating?.evs_score != null ? pin.provider.rating.evs_score.toFixed(1) : t('map.new')}
-                    </span>
-                  </p>
+                  {!(((pin.provider as { reclamable?: boolean }).reclamable === true) || !['active', 'exempt', 'past_due'].includes(pin.provider.membership_status ?? '')) && (
+                    <p className="mt-1 text-sm">
+                      {t('card.evs')}:{' '}
+                      <span className="font-semibold" style={{ color: evsColor(pin.provider.rating?.evs_score) }}>
+                        {pin.provider.rating?.evs_score != null ? pin.provider.rating.evs_score.toFixed(1) : t('map.new')}
+                      </span>
+                    </p>
+                  )}
                   <button
                     type="button"
                     onClick={() => onViewProfile?.(pin.providerId)}

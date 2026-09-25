@@ -11,7 +11,7 @@ import {
   PolarRadiusAxis,
   ResponsiveContainer,
 } from 'recharts';
-import { ArrowLeft, MapPin, ShieldCheck, Tag, Users, Sparkles, Waves, LifeBuoy, Heart, Star, BadgeCheck } from 'lucide-react';
+import { ArrowLeft, MapPin, ShieldCheck, Tag, Users, Sparkles, Waves, LifeBuoy, Heart, Star, BadgeCheck, Lock } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useCatLabel } from '@/lib/catLabel';
 import { cn } from '@/lib/utils';
@@ -92,6 +92,53 @@ export function ProviderProfile() {
   // esas acciones exigen un perfil real. La vista directorio_publico marca
   // origen='ficha' en esas filas.
   const isFicha = (profile as { origen?: string }).origen === 'ficha';
+
+  // Estado "solo-nombre": ficha sin reclamar o membresía sin pagar. El perfil
+  // público revela únicamente nombre/razón social + ciudad/estado + secciones;
+  // el resto (bio, contacto, EVS, reseñas, oferta, red) queda oculto hasta que
+  // el titular complete y pague. Coincide con el enmascarado del directorio.
+  const reclamable = (profile as { reclamable?: boolean }).reclamable === true;
+  const locked = reclamable || !['active', 'exempt', 'past_due'].includes((profile as { membership_status?: string }).membership_status ?? '');
+
+  if (locked) {
+    return (
+      <div className="mx-auto max-w-2xl space-y-6 p-4">
+        <Button variant="ghost" size="sm" onClick={() => navigate('/directorio')} leadingIcon={<ArrowLeft className="h-4 w-4" />}>
+          {t('nav.directory')}
+        </Button>
+        <header className="flex items-start gap-4">
+          <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-brand-50 text-brand-700">
+            <Tag className="h-7 w-7" aria-hidden="true" />
+          </span>
+          <div className="min-w-0 flex-1">
+            <h1 className="text-xl font-bold text-slate-900">{name}</h1>
+            {(profile.city || profile.state) && (
+              <p className="flex items-center gap-1 text-sm text-muted">
+                <MapPin className="h-4 w-4" aria-hidden="true" /> {[profile.city, profile.state].filter(Boolean).join(', ')}
+              </p>
+            )}
+            {(profile.sections ?? []).length > 0 && (
+              <div className="mt-1.5 flex flex-wrap gap-1.5">
+                {(profile.sections ?? []).map((sv) => {
+                  const def = SECTION_BY_VALUE[sv];
+                  if (!def) return null;
+                  return (
+                    <span key={sv} className={cn('rounded-full px-2.5 py-0.5 text-xs font-semibold', def.chip)}>
+                      {t(`sections.${sv}.name`)}
+                    </span>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        </header>
+        <div className="flex items-start gap-3 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+          <Lock className="mt-0.5 h-5 w-5 shrink-0" aria-hidden="true" />
+          <p>{reclamable ? t('profile.lockedUnclaimed') : t('profile.lockedUnpaid')}</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="mx-auto max-w-2xl space-y-6 p-4">

@@ -401,7 +401,9 @@
     "verifiedTip": "Prestataire vérifié par NeuroAnnuaire",
     "reviews": "{{count}} avis",
     "founder": "Fondateur",
-    "founderTip": "Membre fondateur de Neuromundi"
+    "founderTip": "Membre fondateur de Neuromundi",
+    "lockedUnclaimed": "Profil à revendiquer — seul le nom est affiché.",
+    "lockedUnpaid": "En attente d'activation — seul le nom est affiché."
   },
   "map": {
     "locate": "Centrer sur ma position",
@@ -414,7 +416,9 @@
     "back": "Retour à l'annuaire",
     "dimensions": "Expérience par dimension",
     "activeOffers": "Offres actives",
-    "noOffers": "Aucune offre active pour le moment."
+    "noOffers": "Aucune offre active pour le moment.",
+    "lockedUnclaimed": "Ce profil n'a pas encore été revendiqué. Il s'affichera en entier lorsque son titulaire le revendiquera, le complétera et activera son adhésion.",
+    "lockedUnpaid": "Ce profil est en attente d'activation. Il s'affichera en entier lorsque son titulaire l'aura complété et payé son adhésion."
   },
   "dim": {
     "quality": "Qualité",
@@ -1521,6 +1525,14 @@
     "inviteOpened": {
       "title": "Invitation ouverte",
       "body": "{{name}} a ouvert son invitation."
+    },
+    "grace": {
+      "title": "Votre profil sera bientôt masqué",
+      "body": "Complétez et payez votre profil sous {{days}} jours, sinon il n'apparaîtra plus dans les recherches.",
+      "final": {
+        "title": "Votre profil a été retiré de l'annuaire",
+        "body": "Vous n'apparaîtrez pas dans les recherches tant que vous n'aurez pas complété et payé votre profil."
+      }
     }
   },
   "clin": {
@@ -4902,5 +4914,11 @@
     "ctaPay": "Bloquer mon tarif fondateur",
     "ctaSupport": "Demander le passage fondateur",
     "deadline": "Se termine le {{date}}"
+  },
+  "dirGrace": {
+    "title": "Il vous reste {{days}} jours pour activer votre profil",
+    "body": "Si vous ne complétez pas et ne payez pas votre profil, il n'apparaîtra plus dans l'annuaire ni dans les recherches (seul votre nom sera affiché).",
+    "cta": "Compléter et payer",
+    "deadline": "Date limite : {{date}}"
   }
 }

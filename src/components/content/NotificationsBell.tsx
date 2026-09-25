@@ -79,6 +79,10 @@ export function NotificationsBell() {
                 const isForum = isForumNew || isForumPending || isForumApproved || isForumModCall || isForumModApproved;
                 const isInviteOpen = n.type === 'invite_opened';
                 const invOpenName = ((n.data ?? {}) as { nombre?: string }).nombre || '';
+                const isGrace = n.type === 'directory_grace';
+                const graceDays = ((n.data ?? {}) as { days_left?: number }).days_left ?? 0;
+                const graceTitle = graceDays > 0 ? t('notif.grace.title') : t('notif.grace.final.title');
+                const graceBody = graceDays > 0 ? t('notif.grace.body', { days: graceDays }) : t('notif.grace.final.body');
                 const fd = (n.data ?? {}) as { title?: string; country?: string };
                 const td = (n.data ?? {}) as { opportunity_type?: string; title?: string; name?: string; country?: string; city?: string };
                 const tPlace = [td.city, td.country].filter(Boolean).join(', ');
@@ -88,8 +92,8 @@ export function NotificationsBell() {
                 const apptBody = isAppt ? t(`notif.appt.${apptSuffix}.body`, { name: ad.specialist_name || ad.recipient_name || '', title: ad.title || '', reason: ad.reason || '' }) : n.body;
                 const forumTitle = isForumNew ? t('notif.forumNew.title') : isForumPending ? t('notif.forumPending.title') : isForumApproved ? t('notif.forumApproved.title') : isForumModCall ? t('notif.forumModCall.title') : t('notif.forumModApproved.title');
                 const forumBody = isForumNew ? t('notif.forumNew.body', { title: fd.title || '' }) : isForumPending ? t('notif.forumPending.body') : isForumApproved ? t('notif.forumApproved.body', { title: fd.title || '' }) : isForumModCall ? t('notif.forumModCall.body', { title: fd.title || '' }) : t('notif.forumModApproved.body');
-                const rowTitle = isInviteOpen ? t('notif.inviteOpened.title') : isForum ? forumTitle : isTopicJob ? t('notif.topicJob.title') : isTopicVenue ? t('notif.topicVenue.title') : isBooking ? t('notif.booking.title') : isDM ? t('notif.dm.title') : isWaitSlot ? t('notif.waitlist.title') : isWaitJoin ? t('notif.waitlist.join') : n.type === 'referral_reward' ? t('notif.referral.reward') : isReferral ? t('notif.referral.title') : isCommission ? t('notif.commission.title') : isDirMatch ? t('notif.dirMatch.title') : apptTitle;
-                const rowBody = isInviteOpen ? t('notif.inviteOpened.body', { name: invOpenName }) : isForum ? forumBody : isTopicJob ? t('notif.topicJob.body', { type: t(`labor.type.${td.opportunity_type}`, { defaultValue: '' }), place: tPlace }) : isTopicVenue ? t('notif.topicVenue.body', { name: td.name || '', place: tPlace }) : isBooking ? t('notif.booking.body', { name: (n.data as { name?: string } | null)?.name ?? '' }) : isDM ? t('notif.dm.body', { name: ad.from_name || '' }) : apptBody;
+                const rowTitle = isGrace ? graceTitle : isInviteOpen ? t('notif.inviteOpened.title') : isForum ? forumTitle : isTopicJob ? t('notif.topicJob.title') : isTopicVenue ? t('notif.topicVenue.title') : isBooking ? t('notif.booking.title') : isDM ? t('notif.dm.title') : isWaitSlot ? t('notif.waitlist.title') : isWaitJoin ? t('notif.waitlist.join') : n.type === 'referral_reward' ? t('notif.referral.reward') : isReferral ? t('notif.referral.title') : isCommission ? t('notif.commission.title') : isDirMatch ? t('notif.dirMatch.title') : apptTitle;
+                const rowBody = isGrace ? graceBody : isInviteOpen ? t('notif.inviteOpened.body', { name: invOpenName }) : isForum ? forumBody : isTopicJob ? t('notif.topicJob.body', { type: t(`labor.type.${td.opportunity_type}`, { defaultValue: '' }), place: tPlace }) : isTopicVenue ? t('notif.topicVenue.body', { name: td.name || '', place: tPlace }) : isBooking ? t('notif.booking.body', { name: (n.data as { name?: string } | null)?.name ?? '' }) : isDM ? t('notif.dm.body', { name: ad.from_name || '' }) : apptBody;
                 return (
                   <li key={n.id}>
                     <button
@@ -115,6 +119,7 @@ export function NotificationsBell() {
                         {isTopicVenue && <Ticket className="h-4 w-4 shrink-0 text-brand-600" />}
                         {isForum && <Users className="h-4 w-4 shrink-0 text-brand-600" />}
                         {isInviteOpen && <MailOpen className="h-4 w-4 shrink-0 text-amber-600" />}
+                        {isGrace && <AlertTriangle className="h-4 w-4 shrink-0 text-amber-600" />}
                         <span className="text-sm font-semibold text-slate-900">{rowTitle}</span>
                       </div>
                       {rowBody && <p className="mt-0.5 text-sm text-slate-600">{rowBody}</p>}

@@ -401,7 +401,9 @@
     "verifiedTip": "Fornitore verificato da Neuromundi",
     "reviews": "{{count}} recensioni",
     "founder": "Fondatore",
-    "founderTip": "Membro fondatore di Neuromundi"
+    "founderTip": "Membro fondatore di Neuromundi",
+    "lockedUnclaimed": "Profilo da rivendicare — viene mostrato solo il nome.",
+    "lockedUnpaid": "In attesa di attivazione — viene mostrato solo il nome."
   },
   "map": {
     "locate": "Centra sulla mia posizione",
@@ -414,7 +416,9 @@
     "back": "Torna alla directory",
     "dimensions": "Esperienza per dimensione",
     "activeOffers": "Offerte attive",
-    "noOffers": "Nessuna offerta attiva al momento."
+    "noOffers": "Nessuna offerta attiva al momento.",
+    "lockedUnclaimed": "Questo profilo non è ancora stato rivendicato. Sarà mostrato per intero quando il titolare lo rivendicherà, lo completerà e attiverà l'iscrizione.",
+    "lockedUnpaid": "Questo profilo è in attesa di attivazione. Sarà mostrato per intero quando il titolare lo completerà e pagherà l'iscrizione."
   },
   "dim": {
     "quality": "Qualità",
@@ -1521,6 +1525,14 @@
     "inviteOpened": {
       "title": "Invito aperto",
       "body": "{{name}} ha aperto l’invito."
+    },
+    "grace": {
+      "title": "Il tuo profilo verrà presto nascosto",
+      "body": "Completa e paga il tuo profilo entro {{days}} giorni o smetterà di comparire nelle ricerche.",
+      "final": {
+        "title": "Il tuo profilo è stato rimosso dalla directory",
+        "body": "Non comparirai nelle ricerche finché non completi e paghi il tuo profilo."
+      }
     }
   },
   "clin": {
@@ -4902,5 +4914,11 @@
     "ctaPay": "Blocca la mia tariffa fondatore",
     "ctaSupport": "Richiedi il passaggio a fondatore",
     "deadline": "Chiude il {{date}}"
+  },
+  "dirGrace": {
+    "title": "Ti restano {{days}} giorni per attivare il tuo profilo",
+    "body": "Se non completi e paghi il tuo profilo, smetterà di comparire nella directory e nelle ricerche (verrà mostrato solo il tuo nome).",
+    "cta": "Completa e paga",
+    "deadline": "Scadenza: {{date}}"
   }
 }

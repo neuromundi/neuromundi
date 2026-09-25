@@ -401,7 +401,9 @@
     "verifiedTip": "由 Neuromundi 认证的服务商",
     "reviews": "{{count}} 条评价",
     "founder": "创始会员",
-    "founderTip": "Neuromundi 创始会员"
+    "founderTip": "Neuromundi 创始会员",
+    "lockedUnclaimed": "待认领的档案 — 仅显示名称。",
+    "lockedUnpaid": "待激活 — 仅显示名称。"
   },
   "map": {
     "locate": "定位到我的位置",
@@ -414,7 +416,9 @@
     "back": "返回目录",
     "dimensions": "各维度体验",
     "activeOffers": "有效优惠",
-    "noOffers": "暂无有效优惠。"
+    "noOffers": "暂无有效优惠。",
+    "lockedUnclaimed": "此档案尚未被认领。当拥有者认领、完善并激活会员资格后，将完整显示。",
+    "lockedUnpaid": "此档案待激活。当拥有者完善并支付会员费后，将完整显示。"
   },
   "dim": {
     "quality": "质量",
@@ -1521,6 +1525,14 @@
     "inviteOpened": {
       "title": "邀请已打开",
       "body": "{{name}} 打开了邀请。"
+    },
+    "grace": {
+      "title": "您的档案即将被隐藏",
+      "body": "请在{{days}}天内完善并支付您的档案，否则将不再出现在搜索结果中。",
+      "final": {
+        "title": "您的档案已从目录中移除",
+        "body": "在您完善并支付档案之前，您不会出现在搜索结果中。"
+      }
     }
   },
   "clin": {
@@ -4902,5 +4914,11 @@
     "ctaPay": "锁定我的创始人价格",
     "ctaSupport": "申请升级为创始人",
     "deadline": "{{date}} 截止"
+  },
+  "dirGrace": {
+    "title": "您还有{{days}}天来激活您的档案",
+    "body": "如果您不完善并支付档案，它将不再出现在目录和搜索中（仅显示您的名称）。",
+    "cta": "完善并支付",
+    "deadline": "截止日期：{{date}}"
   }
 }
