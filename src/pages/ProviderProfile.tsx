@@ -200,14 +200,6 @@ export function ProviderProfile() {
         </div>
       </header>
 
-      {/* Ficha sin reclamar: nota informativa (tono suave, no de advertencia). */}
-      {isFicha && (
-        <div className="flex items-start gap-3 rounded-2xl border border-brand-200 bg-brand-50 p-4 text-sm text-brand-900">
-          <Clock className="mt-0.5 h-5 w-5 shrink-0" aria-hidden="true" />
-          <p>{t('profile.lockedUnclaimed')}</p>
-        </div>
-      )}
-
       {profile.bio && <p className="text-slate-700 leading-relaxed">{profile.bio}</p>}
 
       {/* Datos de contacto de la ficha sin reclamar (fuentes públicas). Da
@@ -240,6 +232,15 @@ export function ProviderProfile() {
           </ul>
           {profile.services_offered && <p className="mt-2 text-sm text-slate-600">{profile.services_offered}</p>}
         </section>
+      )}
+
+      {/* Ficha sin reclamar: nota informativa (tono suave, no de advertencia).
+          Va DESPUÉS de los datos de contacto. */}
+      {isFicha && (
+        <div className="flex items-start gap-3 rounded-2xl border border-brand-200 bg-brand-50 p-4 text-sm text-brand-900">
+          <Clock className="mt-0.5 h-5 w-5 shrink-0" aria-hidden="true" />
+          <p>{t('profile.lockedUnclaimed')}</p>
+        </div>
       )}
 
       {!isFicha && (isParent || isConsumer || (isProvider && userId !== id)) && (
