@@ -473,7 +473,7 @@ export function AppLayout() {
                 los controles de cuenta (dona, notificaciones, accesibilidad,
                 idioma, entrar). w-full la fuerza a su propia línea bajo el logo. */}
             <div className="hidden w-full min-w-0 items-center gap-x-3 lg:flex">
-            <nav className="flex min-w-0 flex-1 flex-wrap items-center gap-x-2 gap-y-1.5" aria-label={t('nav.directory')}>
+            <nav className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1.5" aria-label={t('nav.directory')}>
               {/* Enlaces principales */}
               <NavPill to="/kit" label={t('nav.kit')} colorClass="bg-gradient-to-br from-brand-500 via-brand-600 to-brand-800" />
               <NavPill to="/directorio" label={t('nav.directory')} colorClass="bg-brand-600" />
