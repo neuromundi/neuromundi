@@ -268,7 +268,8 @@
         "telemed": "פלטפורמות רפואה מרחוק",
         "software": "תוכנות לניהול מרפאה"
       }
-    }
+    },
+    "becomeFounderBtn": "איך להיות מייסד?"
   },
   "auth": {
     "login": "התחברות",
@@ -4923,7 +4924,6 @@
     "deadline": "מועד אחרון: {{date}}"
   },
   "becomeFounder": {
-    "buttonHome": "איך להיות מייסד?",
     "kicker": "קהילת המייסדים",
     "title": "היה חבר מייסד",
     "subtitle": "השאר את חותמך בראשית Neuromundi",

@@ -268,7 +268,8 @@
         "telemed": "Telemedicine platforms",
         "software": "Practice management software"
       }
-    }
+    },
+    "becomeFounderBtn": "How to become a founder?"
   },
   "auth": {
     "login": "Sign in",
@@ -4923,7 +4924,6 @@
     "deadline": "Deadline: {{date}}"
   },
   "becomeFounder": {
-    "buttonHome": "How to become a founder?",
     "kicker": "Founding community",
     "title": "Become a Founder",
     "subtitle": "Leave your mark at the origin of Neuromundi",
@@ -4953,7 +4953,7 @@
         "who": "Parents, patients and relatives",
         "benefits": [
           "\"I'm a Founder\" badge",
-          "Discounts and free first consultations with founders",
+          "Discounts and early access to events and initiatives",
           "Your questions and stories pinned in the forum",
           "Webinars, early blog access and exclusive giveaways"
         ],

@@ -106,7 +106,7 @@ export function FounderPopup({ onClose }: { onClose: (reason: 'cta' | 'later' | 
             onClick={() => { onClose('cta'); navigate('/become-a-founder'); }}
             className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-brand-600 px-4 py-2.5 text-sm font-bold text-white transition-colors hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
           >
-            {t('becomeFounder.buttonHome')} <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            {t('home.becomeFounderBtn')} <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </button>
         </div>
       </div>

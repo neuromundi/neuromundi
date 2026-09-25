@@ -133,7 +133,7 @@ export function Home() {
               onClick={() => navigate('/become-a-founder')}
               className="inline-flex items-center gap-2 rounded-full border-2 border-brand-500 bg-white px-5 py-2.5 text-sm font-bold text-brand-700 shadow-sm transition-colors hover:bg-brand-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
             >
-              <Award className="h-4 w-4" aria-hidden="true" /> {t('becomeFounder.buttonHome')}
+              <Award className="h-4 w-4" aria-hidden="true" /> {t('home.becomeFounderBtn')}
             </button>
           </div>
         </div>

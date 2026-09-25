@@ -268,7 +268,8 @@
         "telemed": "원격의료 플랫폼",
         "software": "진료 관리 소프트웨어"
       }
-    }
+    },
+    "becomeFounderBtn": "창립 멤버가 되는 방법?"
   },
   "auth": {
     "login": "로그인",
@@ -4923,7 +4924,6 @@
     "deadline": "마감일: {{date}}"
   },
   "becomeFounder": {
-    "buttonHome": "창립 멤버가 되는 방법?",
     "kicker": "창립 커뮤니티",
     "title": "창립 멤버가 되기",
     "subtitle": "Neuromundi의 시작에 흔적을 남기세요",

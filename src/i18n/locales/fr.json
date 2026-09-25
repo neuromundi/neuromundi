@@ -231,7 +231,8 @@
         "telemed": "Plateformes de télémédecine",
         "software": "Logiciels de gestion de cabinet"
       }
-    }
+    },
+    "becomeFounderBtn": "Comment devenir fondateur ?"
   },
   "auth": {
     "login": "Se connecter",
@@ -4923,7 +4924,6 @@
     "deadline": "Date limite : {{date}}"
   },
   "becomeFounder": {
-    "buttonHome": "Comment devenir fondateur ?",
     "kicker": "Communauté fondatrice",
     "title": "Devenez Membre Fondateur",
     "subtitle": "Laissez votre empreinte à l'origine de Neuromundi",
@@ -4953,7 +4953,7 @@
         "who": "Parents, patients et proches",
         "benefits": [
           "Badge « Je suis Fondateur »",
-          "Réductions et premières consultations gratuites avec les fondateurs",
+          "Réductions et accès anticipé aux événements et initiatives",
           "Vos questions et récits épinglés dans le forum",
           "Webinaires, accès anticipé au blog et tirages exclusifs"
         ],

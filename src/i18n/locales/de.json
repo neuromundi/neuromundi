@@ -231,7 +231,8 @@
         "telemed": "Telemedizin-Plattformen",
         "software": "Praxisverwaltungssoftware"
       }
-    }
+    },
+    "becomeFounderBtn": "Wie werde ich Gründungsmitglied?"
   },
   "auth": {
     "login": "Anmelden",
@@ -4923,7 +4924,6 @@
     "deadline": "Frist: {{date}}"
   },
   "becomeFounder": {
-    "buttonHome": "Wie werde ich Gründungsmitglied?",
     "kicker": "Gründergemeinschaft",
     "title": "Werde Gründungsmitglied",
     "subtitle": "Hinterlasse deine Spur am Ursprung von Neuromundi",
@@ -4953,7 +4953,7 @@
         "who": "Eltern, Patienten und Angehörige",
         "benefits": [
           "Abzeichen „Ich bin Gründungsmitglied“",
-          "Rabatte und kostenlose Erstberatungen bei Gründern",
+          "Rabatte und früher Zugang zu Veranstaltungen und Initiativen",
           "Deine Fragen und Geschichten im Forum angeheftet",
           "Webinare, früher Blog-Zugang und exklusive Verlosungen"
         ],
