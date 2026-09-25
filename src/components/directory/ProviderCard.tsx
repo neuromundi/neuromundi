@@ -6,7 +6,7 @@
  * y "Nuevo". Emite eventos para ver el perfil o centrar el mapa.
  */
 import { useMemo, useState } from 'react';
-import { MapPin, Tag, MessageCircle, ShieldCheck, ChevronDown, Map as MapIcon, Sparkles, Crown, Lock } from 'lucide-react';
+import { MapPin, Tag, MessageCircle, ShieldCheck, ChevronDown, Map as MapIcon, Sparkles, Crown } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Button, EVSBadge, ProgressBar , Avatar, DistintivoBadge } from '@/components/ui';
 import { cn, evsColor } from '@/lib/utils';
@@ -101,11 +101,6 @@ export function ProviderCard({
             )}
           </div>
         </header>
-
-        <p className="mt-4 flex items-start gap-2 rounded-lg bg-amber-50 px-3 py-2 text-xs text-amber-800">
-          <Lock className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden="true" />
-          {reclamable ? t('card.lockedUnclaimed') : t('card.lockedUnpaid')}
-        </p>
 
         <div className="mt-4 flex gap-3">
           <Button size="sm" fullWidth onClick={() => onViewProfile?.(provider.id)}>
