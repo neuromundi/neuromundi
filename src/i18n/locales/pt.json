@@ -4971,7 +4971,7 @@
         "reqs": [
           "Foto de perfil, biografia e telefone",
           "Registro profissional (especialistas)",
-          "Anuidade paga e um desconto ≥10% ativo"
+          "Anuidade paga"
         ]
       },
       "merchants": {
@@ -4985,7 +4985,7 @@
         ],
         "reqs": [
           "Foto de perfil, biografia e telefone",
-          "Anuidade paga e um desconto ≥10% ativo"
+          "Anuidade paga"
         ]
       },
       "companies": {

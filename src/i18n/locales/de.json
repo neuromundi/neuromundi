@@ -4971,7 +4971,7 @@
         "reqs": [
           "Profilfoto, Biografie und Telefon",
           "Berufsausweis (Spezialisten)",
-          "Jahresbeitrag bezahlt und aktiver Rabatt ≥10%"
+          "Jahresbeitrag bezahlt"
         ]
       },
       "merchants": {
@@ -4985,7 +4985,7 @@
         ],
         "reqs": [
           "Profilfoto, Biografie und Telefon",
-          "Jahresbeitrag bezahlt und aktiver Rabatt ≥10%"
+          "Jahresbeitrag bezahlt"
         ]
       },
       "companies": {

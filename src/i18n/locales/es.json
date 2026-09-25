@@ -4971,7 +4971,7 @@
         "reqs": [
           "Foto de perfil, biografía y teléfono",
           "Cédula profesional (especialistas)",
-          "Cuota anual cubierta y un descuento ≥10% activo"
+          "Cuota anual cubierta"
         ]
       },
       "merchants": {
@@ -4985,7 +4985,7 @@
         ],
         "reqs": [
           "Foto de perfil, biografía y teléfono",
-          "Cuota anual cubierta y un descuento ≥10% activo"
+          "Cuota anual cubierta"
         ]
       },
       "companies": {

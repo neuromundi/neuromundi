@@ -4971,7 +4971,7 @@
         "reqs": [
           "Profile photo, bio and phone",
           "Professional license (specialists)",
-          "Annual fee paid and an active ≥10% discount"
+          "Annual fee paid"
         ]
       },
       "merchants": {
@@ -4985,7 +4985,7 @@
         ],
         "reqs": [
           "Profile photo, bio and phone",
-          "Annual fee paid and an active ≥10% discount"
+          "Annual fee paid"
         ]
       },
       "companies": {

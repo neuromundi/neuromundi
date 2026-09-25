@@ -4971,7 +4971,7 @@
         "reqs": [
           "Photo de profil, biographie et téléphone",
           "Diplôme professionnel (spécialistes)",
-          "Cotisation annuelle réglée et une remise ≥10% active"
+          "Cotisation annuelle réglée"
         ]
       },
       "merchants": {
@@ -4985,7 +4985,7 @@
         ],
         "reqs": [
           "Photo de profil, biographie et téléphone",
-          "Cotisation annuelle réglée et une remise ≥10% active"
+          "Cotisation annuelle réglée"
         ]
       },
       "companies": {

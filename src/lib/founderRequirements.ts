@@ -92,7 +92,7 @@ export function computeFounderProgress(kind: FounderKind, i: FounderInputs): Fou
       push('cedula', bin(!!i.cedula));
     }
     push('fee', bin(i.membershipActive));
-    push('discount', bin(i.hasDiscount10));
+    // Requisito de "descuento ≥10% activo" ELIMINADO.
   }
 
   const total = items.length;

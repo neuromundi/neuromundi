@@ -4971,7 +4971,7 @@
         "reqs": [
           "Foto profilo, biografia e telefono",
           "Titolo professionale (specialisti)",
-          "Quota annuale pagata e uno sconto ≥10% attivo"
+          "Quota annuale pagata"
         ]
       },
       "merchants": {
@@ -4985,7 +4985,7 @@
         ],
         "reqs": [
           "Foto profilo, biografia e telefono",
-          "Quota annuale pagata e uno sconto ≥10% attivo"
+          "Quota annuale pagata"
         ]
       },
       "companies": {
