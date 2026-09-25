@@ -417,8 +417,8 @@
     "dimensions": "各维度体验",
     "activeOffers": "有效优惠",
     "noOffers": "暂无有效优惠。",
-    "lockedUnclaimed": "此档案尚未被认领。当拥有者认领、完善并激活会员资格后，将完整显示。",
-    "lockedUnpaid": "此档案待激活。当拥有者完善并支付会员费后，将完整显示。"
+    "lockedUnclaimed": "此档案的拥有者正在完善中，很快即可供您查看。",
+    "lockedUnpaid": "此档案的拥有者正在完善中，很快即可供您查看。"
   },
   "dim": {
     "quality": "质量",

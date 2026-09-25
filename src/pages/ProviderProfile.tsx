@@ -11,7 +11,7 @@ import {
   PolarRadiusAxis,
   ResponsiveContainer,
 } from 'recharts';
-import { ArrowLeft, MapPin, ShieldCheck, Tag, Users, Sparkles, Waves, LifeBuoy, Heart, Star, BadgeCheck, Lock } from 'lucide-react';
+import { ArrowLeft, MapPin, ShieldCheck, Tag, Users, Sparkles, Waves, LifeBuoy, Heart, Star, BadgeCheck, Clock } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useCatLabel } from '@/lib/catLabel';
 import { cn } from '@/lib/utils';
@@ -132,8 +132,8 @@ export function ProviderProfile() {
             )}
           </div>
         </header>
-        <div className="flex items-start gap-3 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
-          <Lock className="mt-0.5 h-5 w-5 shrink-0" aria-hidden="true" />
+        <div className="flex items-start gap-3 rounded-2xl border border-brand-200 bg-brand-50 p-4 text-sm text-brand-900">
+          <Clock className="mt-0.5 h-5 w-5 shrink-0" aria-hidden="true" />
           <p>{reclamable ? t('profile.lockedUnclaimed') : t('profile.lockedUnpaid')}</p>
         </div>
       </div>

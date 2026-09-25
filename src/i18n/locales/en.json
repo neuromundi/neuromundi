@@ -454,8 +454,8 @@
     "dimensions": "Experience by dimension",
     "activeOffers": "Active offers",
     "noOffers": "No active offers right now.",
-    "lockedUnclaimed": "This profile hasn't been claimed yet. It will appear in full once its owner claims, completes and activates their membership.",
-    "lockedUnpaid": "This profile is pending activation. It will appear in full once its owner completes and pays their membership."
+    "lockedUnclaimed": "This profile is being completed by its owner and will be ready for you shortly.",
+    "lockedUnpaid": "This profile is being completed by its owner and will be ready for you shortly."
   },
   "dim": {
     "quality": "Quality",

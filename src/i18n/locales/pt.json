@@ -417,8 +417,8 @@
     "dimensions": "Experiência por dimensão",
     "activeOffers": "Ofertas ativas",
     "noOffers": "Sem ofertas ativas no momento.",
-    "lockedUnclaimed": "Este perfil ainda não foi reivindicado. Será exibido por completo quando o titular o reivindicar, preencher e ativar a assinatura.",
-    "lockedUnpaid": "Este perfil está aguardando ativação. Será exibido por completo quando o titular o preencher e pagar a assinatura."
+    "lockedUnclaimed": "Este perfil está sendo preenchido por seu titular e em breve estará pronto para a sua consulta.",
+    "lockedUnpaid": "Este perfil está sendo preenchido por seu titular e em breve estará pronto para a sua consulta."
   },
   "dim": {
     "quality": "Qualidade",

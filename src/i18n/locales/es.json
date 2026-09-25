@@ -454,8 +454,8 @@
     "dimensions": "Experiencia por dimensión",
     "activeOffers": "Ofertas activas",
     "noOffers": "Sin ofertas activas por ahora.",
-    "lockedUnclaimed": "Este perfil aún no ha sido reclamado. Se mostrará completo cuando su titular lo reclame, complete y active su membresía.",
-    "lockedUnpaid": "Este perfil está pendiente de activación. Se mostrará completo cuando su titular lo complete y pague su membresía."
+    "lockedUnclaimed": "Este perfil está siendo completado por su titular y en breve estará listo para tu consulta.",
+    "lockedUnpaid": "Este perfil está siendo completado por su titular y en breve estará listo para tu consulta."
   },
   "dim": {
     "quality": "Calidad",

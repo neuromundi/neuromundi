@@ -417,8 +417,8 @@
     "dimensions": "Erfahrung nach Dimension",
     "activeOffers": "Aktive Angebote",
     "noOffers": "Derzeit keine aktiven Angebote.",
-    "lockedUnclaimed": "Dieses Profil wurde noch nicht beansprucht. Es wird vollständig angezeigt, sobald der Inhaber es beansprucht, vervollständigt und seine Mitgliedschaft aktiviert.",
-    "lockedUnpaid": "Dieses Profil wartet auf Aktivierung. Es wird vollständig angezeigt, sobald der Inhaber es vervollständigt und seine Mitgliedschaft bezahlt hat."
+    "lockedUnclaimed": "Dieses Profil wird gerade von seinem Inhaber vervollständigt und steht Ihnen in Kürze zur Verfügung.",
+    "lockedUnpaid": "Dieses Profil wird gerade von seinem Inhaber vervollständigt und steht Ihnen in Kürze zur Verfügung."
   },
   "dim": {
     "quality": "Qualität",

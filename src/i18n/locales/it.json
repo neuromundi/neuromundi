@@ -417,8 +417,8 @@
     "dimensions": "Esperienza per dimensione",
     "activeOffers": "Offerte attive",
     "noOffers": "Nessuna offerta attiva al momento.",
-    "lockedUnclaimed": "Questo profilo non è ancora stato rivendicato. Sarà mostrato per intero quando il titolare lo rivendicherà, lo completerà e attiverà l'iscrizione.",
-    "lockedUnpaid": "Questo profilo è in attesa di attivazione. Sarà mostrato per intero quando il titolare lo completerà e pagherà l'iscrizione."
+    "lockedUnclaimed": "Questo profilo è in fase di completamento da parte del titolare e sarà presto pronto per la tua consultazione.",
+    "lockedUnpaid": "Questo profilo è in fase di completamento da parte del titolare e sarà presto pronto per la tua consultazione."
   },
   "dim": {
     "quality": "Qualità",
