@@ -383,7 +383,10 @@
     "sectionLabel": "Cosa cerchi oggi?",
     "sectionAll": "Tutte",
     "allConditions": "Tutte le patologie",
-    "conditionAria": "Filtra per patologia neurologica"
+    "conditionAria": "Filtra per patologia neurologica",
+    "geoNotice": "Condividi la tua posizione per vedere gli specialisti e i luoghi più vicini.",
+    "geoAllow": "Consenti posizione",
+    "geoLater": "Non ora"
   },
   "card": {
     "evs": "EVS",

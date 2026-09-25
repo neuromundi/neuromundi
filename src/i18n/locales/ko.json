@@ -420,7 +420,10 @@
     "sectionLabel": "오늘 무엇을 찾으세요?",
     "sectionAll": "전체",
     "allConditions": "모든 질환",
-    "conditionAria": "신경계 질환으로 필터"
+    "conditionAria": "신경계 질환으로 필터",
+    "geoNotice": "위치를 공유하면 가장 가까운 전문가와 장소를 볼 수 있어요.",
+    "geoAllow": "위치 허용",
+    "geoLater": "나중에"
   },
   "card": {
     "evs": "EVS",

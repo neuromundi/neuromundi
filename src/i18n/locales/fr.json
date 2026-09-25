@@ -383,7 +383,10 @@
     "sectionLabel": "Que cherchez-vous aujourd’hui ?",
     "sectionAll": "Toutes",
     "allConditions": "Toutes les affections",
-    "conditionAria": "Filtrer par affection neurologique"
+    "conditionAria": "Filtrer par affection neurologique",
+    "geoNotice": "Partagez votre position pour voir les spécialistes et lieux les plus proches.",
+    "geoAllow": "Autoriser la position",
+    "geoLater": "Plus tard"
   },
   "card": {
     "evs": "EVS",

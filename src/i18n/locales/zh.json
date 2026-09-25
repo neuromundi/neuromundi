@@ -383,7 +383,10 @@
     "sectionLabel": "您今天在找什么？",
     "sectionAll": "全部",
     "allConditions": "所有疾病",
-    "conditionAria": "按神经系统疾病筛选"
+    "conditionAria": "按神经系统疾病筛选",
+    "geoNotice": "共享你的位置，查看离你最近的专家和场所。",
+    "geoAllow": "允许定位",
+    "geoLater": "暂不"
   },
   "card": {
     "evs": "EVS",

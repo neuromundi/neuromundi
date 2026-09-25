@@ -383,7 +383,10 @@
     "sectionLabel": "Wonach suchst du heute?",
     "sectionAll": "Alle",
     "allConditions": "Alle Erkrankungen",
-    "conditionAria": "Nach neurologischer Erkrankung filtern"
+    "conditionAria": "Nach neurologischer Erkrankung filtern",
+    "geoNotice": "Teile deinen Standort, um die nächstgelegenen Fachkräfte und Orte zu sehen.",
+    "geoAllow": "Standort erlauben",
+    "geoLater": "Jetzt nicht"
   },
   "card": {
     "evs": "EVS",

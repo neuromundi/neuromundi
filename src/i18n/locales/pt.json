@@ -383,7 +383,10 @@
     "sectionLabel": "O que você procura hoje?",
     "sectionAll": "Todas",
     "allConditions": "Todas as afecções",
-    "conditionAria": "Filtrar por afecção neurológica"
+    "conditionAria": "Filtrar por afecção neurológica",
+    "geoNotice": "Compartilhe sua localização para ver os especialistas e lugares mais próximos.",
+    "geoAllow": "Permitir localização",
+    "geoLater": "Agora não"
   },
   "card": {
     "evs": "EVS",

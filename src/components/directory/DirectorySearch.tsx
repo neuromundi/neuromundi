@@ -117,6 +117,7 @@ export function DirectorySearch({ onViewProfile }: DirectorySearchProps) {
   // autoLocated = la ubicación se obtuvo automáticamente (al elegir sección),
   // NO por el botón manual. En ese caso ordenamos por cercanía SIN corte de radio.
   const [autoLocated, setAutoLocated] = useState(false);
+  const [showGeoNotice, setShowGeoNotice] = useState(false);
   const geoTried = useRef(false);
 
   /** Pide la ubicación al navegador (solo con este gesto explícito del usuario)
@@ -165,18 +166,31 @@ export function DirectorySearch({ onViewProfile }: DirectorySearchProps) {
     return () => clearTimeout(t);
   }, [searchInput]);
 
-  // Al elegir una sección (neurodesarrollo/neurodivergencias/afecciones) pedimos
-  // la ubicación UNA vez, en silencio, para mostrar las fichas más cercanas primero.
-  // Si el visitante la deniega, simplemente no se ordena por cercanía (sin error).
+  // Al abrir el directorio mostramos un AVISO PREVIO que explica el beneficio
+  // antes de pedir la ubicación (mejor práctica: no lanzar el prompt del navegador
+  // sin contexto). Al aceptar se solicita; si se descarta, no vuelve esta sesión.
   useEffect(() => {
-    if (!section || center || geoTried.current || !('geolocation' in navigator)) return;
+    if (center || geoTried.current || !('geolocation' in navigator)) return;
+    try { if (sessionStorage.getItem('neuro.geoNoticeDismissed') === '1') return; } catch { /* noop */ }
+    setShowGeoNotice(true);
+  }, [center]);
+
+  const allowGeo = () => {
+    setShowGeoNotice(false);
+    if (!('geolocation' in navigator)) return;
     geoTried.current = true;
+    setLocating(true);
     navigator.geolocation.getCurrentPosition(
-      (pos) => { setCenter({ lat: pos.coords.latitude, lng: pos.coords.longitude }); setAutoLocated(true); },
-      () => { /* denegada o no disponible: sin orden por cercanía */ },
+      (pos) => { setCenter({ lat: pos.coords.latitude, lng: pos.coords.longitude }); setAutoLocated(true); setLocating(false); },
+      () => { setLocating(false); },
       { enableHighAccuracy: false, timeout: 10000, maximumAge: 300000 },
     );
-  }, [section, center]);
+  };
+
+  const dismissGeoNotice = () => {
+    setShowGeoNotice(false);
+    try { sessionStorage.setItem('neuro.geoNoticeDismissed', '1'); } catch { /* noop */ }
+  };
 
   const filters: DirectoryFilters = useMemo(
     () => ({
@@ -266,6 +280,31 @@ export function DirectorySearch({ onViewProfile }: DirectorySearchProps) {
             </div>
           )}
         </div>
+        {/* Aviso previo de geolocalización: explica el beneficio antes del prompt. */}
+        {showGeoNotice && (
+          <div className="flex flex-col gap-2 rounded-xl border border-emerald-200 bg-emerald-50 p-3 sm:flex-row sm:items-center sm:justify-between">
+            <p className="flex items-start gap-2 text-sm text-emerald-900">
+              <MapPin className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+              {t('directory.geoNotice')}
+            </p>
+            <div className="flex shrink-0 gap-2">
+              <button
+                type="button"
+                onClick={allowGeo}
+                className="rounded-xl bg-emerald-600 px-3 py-2 text-sm font-semibold text-white hover:bg-emerald-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+              >
+                {t('directory.geoAllow')}
+              </button>
+              <button
+                type="button"
+                onClick={dismissGeoNotice}
+                className="rounded-xl border border-emerald-200 px-3 py-2 text-sm font-medium text-emerald-800 hover:bg-emerald-100"
+              >
+                {t('directory.geoLater')}
+              </button>
+            </div>
+          </div>
+        )}
         {/* Selector de país: segmenta el directorio. Si no se eligió en el Home, aquí se elige. */}
         <div className="flex flex-col gap-2 rounded-xl border border-brand-100 bg-brand-50 p-3 sm:flex-row sm:items-center">
           <label htmlFor="dir-country" className="flex shrink-0 items-center gap-2 text-sm font-semibold text-brand-800">

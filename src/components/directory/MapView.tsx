@@ -86,6 +86,17 @@ function FlyToSelected({
   return null;
 }
 
+/** Recentra el mapa cuando cambia `center` (p. ej. al conceder la ubicación
+ *  automáticamente al abrir el directorio). El `center` del MapContainer solo
+ *  fija la vista INICIAL; esto sincroniza el mapa con la autorización posterior. */
+function RecenterOnCenter({ center }: { center?: { lat: number; lng: number } | null }) {
+  const map = useMap();
+  useEffect(() => {
+    if (center) map.flyTo([center.lat, center.lng], 12, { duration: 0.8 });
+  }, [center, map]);
+  return null;
+}
+
 /** Botón flotante para centrar en la ubicación del usuario. */
 function LocateButton({ onLocate }: { onLocate?: (c: { lat: number; lng: number }) => void }) {
   const map = useMap();
@@ -239,6 +250,7 @@ export function MapView({
         </MarkerClusterGroup>
 
         <FlyToSelected providers={withCoords} selectedId={selectedId} markerRefs={markerRefs} />
+        <RecenterOnCenter center={center} />
         <LocateButton onLocate={onLocate} />
       </MapContainer>
     </div>

@@ -420,7 +420,10 @@
     "sectionLabel": "¿Qué buscas hoy?",
     "sectionAll": "Todas",
     "allConditions": "Todas las afecciones",
-    "conditionAria": "Filtrar por afección neurológica"
+    "conditionAria": "Filtrar por afección neurológica",
+    "geoNotice": "Comparte tu ubicación para ver a los especialistas y lugares más cercanos a ti.",
+    "geoAllow": "Permitir ubicación",
+    "geoLater": "Ahora no"
   },
   "card": {
     "evs": "EVS",

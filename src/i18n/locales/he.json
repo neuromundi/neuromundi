@@ -420,7 +420,10 @@
     "sectionLabel": "מה אתה מחפש היום?",
     "sectionAll": "הכול",
     "allConditions": "כל המצבים",
-    "conditionAria": "סינון לפי מצב נוירולוגי"
+    "conditionAria": "סינון לפי מצב נוירולוגי",
+    "geoNotice": "שתף את מיקומך כדי לראות את המומחים והמקומות הקרובים אליך.",
+    "geoAllow": "לאפשר מיקום",
+    "geoLater": "לא עכשיו"
   },
   "card": {
     "evs": "EVS",

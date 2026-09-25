@@ -383,7 +383,10 @@
     "sectionLabel": "今日は何をお探しですか？",
     "sectionAll": "すべて",
     "allConditions": "すべての疾患",
-    "conditionAria": "神経疾患で絞り込む"
+    "conditionAria": "神経疾患で絞り込む",
+    "geoNotice": "現在地を共有すると、最寄りの専門家や施設が表示されます。",
+    "geoAllow": "位置情報を許可",
+    "geoLater": "あとで"
   },
   "card": {
     "evs": "EVS",

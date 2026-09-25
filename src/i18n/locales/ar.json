@@ -420,7 +420,10 @@
     "sectionLabel": "عمّا تبحث اليوم؟",
     "sectionAll": "الكل",
     "allConditions": "كل الحالات",
-    "conditionAria": "التصفية حسب الحالة العصبية"
+    "conditionAria": "التصفية حسب الحالة العصبية",
+    "geoNotice": "شارك موقعك لعرض المختصين والأماكن الأقرب إليك.",
+    "geoAllow": "السماح بالموقع",
+    "geoLater": "ليس الآن"
   },
   "card": {
     "evs": "EVS",

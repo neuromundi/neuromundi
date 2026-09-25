@@ -420,7 +420,10 @@
     "sectionLabel": "What are you looking for today?",
     "sectionAll": "All",
     "allConditions": "All conditions",
-    "conditionAria": "Filter by neurological condition"
+    "conditionAria": "Filter by neurological condition",
+    "geoNotice": "Share your location to see the specialists and places closest to you.",
+    "geoAllow": "Allow location",
+    "geoLater": "Not now"
   },
   "card": {
     "evs": "EVS",
