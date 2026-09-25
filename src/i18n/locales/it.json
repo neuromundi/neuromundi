@@ -418,7 +418,8 @@
     "activeOffers": "Offerte attive",
     "noOffers": "Nessuna offerta attiva al momento.",
     "lockedUnclaimed": "Questo profilo è in fase di completamento da parte del titolare e sarà presto pronto per la tua consultazione.",
-    "lockedUnpaid": "Questo profilo è in fase di completamento da parte del titolare e sarà presto pronto per la tua consultazione."
+    "lockedUnpaid": "Questo profilo è in fase di completamento da parte del titolare e sarà presto pronto per la tua consultazione.",
+    "contact": "Contatti"
   },
   "dim": {
     "quality": "Qualità",

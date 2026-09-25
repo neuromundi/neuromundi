@@ -455,7 +455,8 @@
     "activeOffers": "Ofertas activas",
     "noOffers": "Sin ofertas activas por ahora.",
     "lockedUnclaimed": "Este perfil está siendo completado por su titular y en breve estará listo para tu consulta.",
-    "lockedUnpaid": "Este perfil está siendo completado por su titular y en breve estará listo para tu consulta."
+    "lockedUnpaid": "Este perfil está siendo completado por su titular y en breve estará listo para tu consulta.",
+    "contact": "Contacto"
   },
   "dim": {
     "quality": "Calidad",

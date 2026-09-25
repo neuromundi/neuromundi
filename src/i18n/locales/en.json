@@ -455,7 +455,8 @@
     "activeOffers": "Active offers",
     "noOffers": "No active offers right now.",
     "lockedUnclaimed": "This profile is being completed by its owner and will be ready for you shortly.",
-    "lockedUnpaid": "This profile is being completed by its owner and will be ready for you shortly."
+    "lockedUnpaid": "This profile is being completed by its owner and will be ready for you shortly.",
+    "contact": "Contact"
   },
   "dim": {
     "quality": "Quality",

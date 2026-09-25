@@ -11,7 +11,8 @@ import {
   PolarRadiusAxis,
   ResponsiveContainer,
 } from 'recharts';
-import { ArrowLeft, MapPin, ShieldCheck, Tag, Users, Sparkles, Waves, LifeBuoy, Heart, Star, BadgeCheck, Clock } from 'lucide-react';
+import { ArrowLeft, MapPin, ShieldCheck, Tag, Users, Sparkles, Waves, LifeBuoy, Heart, Star, BadgeCheck, Clock, Phone, Globe } from 'lucide-react';
+import { safeHttpUrl } from '@/lib/safeUrl';
 import { useTranslation } from 'react-i18next';
 import { useCatLabel } from '@/lib/catLabel';
 import { cn } from '@/lib/utils';
@@ -93,12 +94,13 @@ export function ProviderProfile() {
   // origen='ficha' en esas filas.
   const isFicha = (profile as { origen?: string }).origen === 'ficha';
 
-  // Estado "solo-nombre": ficha sin reclamar o membresía sin pagar. El perfil
-  // público revela únicamente nombre/razón social + ciudad/estado + secciones;
-  // el resto (bio, contacto, EVS, reseñas, oferta, red) queda oculto hasta que
-  // el titular complete y pague. Coincide con el enmascarado del directorio.
-  const reclamable = (profile as { reclamable?: boolean }).reclamable === true;
-  const locked = reclamable || !['active', 'exempt', 'past_due'].includes((profile as { membership_status?: string }).membership_status ?? '');
+  // Estado "solo-nombre": SOLO cuando el titular reclamó/creó su perfil pero aún
+  // no paga ('pending'). Ahí se revela únicamente nombre/razón social + ciudad +
+  // secciones (incentivo de pago). Las fichas SIN reclamar ('exempt' en la vista)
+  // NO se enmascaran: muestran sus datos públicos (contacto incluido) para dar
+  // confianza; solo llevan una nota informativa de que se están completando.
+  const locked = !['active', 'exempt', 'past_due'].includes((profile as { membership_status?: string }).membership_status ?? '');
+  const website = profile.website || profile.website_url;
 
   if (locked) {
     return (
@@ -134,7 +136,7 @@ export function ProviderProfile() {
         </header>
         <div className="flex items-start gap-3 rounded-2xl border border-brand-200 bg-brand-50 p-4 text-sm text-brand-900">
           <Clock className="mt-0.5 h-5 w-5 shrink-0" aria-hidden="true" />
-          <p>{reclamable ? t('profile.lockedUnclaimed') : t('profile.lockedUnpaid')}</p>
+          <p>{t('profile.lockedUnpaid')}</p>
         </div>
       </div>
     );
@@ -198,7 +200,47 @@ export function ProviderProfile() {
         </div>
       </header>
 
+      {/* Ficha sin reclamar: nota informativa (tono suave, no de advertencia). */}
+      {isFicha && (
+        <div className="flex items-start gap-3 rounded-2xl border border-brand-200 bg-brand-50 p-4 text-sm text-brand-900">
+          <Clock className="mt-0.5 h-5 w-5 shrink-0" aria-hidden="true" />
+          <p>{t('profile.lockedUnclaimed')}</p>
+        </div>
+      )}
+
       {profile.bio && <p className="text-slate-700 leading-relaxed">{profile.bio}</p>}
+
+      {/* Datos de contacto de la ficha sin reclamar (fuentes públicas). Da
+          confianza al visitante mientras el titular no gestiona su perfil. Los
+          miembros con cuenta usan sus botones de contacto/reserva. */}
+      {isFicha && (profile.phone || website || profile.address || profile.services_offered) && (
+        <section className="rounded-2xl border border-slate-100 bg-white p-4">
+          <h2 className="mb-2 font-semibold text-slate-900">{t('profile.contact')}</h2>
+          <ul className="space-y-1.5 text-sm text-slate-700">
+            {profile.phone && (
+              <li className="flex items-center gap-2">
+                <Phone className="h-4 w-4 shrink-0 text-brand-600" aria-hidden="true" />
+                <a href={`tel:${profile.phone}`} className="hover:underline">{profile.phone}</a>
+              </li>
+            )}
+            {website && safeHttpUrl(website) && (
+              <li className="flex items-center gap-2">
+                <Globe className="h-4 w-4 shrink-0 text-brand-600" aria-hidden="true" />
+                <a href={safeHttpUrl(website)!} target="_blank" rel="noopener noreferrer" className="break-all hover:underline">
+                  {website.replace(/^https?:\/\//i, '')}
+                </a>
+              </li>
+            )}
+            {profile.address && (
+              <li className="flex items-start gap-2">
+                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-brand-600" aria-hidden="true" />
+                <span>{profile.address}</span>
+              </li>
+            )}
+          </ul>
+          {profile.services_offered && <p className="mt-2 text-sm text-slate-600">{profile.services_offered}</p>}
+        </section>
+      )}
 
       {!isFicha && (isParent || isConsumer || (isProvider && userId !== id)) && (
         // onClickCapture cuenta un CONTACTO al pulsar cualquier botón de esta

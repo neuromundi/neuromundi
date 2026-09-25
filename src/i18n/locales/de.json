@@ -418,7 +418,8 @@
     "activeOffers": "Aktive Angebote",
     "noOffers": "Derzeit keine aktiven Angebote.",
     "lockedUnclaimed": "Dieses Profil wird gerade von seinem Inhaber vervollständigt und steht Ihnen in Kürze zur Verfügung.",
-    "lockedUnpaid": "Dieses Profil wird gerade von seinem Inhaber vervollständigt und steht Ihnen in Kürze zur Verfügung."
+    "lockedUnpaid": "Dieses Profil wird gerade von seinem Inhaber vervollständigt und steht Ihnen in Kürze zur Verfügung.",
+    "contact": "Kontakt"
   },
   "dim": {
     "quality": "Qualität",

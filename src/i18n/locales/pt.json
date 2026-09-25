@@ -418,7 +418,8 @@
     "activeOffers": "Ofertas ativas",
     "noOffers": "Sem ofertas ativas no momento.",
     "lockedUnclaimed": "Este perfil está sendo preenchido por seu titular e em breve estará pronto para a sua consulta.",
-    "lockedUnpaid": "Este perfil está sendo preenchido por seu titular e em breve estará pronto para a sua consulta."
+    "lockedUnpaid": "Este perfil está sendo preenchido por seu titular e em breve estará pronto para a sua consulta.",
+    "contact": "Contato"
   },
   "dim": {
     "quality": "Qualidade",

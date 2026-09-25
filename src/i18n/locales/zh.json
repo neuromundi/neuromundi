@@ -418,7 +418,8 @@
     "activeOffers": "有效优惠",
     "noOffers": "暂无有效优惠。",
     "lockedUnclaimed": "此档案的拥有者正在完善中，很快即可供您查看。",
-    "lockedUnpaid": "此档案的拥有者正在完善中，很快即可供您查看。"
+    "lockedUnpaid": "此档案的拥有者正在完善中，很快即可供您查看。",
+    "contact": "联系方式"
   },
   "dim": {
     "quality": "质量",

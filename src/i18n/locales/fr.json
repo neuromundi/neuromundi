@@ -418,7 +418,8 @@
     "activeOffers": "Offres actives",
     "noOffers": "Aucune offre active pour le moment.",
     "lockedUnclaimed": "Ce profil est en cours de complétion par son titulaire et sera bientôt prêt pour votre consultation.",
-    "lockedUnpaid": "Ce profil est en cours de complétion par son titulaire et sera bientôt prêt pour votre consultation."
+    "lockedUnpaid": "Ce profil est en cours de complétion par son titulaire et sera bientôt prêt pour votre consultation.",
+    "contact": "Contact"
   },
   "dim": {
     "quality": "Qualité",

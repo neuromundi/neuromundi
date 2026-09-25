@@ -59,12 +59,12 @@ export function ProviderCard({
   const name = provider.business_name ?? provider.full_name;
   const primaryCategory = provider.categories[0]?.name;
 
-  // Estado "solo-nombre": la ficha aún no la reclama nadie (`reclamable`) o el
-  // titular no ha pagado su membresía (`membership_status` fuera de los estados
-  // cubiertos). En ese caso la búsqueda solo revela nombre/razón social + ciudad
-  // (decisión de producto): se ocultan EVS, reseñas, especialidades y contacto.
-  const reclamable = (provider as { reclamable?: boolean }).reclamable === true;
-  const locked = reclamable || !['active', 'exempt', 'past_due'].includes(provider.membership_status ?? '');
+  // Estado "solo-nombre": el titular RECLAMÓ o creó su perfil pero aún no paga
+  // su membresía (`membership_status = 'pending'`). Ahí la búsqueda solo revela
+  // nombre/razón social + ciudad (incentivo de pago). Las fichas SIN reclamar
+  // (membership_status 'exempt' en la vista) NO se enmascaran: muestran sus
+  // datos públicos para que el directorio no parezca vacío ni un engaño.
+  const locked = !['active', 'exempt', 'past_due'].includes(provider.membership_status ?? '');
 
   if (locked) {
     return (
