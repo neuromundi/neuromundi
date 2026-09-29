@@ -80,14 +80,27 @@ automáticas y las que nunca se clasificaron.
 | Fichas con `specialties` | 0 | 409 |
 | Fichas con `intervention_areas` | 0 | 384 |
 | Fichas con `neuro_conditions` | 0 | 111 |
-| Sin clasificar (de 1026) | 1026 | 244 |
+| Sin clasificar (de 1026) | 1026 | 132 |
 
 Filtros sobre la vista pública, comprobados uno por uno: TEA 131, TDAH 41,
 epilepsia 20, equinoterapia 10, hidroterapia 10, ABA 8, acompañante terapéutico 1.
 Antes todos daban 0.
 
-Las 244 sin clasificar son sobre todo fichas DENUE con nombre genérico y sin
-`especializacion`. No inventé nada para ellas.
+### 0138 — también aplicada
+
+La 0137 dejó 244 sin clasificar. **La causa principal no era falta de reglas sino
+los acentos del dato.** Los patrones son ASCII y la coincidencia es literal:
+`'neuropsicolog'` NO casa con `'neuropsicológica'`, porque el acento cae dentro
+de la subcadena. La 0138 añade `public.sin_acentos()` (translate, porque
+`unaccent` no está instalada en este proyecto) y normaliza antes de comparar.
+
+Además, 53 fichas decían «educación para necesidades especiales» —la redacción
+del DENUE para escuelas de educación especial— y ninguna regla la cubría. Con
+esa regla más el resto, las sin clasificar bajaron de **244 a 132** (120 de ellas
+publicadas).
+
+**Si escribes una regla nueva, escríbela sin acentos.** El texto ya llega
+normalizado.
 
 ### Lo que NO hace
 
@@ -115,7 +128,18 @@ Los tipos los verifiqué contra `src/types/database.ts`: `services_offered` y
 
 ---
 
-## 4. Orden de migraciones — ojo
+## 4. Un bug latente que no toqué
+
+`supabase/functions/reclamar-ficha/index.ts` crea el perfil con
+`country: 'MX'`, pero las fichas usan `country: 'México'` (migración 0131) y el
+front filtra por NOMBRE de país (`MEXICO_NAME = 'México'` en
+`src/data/countries.ts`). **La primera ficha que alguien reclame desaparecería
+del directorio filtrado por México.** Todavía no ha reclamado nadie, así que no
+hay daño hecho. No lo corregí porque la Edge Function es terreno tuyo.
+
+---
+
+## 5. Orden de migraciones — ojo
 
 Cuando apliqué la 0137, la base estaba en **0134** y el repo ya tenía **0135
 (`catalog_suggestions`)** y **0136 (`admin_create_category`)** sin aplicar. No las
@@ -129,7 +153,7 @@ no se tocan, pero si usas `supabase db push` puede quejarse de orden.
 
 ---
 
-## 5. 278 fichas nuevas en `por_verificar`
+## 6. 278 fichas nuevas en `por_verificar`
 
 Investigación de candidatos en 14 estados (Querétaro 63, SLP 20, Aguascalientes
 20, BCS 20, Durango 19, Tabasco 18, Morelos 17, Colima 16, Quintana Roo 15,
@@ -151,18 +175,25 @@ El detalle completo, con reseñas y fuentes, está en
 
 ---
 
-## 6. Pendientes que dejo abiertos
+## 7. Pendientes que dejo abiertos
 
 1. **`sections` no discrimina.** 728 fichas en neurodesarrollo, 726 en
    neurodivergencias, 721 en afecciones: prácticamente todas están en las tres,
    así que el filtro por sección no separa nada. No lo toqué porque corregirlo
    saca fichas de secciones y es una decisión de producto, no técnica. Ahora que
    existen `specialties` y `neuro_conditions`, se puede derivar bien.
-2. **244 fichas sin clasificar.** Necesitan `especializacion` o una regla nueva.
-3. **Categorías todavía en cero**: turismo accesible, tecnología de apoyo / CAA,
+2. **132 fichas sin clasificar**, 120 de ellas publicadas. Están exportadas en
+   `Fichas sin clasificar Neuromundi.xlsx`, con una columna para escribir el
+   servicio real. Antes de tocarlas una por una, conviene buscar términos
+   repetidos: una sola regla arregló 103 de golpe.
+3. **Faltan claves en el catálogo**, no reglas, para tres servicios que sí
+   existen en el directorio: inclusión laboral y empleo con apoyo, deporte
+   adaptado, y prótesis / órtesis / ayudas técnicas (estas últimas son
+   `merchant` y su sitio es `product_categories`, que la función no llena).
+   Primero la clave en `src/data/`, después la regla.
+4. **Categorías todavía en cero**: turismo accesible, tecnología de apoyo / CAA,
    odontología especializada. Los 14 agentes las buscaron en todo el país y no
    encontraron proveedores mexicanos privados.
-4. **Regenerar los tipos de Supabase** después de la 0137: `directorio` ganó
-   cinco columnas.
-5. `provider_types` sigue sin estar en `database.ts`; `useDirectory` lo resuelve
+5. **Regenerar los tipos de Supabase**: `directorio` ganó cinco columnas.
+6. `provider_types` sigue sin estar en `database.ts`; `useDirectory` lo resuelve
    con un cast en línea desde la 0097.
