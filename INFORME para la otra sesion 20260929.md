@@ -128,14 +128,21 @@ Los tipos los verifiqué contra `src/types/database.ts`: `services_offered` y
 
 ---
 
-## 4. Un bug latente que no toqué
+## 4. Bug de país en `reclamar-ficha` — RESUELTO
 
-`supabase/functions/reclamar-ficha/index.ts` crea el perfil con
+`supabase/functions/reclamar-ficha/index.ts` creaba el perfil con
 `country: 'MX'`, pero las fichas usan `country: 'México'` (migración 0131) y el
-front filtra por NOMBRE de país (`MEXICO_NAME = 'México'` en
-`src/data/countries.ts`). **La primera ficha que alguien reclame desaparecería
-del directorio filtrado por México.** Todavía no ha reclamado nadie, así que no
-hay daño hecho. No lo corregí porque la Edge Function es terreno tuyo.
+front segmenta por NOMBRE de país (`MEXICO_NAME = 'México'` en
+`src/data/countries.ts`). La primera ficha que alguien reclamara habría
+desaparecido del directorio con México seleccionado, que es el valor por
+defecto.
+
+Corregido en el commit `608bf78` y **desplegado**: la Edge Function corre la
+versión 27 y su código ya dice `country: 'México'`. Comprobado leyendo la
+función desplegada, no solo el repo — un commit no despliega una Edge Function.
+
+No hubo datos que reparar: ningún perfil llegó a guardarse con `'MX'` y no ha
+habido reclamaciones.
 
 ---
 
