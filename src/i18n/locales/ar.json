@@ -472,7 +472,8 @@
     "areasLabel": "مجالات التدخل",
     "conditionsLabel": "الحالات المخدومة",
     "methodologiesLabel": "المنهجيات والشهادات",
-    "accessibilityLabel": "إمكانية الوصول"
+    "accessibilityLabel": "إمكانية الوصول",
+    "location": "الموقع"
   },
   "dim": {
     "quality": "الجودة",

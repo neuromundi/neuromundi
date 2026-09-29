@@ -1,7 +1,7 @@
 /**
  * ProviderProfile — perfil público de un proveedor (internacionalizado).
  */
-import { useEffect, useRef, useState } from 'react';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import {
   Radar,
@@ -35,6 +35,11 @@ import { useProviderReview } from '@/hooks/useProviderReview';
 import { trackProfileEvent } from '@/hooks/useProviderMetrics';
 import { discountLabel } from '@/lib/utils';
 import { DIMENSION_LABEL_KEY } from '@/types/app';
+
+// Mini-mapa de un pin: se carga aparte para no meter Leaflet en el bundle inicial.
+const ProviderMiniMap = lazy(() =>
+  import('@/components/directory/ProviderMiniMap').then((m) => ({ default: m.ProviderMiniMap })),
+);
 
 export function ProviderProfile() {
   const { id = '' } = useParams();
@@ -224,28 +229,41 @@ export function ProviderProfile() {
         </div>
       </header>
 
-      {mapsHref && (
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="text-sm text-muted">{t('profile.howToGet')}</span>
-          <a
-            href={mapsHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
-          >
-            <Navigation className="h-4 w-4 text-brand-600" aria-hidden="true" /> Google Maps
-          </a>
-          {wazeHref && (
-            <a
-              href={wazeHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
-            >
-              <Navigation className="h-4 w-4 text-sky-500" aria-hidden="true" /> Waze
-            </a>
+      {(hasCoords || mapsHref) && (
+        <section className="space-y-2">
+          <h2 className="flex items-center gap-1.5 font-semibold text-slate-900">
+            <MapPin className="h-4 w-4 text-brand-500" aria-hidden="true" /> {t('profile.location')}
+          </h2>
+          {profile.address && <p className="text-sm text-slate-600">{profile.address}</p>}
+          {hasCoords && (
+            <Suspense fallback={<div className="h-56 w-full animate-pulse rounded-2xl bg-slate-100" />}>
+              <ProviderMiniMap lat={profile.latitude as number} lng={profile.longitude as number} />
+            </Suspense>
           )}
-        </div>
+          {mapsHref && (
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-sm text-muted">{t('profile.howToGet')}</span>
+              <a
+                href={mapsHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+              >
+                <Navigation className="h-4 w-4 text-brand-600" aria-hidden="true" /> Google Maps
+              </a>
+              {wazeHref && (
+                <a
+                  href={wazeHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+                >
+                  <Navigation className="h-4 w-4 text-sky-500" aria-hidden="true" /> Waze
+                </a>
+              )}
+            </div>
+          )}
+        </section>
       )}
 
       {profile.bio && <p className="text-slate-700 leading-relaxed">{profile.bio}</p>}

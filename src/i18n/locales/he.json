@@ -472,7 +472,8 @@
     "areasLabel": "תחומי התערבות",
     "conditionsLabel": "מצבים מטופלים",
     "methodologiesLabel": "שיטות והסמכות",
-    "accessibilityLabel": "נגישות"
+    "accessibilityLabel": "נגישות",
+    "location": "מיקום"
   },
   "dim": {
     "quality": "איכות",

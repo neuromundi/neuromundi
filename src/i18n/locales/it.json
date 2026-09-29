@@ -435,7 +435,8 @@
     "areasLabel": "Aree di intervento",
     "conditionsLabel": "Condizioni seguite",
     "methodologiesLabel": "Metodologie e certificazioni",
-    "accessibilityLabel": "Accessibilità"
+    "accessibilityLabel": "Accessibilità",
+    "location": "Posizione"
   },
   "dim": {
     "quality": "Qualità",

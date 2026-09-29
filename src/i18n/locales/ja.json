@@ -435,7 +435,8 @@
     "areasLabel": "介入領域",
     "conditionsLabel": "対応する状態",
     "methodologiesLabel": "手法・資格",
-    "accessibilityLabel": "アクセシビリティ"
+    "accessibilityLabel": "アクセシビリティ",
+    "location": "所在地"
   },
   "dim": {
     "quality": "品質",

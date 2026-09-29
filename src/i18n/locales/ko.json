@@ -472,7 +472,8 @@
     "areasLabel": "중재 영역",
     "conditionsLabel": "지원하는 상태",
     "methodologiesLabel": "방법론 및 자격",
-    "accessibilityLabel": "접근성"
+    "accessibilityLabel": "접근성",
+    "location": "위치"
   },
   "dim": {
     "quality": "품질",

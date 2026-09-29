@@ -435,7 +435,8 @@
     "areasLabel": "Interventionsbereiche",
     "conditionsLabel": "Betreute Diagnosen",
     "methodologiesLabel": "Methoden und Zertifizierungen",
-    "accessibilityLabel": "Barrierefreiheit"
+    "accessibilityLabel": "Barrierefreiheit",
+    "location": "Standort"
   },
   "dim": {
     "quality": "Qualität",

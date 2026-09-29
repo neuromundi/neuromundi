@@ -435,7 +435,8 @@
     "areasLabel": "干预领域",
     "conditionsLabel": "服务的病症",
     "methodologiesLabel": "方法与认证",
-    "accessibilityLabel": "无障碍设施"
+    "accessibilityLabel": "无障碍设施",
+    "location": "位置"
   },
   "dim": {
     "quality": "质量",
