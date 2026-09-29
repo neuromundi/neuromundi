@@ -996,7 +996,8 @@
     },
     "secSurvey": "アンケート",
     "secInvitations": "招待",
-    "secCarousel": "カルーセル"
+    "secCarousel": "カルーセル",
+    "secSuggestions": "提案"
   },
   "reg": {
     "typePatient": "患者",
@@ -5060,5 +5061,40 @@
     "ctaLogin": "アカウントを持っています。ログイン",
     "ctaPanel": "創設メンバー用パネルへ",
     "fineprint": "枠は各国で先着順に確保されます。"
+  },
+  "suggest": {
+    "dirTitle": "新しいカテゴリーを提案",
+    "dirHelp": "ディレクトリに足りないカテゴリーがありますか？ご提案いただければチームが確認します。",
+    "dirNameLabel": "提案するカテゴリー",
+    "dirCta": "カテゴリーが足りない？提案する",
+    "storeTitle": "ストアへの提案",
+    "storeHelp": "探している商品やカテゴリーが見つかりませんか？見つけたいものを教えてください。確認します。（販売の出品ではありません。）",
+    "storeCta": "商品やカテゴリーを提案",
+    "whatLabel": "何を提案しますか？",
+    "kindProduct": "商品",
+    "kindCategory": "カテゴリー",
+    "productNameLabel": "見つけたい商品",
+    "categoryNameLabel": "提案するカテゴリー",
+    "namePlaceholder": "分かりやすい短い名前を入力",
+    "noteLabel": "理由（任意）",
+    "notePlaceholder": "どんな役に立つか簡単に教えてください",
+    "emailLabel": "メールアドレス（任意）",
+    "emailPlaceholder": "追加された場合にお知らせします",
+    "send": "提案を送信",
+    "thanks": "ありがとうございます！ご提案を受け付けました。チームが確認します。",
+    "anon": "匿名",
+    "adminEmpty": "この状態の提案はありません。",
+    "filterAll": "すべて",
+    "kind": {
+      "directory_category": "カテゴリー（ディレクトリ）",
+      "store_product": "商品（ストア）",
+      "store_category": "カテゴリー（ストア）"
+    },
+    "status": {
+      "new": "新規",
+      "reviewed": "確認済み",
+      "accepted": "承認済み",
+      "dismissed": "却下"
+    }
   }
 }

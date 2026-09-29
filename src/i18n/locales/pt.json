@@ -996,7 +996,8 @@
     },
     "secSurvey": "Pesquisa",
     "secInvitations": "Convites",
-    "secCarousel": "Carrossel"
+    "secCarousel": "Carrossel",
+    "secSuggestions": "Sugestões"
   },
   "reg": {
     "typePatient": "Paciente",
@@ -5060,5 +5061,40 @@
     "ctaLogin": "Já tenho conta, entrar",
     "ctaPanel": "Ir ao meu painel de fundador",
     "fineprint": "As vagas são reservadas por ordem de chegada em cada país."
+  },
+  "suggest": {
+    "dirTitle": "Sugira uma nova categoria",
+    "dirHelp": "Falta uma categoria no diretório? Sugira e nossa equipe irá avaliá-la.",
+    "dirNameLabel": "Categoria que você propõe",
+    "dirCta": "Falta uma categoria? Sugira",
+    "storeTitle": "Sugira para a loja",
+    "storeHelp": "Não encontra um produto ou categoria? Diga-nos o que gostaria de encontrar e vamos avaliar. (Não é um anúncio de venda.)",
+    "storeCta": "Sugira um produto ou categoria",
+    "whatLabel": "O que você quer sugerir?",
+    "kindProduct": "Um produto",
+    "kindCategory": "Uma categoria",
+    "productNameLabel": "Produto que você gostaria de encontrar",
+    "categoryNameLabel": "Categoria que você propõe",
+    "namePlaceholder": "Escreva um nome claro e curto",
+    "noteLabel": "Por quê? (opcional)",
+    "notePlaceholder": "Conte-nos brevemente para que serviria",
+    "emailLabel": "Seu e-mail (opcional)",
+    "emailPlaceholder": "Para avisar se for adicionada",
+    "send": "Enviar sugestão",
+    "thanks": "Obrigado! Sua sugestão foi registrada e nossa equipe irá avaliá-la.",
+    "anon": "Anônimo",
+    "adminEmpty": "Nenhuma sugestão neste status.",
+    "filterAll": "Todas",
+    "kind": {
+      "directory_category": "Categoria (diretório)",
+      "store_product": "Produto (loja)",
+      "store_category": "Categoria (loja)"
+    },
+    "status": {
+      "new": "Nova",
+      "reviewed": "Revisada",
+      "accepted": "Aceita",
+      "dismissed": "Descartada"
+    }
   }
 }

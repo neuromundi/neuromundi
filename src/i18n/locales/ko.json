@@ -1033,7 +1033,8 @@
     },
     "secSurvey": "설문",
     "secInvitations": "초대",
-    "secCarousel": "캐러셀"
+    "secCarousel": "캐러셀",
+    "secSuggestions": "제안"
   },
   "reg": {
     "typePatient": "환자",
@@ -5060,5 +5061,40 @@
     "ctaLogin": "이미 계정이 있습니다. 로그인",
     "ctaPanel": "내 창립 멤버 패널로 이동",
     "fineprint": "자리는 각 국가에서 선착순으로 예약됩니다."
+  },
+  "suggest": {
+    "dirTitle": "새 카테고리 제안",
+    "dirHelp": "디렉터리에 없는 카테고리가 있나요? 제안해 주시면 팀에서 검토합니다.",
+    "dirNameLabel": "제안하는 카테고리",
+    "dirCta": "카테고리가 없나요? 제안하기",
+    "storeTitle": "스토어에 제안",
+    "storeHelp": "찾는 상품이나 카테고리가 없나요? 원하는 것을 알려주시면 검토합니다. (판매 등록이 아닙니다.)",
+    "storeCta": "상품 또는 카테고리 제안",
+    "whatLabel": "무엇을 제안하시겠어요?",
+    "kindProduct": "상품",
+    "kindCategory": "카테고리",
+    "productNameLabel": "찾고 싶은 상품",
+    "categoryNameLabel": "제안하는 카테고리",
+    "namePlaceholder": "짧고 명확한 이름을 입력",
+    "noteLabel": "이유 (선택)",
+    "notePlaceholder": "어떤 도움이 될지 간단히 알려주세요",
+    "emailLabel": "이메일 (선택)",
+    "emailPlaceholder": "추가되면 알려드릴게요",
+    "send": "제안 보내기",
+    "thanks": "감사합니다! 제안이 접수되었으며 팀에서 검토하겠습니다.",
+    "anon": "익명",
+    "adminEmpty": "이 상태의 제안이 없습니다.",
+    "filterAll": "전체",
+    "kind": {
+      "directory_category": "카테고리(디렉터리)",
+      "store_product": "상품(스토어)",
+      "store_category": "카테고리(스토어)"
+    },
+    "status": {
+      "new": "신규",
+      "reviewed": "검토됨",
+      "accepted": "수락됨",
+      "dismissed": "기각됨"
+    }
   }
 }

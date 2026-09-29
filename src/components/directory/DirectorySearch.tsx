@@ -7,9 +7,10 @@
  */
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { Search, List, MapPin, Globe, BellPlus, X, SlidersHorizontal, HeartPulse, PawPrint, Baby, GraduationCap, Package, Palette, Sparkles, LocateFixed, Loader2, Dumbbell, Ticket, Scale, HeartHandshake, HandHeart, Briefcase, Sprout, Stethoscope, LayoutGrid } from 'lucide-react';
+import { Search, List, MapPin, Globe, BellPlus, X, SlidersHorizontal, HeartPulse, PawPrint, Baby, GraduationCap, Package, Palette, Sparkles, LocateFixed, Loader2, Dumbbell, Ticket, Scale, HeartHandshake, HandHeart, Briefcase, Sprout, Stethoscope, LayoutGrid, Plus } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { ProviderCard } from './ProviderCard';
+import { SuggestModal } from '@/components/common/SuggestModal';
 import { MapView } from './MapView';
 import { SearchableSelect, type Option } from './SearchableSelect';
 import { SkeletonCard, useToast } from '@/components/ui';
@@ -145,6 +146,7 @@ export function DirectorySearch({ onViewProfile }: DirectorySearchProps) {
   const [domain, setDomain] = useState<string | null>(null);
   const [neuro, setNeuro] = useState(false);
   const [filtersOpen, setFiltersOpen] = useState(false);
+  const [suggestOpen, setSuggestOpen] = useState(false);
 
   // Opciones del selector con búsqueda: condiciones + áreas de intervención.
   const specialtyOptions = useMemo<Option[]>(
@@ -507,6 +509,21 @@ export function DirectorySearch({ onViewProfile }: DirectorySearchProps) {
           </button>
         </div>
       </div>
+
+      {/* Curaduría comunitaria: proponer una categoría que falte. Abierto a
+          todos; la sugerencia entra a una cola que el admin revisa. */}
+      <div className="mt-3 flex justify-center">
+        <button
+          type="button"
+          onClick={() => setSuggestOpen(true)}
+          className="inline-flex items-center gap-1.5 rounded-full border border-dashed border-brand-300 bg-brand-50/50 px-4 py-2 text-sm font-semibold text-brand-700 hover:bg-brand-50"
+        >
+          <Plus className="h-4 w-4" aria-hidden="true" /> {t('suggest.dirCta')}
+        </button>
+      </div>
+      {suggestOpen && (
+        <SuggestModal context="directory" section={section} country={country} onClose={() => setSuggestOpen(false)} />
+      )}
 
       {/* Contenido. `grid-cols-1` en móvil es OBLIGATORIO: sin columnas
           definidas, el grid crea una columna implícita `auto` que crece al

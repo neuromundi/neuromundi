@@ -1033,7 +1033,8 @@
     },
     "secSurvey": "סקר",
     "secInvitations": "הזמנות",
-    "secCarousel": "קרוסלה"
+    "secCarousel": "קרוסלה",
+    "secSuggestions": "הצעות"
   },
   "reg": {
     "typePatient": "מטופל/ת",
@@ -5060,5 +5061,40 @@
     "ctaLogin": "כבר יש לי חשבון, כניסה",
     "ctaPanel": "למעבר ללוח המייסד שלי",
     "fineprint": "המקומות נשמרים לפי סדר ההגעה בכל מדינה."
+  },
+  "suggest": {
+    "dirTitle": "הצעת קטגוריה חדשה",
+    "dirHelp": "חסרה קטגוריה במדריך? הציעו אותה והצוות שלנו יבדוק.",
+    "dirNameLabel": "הקטגוריה שאתם מציעים",
+    "dirCta": "חסרה קטגוריה? הציעו",
+    "storeTitle": "הצעה לחנות",
+    "storeHelp": "לא מוצאים מוצר או קטגוריה? ספרו לנו מה תרצו למצוא ונבדוק. (זו אינה מודעת מכירה.)",
+    "storeCta": "הציעו מוצר או קטגוריה",
+    "whatLabel": "מה תרצו להציע?",
+    "kindProduct": "מוצר",
+    "kindCategory": "קטגוריה",
+    "productNameLabel": "המוצר שתרצו למצוא",
+    "categoryNameLabel": "הקטגוריה שאתם מציעים",
+    "namePlaceholder": "כתבו שם קצר וברור",
+    "noteLabel": "למה? (רשות)",
+    "notePlaceholder": "ספרו בקצרה למה זה ישמש",
+    "emailLabel": "האימייל שלכם (רשות)",
+    "emailPlaceholder": "כדי לעדכן אתכם אם יתווסף",
+    "send": "שליחת הצעה",
+    "thanks": "תודה! ההצעה נקלטה והצוות שלנו יבדוק אותה.",
+    "anon": "אנונימי",
+    "adminEmpty": "אין הצעות בסטטוס זה.",
+    "filterAll": "הכול",
+    "kind": {
+      "directory_category": "קטגוריה (מדריך)",
+      "store_product": "מוצר (חנות)",
+      "store_category": "קטגוריה (חנות)"
+    },
+    "status": {
+      "new": "חדשה",
+      "reviewed": "נבדקה",
+      "accepted": "התקבלה",
+      "dismissed": "נדחתה"
+    }
   }
 }

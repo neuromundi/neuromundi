@@ -996,7 +996,8 @@
     },
     "secSurvey": "Sondaggio",
     "secInvitations": "Inviti",
-    "secCarousel": "Carosello"
+    "secCarousel": "Carosello",
+    "secSuggestions": "Suggerimenti"
   },
   "reg": {
     "typePatient": "Paziente",
@@ -5060,5 +5061,40 @@
     "ctaLogin": "Ho già un account, accedi",
     "ctaPanel": "Vai al mio pannello fondatore",
     "fineprint": "I posti si riservano in ordine di arrivo in ogni Paese."
+  },
+  "suggest": {
+    "dirTitle": "Suggerisci una nuova categoria",
+    "dirHelp": "Manca una categoria nell'elenco? Proponila e il nostro team la valuterà.",
+    "dirNameLabel": "Categoria proposta",
+    "dirCta": "Manca una categoria? Suggeriscila",
+    "storeTitle": "Suggerisci per il negozio",
+    "storeHelp": "Non trovi un prodotto o una categoria? Dicci cosa vorresti trovare e lo valuteremo. (Non è un annuncio di vendita.)",
+    "storeCta": "Suggerisci un prodotto o una categoria",
+    "whatLabel": "Cosa vuoi suggerire?",
+    "kindProduct": "Un prodotto",
+    "kindCategory": "Una categoria",
+    "productNameLabel": "Prodotto che vorresti trovare",
+    "categoryNameLabel": "Categoria proposta",
+    "namePlaceholder": "Scrivi un nome chiaro e breve",
+    "noteLabel": "Perché? (facoltativo)",
+    "notePlaceholder": "Dicci brevemente a cosa servirebbe",
+    "emailLabel": "La tua email (facoltativo)",
+    "emailPlaceholder": "Per avvisarti se viene aggiunta",
+    "send": "Invia suggerimento",
+    "thanks": "Grazie! Il tuo suggerimento è stato registrato e il nostro team lo valuterà.",
+    "anon": "Anonimo",
+    "adminEmpty": "Nessun suggerimento in questo stato.",
+    "filterAll": "Tutte",
+    "kind": {
+      "directory_category": "Categoria (elenco)",
+      "store_product": "Prodotto (negozio)",
+      "store_category": "Categoria (negozio)"
+    },
+    "status": {
+      "new": "Nuova",
+      "reviewed": "Esaminata",
+      "accepted": "Accettata",
+      "dismissed": "Scartata"
+    }
   }
 }

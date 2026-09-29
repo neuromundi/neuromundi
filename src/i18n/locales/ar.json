@@ -1033,7 +1033,8 @@
     },
     "secSurvey": "استبيان",
     "secInvitations": "الدعوات",
-    "secCarousel": "الشريط الدوّار"
+    "secCarousel": "الشريط الدوّار",
+    "secSuggestions": "الاقتراحات"
   },
   "reg": {
     "typePatient": "مريض",
@@ -5060,5 +5061,40 @@
     "ctaLogin": "لديّ حساب بالفعل، تسجيل الدخول",
     "ctaPanel": "الذهاب إلى لوحة المؤسس",
     "fineprint": "تُحجز الأماكن بأسبقية التسجيل في كل دولة."
+  },
+  "suggest": {
+    "dirTitle": "اقترح فئة جديدة",
+    "dirHelp": "هل تنقص فئة في الدليل؟ اقترحها وسيراجعها فريقنا.",
+    "dirNameLabel": "الفئة التي تقترحها",
+    "dirCta": "تنقص فئة؟ اقترحها",
+    "storeTitle": "اقترح للمتجر",
+    "storeHelp": "لا تجد منتجًا أو فئة؟ أخبرنا بما تودّ إيجاده وسنراجعه. (هذا ليس إعلان بيع.)",
+    "storeCta": "اقترح منتجًا أو فئة",
+    "whatLabel": "ماذا تريد أن تقترح؟",
+    "kindProduct": "منتج",
+    "kindCategory": "فئة",
+    "productNameLabel": "المنتج الذي تودّ إيجاده",
+    "categoryNameLabel": "الفئة التي تقترحها",
+    "namePlaceholder": "اكتب اسمًا واضحًا وقصيرًا",
+    "noteLabel": "لماذا؟ (اختياري)",
+    "notePlaceholder": "أخبرنا باختصار عن فائدته",
+    "emailLabel": "بريدك الإلكتروني (اختياري)",
+    "emailPlaceholder": "لإعلامك في حال إضافتها",
+    "send": "إرسال الاقتراح",
+    "thanks": "شكرًا! تم تسجيل اقتراحك وسيراجعه فريقنا.",
+    "anon": "مجهول",
+    "adminEmpty": "لا توجد اقتراحات بهذه الحالة.",
+    "filterAll": "الكل",
+    "kind": {
+      "directory_category": "فئة (الدليل)",
+      "store_product": "منتج (المتجر)",
+      "store_category": "فئة (المتجر)"
+    },
+    "status": {
+      "new": "جديدة",
+      "reviewed": "تمت المراجعة",
+      "accepted": "مقبولة",
+      "dismissed": "مرفوضة"
+    }
   }
 }

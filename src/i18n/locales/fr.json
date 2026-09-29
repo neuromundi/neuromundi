@@ -996,7 +996,8 @@
     },
     "secSurvey": "Enquête",
     "secInvitations": "Invitations",
-    "secCarousel": "Carrousel"
+    "secCarousel": "Carrousel",
+    "secSuggestions": "Suggestions"
   },
   "reg": {
     "typePatient": "Patient",
@@ -5060,5 +5061,40 @@
     "ctaLogin": "J'ai déjà un compte, se connecter",
     "ctaPanel": "Aller à mon espace fondateur",
     "fineprint": "Les places sont réservées par ordre d'arrivée dans chaque pays."
+  },
+  "suggest": {
+    "dirTitle": "Suggérer une nouvelle catégorie",
+    "dirHelp": "Une catégorie manque dans l'annuaire ? Proposez-la et notre équipe l'examinera.",
+    "dirNameLabel": "Catégorie proposée",
+    "dirCta": "Une catégorie manque ? Proposez-la",
+    "storeTitle": "Suggérer pour la boutique",
+    "storeHelp": "Vous ne trouvez pas un produit ou une catégorie ? Dites-nous ce que vous aimeriez trouver et nous l'examinerons. (Ce n'est pas une annonce de vente.)",
+    "storeCta": "Suggérer un produit ou une catégorie",
+    "whatLabel": "Que souhaitez-vous suggérer ?",
+    "kindProduct": "Un produit",
+    "kindCategory": "Une catégorie",
+    "productNameLabel": "Produit que vous aimeriez trouver",
+    "categoryNameLabel": "Catégorie proposée",
+    "namePlaceholder": "Saisissez un nom clair et court",
+    "noteLabel": "Pourquoi ? (facultatif)",
+    "notePlaceholder": "Dites-nous brièvement à quoi cela servirait",
+    "emailLabel": "Votre e-mail (facultatif)",
+    "emailPlaceholder": "Pour vous prévenir si elle est ajoutée",
+    "send": "Envoyer la suggestion",
+    "thanks": "Merci ! Votre suggestion a été enregistrée et notre équipe l'examinera.",
+    "anon": "Anonyme",
+    "adminEmpty": "Aucune suggestion dans ce statut.",
+    "filterAll": "Toutes",
+    "kind": {
+      "directory_category": "Catégorie (annuaire)",
+      "store_product": "Produit (boutique)",
+      "store_category": "Catégorie (boutique)"
+    },
+    "status": {
+      "new": "Nouvelle",
+      "reviewed": "Examinée",
+      "accepted": "Acceptée",
+      "dismissed": "Rejetée"
+    }
   }
 }

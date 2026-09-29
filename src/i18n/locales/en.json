@@ -1033,7 +1033,8 @@
     },
     "secSurvey": "Survey",
     "secInvitations": "Invitations",
-    "secCarousel": "Carousel"
+    "secCarousel": "Carousel",
+    "secSuggestions": "Suggestions"
   },
   "reg": {
     "typePatient": "Patient",
@@ -5060,5 +5061,40 @@
     "ctaLogin": "I already have an account, sign in",
     "ctaPanel": "Go to my founder panel",
     "fineprint": "Spots are reserved first-come, first-served in each country."
+  },
+  "suggest": {
+    "dirTitle": "Suggest a new category",
+    "dirHelp": "Is a category missing from the directory? Suggest it and our team will review it.",
+    "dirNameLabel": "Category you propose",
+    "dirCta": "Missing a category? Suggest it",
+    "storeTitle": "Suggest for the store",
+    "storeHelp": "Can't find a product or category? Tell us what you'd like to find and we'll review it. (This isn't a sales listing.)",
+    "storeCta": "Suggest a product or category",
+    "whatLabel": "What would you like to suggest?",
+    "kindProduct": "A product",
+    "kindCategory": "A category",
+    "productNameLabel": "Product you'd like to find",
+    "categoryNameLabel": "Category you propose",
+    "namePlaceholder": "Write a clear, short name",
+    "noteLabel": "Why? (optional)",
+    "notePlaceholder": "Tell us briefly what it would be for",
+    "emailLabel": "Your email (optional)",
+    "emailPlaceholder": "So we can let you know if it's added",
+    "send": "Send suggestion",
+    "thanks": "Thank you! Your suggestion was received and our team will review it.",
+    "anon": "Anonymous",
+    "adminEmpty": "No suggestions in this status.",
+    "filterAll": "All",
+    "kind": {
+      "directory_category": "Category (directory)",
+      "store_product": "Product (store)",
+      "store_category": "Category (store)"
+    },
+    "status": {
+      "new": "New",
+      "reviewed": "Reviewed",
+      "accepted": "Accepted",
+      "dismissed": "Dismissed"
+    }
   }
 }

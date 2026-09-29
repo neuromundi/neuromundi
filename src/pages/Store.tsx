@@ -6,10 +6,11 @@
  */
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ShoppingBag, Tag, Search, Star, ShieldCheck, MessageSquare } from 'lucide-react';
+import { ShoppingBag, Tag, Search, Star, ShieldCheck, MessageSquare, Plus } from 'lucide-react';
 import { Button, useToast, EmptyState, SkeletonCard, StarRating } from '@/components/ui';
 import { useStore, getRefCode, type Product } from '@/hooks/useShop';
 import { ProductReviewsModal } from '@/components/shop/ProductReviewsModal';
+import { SuggestModal } from '@/components/common/SuggestModal';
 import { CountryFilter } from '@/components/common/CountryFilter';
 import { useCountry } from '@/stores/countryStore';
 import { useCatLabel } from '@/lib/catLabel';
@@ -27,6 +28,7 @@ export function Store() {
   const [q, setQ] = useState('');
   const [cat, setCat] = useState('');
   const [corporate, setCorporate] = useState(false);
+  const [suggestOpen, setSuggestOpen] = useState(false);
   const ref = getRefCode();
 
   const term = q.trim().toLowerCase();
@@ -196,7 +198,19 @@ export function Store() {
             </button>
           ))}
         </div>
+
+        {/* Curaduría comunitaria: proponer un producto o categoría que falte. */}
+        <div className="flex justify-center">
+          <button
+            type="button"
+            onClick={() => setSuggestOpen(true)}
+            className="inline-flex items-center gap-1.5 rounded-full border border-dashed border-brand-300 bg-brand-50/50 px-4 py-2 text-sm font-semibold text-brand-700 hover:bg-brand-50"
+          >
+            <Plus className="h-4 w-4" aria-hidden="true" /> {t('suggest.storeCta')}
+          </button>
+        </div>
       </div>
+      {suggestOpen && <SuggestModal context="store" country={country} onClose={() => setSuggestOpen(false)} />}
 
       {loading ? (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">

@@ -926,6 +926,13 @@ export interface Database {
         Relationships: [];
       };
 
+      catalog_suggestions: {
+        Row: { id: string; user_id: string | null; email: string | null; kind: string; section: string | null; name: string; note: string | null; country: string | null; page: string | null; status: string; created_at: string };
+        Insert: { id?: string; user_id?: string | null; email?: string | null; kind: string; section?: string | null; name: string; note?: string | null; country?: string | null; page?: string | null; status?: string; created_at?: string };
+        Update: Partial<Database['public']['Tables']['catalog_suggestions']['Insert']>;
+        Relationships: [];
+      };
+
       topic_subscriptions: {
         Row: { user_id: string; topics: string[]; scope_country: string | null; scope_city: string | null; updated_at: string };
         Insert: { user_id: string; topics?: string[]; scope_country?: string | null; scope_city?: string | null; updated_at?: string };
@@ -1824,6 +1831,18 @@ export interface Database {
       admin_improvement_suggestions: {
         Args: Record<string, never>;
         Returns: { id: string; user_id: string | null; email: string | null; message: string; page: string | null; created_at: string }[];
+      };
+      submit_catalog_suggestion: {
+        Args: { p_kind: string; p_name: string; p_note?: string | null; p_section?: string | null; p_country?: string | null; p_email?: string | null; p_page?: string | null };
+        Returns: undefined;
+      };
+      admin_catalog_suggestions: {
+        Args: Record<string, never>;
+        Returns: { id: string; user_id: string | null; email: string | null; kind: string; section: string | null; name: string; note: string | null; country: string | null; page: string | null; status: string; created_at: string }[];
+      };
+      admin_set_catalog_suggestion_status: {
+        Args: { p_id: string; p_status: string };
+        Returns: undefined;
       };
       search_contacts: {
         Args: { p_query: string };

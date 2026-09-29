@@ -996,7 +996,8 @@
     },
     "secSurvey": "问卷",
     "secInvitations": "邀请",
-    "secCarousel": "轮播"
+    "secCarousel": "轮播",
+    "secSuggestions": "建议"
   },
   "reg": {
     "typePatient": "患者",
@@ -5060,5 +5061,40 @@
     "ctaLogin": "我已有账户，登录",
     "ctaPanel": "前往我的创始成员面板",
     "fineprint": "名额在各国按先到先得预留。"
+  },
+  "suggest": {
+    "dirTitle": "建议新类别",
+    "dirHelp": "目录中缺少某个类别？提交建议，我们的团队会进行审核。",
+    "dirNameLabel": "你建议的类别",
+    "dirCta": "缺少类别？提交建议",
+    "storeTitle": "为商店提出建议",
+    "storeHelp": "找不到某个商品或类别？告诉我们你想找什么，我们会审核。（这不是销售刊登。）",
+    "storeCta": "建议商品或类别",
+    "whatLabel": "你想建议什么？",
+    "kindProduct": "一个商品",
+    "kindCategory": "一个类别",
+    "productNameLabel": "你想找到的商品",
+    "categoryNameLabel": "你建议的类别",
+    "namePlaceholder": "填写简明的名称",
+    "noteLabel": "原因（可选）",
+    "notePlaceholder": "简单说明它的用途",
+    "emailLabel": "你的邮箱（可选）",
+    "emailPlaceholder": "若被采纳会通知你",
+    "send": "提交建议",
+    "thanks": "谢谢！我们已收到你的建议，团队会进行审核。",
+    "anon": "匿名",
+    "adminEmpty": "该状态下暂无建议。",
+    "filterAll": "全部",
+    "kind": {
+      "directory_category": "类别（目录）",
+      "store_product": "商品（商店）",
+      "store_category": "类别（商店）"
+    },
+    "status": {
+      "new": "新",
+      "reviewed": "已审核",
+      "accepted": "已采纳",
+      "dismissed": "已忽略"
+    }
   }
 }

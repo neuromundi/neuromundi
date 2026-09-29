@@ -996,7 +996,8 @@
     },
     "secSurvey": "Umfrage",
     "secInvitations": "Einladungen",
-    "secCarousel": "Karussell"
+    "secCarousel": "Karussell",
+    "secSuggestions": "Vorschläge"
   },
   "reg": {
     "typePatient": "Patient",
@@ -5060,5 +5061,40 @@
     "ctaLogin": "Ich habe schon ein Konto, anmelden",
     "ctaPanel": "Zu meinem Gründerbereich",
     "fineprint": "Die Plätze werden pro Land nach Eingang vergeben."
+  },
+  "suggest": {
+    "dirTitle": "Neue Kategorie vorschlagen",
+    "dirHelp": "Fehlt eine Kategorie im Verzeichnis? Schlage sie vor und unser Team prüft sie.",
+    "dirNameLabel": "Vorgeschlagene Kategorie",
+    "dirCta": "Kategorie fehlt? Vorschlagen",
+    "storeTitle": "Für den Shop vorschlagen",
+    "storeHelp": "Du findest ein Produkt oder eine Kategorie nicht? Sag uns, was du suchst, und wir prüfen es. (Kein Verkaufsangebot.)",
+    "storeCta": "Produkt oder Kategorie vorschlagen",
+    "whatLabel": "Was möchtest du vorschlagen?",
+    "kindProduct": "Ein Produkt",
+    "kindCategory": "Eine Kategorie",
+    "productNameLabel": "Produkt, das du suchst",
+    "categoryNameLabel": "Vorgeschlagene Kategorie",
+    "namePlaceholder": "Kurzen, klaren Namen eingeben",
+    "noteLabel": "Warum? (optional)",
+    "notePlaceholder": "Sag uns kurz, wofür es nützlich wäre",
+    "emailLabel": "Deine E-Mail (optional)",
+    "emailPlaceholder": "Damit wir dich benachrichtigen können",
+    "send": "Vorschlag senden",
+    "thanks": "Danke! Dein Vorschlag ist eingegangen und unser Team prüft ihn.",
+    "anon": "Anonym",
+    "adminEmpty": "Keine Vorschläge in diesem Status.",
+    "filterAll": "Alle",
+    "kind": {
+      "directory_category": "Kategorie (Verzeichnis)",
+      "store_product": "Produkt (Shop)",
+      "store_category": "Kategorie (Shop)"
+    },
+    "status": {
+      "new": "Neu",
+      "reviewed": "Geprüft",
+      "accepted": "Angenommen",
+      "dismissed": "Verworfen"
+    }
   }
 }
