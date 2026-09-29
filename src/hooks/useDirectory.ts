@@ -14,6 +14,7 @@ import { inputsFromRow } from '@/hooks/useProviderBadge';
 import { SPECIALTIES, INTERVENTION_AREAS, PROFESSIONS } from '@/data/specialistCatalog';
 import { PRODUCT_CATEGORIES } from '@/data/providerCatalog';
 import { K_OFFERINGS } from '@/data/kCatalog';
+import { NEURO_CONDITIONS } from '@/data/neuroConditionsCatalog';
 import type {
   Category,
   Profile,
@@ -23,6 +24,7 @@ import type {
 
 const K_ALL = Object.values(K_OFFERINGS).flat();
 const LABEL = new Map<string, string>([
+  ...NEURO_CONDITIONS.map((x) => [x.value, x.label] as const),
   ...SPECIALTIES.map((x) => [x.value, x.label] as const),
   ...INTERVENTION_AREAS.map((x) => [x.value, x.label] as const),
   ...PROFESSIONS.map((x) => [x.value, x.label] as const),
@@ -168,6 +170,11 @@ export function useDirectory(filters: DirectoryFilters): UseDirectoryValue {
           p.business_name ?? '', p.full_name, p.profession ?? '', p.bio ?? '',
           labelsOf(p.specialties), labelsOf(p.intervention_areas), labelsOf(p.product_categories),
           (p.products_offered ?? []).join(' '),
+          // La especialización curada de las fichas llega aquí (la vista la mapea
+          // desde `directorio.especializacion`). Sin esta línea, el texto que
+          // describe a 669 fichas no era buscable y solo se encontraban por nombre.
+          p.services_offered ?? '',
+          labelsOf(p.neuro_conditions),
           providerOtherText(p.provider_details),
         ].join(' ').toLowerCase();
         if (!haystack.includes(q)) return false;
