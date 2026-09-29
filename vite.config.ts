@@ -148,6 +148,14 @@ export default defineConfig({
     // parsear (daba "SyntaxError: Unexpected token '?'" y abortaba el prerender).
     // Con es2019 el snapshot funciona; el costo en tamaño/rendimiento es mínimo.
     target: 'es2019',
+    // Diagnóstico de "JS sin usar" (auditoría de PageSpeed): SOLO cuando se
+    // compila con ANALYZE=1 se emiten source maps 'hidden' (sin comentario
+    // sourceMappingURL, así el navegador no los pide y no viajan en producción).
+    // Con ellos se atribuye byte a byte el bundle:
+    //   ANALYZE=1 npm run build
+    //   npx source-map-explorer "dist/assets/index-*.js"
+    // El build normal (y el de CI) NO los genera → nada de código fuente expuesto.
+    sourcemap: process.env.ANALYZE === '1' ? 'hidden' : false,
   },
   // Pre-empaqueta las dependencias (sobre todo las que se cargan en rutas lazy)
   // para que el optimizador de Vite no las descubra de a poco y recargue cada
