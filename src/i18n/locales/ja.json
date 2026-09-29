@@ -1708,7 +1708,8 @@
     "empty": "まだ登録された学校はありません。",
     "tour": "バーチャル見学を予約",
     "viewProfile": "プロフィールを見る",
-    "searchPlaceholder": "名前や場所で学校を検索…"
+    "searchPlaceholder": "名前や場所で学校を検索…",
+    "seeDirectory": "ディレクトリで教育インクルージョンの専門家を見る"
   },
   "lms": {
     "title": "Neuromundi Academy",

@@ -1708,7 +1708,8 @@
     "empty": "暂无注册学校。",
     "tour": "预约虚拟参观",
     "viewProfile": "查看资料",
-    "searchPlaceholder": "按名称或位置搜索学校…"
+    "searchPlaceholder": "按名称或位置搜索学校…",
+    "seeDirectory": "在目录中查看融合教育专家"
   },
   "lms": {
     "title": "Neuromundi Academy",

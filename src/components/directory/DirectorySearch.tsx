@@ -52,7 +52,7 @@ const DOMAINS: Record<string, { icon: typeof HeartPulse; labelKey: string; value
   },
   executive: {
     icon: GraduationCap, labelKey: 'directory.quick.executive',
-    values: ['funciones_ejecutivas', 'adaptacion_curricular', 'coaching_ejecutivo', 'acompanante_terapeutico', 'vida_independiente', 'psicopedagogia', 'educacion_especial'],
+    values: ['funciones_ejecutivas', 'adaptacion_curricular', 'educacion_inclusiva', 'capacitacion_docente', 'coaching_ejecutivo', 'acompanante_terapeutico', 'vida_independiente', 'psicopedagogia', 'educacion_especial'],
   },
   arts: {
     icon: Palette, labelKey: 'directory.quick.arts',

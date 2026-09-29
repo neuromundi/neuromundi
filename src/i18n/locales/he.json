@@ -1745,7 +1745,8 @@
     "empty": "אין עדיין בתי ספר רשומים.",
     "tour": "קבע סיור וירטואלי",
     "viewProfile": "צפה בפרופיל",
-    "searchPlaceholder": "חפש בית ספר לפי שם או מיקום…"
+    "searchPlaceholder": "חפש בית ספר לפי שם או מיקום…",
+    "seeDirectory": "ראה מומחי הכלה חינוכית במדריך"
   },
   "lms": {
     "title": "האקדמיה של Neuromundi",

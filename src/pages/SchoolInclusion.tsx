@@ -25,12 +25,16 @@ export function SchoolInclusion() {
     setLoading(true);
     (async () => {
       // Segmentación por país en el servidor (no traemos escuelas de otros países).
+      // Incluye ESCUELAS (provider_type='school') y también a los prestadores que
+      // declaran el área de intervención "educación inclusiva" (terapeutas de
+      // sombra, asesores docentes, etc.), para vincular la categoría del catálogo
+      // con esta sección.
       let query = supabase
         .from('directorio_publico')
         .select('*')
         .eq('role', 'provider')
-        .eq('provider_type', 'school')
-        .eq('is_published', true);
+        .eq('is_published', true)
+        .or('provider_type.eq.school,intervention_areas.cs.{educacion_inclusiva}');
       if (country) query = query.eq('country', country);
       const { data } = await query;
       setSchools((data as Profile[]) ?? []);
@@ -69,6 +73,12 @@ export function SchoolInclusion() {
           onChange={(e) => setQ(e.target.value)}
         />
       </div>
+
+      <p className="text-sm">
+        <Link to="/directorio?spec=educacion_inclusiva" className="font-semibold text-brand-700 hover:underline">
+          {t('school.seeDirectory')}
+        </Link>
+      </p>
 
       {loading ? (
         <SkeletonCard rows={3} />

@@ -1745,7 +1745,8 @@
     "empty": "아직 등록된 학교가 없습니다.",
     "tour": "가상 투어 예약",
     "viewProfile": "프로필 보기",
-    "searchPlaceholder": "이름이나 위치로 학교 검색…"
+    "searchPlaceholder": "이름이나 위치로 학교 검색…",
+    "seeDirectory": "디렉터리에서 교육 통합 전문가 보기"
   },
   "lms": {
     "title": "Neuromundi 아카데미",

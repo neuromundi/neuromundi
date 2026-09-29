@@ -1745,7 +1745,8 @@
     "empty": "Aún no hay escuelas registradas.",
     "tour": "Agendar tour virtual",
     "viewProfile": "Ver perfil",
-    "searchPlaceholder": "Busca una escuela por nombre o ubicación…"
+    "searchPlaceholder": "Busca una escuela por nombre o ubicación…",
+    "seeDirectory": "Ver especialistas en inclusión educativa en el directorio"
   },
   "lms": {
     "title": "Neuromundi Academy",
