@@ -352,7 +352,8 @@
     "bookingUrl": "Enlace para agendar cita",
     "yearStarted": "Año de inicio de actividad",
     "yearStartedHint": "Ej. 2015",
-    "certifiedStaff": "Contamos con personal certificado"
+    "certifiedStaff": "Contamos con personal certificado",
+    "accessibility": "Accesibilidad del lugar"
   },
   "val": {
     "email": "Escribe un correo válido",
@@ -464,7 +465,14 @@
     "contact": "Contacto",
     "sinceYear": "Desde {{year}}",
     "certifiedStaff": "Personal certificado",
-    "howToGet": "Cómo llegar:"
+    "howToGet": "Cómo llegar:",
+    "ageServed": "Población atendida",
+    "modalitiesLabel": "Modalidad de atención",
+    "specialtiesLabel": "Especialidades",
+    "areasLabel": "Áreas de intervención",
+    "conditionsLabel": "Condiciones atendidas",
+    "methodologiesLabel": "Metodologías y certificaciones",
+    "accessibilityLabel": "Accesibilidad"
   },
   "dim": {
     "quality": "Calidad",
@@ -2578,7 +2586,15 @@
     "psicoterapia_cc_act": "Psicoterapia (Cognitivo-Conductual, ACT)",
     "capacitacion_docente": "Asesoría y capacitación a docentes e instituciones",
     "orientacion_legal_ddhh": "Orientación legal y de derechos humanos",
-    "hidroterapia": "Hidroterapia / Terapia acuática"
+    "hidroterapia": "Hidroterapia / Terapia acuática",
+    "rampa_acceso": "Rampa de acceso",
+    "bano_accesible": "Baño accesible",
+    "estacionamiento_accesible": "Estacionamiento accesible",
+    "elevador": "Elevador / ascensor",
+    "espacio_calma": "Espacio de calma sensorial",
+    "bajo_estimulo": "Ambiente de bajo estímulo sensorial",
+    "comunicacion_alternativa": "Apoyos de comunicación (CAA / pictogramas)",
+    "perro_asistencia": "Acceso a perro de asistencia"
   },
   "badge": {
     "miembro": "Miembro Verificado",

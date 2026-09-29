@@ -339,6 +339,43 @@ export function ProviderProfile() {
         </div>
       )}
 
+      {/* Detalles estructurados del servicio (como el directorio de referencia):
+          población atendida, modalidad, especialidades, áreas, condiciones,
+          metodologías/certificaciones y accesibilidad. Cada grupo solo aparece si
+          el prestador lo declaró. Los certificados son nombres propios (sin
+          traducir); el resto se localiza por catálogo. */}
+      {(() => {
+        const pd = (profile.provider_details ?? {}) as Record<string, unknown>;
+        const certs = Array.isArray(pd.certifications) ? (pd.certifications as string[]) : [];
+        const access = Array.isArray(pd.accessibility) ? (pd.accessibility as string[]) : [];
+        const groups: { key: string; values: string[]; plain?: boolean }[] = [
+          { key: 'profile.ageServed', values: profile.age_ranges ?? [] },
+          { key: 'profile.modalitiesLabel', values: profile.modalities ?? [] },
+          { key: 'profile.specialtiesLabel', values: profile.specialties ?? [] },
+          { key: 'profile.areasLabel', values: profile.intervention_areas ?? [] },
+          { key: 'profile.conditionsLabel', values: profile.neuro_conditions ?? [] },
+          { key: 'profile.methodologiesLabel', values: certs, plain: true },
+          { key: 'profile.accessibilityLabel', values: access },
+        ].filter((g) => g.values.length > 0);
+        if (groups.length === 0) return null;
+        return (
+          <section className="space-y-3 rounded-2xl border border-slate-100 bg-white p-4">
+            {groups.map((g) => (
+              <div key={g.key}>
+                <h3 className="mb-1.5 text-xs font-semibold uppercase tracking-wide text-muted">{t(g.key)}</h3>
+                <div className="flex flex-wrap gap-1.5">
+                  {g.values.map((v) => (
+                    <span key={v} className="rounded-full bg-brand-50 px-2.5 py-0.5 text-sm text-brand-800">
+                      {g.plain ? v : catLabel(v, v)}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </section>
+        );
+      })()}
+
       {/* Perfil neuroafirmativo: las 3 dimensiones que definen el Sello. */}
       {rating && (rating.total_reviews ?? 0) > 0 && (
         <section className="rounded-2xl border border-violet-100 bg-violet-50/60 p-4">

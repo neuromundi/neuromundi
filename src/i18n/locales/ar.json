@@ -352,7 +352,8 @@
     "specialtiesPlaceholder": "مثال: اضطراب طيف التوحد، فرط الحركة، متلازمة داون، علاج ABA…",
     "yearStarted": "سنة بدء النشاط",
     "yearStartedHint": "مثال: 2015",
-    "certifiedStaff": "لدينا طاقم معتمد"
+    "certifiedStaff": "لدينا طاقم معتمد",
+    "accessibility": "إمكانية الوصول للمكان"
   },
   "val": {
     "email": "أدخل بريدًا إلكترونيًا صالحًا",
@@ -464,7 +465,14 @@
     "contact": "معلومات الاتصال",
     "sinceYear": "منذ {{year}}",
     "certifiedStaff": "طاقم معتمد",
-    "howToGet": "كيفية الوصول:"
+    "howToGet": "كيفية الوصول:",
+    "ageServed": "الفئات العمرية المخدومة",
+    "modalitiesLabel": "نمط الخدمة",
+    "specialtiesLabel": "التخصصات",
+    "areasLabel": "مجالات التدخل",
+    "conditionsLabel": "الحالات المخدومة",
+    "methodologiesLabel": "المنهجيات والشهادات",
+    "accessibilityLabel": "إمكانية الوصول"
   },
   "dim": {
     "quality": "الجودة",
@@ -2578,7 +2586,15 @@
     "psicoterapia_cc_act": "العلاج النفسي (CBT، ACT)",
     "capacitacion_docente": "استشارة وتدريب للمعلمين والمؤسسات",
     "orientacion_legal_ddhh": "إرشاد قانوني وحقوق الإنسان",
-    "hidroterapia": "العلاج المائي"
+    "hidroterapia": "العلاج المائي",
+    "rampa_acceso": "منحدر وصول",
+    "bano_accesible": "دورة مياه مهيأة",
+    "estacionamiento_accesible": "موقف سيارات مهيأ",
+    "elevador": "مصعد",
+    "espacio_calma": "مساحة هدوء حسّي",
+    "bajo_estimulo": "بيئة منخفضة التحفيز الحسي",
+    "comunicacion_alternativa": "وسائل دعم التواصل (AAC / رموز مصوّرة)",
+    "perro_asistencia": "السماح بكلب المساعدة"
   },
   "badge": {
     "miembro": "عضو موثَّق",

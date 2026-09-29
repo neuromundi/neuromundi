@@ -315,7 +315,8 @@
     "specialtiesPlaceholder": "z. B. ASS, ADHS, Down-Syndrom, ABA-Therapie…",
     "yearStarted": "Jahr des Tätigkeitsbeginns",
     "yearStartedHint": "z. B. 2015",
-    "certifiedStaff": "Wir haben zertifiziertes Personal"
+    "certifiedStaff": "Wir haben zertifiziertes Personal",
+    "accessibility": "Barrierefreiheit des Ortes"
   },
   "val": {
     "email": "Gib eine gültige E-Mail ein",
@@ -427,7 +428,14 @@
     "contact": "Kontakt",
     "sinceYear": "Seit {{year}}",
     "certifiedStaff": "Zertifiziertes Personal",
-    "howToGet": "Anfahrt:"
+    "howToGet": "Anfahrt:",
+    "ageServed": "Betreute Altersgruppen",
+    "modalitiesLabel": "Betreuungsform",
+    "specialtiesLabel": "Fachgebiete",
+    "areasLabel": "Interventionsbereiche",
+    "conditionsLabel": "Betreute Diagnosen",
+    "methodologiesLabel": "Methoden und Zertifizierungen",
+    "accessibilityLabel": "Barrierefreiheit"
   },
   "dim": {
     "quality": "Qualität",
@@ -2541,7 +2549,15 @@
     "psicoterapia_cc_act": "Psychotherapie (KVT, ACT)",
     "capacitacion_docente": "Beratung und Fortbildung für Lehrkräfte und Einrichtungen",
     "orientacion_legal_ddhh": "Rechts- und Menschenrechtsberatung",
-    "hidroterapia": "Hydrotherapie / Wassertherapie"
+    "hidroterapia": "Hydrotherapie / Wassertherapie",
+    "rampa_acceso": "Zugangsrampe",
+    "bano_accesible": "Barrierefreies WC",
+    "estacionamiento_accesible": "Barrierefreier Parkplatz",
+    "elevador": "Aufzug",
+    "espacio_calma": "Sensorischer Ruheraum",
+    "bajo_estimulo": "Reizarme Umgebung",
+    "comunicacion_alternativa": "Kommunikationshilfen (UK / Piktogramme)",
+    "perro_asistencia": "Zugang für Assistenzhunde"
   },
   "kit": {
     "badge": "Werkzeuge",

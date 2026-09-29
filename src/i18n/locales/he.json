@@ -352,7 +352,8 @@
     "specialtiesPlaceholder": "לדוגמה: ASD, ADHD, תסמונת דאון, טיפול ABA…",
     "yearStarted": "שנת תחילת הפעילות",
     "yearStartedHint": "לדוגמה 2015",
-    "certifiedStaff": "יש לנו צוות מוסמך"
+    "certifiedStaff": "יש לנו צוות מוסמך",
+    "accessibility": "נגישות המקום"
   },
   "val": {
     "email": "הזן אימייל תקין",
@@ -464,7 +465,14 @@
     "contact": "יצירת קשר",
     "sinceYear": "משנת {{year}}",
     "certifiedStaff": "צוות מוסמך",
-    "howToGet": "איך להגיע:"
+    "howToGet": "איך להגיע:",
+    "ageServed": "קהלי יעד (גילאים)",
+    "modalitiesLabel": "אופן מתן השירות",
+    "specialtiesLabel": "התמחויות",
+    "areasLabel": "תחומי התערבות",
+    "conditionsLabel": "מצבים מטופלים",
+    "methodologiesLabel": "שיטות והסמכות",
+    "accessibilityLabel": "נגישות"
   },
   "dim": {
     "quality": "איכות",
@@ -2578,7 +2586,15 @@
     "psicoterapia_cc_act": "פסיכותרפיה (CBT, ACT)",
     "capacitacion_docente": "ייעוץ והכשרה למורים ולמוסדות",
     "orientacion_legal_ddhh": "ייעוץ משפטי וזכויות אדם",
-    "hidroterapia": "הידרותרפיה / טיפול במים"
+    "hidroterapia": "הידרותרפיה / טיפול במים",
+    "rampa_acceso": "רמפת גישה",
+    "bano_accesible": "שירותים נגישים",
+    "estacionamiento_accesible": "חניה נגישה",
+    "elevador": "מעלית",
+    "espacio_calma": "מרחב רגיעה חושי",
+    "bajo_estimulo": "סביבה עם גירוי חושי נמוך",
+    "comunicacion_alternativa": "תמיכות תקשורת (תקשורת חלופית / פיקטוגרמות)",
+    "perro_asistencia": "כניסת כלב שירות"
   },
   "badge": {
     "miembro": "חבר מאומת",

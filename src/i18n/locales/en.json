@@ -352,7 +352,8 @@
     "bookingUrl": "Booking link",
     "yearStarted": "Year started operating",
     "yearStartedHint": "e.g. 2015",
-    "certifiedStaff": "We have certified staff"
+    "certifiedStaff": "We have certified staff",
+    "accessibility": "Venue accessibility"
   },
   "val": {
     "email": "Enter a valid email",
@@ -464,7 +465,14 @@
     "contact": "Contact",
     "sinceYear": "Since {{year}}",
     "certifiedStaff": "Certified staff",
-    "howToGet": "How to get there:"
+    "howToGet": "How to get there:",
+    "ageServed": "Ages served",
+    "modalitiesLabel": "Service format",
+    "specialtiesLabel": "Specialties",
+    "areasLabel": "Intervention areas",
+    "conditionsLabel": "Conditions supported",
+    "methodologiesLabel": "Methods & certifications",
+    "accessibilityLabel": "Accessibility"
   },
   "dim": {
     "quality": "Quality",
@@ -2578,7 +2586,15 @@
     "psicoterapia_cc_act": "Psychotherapy (CBT, ACT)",
     "capacitacion_docente": "Advising and training for teachers and institutions",
     "orientacion_legal_ddhh": "Legal and human-rights guidance",
-    "hidroterapia": "Hydrotherapy / Aquatic therapy"
+    "hidroterapia": "Hydrotherapy / Aquatic therapy",
+    "rampa_acceso": "Access ramp",
+    "bano_accesible": "Accessible restroom",
+    "estacionamiento_accesible": "Accessible parking",
+    "elevador": "Elevator",
+    "espacio_calma": "Sensory calm space",
+    "bajo_estimulo": "Low-sensory environment",
+    "comunicacion_alternativa": "Communication supports (AAC / pictograms)",
+    "perro_asistencia": "Assistance dog welcome"
   },
   "badge": {
     "miembro": "Verified Member",

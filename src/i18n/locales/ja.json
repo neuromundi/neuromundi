@@ -315,7 +315,8 @@
     "specialtiesPlaceholder": "例: ASD、ADHD、ダウン症、ABAセラピー…",
     "yearStarted": "活動開始年",
     "yearStartedHint": "例: 2015",
-    "certifiedStaff": "認定スタッフが在籍しています"
+    "certifiedStaff": "認定スタッフが在籍しています",
+    "accessibility": "施設のアクセシビリティ"
   },
   "val": {
     "email": "有効なメールアドレスを入力してください",
@@ -427,7 +428,14 @@
     "contact": "連絡先",
     "sinceYear": "{{year}}年から",
     "certifiedStaff": "認定スタッフ",
-    "howToGet": "アクセス:"
+    "howToGet": "アクセス:",
+    "ageServed": "対象年齢",
+    "modalitiesLabel": "対応形式",
+    "specialtiesLabel": "専門分野",
+    "areasLabel": "介入領域",
+    "conditionsLabel": "対応する状態",
+    "methodologiesLabel": "手法・資格",
+    "accessibilityLabel": "アクセシビリティ"
   },
   "dim": {
     "quality": "品質",
@@ -2541,7 +2549,15 @@
     "psicoterapia_cc_act": "心理療法（CBT・ACT）",
     "capacitacion_docente": "教員・機関への助言と研修",
     "orientacion_legal_ddhh": "法的・人権に関する相談",
-    "hidroterapia": "水治療・アクアセラピー"
+    "hidroterapia": "水治療・アクアセラピー",
+    "rampa_acceso": "アクセススロープ",
+    "bano_accesible": "バリアフリートイレ",
+    "estacionamiento_accesible": "障害者用駐車場",
+    "elevador": "エレベーター",
+    "espacio_calma": "感覚に配慮した静穏スペース",
+    "bajo_estimulo": "低刺激の環境",
+    "comunicacion_alternativa": "コミュニケーション支援（AAC・絵カード）",
+    "perro_asistencia": "補助犬の同伴可"
   },
   "kit": {
     "badge": "ツール",

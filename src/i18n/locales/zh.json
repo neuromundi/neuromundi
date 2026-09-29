@@ -315,7 +315,8 @@
     "specialtiesPlaceholder": "例如：ASD、ADHD、唐氏综合征、ABA疗法…",
     "yearStarted": "开始运营年份",
     "yearStartedHint": "例如 2015",
-    "certifiedStaff": "我们拥有持证人员"
+    "certifiedStaff": "我们拥有持证人员",
+    "accessibility": "场所无障碍设施"
   },
   "val": {
     "email": "请输入有效的邮箱",
@@ -427,7 +428,14 @@
     "contact": "联系方式",
     "sinceYear": "自{{year}}年起",
     "certifiedStaff": "持证人员",
-    "howToGet": "如何到达："
+    "howToGet": "如何到达：",
+    "ageServed": "服务年龄段",
+    "modalitiesLabel": "服务方式",
+    "specialtiesLabel": "专长",
+    "areasLabel": "干预领域",
+    "conditionsLabel": "服务的病症",
+    "methodologiesLabel": "方法与认证",
+    "accessibilityLabel": "无障碍设施"
   },
   "dim": {
     "quality": "质量",
@@ -2541,7 +2549,15 @@
     "psicoterapia_cc_act": "心理治疗（CBT、ACT）",
     "capacitacion_docente": "面向教师与机构的咨询与培训",
     "orientacion_legal_ddhh": "法律与人权咨询",
-    "hidroterapia": "水疗 / 水中治疗"
+    "hidroterapia": "水疗 / 水中治疗",
+    "rampa_acceso": "无障碍坡道",
+    "bano_accesible": "无障碍卫生间",
+    "estacionamiento_accesible": "无障碍停车位",
+    "elevador": "电梯",
+    "espacio_calma": "感官安静空间",
+    "bajo_estimulo": "低感官刺激环境",
+    "comunicacion_alternativa": "沟通辅助（AAC／图片符号）",
+    "perro_asistencia": "允许协助犬进入"
   },
   "kit": {
     "badge": "工具",

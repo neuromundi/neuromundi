@@ -25,6 +25,8 @@ import { AccountFlowModal } from '@/components/membership/AccountFlowModal';
 import { GuidedTour } from '@/components/onboarding';
 import { PasswordStrength } from '@/components/auth/PasswordStrength';
 import { profileSchema, type ProfileFormValues } from '@/lib/schemas';
+import { ACCESSIBILITY_FEATURES } from '@/data/specialistCatalog';
+import { useCatLabel } from '@/lib/catLabel';
 import type { ProfileUpdate } from '@/hooks/useProfile';
 
 const inputCls =
@@ -62,6 +64,7 @@ export function Settings() {
   const { isProvider, signOut } = useAuth();
   const { profile, saving, updateProfile, uploadAvatar, deleteAccount } = useProfile();
   const { t } = useTranslation();
+  const catLabel = useCatLabel();
   const toast = useToast();
   const navigate = useNavigate();
   const fileRef = useRef<HTMLInputElement>(null);
@@ -77,6 +80,15 @@ export function Settings() {
   const [lockUntil, setLockUntil] = useState<number | null>(null);
   const [lockLeft, setLockLeft] = useState(0);
   const pwMatch = newPassword2.length === 0 ? null : newPassword === newPassword2;
+
+  // Accesibilidad física (fuera de react-hook-form: vive en provider_details).
+  const [accessibility, setAccessibility] = useState<string[]>([]);
+  const [accessDirty, setAccessDirty] = useState(false);
+  useEffect(() => {
+    const pd = (profile?.provider_details ?? {}) as Record<string, unknown>;
+    setAccessibility(Array.isArray(pd.accessibility) ? (pd.accessibility as string[]) : []);
+    setAccessDirty(false);
+  }, [profile]);
 
   useEffect(() => {
     if (lockUntil == null) return;
@@ -224,6 +236,12 @@ export function Settings() {
       const ys = values.year_started;
       patch.year_started = ys === '' || ys == null ? null : Number(ys);
       patch.certified_staff = values.certified_staff ?? false;
+      // Accesibilidad física: se fusiona con el resto de provider_details para no
+      // pisar otras claves (certifications, contact_email, discount_pct…).
+      patch.provider_details = {
+        ...((profile.provider_details ?? {}) as Record<string, unknown>),
+        accessibility,
+      };
       patch.provider_type = values.provider_type;
       patch.is_published = values.is_published;
       // Datos fiscales (factura MÃ©xico/CFDI e internacional).
@@ -562,6 +580,29 @@ export function Settings() {
             </div>
             )}
 
+            {/* Accesibilidad física y sensorial del lugar */}
+            <div>
+              <p className={labelCls}>{t('settings.accessibility')}</p>
+              <div className="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-2">
+                {ACCESSIBILITY_FEATURES.map(({ value, label }) => (
+                  <label key={value} className="flex items-center gap-3">
+                    <input
+                      type="checkbox"
+                      className="h-5 w-5 rounded border-slate-300 text-brand-500"
+                      checked={accessibility.includes(value)}
+                      onChange={() => {
+                        setAccessDirty(true);
+                        setAccessibility((cur) =>
+                          cur.includes(value) ? cur.filter((v) => v !== value) : [...cur, value],
+                        );
+                      }}
+                    />
+                    <span className="text-sm text-slate-700">{catLabel(value, label)}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
             {/* Neuroafirmativo */}
             <label className="flex items-center gap-3">
               <input type="checkbox" className="h-5 w-5 rounded border-slate-300 text-brand-500" {...register('neuroaffirming')} />
@@ -605,7 +646,7 @@ export function Settings() {
           </fieldset>
         )}
 
-        <Button type="submit" loading={saving} disabled={!isDirty} fullWidth>
+        <Button type="submit" loading={saving} disabled={!isDirty && !accessDirty} fullWidth>
           {t('settings.save')}
         </Button>
       </form>

@@ -173,6 +173,22 @@ export const AGE_RANGES: CatItem[] = [
   { value: 'adultos', label: 'Adultos' },
 ];
 
+/**
+ * Accesibilidad física y sensorial del lugar de atención. Se guarda en
+ * profiles.provider_details.accessibility (string[]) y se muestra como chips en
+ * el perfil. Localización por i18n con la clave cat.<value> (respaldo: label).
+ */
+export const ACCESSIBILITY_FEATURES: CatItem[] = [
+  { value: 'rampa_acceso', label: 'Rampa de acceso' },
+  { value: 'bano_accesible', label: 'Baño accesible' },
+  { value: 'estacionamiento_accesible', label: 'Estacionamiento accesible' },
+  { value: 'elevador', label: 'Elevador / ascensor' },
+  { value: 'espacio_calma', label: 'Espacio de calma sensorial' },
+  { value: 'bajo_estimulo', label: 'Ambiente de bajo estímulo sensorial' },
+  { value: 'comunicacion_alternativa', label: 'Apoyos de comunicación (CAA / pictogramas)' },
+  { value: 'perro_asistencia', label: 'Acceso a perro de asistencia' },
+];
+
 export const INTERVENTION_AREAS: CatItem[] = [
   { value: 'integracion_sensorial', label: 'Integración Sensorial' },
   { value: 'estimulacion_temprana', label: 'Estimulación Temprana' },

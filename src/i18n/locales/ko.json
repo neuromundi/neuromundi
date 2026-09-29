@@ -352,7 +352,8 @@
     "specialtiesPlaceholder": "예: ASD, ADHD, 다운증후군, ABA 치료…",
     "yearStarted": "활동 시작 연도",
     "yearStartedHint": "예: 2015",
-    "certifiedStaff": "인증 전문 인력을 보유하고 있습니다"
+    "certifiedStaff": "인증 전문 인력을 보유하고 있습니다",
+    "accessibility": "시설 접근성"
   },
   "val": {
     "email": "유효한 이메일을 입력하세요",
@@ -464,7 +465,14 @@
     "contact": "연락처",
     "sinceYear": "{{year}}년부터",
     "certifiedStaff": "인증 전문 인력",
-    "howToGet": "찾아오는 길:"
+    "howToGet": "찾아오는 길:",
+    "ageServed": "대상 연령",
+    "modalitiesLabel": "상담 방식",
+    "specialtiesLabel": "전문 분야",
+    "areasLabel": "중재 영역",
+    "conditionsLabel": "지원하는 상태",
+    "methodologiesLabel": "방법론 및 자격",
+    "accessibilityLabel": "접근성"
   },
   "dim": {
     "quality": "품질",
@@ -2578,7 +2586,15 @@
     "psicoterapia_cc_act": "심리치료 (CBT, ACT)",
     "capacitacion_docente": "교사·기관 대상 자문 및 교육",
     "orientacion_legal_ddhh": "법률 및 인권 안내",
-    "hidroterapia": "수치료 / 아쿠아 테라피"
+    "hidroterapia": "수치료 / 아쿠아 테라피",
+    "rampa_acceso": "진입 경사로",
+    "bano_accesible": "장애인 화장실",
+    "estacionamiento_accesible": "장애인 주차장",
+    "elevador": "엘리베이터",
+    "espacio_calma": "감각 안정 공간",
+    "bajo_estimulo": "저자극 환경",
+    "comunicacion_alternativa": "의사소통 지원(AAC/그림 상징)",
+    "perro_asistencia": "보조견 동반 가능"
   },
   "badge": {
     "miembro": "인증 회원",

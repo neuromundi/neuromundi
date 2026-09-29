@@ -315,7 +315,8 @@
     "specialtiesPlaceholder": "Es. ASD, ADHD, Sindrome di Down, Terapia ABA…",
     "yearStarted": "Anno di inizio attività",
     "yearStartedHint": "es. 2015",
-    "certifiedStaff": "Disponiamo di personale certificato"
+    "certifiedStaff": "Disponiamo di personale certificato",
+    "accessibility": "Accessibilità della sede"
   },
   "val": {
     "email": "Inserisci un'email valida",
@@ -427,7 +428,14 @@
     "contact": "Contatti",
     "sinceYear": "Dal {{year}}",
     "certifiedStaff": "Personale certificato",
-    "howToGet": "Come arrivare:"
+    "howToGet": "Come arrivare:",
+    "ageServed": "Fasce d'età seguite",
+    "modalitiesLabel": "Modalità di servizio",
+    "specialtiesLabel": "Specialità",
+    "areasLabel": "Aree di intervento",
+    "conditionsLabel": "Condizioni seguite",
+    "methodologiesLabel": "Metodologie e certificazioni",
+    "accessibilityLabel": "Accessibilità"
   },
   "dim": {
     "quality": "Qualità",
@@ -2541,7 +2549,15 @@
     "psicoterapia_cc_act": "Psicoterapia (TCC, ACT)",
     "capacitacion_docente": "Consulenza e formazione per docenti e istituzioni",
     "orientacion_legal_ddhh": "Orientamento legale e diritti umani",
-    "hidroterapia": "Idroterapia / Terapia acquatica"
+    "hidroterapia": "Idroterapia / Terapia acquatica",
+    "rampa_acceso": "Rampa d'accesso",
+    "bano_accesible": "Bagno accessibile",
+    "estacionamiento_accesible": "Parcheggio accessibile",
+    "elevador": "Ascensore",
+    "espacio_calma": "Spazio di calma sensoriale",
+    "bajo_estimulo": "Ambiente a bassa stimolazione sensoriale",
+    "comunicacion_alternativa": "Supporti alla comunicazione (CAA / pittogrammi)",
+    "perro_asistencia": "Accesso a cane di assistenza"
   },
   "kit": {
     "badge": "Strumenti",

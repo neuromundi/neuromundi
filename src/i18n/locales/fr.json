@@ -315,7 +315,8 @@
     "specialtiesPlaceholder": "Ex. TSA, TDAH, Syndrome de Down, Thérapie ABA…",
     "yearStarted": "Année de début d'activité",
     "yearStartedHint": "p. ex. 2015",
-    "certifiedStaff": "Nous avons du personnel certifié"
+    "certifiedStaff": "Nous avons du personnel certifié",
+    "accessibility": "Accessibilité du lieu"
   },
   "val": {
     "email": "Saisissez un e-mail valide",
@@ -427,7 +428,14 @@
     "contact": "Contact",
     "sinceYear": "Depuis {{year}}",
     "certifiedStaff": "Personnel certifié",
-    "howToGet": "Comment s'y rendre :"
+    "howToGet": "Comment s'y rendre :",
+    "ageServed": "Publics accueillis",
+    "modalitiesLabel": "Modalité de prise en charge",
+    "specialtiesLabel": "Spécialités",
+    "areasLabel": "Domaines d'intervention",
+    "conditionsLabel": "Conditions prises en charge",
+    "methodologiesLabel": "Méthodes et certifications",
+    "accessibilityLabel": "Accessibilité"
   },
   "dim": {
     "quality": "Qualité",
@@ -2541,7 +2549,15 @@
     "psicoterapia_cc_act": "Psychothérapie (TCC, ACT)",
     "capacitacion_docente": "Conseil et formation pour enseignants et institutions",
     "orientacion_legal_ddhh": "Orientation juridique et droits humains",
-    "hidroterapia": "Hydrothérapie / Thérapie aquatique"
+    "hidroterapia": "Hydrothérapie / Thérapie aquatique",
+    "rampa_acceso": "Rampe d'accès",
+    "bano_accesible": "Toilettes accessibles",
+    "estacionamiento_accesible": "Stationnement accessible",
+    "elevador": "Ascenseur",
+    "espacio_calma": "Espace de calme sensoriel",
+    "bajo_estimulo": "Environnement à faible stimulation sensorielle",
+    "comunicacion_alternativa": "Aides à la communication (CAA / pictogrammes)",
+    "perro_asistencia": "Accès chien d'assistance"
   },
   "kit": {
     "badge": "Outils",
