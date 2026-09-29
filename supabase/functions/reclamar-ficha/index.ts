@@ -122,7 +122,12 @@ Deno.serve(async (req) => {
     state: ficha.estado,
     municipality: ficha.ciudad,
     city: ficha.ciudad,
-    country: 'MX',
+    // Nombre del país, NO código ISO: el directorio segmenta con
+    // query.eq('country', country) usando MEXICO_NAME='México' (src/data/countries.ts),
+    // y las fichas se guardan con country='México' (migración 0131). Con 'MX' el
+    // perfil reclamado no casa con el filtro y desaparecería del directorio con
+    // México seleccionado (el valor por defecto).
+    country: 'México',
     services_offered: ficha.especializacion,
     // 'pending' con fecha límite: así useMembership calcula la cotización y las
     // opciones de pago, y la plataforma le muestra la cuota como a cualquier
