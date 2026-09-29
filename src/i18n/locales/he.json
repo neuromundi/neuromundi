@@ -2290,7 +2290,7 @@
     "experiencias_calma": "חוויות בגירוי חושי נמוך",
     "derechos_discapacidad": "מוגבלות וזכויות",
     "tutela_curatela": "אפוטרופסות",
-    "educacion_inclusiva": "הזכות לחינוך מכיל",
+    "educacion_inclusiva": "בתי ספר מכילים / שירותים חינוכיים מתמחים",
     "seguridad_social": "ביטוח לאומי / קצבאות",
     "laboral_inclusivo": "שילוב תעסוקתי",
     "apoyo_familias": "תמיכה במשפחות",
@@ -2563,7 +2563,14 @@
     "ataxia": "אטקסיות תורשתיות",
     "sueno_neurologico": "הפרעות שינה נוירולוגיות (נרקולפסיה)",
     "infeccion_snc": "סיבוכי זיהומי מערכת העצבים המרכזית (מנינגיטיס / אנצפליטיס)",
-    "otra_afeccion": "מצב נוירולוגי אחר"
+    "otra_afeccion": "מצב נוירולוגי אחר",
+    "neuropatologia": "נוירופתולוגיה",
+    "evaluacion_diagnostica": "אבחונים (ADOS-2, ADI-R, CARS)",
+    "analisis_conductual_aba": "ניתוח התנהגות יישומי (ABA)",
+    "psicoterapia_cc_act": "פסיכותרפיה (CBT, ACT)",
+    "capacitacion_docente": "ייעוץ והכשרה למורים ולמוסדות",
+    "orientacion_legal_ddhh": "ייעוץ משפטי וזכויות אדם",
+    "hidroterapia": "הידרותרפיה / טיפול במים"
   },
   "badge": {
     "miembro": "חבר מאומת",

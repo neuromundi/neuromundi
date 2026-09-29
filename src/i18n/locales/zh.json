@@ -2253,7 +2253,7 @@
     "experiencias_calma": "低感官负荷体验",
     "derechos_discapacidad": "残障与权利",
     "tutela_curatela": "监护/保佐",
-    "educacion_inclusiva": "融合教育权利",
+    "educacion_inclusiva": "融合学校 / 专业教育服务",
     "seguridad_social": "社会保障/养老金",
     "laboral_inclusivo": "就业融合",
     "apoyo_familias": "家庭支持",
@@ -2526,7 +2526,14 @@
     "ataxia": "遗传性共济失调",
     "sueno_neurologico": "神经性睡眠障碍（发作性睡病）",
     "infeccion_snc": "中枢神经系统感染后遗症（脑膜炎/脑炎）",
-    "otra_afeccion": "其他神经系统疾病"
+    "otra_afeccion": "其他神经系统疾病",
+    "neuropatologia": "神经病理学",
+    "evaluacion_diagnostica": "诊断评估（ADOS-2、ADI-R、CARS）",
+    "analisis_conductual_aba": "应用行为分析（ABA）",
+    "psicoterapia_cc_act": "心理治疗（CBT、ACT）",
+    "capacitacion_docente": "面向教师与机构的咨询与培训",
+    "orientacion_legal_ddhh": "法律与人权咨询",
+    "hidroterapia": "水疗 / 水中治疗"
   },
   "kit": {
     "badge": "工具",

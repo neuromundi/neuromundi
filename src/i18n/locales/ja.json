@@ -2253,7 +2253,7 @@
     "experiencias_calma": "低感覚負荷の体験",
     "derechos_discapacidad": "障害と権利",
     "tutela_curatela": "後見・保佐",
-    "educacion_inclusiva": "インクルーシブ教育の権利",
+    "educacion_inclusiva": "インクルーシブ校・専門教育サービス",
     "seguridad_social": "社会保障・年金",
     "laboral_inclusivo": "就労インクルージョン",
     "apoyo_familias": "家族支援",
@@ -2526,7 +2526,14 @@
     "ataxia": "遺伝性運動失調症",
     "sueno_neurologico": "神経性睡眠障害（ナルコレプシー）",
     "infeccion_snc": "中枢神経感染症の後遺症（髄膜炎・脳炎）",
-    "otra_afeccion": "その他の神経疾患"
+    "otra_afeccion": "その他の神経疾患",
+    "neuropatologia": "神経病理学",
+    "evaluacion_diagnostica": "診断評価（ADOS-2、ADI-R、CARS）",
+    "analisis_conductual_aba": "応用行動分析（ABA）",
+    "psicoterapia_cc_act": "心理療法（CBT・ACT）",
+    "capacitacion_docente": "教員・機関への助言と研修",
+    "orientacion_legal_ddhh": "法的・人権に関する相談",
+    "hidroterapia": "水治療・アクアセラピー"
   },
   "kit": {
     "badge": "ツール",

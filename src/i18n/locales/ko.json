@@ -2290,7 +2290,7 @@
     "experiencias_calma": "저자극 체험",
     "derechos_discapacidad": "장애와 권리",
     "tutela_curatela": "후견 / 보좌",
-    "educacion_inclusiva": "통합교육 받을 권리",
+    "educacion_inclusiva": "통합 학교 / 전문 교육 서비스",
     "seguridad_social": "사회보장 / 연금",
     "laboral_inclusivo": "고용 통합",
     "apoyo_familias": "가족 지원",
@@ -2563,7 +2563,14 @@
     "ataxia": "유전성 실조증",
     "sueno_neurologico": "신경성 수면장애(기면증)",
     "infeccion_snc": "중추신경계 감염 후유증(수막염/뇌염)",
-    "otra_afeccion": "기타 신경계 질환"
+    "otra_afeccion": "기타 신경계 질환",
+    "neuropatologia": "신경병리학",
+    "evaluacion_diagnostica": "진단 평가 (ADOS-2, ADI-R, CARS)",
+    "analisis_conductual_aba": "응용행동분석(ABA)",
+    "psicoterapia_cc_act": "심리치료 (CBT, ACT)",
+    "capacitacion_docente": "교사·기관 대상 자문 및 교육",
+    "orientacion_legal_ddhh": "법률 및 인권 안내",
+    "hidroterapia": "수치료 / 아쿠아 테라피"
   },
   "badge": {
     "miembro": "인증 회원",

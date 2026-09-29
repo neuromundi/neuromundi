@@ -2253,7 +2253,7 @@
     "experiencias_calma": "Reizarme Erlebnisse",
     "derechos_discapacidad": "Behinderung und Rechte",
     "tutela_curatela": "Vormundschaft / Betreuung",
-    "educacion_inclusiva": "Recht auf inklusive Bildung",
+    "educacion_inclusiva": "Inklusive Schulen / spezialisierte Bildungsdienste",
     "seguridad_social": "Sozialversicherung / Renten",
     "laboral_inclusivo": "Berufliche Inklusion",
     "apoyo_familias": "Familienunterstützung",
@@ -2526,7 +2526,14 @@
     "ataxia": "Erbliche Ataxien",
     "sueno_neurologico": "Neurologische Schlafstörungen (Narkolepsie)",
     "infeccion_snc": "Folgen von ZNS-Infektionen (Meningitis / Enzephalitis)",
-    "otra_afeccion": "Andere neurologische Erkrankung"
+    "otra_afeccion": "Andere neurologische Erkrankung",
+    "neuropatologia": "Neuropathologie",
+    "evaluacion_diagnostica": "Diagnostische Abklärungen (ADOS-2, ADI-R, CARS)",
+    "analisis_conductual_aba": "Angewandte Verhaltensanalyse (ABA)",
+    "psicoterapia_cc_act": "Psychotherapie (KVT, ACT)",
+    "capacitacion_docente": "Beratung und Fortbildung für Lehrkräfte und Einrichtungen",
+    "orientacion_legal_ddhh": "Rechts- und Menschenrechtsberatung",
+    "hidroterapia": "Hydrotherapie / Wassertherapie"
   },
   "kit": {
     "badge": "Werkzeuge",

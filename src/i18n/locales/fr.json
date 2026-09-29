@@ -2253,7 +2253,7 @@
     "experiencias_calma": "Expériences à faible charge sensorielle",
     "derechos_discapacidad": "Handicap et droits",
     "tutela_curatela": "Tutelle / curatelle",
-    "educacion_inclusiva": "Droit à l’éducation inclusive",
+    "educacion_inclusiva": "Écoles inclusives / services éducatifs spécialisés",
     "seguridad_social": "Sécurité sociale / retraites",
     "laboral_inclusivo": "Inclusion professionnelle",
     "apoyo_familias": "Soutien aux familles",
@@ -2526,7 +2526,14 @@
     "ataxia": "Ataxies héréditaires",
     "sueno_neurologico": "Troubles du sommeil neurologiques (narcolepsie)",
     "infeccion_snc": "Séquelles d’infections du SNC (méningite / encéphalite)",
-    "otra_afeccion": "Autre affection neurologique"
+    "otra_afeccion": "Autre affection neurologique",
+    "neuropatologia": "Neuropathologie",
+    "evaluacion_diagnostica": "Évaluations diagnostiques (ADOS-2, ADI-R, CARS)",
+    "analisis_conductual_aba": "Analyse appliquée du comportement (ABA)",
+    "psicoterapia_cc_act": "Psychothérapie (TCC, ACT)",
+    "capacitacion_docente": "Conseil et formation pour enseignants et institutions",
+    "orientacion_legal_ddhh": "Orientation juridique et droits humains",
+    "hidroterapia": "Hydrothérapie / Thérapie aquatique"
   },
   "kit": {
     "badge": "Outils",

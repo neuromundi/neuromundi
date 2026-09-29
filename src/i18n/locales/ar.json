@@ -2290,7 +2290,7 @@
     "experiencias_calma": "تجارب منخفضة التحفيز الحسي",
     "derechos_discapacidad": "الإعاقة والحقوق",
     "tutela_curatela": "الوصاية / القوامة",
-    "educacion_inclusiva": "الحق في التعليم الدامج",
+    "educacion_inclusiva": "مدارس دامجة / خدمات تعليمية متخصصة",
     "seguridad_social": "الضمان الاجتماعي / المعاشات",
     "laboral_inclusivo": "الإدماج الوظيفي",
     "apoyo_familias": "دعم الأسر",
@@ -2563,7 +2563,14 @@
     "ataxia": "الرنح الوراثي",
     "sueno_neurologico": "اضطرابات النوم العصبية (النوم القهري)",
     "infeccion_snc": "مضاعفات عدوى الجهاز العصبي المركزي (التهاب السحايا / الدماغ)",
-    "otra_afeccion": "حالة عصبية أخرى"
+    "otra_afeccion": "حالة عصبية أخرى",
+    "neuropatologia": "علم الأمراض العصبية",
+    "evaluacion_diagnostica": "تقييمات تشخيصية (ADOS-2، ADI-R، CARS)",
+    "analisis_conductual_aba": "تحليل السلوك التطبيقي (ABA)",
+    "psicoterapia_cc_act": "العلاج النفسي (CBT، ACT)",
+    "capacitacion_docente": "استشارة وتدريب للمعلمين والمؤسسات",
+    "orientacion_legal_ddhh": "إرشاد قانوني وحقوق الإنسان",
+    "hidroterapia": "العلاج المائي"
   },
   "badge": {
     "miembro": "عضو موثَّق",

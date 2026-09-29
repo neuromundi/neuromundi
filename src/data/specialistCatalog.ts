@@ -33,6 +33,7 @@ export const PROFESSIONS: CatItem[] = [
   { value: 'neurologia', label: 'Neurología' },
   { value: 'pediatria', label: 'Pediatría' },
   { value: 'genetica_medica', label: 'Genética Médica' },
+  { value: 'neuropatologia', label: 'Neuropatología' },
   { value: 'medicina_rehabilitacion', label: 'Medicina Física y Rehabilitación' },
   { value: 'neuropsicologia', label: 'Neuropsicología' },
   { value: 'educacion_especial', label: 'Educación Especial' },
@@ -109,6 +110,7 @@ export const MEDICAL_PROFESSIONS: ReadonlySet<string> = new Set([
   'neurologia',
   'pediatria',
   'genetica_medica',
+  'neuropatologia',
   'medicina_rehabilitacion',
   'neurocirugia',
   'epileptologia',
@@ -205,11 +207,19 @@ export const INTERVENTION_AREAS: CatItem[] = [
   { value: 'deglucion_disfagia', label: 'Deglución y disfagia' },
   { value: 'dolor_neurologico', label: 'Manejo del dolor neurológico' },
   { value: 'cuidados_paliativos_neuro', label: 'Cuidados paliativos neurológicos' },
+  // ── Diagnóstico, educación y apoyo (ampliación 2026) ─────────────────────────
+  { value: 'evaluacion_diagnostica', label: 'Evaluaciones diagnósticas (ADOS-2, ADI-R, CARS)' },
+  { value: 'analisis_conductual_aba', label: 'Análisis Conductual Aplicado (ABA)' },
+  { value: 'psicoterapia_cc_act', label: 'Psicoterapia (Cognitivo-Conductual, ACT)' },
+  { value: 'educacion_inclusiva', label: 'Escuelas inclusivas / servicios educativos especializados' },
+  { value: 'capacitacion_docente', label: 'Asesoría y capacitación a docentes e instituciones' },
+  { value: 'orientacion_legal_ddhh', label: 'Orientación legal y de derechos humanos' },
+  { value: 'hidroterapia', label: 'Hidroterapia / Terapia acuática' },
   { value: 'otro', label: 'Otro' },
 ];
 
 export const CERTIFICATIONS: string[] = [
-  'ADOS-2', 'DIR/Floortime', 'PECS', 'Método Denver (ESDM)', 'Integración Sensorial de Ayres', 'ABA', 'TEACCH', 'Hanen',
+  'ADOS-2', 'ADI-R', 'CARS', 'DIR/Floortime', 'PECS', 'Método Denver (ESDM)', 'Integración Sensorial de Ayres', 'ABA', 'TEACCH', 'Hanen',
   // ── Ampliación (taxonomía Neuromundi) ──
   'Modelo Neuroafirmante', 'TCC adaptada', 'ACT', 'SCERTS', 'PROMPT', 'Terapia Miofuncional',
   'Método Tomatis', 'Método Bérard (AIT)', 'Safe & Sound Protocol (SSP)', 'Interactive Metronome',
