@@ -5095,6 +5095,10 @@
       "reviewed": "確認済み",
       "accepted": "承認済み",
       "dismissed": "却下"
-    }
+    },
+    "promote": "反映する",
+    "promotedDir": "ディレクトリにカテゴリーを作成しました。翻訳キー（cat.<key>）をクリップボードにコピーしました。",
+    "copiedStoreCat": "スニペットをコピーしました。STORE_CATEGORIES（storeCatalog.ts）に貼り付け、翻訳を追加してください。",
+    "copiedProduct": "名前をコピーしました。商品は提供者が公開します。招待や作成に活用してください。"
   }
 }

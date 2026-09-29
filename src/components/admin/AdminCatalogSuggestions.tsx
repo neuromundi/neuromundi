@@ -6,10 +6,25 @@
  */
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Lightbulb, RefreshCw, Check, Eye, X } from 'lucide-react';
-import { Button, SkeletonCard } from '@/components/ui';
+import { Lightbulb, RefreshCw, Check, Eye, X, Rocket } from 'lucide-react';
+import { Button, SkeletonCard, useToast } from '@/components/ui';
 import { cn, formatDate } from '@/lib/utils';
+import { supabase } from '@/lib/supabase';
 import { useAdminCatalogSuggestions, type CatalogSuggestion } from '@/hooks/useCatalogSuggestions';
+
+/** Normaliza un nombre a una clave de catálogo (minúsculas, sin acentos, _). */
+function slugify(s: string): string {
+  return s
+    .normalize('NFD').replace(/[̀-ͯ]/g, '')
+    .toLowerCase().trim()
+    .replace(/[^a-z0-9]+/g, '_')
+    .replace(/^_+|_+$/g, '')
+    .slice(0, 40) || 'nueva_categoria';
+}
+
+async function copyToClipboard(text: string): Promise<void> {
+  try { await navigator.clipboard.writeText(text); } catch { /* sin permiso de portapapeles: no crítico */ }
+}
 
 type StatusFilter = 'all' | CatalogSuggestion['status'];
 
@@ -28,8 +43,30 @@ const STATUS_STYLE: Record<CatalogSuggestion['status'], string> = {
 
 export function AdminCatalogSuggestions() {
   const { t } = useTranslation();
+  const toast = useToast();
   const { items, loading, reload, setStatus } = useAdminCatalogSuggestions();
   const [filter, setFilter] = useState<StatusFilter>('new');
+
+  // "Promover": convierte la sugerencia en taxonomía real y la marca aceptada.
+  //  - Categoría de DIRECTORIO -> alta REAL en la tabla `categories` (RPC).
+  //  - Categoría de TIENDA (código) y PRODUCTO (lo publica el prestador) -> se
+  //    copia un fragmento listo para pegar; no hay alta automática posible.
+  const promote = async (s: CatalogSuggestion) => {
+    const key = slugify(s.name);
+    if (s.kind === 'directory_category') {
+      const { error } = await supabase.rpc('admin_create_category', { p_slug: key, p_name: s.name });
+      if (error) { toast.error(error.message); return; }
+      await copyToClipboard(`"cat.${key}": "${s.name}",`);
+      toast.success(t('suggest.promotedDir'));
+    } else if (s.kind === 'store_category') {
+      await copyToClipboard(`{ value: '${key}', label: '${s.name}' },`);
+      toast.success(t('suggest.copiedStoreCat'));
+    } else {
+      await copyToClipboard(s.name);
+      toast.success(t('suggest.copiedProduct'));
+    }
+    await setStatus(s.id, 'accepted');
+  };
 
   if (loading) return <div className="space-y-3"><SkeletonCard rows={0} /><SkeletonCard rows={0} /></div>;
 
@@ -90,10 +127,15 @@ export function AdminCatalogSuggestions() {
                     <span>· {formatDate(s.created_at)}</span>
                   </p>
                   <div className="mt-2 flex flex-wrap gap-2">
+                    {s.status !== 'accepted' && (
+                      <Button size="sm" variant="primary" leadingIcon={<Rocket className="h-3.5 w-3.5" />} onClick={() => void promote(s)}>
+                        {t('suggest.promote')}
+                      </Button>
+                    )}
                     <Button size="sm" variant="secondary" leadingIcon={<Eye className="h-3.5 w-3.5" />} onClick={() => void setStatus(s.id, 'reviewed')}>
                       {t('suggest.status.reviewed')}
                     </Button>
-                    <Button size="sm" variant="primary" leadingIcon={<Check className="h-3.5 w-3.5" />} onClick={() => void setStatus(s.id, 'accepted')}>
+                    <Button size="sm" variant="secondary" leadingIcon={<Check className="h-3.5 w-3.5" />} onClick={() => void setStatus(s.id, 'accepted')}>
                       {t('suggest.status.accepted')}
                     </Button>
                     <Button size="sm" variant="ghost" leadingIcon={<X className="h-3.5 w-3.5" />} onClick={() => void setStatus(s.id, 'dismissed')}>

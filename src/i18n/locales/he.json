@@ -5095,6 +5095,10 @@
       "reviewed": "נבדקה",
       "accepted": "התקבלה",
       "dismissed": "נדחתה"
-    }
+    },
+    "promote": "קידום",
+    "promotedDir": "הקטגוריה נוצרה במדריך. מפתח התרגום (cat.<key>) הועתק ללוח.",
+    "copiedStoreCat": "הקטע הועתק. הדביקו אותו ב-STORE_CATEGORIES (storeCatalog.ts) והוסיפו תרגום.",
+    "copiedProduct": "השם הועתק. מוצרים מתפרסמים על ידי הספק; השתמשו בו כדי להזמין או ליצור."
   }
 }

@@ -5095,6 +5095,10 @@
       "reviewed": "Revisada",
       "accepted": "Aceita",
       "dismissed": "Descartada"
-    }
+    },
+    "promote": "Promover",
+    "promotedDir": "Categoria criada no diretório. Sua chave de tradução (cat.<chave>) foi copiada para a área de transferência.",
+    "copiedStoreCat": "Trecho copiado. Cole em STORE_CATEGORIES (storeCatalog.ts) e adicione a tradução.",
+    "copiedProduct": "Nome copiado. Os produtos são publicados pelo prestador; use-o para convidar ou criar."
   }
 }

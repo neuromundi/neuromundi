@@ -1844,6 +1844,10 @@ export interface Database {
         Args: { p_id: string; p_status: string };
         Returns: undefined;
       };
+      admin_create_category: {
+        Args: { p_slug: string; p_name: string };
+        Returns: undefined;
+      };
       search_contacts: {
         Args: { p_query: string };
         Returns: { member_no: number; full_name: string; business_name: string | null; avatar_url: string | null; role: string; country: string | null }[];

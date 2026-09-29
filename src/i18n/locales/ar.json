@@ -5095,6 +5095,10 @@
       "reviewed": "تمت المراجعة",
       "accepted": "مقبولة",
       "dismissed": "مرفوضة"
-    }
+    },
+    "promote": "ترقية",
+    "promotedDir": "تم إنشاء الفئة في الدليل. تم نسخ مفتاح الترجمة (cat.<key>) إلى الحافظة.",
+    "copiedStoreCat": "تم نسخ المقتطف. الصقه في STORE_CATEGORIES (storeCatalog.ts) وأضف ترجمته.",
+    "copiedProduct": "تم نسخ الاسم. المنتجات ينشرها المزوّد؛ استخدمه لدعوته أو لإنشائه."
   }
 }

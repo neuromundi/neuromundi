@@ -5095,6 +5095,10 @@
       "reviewed": "Reviewed",
       "accepted": "Accepted",
       "dismissed": "Dismissed"
-    }
+    },
+    "promote": "Promote",
+    "promotedDir": "Category created in the directory. Its translation key (cat.<key>) was copied to the clipboard.",
+    "copiedStoreCat": "Snippet copied. Paste it into STORE_CATEGORIES (storeCatalog.ts) and add its translation.",
+    "copiedProduct": "Name copied. Products are published by the provider; use it to invite or create it."
   }
 }

@@ -5095,6 +5095,10 @@
       "reviewed": "Geprüft",
       "accepted": "Angenommen",
       "dismissed": "Verworfen"
-    }
+    },
+    "promote": "Übernehmen",
+    "promotedDir": "Kategorie im Verzeichnis erstellt. Ihr Übersetzungsschlüssel (cat.<key>) wurde in die Zwischenablage kopiert.",
+    "copiedStoreCat": "Snippet kopiert. Füge es in STORE_CATEGORIES (storeCatalog.ts) ein und ergänze die Übersetzung.",
+    "copiedProduct": "Name kopiert. Produkte werden vom Anbieter veröffentlicht; nutze ihn zum Einladen oder Anlegen."
   }
 }

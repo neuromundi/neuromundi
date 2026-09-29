@@ -5095,6 +5095,10 @@
       "reviewed": "검토됨",
       "accepted": "수락됨",
       "dismissed": "기각됨"
-    }
+    },
+    "promote": "반영",
+    "promotedDir": "디렉터리에 카테고리를 만들었습니다. 번역 키(cat.<key>)를 클립보드에 복사했습니다.",
+    "copiedStoreCat": "스니펫을 복사했습니다. STORE_CATEGORIES(storeCatalog.ts)에 붙여넣고 번역을 추가하세요.",
+    "copiedProduct": "이름을 복사했습니다. 상품은 제공자가 등록합니다. 초대하거나 생성하는 데 사용하세요."
   }
 }
