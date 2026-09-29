@@ -322,6 +322,15 @@ export function DirectorySearch({ onViewProfile }: DirectorySearchProps) {
           >
             <Sparkles className="h-4 w-4" aria-hidden="true" /> {t('directory.neuroFilter')}
           </button>
+          {/* Curaduría comunitaria: proponer una categoría que falte. Va junto a
+              los accesos rápidos; la sugerencia entra a una cola que el admin revisa. */}
+          <button
+            type="button"
+            onClick={() => setSuggestOpen(true)}
+            className="inline-flex items-center gap-1.5 rounded-full border border-dashed border-brand-300 bg-brand-50/50 px-3 py-1.5 text-sm font-medium text-brand-700 hover:bg-brand-50"
+          >
+            <Plus className="h-4 w-4" aria-hidden="true" /> {t('suggest.dirCta')}
+          </button>
         </div>
 
         {/* En móvil, los filtros finos se pliegan tras este botón. */}
@@ -510,17 +519,6 @@ export function DirectorySearch({ onViewProfile }: DirectorySearchProps) {
         </div>
       </div>
 
-      {/* Curaduría comunitaria: proponer una categoría que falte. Abierto a
-          todos; la sugerencia entra a una cola que el admin revisa. */}
-      <div className="mt-3 flex justify-center">
-        <button
-          type="button"
-          onClick={() => setSuggestOpen(true)}
-          className="inline-flex items-center gap-1.5 rounded-full border border-dashed border-brand-300 bg-brand-50/50 px-4 py-2 text-sm font-semibold text-brand-700 hover:bg-brand-50"
-        >
-          <Plus className="h-4 w-4" aria-hidden="true" /> {t('suggest.dirCta')}
-        </button>
-      </div>
       {suggestOpen && (
         <SuggestModal context="directory" section={section} country={country} onClose={() => setSuggestOpen(false)} />
       )}
