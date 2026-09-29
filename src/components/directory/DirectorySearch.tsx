@@ -508,8 +508,12 @@ export function DirectorySearch({ onViewProfile }: DirectorySearchProps) {
         </div>
       </div>
 
-      {/* Contenido */}
-      <div className="mt-4 grid gap-4 md:grid-cols-2">
+      {/* Contenido. `grid-cols-1` en móvil es OBLIGATORIO: sin columnas
+          definidas, el grid crea una columna implícita `auto` que crece al
+          max-content de las tarjetas (>1200px) y desborda la pantalla. Con
+          `grid-cols-1` (= minmax(0,1fr)) la columna se acota al ancho disponible
+          y el truncate/flex-wrap de las tarjetas funciona. */}
+      <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
         {/* Lista */}
         <div className={cn('space-y-3', view === 'map' && 'hidden md:block')}>
           {loading ? (

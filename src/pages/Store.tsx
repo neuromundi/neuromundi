@@ -199,7 +199,7 @@ export function Store() {
       </div>
 
       {loading ? (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <SkeletonCard rows={2} />
           <SkeletonCard rows={2} />
           <SkeletonCard rows={2} />
@@ -213,7 +213,7 @@ export function Store() {
               <h2 className="mb-2 flex items-center gap-2 text-lg font-bold text-slate-900">
                 <Star className="h-5 w-5 text-amber-500" aria-hidden="true" /> {t('shop.featured')}
               </h2>
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {featured.map((p) => (
                   <Card key={p.id} p={p} />
                 ))}
@@ -224,7 +224,7 @@ export function Store() {
           {filtered.length === 0 ? (
             <p className="rounded-2xl border border-dashed border-slate-200 p-8 text-center text-muted">{t('shop.noResults')}</p>
           ) : (
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {filtered.map((p) => (
                 <Card key={p.id} p={p} />
               ))}
