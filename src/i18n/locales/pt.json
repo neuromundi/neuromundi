@@ -312,7 +312,10 @@
     "professionPlaceholder": "Ex. Neuropsicólogo, Terapeuta Ocupacional, Psicopedagogo…",
     "specialties": "Especialidades",
     "specialtiesHint": "Separe cada item com uma vírgula.",
-    "specialtiesPlaceholder": "Ex. TEA, TDAH, Síndrome de Down, Terapia ABA…"
+    "specialtiesPlaceholder": "Ex. TEA, TDAH, Síndrome de Down, Terapia ABA…",
+    "yearStarted": "Ano de início da atividade",
+    "yearStartedHint": "ex. 2015",
+    "certifiedStaff": "Temos equipe certificada"
   },
   "val": {
     "email": "Digite um e-mail válido",
@@ -324,7 +327,8 @@
     "emailInvalid": "Insira um e-mail válido.",
     "emailDisposable": "E-mails temporários ou descartáveis não são permitidos.",
     "passwordMismatch": "As senhas não coincidem",
-    "emailMismatch": "Os e-mails não coincidem"
+    "emailMismatch": "Os e-mails não coincidem",
+    "year": "Ano inválido"
   },
   "directory": {
     "searchPlaceholder": "Busque um negócio ou serviço",
@@ -420,7 +424,10 @@
     "noOffers": "Sem ofertas ativas no momento.",
     "lockedUnclaimed": "Este perfil está sendo preenchido por seu titular e em breve estará pronto para a sua consulta.",
     "lockedUnpaid": "Este perfil está sendo preenchido por seu titular e em breve estará pronto para a sua consulta.",
-    "contact": "Contato"
+    "contact": "Contato",
+    "sinceYear": "Desde {{year}}",
+    "certifiedStaff": "Equipe certificada",
+    "howToGet": "Como chegar:"
   },
   "dim": {
     "quality": "Qualidade",

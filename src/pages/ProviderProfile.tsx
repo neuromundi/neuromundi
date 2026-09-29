@@ -11,7 +11,7 @@ import {
   PolarRadiusAxis,
   ResponsiveContainer,
 } from 'recharts';
-import { ArrowLeft, MapPin, ShieldCheck, Tag, Users, Sparkles, Waves, LifeBuoy, Heart, Star, BadgeCheck, Clock, Phone, Globe } from 'lucide-react';
+import { ArrowLeft, MapPin, ShieldCheck, Tag, Users, Sparkles, Waves, LifeBuoy, Heart, Star, BadgeCheck, Clock, Phone, Globe, Navigation, CalendarDays, UserCheck } from 'lucide-react';
 import { safeHttpUrl } from '@/lib/safeUrl';
 import { useTranslation } from 'react-i18next';
 import { useCatLabel } from '@/lib/catLabel';
@@ -101,6 +101,16 @@ export function ProviderProfile() {
   // confianza; solo llevan una nota informativa de que se están completando.
   const locked = !['active', 'exempt', 'past_due'].includes((profile as { membership_status?: string }).membership_status ?? '');
   const website = profile.website || profile.website_url;
+
+  // "Cómo llegar": deep-links de navegación cuando hay coordenadas. Si no hay
+  // lat/lng pero sí dirección, se cae a una búsqueda por texto en Google Maps.
+  const hasCoords = profile.latitude != null && profile.longitude != null;
+  const mapsHref = hasCoords
+    ? `https://www.google.com/maps/dir/?api=1&destination=${profile.latitude},${profile.longitude}`
+    : profile.address
+      ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent([profile.address, profile.city, profile.state].filter(Boolean).join(', '))}`
+      : null;
+  const wazeHref = hasCoords ? `https://waze.com/ul?ll=${profile.latitude},${profile.longitude}&navigate=yes` : null;
 
   if (locked) {
     return (
@@ -197,8 +207,46 @@ export function ProviderProfile() {
             <EVSBadge score={rating?.evs_score ?? null} totalReviews={rating?.total_reviews ?? 0} size="lg" />
             <DistintivoBadge badge={badge} size="md" showLabel showReview={userId === id} />
           </div>
+          {(profile.year_started != null || profile.certified_staff) && (
+            <div className="mt-2 flex flex-wrap items-center gap-2">
+              {profile.year_started != null && (
+                <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-700">
+                  <CalendarDays className="h-3.5 w-3.5" aria-hidden="true" /> {t('profile.sinceYear', { year: profile.year_started })}
+                </span>
+              )}
+              {profile.certified_staff && (
+                <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2.5 py-0.5 text-xs font-semibold text-emerald-700">
+                  <UserCheck className="h-3.5 w-3.5" aria-hidden="true" /> {t('profile.certifiedStaff')}
+                </span>
+              )}
+            </div>
+          )}
         </div>
       </header>
+
+      {mapsHref && (
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="text-sm text-muted">{t('profile.howToGet')}</span>
+          <a
+            href={mapsHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+          >
+            <Navigation className="h-4 w-4 text-brand-600" aria-hidden="true" /> Google Maps
+          </a>
+          {wazeHref && (
+            <a
+              href={wazeHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50"
+            >
+              <Navigation className="h-4 w-4 text-sky-500" aria-hidden="true" /> Waze
+            </a>
+          )}
+        </div>
+      )}
 
       {profile.bio && <p className="text-slate-700 leading-relaxed">{profile.bio}</p>}
 

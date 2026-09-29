@@ -158,6 +158,8 @@ export function Settings() {
           school_grades: profile.school_grades ?? [],
           is_company: profile.is_company ?? false,
           services_offered: profile.services_offered ?? '',
+          year_started: profile.year_started != null ? String(profile.year_started) : '',
+          certified_staff: profile.certified_staff ?? false,
           provider_type: profile.provider_type,
           is_published: profile.is_published,
           // Directorio
@@ -218,6 +220,10 @@ export function Settings() {
       patch.city = orNull(values.city);
       patch.is_company = values.is_company ?? false;
       patch.services_offered = orNull(values.services_offered);
+      // Señales de confianza (opcionales).
+      const ys = values.year_started;
+      patch.year_started = ys === '' || ys == null ? null : Number(ys);
+      patch.certified_staff = values.certified_staff ?? false;
       patch.provider_type = values.provider_type;
       patch.is_published = values.is_published;
       // Datos fiscales (factura MÃ©xico/CFDI e internacional).
@@ -409,6 +415,28 @@ export function Settings() {
                 <input id="s-addr" className={inputCls} {...register('address')} />
               </div>
             </div>
+            {/* Señales de confianza: año de inicio + personal certificado. */}
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label htmlFor="s-year" className={labelCls}>{t('settings.yearStarted')}</label>
+                <input
+                  id="s-year"
+                  type="number"
+                  inputMode="numeric"
+                  min={1900}
+                  max={new Date().getFullYear()}
+                  className={inputCls}
+                  placeholder={t('settings.yearStartedHint')}
+                  {...register('year_started')}
+                />
+                {errors.year_started && <p role="alert" className="mt-1 text-sm text-evs-1">{t(errors.year_started.message!)}</p>}
+              </div>
+              <label className="flex items-end gap-3 pb-2">
+                <input type="checkbox" className="h-5 w-5 rounded border-slate-300 text-brand-500" {...register('certified_staff')} />
+                <span className="text-sm text-slate-700">{t('settings.certifiedStaff')}</span>
+              </label>
+            </div>
+
             {/* Datos de facturación: las empresas de empleo están exentas de cuota. */}
             {!isCompany && (
               <FiscalSchoolFields register={register} country={watch('country')} providerType={watchType} />

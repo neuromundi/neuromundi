@@ -349,7 +349,10 @@
     "modalHibrido": "Hybrid",
     "modalDomicilio": "Home visits",
     "neuroaffirming": "Neuroaffirming approach",
-    "bookingUrl": "Booking link"
+    "bookingUrl": "Booking link",
+    "yearStarted": "Year started operating",
+    "yearStartedHint": "e.g. 2015",
+    "certifiedStaff": "We have certified staff"
   },
   "val": {
     "email": "Enter a valid email",
@@ -361,7 +364,8 @@
     "emailInvalid": "Enter a valid email address.",
     "emailDisposable": "Temporary or disposable emails are not allowed.",
     "passwordMismatch": "Passwords do not match",
-    "emailMismatch": "Emails do not match"
+    "emailMismatch": "Emails do not match",
+    "year": "Invalid year"
   },
   "directory": {
     "searchPlaceholder": "Search a shop or service",
@@ -457,7 +461,10 @@
     "noOffers": "No active offers right now.",
     "lockedUnclaimed": "This profile is being completed by its owner and will be ready for you shortly.",
     "lockedUnpaid": "This profile is being completed by its owner and will be ready for you shortly.",
-    "contact": "Contact"
+    "contact": "Contact",
+    "sinceYear": "Since {{year}}",
+    "certifiedStaff": "Certified staff",
+    "howToGet": "How to get there:"
   },
   "dim": {
     "quality": "Quality",

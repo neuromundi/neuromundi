@@ -312,7 +312,10 @@
     "professionPlaceholder": "z. B. Neuropsychologe, Ergotherapeut, Heilpädagoge…",
     "specialties": "Spezialgebiete",
     "specialtiesHint": "Trennen Sie die Einträge mit einem Komma.",
-    "specialtiesPlaceholder": "z. B. ASS, ADHS, Down-Syndrom, ABA-Therapie…"
+    "specialtiesPlaceholder": "z. B. ASS, ADHS, Down-Syndrom, ABA-Therapie…",
+    "yearStarted": "Jahr des Tätigkeitsbeginns",
+    "yearStartedHint": "z. B. 2015",
+    "certifiedStaff": "Wir haben zertifiziertes Personal"
   },
   "val": {
     "email": "Gib eine gültige E-Mail ein",
@@ -324,7 +327,8 @@
     "emailInvalid": "Gib eine gültige E-Mail-Adresse ein.",
     "emailDisposable": "Temporäre oder Wegwerf-E-Mails sind nicht erlaubt.",
     "passwordMismatch": "Die Passwörter stimmen nicht überein",
-    "emailMismatch": "Die E-Mails stimmen nicht überein"
+    "emailMismatch": "Die E-Mails stimmen nicht überein",
+    "year": "Ungültiges Jahr"
   },
   "directory": {
     "searchPlaceholder": "Geschäft oder Dienst suchen",
@@ -420,7 +424,10 @@
     "noOffers": "Derzeit keine aktiven Angebote.",
     "lockedUnclaimed": "Dieses Profil wird gerade von seinem Inhaber vervollständigt und steht Ihnen in Kürze zur Verfügung.",
     "lockedUnpaid": "Dieses Profil wird gerade von seinem Inhaber vervollständigt und steht Ihnen in Kürze zur Verfügung.",
-    "contact": "Kontakt"
+    "contact": "Kontakt",
+    "sinceYear": "Seit {{year}}",
+    "certifiedStaff": "Zertifiziertes Personal",
+    "howToGet": "Anfahrt:"
   },
   "dim": {
     "quality": "Qualität",

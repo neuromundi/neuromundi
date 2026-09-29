@@ -349,7 +349,10 @@
     "professionPlaceholder": "예: 신경심리사, 작업치료사, 심리교육사…",
     "specialties": "전문 분야",
     "specialtiesHint": "각 항목을 쉼표로 구분하세요.",
-    "specialtiesPlaceholder": "예: ASD, ADHD, 다운증후군, ABA 치료…"
+    "specialtiesPlaceholder": "예: ASD, ADHD, 다운증후군, ABA 치료…",
+    "yearStarted": "활동 시작 연도",
+    "yearStartedHint": "예: 2015",
+    "certifiedStaff": "인증 전문 인력을 보유하고 있습니다"
   },
   "val": {
     "email": "유효한 이메일을 입력하세요",
@@ -361,7 +364,8 @@
     "emailInvalid": "유효한 이메일 주소를 입력하세요.",
     "emailDisposable": "임시 또는 일회용 이메일은 허용되지 않습니다.",
     "passwordMismatch": "비밀번호가 일치하지 않습니다",
-    "emailMismatch": "이메일이 일치하지 않습니다"
+    "emailMismatch": "이메일이 일치하지 않습니다",
+    "year": "잘못된 연도입니다"
   },
   "directory": {
     "searchPlaceholder": "상점 또는 서비스 검색",
@@ -457,7 +461,10 @@
     "noOffers": "현재 진행 중인 혜택이 없습니다.",
     "lockedUnclaimed": "이 프로필은 소유자가 작성 중이며 곧 확인하실 수 있습니다.",
     "lockedUnpaid": "이 프로필은 소유자가 작성 중이며 곧 확인하실 수 있습니다.",
-    "contact": "연락처"
+    "contact": "연락처",
+    "sinceYear": "{{year}}년부터",
+    "certifiedStaff": "인증 전문 인력",
+    "howToGet": "찾아오는 길:"
   },
   "dim": {
     "quality": "품질",

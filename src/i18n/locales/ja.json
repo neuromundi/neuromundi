@@ -312,7 +312,10 @@
     "professionPlaceholder": "例: 神経心理士、作業療法士、心理教育士…",
     "specialties": "専門",
     "specialtiesHint": "各項目はカンマで区切ってください。",
-    "specialtiesPlaceholder": "例: ASD、ADHD、ダウン症、ABAセラピー…"
+    "specialtiesPlaceholder": "例: ASD、ADHD、ダウン症、ABAセラピー…",
+    "yearStarted": "活動開始年",
+    "yearStartedHint": "例: 2015",
+    "certifiedStaff": "認定スタッフが在籍しています"
   },
   "val": {
     "email": "有効なメールアドレスを入力してください",
@@ -324,7 +327,8 @@
     "emailInvalid": "有効なメールアドレスを入力してください。",
     "emailDisposable": "使い捨て・一時メールは使用できません。",
     "passwordMismatch": "パスワードが一致しません",
-    "emailMismatch": "メールアドレスが一致しません"
+    "emailMismatch": "メールアドレスが一致しません",
+    "year": "無効な年です"
   },
   "directory": {
     "searchPlaceholder": "店舗やサービスを検索",
@@ -420,7 +424,10 @@
     "noOffers": "現在、有効なオファーはありません。",
     "lockedUnclaimed": "このプロフィールは所有者が入力中です。まもなくご覧いただけるようになります。",
     "lockedUnpaid": "このプロフィールは所有者が入力中です。まもなくご覧いただけるようになります。",
-    "contact": "連絡先"
+    "contact": "連絡先",
+    "sinceYear": "{{year}}年から",
+    "certifiedStaff": "認定スタッフ",
+    "howToGet": "アクセス:"
   },
   "dim": {
     "quality": "品質",

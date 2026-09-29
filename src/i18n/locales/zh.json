@@ -312,7 +312,10 @@
     "professionPlaceholder": "例如：神经心理学家、职业治疗师、心理教育师…",
     "specialties": "专长",
     "specialtiesHint": "每一项用逗号分隔。",
-    "specialtiesPlaceholder": "例如：ASD、ADHD、唐氏综合征、ABA疗法…"
+    "specialtiesPlaceholder": "例如：ASD、ADHD、唐氏综合征、ABA疗法…",
+    "yearStarted": "开始运营年份",
+    "yearStartedHint": "例如 2015",
+    "certifiedStaff": "我们拥有持证人员"
   },
   "val": {
     "email": "请输入有效的邮箱",
@@ -324,7 +327,8 @@
     "emailInvalid": "请输入有效的电子邮箱。",
     "emailDisposable": "不允许使用临时或一次性邮箱。",
     "passwordMismatch": "两次输入的密码不一致",
-    "emailMismatch": "两次输入的邮箱不一致"
+    "emailMismatch": "两次输入的邮箱不一致",
+    "year": "年份无效"
   },
   "directory": {
     "searchPlaceholder": "搜索商家或服务",
@@ -420,7 +424,10 @@
     "noOffers": "暂无有效优惠。",
     "lockedUnclaimed": "此档案的拥有者正在完善中，很快即可供您查看。",
     "lockedUnpaid": "此档案的拥有者正在完善中，很快即可供您查看。",
-    "contact": "联系方式"
+    "contact": "联系方式",
+    "sinceYear": "自{{year}}年起",
+    "certifiedStaff": "持证人员",
+    "howToGet": "如何到达："
   },
   "dim": {
     "quality": "质量",

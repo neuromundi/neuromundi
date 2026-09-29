@@ -350,6 +350,16 @@ export const profileSchema = z.object({
   school_grades: z.array(z.string()).optional().default([]),
   is_company: z.boolean().optional().default(false),
   services_offered: z.string().max(1000).optional().default(''),
+  // Señales de confianza (opcionales): año de inicio de actividad y personal certificado.
+  year_started: z
+    .union([z.string(), z.number()])
+    .optional()
+    .transform((v) => (v === '' || v == null ? null : Number(v)))
+    .refine(
+      (v) => v == null || (Number.isInteger(v) && v >= 1900 && v <= new Date().getFullYear()),
+      'val.year',
+    ),
+  certified_staff: z.boolean().optional().default(false),
   provider_type: z
     .enum(['service_provider', 'merchant', 'school', 'clinic', 'wellness', 'tourism', 'legal', 'ngo', 'caregiver', 'company'])
     .nullable()

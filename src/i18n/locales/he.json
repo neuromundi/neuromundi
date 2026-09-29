@@ -349,7 +349,10 @@
     "professionPlaceholder": "לדוגמה: נוירופסיכולוג, מרפא בעיסוק, פסיכופדגוג…",
     "specialties": "התמחויות",
     "specialtiesHint": "הפרד כל פריט בפסיק.",
-    "specialtiesPlaceholder": "לדוגמה: ASD, ADHD, תסמונת דאון, טיפול ABA…"
+    "specialtiesPlaceholder": "לדוגמה: ASD, ADHD, תסמונת דאון, טיפול ABA…",
+    "yearStarted": "שנת תחילת הפעילות",
+    "yearStartedHint": "לדוגמה 2015",
+    "certifiedStaff": "יש לנו צוות מוסמך"
   },
   "val": {
     "email": "הזן אימייל תקין",
@@ -361,7 +364,8 @@
     "emailInvalid": "הזן כתובת אימייל תקינה.",
     "emailDisposable": "אימיילים זמניים או חד-פעמיים אינם מותרים.",
     "passwordMismatch": "הסיסמאות אינן תואמות",
-    "emailMismatch": "כתובות האימייל אינן תואמות"
+    "emailMismatch": "כתובות האימייל אינן תואמות",
+    "year": "שנה לא תקינה"
   },
   "directory": {
     "searchPlaceholder": "חפש חנות או שירות",
@@ -457,7 +461,10 @@
     "noOffers": "אין הצעות פעילות כרגע.",
     "lockedUnclaimed": "בעל הפרופיל משלים אותו כעת והוא יהיה מוכן לעיונך בקרוב.",
     "lockedUnpaid": "בעל הפרופיל משלים אותו כעת והוא יהיה מוכן לעיונך בקרוב.",
-    "contact": "יצירת קשר"
+    "contact": "יצירת קשר",
+    "sinceYear": "משנת {{year}}",
+    "certifiedStaff": "צוות מוסמך",
+    "howToGet": "איך להגיע:"
   },
   "dim": {
     "quality": "איכות",

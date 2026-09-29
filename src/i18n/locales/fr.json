@@ -312,7 +312,10 @@
     "professionPlaceholder": "Ex. Neuropsychologue, Ergothérapeute, Psychopédagogue…",
     "specialties": "Spécialités",
     "specialtiesHint": "Séparez chaque élément par une virgule.",
-    "specialtiesPlaceholder": "Ex. TSA, TDAH, Syndrome de Down, Thérapie ABA…"
+    "specialtiesPlaceholder": "Ex. TSA, TDAH, Syndrome de Down, Thérapie ABA…",
+    "yearStarted": "Année de début d'activité",
+    "yearStartedHint": "p. ex. 2015",
+    "certifiedStaff": "Nous avons du personnel certifié"
   },
   "val": {
     "email": "Saisissez un e-mail valide",
@@ -324,7 +327,8 @@
     "emailInvalid": "Saisissez une adresse e-mail valide.",
     "emailDisposable": "Les e-mails temporaires ou jetables ne sont pas autorisés.",
     "passwordMismatch": "Les mots de passe ne correspondent pas",
-    "emailMismatch": "Les e-mails ne correspondent pas"
+    "emailMismatch": "Les e-mails ne correspondent pas",
+    "year": "Année non valide"
   },
   "directory": {
     "searchPlaceholder": "Cherchez un commerce ou un service",
@@ -420,7 +424,10 @@
     "noOffers": "Aucune offre active pour le moment.",
     "lockedUnclaimed": "Ce profil est en cours de complétion par son titulaire et sera bientôt prêt pour votre consultation.",
     "lockedUnpaid": "Ce profil est en cours de complétion par son titulaire et sera bientôt prêt pour votre consultation.",
-    "contact": "Contact"
+    "contact": "Contact",
+    "sinceYear": "Depuis {{year}}",
+    "certifiedStaff": "Personnel certifié",
+    "howToGet": "Comment s'y rendre :"
   },
   "dim": {
     "quality": "Qualité",

@@ -349,7 +349,10 @@
     "modalHibrido": "Híbrido",
     "modalDomicilio": "A domicilio",
     "neuroaffirming": "Enfoque neuroafirmativo",
-    "bookingUrl": "Enlace para agendar cita"
+    "bookingUrl": "Enlace para agendar cita",
+    "yearStarted": "Año de inicio de actividad",
+    "yearStartedHint": "Ej. 2015",
+    "certifiedStaff": "Contamos con personal certificado"
   },
   "val": {
     "email": "Escribe un correo válido",
@@ -361,7 +364,8 @@
     "emailInvalid": "Ingresa un correo electrónico válido.",
     "emailDisposable": "No se permiten correos temporales o desechables.",
     "passwordMismatch": "Las contraseñas no coinciden",
-    "emailMismatch": "Los correos no coinciden"
+    "emailMismatch": "Los correos no coinciden",
+    "year": "Año no válido"
   },
   "directory": {
     "searchPlaceholder": "Busca un negocio o servicio",
@@ -457,7 +461,10 @@
     "noOffers": "Sin ofertas activas por ahora.",
     "lockedUnclaimed": "Este perfil está siendo completado por su titular y en breve estará listo para tu consulta.",
     "lockedUnpaid": "Este perfil está siendo completado por su titular y en breve estará listo para tu consulta.",
-    "contact": "Contacto"
+    "contact": "Contacto",
+    "sinceYear": "Desde {{year}}",
+    "certifiedStaff": "Personal certificado",
+    "howToGet": "Cómo llegar:"
   },
   "dim": {
     "quality": "Calidad",

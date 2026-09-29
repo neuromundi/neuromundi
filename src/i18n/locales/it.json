@@ -312,7 +312,10 @@
     "professionPlaceholder": "Es. Neuropsicologo, Terapista occupazionale, Psicopedagogista…",
     "specialties": "Specializzazioni",
     "specialtiesHint": "Separa ogni voce con una virgola.",
-    "specialtiesPlaceholder": "Es. ASD, ADHD, Sindrome di Down, Terapia ABA…"
+    "specialtiesPlaceholder": "Es. ASD, ADHD, Sindrome di Down, Terapia ABA…",
+    "yearStarted": "Anno di inizio attività",
+    "yearStartedHint": "es. 2015",
+    "certifiedStaff": "Disponiamo di personale certificato"
   },
   "val": {
     "email": "Inserisci un'email valida",
@@ -324,7 +327,8 @@
     "emailInvalid": "Inserisci un indirizzo email valido.",
     "emailDisposable": "Non sono ammesse email temporanee o usa e getta.",
     "passwordMismatch": "Le password non coincidono",
-    "emailMismatch": "Le e-mail non coincidono"
+    "emailMismatch": "Le e-mail non coincidono",
+    "year": "Anno non valido"
   },
   "directory": {
     "searchPlaceholder": "Cerca un negozio o un servizio",
@@ -420,7 +424,10 @@
     "noOffers": "Nessuna offerta attiva al momento.",
     "lockedUnclaimed": "Questo profilo è in fase di completamento da parte del titolare e sarà presto pronto per la tua consultazione.",
     "lockedUnpaid": "Questo profilo è in fase di completamento da parte del titolare e sarà presto pronto per la tua consultazione.",
-    "contact": "Contatti"
+    "contact": "Contatti",
+    "sinceYear": "Dal {{year}}",
+    "certifiedStaff": "Personale certificato",
+    "howToGet": "Come arrivare:"
   },
   "dim": {
     "quality": "Qualità",

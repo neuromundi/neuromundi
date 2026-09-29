@@ -139,6 +139,8 @@ export interface Database {
           intervention_areas: string[] | null;
           sections: string[];
           neuro_conditions: string[];
+          year_started: number | null;
+          certified_staff: boolean | null;
           product_categories: string[] | null;
           products_offered: string[] | null;
           sales_channels: string[] | null;
@@ -229,6 +231,8 @@ export interface Database {
           intervention_areas?: string[] | null;
           sections?: string[];
           neuro_conditions?: string[];
+          year_started?: number | null;
+          certified_staff?: boolean | null;
           product_categories?: string[] | null;
           products_offered?: string[] | null;
           sales_channels?: string[] | null;
