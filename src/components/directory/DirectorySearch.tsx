@@ -53,7 +53,7 @@ const DOMAINS: Record<string, { icon: typeof HeartPulse; labelKey: string; value
   },
   executive: {
     icon: GraduationCap, labelKey: 'directory.quick.executive',
-    values: ['funciones_ejecutivas', 'adaptacion_curricular', 'educacion_inclusiva', 'capacitacion_docente', 'coaching_ejecutivo', 'acompanante_terapeutico', 'vida_independiente', 'psicopedagogia', 'educacion_especial'],
+    values: ['funciones_ejecutivas', 'adaptacion_curricular', 'educacion_inclusiva', 'capacitacion_docente', 'coaching_ejecutivo', 'acompanante_terapeutico', 'vida_independiente', 'psicopedagogia', 'educacion_especial', 'inclusion_laboral'],
   },
   arts: {
     icon: Palette, labelKey: 'directory.quick.arts',
@@ -61,10 +61,10 @@ const DOMAINS: Record<string, { icon: typeof HeartPulse; labelKey: string; value
   },
   products: {
     icon: Package, labelKey: 'directory.quick.products',
-    values: ['sensorial', 'cognitivo', 'comunicacion', 'autonomia', 'social_emocional', 'neurosensorial_tech', 'mascotas_nf', 'perinatal'],
+    values: ['sensorial', 'cognitivo', 'comunicacion', 'autonomia', 'social_emocional', 'neurosensorial_tech', 'mascotas_nf', 'perinatal', 'ayudas_tecnicas'],
   },
   // Accesos rápidos por TIPO de proveedor (además de los de taxonomía de arriba).
-  wellness: { icon: Dumbbell, labelKey: 'directory.quick.wellness', providerTypes: ['wellness'] },
+  wellness: { icon: Dumbbell, labelKey: 'directory.quick.wellness', values: ['deporte_adaptado'], providerTypes: ['wellness'] },
   leisure: { icon: Ticket, labelKey: 'directory.quick.leisure', providerTypes: ['tourism'] },
   legal: { icon: Scale, labelKey: 'directory.quick.legal', providerTypes: ['legal'] },
   ngo: { icon: HeartHandshake, labelKey: 'directory.quick.ngo', providerTypes: ['ngo'] },

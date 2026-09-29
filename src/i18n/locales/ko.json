@@ -2596,7 +2596,10 @@
     "espacio_calma": "감각 안정 공간",
     "bajo_estimulo": "저자극 환경",
     "comunicacion_alternativa": "의사소통 지원(AAC/그림 상징)",
-    "perro_asistencia": "보조견 동반 가능"
+    "perro_asistencia": "보조견 동반 가능",
+    "ayudas_tecnicas": "보조기구 및 이동 지원",
+    "inclusion_laboral": "고용 통합 및 지원 고용",
+    "deporte_adaptado": "적응 및 통합 스포츠"
   },
   "badge": {
     "miembro": "인증 회원",

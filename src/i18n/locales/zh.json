@@ -2559,7 +2559,10 @@
     "espacio_calma": "感官安静空间",
     "bajo_estimulo": "低感官刺激环境",
     "comunicacion_alternativa": "沟通辅助（AAC／图片符号）",
-    "perro_asistencia": "允许协助犬进入"
+    "perro_asistencia": "允许协助犬进入",
+    "ayudas_tecnicas": "辅助器具与助行",
+    "inclusion_laboral": "就业融合与支持性就业",
+    "deporte_adaptado": "适应性与包容性运动"
   },
   "kit": {
     "badge": "工具",

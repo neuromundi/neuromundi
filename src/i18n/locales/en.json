@@ -2596,7 +2596,10 @@
     "espacio_calma": "Sensory calm space",
     "bajo_estimulo": "Low-sensory environment",
     "comunicacion_alternativa": "Communication supports (AAC / pictograms)",
-    "perro_asistencia": "Assistance dog welcome"
+    "perro_asistencia": "Assistance dog welcome",
+    "ayudas_tecnicas": "Assistive Devices & Mobility",
+    "inclusion_laboral": "Job inclusion & supported employment",
+    "deporte_adaptado": "Adapted & inclusive sports"
   },
   "badge": {
     "miembro": "Verified Member",

@@ -2596,7 +2596,10 @@
     "espacio_calma": "מרחב רגיעה חושי",
     "bajo_estimulo": "סביבה עם גירוי חושי נמוך",
     "comunicacion_alternativa": "תמיכות תקשורת (תקשורת חלופית / פיקטוגרמות)",
-    "perro_asistencia": "כניסת כלב שירות"
+    "perro_asistencia": "כניסת כלב שירות",
+    "ayudas_tecnicas": "אביזרי עזר וניידות",
+    "inclusion_laboral": "שילוב תעסוקתי ותעסוקה נתמכת",
+    "deporte_adaptado": "ספורט מותאם ומכליל"
   },
   "badge": {
     "miembro": "חבר מאומת",

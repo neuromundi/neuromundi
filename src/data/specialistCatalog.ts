@@ -231,6 +231,8 @@ export const INTERVENTION_AREAS: CatItem[] = [
   { value: 'capacitacion_docente', label: 'Asesoría y capacitación a docentes e instituciones' },
   { value: 'orientacion_legal_ddhh', label: 'Orientación legal y de derechos humanos' },
   { value: 'hidroterapia', label: 'Hidroterapia / Terapia acuática' },
+  { value: 'inclusion_laboral', label: 'Inclusión laboral y empleo con apoyo' },
+  { value: 'deporte_adaptado', label: 'Deporte adaptado e inclusivo' },
   { value: 'otro', label: 'Otro' },
 ];
 

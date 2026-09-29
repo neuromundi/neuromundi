@@ -2559,7 +2559,10 @@
     "espacio_calma": "Sensorischer Ruheraum",
     "bajo_estimulo": "Reizarme Umgebung",
     "comunicacion_alternativa": "Kommunikationshilfen (UK / Piktogramme)",
-    "perro_asistencia": "Zugang für Assistenzhunde"
+    "perro_asistencia": "Zugang für Assistenzhunde",
+    "ayudas_tecnicas": "Hilfsmittel und Mobilität",
+    "inclusion_laboral": "Berufliche Inklusion und unterstützte Beschäftigung",
+    "deporte_adaptado": "Angepasster und inklusiver Sport"
   },
   "kit": {
     "badge": "Werkzeuge",

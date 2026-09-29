@@ -2596,7 +2596,10 @@
     "espacio_calma": "مساحة هدوء حسّي",
     "bajo_estimulo": "بيئة منخفضة التحفيز الحسي",
     "comunicacion_alternativa": "وسائل دعم التواصل (AAC / رموز مصوّرة)",
-    "perro_asistencia": "السماح بكلب المساعدة"
+    "perro_asistencia": "السماح بكلب المساعدة",
+    "ayudas_tecnicas": "الأجهزة المساعدة والتنقّل",
+    "inclusion_laboral": "الدمج المهني والتوظيف المدعوم",
+    "deporte_adaptado": "الرياضة المكيّفة والدامجة"
   },
   "badge": {
     "miembro": "عضو موثَّق",

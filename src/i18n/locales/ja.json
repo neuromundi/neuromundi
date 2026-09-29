@@ -2559,7 +2559,10 @@
     "espacio_calma": "感覚に配慮した静穏スペース",
     "bajo_estimulo": "低刺激の環境",
     "comunicacion_alternativa": "コミュニケーション支援（AAC・絵カード）",
-    "perro_asistencia": "補助犬の同伴可"
+    "perro_asistencia": "補助犬の同伴可",
+    "ayudas_tecnicas": "補助具・移動支援",
+    "inclusion_laboral": "就労支援・援助付き雇用",
+    "deporte_adaptado": "アダプテッド・インクルーシブスポーツ"
   },
   "kit": {
     "badge": "ツール",

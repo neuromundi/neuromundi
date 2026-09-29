@@ -46,6 +46,10 @@ export const PRODUCT_CATEGORIES: CatItem[] = [
     value: 'arte_musica', label: 'Arte y Música Adaptados',
     sub: ['Instrumentos adaptados (tambores de lengüetas, kalimbas, pentatónicos)', 'Materiales de arte sensoriales (arcillas, pinturas texturizadas)', 'Herramientas sin desorden (mess-free)', 'Cancelación de ruido para músicos'],
   },
+  {
+    value: 'ayudas_tecnicas', label: 'Ayudas Técnicas y Movilidad',
+    sub: ['Sillas de ruedas y andaderas', 'Órtesis, prótesis y férulas', 'Aparatos ortopédicos y calzado', 'Bastones, muletas y grúas de traslado'],
+  },
   { value: 'otro', label: 'Otro' },
 ];
 

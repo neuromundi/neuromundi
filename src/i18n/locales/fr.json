@@ -2559,7 +2559,10 @@
     "espacio_calma": "Espace de calme sensoriel",
     "bajo_estimulo": "Environnement à faible stimulation sensorielle",
     "comunicacion_alternativa": "Aides à la communication (CAA / pictogrammes)",
-    "perro_asistencia": "Accès chien d'assistance"
+    "perro_asistencia": "Accès chien d'assistance",
+    "ayudas_tecnicas": "Aides techniques et mobilité",
+    "inclusion_laboral": "Inclusion professionnelle et emploi accompagné",
+    "deporte_adaptado": "Sport adapté et inclusif"
   },
   "kit": {
     "badge": "Outils",
