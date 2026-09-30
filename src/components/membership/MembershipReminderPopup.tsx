@@ -1,7 +1,7 @@
 /**
  * MembershipReminderPopup — recordatorio de renovación de membresía.
  *
- * Aparece al iniciar sesión cuando faltan 30 días o menos para la renovación de
+ * Aparece al iniciar sesión cuando faltan 10 días o menos para la renovación de
  * un perfil al que la plataforma cobra (proveedores/prestadores). Muestra un
  * conteo regresivo en vivo y, para Fundadores, el 50% de descuento de por vida.
  * Los pacientes y padres/tutores NO tienen renovación (membresía gratuita y
@@ -18,7 +18,10 @@ import { useMembership } from '@/hooks/useMembership';
 import { useFounderStatus } from '@/hooks/useFounder';
 
 const DAY = 86400000;
-const REMIND_WINDOW_DAYS = 30;
+// Solo se recuerda cuando faltan 10 días o menos para el vencimiento (no desde el
+// día en que se pagó). Con una membresía anual recién pagada (vence en ~1 año) el
+// aviso no aparece hasta la recta final. Frecuencia: una vez cada 24 h.
+const REMIND_WINDOW_DAYS = 10;
 
 function useCountdown(target: number | null) {
   const [now, setNow] = useState(() => Date.now());
