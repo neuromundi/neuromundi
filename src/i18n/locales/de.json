@@ -2868,9 +2868,10 @@
       "Veröffentliche, wenn es fertig ist; du kannst es später zurückziehen oder bearbeiten."
     ],
     "courses": [
-      "Tippe auf Erstellen, um einen Kurs oder Workshop hinzuzufügen.",
-      "Füge Titel, Cover, Niveau und die Lektionen hinzu.",
-      "Veröffentliche ihn, damit er in Academy erscheint."
+      "Nur Anbieter mit gedeckter Gebühr können Kurse veröffentlichen.",
+      "Auf Erstellen tippen: Titel, Beschreibung, Zielgruppe, Niveau und Cover (Bild-URL einfügen).",
+      "Module hinzufügen und in jedem Lektionen mit dem Video-Link (URL).",
+      "Veröffentlichen, damit er in Academy erscheint; jederzeit wieder zurückziehbar."
     ],
     "affiliate": [
       "Dieses Programm belohnt alle, die DEINE Shop-Produkte bewerben.",
@@ -2919,6 +2920,12 @@
       "Wähle die Empfänger: deine Warteliste oder deine Patienten.",
       "Wähle die Kanäle: App-Benachrichtigung, E-Mail und/oder SMS (SMS kostet pro Nachricht).",
       "Auf Senden drücken; unten siehst du, wie viele es erhalten haben."
+    ],
+    "academyLearner": [
+      "Wähle dein Profil (Familien, Fachkräfte oder Lehrkräfte), um passende Kurse zu sehen.",
+      "Öffne einen Kurs und tippe auf Einschreiben (kostenlos).",
+      "Im Kursraum jede Lektion ansehen und als erledigt markieren.",
+      "Mit Weiter dort fortfahren, wo du aufgehört hast."
     ]
   },
   "recommend": {

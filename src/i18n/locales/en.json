@@ -2868,9 +2868,10 @@
       "Publish when ready; you can unpublish or edit it later."
     ],
     "courses": [
-      "Tap create to add a course or workshop.",
-      "Add title, cover, level and the lessons.",
-      "Publish it so it appears in Academy."
+      "Only providers with an active membership can publish courses.",
+      "Tap Create: title, description, audience, level and cover (paste an image URL).",
+      "Add modules and, in each one, lessons with the video link (URL).",
+      "Publish it so it appears in Academy; you can unpublish anytime."
     ],
     "affiliate": [
       "This program rewards whoever promotes YOUR Store products.",
@@ -2919,6 +2920,12 @@
       "Choose the audience: your waitlist or your patients.",
       "Pick the channels: in-app notification, email and/or SMS (SMS has a per-message cost).",
       "Press Send; the log below shows how many people received it."
+    ],
+    "academyLearner": [
+      "Choose your profile (families, specialists or educators) to see relevant courses.",
+      "Open a course and tap Enroll (it's free).",
+      "In the classroom, watch each lesson and mark it complete.",
+      "Pick up where you left off with the Continue button."
     ]
   },
   "recommend": {

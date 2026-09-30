@@ -2868,9 +2868,10 @@
       "Publica cuando esté listo; puedes despublicarlo o editarlo luego."
     ],
     "courses": [
-      "Pulsa crear para dar de alta un curso o taller.",
-      "Añade título, portada, nivel y las lecciones.",
-      "Publícalo para que aparezca en Academy."
+      "Solo prestadores con la cuota cubierta pueden publicar cursos.",
+      "Pulsa Crear: título, descripción, audiencia, nivel y portada (pega la URL de una imagen).",
+      "Agrega módulos y, en cada módulo, lecciones con el enlace (URL) del video.",
+      "Publícalo para que aparezca en Academy; puedes despublicarlo cuando quieras."
     ],
     "affiliate": [
       "Este programa recompensa a quien promueva TUS productos de la Tienda.",
@@ -2919,6 +2920,12 @@
       "Elige a quién enviarlo: tu lista de espera o tus pacientes.",
       "Marca los canales: notificación en la app, correo y/o SMS (el SMS tiene costo por mensaje).",
       "Pulsa Enviar; abajo queda el registro de cuántas personas lo recibieron."
+    ],
+    "academyLearner": [
+      "Elige tu perfil (familias, especialistas o docentes) para ver cursos afines.",
+      "Abre un curso y pulsa Inscribirme (es gratis).",
+      "En el aula, mira cada lección y márcala como completada.",
+      "Retoma donde te quedaste con el botón Continuar."
     ]
   },
   "recommend": {

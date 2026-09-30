@@ -2868,9 +2868,10 @@
       "Pubblica quando è pronto; puoi ritirarlo o modificarlo dopo."
     ],
     "courses": [
-      "Tocca crea per aggiungere un corso o workshop.",
-      "Aggiungi titolo, copertina, livello e le lezioni.",
-      "Pubblicalo perché appaia in Academy."
+      "Solo i fornitori con quota coperta possono pubblicare corsi.",
+      "Tocca Crea: titolo, descrizione, pubblico, livello e copertina (incolla l'URL di un'immagine).",
+      "Aggiungi moduli e, in ciascuno, lezioni con il link (URL) del video.",
+      "Pubblicalo perché appaia in Academy; puoi rimuoverlo quando vuoi."
     ],
     "affiliate": [
       "Questo programma premia chi promuove i TUOI prodotti del Negozio.",
@@ -2919,6 +2920,12 @@
       "Scegli i destinatari: la tua lista d’attesa o i tuoi pazienti.",
       "Seleziona i canali: notifica nell’app, email e/o SMS (l’SMS ha un costo per messaggio).",
       "Premi Invia; sotto resta il registro di quante persone l’hanno ricevuto."
+    ],
+    "academyLearner": [
+      "Scegli il tuo profilo (famiglie, specialisti o docenti) per vedere i corsi pertinenti.",
+      "Apri un corso e tocca Iscriviti (è gratis).",
+      "In aula, guarda ogni lezione e segnala come completata.",
+      "Riprendi da dove eri con il pulsante Continua."
     ]
   },
   "recommend": {

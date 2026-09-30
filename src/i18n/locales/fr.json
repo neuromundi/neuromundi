@@ -2868,9 +2868,10 @@
       "Publiez quand c’est prêt ; vous pourrez le retirer ou le modifier ensuite."
     ],
     "courses": [
-      "Appuyez sur créer pour ajouter un cours ou un atelier.",
-      "Ajoutez titre, couverture, niveau et les leçons.",
-      "Publiez-le pour qu’il apparaisse dans Academy."
+      "Seuls les prestataires à jour de cotisation peuvent publier des cours.",
+      "Appuyez sur Créer : titre, description, public, niveau et couverture (collez l'URL d'une image).",
+      "Ajoutez des modules et, dans chacun, des leçons avec le lien (URL) de la vidéo.",
+      "Publiez-le pour qu'il apparaisse dans Academy ; vous pouvez le dépublier à tout moment."
     ],
     "affiliate": [
       "Ce programme récompense ceux qui font la promotion de VOS produits de la Boutique.",
@@ -2919,6 +2920,12 @@
       "Choisissez les destinataires : votre liste d’attente ou vos patients.",
       "Cochez les canaux : notification dans l’appli, e-mail et/ou SMS (le SMS est facturé par message).",
       "Appuyez sur Envoyer ; l’historique ci-dessous indique combien de personnes l’ont reçu."
+    ],
+    "academyLearner": [
+      "Choisissez votre profil (familles, spécialistes ou enseignants) pour voir les cours adaptés.",
+      "Ouvrez un cours et appuyez sur S'inscrire (c'est gratuit).",
+      "Dans la salle, regardez chaque leçon et marquez-la comme terminée.",
+      "Reprenez où vous en étiez avec le bouton Continuer."
     ]
   },
   "recommend": {

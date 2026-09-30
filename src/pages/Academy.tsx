@@ -10,7 +10,7 @@ import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { GraduationCap, BookOpen, Play, Check, HeartHandshake, Stethoscope, School, Search } from 'lucide-react';
-import { Button, SkeletonCard, useToast, EmptyState } from '@/components/ui';
+import { Button, SkeletonCard, useToast, EmptyState, HowTo } from '@/components/ui';
 import { useAuth } from '@/hooks/useAuth';
 import { useAcademy } from '@/hooks/useAcademy';
 import { CountryFilter } from '@/components/common/CountryFilter';
@@ -61,6 +61,8 @@ export function Academy() {
         <h1 className="mt-3 text-3xl font-extrabold">{t('lms.title')}</h1>
         <p className="mt-2 max-w-xl text-white/90">{t('lms.subtitle')}</p>
       </section>
+
+      <HowTo stepsKey="howto.academyLearner" />
 
       {/* Tarjetas de perfil */}
       <section>

@@ -2868,9 +2868,10 @@
       "Publique quando estiver pronto; depois você pode despublicar ou editar."
     ],
     "courses": [
-      "Toque em criar para adicionar um curso ou workshop.",
-      "Adicione título, capa, nível e as lições.",
-      "Publique para aparecer no Academy."
+      "Somente prestadores com a cota em dia podem publicar cursos.",
+      "Toque em Criar: título, descrição, público, nível e capa (cole a URL de uma imagem).",
+      "Adicione módulos e, em cada um, lições com o link (URL) do vídeo.",
+      "Publique para que apareça na Academy; pode despublicar quando quiser."
     ],
     "affiliate": [
       "Este programa recompensa quem promove os SEUS produtos da Loja.",
@@ -2919,6 +2920,12 @@
       "Escolha os destinatários: sua lista de espera ou seus pacientes.",
       "Marque os canais: notificação no app, e-mail e/ou SMS (o SMS tem custo por mensagem).",
       "Toque em Enviar; abaixo fica o registro de quantas pessoas receberam."
+    ],
+    "academyLearner": [
+      "Escolha seu perfil (famílias, especialistas ou docentes) para ver cursos relevantes.",
+      "Abra um curso e toque em Inscrever-me (é grátis).",
+      "Na sala, veja cada lição e marque como concluída.",
+      "Retome de onde parou com o botão Continuar."
     ]
   },
   "recommend": {

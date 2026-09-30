@@ -2868,9 +2868,10 @@
       "Publish when ready; you can unpublish or edit it later."
     ],
     "courses": [
-      "Tap create to add a course or workshop.",
-      "Add title, cover, level and the lessons.",
-      "Publish it so it appears in Academy."
+      "회비를 납부한 제공자만 강좌를 게시할 수 있습니다.",
+      "만들기 누르기: 제목, 설명, 대상, 수준, 커버(이미지 URL 붙여넣기).",
+      "모듈을 추가하고 각 모듈에 동영상 링크(URL)가 있는 레슨을 추가.",
+      "게시하면 Academy에 표시되며 언제든 게시 취소할 수 있습니다."
     ],
     "affiliate": [
       "This program rewards whoever promotes YOUR Store products.",
@@ -2919,6 +2920,12 @@
       "Choose the audience: your waitlist or your patients.",
       "Pick the channels: in-app notification, email and/or SMS (SMS has a per-message cost).",
       "Press Send; the log below shows how many people received it."
+    ],
+    "academyLearner": [
+      "프로필(가족, 전문가 또는 교육자)을 선택하면 관련 강좌가 표시됩니다.",
+      "강좌를 열고 등록을 누르세요(무료).",
+      "강의실에서 각 레슨을 보고 완료로 표시하세요.",
+      "계속 버튼으로 중단한 곳부터 이어서 학습하세요."
     ]
   },
   "recommend": {

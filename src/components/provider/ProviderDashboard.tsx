@@ -787,6 +787,7 @@ export function ProviderDashboard() {
   const DE_PAGO = new Set([
     'offers', 'scan', 'history', 'widget', 'waitlist', 'campaigns', 'prescribe',
     'products', 'store', 'agenda', 'metrics', 'inclusion', 'payments', 'clinical', 'affiliate',
+    'academy', // publicar cursos es función de negocio: exige cuota cubierta (RLS 0182)
   ]);
   const tabsVisibles = cuotaCubierta
     ? tabs
