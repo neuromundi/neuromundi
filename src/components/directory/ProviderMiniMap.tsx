@@ -33,10 +33,13 @@ const PIN = L.divIcon({
 export function ProviderMiniMap({ lat, lng }: { lat: number; lng: number }) {
   const { t } = useTranslation();
   return (
+    // `relative z-0 isolate`: Leaflet crea panes/controles con z-index hasta 1000,
+    // que si no se aíslan tapan la barra superior (sticky, z-30) al hacer scroll.
+    // `isolate` confina ese apilamiento dentro del mapa.
     <div
       role="application"
       aria-label={t('map.aria')}
-      className="h-56 w-full overflow-hidden rounded-2xl border border-slate-100"
+      className="relative z-0 isolate h-56 w-full overflow-hidden rounded-2xl border border-slate-100"
     >
       <MapContainer
         center={[lat, lng]}

@@ -210,10 +210,12 @@ export function MapView({
   const initialCenter = center ?? DEFAULT_CENTER;
 
   return (
+    // `z-0 isolate`: aísla el z-index interno de Leaflet (hasta 1000) para que
+    // no tape la barra superior sticky (z-30) al hacer scroll.
     <div
       role="application"
       aria-label={t('map.aria')}
-      className="relative h-full w-full overflow-hidden rounded-2xl"
+      className="relative z-0 isolate h-full w-full overflow-hidden rounded-2xl"
     >
       <MapContainer
         center={[initialCenter.lat, initialCenter.lng]}
