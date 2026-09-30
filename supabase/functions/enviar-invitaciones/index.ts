@@ -37,8 +37,18 @@ const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 const esc = (s: string) =>
   String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-async function sendEmail(to: string, subject: string, html: string, idemKey: string): Promise<boolean> {
+// El enlace de reclamo lleva también el panel de baja, así que sirve como URL
+// de cancelación. NO se declara List-Unsubscribe-Post: ese encabezado promete
+// baja en un clic por POST, y la página es una SPA que no responde a POST.
+// Prometerlo y no cumplirlo perjudica la reputación en vez de ayudarla.
+async function sendEmail(
+  to: string, subject: string, html: string, idemKey: string, unsubUrl?: string,
+): Promise<boolean> {
   if (!RESEND_API_KEY) return false;
+  const bajaMailto = (FROM.match(/<([^>]+)>/)?.[1] ?? FROM).trim();
+  const listUnsub = unsubUrl
+    ? `<mailto:${bajaMailto}?subject=baja>, <${unsubUrl}>`
+    : `<mailto:${bajaMailto}?subject=baja>`;
   const r = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: {
@@ -46,7 +56,10 @@ async function sendEmail(to: string, subject: string, html: string, idemKey: str
       'Content-Type': 'application/json',
       'Idempotency-Key': idemKey,
     },
-    body: JSON.stringify({ from: FROM, to: [to], subject, html }),
+    body: JSON.stringify({
+      from: FROM, to: [to], subject, html,
+      headers: { 'List-Unsubscribe': listUnsub },
+    }),
   });
   return r.ok;
 }
@@ -56,6 +69,29 @@ interface Row {
   provider_type: string | null; sector: string | null;
   estado: string | null; ciudad: string | null;
   ya_contactado_8sep: boolean; correo_personal: boolean;
+  // Solo vienen cuando la cola es por tanda (directorio_invitaciones_cola_tanda).
+  orden?: number; affiliate_type?: string | null; moneda?: string | null;
+  precio_fundador?: number | null; precio_ordinario?: number | null;
+  precio_configurado?: boolean | null;
+}
+
+// Precio exacto del destinatario, no un rango. Sale de registration_quote, la
+// misma función que usa el checkout, así que el correo y el cobro no pueden
+// discrepar. Si la ficha no tiene tarifa configurada se devuelve null y el
+// correo cae al texto genérico en vez de inventar una cifra.
+const MXN = (n: number) => '$' + n.toLocaleString('es-MX', { maximumFractionDigits: 0 });
+function bloquePrecio(r: Row): string {
+  if (!r.precio_configurado || !r.precio_fundador || !r.precio_ordinario) return '';
+  const cur = r.moneda || 'MXN';
+  return `<div style="margin:18px 0;padding:14px 16px;border:1px solid #bae6fd;background:#f0f9ff;border-radius:12px">
+    <p style="margin:0 0 6px;font-weight:800;font-size:15px;color:#0c4a6e">Su cuota, sin rodeos</p>
+    <p style="margin:0;font-size:14px;line-height:1.6;color:#334155">
+      La membresía anual para su tipo de perfil es de <b>${MXN(Number(r.precio_ordinario))} ${cur}</b>.
+      Si la activa <b>antes del 31 de octubre de 2026</b> queda como Miembro Fundador y paga
+      <b style="color:#0369a1">${MXN(Number(r.precio_fundador))} ${cur} al año</b>, la mitad, y ese precio se le respeta en las renovaciones.
+      <br><br>Reclamar la ficha no cobra nada: tiene 15 días para decidir si continúa. Si decide que no, no se le cobra.
+    </p>
+  </div>`;
 }
 
 const esFree = (r: Row) =>
@@ -146,7 +182,7 @@ function beneficios(r: Row, fundador = true): string {
 
 // Tabla comparativa (versión CORREO, región México): HTML de tablas + estilos en
 // línea + palomitas/taches de texto (Gmail/Outlook no soportan flex/grid ni SVG).
-function tablaComparativa(): string {
+function tablaComparativa(r?: Row): string {
   const yes = '<td align="center" style="padding:9px 4px;color:#16a34a;font-weight:bold;border-bottom:1px solid #f1f5f9">✓</td>';
   const yesNm = '<td align="center" style="padding:9px 4px;background:#eff9ff;color:#16a34a;font-weight:bold;border-bottom:1px solid #f1f5f9">✓</td>';
   const no = '<td align="center" style="padding:9px 4px;color:#cbd5e1;font-weight:bold;border-bottom:1px solid #f1f5f9">✗</td>';
@@ -178,7 +214,11 @@ function tablaComparativa(): string {
       ${body}
       <tr>
         <td style="padding:9px 6px;background:#f8fafc;font-weight:800;border-top:2px solid #e2e8f0">Precio<br><span style="font-weight:400;color:#64748b;font-size:10px">Cuota del prestador · pacientes siempre gratis</span></td>
-        <td align="center" style="padding:9px 4px;background:#e0f2fe;color:#0369a1;font-weight:800;border-top:2px solid #e2e8f0">≈ $250–$800<br><span style="font-weight:500;color:#64748b;font-size:10px">MXN/mes · fundadores</span></td>
+        <td align="center" style="padding:9px 4px;background:#e0f2fe;color:#0369a1;font-weight:800;border-top:2px solid #e2e8f0">${
+          r?.precio_configurado && r?.precio_fundador
+            ? `${MXN(Math.round(Number(r.precio_fundador) / 12))}<br><span style="font-weight:500;color:#64748b;font-size:10px">${r.moneda || 'MXN'}/mes · su tarifa de fundador</span>`
+            : `≈ $250–$800<br><span style="font-weight:500;color:#64748b;font-size:10px">MXN/mes · fundadores</span>`
+        }</td>
         <td align="center" style="padding:9px 4px;background:#f8fafc;font-weight:800;border-top:2px solid #e2e8f0">≈ $1,500–$4,000<br><span style="font-weight:500;color:#64748b;font-size:10px">MXN/mes</span></td>
         <td align="center" style="padding:9px 4px;background:#f8fafc;font-weight:800;border-top:2px solid #e2e8f0">Bajo invitación<br><span style="font-weight:500;color:#64748b;font-size:10px">no público</span></td>
         <td align="center" style="padding:9px 4px;background:#f8fafc;font-weight:800;border-top:2px solid #e2e8f0">No público</td>
@@ -212,7 +252,8 @@ function buildEmail(r: Row, fundador = true, promo: string | null = null): { sub
          <p>Te invitamos a <b>Neuromundi</b>, la comunidad global de neurodesarrollo, neurodivergencia y afecciones neurológicas. Al <b>completar tu perfil</b> obtienes:</p>`;
     const cuerpo = `${intro}
       ${beneficios(r, false)}
-      ${tablaComparativa()}`;
+      ${bloquePrecio(r)}
+      ${tablaComparativa(r)}`;
     return { subject: `${rawNombre}: te invitamos a Neuromundi`, html: shell('Únete a Neuromundi', promoBlock + cuerpo, 'Completar mi perfil', claim) };
   }
 
@@ -222,7 +263,8 @@ function buildEmail(r: Row, fundador = true, promo: string | null = null): { sub
       <p>Al <b>completar tu perfil</b> obtienes:</p>
       ${beneficios(r)}
       <p style="margin-top:12px">Y la <b>Insignia de Miembro Fundador</b>, con <u>beneficios preferentes de por vida</u>.</p>
-      ${tablaComparativa()}`;
+      ${bloquePrecio(r)}
+      ${tablaComparativa(r)}`;
     return { subject: `${rawNombre}: tu perfil en Neuromundi es gratuito — complétalo`, html: shell('Conviértete en Fundador Neuromundi', promoBlock + cuerpo, 'Quiero ser fundador', claim) };
   }
   if (seg === 'ya_privado') {
@@ -230,7 +272,8 @@ function buildEmail(r: Row, fundador = true, promo: string | null = null): { sub
       <p>Hace unos días te invitamos a completar tu perfil en el directorio de Neuromundi. Por si se te pasó, aquí está de nuevo lo que obtienes al completarlo:</p>
       ${beneficios(r)}
       <p style="margin-top:12px">Además, al completarlo ahora entras como <b>Miembro Fundador</b>, con <u>beneficios preferentes de por vida</u>.</p>
-      ${tablaComparativa()}`;
+      ${bloquePrecio(r)}
+      ${tablaComparativa(r)}`;
     return { subject: `${rawNombre}: te reservamos tu perfil en Neuromundi`, html: shell('Conviértete en Fundador Neuromundi', promoBlock + cuerpo, 'Quiero ser fundador', claim) };
   }
   const intro = esFree(r)
@@ -241,7 +284,8 @@ function buildEmail(r: Row, fundador = true, promo: string | null = null): { sub
   const cuerpo = `${intro}
     ${beneficios(r)}
     <p style="margin-top:12px">Y si lo completas ahora, entras como <b>Miembro Fundador</b>, con <u>beneficios preferentes de por vida</u>.</p>
-    ${tablaComparativa()}`;
+    ${bloquePrecio(r)}
+      ${tablaComparativa(r)}`;
   return { subject: `${rawNombre}: conviértete en Fundador Neuromundi`, html: shell('Conviértete en Fundador Neuromundi', promoBlock + cuerpo, 'Quiero ser fundador', claim) };
 }
 
@@ -251,7 +295,7 @@ Deno.serve(async (req: Request) => {
     return json(401, { error: 'No autorizado' });
   }
 
-  let body: { send?: boolean; limit?: number; segment?: string; tipo_correo?: string; token?: string; fundador?: boolean; promo?: string | null } = {};
+  let body: { send?: boolean; limit?: number; segment?: string; tipo_correo?: string; token?: string; fundador?: boolean; promo?: string | null; tanda?: number } = {};
   try { body = await req.json(); } catch { /* vacío = dry-run, todos */ }
   const doSend = body.send === true;
   // Encuadre de fundador en el correo (por defecto sí, como el envío masivo).
@@ -285,7 +329,11 @@ Deno.serve(async (req: Request) => {
       correo_personal: /@(gmail|hotmail|outlook|yahoo|live|icloud|me|aol|msn|gmx|prodigy)\./i.test(inv.correo),
     }];
   } else {
-    const { data, error } = await admin.rpc('directorio_invitaciones_cola', { p_limit: 1000 });
+    // Si viene `tanda`, la cola respeta el plan (directorio_plan_invitacion) y
+    // trae la tarifa exacta de cada ficha. Sin `tanda`, comportamiento anterior.
+    const { data, error } = body.tanda
+      ? await admin.rpc('directorio_invitaciones_cola_tanda', { p_tanda: body.tanda, p_limit: 200 })
+      : await admin.rpc('directorio_invitaciones_cola', { p_limit: 1000 });
     if (error) return json(500, { error: error.message });
     rows = (data ?? []) as Row[];
     if (segment !== 'todos') rows = rows.filter((r) => segmentOf(r) === segment);
@@ -311,7 +359,7 @@ Deno.serve(async (req: Request) => {
   for (const r of lote) {
     try {
       const { subject, html } = buildEmail(r, fundador, body.promo ?? null);
-      if (await sendEmail(r.correo, subject, html, `inv-${r.token}`)) {
+      if (await sendEmail(r.correo, subject, html, `inv-${r.token}`, `${SITE}/reclamar/${r.token}`)) {
         await admin.rpc('directorio_invitacion_enviada', { p_token: r.token });
         enviados++;
       } else { fallidos++; }
