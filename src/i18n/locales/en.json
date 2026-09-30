@@ -353,7 +353,8 @@
     "yearStarted": "Year started operating",
     "yearStartedHint": "e.g. 2015",
     "certifiedStaff": "We have certified staff",
-    "accessibility": "Venue accessibility"
+    "accessibility": "Venue accessibility",
+    "bioHint": "Optional. Up to 500 characters (no minimum)."
   },
   "val": {
     "email": "Enter a valid email",
@@ -2226,7 +2227,9 @@
     "uploadDoc": "Upload document",
     "docUploaded": "Document uploaded",
     "docError": "Could not upload the document",
-    "docNote": "Documents are for internal verification use."
+    "docNote": "Documents are for internal verification use.",
+    "fileHint": "Photo: JPG, PNG or WebP (max 5 MB). Document: image or PDF (max 10 MB).",
+    "fileTooBig": "The file exceeds the {{mb}} MB maximum."
   },
   "k": {
     "s1": "Profile",

@@ -316,7 +316,8 @@
     "yearStarted": "活動開始年",
     "yearStartedHint": "例: 2015",
     "certifiedStaff": "認定スタッフが在籍しています",
-    "accessibility": "施設のアクセシビリティ"
+    "accessibility": "施設のアクセシビリティ",
+    "bioHint": "任意。最大500文字（下限なし）。"
   },
   "val": {
     "email": "有効なメールアドレスを入力してください",
@@ -2189,7 +2190,9 @@
     "uploadDoc": "書類をアップロード",
     "docUploaded": "書類をアップロードしました",
     "docError": "書類をアップロードできませんでした",
-    "docNote": "書類は内部確認用です。"
+    "docNote": "書類は内部確認用です。",
+    "fileHint": "写真: JPG・PNG・WebP（最大5MB）。書類: 画像またはPDF（最大10MB）。",
+    "fileTooBig": "ファイルが最大 {{mb}} MB を超えています。"
   },
   "k": {
     "s1": "プロフィール",

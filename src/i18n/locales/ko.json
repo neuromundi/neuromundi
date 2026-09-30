@@ -353,7 +353,8 @@
     "yearStarted": "활동 시작 연도",
     "yearStartedHint": "예: 2015",
     "certifiedStaff": "인증 전문 인력을 보유하고 있습니다",
-    "accessibility": "시설 접근성"
+    "accessibility": "시설 접근성",
+    "bioHint": "선택. 최대 500자(최소 제한 없음)."
   },
   "val": {
     "email": "유효한 이메일을 입력하세요",
@@ -2226,7 +2227,9 @@
     "uploadDoc": "서류 업로드",
     "docUploaded": "서류가 업로드되었습니다",
     "docError": "서류를 업로드할 수 없습니다",
-    "docNote": "서류는 내부 인증용입니다."
+    "docNote": "서류는 내부 인증용입니다.",
+    "fileHint": "사진: JPG, PNG 또는 WebP(최대 5MB). 문서: 이미지 또는 PDF(최대 10MB).",
+    "fileTooBig": "파일이 최대 {{mb}}MB를 초과합니다."
   },
   "k": {
     "s1": "프로필",

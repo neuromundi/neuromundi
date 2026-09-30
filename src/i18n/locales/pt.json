@@ -316,7 +316,8 @@
     "yearStarted": "Ano de início da atividade",
     "yearStartedHint": "ex. 2015",
     "certifiedStaff": "Temos equipe certificada",
-    "accessibility": "Acessibilidade do local"
+    "accessibility": "Acessibilidade do local",
+    "bioHint": "Opcional. Até 500 caracteres (sem mínimo)."
   },
   "val": {
     "email": "Digite um e-mail válido",
@@ -2189,7 +2190,9 @@
     "uploadDoc": "Enviar documento",
     "docUploaded": "Documento enviado",
     "docError": "Não foi possível enviar o documento",
-    "docNote": "Os documentos são para verificação interna."
+    "docNote": "Os documentos são para verificação interna.",
+    "fileHint": "Foto: JPG, PNG ou WebP (máx. 5 MB). Documento: imagem ou PDF (máx. 10 MB).",
+    "fileTooBig": "O arquivo excede o máximo de {{mb}} MB."
   },
   "k": {
     "s1": "Perfil",

@@ -33,10 +33,15 @@ export function ProfileCompletion() {
   const details = (profile.provider_details ?? {}) as Record<string, unknown>;
   const docs = Array.isArray(details.verification_docs) ? (details.verification_docs as string[]) : [];
 
+  // Límites de tamaño (deben coincidir con la nota que se muestra al usuario).
+  const MAX_PHOTO_MB = 5;
+  const MAX_DOC_MB = 10;
+
   const pick = () => fileRef.current?.click();
   const onFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files?.[0];
     if (!f) return;
+    if (f.size > MAX_PHOTO_MB * 1024 * 1024) { toast.error(t('complete.fileTooBig', { mb: MAX_PHOTO_MB })); e.target.value = ''; return; }
     const r = await uploadAvatar(f);
     if (r.ok) toast.success(t('complete.uploaded'));
     else toast.error(r.error);
@@ -46,6 +51,7 @@ export function ProfileCompletion() {
   const onDoc = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files?.[0];
     if (!f || !userId) return;
+    if (f.size > MAX_DOC_MB * 1024 * 1024) { toast.error(t('complete.fileTooBig', { mb: MAX_DOC_MB })); e.target.value = ''; return; }
     setUploadingDoc(true);
     try {
       const safe = f.name.replace(/[^\w.\-]/g, '_');
@@ -101,7 +107,8 @@ export function ProfileCompletion() {
             <Button variant="secondary" onClick={pickDoc} loading={uploadingDoc} leadingIcon={<FileCheck2 className="h-4 w-4" />}>{t('complete.uploadDoc')}</Button>
             <Link to="/ajustes" className="text-sm font-semibold text-brand-700 hover:underline">{t('complete.goSettings')}</Link>
           </div>
-          <p className="mt-2 text-xs text-muted">{t('complete.docNote')}</p>
+          <p className="mt-2 text-xs text-muted">{t('complete.fileHint')}</p>
+          <p className="mt-1 text-xs text-muted">{t('complete.docNote')}</p>
         </div>
       </div>
     </div>

@@ -316,7 +316,8 @@
     "yearStarted": "开始运营年份",
     "yearStartedHint": "例如 2015",
     "certifiedStaff": "我们拥有持证人员",
-    "accessibility": "场所无障碍设施"
+    "accessibility": "场所无障碍设施",
+    "bioHint": "可选。最多 500 个字符（无下限）。"
   },
   "val": {
     "email": "请输入有效的邮箱",
@@ -2189,7 +2190,9 @@
     "uploadDoc": "上传文件",
     "docUploaded": "文件已上传",
     "docError": "无法上传文件",
-    "docNote": "文件仅供内部验证使用。"
+    "docNote": "文件仅供内部验证使用。",
+    "fileHint": "照片：JPG、PNG 或 WebP（最大 5 MB）。文件：图片或 PDF（最大 10 MB）。",
+    "fileTooBig": "文件超过了 {{mb}} MB 的上限。"
   },
   "k": {
     "s1": "档案",

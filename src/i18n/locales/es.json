@@ -353,7 +353,8 @@
     "yearStarted": "Año de inicio de actividad",
     "yearStartedHint": "Ej. 2015",
     "certifiedStaff": "Contamos con personal certificado",
-    "accessibility": "Accesibilidad del lugar"
+    "accessibility": "Accesibilidad del lugar",
+    "bioHint": "Opcional. Hasta 500 caracteres (sin mínimo)."
   },
   "val": {
     "email": "Escribe un correo válido",
@@ -2226,7 +2227,9 @@
     "uploadDoc": "Subir documento",
     "docUploaded": "Documento subido",
     "docError": "No se pudo subir el documento",
-    "docNote": "Los documentos son de uso interno para verificación."
+    "docNote": "Los documentos son de uso interno para verificación.",
+    "fileHint": "Foto: JPG, PNG o WebP (máx. 5 MB). Documento: imagen o PDF (máx. 10 MB).",
+    "fileTooBig": "El archivo supera el máximo de {{mb}} MB."
   },
   "k": {
     "s1": "Perfil",

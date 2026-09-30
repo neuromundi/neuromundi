@@ -348,7 +348,8 @@ export function Settings() {
         )}
         <div>
           <label htmlFor="s-bio" className={labelCls}>{t('settings.about')}</label>
-          <textarea id="s-bio" rows={3} className={inputCls} {...register('bio')} />
+          <textarea id="s-bio" rows={3} maxLength={500} className={inputCls} {...register('bio')} />
+          <p className="mt-1 text-xs text-muted">{t('settings.bioHint')}</p>
         </div>
 
         <fieldset className="space-y-4 rounded-2xl border border-slate-100 p-4">
