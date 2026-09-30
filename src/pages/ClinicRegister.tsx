@@ -314,6 +314,10 @@ export function ClinicRegister({ onSuccess, complete = false }: { onSuccess?: ()
               </select>
             </div>
 
+            {/* En móvil la barra lateral es `hidden lg:block`, así que el precio
+                no se renderizaba nunca. Aquí se muestra junto al país. */}
+            <MembershipPrice boxed hideIfEmpty affiliate="clinic" />
+
             {/* Tipo de establecimiento: define qué secciones se muestran después
                 (gabinete / laboratorio), así que va antes que el resto. Sólo lo
                 precede el país, del que depende el precio. */}

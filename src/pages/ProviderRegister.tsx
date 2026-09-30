@@ -232,6 +232,10 @@ export function ProviderRegister({ onSuccess, complete = false }: { onSuccess?: 
                   {COUNTRIES.map((c) => <option key={c.code} value={c.name}>{countryLabel(c.code, c.name)}</option>)}
                 </select>
               </div>
+
+              {/* En móvil la barra lateral es `hidden lg:block`, así que el precio
+                  no se renderizaba nunca. Aquí se muestra junto al país. */}
+              <MembershipPrice boxed hideIfEmpty affiliate="merchant" className="lg:hidden" />
         </section>
 
         {/* 1. Marca */}

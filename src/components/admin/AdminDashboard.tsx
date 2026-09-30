@@ -222,8 +222,13 @@ export function AdminDashboard({ advisor = false }: { advisor?: boolean } = {}) 
     else toast.success(t('admin.recalcDone', { count: data ?? 0 }));
   };
 
+  // La tabla de miembros necesita ancho: el panel vivía en max-w-2xl (672 px),
+  // que para una tabla con cinco columnas y botones es asfixiante. El resto de
+  // las secciones se leen mejor en columna estrecha, así que sólo esa se ensancha.
+  const anchoPanel = section === 'members' ? 'max-w-7xl' : 'max-w-2xl';
+
   return (
-    <div className="mx-auto w-full max-w-2xl p-4">
+    <div className={`mx-auto w-full p-4 ${anchoPanel}`}>
       <h1 className="mb-4 text-2xl font-bold text-slate-900">{t('admin.title')}</h1>
 
       <div className="mb-4 inline-flex flex-wrap rounded-xl bg-slate-100 p-1">

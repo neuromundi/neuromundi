@@ -3819,7 +3819,9 @@
         "unexempt": "Remove waiver",
         "extend": "Extend",
         "verify": "Confirm listing"
-      }
+      },
+      "pub": "In directory",
+      "unpub": "Unpublished"
     }
   },
   "callout": {

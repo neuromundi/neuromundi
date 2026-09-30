@@ -146,6 +146,11 @@ export function AdminMembers() {
                       {x.suspend_until && (
                         <div className="mt-1 text-xs text-muted">{formatDate(x.suspend_until)}</div>
                       )}
+                      {/* Sin este dato, suspender a quien nunca publicó su perfil
+                          parece no hacer nada: no estaba en el directorio. */}
+                      <div className={`mt-1 text-xs ${x.is_published ? 'text-sage-700' : 'text-slate-400'}`}>
+                        {t(x.is_published ? 'adm.members.pub' : 'adm.members.unpub')}
+                      </div>
                     </td>
                     <td className="p-3 text-xs text-slate-600">
                       {x.membership_paid_until ? formatDate(x.membership_paid_until) : '—'}

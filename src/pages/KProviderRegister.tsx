@@ -218,6 +218,10 @@ export function KProviderRegister({ typeKey, onSuccess, complete = false }: { ty
                   {COUNTRIES.map((c) => <option key={c.code} value={c.name}>{countryLabel(c.code, c.name)}</option>)}
                 </select>
               </div>
+
+              {/* En móvil la barra lateral es `hidden lg:block`, así que el precio
+                  no se renderizaba nunca. Aquí se muestra junto al país. */}
+              <MembershipPrice boxed hideIfEmpty affiliate={typeKey} className="lg:hidden" />
         </section>
 
         {/* 1. Perfil */}
