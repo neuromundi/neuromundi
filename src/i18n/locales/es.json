@@ -1036,7 +1036,8 @@
     "secSurvey": "Encuesta",
     "secInvitations": "Invitaciones",
     "secCarousel": "Carrusel",
-    "secSuggestions": "Sugerencias"
+    "secSuggestions": "Sugerencias",
+    "secMembers": "Miembros"
   },
   "reg": {
     "typePatient": "Paciente",
@@ -3779,6 +3780,46 @@
       "replaceImage": "Reemplazar imagen",
       "saved": "Guardado",
       "needImage": "Selecciona una imagen"
+    },
+    "members": {
+      "hint": "Una fila por cuenta. Aquí se suspende, reactiva, exenta de cuota y prorroga la vigencia. La baja definitiva no está aquí a propósito: borra datos que no vuelven y se hace por un camino aparte.",
+      "search": "Buscar por nombre, correo o número de socio",
+      "empty": "No hay cuentas con ese filtro.",
+      "done": "Listo",
+      "failed": "No se pudo completar la acción",
+      "founder": "Fundador",
+      "notePrompt": "Nota para la bitácora (opcional)",
+      "daysPrompt": "¿Cuántos días de prórroga? (puede ser negativo para restar)",
+      "confirmSuspend": "El perfil dejará de aparecer en el directorio hasta que lo reactives. ¿Continuar?",
+      "fichaOk": "Ficha confirmada",
+      "fichaPend": "Ficha sin confirmar",
+      "f": {
+        "todos": "Todos",
+        "activo": "Activo",
+        "pendiente": "Pendiente",
+        "exento": "Exento",
+        "vencido": "Vencido",
+        "suspendido": "Suspendido"
+      },
+      "c": {
+        "member": "Miembro",
+        "type": "Tipo",
+        "state": "Estado",
+        "until": "Vigencia",
+        "actions": "Acciones"
+      },
+      "p": {
+        "monthly": "Mensual",
+        "annual": "Anual"
+      },
+      "a": {
+        "suspend": "Suspender",
+        "reactivate": "Reactivar",
+        "exempt": "Exentar",
+        "unexempt": "Quitar exención",
+        "extend": "Prorrogar",
+        "verify": "Confirmar ficha"
+      }
     }
   },
   "callout": {

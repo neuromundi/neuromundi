@@ -999,7 +999,8 @@
     "secSurvey": "Enquête",
     "secInvitations": "Invitations",
     "secCarousel": "Carrousel",
-    "secSuggestions": "Suggestions"
+    "secSuggestions": "Suggestions",
+    "secMembers": "Membres"
   },
   "reg": {
     "typePatient": "Patient",
@@ -3779,6 +3780,46 @@
       "replaceImage": "Remplacer l'image",
       "saved": "Enregistré",
       "needImage": "Sélectionnez une image"
+    },
+    "members": {
+      "hint": "One row per account. Suspend, reactivate, waive the fee and extend validity here. Permanent deletion is deliberately absent: it destroys data that cannot be recovered and follows a separate path.",
+      "search": "Search by name, email or member number",
+      "empty": "No accounts match this filter.",
+      "done": "Done",
+      "failed": "The action could not be completed",
+      "founder": "Founder",
+      "notePrompt": "Note for the log (optional)",
+      "daysPrompt": "How many days to extend? (negative subtracts)",
+      "confirmSuspend": "The profile will stop appearing in the directory until you reactivate it. Continue?",
+      "fichaOk": "Listing confirmed",
+      "fichaPend": "Listing unconfirmed",
+      "f": {
+        "todos": "All",
+        "activo": "Active",
+        "pendiente": "Pending",
+        "exento": "Exempt",
+        "vencido": "Overdue",
+        "suspendido": "Suspended"
+      },
+      "c": {
+        "member": "Member",
+        "type": "Type",
+        "state": "Status",
+        "until": "Valid until",
+        "actions": "Actions"
+      },
+      "p": {
+        "monthly": "Monthly",
+        "annual": "Annual"
+      },
+      "a": {
+        "suspend": "Suspend",
+        "reactivate": "Reactivate",
+        "exempt": "Waive fee",
+        "unexempt": "Remove waiver",
+        "extend": "Extend",
+        "verify": "Confirm listing"
+      }
     }
   },
   "callout": {
