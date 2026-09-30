@@ -92,6 +92,7 @@ import { formatDate, formatDateTime, exportToCsv } from '@/lib/utils';
 import type { Offer, OfferStatus, OfferInsert, ProviderType, TransactionStatus } from '@/types/app';
 import { DIMENSION_LABEL_KEY } from '@/types/app';
 import { PublicationSteps } from './PublicationSteps';
+import { ExemptionCard } from './ExemptionCard';
 import { LockedFeature } from './LockedFeature';
 import { useMembership } from '@/hooks/useMembership';
 import { ProfileCompletion } from './ProfileCompletion';
@@ -801,6 +802,8 @@ export function ProviderDashboard() {
           completar el perfil, cubrir la cuota y publicar. Los tres pasos van
           arriba del todo, con lo que falta de cada uno. */}
       <PublicationSteps userId={userId} />
+      {/* Expediente de exención: quién no paga cuota y hasta cuándo. */}
+      <ExemptionCard userId={userId} />
       {isFounder ? (
         <div className="mb-4 flex items-center gap-3 rounded-2xl border border-brand-200 bg-brand-50 p-3">
           <FounderBadge isFounder size="md" />

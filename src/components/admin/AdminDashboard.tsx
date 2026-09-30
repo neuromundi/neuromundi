@@ -16,6 +16,7 @@ import { AdminProducts } from './AdminProducts';
 import { AdminOtherValues } from './AdminOtherValues';
 import { AdminRenewals } from './AdminRenewals';
 import { AdminMembers } from './AdminMembers';
+import { AdminExemptions } from './AdminExemptions';
 import { AdminReports } from './AdminReports';
 import { AdminMetrics } from './AdminMetrics';
 import { AdminMessages } from './AdminMessages';
@@ -198,12 +199,12 @@ function ProviderList({ filter }: { filter: AdminFilter }) {
   );
 }
 
-type AdminSection = 'metrics' | 'members' | 'messages' | 'moderation' | 'products' | 'store' | 'renewals' | 'referrals' | 'fees' | 'donations' | 'founders' | 'badges' | 'carousel' | 'tribe' | 'accounts' | 'advisors' | 'campaign' | 'survey' | 'improve' | 'suggestions' | 'invitations' | 'reports' | 'other';
+type AdminSection = 'metrics' | 'members' | 'exemptions' | 'messages' | 'moderation' | 'products' | 'store' | 'renewals' | 'referrals' | 'fees' | 'donations' | 'founders' | 'badges' | 'carousel' | 'tribe' | 'accounts' | 'advisors' | 'campaign' | 'survey' | 'improve' | 'suggestions' | 'invitations' | 'reports' | 'other';
 
 // Secciones que puede ver un ASESOR (explorador + moderador de Tribu): SOLO la
 // moderación de Tribu. Las demás (incluidas métricas) son de administrador.
 const ADVISOR_SECTIONS: AdminSection[] = ['tribe'];
-const ALL_SECTIONS: AdminSection[] = ['metrics', 'members', 'messages', 'moderation', 'products', 'store', 'renewals', 'referrals', 'fees', 'donations', 'founders', 'badges', 'carousel', 'tribe', 'accounts', 'advisors', 'campaign', 'survey', 'improve', 'suggestions', 'invitations', 'reports', 'other'];
+const ALL_SECTIONS: AdminSection[] = ['metrics', 'members', 'exemptions', 'messages', 'moderation', 'products', 'store', 'renewals', 'referrals', 'fees', 'donations', 'founders', 'badges', 'carousel', 'tribe', 'accounts', 'advisors', 'campaign', 'survey', 'improve', 'suggestions', 'invitations', 'reports', 'other'];
 
 export function AdminDashboard({ advisor = false }: { advisor?: boolean } = {}) {
   const { t } = useTranslation();
@@ -242,7 +243,7 @@ export function AdminDashboard({ advisor = false }: { advisor?: boolean } = {}) 
               section === s ? 'bg-white text-slate-900 shadow-sm' : 'text-muted',
             )}
           >
-            {t(s === 'metrics' ? 'admin.secMetrics' : s === 'members' ? 'admin.secMembers' : s === 'messages' ? 'admin.secMessages' : s === 'moderation' ? 'admin.secModeration' : s === 'products' ? 'admin.secProducts' : s === 'store' ? 'admin.secStore' : s === 'renewals' ? 'admin.secRenewals' : s === 'referrals' ? 'admin.secReferrals' : s === 'fees' ? 'admin.secFees' : s === 'donations' ? 'admin.secDonations' : s === 'founders' ? 'admin.secFounders' : s === 'badges' ? 'admin.secBadges' : s === 'carousel' ? 'admin.secCarousel' : s === 'tribe' ? 'admin.secTribe' : s === 'accounts' ? 'admin.secAccounts' : s === 'advisors' ? 'admin.secAdvisors' : s === 'campaign' ? 'admin.secCampaign' : s === 'survey' ? 'admin.secSurvey' : s === 'improve' ? 'admin.secImprove' : s === 'suggestions' ? 'admin.secSuggestions' : s === 'invitations' ? 'admin.secInvitations' : s === 'reports' ? 'admin.secReports' : 'admin.secOther')}
+            {t(s === 'metrics' ? 'admin.secMetrics' : s === 'members' ? 'admin.secMembers' : s === 'exemptions' ? 'admin.secExemptions' : s === 'messages' ? 'admin.secMessages' : s === 'moderation' ? 'admin.secModeration' : s === 'products' ? 'admin.secProducts' : s === 'store' ? 'admin.secStore' : s === 'renewals' ? 'admin.secRenewals' : s === 'referrals' ? 'admin.secReferrals' : s === 'fees' ? 'admin.secFees' : s === 'donations' ? 'admin.secDonations' : s === 'founders' ? 'admin.secFounders' : s === 'badges' ? 'admin.secBadges' : s === 'carousel' ? 'admin.secCarousel' : s === 'tribe' ? 'admin.secTribe' : s === 'accounts' ? 'admin.secAccounts' : s === 'advisors' ? 'admin.secAdvisors' : s === 'campaign' ? 'admin.secCampaign' : s === 'survey' ? 'admin.secSurvey' : s === 'improve' ? 'admin.secImprove' : s === 'suggestions' ? 'admin.secSuggestions' : s === 'invitations' ? 'admin.secInvitations' : s === 'reports' ? 'admin.secReports' : 'admin.secOther')}
           </button>
         ))}
       </div>
@@ -279,6 +280,8 @@ export function AdminDashboard({ advisor = false }: { advisor?: boolean } = {}) 
         </div>
       ) : section === 'members' ? (
         <AdminMembers />
+      ) : section === 'exemptions' ? (
+        <AdminExemptions />
       ) : section === 'renewals' ? (
         <AdminRenewals />
       ) : section === 'referrals' ? (

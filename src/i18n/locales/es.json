@@ -1043,7 +1043,8 @@
     "secInvitations": "Invitaciones",
     "secCarousel": "Carrusel",
     "secSuggestions": "Sugerencias",
-    "secMembers": "Miembros"
+    "secMembers": "Miembros",
+    "secExemptions": "Exenciones"
   },
   "reg": {
     "typePatient": "Paciente",
@@ -3847,6 +3848,23 @@
       "fPaidYes": "Sólo pagados",
       "fPaidNo": "Sólo sin pagar",
       "csv": "Descargar CSV"
+    },
+    "exe": {
+      "title": "Exenciones",
+      "desc": "Solicitudes por resolver y exenciones que vencen dentro de 60 días o ya vencieron.",
+      "showAll": "Ver todas",
+      "empty": "Nada por resolver",
+      "emptyDesc": "No hay solicitudes pendientes ni exenciones por vencer.",
+      "line": "{{tipo}} · {{folio}} · sector {{sector}}",
+      "until": "Vence el {{fecha}} ({{dias}} días)",
+      "openDoc": "Ver constancia",
+      "approve": "Aprobar",
+      "reject": "No aprobar",
+      "noteApprove": "Nota de la aprobación (opcional)",
+      "noteReject": "Motivo por el que no se aprueba",
+      "approved": "Exención aprobada por doce meses.",
+      "rejectedOk": "Exención no aprobada.",
+      "docError": "No se pudo abrir la constancia."
     }
   },
   "callout": {
@@ -5213,5 +5231,31 @@
       "telefono": "teléfono",
       "pais": "país de residencia"
     }
+  },
+  "exe": {
+    "title": "Exención de cuota",
+    "permanent": "Tu exención no caduca: se sostiene por lo que es tu organización.",
+    "validUntil": "Vigente hasta el {{fecha}}. Quedan {{dias}} días.",
+    "expired": "Tu exención venció. Vuelve a comprobar que sigues siendo donataria autorizada o que tu CLUNI sigue vigente.",
+    "pending": "Tu solicitud está en revisión. Te avisamos en cuanto se resuelva.",
+    "rejected": "No se aprobó: {{motivo}}",
+    "who": "Quedan exentas las entidades públicas y las organizaciones del sector social. Ser asociación civil no basta: hay que estar en el padrón de donatarias autorizadas del SAT o tener CLUNI vigente.",
+    "renew": "Renovar mi exención",
+    "request": "Solicitar exención",
+    "type": "Qué acredita tu exención",
+    "typeDonataria": "Donataria autorizada por el SAT",
+    "typeCluni": "CLUNI del Registro Federal de OSC",
+    "typePublico": "Entidad pública",
+    "folioCluni": "CLUNI",
+    "folioRfc": "RFC",
+    "doc": "Adjuntar constancia",
+    "docReady": "Constancia adjunta",
+    "docHint": "PDF o imagen, máximo {{mb}} MB. La constancia del SAT o tu CLUNI.",
+    "send": "Enviar solicitud",
+    "sent": "Solicitud enviada.",
+    "uploaded": "Constancia cargada.",
+    "uploadError": "No se pudo cargar el archivo.",
+    "tooBig": "El archivo pesa más de {{mb}} MB.",
+    "needFolio": "Escribe tu RFC o tu CLUNI."
   }
 }
