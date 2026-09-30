@@ -1184,7 +1184,7 @@
       "pending": "El costo aparecerá al completar tu perfil.",
       "specialistPending": "Aquí se mostrará el costo de tu membresía en cuanto elijas tu profesión.",
       "notConfigured": "El costo se mostrará cuando esté configurado para tu país.",
-      "pickCountry": "Elige tu país para ver el costo de tu membresía."
+      "pickCountry": "Selecciona tu país para ver el costo de tu membresía"
     },
     "afterConfirmPay": "Al confirmar tu correo e iniciar sesión, se te pedirá completar el pago de tu membresía."
   },

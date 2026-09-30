@@ -147,7 +147,7 @@ export function CreateAccount() {
       {/* Un solo selector de país para toda la pantalla: los precios de las
           tarjetas dependen de él. No puede ir dentro de las tarjetas porque
           cada una es un <button> y un <select> anidado es HTML inválido. */}
-      <CountryFilter id="create-country" className="mx-auto mt-8 max-w-xl" />
+      <CountryFilter id="create-country" className="mx-auto mt-8 max-w-xl" label={t('reg.price.pickCountry')} />
 
       <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {CARDS.map(({ type, icon: Icon, color, soon }) => (

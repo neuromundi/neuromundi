@@ -240,6 +240,19 @@ export function SpecialistRegister({ onSuccess, complete = false }: { onSuccess?
   return (
     <div className="grid gap-6 lg:grid-cols-[1fr_320px]">
       <form onSubmit={(e) => { e.preventDefault(); void submit(); }} className="space-y-6" noValidate>
+        {/* País de residencia, primero: de él dependen los precios que se
+            muestran arriba, así que la persona confirma su costo ANTES de
+            llenar el resto del formulario. */}
+        <section className="space-y-4">
+              <div>
+                <label className={labelCls} htmlFor="specia-f7">{t('reg.country')}</label>
+                <select id="specia-f7" className={inputCls} value={country} onChange={(e) => { setCountry(e.target.value); setStateName(''); setMunicipality(''); }}>
+                  <option value="">{t('reg.selectCountry')}</option>
+                  {COUNTRIES.map((c) => <option key={c.code} value={c.name}>{countryLabel(c.code, c.name)}</option>)}
+                </select>
+              </div>
+        </section>
+
         {/* 1. Perfil profesional */}
         <section className="space-y-4">
           <h3 className={sectionTitle}>{t('spec.s1')}</h3>
@@ -294,13 +307,6 @@ export function SpecialistRegister({ onSuccess, complete = false }: { onSuccess?
             <div className="sm:col-span-2"><label className={labelCls} htmlFor="specia-f6">{t('spec.booking')}</label><input id="specia-f6" type="url" className={inputCls} value={bookingUrl} onChange={(e) => setBookingUrl(e.target.value)} placeholder="https://calendly.com/…" /></div>
           </div>
           <div className="grid gap-3 sm:grid-cols-3">
-            <div>
-              <label className={labelCls} htmlFor="specia-f7">{t('reg.country')}</label>
-              <select id="specia-f7" className={inputCls} value={country} onChange={(e) => { setCountry(e.target.value); setStateName(''); setMunicipality(''); }}>
-                <option value="">{t('reg.selectCountry')}</option>
-                {COUNTRIES.map((c) => <option key={c.code} value={c.name}>{countryLabel(c.code, c.name)}</option>)}
-              </select>
-            </div>
             {isMexico && (
               <>
                 <div>

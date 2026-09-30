@@ -181,6 +181,19 @@ export function EsparcimientoRegister({ onSuccess, complete = false }: { onSucce
   return (
     <div className="grid gap-6 lg:grid-cols-[1fr_320px]">
       <form onSubmit={(e) => { e.preventDefault(); void submit(); }} className="space-y-6" noValidate>
+        {/* País de residencia, primero: de él dependen los precios que se
+            muestran arriba, así que la persona confirma su costo ANTES de
+            llenar el resto del formulario. */}
+        <section className="space-y-4">
+              <div>
+                <label className={labelCls} htmlFor="esparc-f3">{t('reg.country')}</label>
+                <select id="esparc-f3" className={inputCls} value={country} onChange={(e) => setCountry(e.target.value)}>
+                  <option value="">{t('reg.selectCountry')}</option>
+                  {COUNTRIES.map((c) => <option key={c.code} value={c.name}>{countryLabel(c.code, c.name)}</option>)}
+                </select>
+              </div>
+        </section>
+
         {/* 1. El lugar */}
         <section className="space-y-4">
           <h3 className={sectionTitle}>{t('esp.s1')}</h3>
@@ -216,13 +229,6 @@ export function EsparcimientoRegister({ onSuccess, complete = false }: { onSucce
             onToggleCondition={toggleCondition}
           />
           <div className="grid gap-3 sm:grid-cols-2">
-            <div>
-              <label className={labelCls} htmlFor="esparc-f3">{t('reg.country')}</label>
-              <select id="esparc-f3" className={inputCls} value={country} onChange={(e) => setCountry(e.target.value)}>
-                <option value="">{t('reg.selectCountry')}</option>
-                {COUNTRIES.map((c) => <option key={c.code} value={c.name}>{countryLabel(c.code, c.name)}</option>)}
-              </select>
-            </div>
             <div><label className={labelCls} htmlFor="esparc-f4">{t('esp.city')}</label><input id="esparc-f4" className={inputCls} value={city} onChange={(e) => setCity(e.target.value)} /></div>
           </div>
           <div><label className={labelCls} htmlFor="esparc-f5">{t('esp.address')}</label><input id="esparc-f5" className={inputCls} value={address} onChange={(e) => setAddress(e.target.value)} /></div>

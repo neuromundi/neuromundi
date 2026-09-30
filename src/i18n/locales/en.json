@@ -1184,7 +1184,7 @@
       "pending": "The cost will appear once you complete your profile.",
       "specialistPending": "Your membership cost will appear as soon as you choose your profession.",
       "notConfigured": "The cost will show once it's configured for your country.",
-      "pickCountry": "Choose your country to see your membership price."
+      "pickCountry": "Select your country to see your membership price"
     },
     "afterConfirmPay": "After you confirm your email and sign in, you'll be asked to complete your membership payment."
   },

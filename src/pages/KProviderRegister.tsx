@@ -207,6 +207,19 @@ export function KProviderRegister({ typeKey, onSuccess, complete = false }: { ty
   return (
     <div className="grid gap-6 lg:grid-cols-[1fr_320px]">
       <form onSubmit={(e) => { e.preventDefault(); void submit(); }} className="space-y-6" noValidate>
+        {/* País de residencia, primero: de él dependen los precios que se
+            muestran arriba, así que la persona confirma su costo ANTES de
+            llenar el resto del formulario. */}
+        <section className="space-y-4">
+              <div>
+                <label className={labelCls} htmlFor="kprovi-f5">{t('reg.country')}</label>
+                <select id="kprovi-f5" className={inputCls} value={country} onChange={(e) => { setCountry(e.target.value); setStateName(''); setMunicipality(''); }}>
+                  <option value="">{t('reg.selectCountry')}</option>
+                  {COUNTRIES.map((c) => <option key={c.code} value={c.name}>{countryLabel(c.code, c.name)}</option>)}
+                </select>
+              </div>
+        </section>
+
         {/* 1. Perfil */}
         <section className="space-y-4">
           <h3 className={sectionTitle}>{t('k.s1')}</h3>
@@ -252,13 +265,6 @@ export function KProviderRegister({ typeKey, onSuccess, complete = false }: { ty
             <div className="sm:col-span-2"><label className={labelCls} htmlFor="kprovi-f4">{t('k.website')}</label><input id="kprovi-f4" className={inputCls} value={website} onChange={(e) => setWebsite(e.target.value)} placeholder="https://" /></div>
           </div>
           <div className="grid gap-3 sm:grid-cols-3">
-            <div>
-              <label className={labelCls} htmlFor="kprovi-f5">{t('reg.country')}</label>
-              <select id="kprovi-f5" className={inputCls} value={country} onChange={(e) => { setCountry(e.target.value); setStateName(''); setMunicipality(''); }}>
-                <option value="">{t('reg.selectCountry')}</option>
-                {COUNTRIES.map((c) => <option key={c.code} value={c.name}>{countryLabel(c.code, c.name)}</option>)}
-              </select>
-            </div>
             {isMexico && (
               <>
                 <div>

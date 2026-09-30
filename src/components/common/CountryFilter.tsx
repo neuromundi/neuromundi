@@ -10,7 +10,12 @@ import { useCountry } from '@/stores/countryStore';
 import { COUNTRIES } from '@/data/countries';
 import { cn } from '@/lib/utils';
 
-export function CountryFilter({ id = 'country-filter', className }: { id?: string; className?: string }) {
+/**
+ * `label` permite una leyenda propia: en el directorio basta «País», pero en la
+ * pantalla de creación de cuenta hay que decir PARA QUÉ se pide, porque de ese
+ * país dependen los precios que se muestran en las tarjetas.
+ */
+export function CountryFilter({ id = 'country-filter', className, label }: { id?: string; className?: string; label?: string }) {
   const { t, i18n } = useTranslation();
   const { country, setCountry } = useCountry();
 
@@ -30,11 +35,11 @@ export function CountryFilter({ id = 'country-filter', className }: { id?: strin
   return (
     <div className={cn('flex flex-col gap-2 rounded-xl border border-brand-100 bg-brand-50 p-3 sm:flex-row sm:items-center', className)}>
       <label htmlFor={id} className="flex shrink-0 items-center gap-2 text-sm font-semibold text-brand-800">
-        <Globe className="h-4 w-4" aria-hidden="true" /> {t('directory.countryLabel')}
+        <Globe className="h-4 w-4" aria-hidden="true" /> {label ?? t('directory.countryLabel')}
       </label>
       <select
         id={id}
-        aria-label={t('directory.countryLabel')}
+        aria-label={label ?? t('directory.countryLabel')}
         value={country ?? ''}
         onChange={(e) => setCountry(e.target.value || null)}
         className="w-full rounded-xl border border-brand-200 bg-white p-2.5 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 sm:max-w-xs"

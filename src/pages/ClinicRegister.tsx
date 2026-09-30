@@ -304,8 +304,19 @@ export function ClinicRegister({ onSuccess, complete = false }: { onSuccess?: ()
 
         {step === 0 && (
           <div className="space-y-4">
-            {/* Tipo de establecimiento PRIMERO: define qué secciones se muestran
-                después (gabinete / laboratorio), así que va al inicio. */}
+            {/* País de residencia, primero: de él depende el precio que se muestra
+                arriba, así que la persona confirma su costo ANTES de llenar el resto. */}
+            <div>
+              <label className={labelCls} htmlFor="clinic-f3">{t('reg.country')}</label>
+              <select id="clinic-f3" className={inputCls} value={country} onChange={(e) => { setCountry(e.target.value); setStateName(''); setMunicipality(''); }}>
+                <option value="">{t('reg.selectCountry')}</option>
+                {COUNTRIES.map((c) => <option key={c.code} value={c.name}>{countryLabel(c.code, c.name)}</option>)}
+              </select>
+            </div>
+
+            {/* Tipo de establecimiento: define qué secciones se muestran después
+                (gabinete / laboratorio), así que va antes que el resto. Sólo lo
+                precede el país, del que depende el precio. */}
             <div>
               <label className={labelCls}>{t('clin.categories')}</label>
               <p className="mb-2 text-xs text-muted">{t('clin.categoriesHint')}</p>
@@ -332,13 +343,6 @@ export function ClinicRegister({ onSuccess, complete = false }: { onSuccess?: ()
         {step === 1 && (
           <div className="space-y-4">
             <div className="grid gap-3 sm:grid-cols-3">
-              <div>
-                <label className={labelCls} htmlFor="clinic-f3">{t('reg.country')}</label>
-                <select id="clinic-f3" className={inputCls} value={country} onChange={(e) => { setCountry(e.target.value); setStateName(''); setMunicipality(''); }}>
-                  <option value="">{t('reg.selectCountry')}</option>
-                  {COUNTRIES.map((c) => <option key={c.code} value={c.name}>{countryLabel(c.code, c.name)}</option>)}
-                </select>
-              </div>
               {isMexico && (
                 <>
                   <div>

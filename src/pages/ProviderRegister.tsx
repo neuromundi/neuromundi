@@ -221,6 +221,19 @@ export function ProviderRegister({ onSuccess, complete = false }: { onSuccess?: 
   return (
     <div className="grid gap-6 lg:grid-cols-[1fr_320px]">
       <form onSubmit={(e) => { e.preventDefault(); void submit(); }} className="space-y-6" noValidate>
+        {/* País de residencia, primero: de él dependen los precios que se
+            muestran arriba, así que la persona confirma su costo ANTES de
+            llenar el resto del formulario. */}
+        <section className="space-y-4">
+              <div>
+                <label className={labelCls} htmlFor="provid-f4">{t('reg.country')}</label>
+                <select id="provid-f4" className={inputCls} value={country} onChange={(e) => { setCountry(e.target.value); setStateName(''); setMunicipality(''); }}>
+                  <option value="">{t('reg.selectCountry')}</option>
+                  {COUNTRIES.map((c) => <option key={c.code} value={c.name}>{countryLabel(c.code, c.name)}</option>)}
+                </select>
+              </div>
+        </section>
+
         {/* 1. Marca */}
         <section className="space-y-4">
           <h3 className={sectionTitle}>{t('prov.s1')}</h3>
@@ -315,13 +328,6 @@ export function ProviderRegister({ onSuccess, complete = false }: { onSuccess?: 
           </div>
           <div><label className={labelCls} htmlFor="provid-f3">{t('prov.whatsapp')}</label><input id="provid-f3" className={inputCls} value={whatsapp} onChange={(e) => setWhatsapp(e.target.value)} placeholder="+52 55…" /></div>
           <div className="grid gap-3 sm:grid-cols-3">
-            <div>
-              <label className={labelCls} htmlFor="provid-f4">{t('reg.country')}</label>
-              <select id="provid-f4" className={inputCls} value={country} onChange={(e) => { setCountry(e.target.value); setStateName(''); setMunicipality(''); }}>
-                <option value="">{t('reg.selectCountry')}</option>
-                {COUNTRIES.map((c) => <option key={c.code} value={c.name}>{countryLabel(c.code, c.name)}</option>)}
-              </select>
-            </div>
             {isMexico && (
               <>
                 <div>

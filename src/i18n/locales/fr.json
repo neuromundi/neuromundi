@@ -1147,7 +1147,7 @@
       "pending": "Le coût apparaîtra une fois ton profil complété.",
       "specialistPending": "Le coût de ton adhésion apparaîtra dès que tu choisiras ta profession.",
       "notConfigured": "Le coût s'affichera une fois configuré pour ton pays.",
-      "pickCountry": "Choisissez votre pays pour voir le prix de votre adhésion."
+      "pickCountry": "Sélectionnez votre pays pour voir le prix de votre adhésion"
     },
     "afterConfirmPay": "Après avoir confirmé votre e-mail et vous être connecté, il vous sera demandé de finaliser le paiement de votre adhésion."
   },
