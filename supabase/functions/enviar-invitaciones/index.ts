@@ -89,7 +89,7 @@ function bloquePrecio(r: Row): string {
       La membresía anual para su tipo de perfil es de <b>${MXN(Number(r.precio_ordinario))} ${cur}</b>.
       Si la activa <b>antes del 31 de octubre de 2026</b> queda como Miembro Fundador y paga
       <b style="color:#0369a1">${MXN(Number(r.precio_fundador))} ${cur} al año</b>, la mitad, y ese precio se le respeta en las renovaciones.
-      <br><br>Reclamar la ficha no cobra nada: tiene hasta el <b>31 de octubre</b> para decidir si continúa. Si decide que no, no se le cobra.
+      <br><br>La tarifa de fundador es <b>anual</b>; el pago mensual existe, pero a cuota ordinaria.<br><br>Reclamar la ficha no cobra nada y el pago es un paso posterior: usted decide si lo da.
     </p>
   </div>`;
 }
@@ -104,6 +104,10 @@ function bloquePrecio(r: Row): string {
 // la MISMA degradación que a quien nunca confirmó, nunca la suspensión: de lo
 // contrario responder saldría peor que ignorar, y el correo estaría prometiendo
 // algo que el sistema contradice seis semanas después.
+//
+// OJO: la degradación del 15 de noviembre AÚN NO ESTÁ CONSTRUIDA. Este texto la
+// compromete por escrito ante los destinatarios, así que es una fecha límite
+// dura de desarrollo, no una intención.
 function bloqueFechas(r: Row): string {
   const cur = r.moneda || 'MXN';
   const hayPrecio = r.precio_configurado && r.precio_fundador && r.precio_ordinario;
@@ -250,7 +254,7 @@ function tablaComparativa(r?: Row): string {
         <td style="padding:9px 6px;background:#f8fafc;font-weight:800;border-top:2px solid #e2e8f0">Precio<br><span style="font-weight:400;color:#64748b;font-size:10px">Cuota del prestador · pacientes siempre gratis</span></td>
         <td align="center" style="padding:9px 4px;background:#e0f2fe;color:#0369a1;font-weight:800;border-top:2px solid #e2e8f0">${
           r?.precio_configurado && r?.precio_fundador
-            ? `${MXN(Math.round(Number(r.precio_fundador) / 12))}<br><span style="font-weight:500;color:#64748b;font-size:10px">${r.moneda || 'MXN'}/mes · su tarifa de fundador</span>`
+            ? `${MXN(Math.round(Number(r.precio_fundador) / 12))}<br><span style="font-weight:500;color:#64748b;font-size:10px">${r.moneda || 'MXN'}/mes equivalente · ${MXN(Number(r.precio_fundador))} al año</span>`
             : `≈ $250–$800<br><span style="font-weight:500;color:#64748b;font-size:10px">MXN/mes · fundadores</span>`
         }</td>
         <td align="center" style="padding:9px 4px;background:#f8fafc;font-weight:800;border-top:2px solid #e2e8f0">≈ $1,500–$4,000<br><span style="font-weight:500;color:#64748b;font-size:10px">MXN/mes</span></td>

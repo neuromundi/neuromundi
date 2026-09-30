@@ -181,8 +181,29 @@ Deno.serve(async (req: Request) => {
           // restantes contaba visitantes como fundadores.
           // Best-effort: si falla, el pago sigue siendo válido.
           if (s.metadata?.member_class === 'founder') {
+            // El precio se fija al CREAR la sesión y el asiento se verifica al
+            // PAGARLA. Si en ese intervalo vence el plazo o se llena el cupo,
+            // grant_founder_seat devuelve false — pero el cargo por la tarifa
+            // de fundador YA se hizo. Hay que enterarse: se registra y se avisa
+            // a los admins para resolverlo a mano.
+            //
+            // supabase-js devuelve { data, error } en vez de lanzar, así que un
+            // try/catch solo no atrapa nada: hay que mirar las dos cosas.
             try {
-              await admin.rpc('grant_founder_seat', { p_id: userId });
+              const { data: otorgado, error: errSeat } = await admin.rpc(
+                'grant_founder_seat', { p_id: userId },
+              );
+              if (errSeat || otorgado !== true) {
+                console.error('grant_founder_seat NO otorgado', {
+                  userId, error: errSeat?.message ?? null, otorgado,
+                });
+                await admin.rpc('notify_admins', {
+                  p_type: 'founder_seat_failed',
+                  p_title: 'Pagó tarifa de fundador y no recibió el asiento',
+                  p_body: 'Se cobró la tarifa de fundador pero no se pudo otorgar el lugar. Revisar cupo y plazo, y resolver a mano.',
+                  p_data: { user_id: userId, error: errSeat?.message ?? null },
+                }).catch(() => { /* el aviso es best-effort */ });
+              }
             } catch (e) {
               console.error('grant_founder_seat', e);
             }
