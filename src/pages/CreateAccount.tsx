@@ -16,6 +16,7 @@ import { ClinicRegister } from '@/pages/ClinicRegister';
 import { SchoolRegister } from '@/pages/SchoolRegister';
 import { KProviderRegister } from '@/pages/KProviderRegister';
 import { MembershipPrice } from '@/components/registration/MembershipPrice';
+import { CountryFilter } from '@/components/common/CountryFilter';
 import { CompanyRegister } from '@/pages/CompanyRegister';
 import { EsparcimientoRegister } from '@/pages/EsparcimientoRegister';
 import { LoginForm } from '@/components/auth/LoginForm';
@@ -143,7 +144,12 @@ export function CreateAccount() {
       <h1 className="mt-10 text-center text-3xl font-extrabold text-slate-900">{t('create.title')}</h1>
       <p className="mx-auto mt-2 max-w-xl text-center text-muted">{t('create.subtitle')}</p>
 
-      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {/* Un solo selector de país para toda la pantalla: los precios de las
+          tarjetas dependen de él. No puede ir dentro de las tarjetas porque
+          cada una es un <button> y un <select> anidado es HTML inválido. */}
+      <CountryFilter id="create-country" className="mx-auto mt-8 max-w-xl" />
+
+      <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {CARDS.map(({ type, icon: Icon, color, soon }) => (
           <button
             key={type}
