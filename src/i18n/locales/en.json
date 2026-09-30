@@ -3833,7 +3833,17 @@
       "fType": "All types",
       "fFounder": "Founders and non-founders",
       "fFounderYes": "Founders only",
-      "fFounderNo": "Non-founders only"
+      "fFounderNo": "Non-founders only",
+      "fPub": "Published and unpublished",
+      "fPubYes": "Published only",
+      "fPubNo": "Unpublished only",
+      "fClaim": "Claimed and unclaimed listings",
+      "fClaimYes": "With claimed listing",
+      "fClaimNo": "Without claimed listing",
+      "fPaid": "Paid and unpaid",
+      "fPaidYes": "Paid only",
+      "fPaidNo": "Unpaid only",
+      "csv": "Download CSV"
     }
   },
   "callout": {

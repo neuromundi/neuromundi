@@ -15,6 +15,11 @@ import { supabase } from '@/lib/supabase';
 
 export type EstadoFiltro = 'todos' | 'activo' | 'pendiente' | 'exento' | 'suspendido' | 'vencido';
 export type FundadorFiltro = 'todos' | 'si' | 'no';
+/** Filtros de sí/no: 'todos' = sin filtrar. */
+export type SiNo = 'todos' | 'si' | 'no';
+
+/** 'todos' → null (sin filtrar); 'si'/'no' → booleano. */
+const triestado = (v: SiNo): boolean | null => (v === 'todos' ? null : v === 'si');
 
 export interface Facetas { paises: string[]; tipos: string[] }
 
@@ -39,6 +44,7 @@ export interface AdminMember {
   ficha_id: string | null;
   ficha_verificada: boolean | null;
   sections: string[] | null;
+  ha_pagado: boolean | null;
   created_at: string;
 }
 
@@ -52,6 +58,9 @@ export function useAdminMembers() {
   const [seccion, setSeccion] = useState('');
   const [fundador, setFundador] = useState<FundadorFiltro>('todos');
   const [tipo, setTipo] = useState('');
+  const [publicado, setPublicado] = useState<SiNo>('todos');
+  const [reclamado, setReclamado] = useState<SiNo>('todos');
+  const [pagado, setPagado] = useState<SiNo>('todos');
   // Países y tipos que de verdad existen: no tiene sentido ofrecer filtros que
   // no devuelven a nadie.
   const [facetas, setFacetas] = useState<Facetas>({ paises: [], tipos: [] });
@@ -70,10 +79,13 @@ export function useAdminMembers() {
         p_seccion: seccion || null,
         p_fundador: fundador === 'todos' ? null : fundador === 'si',
         p_tipo: tipo || null,
+        p_publicado: triestado(publicado),
+        p_reclamado: triestado(reclamado),
+        p_pagado: triestado(pagado),
       });
     if (e) { setError(e.message); setItems([]); } else { setItems((data as AdminMember[] | null) ?? []); }
     setLoading(false);
-  }, [estado, q, pais, seccion, fundador, tipo]);
+  }, [estado, q, pais, seccion, fundador, tipo, publicado, reclamado, pagado]);
 
   // La búsqueda espera a que la persona deje de escribir: cada pulsación
   // dispararía una consulta a una RPC que recorre perfiles y directorio.
@@ -101,6 +113,7 @@ export function useAdminMembers() {
     items, loading, error, reload: load,
     estado, setEstado, q, setQ,
     pais, setPais, seccion, setSeccion, fundador, setFundador, tipo, setTipo, facetas,
+    publicado, setPublicado, reclamado, setReclamado, pagado, setPagado,
     suspender:   (id: string, meses: number, nota?: string) =>
       accion('admin_member_suspend', { p_user: id, p_meses: meses, p_nota: nota ?? null }),
     reactivar:   (id: string, nota?: string) =>

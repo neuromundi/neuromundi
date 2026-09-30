@@ -3833,7 +3833,17 @@
       "fType": "Todos los tipos",
       "fFounder": "Fundadores y no fundadores",
       "fFounderYes": "Sólo fundadores",
-      "fFounderNo": "Sólo no fundadores"
+      "fFounderNo": "Sólo no fundadores",
+      "fPub": "Publicados y no publicados",
+      "fPubYes": "Sólo publicados",
+      "fPubNo": "Sólo sin publicar",
+      "fClaim": "Ficha reclamada y no reclamada",
+      "fClaimYes": "Sólo con ficha reclamada",
+      "fClaimNo": "Sólo sin ficha reclamada",
+      "fPaid": "Pagados y no pagados",
+      "fPaidYes": "Sólo pagados",
+      "fPaidNo": "Sólo sin pagar",
+      "csv": "Descargar CSV"
     }
   },
   "callout": {

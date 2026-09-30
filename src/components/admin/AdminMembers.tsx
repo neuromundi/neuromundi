@@ -14,10 +14,11 @@
  */
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Search, ShieldOff, ShieldCheck, Gift, CalendarPlus, BadgeCheck } from 'lucide-react';
+import { Search, ShieldOff, ShieldCheck, Gift, CalendarPlus, BadgeCheck, Download } from 'lucide-react';
 import { Button, SkeletonCard, EmptyState } from '@/components/ui';
 import { useToast } from '@/components/ui';
-import { useAdminMembers, type AdminMember, type EstadoFiltro, type FundadorFiltro } from '@/hooks/useAdminMembers';
+import { useAdminMembers, type AdminMember, type EstadoFiltro, type FundadorFiltro, type SiNo } from '@/hooks/useAdminMembers';
+import { descargarCsv } from '@/lib/csv';
 import { SECTIONS } from '@/data/sections';
 import { formatDate } from '@/lib/utils';
 
@@ -54,6 +55,29 @@ export function AdminMembers() {
     } finally {
       setOcupado(null);
     }
+  }
+
+  /** Exporta las filas visibles, con los filtros tal como están aplicados. */
+  function exportar() {
+    const hoy = new Date().toISOString().slice(0, 10);
+    descargarCsv(
+      `miembros neuromundi ${hoy}.csv`,
+      ['Socio', 'Nombre', 'Razon social', 'Correo', 'Pais', 'Tipo', 'Secciones',
+       'Estado', 'Periodo', 'Vigencia', 'Fundador', 'Publicado', 'Ficha reclamada',
+       'Ficha verificada', 'Ha pagado', 'Suspendido desde', 'Alta'],
+      m.items.map((x) => [
+        x.member_no, x.full_name, x.business_name, x.email, x.country,
+        x.affiliate_type ?? x.provider_type ?? x.role,
+        (x.sections ?? []).join(' | '),
+        estadoDe(x).clave, x.membership_period, x.membership_paid_until,
+        x.es_fundador ? 'si' : 'no',
+        x.is_published ? 'si' : 'no',
+        x.ficha_id ? 'si' : 'no',
+        x.ficha_id ? (x.ficha_verificada ? 'si' : 'no') : '',
+        x.ha_pagado ? 'si' : 'no',
+        x.suspended_at, x.created_at,
+      ]),
+    );
   }
 
   function pedirNota(): string | undefined {
@@ -118,6 +142,34 @@ export function AdminMembers() {
           <option value="">{t('adm.members.fType')}</option>
           {m.facetas.tipos.map((x) => <option key={x} value={x}>{x}</option>)}
         </select>
+      </div>
+
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+        <div className="grid flex-1 gap-2 sm:grid-cols-3">
+          <select aria-label={t('adm.members.fPub')} value={m.publicado}
+            onChange={(e) => m.setPublicado(e.target.value as SiNo)} className={selectCls}>
+            <option value="todos">{t('adm.members.fPub')}</option>
+            <option value="si">{t('adm.members.fPubYes')}</option>
+            <option value="no">{t('adm.members.fPubNo')}</option>
+          </select>
+          <select aria-label={t('adm.members.fClaim')} value={m.reclamado}
+            onChange={(e) => m.setReclamado(e.target.value as SiNo)} className={selectCls}>
+            <option value="todos">{t('adm.members.fClaim')}</option>
+            <option value="si">{t('adm.members.fClaimYes')}</option>
+            <option value="no">{t('adm.members.fClaimNo')}</option>
+          </select>
+          <select aria-label={t('adm.members.fPaid')} value={m.pagado}
+            onChange={(e) => m.setPagado(e.target.value as SiNo)} className={selectCls}>
+            <option value="todos">{t('adm.members.fPaid')}</option>
+            <option value="si">{t('adm.members.fPaidYes')}</option>
+            <option value="no">{t('adm.members.fPaidNo')}</option>
+          </select>
+        </div>
+        {/* Descarga lo que se está viendo, con los filtros aplicados: un
+            respaldo de «todos» y un recorte de trabajo se piden igual. */}
+        <Button variant="secondary" onClick={exportar} disabled={m.items.length === 0}>
+          <Download className="mr-1 h-4 w-4" />{t('adm.members.csv')}
+        </Button>
       </div>
 
       {m.error && (
