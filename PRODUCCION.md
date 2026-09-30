@@ -472,6 +472,19 @@ los secretos.
 - Restaurar código = redeploy de la última etiqueta/commit bueno (push a `main` o
   `workflow_dispatch`), luego purgar CDN.
 
+**Estado (2026-09-30):**
+- ✅ **Ruleset "Proteger main"** creado y **Active** en `neuromundi/neuromundi`
+  (Settings → Rules → Rulesets): **Block force pushes** + **Restrict deletions**
+  sobre la rama por defecto. **Sin** "Require a pull request" a propósito: el
+  despliegue empuja directo a `main`; exigir PR lo rompería. Si más adelante hay
+  colaboradores y se quiere revisión por PR, se activa esa casilla en la misma regla.
+- ✅ **2FA activado** en la cuenta (app autenticadora). Pendiente del dueño:
+  guardar los *recovery codes* en el gestor de contraseñas y, opcional pero
+  recomendado, añadir un segundo método (GitHub Mobile o passkey) para no quedar
+  bloqueado si se pierde el teléfono. Si Neuromundi es organización, exigir 2FA a
+  todos en Organization → Settings → Authentication security.
+- ⬜ Pendiente: activar **Leaked password protection** en Supabase → Authentication.
+
 ### 16.2 Base de datos (Supabase) — lo más valioso
 - Verificar el plan: **Pro** trae respaldos **diarios** (7 días). Habilitar
   **Point-in-Time Recovery (PITR)** (add-on) si se manejan datos de familias/
