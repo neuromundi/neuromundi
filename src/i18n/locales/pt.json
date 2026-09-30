@@ -3828,7 +3828,8 @@
         "exempt": "Waive fee",
         "unexempt": "Remove waiver",
         "extend": "Extend",
-        "verify": "Confirm listing"
+        "verify": "Confirm listing",
+        "setExpiry": "Ajustar vencimento"
       },
       "pub": "In directory",
       "unpub": "Unpublished",
@@ -3847,7 +3848,8 @@
       "fPaid": "Paid and unpaid",
       "fPaidYes": "Paid only",
       "fPaidNo": "Unpaid only",
-      "csv": "Download CSV"
+      "csv": "Download CSV",
+      "expiryPrompt": "Data de vencimento (AAAA-MM-DD). Vazio = remover a prorrogação (vence já)."
     },
     "exe": {
       "title": "Isenções",

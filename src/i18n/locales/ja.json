@@ -3828,7 +3828,8 @@
         "exempt": "Waive fee",
         "unexempt": "Remove waiver",
         "extend": "Extend",
-        "verify": "Confirm listing"
+        "verify": "Confirm listing",
+        "setExpiry": "有効期限を調整"
       },
       "pub": "In directory",
       "unpub": "Unpublished",
@@ -3847,7 +3848,8 @@
       "fPaid": "Paid and unpaid",
       "fPaidYes": "Paid only",
       "fPaidNo": "Unpaid only",
-      "csv": "Download CSV"
+      "csv": "Download CSV",
+      "expiryPrompt": "有効期限（YYYY-MM-DD）。空欄＝延長を取り消し（即時失効）。"
     },
     "exe": {
       "title": "免除",

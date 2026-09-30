@@ -14,7 +14,7 @@
  */
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Search, ShieldOff, ShieldCheck, Gift, CalendarPlus, BadgeCheck, Download } from 'lucide-react';
+import { Search, ShieldOff, ShieldCheck, Gift, CalendarPlus, CalendarClock, BadgeCheck, Download } from 'lucide-react';
 import { Button, SkeletonCard, EmptyState } from '@/components/ui';
 import { useToast } from '@/components/ui';
 import { useAdminMembers, type AdminMember, type EstadoFiltro, type FundadorFiltro, type SiNo } from '@/hooks/useAdminMembers';
@@ -266,6 +266,22 @@ export function AdminMembers() {
                             void correr(x.id, () => m.prorrogar(x.id, Math.trunc(n), pedirNota()));
                           }}>
                           <CalendarPlus className="mr-1 h-4 w-4" />{t('adm.members.a.extend')}
+                        </Button>
+                        {/* Vencimiento absoluto: fija la fecha o la QUITA (vacío). */}
+                        <Button size="sm" variant="secondary" disabled={trabajando}
+                          onClick={() => {
+                            const raw = window.prompt(t('adm.members.expiryPrompt'), '');
+                            if (raw === null) return; // canceló
+                            const val = raw.trim();
+                            let iso: string | null = null;
+                            if (val !== '') {
+                              const d = new Date(val);
+                              if (Number.isNaN(d.getTime())) return; // fecha inválida
+                              iso = d.toISOString();
+                            }
+                            void correr(x.id, () => m.ajustarVencimiento(x.id, iso, pedirNota()));
+                          }}>
+                          <CalendarClock className="mr-1 h-4 w-4" />{t('adm.members.a.setExpiry')}
                         </Button>
                         {x.ficha_id && !x.ficha_verificada && (
                           <Button size="sm" variant="secondary" disabled={trabajando}

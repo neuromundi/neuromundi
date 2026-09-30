@@ -3828,7 +3828,8 @@
         "exempt": "Exentar",
         "unexempt": "Quitar exención",
         "extend": "Prorrogar",
-        "verify": "Confirmar ficha"
+        "verify": "Confirmar ficha",
+        "setExpiry": "Ajustar vencimiento"
       },
       "pub": "En el directorio",
       "unpub": "Sin publicar",
@@ -3847,7 +3848,8 @@
       "fPaid": "Pagados y no pagados",
       "fPaidYes": "Sólo pagados",
       "fPaidNo": "Sólo sin pagar",
-      "csv": "Descargar CSV"
+      "csv": "Descargar CSV",
+      "expiryPrompt": "Fecha de vencimiento (AAAA-MM-DD). Vacío = quitar la prórroga (vence ya)."
     },
     "exe": {
       "title": "Exenciones",

@@ -122,6 +122,9 @@ export function useAdminMembers() {
       accion('admin_member_set_exempt', { p_user: id, p_value: valor, p_nota: nota ?? null }),
     prorrogar:   (id: string, dias: number, nota?: string) =>
       accion('admin_member_extend', { p_user: id, p_dias: dias, p_nota: nota ?? null }),
+    // Ajusta el vencimiento a una fecha absoluta, o lo QUITA con fecha = null.
+    ajustarVencimiento: (id: string, fechaIso: string | null, nota?: string) =>
+      accion('admin_member_set_expiry', { p_user: id, p_fecha: fechaIso, p_nota: nota ?? null }),
     verificarFicha: (fichaId: string, valor: boolean) =>
       accion('admin_set_ficha_verificada', { p_id: fichaId, p_value: valor }),
   };

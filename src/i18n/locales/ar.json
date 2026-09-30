@@ -3828,7 +3828,8 @@
         "exempt": "Waive fee",
         "unexempt": "Remove waiver",
         "extend": "Extend",
-        "verify": "Confirm listing"
+        "verify": "Confirm listing",
+        "setExpiry": "تعديل تاريخ الانتهاء"
       },
       "pub": "In directory",
       "unpub": "Unpublished",
@@ -3847,7 +3848,8 @@
       "fPaid": "Paid and unpaid",
       "fPaidYes": "Paid only",
       "fPaidNo": "Unpaid only",
-      "csv": "Download CSV"
+      "csv": "Download CSV",
+      "expiryPrompt": "تاريخ الانتهاء (YYYY-MM-DD). فارغ = إزالة التمديد (ينتهي الآن)."
     },
     "exe": {
       "title": "الإعفاءات",

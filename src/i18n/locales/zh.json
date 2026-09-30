@@ -3828,7 +3828,8 @@
         "exempt": "Waive fee",
         "unexempt": "Remove waiver",
         "extend": "Extend",
-        "verify": "Confirm listing"
+        "verify": "Confirm listing",
+        "setExpiry": "调整到期日"
       },
       "pub": "In directory",
       "unpub": "Unpublished",
@@ -3847,7 +3848,8 @@
       "fPaid": "Paid and unpaid",
       "fPaidYes": "Paid only",
       "fPaidNo": "Unpaid only",
-      "csv": "Download CSV"
+      "csv": "Download CSV",
+      "expiryPrompt": "到期日（YYYY-MM-DD）。留空＝取消延期（立即到期）。"
     },
     "exe": {
       "title": "豁免",
