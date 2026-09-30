@@ -93,7 +93,7 @@ function NavItem({ to, icon, label }: { to: string; icon: ReactNode; label: stri
 }
 
 export function AppLayout() {
-  const { isAuthenticated, isAdmin, fullName, signOut, needsOnboarding } = useAuth();
+  const { isAuthenticated, isAdmin, isAdvisor, role, fullName, signOut, needsOnboarding } = useAuth();
   const { t } = useTranslation();
   const toast = useToast();
   const navigate = useNavigate();
@@ -164,6 +164,16 @@ export function AppLayout() {
   const profileCountry = useAuthStore((s) => s.profile?.country ?? null);
   const [showCampaignPopup, setShowCampaignPopup] = useState(false);
   const { status: memStatus, daysLeft: memDays } = useMembership();
+  // Agenda y mensajes son funciones del cien por ciento: la agenda exige cuota
+  // cubierta y responder mensajes exige además estar publicado, porque quien no
+  // aparece en el directorio no recibe consultas de familias.
+  const paidUntil = useAuthStore((st) => st.profile?.membership_paid_until ?? null);
+  const publicado = useAuthStore((st) => st.profile?.is_published ?? false);
+  const cuotaCubierta =
+    memStatus === 'active' || memStatus === 'exempt' ||
+    (!!paidUntil && new Date(paidUntil).getTime() > Date.now());
+  const sinAgenda = isAuthenticated && !isAdmin && !isAdvisor && role === 'provider' && !cuotaCubierta;
+  const sinMensajes = isAuthenticated && !isAdmin && !isAdvisor && role === 'provider' && (!cuotaCubierta || !publicado);
   // Detección automática de Miembro Fundador (reclama cupo si el usuario califica).
   const { justClaimed: founderJustClaimed } = useFounderAutoClaim();
   const [founderCongratsDismissed, setFounderCongratsDismissed] = useState(false);
@@ -500,8 +510,8 @@ export function AppLayout() {
                 <>
                   <span className="mx-1 hidden h-6 w-px bg-slate-200 lg:block" aria-hidden="true" />
                   <NavPill to="/panel" label={t('nav.dashboard')} colorClass="bg-slate-700" />
-                  <NavPill to="/calendario" label={t('nav.calendar')} colorClass="bg-slate-600" disabled={blocked} onDisabledClick={() => setGateOpen(true)} />
-                  <NavPill to="/mensajes" label={t('nav.messages')} colorClass="bg-slate-600" disabled={blocked} onDisabledClick={() => setGateOpen(true)} />
+                  <NavPill to="/calendario" label={t('nav.calendar')} colorClass="bg-slate-600" disabled={sinAgenda} onDisabledClick={() => setGateOpen(true)} />
+                  <NavPill to="/mensajes" label={t('nav.messages')} colorClass="bg-slate-600" disabled={sinMensajes} onDisabledClick={() => setGateOpen(true)} />
                   {/* Mi Perfil sigue accesible: ahí puede pagar y gestionar su cuenta. */}
                   <NavPill to="/ajustes" label={t('nav.settings')} colorClass="bg-slate-600" />
                 </>
