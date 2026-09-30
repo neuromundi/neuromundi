@@ -642,6 +642,12 @@
       "certDate": "Fecha de emisión",
       "certFile": "Reconocimiento Aliado Destacado — Neuromundi",
       "certSpecialtyFallback": "Aliado de la comunidad"
+    },
+    "unpublished": {
+      "title": "Tu perfil no aparece en el directorio",
+      "desc": "Las familias que buscan tu especialidad no pueden encontrarte todavía. Publícalo para aparecer en las búsquedas.",
+      "cta": "Publicar mi perfil",
+      "done": "Tu perfil ya aparece en el directorio"
     }
   },
   "survey": {
@@ -3821,7 +3827,13 @@
         "verify": "Confirmar ficha"
       },
       "pub": "En el directorio",
-      "unpub": "Sin publicar"
+      "unpub": "Sin publicar",
+      "fCountry": "Todos los países",
+      "fSection": "Todas las secciones",
+      "fType": "Todos los tipos",
+      "fFounder": "Fundadores y no fundadores",
+      "fFounderYes": "Sólo fundadores",
+      "fFounderNo": "Sólo no fundadores"
     }
   },
   "callout": {

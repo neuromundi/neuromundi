@@ -642,6 +642,12 @@
       "certDate": "발급일",
       "certFile": "우수 협력자 표창 — Neuromundi",
       "certSpecialtyFallback": "커뮤니티 협력자"
+    },
+    "unpublished": {
+      "title": "Your profile is not in the directory",
+      "desc": "Families searching for your specialty cannot find you yet. Publish it to appear in searches.",
+      "cta": "Publish my profile",
+      "done": "Your profile is now in the directory"
     }
   },
   "survey": {
@@ -3821,7 +3827,13 @@
         "verify": "Confirm listing"
       },
       "pub": "In directory",
-      "unpub": "Unpublished"
+      "unpub": "Unpublished",
+      "fCountry": "All countries",
+      "fSection": "All sections",
+      "fType": "All types",
+      "fFounder": "Founders and non-founders",
+      "fFounderYes": "Founders only",
+      "fFounderNo": "Non-founders only"
     }
   },
   "callout": {

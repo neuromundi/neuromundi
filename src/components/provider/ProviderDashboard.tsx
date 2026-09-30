@@ -92,6 +92,7 @@ import { defaultOfferValues, type OfferFormValues } from '@/lib/schemas';
 import { formatDate, formatDateTime, exportToCsv } from '@/lib/utils';
 import type { Offer, OfferStatus, OfferInsert, ProviderType, TransactionStatus } from '@/types/app';
 import { DIMENSION_LABEL_KEY } from '@/types/app';
+import { UnpublishedNotice } from './UnpublishedNotice';
 import { ProfileCompletion } from './ProfileCompletion';
 
 // ── Helpers de presentación ──────────────────────────────────────────────────
@@ -777,6 +778,9 @@ export function ProviderDashboard() {
 
   return (
     <div className="mx-auto w-full max-w-2xl p-4">
+      {/* Nadie debe estar invisible sin saberlo: si el perfil no aparece en el
+          directorio, se dice arriba del todo y se ofrece publicarlo. */}
+      <UnpublishedNotice userId={userId} />
       {isFounder ? (
         <div className="mb-4 flex items-center gap-3 rounded-2xl border border-brand-200 bg-brand-50 p-3">
           <FounderBadge isFounder size="md" />

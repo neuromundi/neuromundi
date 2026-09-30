@@ -17,10 +17,14 @@ import { useTranslation } from 'react-i18next';
 import { Search, ShieldOff, ShieldCheck, Gift, CalendarPlus, BadgeCheck } from 'lucide-react';
 import { Button, SkeletonCard, EmptyState } from '@/components/ui';
 import { useToast } from '@/components/ui';
-import { useAdminMembers, type AdminMember, type EstadoFiltro } from '@/hooks/useAdminMembers';
+import { useAdminMembers, type AdminMember, type EstadoFiltro, type FundadorFiltro } from '@/hooks/useAdminMembers';
+import { SECTIONS } from '@/data/sections';
 import { formatDate } from '@/lib/utils';
 
 const FILTROS: EstadoFiltro[] = ['todos', 'activo', 'pendiente', 'exento', 'vencido', 'suspendido'];
+
+const selectCls =
+  'w-full rounded-xl border border-slate-200 bg-white p-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500';
 
 /** Estado visible: la suspensión manda sobre la cuota. */
 function estadoDe(m: AdminMember): { clave: string; cls: string } {
@@ -88,6 +92,32 @@ export function AdminMembers() {
             onChange={(e) => m.setQ(e.target.value)}
           />
         </div>
+      </div>
+
+      {/* Segunda fila de filtros: se componen entre sí y con el estado y la
+          búsqueda de arriba. Los desplegables sólo ofrecen valores que existen. */}
+      <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+        <select aria-label={t('adm.members.fCountry')} value={m.pais}
+          onChange={(e) => m.setPais(e.target.value)} className={selectCls}>
+          <option value="">{t('adm.members.fCountry')}</option>
+          {m.facetas.paises.map((p) => <option key={p} value={p}>{p}</option>)}
+        </select>
+        <select aria-label={t('adm.members.fSection')} value={m.seccion}
+          onChange={(e) => m.setSeccion(e.target.value)} className={selectCls}>
+          <option value="">{t('adm.members.fSection')}</option>
+          {SECTIONS.map((sec) => <option key={sec.value} value={sec.value}>{sec.label}</option>)}
+        </select>
+        <select aria-label={t('adm.members.fFounder')} value={m.fundador}
+          onChange={(e) => m.setFundador(e.target.value as FundadorFiltro)} className={selectCls}>
+          <option value="todos">{t('adm.members.fFounder')}</option>
+          <option value="si">{t('adm.members.fFounderYes')}</option>
+          <option value="no">{t('adm.members.fFounderNo')}</option>
+        </select>
+        <select aria-label={t('adm.members.fType')} value={m.tipo}
+          onChange={(e) => m.setTipo(e.target.value)} className={selectCls}>
+          <option value="">{t('adm.members.fType')}</option>
+          {m.facetas.tipos.map((x) => <option key={x} value={x}>{x}</option>)}
+        </select>
       </div>
 
       {m.error && (

@@ -208,6 +208,21 @@ Deno.serve(async (req: Request) => {
               console.error('grant_founder_seat', e);
             }
           }
+          // PUBLICAR. `profiles.is_published` nace en false y nada lo encendía:
+          // alguien pagaba por visibilidad y quedaba invisible, esperando una
+          // casilla enterrada en Ajustes que nadie le mencionó.
+          //
+          // Va aquí, en checkout.session.completed (PRIMER pago), y no en
+          // invoice.paid: si alguien se despublica a propósito, la renovación
+          // anual no debe volver a exponerlo. Eso sería revertirle una decisión
+          // deliberada cada doce meses.
+          //
+          // `publicar_por_pago` no toca cuentas suspendidas ni las ya publicadas.
+          try {
+            await admin.rpc('publicar_por_pago', { p_id: userId });
+          } catch (e) {
+            console.error('publicar_por_pago', e);
+          }
           // El referente de este usuario gana su recompensa (si aplica).
           await applyReferralReward(admin, stripe, userId);
           // Confirmación de pago: notifica al miembro (el trigger trg_notify_push

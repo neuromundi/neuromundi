@@ -605,6 +605,12 @@
       "certDate": "発行日",
       "certFile": "特別アライ表彰 — Neuromundi",
       "certSpecialtyFallback": "コミュニティのアライ"
+    },
+    "unpublished": {
+      "title": "Your profile is not in the directory",
+      "desc": "Families searching for your specialty cannot find you yet. Publish it to appear in searches.",
+      "cta": "Publish my profile",
+      "done": "Your profile is now in the directory"
     }
   },
   "survey": {
@@ -3821,7 +3827,13 @@
         "verify": "Confirm listing"
       },
       "pub": "In directory",
-      "unpub": "Unpublished"
+      "unpub": "Unpublished",
+      "fCountry": "All countries",
+      "fSection": "All sections",
+      "fType": "All types",
+      "fFounder": "Founders and non-founders",
+      "fFounderYes": "Founders only",
+      "fFounderNo": "Non-founders only"
     }
   },
   "callout": {
