@@ -1,3 +1,8 @@
+-- NOTA DE RENUMERACIÓN (2026-09-30): esta migración se aplicó en producción el
+-- 2026-09-29/30 con el número 0143, que colisionaba con un archivo
+-- 'plan_invitacion' de otra sesión. Se renumeró a 0174 solo para el repositorio.
+-- Es autónoma (no depende del orden relativo a 0154-0171) y YA está aplicada: no re-ejecutar en prod.
+
 -- ============================================================================
 -- 0143 — Romper la recursión infinita de RLS entre secure_files y secure_file_keys
 --
