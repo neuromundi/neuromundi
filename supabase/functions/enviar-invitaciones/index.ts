@@ -89,7 +89,7 @@ function bloquePrecio(r: Row): string {
       La membresía anual para su tipo de perfil es de <b>${MXN(Number(r.precio_ordinario))} ${cur}</b>.
       Si la activa <b>antes del 31 de octubre de 2026</b> queda como Miembro Fundador y paga
       <b style="color:#0369a1">${MXN(Number(r.precio_fundador))} ${cur} al año</b>, la mitad, y ese precio se le respeta en las renovaciones.
-      <br><br>Reclamar la ficha no cobra nada: tiene 15 días para decidir si continúa. Si decide que no, no se le cobra.
+      <br><br>Reclamar la ficha no cobra nada: tiene hasta el <b>31 de octubre</b> para decidir si continúa. Si decide que no, no se le cobra.
     </p>
   </div>`;
 }
