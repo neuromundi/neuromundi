@@ -106,14 +106,16 @@ export function useDirectory(filters: DirectoryFilters): UseDirectoryValue {
       }
 
       // 2) EVS + 3) categorías + 4) fundadores, en paralelo.
-      const [ratingsRes, pcRes, catsRes, badgeRes, founderRes] = await Promise.all([
+      const [ratingsRes, pcRes, catsRes, badgeRes, founderRes, donorRes] = await Promise.all([
         supabase.from('public_provider_ratings').select('*').in('provider_id', ids),
         supabase.from('provider_categories').select('*').in('provider_id', ids),
         supabase.from('categories').select('*'),
         supabase.from('provider_badge_inputs').select('*').in('provider_id', ids),
         supabase.rpc('founder_provider_ids'),
+        supabase.rpc('donor_provider_ids'),
       ]);
       const founderSet = new Set<string>(((founderRes.data as { id: string }[] | null) ?? []).map((r) => r.id));
+      const donorSet = new Set<string>(((donorRes.data as { id: string }[] | null) ?? []).map((r) => r.id));
 
       const badgeMap = new Map<string, BadgeResult>(
         (badgeRes.data ?? []).map((r) => [r.provider_id, computeBadge(inputsFromRow(r))]),
@@ -141,6 +143,7 @@ export function useDirectory(filters: DirectoryFilters): UseDirectoryValue {
           categories: byProvider.get(p.id) ?? [],
           badge: badgeMap.get(p.id) ?? null,
           is_founder: founderSet.has(p.id),
+          is_donor: donorSet.has(p.id),
         })),
       );
     } catch (e) {
@@ -235,6 +238,7 @@ export function useDirectory(filters: DirectoryFilters): UseDirectoryValue {
     withDist.sort((a, b) =>
       (Number(b.p.verificada !== false) - Number(a.p.verificada !== false)) ||
       (Number(b.p.is_founder) - Number(a.p.is_founder)) ||
+      (Number(b.p.is_donor) - Number(a.p.is_donor)) ||
       (center ? a.d - b.d : a.i - b.i));
     return withDist.map((x) => x.p);
   }, [providers, query, categoryId, specialty, productCategory, ageRange, modality, neuroaffirming, section, neuroCondition, city, center, radiusKm, anyOf, providerTypes]);

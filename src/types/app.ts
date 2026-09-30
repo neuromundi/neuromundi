@@ -61,6 +61,8 @@ export interface ProviderWithRating extends Profile {
   badge?: BadgeResult | null;
   /** Miembro Fundador: aparece primero en el directorio y con sello (SEO fundadores). */
   is_founder?: boolean;
+  /** Donante (prestador con donación pagada): desempata en el directorio, por debajo del fundador. */
+  is_donor?: boolean;
   /**
    * ¿La ficha está confirmada? La calcula la vista `directorio_publico`: una
    * cuenta real siempre es true; una ficha del directorio lo es si alguien la

@@ -1652,6 +1652,10 @@ export interface Database {
         Args: Record<string, never>;
         Returns: { id: string }[];
       };
+      donor_provider_ids: {
+        Args: Record<string, never>;
+        Returns: { id: string }[];
+      };
       admin_country_discounts: {
         Args: Record<string, never>;
         Returns: { country_label: string; pct: number; is_active: boolean; note: string | null; updated_at: string }[];
@@ -1929,6 +1933,10 @@ export interface Database {
         Returns: boolean;
       };
       is_founder: {
+        Args: { p_id: string };
+        Returns: boolean;
+      };
+      is_donor: {
         Args: { p_id: string };
         Returns: boolean;
       };
