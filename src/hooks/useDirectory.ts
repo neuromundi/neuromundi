@@ -218,8 +218,14 @@ export function useDirectory(filters: DirectoryFilters): UseDirectoryValue {
       }
       return true;
     });
-    // Orden: fundadores primero (SEO); luego, si conocemos la ubicación del
-    // visitante (`center`), por CERCANÍA ascendente; si no, orden estable.
+    // Orden: VERIFICADOS primero, luego fundadores (SEO); después, si conocemos
+    // la ubicación del visitante (`center`), por CERCANÍA ascendente; si no,
+    // orden estable.
+    //
+    // «Verificada» lo calcula la vista: una cuenta real siempre lo está; una
+    // ficha del directorio, sólo si alguien la reclamó o si el admin la
+    // confirmó por fuera. Es lo que el correo de invitación promete: quien no
+    // confirme queda por debajo de los perfiles verificados.
     const withDist = pass.map((p, i) => {
       const d = center && p.latitude != null && p.longitude != null
         ? haversineKm(center, { lat: p.latitude, lng: p.longitude })
@@ -227,6 +233,7 @@ export function useDirectory(filters: DirectoryFilters): UseDirectoryValue {
       return { p, i, d };
     });
     withDist.sort((a, b) =>
+      (Number(b.p.verificada !== false) - Number(a.p.verificada !== false)) ||
       (Number(b.p.is_founder) - Number(a.p.is_founder)) ||
       (center ? a.d - b.d : a.i - b.i));
     return withDist.map((x) => x.p);

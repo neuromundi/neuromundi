@@ -61,6 +61,16 @@ export interface ProviderWithRating extends Profile {
   badge?: BadgeResult | null;
   /** Miembro Fundador: aparece primero en el directorio y con sello (SEO fundadores). */
   is_founder?: boolean;
+  /**
+   * ¿La ficha está confirmada? La calcula la vista `directorio_publico`: una
+   * cuenta real siempre es true; una ficha del directorio lo es si alguien la
+   * reclamó o si el admin la confirmó por fuera (`verificada_manual`).
+   *
+   * Desde `campaign_config.verificacion_deadline`, las fichas sin confirmar
+   * dejan de exponer teléfono y sitio web, y se ordenan por debajo. Es lo que
+   * promete el correo de invitación de la campaña de fundadores.
+   */
+  verificada?: boolean;
 }
 
 /** Payload que viaja dentro del QR del padre. */
