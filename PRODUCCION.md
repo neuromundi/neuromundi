@@ -447,6 +447,101 @@ Recorrido real, con importe mínimo y luego reembolso:
 - [ ] Alertas de fallo de webhook en Stripe.
 - [ ] Respaldos automáticos de la base (Supabase → Database → Backups).
 - [ ] Revisión periódica de Logs de funciones y errores de Auth.
+- [ ] Correr el linter de seguridad tras cada cambio de esquema
+      (Supabase → Advisors, o `get_advisors`); atender los de nivel ERROR/WARN.
+- [ ] **Activar "Leaked password protection"** (Supabase → Authentication → Policies):
+      bloquea contraseñas filtradas (HaveIBeenPwned). Hoy suele venir desactivada.
+
+---
+
+## 16) 🔴 Protección, respaldo y restauración (runbook de continuidad)
+
+Objetivo: poder **restaurar la plataforma** ante pérdida de código, corrupción de
+datos, borrado accidental o intrusión. Tres frentes (código, base, archivos) más
+los secretos.
+
+### 16.1 Código (GitHub + Hostinger)
+- **Branch protection en `main`**: exigir Pull Request con revisión, prohibir
+  *force-push* y borrado de la rama. Evita que un despliegue malo —o una cuenta
+  comprometida— reescriba la historia.
+- **2FA obligatorio** en la organización de GitHub; repo **privado**.
+- **Etiquetar versiones estables**: `git tag vX.Y && git push --tags`. Ante un
+  despliegue roto, se redepliega una etiqueta buena (el Action corre sobre esa ref).
+- **Guardar el último `dist/` bueno** (el que publicó el Action) para restaurar el
+  front sin recompilar.
+- Restaurar código = redeploy de la última etiqueta/commit bueno (push a `main` o
+  `workflow_dispatch`), luego purgar CDN.
+
+### 16.2 Base de datos (Supabase) — lo más valioso
+- Verificar el plan: **Pro** trae respaldos **diarios** (7 días). Habilitar
+  **Point-in-Time Recovery (PITR)** (add-on) si se manejan datos de familias/
+  pacientes: permite restaurar a *cualquier segundo*.
+- Además, **respaldo lógico periódico propio**: panel → Database → Backups
+  (descargar) o `pg_dump`, guardado **fuera** de Supabase.
+- El **esquema** ya está versionado en `supabase/migrations/` (reconstruible). Lo
+  que el respaldo protege son los **datos** (fichas, perfiles, pagos, exenciones…).
+- Restaurar datos = PITR o restauración del backup; el esquema, reaplicando
+  migraciones en orden. Tras cambios de columnas, si PostgREST devuelve
+  "schema is invalid or incompatible", ejecutar `NOTIFY pgrst, 'reload schema';`.
+
+### 16.3 Archivos (Storage) — NO cubiertos por el PITR de la base
+- Buckets: `avatars`, `verification` (docs de cédula), `secure` (expedientes
+  clínicos cifrados), `hero`, `badges`. `verification`/`secure` son sensibles.
+- Hacer **exportación periódica** de esos buckets a un almacenamiento propio. Si un
+  objeto se borra, **no es recuperable** sin ese respaldo (ya pasó con una foto de
+  perfil en una prueba). Nunca usar cuentas reales para pruebas destructivas.
+
+### 16.4 Secretos
+- `SUPABASE_SERVICE_ROLE_KEY`, `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`,
+  `VAPID_PRIVATE_KEY`, credenciales FTP: **nunca** en el repo ni en el bundle del
+  front (solo la `anon key` es pública). Guardarlos en un gestor de contraseñas.
+- Si se sospecha fuga: **rotarlos** (Supabase/Stripe permiten regenerar) y
+  redesplegar Edge Functions.
+
+### 16.5 Antihackeo (además de lo anterior)
+- RLS en todas las tablas; funciones `SECURITY DEFINER` con verificación de dueño
+  (`p_id = auth.uid() OR is_admin()`) cuando reciben un `uuid`. **Patrón a vigilar:**
+  una función definer con parámetro `uuid`, ejecutable por `authenticated`, sin ese
+  guardián, es una fuga (p. ej. `set_membership_active` daba membresía gratis;
+  cerrada en 0180). Barrido: buscar `prosecdef=true` + arg `uuid` + `EXECUTE` a
+  `authenticated` sin `auth.uid`/`is_admin` en el cuerpo.
+- `protect_profile_columns` blinda dinero/sector/exención/suspensión frente a
+  escrituras del propio miembro (deja pasar al rol de servicio, `auth.uid()` null).
+- MFA en las cuentas admin de la app y en Supabase/Stripe/Hostinger/GitHub.
+- Firma del webhook de Stripe (`STRIPE_WEBHOOK_SECRET`) verificada; mantenerla.
+- Correr `get_advisors` periódicamente.
+
+### 16.6 Prueba de restauración
+- Al menos **una vez**, restaurar un respaldo en un proyecto Supabase de prueba,
+  para no descubrir en la emergencia que faltaba algo (buckets, secretos, orden de
+  migraciones).
+
+---
+
+## 17) 🟡 Impacto de las actualizaciones en usuarios y visitantes
+
+Regla general: las actualizaciones **no borran datos ni cierran sesión**. Matices:
+
+- **Front (nuevo build):** al publicar y purgar CDN, cada persona recibe la versión
+  nueva en la siguiente carga. La PWA (SW con auto-update) recarga a la versión
+  nueva; una guardia recarga UNA vez si un *chunk* viejo ya no existe. La **sesión
+  sigue iniciada** y los datos intactos. Riesgo menor: una recarga a mitad de un
+  formulario podría perder lo no guardado.
+- **Migraciones aditivas/idempotentes** (columnas, funciones, políticas): toman
+  efecto de inmediato **sin interrumpir** a quien está conectado.
+- **Migraciones que restringen permisos** (revokes): solo rompen si el front las
+  usaba. Verificar antes que ninguna ruta del front dependa de lo que se revoca.
+- **Orden de despliegue:** si una actualización cambia una tabla/vista que el front
+  lee, **desplegar base y front de forma compatible** (la base primero, compatible
+  hacia atrás; el front después) para evitar desajustes.
+- **Visitantes sin cuenta:** solo ven el front; reciben la versión nueva al cargar.
+  No tienen cuenta que afectar.
+- **"Downtime":** el FTP es incremental; puede haber segundos de archivos mezclados
+  → por eso se **purga el CDN** después. Desplegar en horas de bajo tráfico.
+
+En corto: los usuarios **no pierden cuenta, sesión ni datos**; los visitantes ven la
+versión más reciente. El único riesgo real es desplegar una migración incompatible
+con el front viejo sin coordinar el orden.
 
 ---
 
