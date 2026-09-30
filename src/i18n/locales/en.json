@@ -473,7 +473,8 @@
     "conditionsLabel": "Conditions supported",
     "methodologiesLabel": "Methods & certifications",
     "accessibilityLabel": "Accessibility",
-    "location": "Location"
+    "location": "Location",
+    "servesAreas": "Serves:"
   },
   "dim": {
     "quality": "Quality",
@@ -4880,7 +4881,8 @@
       "desc": "Medical conditions of the nervous system, such as epilepsy, cerebral palsy or sclerosis, that require clinical care."
     },
     "whatAreThey": "What do these mean?",
-    "explainTitle": "The three areas of Neuromundi"
+    "explainTitle": "The three areas of Neuromundi",
+    "explainIntro": "Neuromundi organizes support into three broad areas. On a provider's profile, these labels indicate the areas they serve or offer."
   },
   "sectionsField": {
     "label": "Which sections does your profile cover?",

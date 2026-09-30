@@ -436,7 +436,8 @@
     "conditionsLabel": "Condizioni seguite",
     "methodologiesLabel": "Metodologie e certificazioni",
     "accessibilityLabel": "Accessibilità",
-    "location": "Posizione"
+    "location": "Posizione",
+    "servesAreas": "Si occupa di:"
   },
   "dim": {
     "quality": "Qualità",
@@ -4875,7 +4876,8 @@
       "desc": "Condizioni mediche del sistema nervoso, come epilessia, paralisi cerebrale o sclerosi, che richiedono cure cliniche."
     },
     "whatAreThey": "Cosa significano?",
-    "explainTitle": "Le tre aree di Neuromundi"
+    "explainTitle": "Le tre aree di Neuromundi",
+    "explainIntro": "Neuromundi organizza il supporto in tre grandi aree. Nel profilo di un fornitore, queste etichette indicano le aree di cui si occupa o che offre."
   },
   "sectionsField": {
     "label": "Quali sezioni copre il tuo profilo?",

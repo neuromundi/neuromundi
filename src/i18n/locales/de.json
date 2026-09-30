@@ -436,7 +436,8 @@
     "conditionsLabel": "Betreute Diagnosen",
     "methodologiesLabel": "Methoden und Zertifizierungen",
     "accessibilityLabel": "Barrierefreiheit",
-    "location": "Standort"
+    "location": "Standort",
+    "servesAreas": "Betreut:"
   },
   "dim": {
     "quality": "Qualität",
@@ -4875,7 +4876,8 @@
       "desc": "Medizinische Erkrankungen des Nervensystems wie Epilepsie, Zerebralparese oder Sklerose, die klinische Versorgung erfordern."
     },
     "whatAreThey": "Was bedeutet das?",
-    "explainTitle": "Die drei Bereiche von Neuromundi"
+    "explainTitle": "Die drei Bereiche von Neuromundi",
+    "explainIntro": "Neuromundi gliedert die Unterstützung in drei große Bereiche. Im Profil eines Anbieters zeigen diese Etiketten die Bereiche an, die er betreut oder anbietet."
   },
   "sectionsField": {
     "label": "Welche Bereiche deckt dein Profil ab?",

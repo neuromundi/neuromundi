@@ -436,7 +436,8 @@
     "conditionsLabel": "Condições atendidas",
     "methodologiesLabel": "Metodologias e certificações",
     "accessibilityLabel": "Acessibilidade",
-    "location": "Localização"
+    "location": "Localização",
+    "servesAreas": "Atende:"
   },
   "dim": {
     "quality": "Qualidade",
@@ -4875,7 +4876,8 @@
       "desc": "Condições médicas do sistema nervoso, como epilepsia, paralisia cerebral ou esclerose, que exigem atenção clínica."
     },
     "whatAreThey": "O que significam?",
-    "explainTitle": "As três áreas da Neuromundi"
+    "explainTitle": "As três áreas da Neuromundi",
+    "explainIntro": "A Neuromundi organiza o apoio em três grandes áreas. No perfil de um prestador, estas etiquetas indicam as áreas que ele atende ou oferece."
   },
   "sectionsField": {
     "label": "Quais seções o seu perfil abrange?",

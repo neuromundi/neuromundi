@@ -301,6 +301,7 @@ export function ProviderProfile() {
           )}
           {(profile.sections ?? []).length > 0 && (
             <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
+              <span className="text-xs font-medium text-muted">{t('profile.servesAreas')}</span>
               {(profile.sections ?? []).map((sv) => {
                 const def = SECTION_BY_VALUE[sv];
                 if (!def) return null;

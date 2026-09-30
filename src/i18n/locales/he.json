@@ -473,7 +473,8 @@
     "conditionsLabel": "מצבים מטופלים",
     "methodologiesLabel": "שיטות והסמכות",
     "accessibilityLabel": "נגישות",
-    "location": "מיקום"
+    "location": "מיקום",
+    "servesAreas": "מטפל ב:"
   },
   "dim": {
     "quality": "איכות",
@@ -4875,7 +4876,8 @@
       "desc": "מצבים רפואיים של מערכת העצבים, כמו אפילפסיה, שיתוק מוחין או טרשת, הדורשים טיפול קליני."
     },
     "whatAreThey": "מה זה אומר?",
-    "explainTitle": "שלושת התחומים של Neuromundi"
+    "explainTitle": "שלושת התחומים של Neuromundi",
+    "explainIntro": "Neuromundi מארגנת את התמיכה בשלושה תחומים מרכזיים. בפרופיל של נותן שירות, התוויות האלה מציינות את התחומים שבהם הוא מטפל או שאותם הוא מציע."
   },
   "sectionsField": {
     "label": "אילו מקטעים הפרופיל שלך מכסה?",

@@ -436,7 +436,8 @@
     "conditionsLabel": "対応する状態",
     "methodologiesLabel": "手法・資格",
     "accessibilityLabel": "アクセシビリティ",
-    "location": "所在地"
+    "location": "所在地",
+    "servesAreas": "対応領域:"
   },
   "dim": {
     "quality": "品質",
@@ -4875,7 +4876,8 @@
       "desc": "てんかん、脳性まひ、硬化症など、臨床的なケアを必要とする神経系の医学的な状態。"
     },
     "whatAreThey": "これは何？",
-    "explainTitle": "Neuromundiの3つの領域"
+    "explainTitle": "Neuromundiの3つの領域",
+    "explainIntro": "Neuromundiは支援を3つの大きな領域に整理しています。事業者のプロフィールでは、これらのタグはその事業者が対応・提供する領域を示します。"
   },
   "sectionsField": {
     "label": "あなたのプロフィールが対象とするセクションは？",

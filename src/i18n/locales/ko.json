@@ -473,7 +473,8 @@
     "conditionsLabel": "지원하는 상태",
     "methodologiesLabel": "방법론 및 자격",
     "accessibilityLabel": "접근성",
-    "location": "위치"
+    "location": "위치",
+    "servesAreas": "지원 영역:"
   },
   "dim": {
     "quality": "품질",
@@ -4875,7 +4876,8 @@
       "desc": "뇌전증, 뇌성마비, 경화증 등 임상적 치료가 필요한 신경계의 의학적 상태."
     },
     "whatAreThey": "무슨 뜻인가요?",
-    "explainTitle": "Neuromundi의 세 영역"
+    "explainTitle": "Neuromundi의 세 영역",
+    "explainIntro": "Neuromundi는 지원을 세 가지 큰 영역으로 구성합니다. 제공자 프로필에서 이 태그는 해당 제공자가 지원하거나 제공하는 영역을 나타냅니다."
   },
   "sectionsField": {
     "label": "프로필이 다루는 섹션은?",

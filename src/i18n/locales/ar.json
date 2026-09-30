@@ -473,7 +473,8 @@
     "conditionsLabel": "الحالات المخدومة",
     "methodologiesLabel": "المنهجيات والشهادات",
     "accessibilityLabel": "إمكانية الوصول",
-    "location": "الموقع"
+    "location": "الموقع",
+    "servesAreas": "يخدم:"
   },
   "dim": {
     "quality": "الجودة",
@@ -4875,7 +4876,8 @@
       "desc": "حالات طبية في الجهاز العصبي، مثل الصرع أو الشلل الدماغي أو التصلّب، تتطلّب رعاية سريرية."
     },
     "whatAreThey": "ماذا تعني؟",
-    "explainTitle": "مجالات Neuromundi الثلاثة"
+    "explainTitle": "مجالات Neuromundi الثلاثة",
+    "explainIntro": "تنظّم Neuromundi الدعم في ثلاثة مجالات كبرى. في ملف مقدّم الخدمة، تشير هذه الوسوم إلى المجالات التي يخدمها أو يقدّمها."
   },
   "sectionsField": {
     "label": "ما الأقسام التي يشملها ملفك؟",

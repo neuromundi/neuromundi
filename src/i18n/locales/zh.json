@@ -436,7 +436,8 @@
     "conditionsLabel": "服务的病症",
     "methodologiesLabel": "方法与认证",
     "accessibilityLabel": "无障碍设施",
-    "location": "位置"
+    "location": "位置",
+    "servesAreas": "服务领域："
   },
   "dim": {
     "quality": "质量",
@@ -4875,7 +4876,8 @@
       "desc": "神经系统的医学病症，如癫痫、脑瘫或硬化症，需要临床治疗。"
     },
     "whatAreThey": "这些是什么意思？",
-    "explainTitle": "Neuromundi 的三个领域"
+    "explainTitle": "Neuromundi 的三个领域",
+    "explainIntro": "Neuromundi 将支持划分为三大领域。在服务方的个人资料中，这些标签表示其服务或提供的领域。"
   },
   "sectionsField": {
     "label": "您的档案涵盖哪些板块？",

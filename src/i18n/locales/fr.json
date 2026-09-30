@@ -436,7 +436,8 @@
     "conditionsLabel": "Conditions prises en charge",
     "methodologiesLabel": "Méthodes et certifications",
     "accessibilityLabel": "Accessibilité",
-    "location": "Emplacement"
+    "location": "Emplacement",
+    "servesAreas": "Prend en charge :"
   },
   "dim": {
     "quality": "Qualité",
@@ -4875,7 +4876,8 @@
       "desc": "Des affections médicales du système nerveux, comme l'épilepsie, la paralysie cérébrale ou la sclérose, qui nécessitent des soins cliniques."
     },
     "whatAreThey": "Que signifient-elles ?",
-    "explainTitle": "Les trois domaines de Neuromundi"
+    "explainTitle": "Les trois domaines de Neuromundi",
+    "explainIntro": "Neuromundi organise l'accompagnement en trois grands domaines. Sur le profil d'un prestataire, ces étiquettes indiquent les domaines qu'il prend en charge ou propose."
   },
   "sectionsField": {
     "label": "Quelles sections votre profil couvre-t-il ?",

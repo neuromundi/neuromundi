@@ -34,6 +34,7 @@ export function SectionsExplainer({ className }: { className?: string }) {
 
       {open && (
         <Modal open onClose={() => setOpen(false)} title={t('sections.explainTitle')}>
+          <p className="mb-4 text-sm text-slate-600">{t('sections.explainIntro')}</p>
           <ul className="space-y-4">
             {SECTIONS.map((s) => {
               const Icon = ICONS[s.icon] ?? Info;
