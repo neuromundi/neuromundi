@@ -276,7 +276,11 @@ export function Settings() {
       patch.facebook = orNull(values.facebook);
     }
     const res = await updateProfile(patch);
-    toast[res.ok ? 'success' : 'error'](res.ok ? t('settings.savedToast') : res.error);
+    // El trigger `gate_publicacion` (migración 0163) impide publicar sin perfil
+    // completo y cuota cubierta: se traduce a lenguaje del miembro.
+    const msg = res.ok ? t('settings.savedToast')
+      : /perfil_no_publicable/.test(res.error ?? '') ? t('pub.blocked') : res.error;
+    toast[res.ok ? 'success' : 'error'](msg);
   };
 
   const onPickAvatar = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -461,10 +465,13 @@ export function Settings() {
               <FiscalSchoolFields register={register} country={watch('country')} providerType={watchType} />
             )}
 
-            <label className="flex items-center gap-3">
-              <input type="checkbox" className="h-5 w-5 rounded border-slate-300 text-brand-500" {...register('is_published')} />
-              <span className="text-sm text-slate-700">{t('settings.publish')}</span>
-            </label>
+            <div>
+              <label className="flex items-center gap-3">
+                <input type="checkbox" className="h-5 w-5 rounded border-slate-300 text-brand-500" {...register('is_published')} />
+                <span className="text-sm text-slate-700">{t('settings.publish')}</span>
+              </label>
+              <p className="mt-1 text-xs text-muted">{t('pub.blocked')}</p>
+            </div>
           </fieldset>
         )}
 

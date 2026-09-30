@@ -5179,5 +5179,36 @@
     "promotedDir": "Category created in the directory. Its translation key (cat.<key>) was copied to the clipboard.",
     "copiedStoreCat": "Snippet copied. Paste it into STORE_CATEGORIES (storeCatalog.ts) and add its translation.",
     "copiedProduct": "Name copied. Products are published by the provider; use it to invite or create it."
+  },
+  "pub": {
+    "title": "Your profile is not in the directory yet",
+    "intro": "Three steps are missing before people can find you.",
+    "step1": {
+      "title": "1. Complete your profile",
+      "ok": "Done: photo, description, phone and country.",
+      "missing": "Missing: {{campos}}.",
+      "cta": "Complete"
+    },
+    "step2": {
+      "title": "2. Cover your fee",
+      "ok": "Fee up to date.",
+      "exempt": "Your membership is exempt from payment.",
+      "pending": "Your membership is not paid yet.",
+      "cta": "Pay"
+    },
+    "step3": {
+      "title": "3. Publish your profile",
+      "ready": "You can publish to the directory now.",
+      "locked": "Enabled once you finish steps 1 and 2.",
+      "cta": "Publish"
+    },
+    "done": "Your profile is now in the directory.",
+    "blocked": "To publish you must complete your profile and cover your fee.",
+    "missing": {
+      "foto": "photo",
+      "descripcion": "description",
+      "telefono": "phone",
+      "pais": "country of residence"
+    }
   }
 }

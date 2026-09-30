@@ -5179,5 +5179,36 @@
     "promotedDir": "Catégorie créée dans l'annuaire. Sa clé de traduction (cat.<clé>) a été copiée dans le presse-papiers.",
     "copiedStoreCat": "Extrait copié. Collez-le dans STORE_CATEGORIES (storeCatalog.ts) et ajoutez sa traduction.",
     "copiedProduct": "Nom copié. Les produits sont publiés par le prestataire ; utilisez-le pour l'inviter ou le créer."
+  },
+  "pub": {
+    "title": "Votre profil n'apparaît pas encore dans l'annuaire",
+    "intro": "Trois étapes manquent pour qu'on puisse vous trouver.",
+    "step1": {
+      "title": "1. Complétez votre profil",
+      "ok": "Fait : photo, description, téléphone et pays.",
+      "missing": "Manque : {{campos}}.",
+      "cta": "Compléter"
+    },
+    "step2": {
+      "title": "2. Réglez votre cotisation",
+      "ok": "Cotisation à jour.",
+      "exempt": "Votre adhésion est exonérée de paiement.",
+      "pending": "Votre adhésion n'est pas encore payée.",
+      "cta": "Payer"
+    },
+    "step3": {
+      "title": "3. Publiez votre profil",
+      "ready": "Vous pouvez publier dans l'annuaire.",
+      "locked": "Disponible une fois les étapes 1 et 2 terminées.",
+      "cta": "Publier"
+    },
+    "done": "Votre profil apparaît désormais dans l'annuaire.",
+    "blocked": "Pour publier, complétez votre profil et réglez votre cotisation.",
+    "missing": {
+      "foto": "photo",
+      "descripcion": "description",
+      "telefono": "téléphone",
+      "pais": "pays de résidence"
+    }
   }
 }

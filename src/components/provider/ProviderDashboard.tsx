@@ -84,15 +84,13 @@ import { ProductManager } from '@/components/merchant/ProductManager';
 import { useFounderStatus } from '@/hooks/useFounder';
 import { FounderRequirements } from '@/components/founder/FounderRequirements';
 import { FounderCountdownCard } from '@/components/membership/FounderCountdownCard';
-import { DirectoryGraceCard } from '@/components/membership/DirectoryGraceCard';
-import { useMembership } from '@/hooks/useMembership';
 import { DonateCallout } from '@/components/donation/DonateCallout';
 import { RecommendPanel } from '@/components/referral/RecommendPanel';
 import { defaultOfferValues, type OfferFormValues } from '@/lib/schemas';
 import { formatDate, formatDateTime, exportToCsv } from '@/lib/utils';
 import type { Offer, OfferStatus, OfferInsert, ProviderType, TransactionStatus } from '@/types/app';
 import { DIMENSION_LABEL_KEY } from '@/types/app';
-import { UnpublishedNotice } from './UnpublishedNotice';
+import { PublicationSteps } from './PublicationSteps';
 import { ProfileCompletion } from './ProfileCompletion';
 
 // ── Helpers de presentación ──────────────────────────────────────────────────
@@ -570,7 +568,6 @@ const SOLIDARIO_KEY = 'nm-solidario-dismissed';
 export function ProviderDashboard() {
   const { userId, providerType } = useAuth();
   const { isFounder } = useFounderStatus(userId);
-  const { status: membershipStatus } = useMembership();
   const { t } = useTranslation();
   const [tab, setTab] = useState('offers');
   // Invitación "Especialista Solidario": se muestra una vez (al llegar al panel
@@ -778,9 +775,10 @@ export function ProviderDashboard() {
 
   return (
     <div className="mx-auto w-full max-w-2xl p-4">
-      {/* Nadie debe estar invisible sin saberlo: si el perfil no aparece en el
-          directorio, se dice arriba del todo y se ofrece publicarlo. */}
-      <UnpublishedNotice userId={userId} />
+      {/* Nadie debe estar invisible sin saberlo: aparecer en el directorio exige
+          completar el perfil, cubrir la cuota y publicar. Los tres pasos van
+          arriba del todo, con lo que falta de cada uno. */}
+      <PublicationSteps userId={userId} />
       {isFounder ? (
         <div className="mb-4 flex items-center gap-3 rounded-2xl border border-brand-200 bg-brand-50 p-3">
           <FounderBadge isFounder size="md" />
@@ -789,8 +787,6 @@ export function ProviderDashboard() {
             <p className="text-sm text-brand-700">{t('founderBadge.youAreDesc')}</p>
           </div>
         </div>
-      ) : membershipStatus === 'pending' ? (
-        <DirectoryGraceCard />
       ) : (
         <FounderCountdownCard />
       )}

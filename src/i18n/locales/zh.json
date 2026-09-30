@@ -5179,5 +5179,36 @@
     "promotedDir": "已在目录中创建类别。其翻译键（cat.<key>）已复制到剪贴板。",
     "copiedStoreCat": "已复制代码片段。粘贴到 STORE_CATEGORIES（storeCatalog.ts）并补充翻译。",
     "copiedProduct": "已复制名称。商品由服务商发布；可用于邀请或创建。"
+  },
+  "pub": {
+    "title": "您的资料尚未出现在目录中",
+    "intro": "还差三个步骤，别人才能找到您。",
+    "step1": {
+      "title": "1. 完善资料",
+      "ok": "已完成：照片、简介、电话和国家。",
+      "missing": "缺少：{{campos}}。",
+      "cta": "去完善"
+    },
+    "step2": {
+      "title": "2. 缴纳会费",
+      "ok": "会费已缴清。",
+      "exempt": "您的会员资格免缴会费。",
+      "pending": "您的会费尚未缴纳。",
+      "cta": "去缴费"
+    },
+    "step3": {
+      "title": "3. 发布资料",
+      "ready": "现在可以发布到目录了。",
+      "locked": "完成第 1、2 步后启用。",
+      "cta": "发布"
+    },
+    "done": "您的资料已出现在目录中。",
+    "blocked": "发布前需先完善资料并缴纳会费。",
+    "missing": {
+      "foto": "照片",
+      "descripcion": "简介",
+      "telefono": "电话",
+      "pais": "居住国家"
+    }
   }
 }

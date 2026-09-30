@@ -5179,5 +5179,36 @@
     "promotedDir": "Categoría creada en el directorio. Se copió su clave de traducción (cat.<clave>) al portapapeles.",
     "copiedStoreCat": "Fragmento copiado. Pégalo en STORE_CATEGORIES (storeCatalog.ts) y añade su traducción.",
     "copiedProduct": "Nombre copiado. Los productos los publica el prestador; úsalo para invitarlo o crearlo."
+  },
+  "pub": {
+    "title": "Tu perfil todavía no aparece en el directorio",
+    "intro": "Faltan tres pasos para que la gente pueda encontrarte.",
+    "step1": {
+      "title": "1. Completa tu perfil",
+      "ok": "Listo: foto, descripción, teléfono y país.",
+      "missing": "Falta: {{campos}}.",
+      "cta": "Completar"
+    },
+    "step2": {
+      "title": "2. Cubre tu cuota",
+      "ok": "Cuota al corriente.",
+      "exempt": "Tu membresía está exenta de pago.",
+      "pending": "Tu membresía todavía no está pagada.",
+      "cta": "Pagar"
+    },
+    "step3": {
+      "title": "3. Publica tu perfil",
+      "ready": "Ya puedes publicarte en el directorio.",
+      "locked": "Se habilita cuando completes los pasos 1 y 2.",
+      "cta": "Publicar"
+    },
+    "done": "Tu perfil ya aparece en el directorio.",
+    "blocked": "Para publicar necesitas completar tu perfil y cubrir tu cuota.",
+    "missing": {
+      "foto": "foto",
+      "descripcion": "descripción",
+      "telefono": "teléfono",
+      "pais": "país de residencia"
+    }
   }
 }

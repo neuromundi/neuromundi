@@ -5179,5 +5179,36 @@
     "promotedDir": "Kategorie im Verzeichnis erstellt. Ihr Übersetzungsschlüssel (cat.<key>) wurde in die Zwischenablage kopiert.",
     "copiedStoreCat": "Snippet kopiert. Füge es in STORE_CATEGORIES (storeCatalog.ts) ein und ergänze die Übersetzung.",
     "copiedProduct": "Name kopiert. Produkte werden vom Anbieter veröffentlicht; nutze ihn zum Einladen oder Anlegen."
+  },
+  "pub": {
+    "title": "Ihr Profil erscheint noch nicht im Verzeichnis",
+    "intro": "Drei Schritte fehlen, damit man Sie finden kann.",
+    "step1": {
+      "title": "1. Profil vervollständigen",
+      "ok": "Fertig: Foto, Beschreibung, Telefon und Land.",
+      "missing": "Es fehlt: {{campos}}.",
+      "cta": "Vervollständigen"
+    },
+    "step2": {
+      "title": "2. Beitrag begleichen",
+      "ok": "Beitrag ist aktuell.",
+      "exempt": "Ihre Mitgliedschaft ist beitragsfrei.",
+      "pending": "Ihre Mitgliedschaft ist noch nicht bezahlt.",
+      "cta": "Bezahlen"
+    },
+    "step3": {
+      "title": "3. Profil veröffentlichen",
+      "ready": "Sie können jetzt im Verzeichnis erscheinen.",
+      "locked": "Wird nach Schritt 1 und 2 freigeschaltet.",
+      "cta": "Veröffentlichen"
+    },
+    "done": "Ihr Profil erscheint jetzt im Verzeichnis.",
+    "blocked": "Zum Veröffentlichen müssen Profil und Beitrag vollständig sein.",
+    "missing": {
+      "foto": "Foto",
+      "descripcion": "Beschreibung",
+      "telefono": "Telefon",
+      "pais": "Wohnsitzland"
+    }
   }
 }
