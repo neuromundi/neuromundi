@@ -4861,16 +4861,21 @@
   "sections": {
     "neurodesarrollo": {
       "name": "Neurodéveloppement",
-      "tagline": "Accompagnement du développement précoce"
+      "tagline": "Accompagnement du développement précoce",
+      "desc": "Comment le cerveau et les capacités se développent dès la petite enfance (langage, motricité, apprentissage), et le soutien lorsque ce développement suit un rythme différent."
     },
     "neurodivergencias": {
       "name": "Neurodivergence",
-      "tagline": "Soutien aux personnes neurodivergentes"
+      "tagline": "Soutien aux personnes neurodivergentes",
+      "desc": "Des façons de fonctionner du cerveau différentes de la norme, comme l'autisme ou le TDAH ; ce ne sont pas des maladies, mais d'autres manières de percevoir et d'apprendre."
     },
     "afecciones": {
       "name": "Affections neurologiques",
-      "tagline": "Prise en charge des maladies neurologiques"
-    }
+      "tagline": "Prise en charge des maladies neurologiques",
+      "desc": "Des affections médicales du système nerveux, comme l'épilepsie, la paralysie cérébrale ou la sclérose, qui nécessitent des soins cliniques."
+    },
+    "whatAreThey": "Que signifient-elles ?",
+    "explainTitle": "Les trois domaines de Neuromundi"
   },
   "sectionsField": {
     "label": "Quelles sections votre profil couvre-t-il ?",

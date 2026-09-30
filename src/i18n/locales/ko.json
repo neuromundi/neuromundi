@@ -4861,16 +4861,21 @@
   "sections": {
     "neurodesarrollo": {
       "name": "신경발달",
-      "tagline": "영유아 발달 지원"
+      "tagline": "영유아 발달 지원",
+      "desc": "영유아기부터의 뇌와 능력 발달(언어·운동·학습), 그리고 그 발달이 다른 속도로 진행될 때의 지원."
     },
     "neurodivergencias": {
       "name": "신경다양성",
-      "tagline": "신경다양인을 위한 지원"
+      "tagline": "신경다양인을 위한 지원",
+      "desc": "자폐나 ADHD처럼 전형과 다른 뇌 기능 방식으로, 질병이 아니라 인식하고 배우는 방식의 차이입니다."
     },
     "afecciones": {
       "name": "신경계 질환",
-      "tagline": "신경계 질환 케어"
-    }
+      "tagline": "신경계 질환 케어",
+      "desc": "뇌전증, 뇌성마비, 경화증 등 임상적 치료가 필요한 신경계의 의학적 상태."
+    },
+    "whatAreThey": "무슨 뜻인가요?",
+    "explainTitle": "Neuromundi의 세 영역"
   },
   "sectionsField": {
     "label": "프로필이 다루는 섹션은?",

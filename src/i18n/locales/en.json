@@ -4866,16 +4866,21 @@
   "sections": {
     "neurodesarrollo": {
       "name": "Neurodevelopment",
-      "tagline": "Early childhood development support"
+      "tagline": "Early childhood development support",
+      "desc": "How the brain and abilities develop from early childhood (language, motor skills, learning), and support when that development follows a different pace."
     },
     "neurodivergencias": {
       "name": "Neurodivergence",
-      "tagline": "Support for neurodivergent people"
+      "tagline": "Support for neurodivergent people",
+      "desc": "Ways of brain functioning that differ from the typical, such as autism or ADHD; they are not illnesses, but different ways of perceiving and learning."
     },
     "afecciones": {
       "name": "Neurological conditions",
-      "tagline": "Care for nervous system diseases"
-    }
+      "tagline": "Care for nervous system diseases",
+      "desc": "Medical conditions of the nervous system, such as epilepsy, cerebral palsy or sclerosis, that require clinical care."
+    },
+    "whatAreThey": "What do these mean?",
+    "explainTitle": "The three areas of Neuromundi"
   },
   "sectionsField": {
     "label": "Which sections does your profile cover?",

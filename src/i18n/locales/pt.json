@@ -4861,16 +4861,21 @@
   "sections": {
     "neurodesarrollo": {
       "name": "Neurodesenvolvimento",
-      "tagline": "Acompanhamento do desenvolvimento infantil"
+      "tagline": "Acompanhamento do desenvolvimento infantil",
+      "desc": "Como o cérebro e as capacidades se desenvolvem desde a primeira infância (linguagem, motricidade, aprendizagem), e o apoio quando esse desenvolvimento segue um ritmo diferente."
     },
     "neurodivergencias": {
       "name": "Neurodivergência",
-      "tagline": "Apoio a pessoas neurodivergentes"
+      "tagline": "Apoio a pessoas neurodivergentes",
+      "desc": "Formas de funcionamento do cérebro diferentes do típico, como autismo ou TDAH; não são doenças, mas maneiras diferentes de perceber e aprender."
     },
     "afecciones": {
       "name": "Afecções neurológicas",
-      "tagline": "Atenção a doenças do sistema nervoso"
-    }
+      "tagline": "Atenção a doenças do sistema nervoso",
+      "desc": "Condições médicas do sistema nervoso, como epilepsia, paralisia cerebral ou esclerose, que exigem atenção clínica."
+    },
+    "whatAreThey": "O que significam?",
+    "explainTitle": "As três áreas da Neuromundi"
   },
   "sectionsField": {
     "label": "Quais seções o seu perfil abrange?",

@@ -4861,16 +4861,21 @@
   "sections": {
     "neurodesarrollo": {
       "name": "神経発達",
-      "tagline": "幼児期の発達支援"
+      "tagline": "幼児期の発達支援",
+      "desc": "乳幼児期からの脳と能力の発達（ことば・運動・学習）と、その発達が異なるペースで進むときの支援。"
     },
     "neurodivergencias": {
       "name": "神経多様性",
-      "tagline": "神経多様性のある人への支援"
+      "tagline": "神経多様性のある人への支援",
+      "desc": "自閉症やADHDのように、定型とは異なる脳の働き方。病気ではなく、感じ方や学び方の違いです。"
     },
     "afecciones": {
       "name": "神経疾患",
-      "tagline": "神経系疾患のケア"
-    }
+      "tagline": "神経系疾患のケア",
+      "desc": "てんかん、脳性まひ、硬化症など、臨床的なケアを必要とする神経系の医学的な状態。"
+    },
+    "whatAreThey": "これは何？",
+    "explainTitle": "Neuromundiの3つの領域"
   },
   "sectionsField": {
     "label": "あなたのプロフィールが対象とするセクションは？",

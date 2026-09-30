@@ -4861,16 +4861,21 @@
   "sections": {
     "neurodesarrollo": {
       "name": "Neurosviluppo",
-      "tagline": "Accompagnamento dello sviluppo precoce"
+      "tagline": "Accompagnamento dello sviluppo precoce",
+      "desc": "Come si sviluppano il cervello e le capacità fin dalla prima infanzia (linguaggio, motricità, apprendimento) e il supporto quando questo sviluppo segue un ritmo diverso."
     },
     "neurodivergencias": {
       "name": "Neurodivergenza",
-      "tagline": "Supporto per persone neurodivergenti"
+      "tagline": "Supporto per persone neurodivergenti",
+      "desc": "Modi di funzionamento del cervello diversi da quelli tipici, come l'autismo o l'ADHD; non sono malattie, ma modi diversi di percepire e apprendere."
     },
     "afecciones": {
       "name": "Patologie neurologiche",
-      "tagline": "Cura delle malattie del sistema nervoso"
-    }
+      "tagline": "Cura delle malattie del sistema nervoso",
+      "desc": "Condizioni mediche del sistema nervoso, come epilessia, paralisi cerebrale o sclerosi, che richiedono cure cliniche."
+    },
+    "whatAreThey": "Cosa significano?",
+    "explainTitle": "Le tre aree di Neuromundi"
   },
   "sectionsField": {
     "label": "Quali sezioni copre il tuo profilo?",

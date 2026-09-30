@@ -4861,16 +4861,21 @@
   "sections": {
     "neurodesarrollo": {
       "name": "神经发育",
-      "tagline": "早期儿童发育支持"
+      "tagline": "早期儿童发育支持",
+      "desc": "大脑与能力从婴幼儿期起的发育（语言、运动、学习），以及当发育节奏不同时的支持。"
     },
     "neurodivergencias": {
       "name": "神经多样性",
-      "tagline": "为神经多样性人士提供支持"
+      "tagline": "为神经多样性人士提供支持",
+      "desc": "与典型不同的大脑运作方式，如自闭症或多动症；它们不是疾病，而是不同的感知与学习方式。"
     },
     "afecciones": {
       "name": "神经系统疾病",
-      "tagline": "神经系统疾病的照护"
-    }
+      "tagline": "神经系统疾病的照护",
+      "desc": "神经系统的医学病症，如癫痫、脑瘫或硬化症，需要临床治疗。"
+    },
+    "whatAreThey": "这些是什么意思？",
+    "explainTitle": "Neuromundi 的三个领域"
   },
   "sectionsField": {
     "label": "您的档案涵盖哪些板块？",

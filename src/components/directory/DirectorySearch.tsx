@@ -11,6 +11,7 @@ import { Search, List, MapPin, Globe, BellPlus, X, SlidersHorizontal, HeartPulse
 import { useTranslation } from 'react-i18next';
 import { ProviderCard } from './ProviderCard';
 import { SuggestModal } from '@/components/common/SuggestModal';
+import { SectionsExplainer } from '@/components/common/SectionsExplainer';
 import { MapView } from './MapView';
 import { SearchableSelect, type Option } from './SearchableSelect';
 import { SkeletonCard, useToast } from '@/components/ui';
@@ -205,8 +206,11 @@ export function DirectorySearch({ onViewProfile }: DirectorySearchProps) {
         {/* Selector de SECCIÓN: abre un directorio especializado en una de las
             tres secciones de la plataforma (o todas). Se persiste en el dispositivo. */}
         <div className="rounded-xl border border-slate-200 bg-white p-3">
-          <div className="mb-2 flex items-center gap-2 text-sm font-semibold text-slate-800">
-            <LayoutGrid className="h-4 w-4 text-brand-600" aria-hidden="true" /> {t('directory.sectionLabel')}
+          <div className="mb-2 flex items-center justify-between gap-2 text-sm font-semibold text-slate-800">
+            <span className="flex items-center gap-2">
+              <LayoutGrid className="h-4 w-4 text-brand-600" aria-hidden="true" /> {t('directory.sectionLabel')}
+            </span>
+            <SectionsExplainer />
           </div>
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
             <button
@@ -228,6 +232,7 @@ export function DirectorySearch({ onViewProfile }: DirectorySearchProps) {
                   key={s.value}
                   type="button"
                   aria-pressed={active}
+                  title={t(`sections.${s.value}.desc`)}
                   onClick={() => { setSection(active ? null : s.value); if (s.value !== 'afecciones') setNeuroCondition(''); }}
                   className={cn(
                     'flex items-center justify-center gap-1.5 rounded-xl border px-3 py-2.5 text-sm font-semibold transition-colors',

@@ -4861,16 +4861,21 @@
   "sections": {
     "neurodesarrollo": {
       "name": "Neuroentwicklung",
-      "tagline": "Begleitung der frühkindlichen Entwicklung"
+      "tagline": "Begleitung der frühkindlichen Entwicklung",
+      "desc": "Wie sich Gehirn und Fähigkeiten von klein auf entwickeln (Sprache, Motorik, Lernen) und Unterstützung, wenn diese Entwicklung in einem anderen Tempo verläuft."
     },
     "neurodivergencias": {
       "name": "Neurodivergenz",
-      "tagline": "Unterstützung für neurodivergente Menschen"
+      "tagline": "Unterstützung für neurodivergente Menschen",
+      "desc": "Vom Typischen abweichende Formen der Gehirnfunktion, wie Autismus oder ADHS; keine Krankheiten, sondern andere Arten wahrzunehmen und zu lernen."
     },
     "afecciones": {
       "name": "Neurologische Erkrankungen",
-      "tagline": "Versorgung von Erkrankungen des Nervensystems"
-    }
+      "tagline": "Versorgung von Erkrankungen des Nervensystems",
+      "desc": "Medizinische Erkrankungen des Nervensystems wie Epilepsie, Zerebralparese oder Sklerose, die klinische Versorgung erfordern."
+    },
+    "whatAreThey": "Was bedeutet das?",
+    "explainTitle": "Die drei Bereiche von Neuromundi"
   },
   "sectionsField": {
     "label": "Welche Bereiche deckt dein Profil ab?",
