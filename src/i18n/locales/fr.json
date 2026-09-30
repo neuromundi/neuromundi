@@ -3454,7 +3454,10 @@
     "promoOk": "C’est fait ! Votre compte est actif.",
     "promoBad": "Ce code n’est pas valide.",
     "later": "Pas maintenant",
-    "footer": "Vos informations et votre historique restent intacts entre-temps."
+    "footer": "Vos informations et votre historique restent intacts entre-temps.",
+    "lockedTitle": "{{nombre}} est verrouillé",
+    "lockedBody": "Cette fonction fait partie de la plateforme complète. Elle s'active dès que votre cotisation est réglée ; en attendant vous gardez les contenus, les forums, votre réseau, Academy, les offres et vos évaluations.",
+    "lockedCta": "Régler ma cotisation"
   },
   "reactivated": {
     "title": "Bon retour !",

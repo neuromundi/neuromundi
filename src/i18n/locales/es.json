@@ -3454,7 +3454,10 @@
     "promoOk": "¡Listo! Tu cuenta quedó activa.",
     "promoBad": "Ese código no es válido.",
     "later": "Ahora no",
-    "footer": "Tu información y tu historial se conservan intactos mientras tanto."
+    "footer": "Tu información y tu historial se conservan intactos mientras tanto.",
+    "lockedTitle": "{{nombre}} está bajo llave",
+    "lockedBody": "Esta función forma parte del cien por ciento de la plataforma. Se activa en cuanto tu cuota queda cubierta; mientras tanto conservas contenido, foros, tu red, Academy, vacantes y tus calificaciones.",
+    "lockedCta": "Cubrir mi cuota"
   },
   "reactivated": {
     "title": "¡Bienvenido de vuelta!",

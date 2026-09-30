@@ -3454,7 +3454,10 @@
     "promoOk": "Done! Your account is active.",
     "promoBad": "That code isn’t valid.",
     "later": "Not now",
-    "footer": "Your information and history stay intact in the meantime."
+    "footer": "Your information and history stay intact in the meantime.",
+    "lockedTitle": "{{nombre}} is locked",
+    "lockedBody": "This feature is part of the full platform. It unlocks as soon as your fee is covered; meanwhile you keep content, forums, your network, Academy, job posts and your ratings.",
+    "lockedCta": "Cover my fee"
   },
   "reactivated": {
     "title": "Welcome back!",

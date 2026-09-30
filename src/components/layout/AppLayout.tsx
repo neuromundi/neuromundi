@@ -499,7 +499,7 @@ export function AppLayout() {
               {isAuthenticated && (
                 <>
                   <span className="mx-1 hidden h-6 w-px bg-slate-200 lg:block" aria-hidden="true" />
-                  <NavPill to="/panel" label={t('nav.dashboard')} colorClass="bg-slate-700" disabled={blocked} onDisabledClick={() => setGateOpen(true)} />
+                  <NavPill to="/panel" label={t('nav.dashboard')} colorClass="bg-slate-700" />
                   <NavPill to="/calendario" label={t('nav.calendar')} colorClass="bg-slate-600" disabled={blocked} onDisabledClick={() => setGateOpen(true)} />
                   <NavPill to="/mensajes" label={t('nav.messages')} colorClass="bg-slate-600" disabled={blocked} onDisabledClick={() => setGateOpen(true)} />
                   {/* Mi Perfil sigue accesible: ahí puede pagar y gestionar su cuenta. */}

@@ -3454,7 +3454,10 @@
     "promoOk": "完成！你的账户已激活。",
     "promoBad": "该代码无效。",
     "later": "暂不",
-    "footer": "在此期间你的资料和记录会完整保留。"
+    "footer": "在此期间你的资料和记录会完整保留。",
+    "lockedTitle": "{{nombre}} 已锁定",
+    "lockedBody": "该功能属于完整平台。会费缴清后即刻开启；在此之前，您仍可使用内容、论坛、我的人脉、Academy、招聘和评价。",
+    "lockedCta": "去缴纳会费"
   },
   "reactivated": {
     "title": "欢迎回来！",

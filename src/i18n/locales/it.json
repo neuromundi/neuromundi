@@ -3454,7 +3454,10 @@
     "promoOk": "Fatto! Il tuo account è attivo.",
     "promoBad": "Questo codice non è valido.",
     "later": "Non ora",
-    "footer": "I tuoi dati e il tuo storico restano intatti nel frattempo."
+    "footer": "I tuoi dati e il tuo storico restano intatti nel frattempo.",
+    "lockedTitle": "{{nombre}} è bloccato",
+    "lockedBody": "Questa funzione fa parte della piattaforma completa. Si attiva appena la quota è coperta; nel frattempo conservi contenuti, forum, la tua rete, Academy, offerte di lavoro e le tue valutazioni.",
+    "lockedCta": "Copri la mia quota"
   },
   "reactivated": {
     "title": "Bentornato!",

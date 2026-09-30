@@ -3454,7 +3454,10 @@
     "promoOk": "Fertig! Dein Konto ist aktiv.",
     "promoBad": "Dieser Code ist ungültig.",
     "later": "Jetzt nicht",
-    "footer": "Deine Daten und dein Verlauf bleiben unterdessen erhalten."
+    "footer": "Deine Daten und dein Verlauf bleiben unterdessen erhalten.",
+    "lockedTitle": "{{nombre}} ist gesperrt",
+    "lockedBody": "Diese Funktion gehört zur vollständigen Plattform. Sie wird freigeschaltet, sobald Ihr Beitrag beglichen ist; bis dahin behalten Sie Inhalte, Foren, Ihr Netzwerk, Academy, Stellen und Ihre Bewertungen.",
+    "lockedCta": "Beitrag begleichen"
   },
   "reactivated": {
     "title": "Willkommen zurück!",

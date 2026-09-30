@@ -40,6 +40,7 @@ import {
   Gift,
   Megaphone,
   Briefcase,
+  Lock,
 } from 'lucide-react';
 import {
   Tabs,
@@ -91,6 +92,8 @@ import { formatDate, formatDateTime, exportToCsv } from '@/lib/utils';
 import type { Offer, OfferStatus, OfferInsert, ProviderType, TransactionStatus } from '@/types/app';
 import { DIMENSION_LABEL_KEY } from '@/types/app';
 import { PublicationSteps } from './PublicationSteps';
+import { LockedFeature } from './LockedFeature';
+import { useMembership } from '@/hooks/useMembership';
 import { ProfileCompletion } from './ProfileCompletion';
 
 // ── Helpers de presentación ──────────────────────────────────────────────────
@@ -567,6 +570,7 @@ const SOLIDARIO_KEY = 'nm-solidario-dismissed';
 
 export function ProviderDashboard() {
   const { userId, providerType } = useAuth();
+  const { status: memStatus, paidUntil } = useMembership();
   const { isFounder } = useFounderStatus(userId);
   const { t } = useTranslation();
   const [tab, setTab] = useState('offers');
@@ -773,6 +777,24 @@ export function ProviderDashboard() {
     recommendTab,
   ];
 
+  // Nivel 2 (cuota sin cubrir): la plataforma sigue abierta en lo que da valor
+  // al usuario final. Las 15 funciones que generan negocio al prestador se
+  // muestran bajo llave en vez de esconderse, para que sepa qué le falta.
+  const cuotaCubierta =
+    memStatus === 'active' || memStatus === 'exempt' ||
+    (!!paidUntil && new Date(paidUntil).getTime() > Date.now());
+  const DE_PAGO = new Set([
+    'offers', 'scan', 'history', 'widget', 'waitlist', 'campaigns', 'prescribe',
+    'products', 'store', 'agenda', 'metrics', 'inclusion', 'payments', 'clinical', 'affiliate',
+  ]);
+  const tabsVisibles = cuotaCubierta
+    ? tabs
+    : tabs.map((tb) =>
+        DE_PAGO.has(tb.id)
+          ? { ...tb, icon: <Lock className="h-4 w-4" aria-hidden="true" />, content: <LockedFeature nombre={tb.label} /> }
+          : tb,
+      );
+
   return (
     <div className="mx-auto w-full max-w-2xl p-4">
       {/* Nadie debe estar invisible sin saberlo: aparecer en el directorio exige
@@ -798,7 +820,7 @@ export function ProviderDashboard() {
           <DonateCallout variant="specialist" onDismiss={dismissSolidario} />
         </div>
       )}
-      <Tabs value={tab} onValueChange={setTab} tabs={tabs} />
+      <Tabs value={tab} onValueChange={setTab} tabs={tabsVisibles} />
     </div>
   );
 }

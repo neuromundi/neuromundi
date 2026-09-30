@@ -3454,7 +3454,10 @@
     "promoOk": "Pronto! Sua conta está ativa.",
     "promoBad": "Esse código não é válido.",
     "later": "Agora não",
-    "footer": "Suas informações e histórico permanecem intactos enquanto isso."
+    "footer": "Suas informações e histórico permanecem intactos enquanto isso.",
+    "lockedTitle": "{{nombre}} está bloqueado",
+    "lockedBody": "Este recurso faz parte da plataforma completa. É liberado assim que sua cota estiver paga; enquanto isso você mantém conteúdo, fóruns, sua rede, Academy, vagas e suas avaliações.",
+    "lockedCta": "Pagar minha cota"
   },
   "reactivated": {
     "title": "Bem-vindo de volta!",
