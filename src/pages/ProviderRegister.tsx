@@ -23,6 +23,7 @@ import { useCatLabel } from '@/lib/catLabel';
 import { RULES_VERSION } from '@/lib/legal';
 import { COUNTRIES, MEXICO_NAME } from '@/data/countries';
 import { MX_ESTADOS, MX_MUNICIPIOS } from '@/data/mxStatesMunicipalities';
+import { useCountryField } from '@/hooks/useCountryField';
 import {
   PRODUCT_CATEGORIES, SALES_CHANNELS, SHIPPING_COVERAGE, PRICE_RANGES, REDEMPTION_METHODS,
 } from '@/data/providerCatalog';
@@ -66,7 +67,8 @@ export function ProviderRegister({ onSuccess, complete = false }: { onSuccess?: 
   const [tiktok, setTiktok] = useState('');
   const [facebook, setFacebook] = useState('');
   const [linkedin, setLinkedin] = useState('');
-  const [country, setCountry] = useState('');
+  // Enlazado al store: el país que ve en los precios es el que se guarda.
+  const [country, setCountry] = useCountryField();
   const [stateName, setStateName] = useState('');
   const [municipality, setMunicipality] = useState('');
   const [address, setAddress] = useState('');

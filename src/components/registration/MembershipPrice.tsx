@@ -17,6 +17,8 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useCountry } from '@/stores/countryStore';
+import { useCountryLabel } from '@/lib/countryLabel';
+import { COUNTRIES } from '@/data/countries';
 import { supabase } from '@/lib/supabase';
 
 const FREE = new Set(['patient', 'parent', 'company']);
@@ -46,7 +48,8 @@ interface Props {
 
 export function MembershipPrice({ type, affiliate, pending, pendingText, boxed, boxLabel, hideIfEmpty, className = '' }: Props) {
   const { t } = useTranslation();
-  const { country } = useCountry();
+  const { country, setCountry } = useCountry();
+  const countryLabel = useCountryLabel();
   const [q, setQ] = useState<Quote | null>(null);
   // Miembro ya afiliado: si su cuota está cubierta y falta > 30 días para el
   // vencimiento, ocultamos el costo (no tiene sentido mostrarlo). Reaparece en
@@ -118,6 +121,30 @@ export function MembershipPrice({ type, affiliate, pending, pendingText, boxed, 
   // Miembro con cuota cubierta (fuera de la ventana de renovación): nada.
   if (hideForMember) return null;
 
+  // SIN PAÍS: antes no se renderizaba nada. El precio depende del país y el
+  // store arranca vacío, así que un visitante nuevo veía un hueco sin saber si
+  // era gratis, si fallaba o si no había precio para él. Ahora se le pide el
+  // país aquí mismo, junto al precio, en vez de en un popup que interrumpe
+  // antes de que sepa para qué se lo preguntan.
+  function selectorPais(): JSX.Element {
+    return (
+      <>
+        <p className="text-sm leading-snug text-slate-600">{t('reg.price.pickCountry')}</p>
+        <select
+          aria-label={t('directory.countryLabel')}
+          value=""
+          onChange={(e) => setCountry(e.target.value || null)}
+          className="mt-2 w-full rounded-xl border border-brand-200 bg-white p-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+        >
+          <option value="">{t('directory.countryLabel')}</option>
+          {COUNTRIES.map((c) => (
+            <option key={c.code} value={c.name}>{countryLabel(c.code, c.name)}</option>
+          ))}
+        </select>
+      </>
+    );
+  }
+
   // Contenido según el estado.
   let inner: JSX.Element | null = null;
   if (pending) {
@@ -129,9 +156,14 @@ export function MembershipPrice({ type, affiliate, pending, pendingText, boxed, 
         <span className="mt-1 block text-xs text-muted">{t('reg.price.freeNote')}</span>
       </>
     );
+  } else if (!country) {
+    if (hideIfEmpty) return null;
+    inner = selectorPais();
   } else {
     inner = priceInner();
-    if (!inner && boxed) {
+    // Nunca dejar el hueco vacío: si el país no tiene tarifa configurada, hay
+    // que decirlo. Antes solo se avisaba en el modo `boxed`.
+    if (!inner) {
       if (hideIfEmpty) return null;
       inner = <p className="text-sm leading-snug text-slate-500">{t('reg.price.notConfigured')}</p>;
     }

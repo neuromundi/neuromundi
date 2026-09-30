@@ -1146,7 +1146,8 @@
       "boxLabel": "Deine Mitgliedsgebühr",
       "pending": "Die Gebühr erscheint, sobald du dein Profil ausfüllst.",
       "specialistPending": "Deine Mitgliedsgebühr erscheint, sobald du deinen Beruf wählst.",
-      "notConfigured": "Die Gebühr wird angezeigt, sobald sie für dein Land konfiguriert ist."
+      "notConfigured": "Die Gebühr wird angezeigt, sobald sie für dein Land konfiguriert ist.",
+      "pickCountry": "Wählen Sie Ihr Land, um den Mitgliedsbeitrag zu sehen."
     },
     "afterConfirmPay": "Nachdem du deine E-Mail bestätigt und dich angemeldet hast, wirst du gebeten, die Zahlung deiner Mitgliedschaft abzuschließen."
   },

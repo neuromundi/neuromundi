@@ -19,6 +19,7 @@ import { RULES_VERSION } from '@/lib/legal';
 import { COUNTRIES, MEXICO_NAME } from '@/data/countries';
 import { MX_ESTADOS, MX_MUNICIPIOS } from '@/data/mxStatesMunicipalities';
 import { AGE_RANGES } from '@/data/specialistCatalog';
+import { useCountryField } from '@/hooks/useCountryField';
 import {
   CLINIC_MODALITIES, CLINIC_SPECIALTIES, CLINIC_SERVICES,
   CLINIC_CATEGORIES, IMAGING_SERVICES, LAB_SERVICES,
@@ -60,7 +61,8 @@ export function ClinicRegister({ onSuccess, complete = false }: { onSuccess?: ()
   // Categorías de registro (clínica / gabinete de imagen / laboratorio de análisis)
   const [categories, setCategories] = useState<string[]>(['clinic']);
   // 2. Ubicación y contacto
-  const [country, setCountry] = useState('');
+  // Enlazado al store: el país que ve en los precios es el que se guarda.
+  const [country, setCountry] = useCountryField();
   const [stateName, setStateName] = useState('');
   const [municipality, setMunicipality] = useState('');
   const [address, setAddress] = useState('');

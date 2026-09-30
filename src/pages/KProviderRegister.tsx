@@ -21,6 +21,7 @@ import { RULES_VERSION } from '@/lib/legal';
 import { COUNTRIES, MEXICO_NAME } from '@/data/countries';
 import { MX_ESTADOS, MX_MUNICIPIOS } from '@/data/mxStatesMunicipalities';
 import { K_OFFERINGS, K_CONFIG, type KType } from '@/data/kCatalog';
+import { useCountryField } from '@/hooks/useCountryField';
 
 const inputCls = 'w-full rounded-xl border border-slate-200 p-3 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500';
 const labelCls = 'mb-1 block font-semibold text-slate-900';
@@ -61,7 +62,8 @@ export function KProviderRegister({ typeKey, onSuccess, complete = false }: { ty
   const [linkedin, setLinkedin] = useState('');
   const [contactEmail, setContactEmail] = useState('');
   const [website, setWebsite] = useState('');
-  const [country, setCountry] = useState('');
+  // Enlazado al store: el país que ve en los precios es el que se guarda.
+  const [country, setCountry] = useCountryField();
   const [stateName, setStateName] = useState('');
   const [municipality, setMunicipality] = useState('');
   const [address, setAddress] = useState('');

@@ -1146,7 +1146,8 @@
       "boxLabel": "Il costo della tua iscrizione",
       "pending": "Il costo apparirà al completamento del profilo.",
       "specialistPending": "Il costo della tua iscrizione apparirà appena scegli la tua professione.",
-      "notConfigured": "Il costo verrà mostrato quando sarà configurato per il tuo paese."
+      "notConfigured": "Il costo verrà mostrato quando sarà configurato per il tuo paese.",
+      "pickCountry": "Scegli il tuo paese per vedere il costo della tua iscrizione."
     },
     "afterConfirmPay": "Dopo aver confermato l'email e aver effettuato l'accesso, ti verrà chiesto di completare il pagamento della tua iscrizione."
   },

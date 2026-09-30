@@ -29,6 +29,7 @@ import {
   isMedicalProfession,
 } from '@/data/specialistCatalog';
 import { MembershipPrice } from '@/components/registration/MembershipPrice';
+import { useCountryField } from '@/hooks/useCountryField';
 
 const inputCls = 'w-full rounded-xl border border-slate-200 p-3 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500';
 const labelCls = 'mb-1 block font-semibold text-slate-900';
@@ -64,7 +65,8 @@ export function SpecialistRegister({ onSuccess, complete = false }: { onSuccess?
   const [instagram, setInstagram] = useState('');
   const [tiktok, setTiktok] = useState('');
   const [facebook, setFacebook] = useState('');
-  const [country, setCountry] = useState('');
+  // Enlazado al store: el país que ve en los precios es el que se guarda.
+  const [country, setCountry] = useCountryField();
   const [stateName, setStateName] = useState('');
   const [municipality, setMunicipality] = useState('');
   const [address, setAddress] = useState('');

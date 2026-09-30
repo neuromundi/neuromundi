@@ -1146,7 +1146,8 @@
       "boxLabel": "你的会员费",
       "pending": "完善资料后将显示费用。",
       "specialistPending": "选择你的职业后将立即显示会员费。",
-      "notConfigured": "为你的国家配置后将显示费用。"
+      "notConfigured": "为你的国家配置后将显示费用。",
+      "pickCountry": "请选择您所在的国家/地区以查看会员费用。"
     },
     "afterConfirmPay": "确认邮箱并登录后，系统会提示你完成会员费的支付。"
   },

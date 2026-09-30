@@ -1146,7 +1146,8 @@
       "boxLabel": "Custo da sua associação",
       "pending": "O custo aparecerá ao completar o seu perfil.",
       "specialistPending": "O custo da sua associação aparecerá assim que você escolher a sua profissão.",
-      "notConfigured": "O custo será exibido quando estiver configurado para o seu país."
+      "notConfigured": "O custo será exibido quando estiver configurado para o seu país.",
+      "pickCountry": "Escolha o seu país para ver o valor da sua assinatura."
     },
     "afterConfirmPay": "Depois de confirmar seu e-mail e entrar, será solicitado que você conclua o pagamento da sua assinatura."
   },
