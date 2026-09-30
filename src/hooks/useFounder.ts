@@ -34,8 +34,13 @@ export function founderKindFor(role: string | null | undefined, providerType: Pr
 /** ¿Este id de perfil es Miembro Fundador? (lectura pública). */
 export const FOUNDER_CAPACITY: Record<FounderKind, number> = {
   families: 500,
-  professionals: 100,
-  providers: 100,
+  // D1 (29 sep 2026): ampliado de 100 a 300/150. Al retirar la escalera de
+  // descuento, quien no alcanza asiento paga la tarifa ordinaria — el doble de
+  // la que promete el correo de invitación. De los 100 invitados, 92 caen en
+  // 'professionals' y 8 en 'providers'. Debe coincidir con founder_capacity()
+  // en SQL (migración 0149); mientras vivan en dos lugares pueden divergir.
+  professionals: 300,
+  providers: 150,
   companies: 20,
 };
 
