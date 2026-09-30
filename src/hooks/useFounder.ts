@@ -1,11 +1,13 @@
 /**
  * useFounder — programa "Miembro Fundador".
  *
- * DETECCIÓN AUTOMÁTICA (useFounderAutoClaim): mientras haya cupo por país, cuando
- * un usuario registrado (no admin) que cumple los requisitos previstos entra a la
- * plataforma, se le reclama automáticamente un lugar de fundador vía el RPC
- * `claim_founder_slot` (idempotente y con control de capacidad en el servidor).
- * Una vez reclamado, el distintivo aparece solo en su perfil.
+ * DETECCIÓN (useFounderAutoClaim): sólo LEE. El lugar de fundador se otorga tras
+ * el pago, en el webhook de Stripe (`grant_founder_seat`). Este hook detecta que
+ * ya fue otorgado, muestra el distintivo y dispara la felicitación una vez.
+ *
+ * La tarifa de fundador NO depende de tener el asiento: el checkout la decide
+ * con `founder_eligible()` (plazo vigente + cupo disponible), de modo que el
+ * precio cobrado coincida con el que promete el correo de invitación.
  *
  * LECTURA (useFounderStatus): consulta `founder_members` por id de perfil para
  * mostrar el distintivo en cualquier perfil público.
@@ -121,8 +123,8 @@ export function useFounderAutoClaim() {
     // curso): si lo hiciéramos, alguien que entra con Google y luego pulsa
     // "Cancelar y cerrar sesión" igual recibiría el distintivo y la felicitación.
     if (needsOnboarding) return;
-    const kind = founderKindFor(role, profile.provider_type ?? null);
-    if (!kind) return; // admin u otros
+    // Descarta admins y roles que no participan en el programa.
+    if (!founderKindFor(role, profile.provider_type ?? null)) return;
 
     // Opción de NO ser Fundador: persiste la baja en el servidor y no reclama.
     if (getFounderOptoutFlag() || profile.wants_founder === false) {
@@ -135,26 +137,27 @@ export function useFounderAutoClaim() {
       return;
     }
 
-    const sessionKey = `nm_founder_claim_${userId}`;
+    // YA NO se reclama el asiento al entrar. El lugar de fundador lo otorga el
+    // webhook de Stripe tras el pago (grant_founder_seat). Reclamarlo en la
+    // primera visita hacía que un visitante que nunca pagaba bloqueara un lugar
+    // durante tres meses (grace_until), y que el contador de lugares restantes
+    // contara visitantes como fundadores.
+    //
+    // Este efecto ahora sólo LEE: detecta que el asiento ya fue otorgado y
+    // dispara la felicitación una sola vez, que es justo después de pagar.
+    const vistoKey = `nm_founder_visto_${userId}`;
     (async () => {
-      // ¿Ya es fundador? No repetir trabajo.
       const { data: existing } = await supabase
         .from('founder_members')
         .select('user_id')
         .eq('user_id', userId)
         .maybeSingle();
-      if (cancelled) return;
-      if (existing) { setIsFounder(true); return; }
-
-      // Intentar reclamar solo una vez por sesión (evita golpear el RPC en cada carga).
-      if (sessionStorage.getItem(sessionKey)) return;
-      sessionStorage.setItem(sessionKey, '1');
-
-      const { data: claimed } = await supabase.rpc('claim_founder_slot', {
-        p_kind: kind,
-        p_country: profile.country ?? null,
-      });
-      if (!cancelled && claimed) { setIsFounder(true); setJustClaimed(true); }
+      if (cancelled || !existing) return;
+      setIsFounder(true);
+      if (!localStorage.getItem(vistoKey)) {
+        localStorage.setItem(vistoKey, '1');
+        setJustClaimed(true);
+      }
     })();
     return () => { cancelled = true; };
   }, [userId, role, profile, needsOnboarding]);

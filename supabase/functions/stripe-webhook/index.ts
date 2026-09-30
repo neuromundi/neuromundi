@@ -174,6 +174,19 @@ Deno.serve(async (req: Request) => {
               membership_period: s.metadata?.period === 'monthly' ? 'monthly' : 'annual',
             })
             .eq('id', userId);
+          // Asiento de Miembro Fundador: se otorga AQUÍ, después del pago, no al
+          // entrar a la plataforma. Antes lo tomaba useFounderAutoClaim en la
+          // primera visita, así que un visitante que nunca pagaba bloqueaba un
+          // lugar durante tres meses (grace_until) y el contador de lugares
+          // restantes contaba visitantes como fundadores.
+          // Best-effort: si falla, el pago sigue siendo válido.
+          if (s.metadata?.member_class === 'founder') {
+            try {
+              await admin.rpc('grant_founder_seat', { p_id: userId });
+            } catch (e) {
+              console.error('grant_founder_seat', e);
+            }
+          }
           // El referente de este usuario gana su recompensa (si aplica).
           await applyReferralReward(admin, stripe, userId);
           // Confirmación de pago: notifica al miembro (el trigger trg_notify_push

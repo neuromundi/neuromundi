@@ -1,0 +1,21 @@
+-- ============================================================================
+-- 0151 · Cerrar el reclamo directo de asiento de fundador
+--
+-- La migración 0150 movió el otorgamiento del asiento al webhook de Stripe,
+-- después del pago, y el hook `useFounderAutoClaim` dejó de llamarlo. Pero
+-- `claim_founder_slot()` seguía siendo ejecutable por cualquier usuario
+-- autenticado vía la API de PostgREST: el agujero quedaba cerrado en la
+-- interfaz y abierto en el servidor.
+--
+-- Cualquiera con sesión podía tomar un asiento sin pagar y bloquearlo tres
+-- meses (grace_until), que es exactamente lo que 0150 vino a evitar.
+--
+-- No se borra la función: `purge_lapsed_founders` y el historial siguen
+-- teniendo sentido, y revocar es reversible. Sólo deja de ser invocable desde
+-- fuera. El único camino al asiento queda `grant_founder_seat()`, que el
+-- webhook llama con la llave de servicio.
+--
+-- Idempotente. NO envía nada.
+-- ============================================================================
+
+revoke all on function public.claim_founder_slot(text, text) from public, anon, authenticated;

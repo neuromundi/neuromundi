@@ -66,9 +66,15 @@ Deno.serve(async (req: Request) => {
     (typeof typeData === 'string' && typeData) ||
     (profile.role === 'provider' ? (profile.provider_type ?? 'nonmedical_specialist') : profile.role);
 
-  // Clase de miembro: los fundadores tienen su propia tarifa.
-  const { data: founderData } = await admin.rpc('is_founder', { p_id: u.user.id });
-  const memberClass = founderData === true ? 'founder' : 'ordinary';
+  // Clase de miembro: la tarifa de fundador se decide por ELEGIBILIDAD, no por
+  // tenencia del asiento. Antes se usaba is_founder(), y como el asiento se
+  // reclamaba al entrar (no al pagar), quien no alcanzaba lugar veía la tarifa
+  // ordinaria: el doble de la que promete el correo de invitación.
+  // El asiento se otorga después, en el webhook, con grant_founder_seat().
+  //
+  // El fundador exige pago ANUAL: el mensual queda sólo para cuota ordinaria.
+  const { data: founderData } = await admin.rpc('founder_eligible', { p_id: u.user.id });
+  const memberClass = (founderData === true && period === 'annual') ? 'founder' : 'ordinary';
 
   // Precio efectivo por tipo de afiliado y país: el explícito del panel manda;
   // si no hay, cae al cálculo base_usd × FX. Misma fuente que ve el usuario.
@@ -119,24 +125,11 @@ Deno.serve(async (req: Request) => {
     promoBenefit = '';
   }
 
-  // (3) Descuento de FUNDADOR por etapa (campaña de pre-registro): 50% ≤ día 15,
-  //     25% día 16–30, 0% después. SOLO en el periodo anual. Las etapas y la fecha
-  //     de inicio las edita el admin en campaign_config.
-  let founderPct = 0;
-  if (period === 'annual') {
-    try {
-      const { data: camp } = await admin.rpc('campaign_status');
-      if (camp?.active && camp.start_at) {
-        const days = (Date.now() - new Date(camp.start_at).getTime()) / 86400000;
-        if (days >= 0 && Array.isArray(camp.founder_discount)) {
-          const stages = [...camp.founder_discount].sort((a, b) => Number(a.days) - Number(b.days));
-          for (const s of stages) { if (days <= Number(s.days)) { founderPct = Number(s.pct) || 0; break; } }
-        }
-      }
-    } catch {
-      founderPct = 0;
-    }
-  }
+  // (3) El descuento de FUNDADOR ya NO se aplica como cupón.
+  //     Vive únicamente en el renglón de fundador de `membership_prices`, que
+  //     ya es la mitad del ordinario. Aplicarlo aquí además del precio base
+  //     cobraba la mitad de la mitad.
+  const founderPct = 0;
 
   // (4) Política de descuento por PAÍS (la fija el admin en el panel). Se compone
   //     con los anteriores; nunca bloquea el cobro si falla.
@@ -203,7 +196,7 @@ Deno.serve(async (req: Request) => {
         percent_off: discountPct,
         duration: 'once',
         name: `Descuento Neuromundi (-${discountPct}%)`,
-        metadata: { user_id: u.user.id, kind: 'discount', referral_pct: String(referralPct), promo_pct: String(pct), founder_pct: String(founderPct), country_pct: String(countryPct) },
+        metadata: { user_id: u.user.id, kind: 'discount', referral_pct: String(referralPct), promo_pct: String(pct), country_pct: String(countryPct) },
       });
       discounts = [{ coupon: coupon.id }];
     }
