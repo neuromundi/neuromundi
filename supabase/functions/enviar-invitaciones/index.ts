@@ -94,6 +94,40 @@ function bloquePrecio(r: Row): string {
   </div>`;
 }
 
+// Las DOS fechas de la campaña, deliberadamente separadas.
+//
+// En prosa seguida el lector las fusiona y entiende "si no pago para el 31 de
+// octubre me borran del directorio", que es falso: confirmar la ficha es
+// gratuito y conserva los datos de contacto visibles, se pague o no.
+//
+// Esa separación no es sólo redacción. A quien confirma y no paga se le aplica
+// la MISMA degradación que a quien nunca confirmó, nunca la suspensión: de lo
+// contrario responder saldría peor que ignorar, y el correo estaría prometiendo
+// algo que el sistema contradice seis semanas después.
+function bloqueFechas(r: Row): string {
+  const cur = r.moneda || 'MXN';
+  const hayPrecio = r.precio_configurado && r.precio_fundador && r.precio_ordinario;
+  const lineaPago = hayPrecio
+    ? `<p style="margin:0 0 10px;font-size:14px;line-height:1.6;color:#334155">
+         <b>31 de octubre de 2026</b> — último día para activar su membresía como Miembro
+         Fundador y pagar <b style="color:#0369a1">${MXN(Number(r.precio_fundador))} ${cur}</b>
+         al año en lugar de <b>${MXN(Number(r.precio_ordinario))} ${cur}</b>.
+         Después de esa fecha aplica la cuota ordinaria.
+       </p>`
+    : '';
+  return `<div style="margin:18px 0;padding:14px 16px;border:1px solid #e2e8f0;border-radius:12px">
+    <p style="margin:0 0 8px;font-weight:800;font-size:15px;color:#0f172a">${hayPrecio ? 'Dos fechas, y son independientes' : 'Una fecha que conviene tener presente'}</p>
+    ${lineaPago}
+    <p style="margin:0;font-size:14px;line-height:1.6;color:#334155">
+      <b>15 de noviembre de 2026</b> — último día para confirmar su ficha.
+      <b>Confirmar es gratuito</b> y no requiere contratar nada. Las fichas que nadie
+      confirme quedarán marcadas como <i>sin verificar</i>: seguirán apareciendo, pero
+      sin teléfono, sin correo y sin sitio web, y por debajo de los perfiles verificados
+      en los resultados de búsqueda.
+    </p>
+  </div>`;
+}
+
 const esFree = (r: Row) =>
   r.sector === 'publico' || r.sector === 'social' || r.provider_type === 'ngo' || r.provider_type === 'company';
 
@@ -253,7 +287,8 @@ function buildEmail(r: Row, fundador = true, promo: string | null = null): { sub
     const cuerpo = `${intro}
       ${beneficios(r, false)}
       ${bloquePrecio(r)}
-      ${tablaComparativa(r)}`;
+      ${tablaComparativa(r)}
+    ${bloqueFechas(r)}`;
     return { subject: `${rawNombre}: te invitamos a Neuromundi`, html: shell('Únete a Neuromundi', promoBlock + cuerpo, 'Completar mi perfil', claim) };
   }
 
@@ -264,7 +299,8 @@ function buildEmail(r: Row, fundador = true, promo: string | null = null): { sub
       ${beneficios(r)}
       <p style="margin-top:12px">Y la <b>Insignia de Miembro Fundador</b>, con <u>beneficios preferentes de por vida</u>.</p>
       ${bloquePrecio(r)}
-      ${tablaComparativa(r)}`;
+      ${tablaComparativa(r)}
+    ${bloqueFechas(r)}`;
     return { subject: `${rawNombre}: tu perfil en Neuromundi es gratuito — complétalo`, html: shell('Conviértete en Fundador Neuromundi', promoBlock + cuerpo, 'Quiero ser fundador', claim) };
   }
   if (seg === 'ya_privado') {
@@ -273,7 +309,8 @@ function buildEmail(r: Row, fundador = true, promo: string | null = null): { sub
       ${beneficios(r)}
       <p style="margin-top:12px">Además, al completarlo ahora entras como <b>Miembro Fundador</b>, con <u>beneficios preferentes de por vida</u>.</p>
       ${bloquePrecio(r)}
-      ${tablaComparativa(r)}`;
+      ${tablaComparativa(r)}
+    ${bloqueFechas(r)}`;
     return { subject: `${rawNombre}: te reservamos tu perfil en Neuromundi`, html: shell('Conviértete en Fundador Neuromundi', promoBlock + cuerpo, 'Quiero ser fundador', claim) };
   }
   const intro = esFree(r)
@@ -285,7 +322,8 @@ function buildEmail(r: Row, fundador = true, promo: string | null = null): { sub
     ${beneficios(r)}
     <p style="margin-top:12px">Y si lo completas ahora, entras como <b>Miembro Fundador</b>, con <u>beneficios preferentes de por vida</u>.</p>
     ${bloquePrecio(r)}
-      ${tablaComparativa(r)}`;
+      ${tablaComparativa(r)}
+    ${bloqueFechas(r)}`;
   return { subject: `${rawNombre}: conviértete en Fundador Neuromundi`, html: shell('Conviértete en Fundador Neuromundi', promoBlock + cuerpo, 'Quiero ser fundador', claim) };
 }
 
