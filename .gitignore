@@ -59,3 +59,20 @@ mockup*.html
 # Assets de trabajo/marketing que no van versionados
 LOGO_NEUROMUNDI_IMPI.gif
 FLYERS/
+
+# ── SECRETOS: códigos de recuperación/acceso (JAMÁS al repo) ───
+GITHUB CODES/
+*recovery-codes*
+*recovery_codes*
+
+# ── Datos personales y documentos de trabajo de campaña ───────
+# Hojas y documentos con datos (candidatos, destinatarios, fichas)
+*.xlsx
+*.docx
+# Borradores / correos / especificaciones / informes de trabajo
+Borradores de invitacion*
+Correo de invitacion*
+Destinatarios *
+ESPECIFICACION *
+Fichas *
+Informe para *
