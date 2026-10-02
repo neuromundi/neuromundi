@@ -635,3 +635,28 @@ La imagen es ilustrativa; la autoridad es la URL de verificación (revocable con
 - **Activos** (tarifas + fundador): países hispanohablantes + **Brasil**, **Portugal** y **EE.UU.** (público hispano). Lista en `src/data/launchMarkets.ts` (`ACTIVE_MARKETS`).
 - **Resto**: fase "próximamente inicio 2027" → banner con lista de espera (`ComingSoonBanner`), tarifas ocultas en `MembershipModal`, correos en `launch_waitlist` (migración 0188, `join_launch_waitlist`).
 - **PENDIENTE antes de cobrar en Brasil/Portugal**: cargar sus `membership_prices` en Panel → Cuotas. Sin ellas, el checkout de prestadores allí falla (las familias son gratis y no se afectan). El portugués ya está traducido al 100%.
+
+## Checklist final de lanzamiento (2026-10-02)
+
+**Listo y verificado**
+- [x] `tsc` sin errores; i18n paridad 0 (4 004 claves × 11 idiomas).
+- [x] Campaña activa, directorio abierto, popup activo (todos los continentes).
+- [x] 23 países con cuota cargada (460 filas), plazo y cupo de fundador por país.
+- [x] 3 Neurocamps de bienvenida aprobados (una por sección).
+- [x] 10 códigos de alianza (México 1-nov; resto 31-dic) + 2 aliados activos + 10 borradores.
+- [x] Migraciones 0182–0189 aplicadas.
+- [x] Webhook `stripe-webhook` v56 desplegado con enganche de créditos de alianza (`--no-verify-jwt`).
+
+**Pendiente (acción del dueño)**
+- [ ] **`git push` del front** (contador de fundadores, páginas /verificar y /verificados,
+      cortina "próximamente 2027", ocultar tarifas, popup de video a prueba de fallos,
+      enlace del pie, importador de cuotas ampliado). El CI compila y despliega si pasa.
+- [ ] **Purgar la caché del CDN** en hPanel tras el deploy.
+- [ ] Opcional: subir `public/welcome-neuromundi.{webm,mp4}` (popup ya es a prueba de fallos).
+- [ ] Opcional: subir el distintivo "Empresa Inclusiva" (Panel → Distintivos, tipo company).
+- [ ] Al aceptar cada aliado: cargar su logo (URL) y activarlo en Panel → Aliados.
+- [ ] Auth: activar "leaked password protection" (preexistente).
+
+**Marketing**
+- [ ] Enviar los 10 mensajes de alianza prioritarios (hoja "Envíos prioritarios").
+- [ ] Publicar flyers/copys con UTM por comunidad (rastreador).
