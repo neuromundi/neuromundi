@@ -17,6 +17,8 @@ export const ACTIVE_MARKETS = new Set<string>([
   'Brasil', 'Portugal',
   // Gran público hispano
   'Estados Unidos',
+  // Anglófono de América (inglés y francés ya traducidos)
+  'Canadá',
 ]);
 
 /** ¿El país está ACTIVO en esta fase? `null`/desconocido se trata como neutral (true). */
