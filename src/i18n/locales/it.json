@@ -5267,5 +5267,35 @@
     "uploadError": "Non è stato possibile caricare il file.",
     "tooBig": "Il file supera {{mb}} MB.",
     "needFolio": "Inserisci il tuo RFC o il tuo CLUNI."
+  },
+  "verifiable": {
+    "card": "Il tuo distintivo verificabile",
+    "desc": "Scaricalo con il tuo codice e un QR che consente di verificare il tuo stato in tempo reale.",
+    "download": "Scarica distintivo",
+    "folioLabel": "Codice",
+    "verifyLabel": "Verifica su",
+    "companyTitle": "Azienda Inclusiva",
+    "memberTitle": "Membro verificato"
+  },
+  "verify": {
+    "title": "Verifica del distintivo",
+    "checking": "Verifica in corso…",
+    "notFound": "Distintivo non trovato",
+    "found": "Distintivo verificato",
+    "noVigente": "Distintivo non valido",
+    "folio": "Codice",
+    "company": "Azienda Inclusiva",
+    "founder": "Membro Fondatore",
+    "neuro": "Profilo neuroaffermativo",
+    "lookupBtn": "Verifica"
+  },
+  "registry": {
+    "title": "Alleati verificati",
+    "subtitle": "Organizzazioni partner ufficiali di Neuromundi.",
+    "lookupTitle": "Verifica un distintivo per codice",
+    "placeholder": "Codice, es. NM-000123",
+    "alliesTitle": "Alleati ufficiali",
+    "empty": "Nessun alleato pubblicato per questo paese.",
+    "visit": "Visita"
   }
 }

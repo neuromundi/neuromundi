@@ -5267,5 +5267,35 @@
     "uploadError": "Não foi possível carregar o arquivo.",
     "tooBig": "O arquivo passa de {{mb}} MB.",
     "needFolio": "Digite seu RFC ou sua CLUNI."
+  },
+  "verifiable": {
+    "card": "Seu selo verificável",
+    "desc": "Baixe-o com seu número e um QR que permite conferir seu status em tempo real.",
+    "download": "Baixar selo",
+    "folioLabel": "Número",
+    "verifyLabel": "Verifique em",
+    "companyTitle": "Empresa Inclusiva",
+    "memberTitle": "Membro verificado"
+  },
+  "verify": {
+    "title": "Verificação de selo",
+    "checking": "Verificando…",
+    "notFound": "Selo não encontrado",
+    "found": "Selo verificado",
+    "noVigente": "Selo não vigente",
+    "folio": "Número",
+    "company": "Empresa Inclusiva",
+    "founder": "Membro Fundador",
+    "neuro": "Perfil neuroafirmativo",
+    "lookupBtn": "Verificar"
+  },
+  "registry": {
+    "title": "Aliados verificados",
+    "subtitle": "Organizações parceiras oficiais da Neuromundi.",
+    "lookupTitle": "Verifique um selo por número",
+    "placeholder": "Número, ex. NM-000123",
+    "alliesTitle": "Aliados oficiais",
+    "empty": "Ainda não há aliados publicados para este país.",
+    "visit": "Visitar"
   }
 }

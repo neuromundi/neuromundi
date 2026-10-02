@@ -5267,5 +5267,35 @@
     "uploadError": "No se pudo cargar el archivo.",
     "tooBig": "El archivo pesa más de {{mb}} MB.",
     "needFolio": "Escribe tu RFC o tu CLUNI."
+  },
+  "verifiable": {
+    "card": "Tu distintivo verificable",
+    "desc": "Descárgalo con tu folio y un QR que permite comprobar tu estatus en tiempo real.",
+    "download": "Descargar distintivo",
+    "folioLabel": "Folio",
+    "verifyLabel": "Verifica en",
+    "companyTitle": "Empresa Inclusiva",
+    "memberTitle": "Miembro verificado"
+  },
+  "verify": {
+    "title": "Verificación de distintivo",
+    "checking": "Verificando…",
+    "notFound": "Distintivo no encontrado",
+    "found": "Distintivo verificado",
+    "noVigente": "Distintivo no vigente",
+    "folio": "Folio",
+    "company": "Empresa Inclusiva",
+    "founder": "Miembro Fundador",
+    "neuro": "Perfil neuroafirmativo",
+    "lookupBtn": "Verificar"
+  },
+  "registry": {
+    "title": "Aliados verificados",
+    "subtitle": "Organizaciones aliadas oficiales de Neuromundi.",
+    "lookupTitle": "Verifica un distintivo por folio",
+    "placeholder": "Folio, p. ej. NM-000123",
+    "alliesTitle": "Aliados oficiales",
+    "empty": "Aún no hay aliados publicados para este país.",
+    "visit": "Visitar"
   }
 }

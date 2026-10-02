@@ -5267,5 +5267,35 @@
     "uploadError": "The file could not be uploaded.",
     "tooBig": "The file is larger than {{mb}} MB.",
     "needFolio": "Enter your tax ID or your CLUNI."
+  },
+  "verifiable": {
+    "card": "Your verifiable badge",
+    "desc": "Download it with your ID number and a QR that lets anyone check your status in real time.",
+    "download": "Download badge",
+    "folioLabel": "ID",
+    "verifyLabel": "Verify at",
+    "companyTitle": "Inclusive Company",
+    "memberTitle": "Verified member"
+  },
+  "verify": {
+    "title": "Badge verification",
+    "checking": "Verifying…",
+    "notFound": "Badge not found",
+    "found": "Verified badge",
+    "noVigente": "Badge not active",
+    "folio": "ID",
+    "company": "Inclusive Company",
+    "founder": "Founding Member",
+    "neuro": "Neuro-affirming profile",
+    "lookupBtn": "Verify"
+  },
+  "registry": {
+    "title": "Verified allies",
+    "subtitle": "Official partner organizations of Neuromundi.",
+    "lookupTitle": "Verify a badge by ID",
+    "placeholder": "ID, e.g. NM-000123",
+    "alliesTitle": "Official allies",
+    "empty": "No allies published for this country yet.",
+    "visit": "Visit"
   }
 }

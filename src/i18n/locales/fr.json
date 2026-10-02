@@ -5267,5 +5267,35 @@
     "uploadError": "Le fichier n'a pas pu être chargé.",
     "tooBig": "Le fichier dépasse {{mb}} Mo.",
     "needFolio": "Saisissez votre RFC ou votre CLUNI."
+  },
+  "verifiable": {
+    "card": "Votre badge vérifiable",
+    "desc": "Téléchargez-le avec votre identifiant et un QR qui permet de vérifier votre statut en temps réel.",
+    "download": "Télécharger le badge",
+    "folioLabel": "Identifiant",
+    "verifyLabel": "Vérifiez sur",
+    "companyTitle": "Entreprise inclusive",
+    "memberTitle": "Membre vérifié"
+  },
+  "verify": {
+    "title": "Vérification du badge",
+    "checking": "Vérification…",
+    "notFound": "Badge introuvable",
+    "found": "Badge vérifié",
+    "noVigente": "Badge non valide",
+    "folio": "Identifiant",
+    "company": "Entreprise inclusive",
+    "founder": "Membre fondateur",
+    "neuro": "Profil neuro-affirmatif",
+    "lookupBtn": "Vérifier"
+  },
+  "registry": {
+    "title": "Alliés vérifiés",
+    "subtitle": "Organisations partenaires officielles de Neuromundi.",
+    "lookupTitle": "Vérifier un badge par identifiant",
+    "placeholder": "Identifiant, ex. NM-000123",
+    "alliesTitle": "Alliés officiels",
+    "empty": "Aucun allié publié pour ce pays pour le moment.",
+    "visit": "Visiter"
   }
 }

@@ -5267,5 +5267,35 @@
     "uploadError": "ファイルをアップロードできませんでした。",
     "tooBig": "ファイルが{{mb}} MBを超えています。",
     "needFolio": "RFCまたはCLUNIを入力してください。"
+  },
+  "verifiable": {
+    "card": "あなたの検証可能なバッジ",
+    "desc": "会員番号とQR付きでダウンロードでき、ステータスをリアルタイムで確認できます。",
+    "download": "バッジをダウンロード",
+    "folioLabel": "会員番号",
+    "verifyLabel": "確認先",
+    "companyTitle": "インクルーシブ企業",
+    "memberTitle": "認証済みメンバー"
+  },
+  "verify": {
+    "title": "バッジの検証",
+    "checking": "確認中…",
+    "notFound": "バッジが見つかりません",
+    "found": "バッジを確認しました",
+    "noVigente": "バッジは有効ではありません",
+    "folio": "会員番号",
+    "company": "インクルーシブ企業",
+    "founder": "創設メンバー",
+    "neuro": "ニューロ・アファーミング・プロフィール",
+    "lookupBtn": "確認"
+  },
+  "registry": {
+    "title": "認証済みのアライ",
+    "subtitle": "Neuromundiの公式パートナー団体。",
+    "lookupTitle": "会員番号でバッジを確認",
+    "placeholder": "会員番号 例 NM-000123",
+    "alliesTitle": "公式アライ",
+    "empty": "この国の公開アライはまだありません。",
+    "visit": "見る"
   }
 }

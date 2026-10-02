@@ -53,6 +53,8 @@ const Auth = lazy(() => import('@/pages/Auth').then((m) => ({ default: m.Auth })
 const Settings = lazy(() => import('@/pages/Settings').then((m) => ({ default: m.Settings })));
 const SharedList = lazy(() => import('@/pages/SharedList').then((m) => ({ default: m.SharedList })));
 const ReclamarFicha = lazy(() => import('@/pages/ReclamarFicha').then((m) => ({ default: m.ReclamarFicha })));
+const VerifyBadge = lazy(() => import('@/pages/VerifyBadge').then((m) => ({ default: m.VerifyBadge })));
+const VerifiedRegistry = lazy(() => import('@/pages/VerifiedRegistry').then((m) => ({ default: m.VerifiedRegistry })));
 const Terms = lazy(() => import('@/pages/Terms').then((m) => ({ default: m.Terms })));
 const Privacy = lazy(() => import('@/pages/Privacy').then((m) => ({ default: m.Privacy })));
 const Support = lazy(() => import('@/pages/Support').then((m) => ({ default: m.Support })));
@@ -99,6 +101,8 @@ const router = createBrowserRouter([
       { path: '/proveedor/:id', element: <DirectoryGate><ProviderProfile /></DirectoryGate> },
       { path: '/lista/:token', element: <SharedList /> },
       { path: '/reclamar/:token', element: <ReclamarFicha /> },
+      { path: '/verificar/:folio', element: <VerifyBadge /> },
+      { path: '/verificados', element: <VerifiedRegistry /> },
       // Rutas en inglés (principal) + alias en español para no romper enlaces
       // existentes (pie, correos, documentos legales) ni SEO ya indexado.
       { path: '/terms', element: <Terms /> },

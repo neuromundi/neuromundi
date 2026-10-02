@@ -5267,5 +5267,35 @@
     "uploadError": "文件上传失败。",
     "tooBig": "文件超过 {{mb}} MB。",
     "needFolio": "请填写您的 RFC 或 CLUNI。"
+  },
+  "verifiable": {
+    "card": "你的可验证徽章",
+    "desc": "下载时带有你的编号和二维码，任何人都能实时核验你的状态。",
+    "download": "下载徽章",
+    "folioLabel": "编号",
+    "verifyLabel": "验证于",
+    "companyTitle": "包容性企业",
+    "memberTitle": "已验证成员"
+  },
+  "verify": {
+    "title": "徽章验证",
+    "checking": "正在验证…",
+    "notFound": "未找到徽章",
+    "found": "徽章已验证",
+    "noVigente": "徽章未生效",
+    "folio": "编号",
+    "company": "包容性企业",
+    "founder": "创始成员",
+    "neuro": "神经肯定型资料",
+    "lookupBtn": "验证"
+  },
+  "registry": {
+    "title": "已验证的伙伴",
+    "subtitle": "Neuromundi 的官方合作组织。",
+    "lookupTitle": "按编号验证徽章",
+    "placeholder": "编号，例如 NM-000123",
+    "alliesTitle": "官方伙伴",
+    "empty": "该国家尚未发布伙伴。",
+    "visit": "访问"
   }
 }

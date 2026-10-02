@@ -5267,5 +5267,35 @@
     "uploadError": "Die Datei konnte nicht hochgeladen werden.",
     "tooBig": "Die Datei ist größer als {{mb}} MB.",
     "needFolio": "Geben Sie Ihre RFC oder Ihr CLUNI an."
+  },
+  "verifiable": {
+    "card": "Dein überprüfbares Abzeichen",
+    "desc": "Lade es mit deiner Kennung und einem QR herunter, mit dem dein Status in Echtzeit geprüft werden kann.",
+    "download": "Abzeichen herunterladen",
+    "folioLabel": "Kennung",
+    "verifyLabel": "Prüfen unter",
+    "companyTitle": "Inklusives Unternehmen",
+    "memberTitle": "Verifiziertes Mitglied"
+  },
+  "verify": {
+    "title": "Abzeichen-Überprüfung",
+    "checking": "Wird geprüft…",
+    "notFound": "Abzeichen nicht gefunden",
+    "found": "Abzeichen verifiziert",
+    "noVigente": "Abzeichen nicht gültig",
+    "folio": "Kennung",
+    "company": "Inklusives Unternehmen",
+    "founder": "Gründungsmitglied",
+    "neuro": "Neuro-affirmatives Profil",
+    "lookupBtn": "Prüfen"
+  },
+  "registry": {
+    "title": "Verifizierte Partner",
+    "subtitle": "Offizielle Partnerorganisationen von Neuromundi.",
+    "lookupTitle": "Ein Abzeichen per Kennung prüfen",
+    "placeholder": "Kennung, z. B. NM-000123",
+    "alliesTitle": "Offizielle Partner",
+    "empty": "Für dieses Land sind noch keine Partner veröffentlicht.",
+    "visit": "Besuchen"
   }
 }

@@ -5267,5 +5267,35 @@
     "uploadError": "לא ניתן היה להעלות את הקובץ.",
     "tooBig": "הקובץ גדול מ-{{mb}} מגה.",
     "needFolio": "הזן את ה-RFC או ה-CLUNI שלך."
+  },
+  "verifiable": {
+    "card": "התג הניתן לאימות שלך",
+    "desc": "הורד אותו עם המספר שלך וקוד QR שמאפשר לבדוק את הסטטוס שלך בזמן אמת.",
+    "download": "הורדת תג",
+    "folioLabel": "מספר",
+    "verifyLabel": "אמת ב",
+    "companyTitle": "חברה מכילה",
+    "memberTitle": "חבר מאומת"
+  },
+  "verify": {
+    "title": "אימות תג",
+    "checking": "מאמת…",
+    "notFound": "התג לא נמצא",
+    "found": "תג מאומת",
+    "noVigente": "התג אינו בתוקף",
+    "folio": "מספר",
+    "company": "חברה מכילה",
+    "founder": "חבר מייסד",
+    "neuro": "פרופיל נוירו-מאשר",
+    "lookupBtn": "אמת"
+  },
+  "registry": {
+    "title": "בעלי ברית מאומתים",
+    "subtitle": "ארגונים שותפים רשמיים של Neuromundi.",
+    "lookupTitle": "אימות תג לפי מספר",
+    "placeholder": "מספר, לדוגמה NM-000123",
+    "alliesTitle": "בעלי ברית רשמיים",
+    "empty": "אין עדיין בעלי ברית שפורסמו למדינה זו.",
+    "visit": "ביקור"
   }
 }

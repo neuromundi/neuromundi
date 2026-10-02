@@ -66,6 +66,7 @@ import { useProviderRatings, type ProviderComment } from '@/hooks/useProviderRat
 import { useMyBadge } from '@/hooks/useMyBadge';
 import { BadgeProgress } from './BadgeProgress';
 import { AliadoCertificateCard } from './AliadoCertificateCard';
+import { VerifiableBadgeCard } from './VerifiableBadgeCard';
 import { GlobalMemberBadge } from './GlobalMemberBadge';
 import { ProviderMetricsPanel } from './ProviderMetricsPanel';
 import { SchoolInclusionPanel } from './SchoolInclusionPanel';
@@ -501,6 +502,7 @@ function RatingsTab({
         <BadgeProgress badge={myBadge} inputs={myInputs} />
         <GlobalMemberBadge />
         <AliadoCertificateCard badge={myBadge} />
+        <VerifiableBadgeCard />
         <MemberBadgesCard memberType={providerType} />
         <NeuromundiIdOptIn />
         <SealsCard />
@@ -515,6 +517,7 @@ function RatingsTab({
     <div className="space-y-6">
       <BadgeProgress badge={myBadge} inputs={myInputs} />
       <AliadoCertificateCard badge={myBadge} />
+      <VerifiableBadgeCard />
       <MemberBadgesCard memberType={providerType} />
       <NeuromundiIdOptIn />
       <SealsCard />
