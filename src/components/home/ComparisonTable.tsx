@@ -46,11 +46,12 @@ export function ComparisonTable() {
       const { data } = await supabase.rpc('nm_compare_price', { p_country: country });
       const row = Array.isArray(data) ? data[0] : data;
       if (!alive) return;
-      setLive(row && row.min_founder != null ? { currency: row.currency, min: Number(row.min_founder) } : null);
+      setLive(row && row.min_month != null ? { currency: row.currency, min: Number(row.min_month) } : null);
     })();
     return () => { alive = false; };
   }, [country]);
 
+  // Mensual (igual base que los competidores, que van "/mes"), para comparar de tú a tú.
   const liveValue = live
     ? t('home.compare.price.from', {
         v: new Intl.NumberFormat(i18n.language, { style: 'currency', currency: live.currency, maximumFractionDigits: 0 }).format(live.min),
@@ -121,7 +122,7 @@ export function ComparisonTable() {
                 </td>
                 <td className="bg-brand-100/70 p-4 text-center align-middle">
                   <span className="font-extrabold text-brand-700">{liveValue ?? nm.value ?? t(nm.key ?? '')}</span>
-                  <span className="mt-0.5 block text-xs font-medium text-muted">{t(nm.subKey)}</span>
+                  <span className="mt-0.5 block text-xs font-medium text-muted">{t(live ? 'home.compare.price.nmSub' : nm.subKey)}</span>
                 </td>
                 {cols.map((c, i) => (
                   <td key={i} className="p-4 text-center align-middle">

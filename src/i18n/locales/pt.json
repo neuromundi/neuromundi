@@ -218,7 +218,7 @@
         "eurMonth": "EUR / mês",
         "usdMonth": "USD / mês",
         "nmMxSub": "MXN / mês · fundadores",
-        "from": "a partir de {{v}}/ano"
+        "from": "a partir de {{v}}/mês"
       },
       "footnote": "Comparativo elaborado com informações públicas de cada plataforma em setembro de 2026. As plataformas mencionadas são marcas de seus respectivos titulares; citadas apenas para fins comparativos e informativos.",
       "yes": "Sim",

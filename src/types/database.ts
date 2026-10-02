@@ -1666,7 +1666,7 @@ export interface Database {
       };
       nm_compare_price: {
         Args: { p_country: string };
-        Returns: { currency: string; min_founder: number; max_founder: number }[];
+        Returns: { currency: string; min_month: number; max_month: number }[];
       };
       verify_badge: {
         Args: { p_folio: string };
