@@ -14,34 +14,38 @@ import { PlayCircle, Sparkles, X, SkipForward } from 'lucide-react';
 import { Button } from '@/components/ui';
 
 export function CampaignWelcomePopup({ onClose, onSeeBenefits }: { onClose: () => void; onSeeBenefits: () => void }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [playing, setPlaying] = useState(false);
-  // A prueba de fallos: solo mostramos "Ver video" si el archivo existe en el
-  // sitio. Mientras no esté subido, el popup enseña únicamente los beneficios
-  // (a todo el ancho) en vez de un botón que lleva a un reproductor vacío.
-  const [videoOk, setVideoOk] = useState(false);
+  // Video por IDIOMA con respaldo a español. Se prueba en orden:
+  //   welcome-neuromundi-<lang>.{webm,mp4}  →  welcome-neuromundi.{webm,mp4}
+  // Solo se muestra "Ver video" si alguno existe (a prueba de fallos: sin archivo,
+  // el popup enseña únicamente los beneficios a todo el ancho).
+  const [videoUrl, setVideoUrl] = useState<string | null>(null);
   useEffect(() => {
     let alive = true;
+    const lang = (i18n.language || 'es').slice(0, 2);
+    const candidates: string[] = [];
+    if (lang !== 'es') candidates.push(`/welcome-neuromundi-${lang}.webm`, `/welcome-neuromundi-${lang}.mp4`);
+    candidates.push('/welcome-neuromundi.webm', '/welcome-neuromundi.mp4');
     (async () => {
-      for (const url of ['/welcome-neuromundi.webm', '/welcome-neuromundi.mp4']) {
+      for (const url of candidates) {
         try {
           const r = await fetch(url, { method: 'HEAD' });
           if (r.ok && (r.headers.get('content-type') ?? '').startsWith('video')) {
-            if (alive) setVideoOk(true);
+            if (alive) setVideoUrl(url);
             return;
           }
-        } catch { /* sin conexión o 404: se queda sin video */ }
+        } catch { /* 404/sin red: siguiente candidato */ }
       }
     })();
     return () => { alive = false; };
-  }, []);
+  }, [i18n.language]);
 
-  if (playing) {
+  if (playing && videoUrl) {
     return (
       <div className="fixed inset-0 z-[110] flex items-center justify-center bg-black">
         <video className="h-full w-full object-contain" autoPlay playsInline controls preload="metadata" onEnded={() => setPlaying(false)} onError={() => setPlaying(false)}>
-          <source src="/welcome-neuromundi.webm" type="video/webm" />
-          <source src="/welcome-neuromundi.mp4" type="video/mp4" />
+          <source src={videoUrl} />
         </video>
         <button type="button" onClick={() => setPlaying(false)} className="absolute bottom-6 right-6 z-10 inline-flex items-center gap-2 rounded-full bg-white/90 px-4 py-2.5 text-sm font-semibold text-slate-900 shadow-lg backdrop-blur hover:bg-white">
           {t('intro.skip')} <SkipForward className="h-4 w-4" aria-hidden="true" />
@@ -57,9 +61,9 @@ export function CampaignWelcomePopup({ onClose, onSeeBenefits }: { onClose: () =
           <X className="h-5 w-5" />
         </button>
 
-        <div className={videoOk ? 'grid sm:grid-cols-2' : 'grid'}>
+        <div className={videoUrl ? 'grid sm:grid-cols-2' : 'grid'}>
           {/* Izquierda: ver video (solo si el video existe) */}
-          {videoOk && (
+          {videoUrl && (
             <button type="button" onClick={() => setPlaying(true)} className="group flex min-h-[240px] flex-col items-center justify-center gap-3 bg-gradient-to-br from-brand-600 to-indigo-700 p-6 text-center text-white transition hover:brightness-110">
               <PlayCircle className="h-16 w-16 opacity-90 transition group-hover:scale-105" aria-hidden="true" />
               <span className="text-lg font-bold">{t('campaign.welcome.watch')}</span>
