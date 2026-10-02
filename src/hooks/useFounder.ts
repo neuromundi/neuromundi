@@ -53,26 +53,29 @@ export const FOUNDER_CAPACITY: Record<FounderKind, number> = {
  */
 export function useFounderCapacity(kind: FounderKind | null, country: string | null | undefined) {
   const [used, setUsed] = useState(0);
+  // Cupo POR PAÍS (migración 0189): se lee de la base (founder_cap_for), que cae
+  // al global si el país no tiene cupo propio. El constante FOUNDER_CAPACITY es
+  // solo respaldo local mientras llega la respuesta.
+  const [capacity, setCapacity] = useState(kind ? FOUNDER_CAPACITY[kind] : 0);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let cancelled = false;
-    if (!kind || !country) { setUsed(0); setLoading(false); return; }
+    if (!kind || !country) { setUsed(0); setCapacity(0); setLoading(false); return; }
     (async () => {
       setLoading(true);
-      const { count } = await supabase
-        .from('founder_members')
-        .select('user_id', { count: 'exact', head: true })
-        .eq('kind', kind)
-        .eq('country', country);
+      const [countRes, capRes] = await Promise.all([
+        supabase.from('founder_members').select('user_id', { count: 'exact', head: true }).eq('kind', kind).eq('country', country),
+        supabase.rpc('founder_cap_for', { p_country: country, p_kind: kind }),
+      ]);
       if (cancelled) return;
-      setUsed(count ?? 0);
+      setUsed(countRes.count ?? 0);
+      setCapacity(typeof capRes.data === 'number' ? capRes.data : FOUNDER_CAPACITY[kind]);
       setLoading(false);
     })();
     return () => { cancelled = true; };
   }, [kind, country]);
 
-  const capacity = kind ? FOUNDER_CAPACITY[kind] : 0;
   const remaining = Math.max(0, capacity - used);
   const reached = !!kind && !!country && used >= capacity;
   return { used, capacity, remaining, reached, loading };
