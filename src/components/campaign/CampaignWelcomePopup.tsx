@@ -8,7 +8,7 @@
  * `public/welcome-neuromundi.{webm,mp4}` (lo sube el equipo; si falta, el reproductor
  * se cierra solo sin romper nada).
  */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { PlayCircle, Sparkles, X, SkipForward } from 'lucide-react';
 import { Button } from '@/components/ui';
@@ -16,6 +16,25 @@ import { Button } from '@/components/ui';
 export function CampaignWelcomePopup({ onClose, onSeeBenefits }: { onClose: () => void; onSeeBenefits: () => void }) {
   const { t } = useTranslation();
   const [playing, setPlaying] = useState(false);
+  // A prueba de fallos: solo mostramos "Ver video" si el archivo existe en el
+  // sitio. Mientras no esté subido, el popup enseña únicamente los beneficios
+  // (a todo el ancho) en vez de un botón que lleva a un reproductor vacío.
+  const [videoOk, setVideoOk] = useState(false);
+  useEffect(() => {
+    let alive = true;
+    (async () => {
+      for (const url of ['/welcome-neuromundi.webm', '/welcome-neuromundi.mp4']) {
+        try {
+          const r = await fetch(url, { method: 'HEAD' });
+          if (r.ok && (r.headers.get('content-type') ?? '').startsWith('video')) {
+            if (alive) setVideoOk(true);
+            return;
+          }
+        } catch { /* sin conexión o 404: se queda sin video */ }
+      }
+    })();
+    return () => { alive = false; };
+  }, []);
 
   if (playing) {
     return (
@@ -38,13 +57,15 @@ export function CampaignWelcomePopup({ onClose, onSeeBenefits }: { onClose: () =
           <X className="h-5 w-5" />
         </button>
 
-        <div className="grid sm:grid-cols-2">
-          {/* Izquierda: ver video */}
-          <button type="button" onClick={() => setPlaying(true)} className="group flex min-h-[240px] flex-col items-center justify-center gap-3 bg-gradient-to-br from-brand-600 to-indigo-700 p-6 text-center text-white transition hover:brightness-110">
-            <PlayCircle className="h-16 w-16 opacity-90 transition group-hover:scale-105" aria-hidden="true" />
-            <span className="text-lg font-bold">{t('campaign.welcome.watch')}</span>
-            <span className="text-sm text-white/80">{t('campaign.welcome.watchSub')}</span>
-          </button>
+        <div className={videoOk ? 'grid sm:grid-cols-2' : 'grid'}>
+          {/* Izquierda: ver video (solo si el video existe) */}
+          {videoOk && (
+            <button type="button" onClick={() => setPlaying(true)} className="group flex min-h-[240px] flex-col items-center justify-center gap-3 bg-gradient-to-br from-brand-600 to-indigo-700 p-6 text-center text-white transition hover:brightness-110">
+              <PlayCircle className="h-16 w-16 opacity-90 transition group-hover:scale-105" aria-hidden="true" />
+              <span className="text-lg font-bold">{t('campaign.welcome.watch')}</span>
+              <span className="text-sm text-white/80">{t('campaign.welcome.watchSub')}</span>
+            </button>
+          )}
 
           {/* Derecha: conocer beneficios */}
           <div className="flex min-h-[240px] flex-col items-center justify-center gap-3 p-6 text-center">
