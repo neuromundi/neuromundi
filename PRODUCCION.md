@@ -589,3 +589,49 @@ La Edge Function `wallet-pass` está lista pero **apagada** hasta tener credenci
 - Poner los secrets, `supabase functions deploy wallet-pass --use-api`, y en el `.env`
   del front `VITE_WALLET_ENABLED=true` + recompilar. Guía paso a paso con los comandos
   exactos: **`docs/NEUROMUNDI_ID_WALLET.md`**.
+
+## Lanzamiento de campaña al público (2026-10-01) — pendientes y notas
+
+**Estado:** la campaña se activó al público (`campaign_config.active=true`,
+`start_at=2026-10-02 06:00Z` = 1-oct 00:00 CDMX, `directory_open=true` → el directorio
+queda ABIERTO, `popup_active=true` en todos los continentes, `founder_discount=[]` sin
+descuento extra, límite de fundador 1-nov, `community_url` = Canal de WhatsApp).
+
+### Pendientes que requieren tus manos
+1. **Desplegar el webhook de Stripe** con el enganche de créditos de alianza
+   (migración 0184). El código ya está en `supabase/functions/stripe-webhook/index.ts`:
+   ```
+   supabase functions deploy stripe-webhook --use-api --no-verify-jwt
+   ```
+   Sin esto, los créditos de alianza NO se acumulan (todo lo demás funciona).
+2. **Subir el distintivo "Empresa Inclusiva"** en Panel → Distintivos, tipo de miembro
+   **Empresas (company)** (archivo en `FLYERS/Distintivo Empresa Inclusiva Neuromundi.png`).
+   Sube al bucket `badges` y crea la fila en `member_badges` automáticamente.
+3. **Subir el video de bienvenida** `public/welcome-neuromundi.{webm,mp4}` cuando esté
+   listo (el popup ya es a prueba de fallos: si no existe, oculta la mitad de video).
+
+### Migraciones nuevas (ya aplicadas en producción vía el conector)
+- **0183** — relevancia: fundador/donante como desempate por banda en `search_all` +
+  directorio; helpers `is_donor` / `donor_provider_ids`.
+- **0184** — créditos de alianza: `alliance_partners`, `alliance_credits`,
+  `record_alliance_credit` (service_role), `admin_alliance_summary/redeem/set_alliance_partner`.
+  10 alianzas sembradas con sus códigos.
+- **0185** — `founder_count()` público para el contador del home (umbral 20).
+
+### Marketing de lanzamiento (archivos de trabajo, NO versionados)
+- `Campana Facebook Neuromundi - rastreador copys y plantillas.xlsx` — rastreador de
+  63 comunidades + UTM + copys + plantillas + envíos prioritarios.
+- Flyers y distintivos en `FLYERS/`. Códigos promo de alianza (percent 10, vence 1-nov,
+  scope provider): FESPAU10, FEDMA10, PARKINSONMX10, FEDACE10, DOWNPERU10, ASDRA10,
+  PROYECTODAH10, AUTISMOESP10, RIADIS10, FEDE10.
+
+### Distintivo verificable (propuesto, pendiente de construir)
+Para que los distintivos de Aliado/Empresa sean **verificables y anticlonación**: badge
+personalizado (nombre + folio NM + QR) + página pública de verificación (`verify_badge`)
++ registro público, reutilizando el patrón de Neuromundi ID / `NeuromundiSeal` / `/red`.
+La imagen es ilustrativa; la autoridad es la URL de verificación (revocable con `is_active`).
+
+### Fases de lanzamiento por país (2026-10) — es/pt activos, resto 2027
+- **Activos** (tarifas + fundador): países hispanohablantes + **Brasil**, **Portugal** y **EE.UU.** (público hispano). Lista en `src/data/launchMarkets.ts` (`ACTIVE_MARKETS`).
+- **Resto**: fase "próximamente inicio 2027" → banner con lista de espera (`ComingSoonBanner`), tarifas ocultas en `MembershipModal`, correos en `launch_waitlist` (migración 0188, `join_launch_waitlist`).
+- **PENDIENTE antes de cobrar en Brasil/Portugal**: cargar sus `membership_prices` en Panel → Cuotas. Sin ellas, el checkout de prestadores allí falla (las familias son gratis y no se afectan). El portugués ya está traducido al 100%.

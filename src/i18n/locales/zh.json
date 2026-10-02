@@ -5300,5 +5300,15 @@
     "alliesTitle": "官方伙伴",
     "empty": "该国家尚未发布伙伴。",
     "visit": "访问"
+  },
+  "launch": {
+    "soonTitle": "即将在你的国家上线",
+    "soonBody": "我们正准备于2027年初在你的国家上线Neuromundi。留下你的邮箱，上线时通知你。",
+    "year": "2027年上线",
+    "emailPlaceholder": "你的邮箱",
+    "join": "通知我",
+    "joined": "完成！我们会联系你。",
+    "invalid": "邮箱无效",
+    "modalBody": "你所在国家的会员将于2027年初开放，目前暂无价格。"
   }
 }

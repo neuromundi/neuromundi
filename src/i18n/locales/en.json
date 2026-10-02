@@ -5300,5 +5300,15 @@
     "alliesTitle": "Official allies",
     "empty": "No allies published for this country yet.",
     "visit": "Visit"
+  },
+  "launch": {
+    "soonTitle": "Coming soon to your country",
+    "soonBody": "We're preparing Neuromundi's launch in your country for early 2027. Leave your email and we'll let you know when we open.",
+    "year": "Launching 2027",
+    "emailPlaceholder": "Your email",
+    "join": "Notify me",
+    "joined": "Done! We'll be in touch.",
+    "invalid": "Invalid email",
+    "modalBody": "Memberships in your country open in early 2027. No pricing is available yet."
   }
 }

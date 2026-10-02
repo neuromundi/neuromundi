@@ -16,6 +16,9 @@ import { useMembership, type BillingPeriod } from '@/hooks/useMembership';
 import { cn } from '@/lib/utils';
 import { annualSaving, combinedDiscountPct, priceAfterPct } from '@/lib/pricing';
 import { useCampaign } from '@/hooks/useCampaign';
+import { useAuthStore } from '@/stores/authStore';
+import { isComingSoon } from '@/data/launchMarkets';
+import { Clock } from 'lucide-react';
 
 const PROMO_ERRORS: Record<string, string> = {
   invalid: 'membership.promoInvalid',
@@ -40,6 +43,8 @@ export function MembershipModal({ open, onClose }: { open: boolean; onClose: () 
 
   const exempt = status === 'exempt';
   const active = status === 'active';
+  // País en fase "próximamente 2027": se ocultan las tarifas y el pago.
+  const comingSoon = isComingSoon(useAuthStore((s) => s.profile)?.country);
 
   const onPay = async () => {
     setBusy(true);
@@ -122,6 +127,13 @@ export function MembershipModal({ open, onClose }: { open: boolean; onClose: () 
           <Button onClick={onClose} fullWidth>
             {t('common.close')}
           </Button>
+        </div>
+      ) : comingSoon ? (
+        <div className="space-y-3 text-center">
+          <Clock className="mx-auto h-12 w-12 text-amber-500" aria-hidden="true" />
+          <p className="font-semibold text-slate-900">{t('launch.soonTitle')} · {t('launch.year')}</p>
+          <p className="text-sm text-muted">{t('launch.modalBody')}</p>
+          <Button onClick={onClose} fullWidth>{t('common.close')}</Button>
         </div>
       ) : (
         <div className="space-y-4">

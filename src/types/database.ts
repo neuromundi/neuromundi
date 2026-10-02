@@ -1668,6 +1668,10 @@ export interface Database {
         Args: { p_id: string };
         Returns: { found: boolean; name: string | null; website: string | null; countries: string[] | null; vigente: boolean }[];
       };
+      join_launch_waitlist: {
+        Args: { p_email: string; p_country?: string };
+        Returns: undefined;
+      };
       admin_country_discounts: {
         Args: Record<string, never>;
         Returns: { country_label: string; pct: number; is_active: boolean; note: string | null; updated_at: string }[];

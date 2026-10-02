@@ -16,6 +16,7 @@ import { HeroCarousel } from '@/components/home/HeroCarousel';
 import { ComparisonTable } from '@/components/home/ComparisonTable';
 import { SearchableSelect } from '@/components/directory/SearchableSelect';
 import { FoundersCounter } from '@/components/campaign/FoundersCounter';
+import { ComingSoonBanner } from '@/components/campaign/ComingSoonBanner';
 
 // Debajo del pliegue y diferidos por scroll: se sacan del bundle inicial (su
 // código y sus consultas a Supabase ya no viajan en index-*.js).
@@ -54,6 +55,7 @@ export function Home() {
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10">
+      <div className="mb-6"><ComingSoonBanner /></div>
       {/* HÉROE */}
       <section className="grid items-start gap-8 lg:grid-cols-2">
         <div className="order-last text-left lg:order-first">
