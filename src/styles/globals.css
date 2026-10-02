@@ -43,7 +43,7 @@
 
   body {
     @apply bg-surface text-slate-900 antialiased;
-    font-family: 'Inter', 'Inter Fallback', system-ui, sans-serif;
+    font-family: 'Inter Fallback', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   }
 
   /* Foco visible consistente para navegación por teclado */
