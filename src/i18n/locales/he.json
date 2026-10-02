@@ -269,7 +269,8 @@
         "software": "תוכנות לניהול מרפאה"
       }
     },
-    "becomeFounderBtn": "איך להיות מייסד?"
+    "becomeFounderBtn": "איך להיות מייסד?",
+    "foundersCount": "מייסדים הם כבר חלק מהקהילה"
   },
   "auth": {
     "login": "התחברות",

@@ -269,7 +269,8 @@
         "software": "Software de consultorio"
       }
     },
-    "becomeFounderBtn": "¿Cómo ser fundador?"
+    "becomeFounderBtn": "¿Cómo ser fundador?",
+    "foundersCount": "fundadores ya forman parte de la comunidad"
   },
   "auth": {
     "login": "Entrar",

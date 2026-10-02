@@ -232,7 +232,8 @@
         "software": "Software de gestão de consultório"
       }
     },
-    "becomeFounderBtn": "Como ser fundador?"
+    "becomeFounderBtn": "Como ser fundador?",
+    "foundersCount": "fundadores já fazem parte da comunidade"
   },
   "auth": {
     "login": "Entrar",

@@ -232,7 +232,8 @@
         "software": "Software gestionale per studi"
       }
     },
-    "becomeFounderBtn": "Come diventare fondatore?"
+    "becomeFounderBtn": "Come diventare fondatore?",
+    "foundersCount": "fondatori fanno già parte della comunità"
   },
   "auth": {
     "login": "Accedi",

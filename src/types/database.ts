@@ -1656,6 +1656,10 @@ export interface Database {
         Args: Record<string, never>;
         Returns: { id: string }[];
       };
+      founder_count: {
+        Args: Record<string, never>;
+        Returns: number;
+      };
       admin_country_discounts: {
         Args: Record<string, never>;
         Returns: { country_label: string; pct: number; is_active: boolean; note: string | null; updated_at: string }[];

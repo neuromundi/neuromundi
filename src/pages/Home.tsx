@@ -15,6 +15,7 @@ import { Button } from '@/components/ui';
 import { HeroCarousel } from '@/components/home/HeroCarousel';
 import { ComparisonTable } from '@/components/home/ComparisonTable';
 import { SearchableSelect } from '@/components/directory/SearchableSelect';
+import { FoundersCounter } from '@/components/campaign/FoundersCounter';
 
 // Debajo del pliegue y diferidos por scroll: se sacan del bundle inicial (su
 // código y sus consultas a Supabase ya no viajan en index-*.js).
@@ -138,6 +139,8 @@ export function Home() {
           </div>
         </div>
       </section>
+
+      <FoundersCounter />
 
       {/* Confianza */}
       <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">

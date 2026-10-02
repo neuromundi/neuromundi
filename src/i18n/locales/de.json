@@ -232,7 +232,8 @@
         "software": "Praxisverwaltungssoftware"
       }
     },
-    "becomeFounderBtn": "Wie werde ich Gründungsmitglied?"
+    "becomeFounderBtn": "Wie werde ich Gründungsmitglied?",
+    "foundersCount": "Gründer sind bereits Teil der Gemeinschaft"
   },
   "auth": {
     "login": "Anmelden",

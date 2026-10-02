@@ -232,7 +232,8 @@
         "software": "诊所管理软件"
       }
     },
-    "becomeFounderBtn": "如何成为创始成员？"
+    "becomeFounderBtn": "如何成为创始成员？",
+    "foundersCount": "位创始成员已加入社区"
   },
   "auth": {
     "login": "登录",

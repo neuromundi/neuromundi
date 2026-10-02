@@ -269,7 +269,8 @@
         "software": "진료 관리 소프트웨어"
       }
     },
-    "becomeFounderBtn": "창립 멤버가 되는 방법?"
+    "becomeFounderBtn": "창립 멤버가 되는 방법?",
+    "foundersCount": "명의 창립 멤버가 이미 커뮤니티에 함께합니다"
   },
   "auth": {
     "login": "로그인",

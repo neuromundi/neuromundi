@@ -269,7 +269,8 @@
         "software": "Practice management software"
       }
     },
-    "becomeFounderBtn": "How to become a founder?"
+    "becomeFounderBtn": "How to become a founder?",
+    "foundersCount": "founders are already part of the community"
   },
   "auth": {
     "login": "Sign in",

@@ -225,6 +225,24 @@ Deno.serve(async (req: Request) => {
           }
           // El referente de este usuario gana su recompensa (si aplica).
           await applyReferralReward(admin, stripe, userId);
+          // Crédito de alianza: si se afilió con el código de una alianza
+          // (profiles.promo_code_used), se registra el crédito a su favor para
+          // el programa de retorno. Best-effort: no debe tumbar el webhook.
+          try {
+            const { data: prof } = await admin
+              .from('profiles').select('promo_code_used').eq('id', userId).maybeSingle();
+            const allyCode = (prof as { promo_code_used?: string | null } | null)?.promo_code_used ?? null;
+            if (allyCode) {
+              await admin.rpc('record_alliance_credit', {
+                p_user_id: userId,
+                p_code: allyCode,
+                p_currency: s.currency ?? null,
+                p_amount: s.amount_total != null ? s.amount_total / 100 : null,
+              });
+            }
+          } catch (e) {
+            console.error('record_alliance_credit', e);
+          }
           // Confirmación de pago: notifica al miembro (el trigger trg_notify_push
           // dispara el push nativo) y avisa a los admins. Best-effort: nunca debe
           // tumbar el webhook.
@@ -264,6 +282,11 @@ Deno.serve(async (req: Request) => {
         const sessions = await stripe.checkout.sessions.list({ payment_intent: pi, limit: 1 });
         const sessionId = sessions.data[0]?.id;
         if (!sessionId) break;
+        // Si era una membresía con código de alianza, anula su crédito.
+        const refUser = sessions.data[0]?.metadata?.user_id;
+        if (refUser) {
+          await admin.from('alliance_credits').update({ status: 'void' }).eq('source_user_id', refUser);
+        }
         await admin
           .from('orders')
           .update({ status: 'refunded' })

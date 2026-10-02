@@ -232,7 +232,8 @@
         "software": "診療管理ソフトウェア"
       }
     },
-    "becomeFounderBtn": "創設メンバーになるには？"
+    "becomeFounderBtn": "創設メンバーになるには？",
+    "foundersCount": "人の創設メンバーがすでにコミュニティに参加しています"
   },
   "auth": {
     "login": "ログイン",

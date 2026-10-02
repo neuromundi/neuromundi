@@ -232,7 +232,8 @@
         "software": "Logiciels de gestion de cabinet"
       }
     },
-    "becomeFounderBtn": "Comment devenir fondateur ?"
+    "becomeFounderBtn": "Comment devenir fondateur ?",
+    "foundersCount": "fondateurs font déjà partie de la communauté"
   },
   "auth": {
     "login": "Se connecter",
