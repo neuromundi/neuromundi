@@ -617,6 +617,8 @@ export function AppLayout() {
         <span className="mx-2">·</span>
         <Link to="/fundadores" className="hover:text-brand-700">{t('nav.founders')}</Link>
         <span className="mx-2">·</span>
+        <Link to="/verificados" className="hover:text-brand-700">{t('registry.title')}</Link>
+        <span className="mx-2">·</span>
         <Link to="/donar" className="font-semibold text-[#6f5314] hover:underline">{t('nav.donate')}</Link>
         <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
           <button
