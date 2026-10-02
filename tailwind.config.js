@@ -41,7 +41,7 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['Inter Fallback', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif'],
       },
       keyframes: {
         fade: {

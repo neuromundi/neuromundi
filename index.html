@@ -84,12 +84,21 @@
          fetch y el preconnect se desperdicia (Lighthouse lo marcaba como
          "conexión previa no utilizada", ~300 ms de LCP perdidos). -->
     <link rel="preconnect" href="https://sboagswcehuxwfjdbhdn.supabase.co" crossorigin />
-    <!-- BLINDAJE (2026-10): la tipografía del texto ya NO depende de Google Fonts.
-         Se usa la pila de fuentes del sistema vía el @font-face 'Inter Fallback'
-         (ajustado métricamente en globals.css), así el texto SIEMPRE es legible y
-         no puede corromperse por una descarga externa fallida o cacheada mal.
-         Para recuperar la tipografía Inter exacta sin depender de Google, se puede
-         auto-alojar con @fontsource/inter (requiere npm install). -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- display=optional (no swap): si Inter no llega en ~100 ms se usa el
+         respaldo métricamente idéntico durante toda la carga y NUNCA se
+         reemplaza. Es lo que elimina el desplazamiento de diseño; en la
+         siguiente visita la fuente ya está en caché y sí se aplica. -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=optional"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=optional" />
+    </noscript>
 
     <link rel="icon" href="/favicon.ico?v=2026" sizes="any" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=2026" />
