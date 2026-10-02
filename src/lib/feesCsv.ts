@@ -38,6 +38,12 @@ export const FEE_TYPES = [
   'merchant',
   'school',
   'clinic',
+  'caregiver',
+  'legal',
+  'ngo',
+  'tourism',
+  'wellness',
+  'company',
 ] as const;
 
 export type FeeType = (typeof FEE_TYPES)[number];
@@ -90,6 +96,12 @@ const TYPE_ALIASES: Record<string, FeeType> = {
   proveedor: 'merchant',
   escuela: 'school',
   clinica: 'clinic',
+  cuidador: 'caregiver',
+  ong: 'ngo',
+  turismo: 'tourism',
+  esparcimiento: 'tourism',
+  bienestar: 'wellness',
+  empresa: 'company',
 };
 
 function stripAccents(s: string): string {
