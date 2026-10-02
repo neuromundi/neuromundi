@@ -3689,7 +3689,8 @@
       "allCountries": "すべての国",
       "externalTitle": "外部サーバーのロゴ",
       "externalBody": "このロゴは別ドメインから配信され、サイズやキャッシュを制御できません。重いとトップページが遅くなります。最適化して自社サイトにアップロードすることをおすすめします。それでも保存しますか？",
-      "externalHint": "外部ロゴ：トップページを遅くしないよう、最適化して自分のサイトにアップロードしてください。"
+      "externalHint": "外部ロゴ：トップページを遅くしないよう、最適化して自分のサイトにアップロードしてください。",
+      "badge": "バッジ"
     },
     "tier": {
       "title": "通貨ごとの寄付金額",
@@ -5275,7 +5276,8 @@
     "folioLabel": "会員番号",
     "verifyLabel": "確認先",
     "companyTitle": "インクルーシブ企業",
-    "memberTitle": "認証済みメンバー"
+    "memberTitle": "認証済みメンバー",
+    "allyTitle": "Neuromundi アライ"
   },
   "verify": {
     "title": "バッジの検証",
@@ -5287,7 +5289,8 @@
     "company": "インクルーシブ企業",
     "founder": "創設メンバー",
     "neuro": "ニューロ・アファーミング・プロフィール",
-    "lookupBtn": "確認"
+    "lookupBtn": "確認",
+    "ally": "Neuromundi 公式アライ"
   },
   "registry": {
     "title": "認証済みのアライ",

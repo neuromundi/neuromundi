@@ -3689,7 +3689,8 @@
       "allCountries": "所有国家",
       "externalTitle": "外部服务器上的徽标",
       "externalBody": "该徽标来自其他域名，无法控制大小和缓存；过大的徽标会拖慢首页。建议优化后上传到你自己的站点。仍要保存吗？",
-      "externalHint": "外部徽标：请优化后上传到你的站点，以免拖慢首页。"
+      "externalHint": "外部徽标：请优化后上传到你的站点，以免拖慢首页。",
+      "badge": "徽章"
     },
     "tier": {
       "title": "各币种的捐赠金额",
@@ -5275,7 +5276,8 @@
     "folioLabel": "编号",
     "verifyLabel": "验证于",
     "companyTitle": "包容性企业",
-    "memberTitle": "已验证成员"
+    "memberTitle": "已验证成员",
+    "allyTitle": "Neuromundi 伙伴"
   },
   "verify": {
     "title": "徽章验证",
@@ -5287,7 +5289,8 @@
     "company": "包容性企业",
     "founder": "创始成员",
     "neuro": "神经肯定型资料",
-    "lookupBtn": "验证"
+    "lookupBtn": "验证",
+    "ally": "Neuromundi 官方伙伴"
   },
   "registry": {
     "title": "已验证的伙伴",

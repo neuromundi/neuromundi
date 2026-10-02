@@ -55,6 +55,7 @@ const SharedList = lazy(() => import('@/pages/SharedList').then((m) => ({ defaul
 const ReclamarFicha = lazy(() => import('@/pages/ReclamarFicha').then((m) => ({ default: m.ReclamarFicha })));
 const VerifyBadge = lazy(() => import('@/pages/VerifyBadge').then((m) => ({ default: m.VerifyBadge })));
 const VerifiedRegistry = lazy(() => import('@/pages/VerifiedRegistry').then((m) => ({ default: m.VerifiedRegistry })));
+const VerifyAlly = lazy(() => import('@/pages/VerifyAlly').then((m) => ({ default: m.VerifyAlly })));
 const Terms = lazy(() => import('@/pages/Terms').then((m) => ({ default: m.Terms })));
 const Privacy = lazy(() => import('@/pages/Privacy').then((m) => ({ default: m.Privacy })));
 const Support = lazy(() => import('@/pages/Support').then((m) => ({ default: m.Support })));
@@ -101,6 +102,7 @@ const router = createBrowserRouter([
       { path: '/proveedor/:id', element: <DirectoryGate><ProviderProfile /></DirectoryGate> },
       { path: '/lista/:token', element: <SharedList /> },
       { path: '/reclamar/:token', element: <ReclamarFicha /> },
+      { path: '/verificar/aliado/:id', element: <VerifyAlly /> },
       { path: '/verificar/:folio', element: <VerifyBadge /> },
       { path: '/verificados', element: <VerifiedRegistry /> },
       // Rutas en inglés (principal) + alias en español para no romper enlaces

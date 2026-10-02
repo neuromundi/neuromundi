@@ -16,6 +16,7 @@ import type { Ally } from '@/hooks/useDonorWall';
 import { COUNTRIES } from '@/data/countries';
 import { formatDonation } from '@/lib/donation';
 import { formatDate, cn } from '@/lib/utils';
+import { AllyBadgeButton } from './AllyBadgeButton';
 
 const inputCls = 'w-full rounded-lg border border-slate-200 px-2 py-1.5 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500';
 
@@ -322,6 +323,7 @@ function AlliesManager() {
                 {a.is_active ? t('adm.ally.hide') : t('adm.ally.show')}
               </Button>
               <Button size="sm" variant="ghost" onClick={() => setDraft(a)} leadingIcon={<Pencil className="h-4 w-4" />}>{t('adm.ally.edit')}</Button>
+              <AllyBadgeButton id={a.id} name={a.name} />
               <Button
                 size="sm" variant="ghost"
                 onClick={async () => { if (await confirm({ title: t('adm.ally.delTitle'), message: t('adm.ally.delBody'), danger: true })) { const ok = await remove(a.id); if (ok) toast.success(t('adm.ally.deleted')); } }}

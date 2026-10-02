@@ -3689,7 +3689,8 @@
       "allCountries": "Alle Länder",
       "externalTitle": "Logo auf externem Server",
       "externalBody": "Dieses Logo wird von einer anderen Domain geladen, ohne Größen- oder Cache-Kontrolle; ein schweres Logo verlangsamt die Startseite. Wir empfehlen, es optimiert auf deine eigene Seite hochzuladen. Trotzdem speichern?",
-      "externalHint": "Externes Logo: Lade es optimiert auf deine Seite, damit die Startseite nicht langsamer wird."
+      "externalHint": "Externes Logo: Lade es optimiert auf deine Seite, damit die Startseite nicht langsamer wird.",
+      "badge": "Abzeichen"
     },
     "tier": {
       "title": "Spendenbeträge nach Währung",
@@ -5275,7 +5276,8 @@
     "folioLabel": "Kennung",
     "verifyLabel": "Prüfen unter",
     "companyTitle": "Inklusives Unternehmen",
-    "memberTitle": "Verifiziertes Mitglied"
+    "memberTitle": "Verifiziertes Mitglied",
+    "allyTitle": "Neuromundi-Partner"
   },
   "verify": {
     "title": "Abzeichen-Überprüfung",
@@ -5287,7 +5289,8 @@
     "company": "Inklusives Unternehmen",
     "founder": "Gründungsmitglied",
     "neuro": "Neuro-affirmatives Profil",
-    "lookupBtn": "Prüfen"
+    "lookupBtn": "Prüfen",
+    "ally": "Offizieller Neuromundi-Partner"
   },
   "registry": {
     "title": "Verifizierte Partner",

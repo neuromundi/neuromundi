@@ -3689,7 +3689,8 @@
       "allCountries": "Tous les pays",
       "externalTitle": "Logo sur un serveur externe",
       "externalBody": "Ce logo est servi depuis un autre domaine, sans contrôle de taille ni de cache ; un logo lourd ralentit la page d’accueil. Nous recommandons de le téléverser optimisé sur votre propre site. Enregistrer quand même ?",
-      "externalHint": "Logo externe : téléversez-le optimisé sur votre site pour ne pas ralentir l’accueil."
+      "externalHint": "Logo externe : téléversez-le optimisé sur votre site pour ne pas ralentir l’accueil.",
+      "badge": "Badge"
     },
     "tier": {
       "title": "Montants de don par devise",
@@ -5275,7 +5276,8 @@
     "folioLabel": "Identifiant",
     "verifyLabel": "Vérifiez sur",
     "companyTitle": "Entreprise inclusive",
-    "memberTitle": "Membre vérifié"
+    "memberTitle": "Membre vérifié",
+    "allyTitle": "Allié Neuromundi"
   },
   "verify": {
     "title": "Vérification du badge",
@@ -5287,7 +5289,8 @@
     "company": "Entreprise inclusive",
     "founder": "Membre fondateur",
     "neuro": "Profil neuro-affirmatif",
-    "lookupBtn": "Vérifier"
+    "lookupBtn": "Vérifier",
+    "ally": "Allié officiel de Neuromundi"
   },
   "registry": {
     "title": "Alliés vérifiés",

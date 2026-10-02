@@ -3689,7 +3689,8 @@
       "allCountries": "모든 국가",
       "externalTitle": "외부 서버의 로고",
       "externalBody": "이 로고는 다른 도메인에서 제공되어 크기나 캐시를 제어할 수 없습니다. 무거우면 홈 화면이 느려집니다. 최적화하여 자체 사이트에 업로드하기를 권장합니다. 그래도 저장할까요?",
-      "externalHint": "외부 로고: 홈 화면이 느려지지 않도록 최적화하여 사이트에 업로드하세요."
+      "externalHint": "외부 로고: 홈 화면이 느려지지 않도록 최적화하여 사이트에 업로드하세요.",
+      "badge": "배지"
     },
     "tier": {
       "title": "통화별 후원 금액",
@@ -5275,7 +5276,8 @@
     "folioLabel": "회원번호",
     "verifyLabel": "확인 위치",
     "companyTitle": "포용 기업",
-    "memberTitle": "인증 회원"
+    "memberTitle": "인증 회원",
+    "allyTitle": "Neuromundi 제휴처"
   },
   "verify": {
     "title": "배지 검증",
@@ -5287,7 +5289,8 @@
     "company": "포용 기업",
     "founder": "창립 멤버",
     "neuro": "뉴로 어퍼밍 프로필",
-    "lookupBtn": "확인"
+    "lookupBtn": "확인",
+    "ally": "Neuromundi 공식 제휴처"
   },
   "registry": {
     "title": "인증된 제휴처",

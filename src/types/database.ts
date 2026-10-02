@@ -1664,6 +1664,10 @@ export interface Database {
         Args: { p_folio: string };
         Returns: { found: boolean; member_no: number | null; name: string | null; kind: string | null; country: string | null; vigente: boolean; is_founder: boolean; neuroaffirming: boolean; is_company: boolean }[];
       };
+      verify_ally: {
+        Args: { p_id: string };
+        Returns: { found: boolean; name: string | null; website: string | null; countries: string[] | null; vigente: boolean }[];
+      };
       admin_country_discounts: {
         Args: Record<string, never>;
         Returns: { country_label: string; pct: number; is_active: boolean; note: string | null; updated_at: string }[];

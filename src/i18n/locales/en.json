@@ -3689,7 +3689,8 @@
       "allCountries": "All countries",
       "externalTitle": "Logo on an external server",
       "externalBody": "This logo is served from another domain, with no size or caching control; a heavy one slows the home page. We recommend uploading it optimized to your own site. Save anyway?",
-      "externalHint": "External logo: upload it optimized to your site so it doesn’t slow the home page."
+      "externalHint": "External logo: upload it optimized to your site so it doesn’t slow the home page.",
+      "badge": "Badge"
     },
     "tier": {
       "title": "Donation amounts by currency",
@@ -5275,7 +5276,8 @@
     "folioLabel": "ID",
     "verifyLabel": "Verify at",
     "companyTitle": "Inclusive Company",
-    "memberTitle": "Verified member"
+    "memberTitle": "Verified member",
+    "allyTitle": "Neuromundi Ally"
   },
   "verify": {
     "title": "Badge verification",
@@ -5287,7 +5289,8 @@
     "company": "Inclusive Company",
     "founder": "Founding Member",
     "neuro": "Neuro-affirming profile",
-    "lookupBtn": "Verify"
+    "lookupBtn": "Verify",
+    "ally": "Official Neuromundi ally"
   },
   "registry": {
     "title": "Verified allies",

@@ -3689,7 +3689,8 @@
       "allCountries": "Todos os países",
       "externalTitle": "Logo em servidor externo",
       "externalBody": "Este logo é servido de outro domínio, sem controle de tamanho ou cache; um pesado deixa a página inicial lenta. Recomendamos enviá-lo otimizado para o seu próprio site. Salvar mesmo assim?",
-      "externalHint": "Logo externo: envie-o otimizado para o seu site para não deixar a página inicial lenta."
+      "externalHint": "Logo externo: envie-o otimizado para o seu site para não deixar a página inicial lenta.",
+      "badge": "Selo"
     },
     "tier": {
       "title": "Valores de doação por moeda",
@@ -5275,7 +5276,8 @@
     "folioLabel": "Número",
     "verifyLabel": "Verifique em",
     "companyTitle": "Empresa Inclusiva",
-    "memberTitle": "Membro verificado"
+    "memberTitle": "Membro verificado",
+    "allyTitle": "Aliado Neuromundi"
   },
   "verify": {
     "title": "Verificação de selo",
@@ -5287,7 +5289,8 @@
     "company": "Empresa Inclusiva",
     "founder": "Membro Fundador",
     "neuro": "Perfil neuroafirmativo",
-    "lookupBtn": "Verificar"
+    "lookupBtn": "Verificar",
+    "ally": "Aliado oficial da Neuromundi"
   },
   "registry": {
     "title": "Aliados verificados",

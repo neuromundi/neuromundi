@@ -3689,7 +3689,8 @@
       "allCountries": "Tutti i paesi",
       "externalTitle": "Logo su server esterno",
       "externalBody": "Questo logo è servito da un altro dominio, senza controllo di dimensione o cache; uno pesante rallenta la home. Consigliamo di caricarlo ottimizzato sul tuo sito. Salvare comunque?",
-      "externalHint": "Logo esterno: caricalo ottimizzato sul tuo sito per non rallentare la home."
+      "externalHint": "Logo esterno: caricalo ottimizzato sul tuo sito per non rallentare la home.",
+      "badge": "Distintivo"
     },
     "tier": {
       "title": "Importi di donazione per valuta",
@@ -5275,7 +5276,8 @@
     "folioLabel": "Codice",
     "verifyLabel": "Verifica su",
     "companyTitle": "Azienda Inclusiva",
-    "memberTitle": "Membro verificato"
+    "memberTitle": "Membro verificato",
+    "allyTitle": "Alleato Neuromundi"
   },
   "verify": {
     "title": "Verifica del distintivo",
@@ -5287,7 +5289,8 @@
     "company": "Azienda Inclusiva",
     "founder": "Membro Fondatore",
     "neuro": "Profilo neuroaffermativo",
-    "lookupBtn": "Verifica"
+    "lookupBtn": "Verifica",
+    "ally": "Alleato ufficiale di Neuromundi"
   },
   "registry": {
     "title": "Alleati verificati",

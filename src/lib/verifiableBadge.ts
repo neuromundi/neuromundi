@@ -10,10 +10,10 @@
 export interface VerifiableBadgeData {
   title: string;        // "Aliado Neuromundi" | "Empresa Inclusiva" | "Miembro verificado"
   name: string;         // nombre del miembro / organización
-  folio: string;        // "NM-000123"
+  folio?: string;       // "NM-000123" (los aliados/organizaciones no tienen folio)
   qrDataUrl: string;    // QR a la URL de verificación
   verifyUrl: string;    // texto legible de la URL
-  labels: { verify: string; folio: string };
+  labels: { verify: string; folio?: string };
 }
 
 export function downloadVerifiableBadge(d: VerifiableBadgeData): void {
@@ -43,7 +43,7 @@ export function downloadVerifiableBadge(d: VerifiableBadgeData): void {
     <div class="title">${d.title}</div>
     <div class="band">NEUROMUNDI</div>
     <div class="name">${d.name}</div>
-    <div class="folio">${d.labels.folio}: ${d.folio}</div>
+    ${d.folio && d.labels.folio ? `<div class="folio">${d.labels.folio}: ${d.folio}</div>` : ''}
     ${d.qrDataUrl ? `<div class="qrbox"><img src="${d.qrDataUrl}" alt="QR"></div>` : ''}
     <div class="verify">${d.labels.verify}: ${d.verifyUrl}</div>
   </div>
