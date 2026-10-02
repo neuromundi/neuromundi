@@ -9,9 +9,11 @@
  * Los nombres de marca son propios y NO se traducen; el resto sale de i18n.
  * La columna de Neuromundi va resaltada. La tabla scrollea en móvil.
  */
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Check, X, ListChecks } from 'lucide-react';
 import { useCountry } from '@/stores/countryStore';
+import { supabase } from '@/lib/supabase';
 import { comparisonRegionOf, nmPrice, REGIONS, FEATURE_KEYS, type Col } from '@/lib/comparisonRegions';
 
 function Mark({ on, yes, no }: { on: boolean; yes: string; no: string }) {
@@ -27,11 +29,33 @@ function Mark({ on, yes, no }: { on: boolean; yes: string; no: string }) {
 }
 
 export function ComparisonTable() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { country } = useCountry();
   const region = comparisonRegionOf(country);
   const { cols } = REGIONS[region];
   const nm = nmPrice(country);
+
+  // Precio REAL de fundador (desde) para el país elegido, leído de la base.
+  // Si no hay país elegido o el país no tiene cuotas (fase "próximamente"),
+  // se mantiene el texto genérico de nmPrice.
+  const [live, setLive] = useState<{ currency: string; min: number } | null>(null);
+  useEffect(() => {
+    let alive = true;
+    if (!country) { setLive(null); return; }
+    (async () => {
+      const { data } = await supabase.rpc('nm_compare_price', { p_country: country });
+      const row = Array.isArray(data) ? data[0] : data;
+      if (!alive) return;
+      setLive(row && row.min_founder != null ? { currency: row.currency, min: Number(row.min_founder) } : null);
+    })();
+    return () => { alive = false; };
+  }, [country]);
+
+  const liveValue = live
+    ? t('home.compare.price.from', {
+        v: new Intl.NumberFormat(i18n.language, { style: 'currency', currency: live.currency, maximumFractionDigits: 0 }).format(live.min),
+      })
+    : null;
 
   const yes = t('home.compare.yes');
   const no = t('home.compare.no');
@@ -96,7 +120,7 @@ export function ComparisonTable() {
                   <span className="mt-0.5 block text-xs font-normal text-muted">{t('home.compare.price.sub')}</span>
                 </td>
                 <td className="bg-brand-100/70 p-4 text-center align-middle">
-                  <span className="font-extrabold text-brand-700">{nm.value ?? t(nm.key ?? '')}</span>
+                  <span className="font-extrabold text-brand-700">{liveValue ?? nm.value ?? t(nm.key ?? '')}</span>
                   <span className="mt-0.5 block text-xs font-medium text-muted">{t(nm.subKey)}</span>
                 </td>
                 {cols.map((c, i) => (

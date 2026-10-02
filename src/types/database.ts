@@ -1664,6 +1664,10 @@ export interface Database {
         Args: { p_country: string; p_kind: string };
         Returns: number;
       };
+      nm_compare_price: {
+        Args: { p_country: string };
+        Returns: { currency: string; min_founder: number; max_founder: number }[];
+      };
       verify_badge: {
         Args: { p_folio: string };
         Returns: { found: boolean; member_no: number | null; name: string | null; kind: string | null; country: string | null; vigente: boolean; is_founder: boolean; neuroaffirming: boolean; is_company: boolean }[];
