@@ -10,16 +10,20 @@
  */
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Globe2, Sprout, Sparkles, Stethoscope, GraduationCap, Compass } from 'lucide-react';
+import { Globe2, Sprout, Sparkles, Stethoscope, GraduationCap, Compass, ShoppingBag } from 'lucide-react';
 import { COUNTRIES } from '@/data/countries';
 import { PROFESSIONS, SPECIALTIES, INTERVENTION_AREAS } from '@/data/specialistCatalog';
 import { NEURO_CONDITIONS } from '@/data/neuroConditionsCatalog';
+import { STORE_CATEGORIES } from '@/data/storeCatalog';
 import { useInView } from '@/hooks/useInView';
 
 const N_COUNTRIES = COUNTRIES.length;
 const N_SPECIALTIES = PROFESSIONS.length + SPECIALTIES.length;
 const N_AREAS = INTERVENTION_AREAS.length;
 const N_CONDITIONS = NEURO_CONDITIONS.length;
+// Categorías + subcategorías de productos y servicios (distintas de las
+// especialidades): se deriva del catálogo para que el número no se desactualice.
+const N_STORE_CATS = STORE_CATEGORIES.length + STORE_CATEGORIES.reduce((a, c) => a + (c.sub?.length ?? 0), 0);
 
 function useCountUp(target: number, run: boolean, ms = 1300): number {
   const [n, setN] = useState(0);
@@ -65,7 +69,6 @@ export function HomeCounters() {
         run={inView}
         value={N_COUNTRIES}
         label={t('counters.countries')}
-        sub={t('counters.countriesSub')}
         icon={<Globe2 className="h-5 w-5 text-white" />}
         accent="bg-gradient-to-br from-brand-600 to-evs-5"
       />
@@ -91,6 +94,11 @@ export function HomeCounters() {
         <Stat run={inView} value={N_CONDITIONS} label={t('counters.conditions')}
           icon={<Stethoscope className="h-5 w-5 text-white" />} accent="bg-violet-600" />
       </div>
+
+      {/* Categorías de productos y servicios: línea final, a todo el ancho, para
+          dejar claro que son un conteo distinto al de especialidades. */}
+      <Stat run={inView} value={N_STORE_CATS} label={t('counters.storeCats')}
+        icon={<ShoppingBag className="h-5 w-5 text-white" />} accent="bg-amber-500" />
 
       <p className="mt-1 text-[11px] leading-relaxed text-muted">{t('counters.source')}</p>
     </div>

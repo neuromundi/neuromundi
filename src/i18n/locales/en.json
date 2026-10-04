@@ -5332,6 +5332,6 @@
     "areas": "Intervention areas",
     "conditions": "Neurological conditions (ICD-11)",
     "source": "Estimates: GBD 2021 (The Lancet Neurology) for neurological and neurodevelopmental conditions; neurodivergence ~15–20% of the population.",
-    "countriesSub": "Includes territories; the UN recognizes 193 countries."
+    "storeCats": "Product and service categories"
   }
 }

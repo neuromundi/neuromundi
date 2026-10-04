@@ -5332,6 +5332,6 @@
     "areas": "介入領域",
     "conditions": "神経疾患（ICD-11）",
     "source": "推計：神経疾患・神経発達症はGBD 2021（The Lancet Neurology）、ニューロダイバージェンスは人口の約15〜20%。",
-    "countriesSub": "地域を含む。国連加盟国は193。"
+    "storeCats": "商品・サービスのカテゴリー"
   }
 }
