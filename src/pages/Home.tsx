@@ -115,13 +115,9 @@ export function Home() {
               </button>
             ))}
           </div>
-        </div>
 
-        <div className="order-first lg:order-last">
-          {/* Contadores "Neuromundi en cifras": ocupan el lugar del antiguo
-              carrusel, en la mitad superior (máxima visibilidad). */}
-          <HomeCounters />
-          <div className="mt-4 flex justify-center">
+          {/* ¿Cómo ser fundador?: centrado bajo los accesos rápidos de la columna. */}
+          <div className="mt-5 flex justify-center">
             <button
               type="button"
               onClick={() => navigate('/become-a-founder')}
@@ -130,6 +126,12 @@ export function Home() {
               <Award className="h-4 w-4" aria-hidden="true" /> {t('home.becomeFounderBtn')}
             </button>
           </div>
+        </div>
+
+        <div className="order-first lg:order-last">
+          {/* Contadores "Neuromundi en cifras": ocupan el lugar del antiguo
+              carrusel, en la mitad superior (máxima visibilidad). */}
+          <HomeCounters />
         </div>
       </section>
 
