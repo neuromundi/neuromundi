@@ -271,7 +271,13 @@
       }
     },
     "becomeFounderBtn": "How to become a founder?",
-    "foundersCount": "founders are already part of the community"
+    "foundersCount": "founders are already part of the community",
+    "alliesPromo": {
+      "badge": "Allies",
+      "title": "Meet our allies",
+      "body": "Organizations, associations and companies advancing inclusion together with Neuromundi.",
+      "cta": "View allies"
+    }
   },
   "auth": {
     "login": "Sign in",
@@ -5311,5 +5317,20 @@
     "joined": "Done! We'll be in touch.",
     "invalid": "Invalid email",
     "modalBody": "Memberships in your country open in early 2027. No pricing is available yet."
+  },
+  "counters": {
+    "badge": "By the numbers",
+    "title": "Neuromundi by the numbers",
+    "countries": "Countries in the 2026–2027 rollout plan",
+    "popTitle": "Target population worldwide",
+    "millions": "million",
+    "ndSub": "neurodevelopmental conditions",
+    "perSix": "≈ 1 in 6 people",
+    "perThree": "≈ 1 in 3 people",
+    "catTitle": "Catalog of specialties and services",
+    "professions": "Professions and specialties",
+    "areas": "Intervention areas",
+    "conditions": "Neurological conditions (ICD-11)",
+    "source": "Estimates: GBD 2021 (The Lancet Neurology) for neurological and neurodevelopmental conditions; neurodivergence ~15–20% of the population."
   }
 }

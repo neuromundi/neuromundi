@@ -271,7 +271,13 @@
       }
     },
     "becomeFounderBtn": "¿Cómo ser fundador?",
-    "foundersCount": "fundadores ya forman parte de la comunidad"
+    "foundersCount": "fundadores ya forman parte de la comunidad",
+    "alliesPromo": {
+      "badge": "Aliados",
+      "title": "Conoce a nuestros aliados",
+      "body": "Organizaciones, asociaciones y empresas que impulsan la inclusión junto a Neuromundi.",
+      "cta": "Ver aliados"
+    }
   },
   "auth": {
     "login": "Entrar",
@@ -5311,5 +5317,20 @@
     "joined": "¡Listo! Te avisaremos.",
     "invalid": "Correo no válido",
     "modalBody": "Las afiliaciones en tu país abren a inicios de 2027. Por ahora no hay tarifas disponibles."
+  },
+  "counters": {
+    "badge": "En cifras",
+    "title": "Neuromundi en cifras",
+    "countries": "Países en el plan de expansión 2026–2027",
+    "popTitle": "Población objetivo en el mundo",
+    "millions": "millones",
+    "ndSub": "trastornos del neurodesarrollo",
+    "perSix": "≈ 1 de cada 6 personas",
+    "perThree": "≈ 1 de cada 3 personas",
+    "catTitle": "Catálogo de especialidades y servicios",
+    "professions": "Profesiones y especialidades",
+    "areas": "Áreas de intervención",
+    "conditions": "Afecciones neurológicas (CIE-11)",
+    "source": "Estimaciones: GBD 2021 (The Lancet Neurology) para afecciones neurológicas y del neurodesarrollo; neurodivergencia ~15–20% de la población."
   }
 }

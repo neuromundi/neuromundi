@@ -234,7 +234,13 @@
       }
     },
     "becomeFounderBtn": "創設メンバーになるには？",
-    "foundersCount": "人の創設メンバーがすでにコミュニティに参加しています"
+    "foundersCount": "人の創設メンバーがすでにコミュニティに参加しています",
+    "alliesPromo": {
+      "badge": "アライ",
+      "title": "アライをご紹介",
+      "body": "Neuromundiとともにインクルージョンを推進する団体・協会・企業。",
+      "cta": "アライを見る"
+    }
   },
   "auth": {
     "login": "ログイン",
@@ -5311,5 +5317,20 @@
     "joined": "完了！ご連絡します。",
     "invalid": "メールアドレスが無効です",
     "modalBody": "あなたの国での会員登録は2027年初頭に開始します。現在、料金はまだありません。"
+  },
+  "counters": {
+    "badge": "数字で見る",
+    "title": "数字で見るNeuromundi",
+    "countries": "2026–2027年の展開計画の国数",
+    "popTitle": "世界の対象人口",
+    "millions": "百万",
+    "ndSub": "神経発達症",
+    "perSix": "約6人に1人",
+    "perThree": "約3人に1人",
+    "catTitle": "専門分野とサービスのカタログ",
+    "professions": "職種と専門分野",
+    "areas": "介入領域",
+    "conditions": "神経疾患（ICD-11）",
+    "source": "推計：神経疾患・神経発達症はGBD 2021（The Lancet Neurology）、ニューロダイバージェンスは人口の約15〜20%。"
   }
 }

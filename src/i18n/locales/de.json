@@ -234,7 +234,13 @@
       }
     },
     "becomeFounderBtn": "Wie werde ich Gründungsmitglied?",
-    "foundersCount": "Gründer sind bereits Teil der Gemeinschaft"
+    "foundersCount": "Gründer sind bereits Teil der Gemeinschaft",
+    "alliesPromo": {
+      "badge": "Partner",
+      "title": "Lernen Sie unsere Partner kennen",
+      "body": "Organisationen, Verbände und Unternehmen, die mit Neuromundi die Inklusion vorantreiben.",
+      "cta": "Partner ansehen"
+    }
   },
   "auth": {
     "login": "Anmelden",
@@ -5311,5 +5317,20 @@
     "joined": "Fertig! Wir melden uns.",
     "invalid": "Ungültige E-Mail",
     "modalBody": "Mitgliedschaften in deinem Land starten Anfang 2027. Noch keine Preise verfügbar."
+  },
+  "counters": {
+    "badge": "In Zahlen",
+    "title": "Neuromundi in Zahlen",
+    "countries": "Länder im Ausbauplan 2026–2027",
+    "popTitle": "Zielbevölkerung weltweit",
+    "millions": "Millionen",
+    "ndSub": "Neuroentwicklungsstörungen",
+    "perSix": "≈ 1 von 6 Personen",
+    "perThree": "≈ 1 von 3 Personen",
+    "catTitle": "Katalog der Fachgebiete und Dienste",
+    "professions": "Berufe und Fachgebiete",
+    "areas": "Interventionsbereiche",
+    "conditions": "Neurologische Erkrankungen (ICD-11)",
+    "source": "Schätzungen: GBD 2021 (The Lancet Neurology) für neurologische und Neuroentwicklungsstörungen; Neurodivergenz ~15–20 % der Bevölkerung."
   }
 }

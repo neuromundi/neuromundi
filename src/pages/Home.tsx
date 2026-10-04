@@ -21,7 +21,7 @@ import { ComingSoonBanner } from '@/components/campaign/ComingSoonBanner';
 // Debajo del pliegue y diferidos por scroll: se sacan del bundle inicial (su
 // código y sus consultas a Supabase ya no viajan en index-*.js).
 const AlliesGrid = lazy(() => import('@/components/donation/AlliesGrid').then((m) => ({ default: m.AlliesGrid })));
-const ContentCarousel = lazy(() => import('@/components/content/ContentCarousel').then((m) => ({ default: m.ContentCarousel })));
+import { HomeCounters } from '@/components/home/HomeCounters';
 import { HeartHandshake, Award } from 'lucide-react';
 import { useCountry } from '@/stores/countryStore';
 import { COUNTRIES } from '@/data/countries';
@@ -203,13 +203,13 @@ export function Home() {
         <div className="overflow-hidden rounded-3xl border border-brand-100 bg-gradient-to-br from-brand-50 to-white p-6 sm:p-8">
           <div className="flex h-full flex-col justify-center">
             <span className="inline-flex w-fit items-center gap-2 rounded-full bg-white px-3 py-1 text-sm font-semibold text-brand-700 shadow-sm">
-              <HeartHandshake className="h-4 w-4" aria-hidden="true" /> {t('home.donors.badge')}
+              <HeartHandshake className="h-4 w-4" aria-hidden="true" /> {t('home.alliesPromo.badge')}
             </span>
-            <h2 className="mt-3 text-2xl font-bold text-slate-900">{t('home.donors.title')}</h2>
-            <p className="mt-2 leading-relaxed text-slate-700">{t('home.donors.body')}</p>
+            <h2 className="mt-3 text-2xl font-bold text-slate-900">{t('home.alliesPromo.title')}</h2>
+            <p className="mt-2 leading-relaxed text-slate-700">{t('home.alliesPromo.body')}</p>
             <div className="mt-5 flex flex-wrap gap-2">
-              <Button size="lg" onClick={() => navigate('/donantes')} leadingIcon={<HeartHandshake className="h-5 w-5" />}>
-                {t('home.donors.cta')}
+              <Button size="lg" onClick={() => navigate('/verificados')} leadingIcon={<HeartHandshake className="h-5 w-5" />}>
+                {t('home.alliesPromo.cta')}
               </Button>
             </div>
           </div>
@@ -223,7 +223,7 @@ export function Home() {
         {deferInView && <Suspense fallback={null}><AlliesGrid /></Suspense>}
       </section>
 
-      {deferInView && <Suspense fallback={null}><ContentCarousel /></Suspense>}
+      {deferInView && <HomeCounters />}
     </div>
   );
 }

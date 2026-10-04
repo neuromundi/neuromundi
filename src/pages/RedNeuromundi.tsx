@@ -10,6 +10,7 @@ import { ScanLine, BadgeCheck, Users, ShieldCheck, TrendingUp, HeartHandshake, L
 import { Button } from '@/components/ui';
 import { useAuth } from '@/hooks/useAuth';
 import { SealsCard } from '@/components/provider/SealsCard';
+import { CountryFilter } from '@/components/common/CountryFilter';
 
 function Step({ n, icon, title, body }: { n: number; icon: React.ReactNode; title: string; body: string }) {
   return (
@@ -49,6 +50,7 @@ export function RedNeuromundi() {
         </span>
         <h1 className="mt-3 text-3xl font-bold text-slate-900">{t('nid.red.title')}</h1>
         <p className="mx-auto mt-3 max-w-2xl text-muted">{t('nid.red.intro')}</p>
+        <div className="mt-5 flex justify-center"><CountryFilter /></div>
       </header>
 
       {/* Cómo funciona */}

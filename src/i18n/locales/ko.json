@@ -271,7 +271,13 @@
       }
     },
     "becomeFounderBtn": "창립 멤버가 되는 방법?",
-    "foundersCount": "명의 창립 멤버가 이미 커뮤니티에 함께합니다"
+    "foundersCount": "명의 창립 멤버가 이미 커뮤니티에 함께합니다",
+    "alliesPromo": {
+      "badge": "제휴처",
+      "title": "제휴처를 만나보세요",
+      "body": "Neuromundi와 함께 포용을 추진하는 단체, 협회, 기업.",
+      "cta": "제휴처 보기"
+    }
   },
   "auth": {
     "login": "로그인",
@@ -5311,5 +5317,20 @@
     "joined": "완료! 연락드리겠습니다.",
     "invalid": "유효하지 않은 이메일",
     "modalBody": "당신의 국가의 멤버십은 2027년 초에 열립니다. 아직 요금이 없습니다."
+  },
+  "counters": {
+    "badge": "숫자로 보기",
+    "title": "숫자로 보는 Neuromundi",
+    "countries": "2026–2027 확장 계획 국가 수",
+    "popTitle": "전 세계 대상 인구",
+    "millions": "백만",
+    "ndSub": "신경발달장애",
+    "perSix": "약 6명 중 1명",
+    "perThree": "약 3명 중 1명",
+    "catTitle": "전문 분야 및 서비스 카탈로그",
+    "professions": "직업 및 전문 분야",
+    "areas": "중재 영역",
+    "conditions": "신경계 질환 (ICD-11)",
+    "source": "추정치: 신경계 질환 및 신경발달장애는 GBD 2021 (The Lancet Neurology); 신경다양성 ~인구의 15–20%."
   }
 }

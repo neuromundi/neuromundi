@@ -9,6 +9,7 @@ import { useCatLabel } from '@/lib/catLabel';
 import { MessageCircleQuestion, Check, ShieldCheck, Mail } from 'lucide-react';
 import { Button, useToast } from '@/components/ui';
 import { useCategories } from '@/hooks/useCategories';
+import { CountryFilter } from '@/components/common/CountryFilter';
 import { supabase } from '@/lib/supabase';
 
 const EXPERT_EMAIL = 'admin@neuromundi.com';
@@ -94,6 +95,8 @@ export function AskExpert() {
           ))}
         </ul>
       </section>
+
+      <div className="mt-6 flex justify-center"><CountryFilter /></div>
 
       {/* Formulario */}
       <section className="mt-8 rounded-2xl border border-slate-100 bg-white p-6 shadow-sm">
