@@ -2002,6 +2002,10 @@ export interface Database {
         Args: { p_id: string; p_flag: string; p_value: boolean };
         Returns: undefined;
       };
+      type_badge_providers: {
+        Args: Record<string, never>;
+        Returns: { id: string; is_inclusive_school: boolean; is_inclusive_company: boolean; is_institutional_ally: boolean }[];
+      };
       admin_set_neuroaffirming: {
         Args: { p_id: string; p_value: boolean };
         Returns: undefined;

@@ -106,16 +106,21 @@ export function useDirectory(filters: DirectoryFilters): UseDirectoryValue {
       }
 
       // 2) EVS + 3) categorías + 4) fundadores, en paralelo.
-      const [ratingsRes, pcRes, catsRes, badgeRes, founderRes, donorRes] = await Promise.all([
+      const [ratingsRes, pcRes, catsRes, badgeRes, founderRes, donorRes, typeBadgeRes] = await Promise.all([
         supabase.from('public_provider_ratings').select('*').in('provider_id', ids),
         supabase.from('provider_categories').select('*').in('provider_id', ids),
         supabase.from('categories').select('*'),
         supabase.from('provider_badge_inputs').select('*').in('provider_id', ids),
         supabase.rpc('founder_provider_ids'),
         supabase.rpc('donor_provider_ids'),
+        supabase.rpc('type_badge_providers'),
       ]);
       const founderSet = new Set<string>(((founderRes.data as { id: string }[] | null) ?? []).map((r) => r.id));
       const donorSet = new Set<string>(((donorRes.data as { id: string }[] | null) ?? []).map((r) => r.id));
+      type TypeBadgeRow = { id: string; is_inclusive_school: boolean; is_inclusive_company: boolean; is_institutional_ally: boolean };
+      const typeBadgeMap = new Map<string, TypeBadgeRow>(
+        ((typeBadgeRes.data as TypeBadgeRow[] | null) ?? []).map((r) => [r.id, r]),
+      );
 
       const badgeMap = new Map<string, BadgeResult>(
         (badgeRes.data ?? []).map((r) => [r.provider_id, computeBadge(inputsFromRow(r))]),
@@ -144,6 +149,9 @@ export function useDirectory(filters: DirectoryFilters): UseDirectoryValue {
           badge: badgeMap.get(p.id) ?? null,
           is_founder: founderSet.has(p.id),
           is_donor: donorSet.has(p.id),
+          is_inclusive_school: typeBadgeMap.get(p.id)?.is_inclusive_school ?? false,
+          is_inclusive_company: typeBadgeMap.get(p.id)?.is_inclusive_company ?? false,
+          is_institutional_ally: typeBadgeMap.get(p.id)?.is_institutional_ally ?? false,
         })),
       );
     } catch (e) {

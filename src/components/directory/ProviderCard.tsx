@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { Button, EVSBadge, ProgressBar , Avatar, DistintivoBadge } from '@/components/ui';
 import { cn, evsColor } from '@/lib/utils';
 import { SECTION_BY_VALUE } from '@/data/sections';
+import { badgeArt } from '@/data/badgeArt';
 import {
   DIMENSION_LABEL_KEY,
   RATING_AVG_COLUMN,
@@ -39,7 +40,7 @@ export function ProviderCard({
   collapsedCount = 3,
 }: ProviderCardProps) {
   const [expanded, setExpanded] = useState(false);
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { rating } = provider;
   const totalReviews = rating?.total_reviews ?? 0;
   const isNew = totalReviews < NEW_THRESHOLD;
@@ -149,6 +150,15 @@ export function ProviderCard({
               <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-amber-100 px-2 py-0.5 text-[11px] font-bold text-amber-800" title={t('card.founderTip')}>
                 <Crown className="h-3 w-3" aria-hidden="true" /> {t('card.founder')}
               </span>
+            )}
+            {provider.is_inclusive_school && (
+              <img src={badgeArt('escuela-inclusiva', i18n.language)} alt={t('memberBadges.inclusiveSchool')} title={t('memberBadges.inclusiveSchool')} className="h-5 w-5 shrink-0 object-contain" loading="lazy" />
+            )}
+            {provider.is_inclusive_company && (
+              <img src={badgeArt('empresa-inclusiva', i18n.language)} alt={t('memberBadges.inclusiveCompany')} title={t('memberBadges.inclusiveCompany')} className="h-5 w-5 shrink-0 object-contain" loading="lazy" />
+            )}
+            {provider.is_institutional_ally && (
+              <img src={badgeArt('aliados-neuromundi', i18n.language)} alt={t('memberBadges.institutionalAlly')} title={t('memberBadges.institutionalAlly')} className="h-5 w-5 shrink-0 object-contain" loading="lazy" />
             )}
           </div>
           <p className="flex items-center gap-1 text-sm text-muted">
