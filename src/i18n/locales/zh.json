@@ -79,7 +79,8 @@
     "delete": "删除",
     "edit": "编辑",
     "errorGeneric": "出了点问题，请重试。",
-    "refresh": "刷新"
+    "refresh": "刷新",
+    "remove": "移除"
   },
   "nav": {
     "directory": "目录",
@@ -1008,7 +1009,11 @@
       "drawDone": "抽奖已完成",
       "winnersCsv": "下载中奖者（CSV）",
       "whatsappTitle": "WhatsApp 频道",
-      "whatsappHint": "粘贴 WhatsApp 频道链接，页脚会出现加入按钮。"
+      "whatsappHint": "粘贴 WhatsApp 频道链接，页脚会出现加入按钮。",
+      "marketsTitle": "活跃市场",
+      "marketsHint": "显示价格并开放创始人选项的国家。其余显示“即将上线”提示与候补名单。无需重新部署。",
+      "marketsEmpty": "没有活跃市场：使用站点的后备列表。",
+      "marketsAdd": "添加国家…"
     },
     "secSurvey": "问卷",
     "secInvitations": "邀请",

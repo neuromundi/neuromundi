@@ -10,17 +10,18 @@ import { Clock } from 'lucide-react';
 import { Button, useToast } from '@/components/ui';
 import { supabase } from '@/lib/supabase';
 import { useCountry } from '@/stores/countryStore';
-import { isComingSoon } from '@/data/launchMarkets';
+import { useCampaign } from '@/hooks/useCampaign';
 
 export function ComingSoonBanner() {
   const { t } = useTranslation();
   const toast = useToast();
   const { country } = useCountry();
+  const { isMarketComingSoon } = useCampaign();
   const [email, setEmail] = useState('');
   const [done, setDone] = useState(false);
   const [busy, setBusy] = useState(false);
 
-  if (!isComingSoon(country)) return null;
+  if (!isMarketComingSoon(country)) return null;
 
   const join = async () => {
     if (!email.trim()) return;

@@ -1644,6 +1644,10 @@ export interface Database {
         Args: { p_url: string };
         Returns: undefined;
       };
+      admin_set_active_markets: {
+        Args: { p_markets: string[] };
+        Returns: undefined;
+      };
       country_discount_pct: {
         Args: { p_country: string };
         Returns: number;

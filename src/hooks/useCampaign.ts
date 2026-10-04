@@ -13,6 +13,7 @@ import { useAuthStore } from '@/stores/authStore';
 import { useCountry } from '@/stores/countryStore';
 import { COUNTRIES } from '@/data/countries';
 import { CONTINENT_BY_CODE, type Continent } from '@/data/continents';
+import { ACTIVE_MARKETS } from '@/data/launchMarkets';
 
 export interface FounderStage { days: number; pct: number }
 export interface CampaignConfig {
@@ -32,6 +33,9 @@ export interface CampaignConfig {
   /** Fecha límite para optar por fundador, por país (ISO). Alimenta el contador
    *  del panel; si no hay entrada para el país, no se muestra el contador. */
   founder_deadline_by_country: Record<string, string>;
+  /** Mercados ACTIVOS (nombres de país en español), editables por el admin. Vacío
+   *  = el front usa la lista de respaldo `ACTIVE_MARKETS`. */
+  active_markets: string[];
 }
 
 /** Descuento de fundador vigente HOY según las etapas y la fecha de inicio.
@@ -94,6 +98,24 @@ export function useCampaign() {
     return { locked, unlockAt: unlock };
   };
 
+  // Conjunto de mercados activos: el configurado por el admin si tiene contenido;
+  // si no, la lista de respaldo del front (para no quedar sin mercados si la
+  // config aún no cargó o viene vacía).
+  const activeMarkets: Set<string> =
+    config?.active_markets && config.active_markets.length > 0
+      ? new Set(config.active_markets)
+      : ACTIVE_MARKETS;
+
+  /** ¿El país está ACTIVO en esta fase? `null`/desconocido se trata como neutral (true). */
+  const isMarketActive = (country: string | null): boolean => {
+    if (!country) return true;
+    return activeMarkets.has(country.trim());
+  };
+
+  /** ¿El país está en fase "próximamente"? (conocido y NO activo). */
+  const isMarketComingSoon = (country: string | null): boolean =>
+    !!country && !activeMarkets.has(country.trim());
+
   const popupActiveFor = (country: string | null): boolean => {
     if (!config?.active || !config.popup_active) return false;
     const cont = continentForCountry(country);
@@ -105,7 +127,7 @@ export function useCampaign() {
     return config.popup_continents?.[cont] === true;
   };
 
-  return { config, loading, unlockAtFor, directoryLockedFor, popupActiveFor, founderDiscount: founderDiscountNow(config) };
+  return { config, loading, unlockAtFor, directoryLockedFor, popupActiveFor, isMarketActive, isMarketComingSoon, activeMarkets, founderDiscount: founderDiscountNow(config) };
 }
 
 /** Bloqueo del directorio para el usuario actual (admin y asesor exentos). */

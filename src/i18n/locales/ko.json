@@ -79,7 +79,8 @@
     "delete": "삭제",
     "edit": "편집",
     "errorGeneric": "문제가 발생했습니다. 다시 시도해 주세요.",
-    "refresh": "새로고침"
+    "refresh": "새로고침",
+    "remove": "제거"
   },
   "followUs": {
     "title": "팔로우하세요",
@@ -1045,7 +1046,11 @@
       "drawDone": "추첨 완료",
       "winnersCsv": "당첨자 다운로드(CSV)",
       "whatsappTitle": "WhatsApp 채널",
-      "whatsappHint": "WhatsApp 채널 링크를 붙여넣으세요. 하단에 참여 버튼이 표시됩니다."
+      "whatsappHint": "WhatsApp 채널 링크를 붙여넣으세요. 하단에 참여 버튼이 표시됩니다.",
+      "marketsTitle": "활성 시장",
+      "marketsHint": "요금이 표시되고 창립 회원 옵션이 열린 국가. 나머지는 「곧 제공」 안내와 대기자 명단을 봅니다. 재배포 불필요.",
+      "marketsEmpty": "활성 시장 없음: 사이트의 대체 목록을 사용합니다.",
+      "marketsAdd": "국가 추가…"
     },
     "secSurvey": "설문",
     "secInvitations": "초대",

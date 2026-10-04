@@ -23,6 +23,7 @@ import { useCampaign } from '@/hooks/useCampaign';
 import { useCountry } from '@/stores/countryStore';
 import { useAuthStore } from '@/stores/authStore';
 import { useReferralCapture } from '@/hooks/useReferral';
+import { useGeoPrefill } from '@/hooks/useGeoPrefill';
 import { useMembershipGate } from '@/hooks/useMembershipGate';
 import { useAppointmentReminders } from '@/hooks/useAppointmentRequests';
 
@@ -184,6 +185,8 @@ export function AppLayout() {
   useFounderProgressNotice();
   // Captura ?ref= y atribuye la recomendación (programa Recomienda Neuromundi).
   useReferralCapture();
+  // Prefill del país por IP (solo si no hay país elegido; el usuario puede cambiarlo).
+  useGeoPrefill();
   // Recordatorios de cita 24 h antes (fallback del cliente para el destinatario).
   useAppointmentReminders();
   const [reportOpen, setReportOpen] = useState(false);

@@ -79,7 +79,8 @@
     "delete": "Elimina",
     "edit": "Modifica",
     "errorGeneric": "Qualcosa è andato storto. Riprova.",
-    "refresh": "Aggiorna"
+    "refresh": "Aggiorna",
+    "remove": "Rimuovi"
   },
   "nav": {
     "directory": "Directory",
@@ -1008,7 +1009,11 @@
       "drawDone": "Estrazione completata",
       "winnersCsv": "Scarica vincitori (CSV)",
       "whatsappTitle": "Canale WhatsApp",
-      "whatsappHint": "Incolla il link del canale WhatsApp. Nel piè di pagina appare un pulsante per unirsi."
+      "whatsappHint": "Incolla il link del canale WhatsApp. Nel piè di pagina appare un pulsante per unirsi.",
+      "marketsTitle": "Mercati attivi",
+      "marketsHint": "Paesi con tariffe visibili e opzione fondatore. Gli altri vedono l'avviso «Presto nel tuo paese» e una lista d'attesa. Senza ricompilare.",
+      "marketsEmpty": "Nessun mercato attivo: si usa l'elenco di riserva del sito.",
+      "marketsAdd": "Aggiungi paese…"
     },
     "secSurvey": "Sondaggio",
     "secInvitations": "Inviti",

@@ -41,6 +41,8 @@ export function AdminCampaign() {
   const [stages, setStages] = useState<{ days: number; pct: number }[]>([]);
   const [community, setCommunity] = useState('');
   const [whatsapp, setWhatsapp] = useState('');
+  const [activeMarkets, setActiveMarkets] = useState<string[]>([]);
+  const [addMarket, setAddMarket] = useState('');
   const [drawCount, setDrawCount] = useState(1);
   const [drawRole, setDrawRole] = useState('');
   const [winners, setWinners] = useState<{ name: string; member_no: number | null; email: string; tickets: number }[]>([]);
@@ -52,10 +54,12 @@ export function AdminCampaign() {
       active: boolean; start_at: string | null; default_block_days: number;
       block_days_by_country: Record<string, number>; popup_active: boolean; popup_continents: Record<string, boolean>;
       founder_discount: { days: number; pct: number }[]; community_url: string | null; whatsapp_url: string | null;
+      active_markets: string[] | null;
     } | null;
     if (c) {
       setCommunity(c.community_url ?? '');
       setWhatsapp(c.whatsapp_url ?? '');
+      setActiveMarkets(Array.isArray(c.active_markets) ? c.active_markets : []);
       setActive(c.active);
       setStartLocal(isoToLocal(c.start_at));
       setDefaultDays(c.default_block_days);
@@ -84,6 +88,11 @@ export function AdminCampaign() {
     setBusy(false);
     if (error) toast.error(error.message);
     else toast.success(t('admin.camp.saved'));
+  };
+
+  const saveMarkets = async () => {
+    const { error } = await supabase.rpc('admin_set_active_markets', { p_markets: activeMarkets });
+    toast[error ? 'error' : 'success'](error ? error.message : t('admin.camp.saved'));
   };
 
   const saveWhatsapp = async () => {
@@ -149,6 +158,44 @@ export function AdminCampaign() {
             <label className="mb-1 block text-sm font-semibold text-slate-800">{t('admin.camp.defaultDays')}</label>
             <input type="number" min="1" className={inputCls} value={defaultDays} onChange={(e) => setDefaultDays(Number(e.target.value))} />
           </div>
+        </div>
+      </div>
+
+      {/* Mercados activos (países con tarifas visibles y fundador). El resto ve el
+          aviso "Pronto en tu país" + lista de espera. Editable sin recompilar. */}
+      <div className="rounded-2xl border border-slate-100 bg-white p-4 shadow-sm">
+        <h3 className="mb-1 font-semibold text-slate-900">{t('admin.camp.marketsTitle')}</h3>
+        <p className="mb-3 text-xs text-muted">{t('admin.camp.marketsHint')}</p>
+        <div className="flex flex-wrap gap-2">
+          {activeMarkets.length === 0 && <span className="text-sm text-muted">{t('admin.camp.marketsEmpty')}</span>}
+          {activeMarkets.map((name) => {
+            const c = COUNTRIES.find((x) => x.name === name);
+            return (
+              <span key={name} className="inline-flex items-center gap-1.5 rounded-full border border-brand-200 bg-brand-50 px-3 py-1 text-sm text-brand-800">
+                {c ? countryLabel(c.code, c.name) : name}
+                <button type="button" aria-label={t('common.remove')} onClick={() => setActiveMarkets((m) => m.filter((x) => x !== name))} className="text-brand-500 hover:text-brand-800">
+                  <Trash2 className="h-3.5 w-3.5" />
+                </button>
+              </span>
+            );
+          })}
+        </div>
+        <div className="mt-3 flex flex-wrap items-center gap-2">
+          <select
+            className={`${inputCls} w-auto`}
+            value={addMarket}
+            onChange={(e) => {
+              const v = e.target.value;
+              if (v && !activeMarkets.includes(v)) setActiveMarkets((m) => [...m, v]);
+              setAddMarket('');
+            }}
+          >
+            <option value="">{t('admin.camp.marketsAdd')}</option>
+            {COUNTRIES.filter((c) => !activeMarkets.includes(c.name)).map((c) => (
+              <option key={c.code} value={c.name}>{countryLabel(c.code, c.name)}</option>
+            ))}
+          </select>
+          <Button size="sm" leadingIcon={<Save className="h-4 w-4" />} onClick={() => void saveMarkets()}>{t('admin.camp.save')}</Button>
         </div>
       </div>
 

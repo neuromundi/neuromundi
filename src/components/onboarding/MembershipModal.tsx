@@ -15,9 +15,8 @@ import { Modal, Button, useToast } from '@/components/ui';
 import { useMembership, type BillingPeriod } from '@/hooks/useMembership';
 import { cn } from '@/lib/utils';
 import { annualSaving, combinedDiscountPct, priceAfterPct } from '@/lib/pricing';
-import { useCampaign } from '@/hooks/useCampaign';
 import { useAuthStore } from '@/stores/authStore';
-import { isComingSoon } from '@/data/launchMarkets';
+import { useCampaign } from '@/hooks/useCampaign';
 import { Clock } from 'lucide-react';
 
 const PROMO_ERRORS: Record<string, string> = {
@@ -32,7 +31,8 @@ export function MembershipModal({ open, onClose }: { open: boolean; onClose: () 
   const { t, i18n } = useTranslation();
   const toast = useToast();
   const { status, daysLeft, quote, options, loading, referralPct, countryPct, promo: activePromo, startCheckout, redeemPromo } = useMembership();
-  const { founderDiscount: campaignDisc } = useCampaign();
+  const { founderDiscount: campaignDisc, isMarketComingSoon } = useCampaign();
+  const profileCountry = useAuthStore((s) => s.profile?.country ?? null);
   const [promo, setPromo] = useState('');
   const [showPromo, setShowPromo] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -44,7 +44,7 @@ export function MembershipModal({ open, onClose }: { open: boolean; onClose: () 
   const exempt = status === 'exempt';
   const active = status === 'active';
   // País en fase "próximamente 2027": se ocultan las tarifas y el pago.
-  const comingSoon = isComingSoon(useAuthStore((s) => s.profile)?.country);
+  const comingSoon = isMarketComingSoon(profileCountry);
 
   const onPay = async () => {
     setBusy(true);

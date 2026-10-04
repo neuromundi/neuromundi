@@ -79,7 +79,8 @@
     "delete": "削除",
     "edit": "編集",
     "errorGeneric": "問題が発生しました。もう一度お試しください。",
-    "refresh": "更新"
+    "refresh": "更新",
+    "remove": "削除"
   },
   "nav": {
     "directory": "ディレクトリ",
@@ -1008,7 +1009,11 @@
       "drawDone": "抽選が完了しました",
       "winnersCsv": "当選者をダウンロード（CSV）",
       "whatsappTitle": "WhatsAppチャンネル",
-      "whatsappHint": "WhatsAppチャンネルのリンクを貼り付け。フッターに参加ボタンが表示されます。"
+      "whatsappHint": "WhatsAppチャンネルのリンクを貼り付け。フッターに参加ボタンが表示されます。",
+      "marketsTitle": "有効な市場",
+      "marketsHint": "料金表示と創設者オプションが有効な国。その他は「まもなく開始」の案内と順番待ちを表示。再デプロイ不要。",
+      "marketsEmpty": "有効な市場なし：サイトの予備リストを使用します。",
+      "marketsAdd": "国を追加…"
     },
     "secSurvey": "アンケート",
     "secInvitations": "招待",

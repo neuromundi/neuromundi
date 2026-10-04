@@ -79,7 +79,8 @@
     "delete": "Löschen",
     "edit": "Bearbeiten",
     "errorGeneric": "Etwas ist schiefgelaufen. Bitte versuche es erneut.",
-    "refresh": "Aktualisieren"
+    "refresh": "Aktualisieren",
+    "remove": "Entfernen"
   },
   "nav": {
     "directory": "Verzeichnis",
@@ -1008,7 +1009,11 @@
       "drawDone": "Ziehung abgeschlossen",
       "winnersCsv": "Gewinner herunterladen (CSV)",
       "whatsappTitle": "WhatsApp-Kanal",
-      "whatsappHint": "Füge den WhatsApp-Kanal-Link ein. Im Footer erscheint ein Beitritts-Button."
+      "whatsappHint": "Füge den WhatsApp-Kanal-Link ein. Im Footer erscheint ein Beitritts-Button.",
+      "marketsTitle": "Aktive Märkte",
+      "marketsHint": "Länder mit sichtbaren Preisen und Gründer-Option. Der Rest sieht den Hinweis «Bald bei dir» und eine Warteliste. Ohne neues Deployment.",
+      "marketsEmpty": "Keine aktiven Märkte: die Fallback-Liste der Seite wird verwendet.",
+      "marketsAdd": "Land hinzufügen…"
     },
     "secSurvey": "Umfrage",
     "secInvitations": "Einladungen",

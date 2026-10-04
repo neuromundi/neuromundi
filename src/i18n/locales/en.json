@@ -79,7 +79,8 @@
     "delete": "Delete",
     "edit": "Edit",
     "errorGeneric": "Something went wrong. Please try again.",
-    "refresh": "Refresh"
+    "refresh": "Refresh",
+    "remove": "Remove"
   },
   "followUs": {
     "title": "Follow us",
@@ -1045,7 +1046,11 @@
       "drawDone": "Draw completed",
       "winnersCsv": "Download winners (CSV)",
       "whatsappTitle": "WhatsApp channel",
-      "whatsappHint": "Paste the WhatsApp channel link. A join button appears in the site footer."
+      "whatsappHint": "Paste the WhatsApp channel link. A join button appears in the site footer.",
+      "marketsTitle": "Active markets",
+      "marketsHint": "Countries with visible pricing and the founder option. The rest see the «Coming soon» notice and a waitlist. No redeploy needed.",
+      "marketsEmpty": "No active markets: the site's fallback list is used.",
+      "marketsAdd": "Add country…"
     },
     "secSurvey": "Survey",
     "secInvitations": "Invitations",
