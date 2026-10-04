@@ -10,14 +10,17 @@
  * idioma (p. ej. `miembro-destacado-ja.png`) y agrégalo al mapa de abajo.
  */
 export const BADGE_ART: Record<string, Record<string, string>> = {
-  'miembro-verificado': { es: '/badges/miembro-verificado.jpg' },
+  'miembro-verificado': { es: '/badges/miembro-verificado.jpg', en: '/badges/miembro-verificado-en.png' },
   'miembro-destacado': { es: '/badges/miembro-destacado.jpg', en: '/badges/miembro-destacado-en.png' },
-  'embajador-neuromundi': { es: '/badges/embajador-neuromundi.jpg' },
+  'embajador-neuromundi': { es: '/badges/embajador-neuromundi.png', en: '/badges/embajador-neuromundi-en.png' },
   'soy-fundador-neuromundi': { es: '/badges/soy-fundador-neuromundi.jpg' },
-  'neuromundi-global-member': { es: '/badge/neuromundi-global-member-512.png' },
+  'neuromundi-global-member': { es: '/badges/neuromundi-global-member.png', en: '/badges/neuromundi-global-member-en.png' },
   'aliados-neuromundi': { es: '/badges/aliados-neuromundi.jpg', en: '/badges/aliados-neuromundi-en.png' },
   'escuela-inclusiva': { es: '/badges/escuela-inclusiva.jpg', en: '/badges/escuela-inclusiva-en.png' },
   'empresa-inclusiva': { es: '/badges/empresa-inclusiva.jpg', en: '/badges/empresa-inclusiva-en.png' },
+  'neuroafirmativo': { es: '/badges/neuroafirmativo.png', en: '/badges/neuroafirmativo-en.png' },
+  'servicios-alta-calidad': { es: '/badges/servicios-alta-calidad.png' },
+  'productos-alta-calidad': { es: '/badges/productos-alta-calidad.png' },
 };
 
 /** Devuelve la ruta del arte del distintivo para el idioma dado (idioma → en → es). */

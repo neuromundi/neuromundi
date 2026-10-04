@@ -6,12 +6,13 @@
  * y "Nuevo". Emite eventos para ver el perfil o centrar el mapa.
  */
 import { useMemo, useState } from 'react';
-import { MapPin, Tag, MessageCircle, ShieldCheck, ChevronDown, Map as MapIcon, Sparkles, Crown } from 'lucide-react';
+import { MapPin, Tag, MessageCircle, ShieldCheck, ChevronDown, Map as MapIcon, Crown } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Button, EVSBadge, ProgressBar , Avatar, DistintivoBadge } from '@/components/ui';
 import { cn, evsColor } from '@/lib/utils';
 import { SECTION_BY_VALUE } from '@/data/sections';
 import { badgeArt } from '@/data/badgeArt';
+import { qualityBadge } from '@/lib/qualityBadge';
 import {
   DIMENSION_LABEL_KEY,
   RATING_AVG_COLUMN,
@@ -43,6 +44,8 @@ export function ProviderCard({
   const { t, i18n } = useTranslation();
   const { rating } = provider;
   const totalReviews = rating?.total_reviews ?? 0;
+  const quality = qualityBadge(provider.provider_type, rating?.evs_score ?? null, totalReviews);
+  const qualityLabel = quality === 'productos-alta-calidad' ? t('memberBadges.productsQuality') : t('memberBadges.servicesQuality');
   const isNew = totalReviews < NEW_THRESHOLD;
 
   const dims = useMemo(() => {
@@ -142,9 +145,7 @@ export function ProviderCard({
               </span>
             )}
             {provider.neuroaffirming && (
-              <span title={t('neuro.sealHint')}>
-                <Sparkles className="h-4 w-4 shrink-0 text-violet-500" aria-label={t('neuro.seal')} />
-              </span>
+              <img src={badgeArt('neuroafirmativo', i18n.language)} alt={t('neuro.seal')} title={t('neuro.sealHint')} className="h-5 w-5 shrink-0 object-contain" loading="lazy" />
             )}
             {provider.is_founder && (
               <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-amber-100 px-2 py-0.5 text-[11px] font-bold text-amber-800" title={t('card.founderTip')}>
@@ -159,6 +160,9 @@ export function ProviderCard({
             )}
             {provider.is_institutional_ally && (
               <img src={badgeArt('aliados-neuromundi', i18n.language)} alt={t('memberBadges.institutionalAlly')} title={t('memberBadges.institutionalAlly')} className="h-5 w-5 shrink-0 object-contain" loading="lazy" />
+            )}
+            {quality && (
+              <img src={badgeArt(quality, i18n.language)} alt={qualityLabel} title={qualityLabel} className="h-5 w-5 shrink-0 object-contain" loading="lazy" />
             )}
           </div>
           <p className="flex items-center gap-1 text-sm text-muted">

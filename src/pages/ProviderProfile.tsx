@@ -18,6 +18,7 @@ import { useCatLabel } from '@/lib/catLabel';
 import { cn } from '@/lib/utils';
 import { SECTION_BY_VALUE } from '@/data/sections';
 import { badgeArt } from '@/data/badgeArt';
+import { qualityBadge } from '@/lib/qualityBadge';
 import { Button, EVSBadge, SkeletonCard, DistintivoBadge, FounderBadge } from '@/components/ui';
 import { ConnectButton, SaveToListButton } from '@/components/directory';
 import { BookAppointment } from '@/components/booking/BookAppointment';
@@ -281,14 +282,6 @@ export function ProviderProfile() {
             <h1 className="text-xl font-bold text-slate-900">{name}</h1>
             {profile.is_verified && <ShieldCheck className="h-5 w-5 text-brand-500" aria-label={t('card.verified')} />}
             <FounderBadge isFounder={isFounder} size="sm" />
-            {profile.neuroaffirming && (
-              <span
-                className="inline-flex items-center gap-1 rounded-full bg-violet-100 px-2.5 py-0.5 text-xs font-semibold text-violet-700"
-                title={t('neuro.sealHint')}
-              >
-                <Sparkles className="h-3.5 w-3.5" aria-hidden="true" /> {t('neuro.seal')}
-              </span>
-            )}
             {profile.accepts_neuromundi_id && (
               <span className="inline-flex items-center gap-1 rounded-full bg-brand-50 px-2.5 py-1 text-xs font-semibold text-brand-700" title={t('nid.acceptsHint')}>
                 <BadgeCheck className="h-3.5 w-3.5" aria-hidden="true" /> {t('nid.accepts')}
@@ -323,8 +316,25 @@ export function ProviderProfile() {
             <EVSBadge score={rating?.evs_score ?? null} totalReviews={rating?.total_reviews ?? 0} size="lg" />
             <DistintivoBadge badge={badge} size="md" showLabel showReview={userId === id} />
           </div>
-          {(profile.is_inclusive_school || profile.is_inclusive_company || profile.is_institutional_ally) && (
+          {(() => {
+            const quality = qualityBadge(profile.provider_type, rating?.evs_score ?? null, rating?.total_reviews ?? 0);
+            const qualityLabel = quality === 'productos-alta-calidad' ? t('memberBadges.productsQuality') : t('memberBadges.servicesQuality');
+            const hasAny = profile.neuroaffirming || profile.is_inclusive_school || profile.is_inclusive_company || profile.is_institutional_ally || quality;
+            if (!hasAny) return null;
+            return (
             <div className="mt-2 flex flex-wrap items-center gap-4">
+              {quality && (
+                <span className="inline-flex items-center gap-2" title={qualityLabel}>
+                  <img src={badgeArt(quality, i18n.language)} alt={qualityLabel} className="h-14 w-14 object-contain" loading="lazy" />
+                  <span className="text-sm font-semibold text-slate-800">{qualityLabel}</span>
+                </span>
+              )}
+              {profile.neuroaffirming && (
+                <span className="inline-flex items-center gap-2" title={t('neuro.sealHint')}>
+                  <img src={badgeArt('neuroafirmativo', i18n.language)} alt={t('neuro.seal')} className="h-14 w-14 object-contain" loading="lazy" />
+                  <span className="text-sm font-semibold text-slate-800">{t('neuro.seal')}</span>
+                </span>
+              )}
               {profile.is_inclusive_school && (
                 <span className="inline-flex items-center gap-2" title={t('memberBadges.inclusiveSchool')}>
                   <img src={badgeArt('escuela-inclusiva', i18n.language)} alt={t('memberBadges.inclusiveSchool')} className="h-14 w-14 object-contain" loading="lazy" />
@@ -344,7 +354,8 @@ export function ProviderProfile() {
                 </span>
               )}
             </div>
-          )}
+            );
+          })()}
           {(profile.year_started != null || profile.certified_staff) && (
             <div className="mt-2 flex flex-wrap items-center gap-2">
               {profile.year_started != null && (
