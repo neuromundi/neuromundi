@@ -3,7 +3,7 @@
  * el directorio y demás secciones quedan segmentados a ese país sin que la
  * persona tenga que volver a filtrar. La selección se guarda en el dispositivo.
  */
-import { useMemo, lazy, Suspense } from 'react';
+import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Compass, ShieldCheck, Heart, Lock, BookOpenCheck, ArrowRight, UserPlus, MessageCircleQuestion, Sprout, Sparkles, Stethoscope } from 'lucide-react';
 import { SECTIONS } from '@/data/sections';
@@ -17,25 +17,15 @@ import { SearchableSelect } from '@/components/directory/SearchableSelect';
 import { FoundersCounter } from '@/components/campaign/FoundersCounter';
 import { ComingSoonBanner } from '@/components/campaign/ComingSoonBanner';
 
-// Debajo del pliegue y diferidos por scroll: se sacan del bundle inicial (su
-// código y sus consultas a Supabase ya no viajan en index-*.js).
-const AlliesGrid = lazy(() => import('@/components/donation/AlliesGrid').then((m) => ({ default: m.AlliesGrid })));
 import { HomeCounters } from '@/components/home/HomeCounters';
 import { HeartHandshake, Award } from 'lucide-react';
 import { useCountry } from '@/stores/countryStore';
 import { COUNTRIES } from '@/data/countries';
-import { useInView } from '@/hooks/useInView';
 
 export function Home() {
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
   const { country, setCountry } = useCountry();
-  // Aliados y contenido están debajo del pliegue pero cada uno dispara una
-  // consulta a Supabase al montar, colándose en la cadena crítica del LCP. Se
-  // montan cuando su sección se acerca al viewport (IntersectionObserver): sus
-  // consultas salen por completo de la ruta crítica (Lighthouse no hace scroll
-  // durante la medición, así que ni siquiera se piden en la auditoría).
-  const [deferRef, deferInView] = useInView<HTMLElement>();
 
   // Nombre del país localizado para mostrar; el `value` sigue siendo el nombre
   // canónico (español) para que coincida con `profiles.country` al filtrar.
@@ -217,12 +207,6 @@ export function Home() {
         </div>
       </section>
 
-      {/* Aliados: banda a todo el ancho debajo de Fundadores/Donantes, para que el
-          grid pueda estirarse horizontalmente y mostrar más logos por fila. */}
-      <section ref={deferRef} className="mt-16">
-        <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-muted">{t('allies.title')}</h2>
-        {deferInView && <Suspense fallback={null}><AlliesGrid /></Suspense>}
-      </section>
     </div>
   );
 }
