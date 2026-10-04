@@ -97,21 +97,28 @@ export function Home() {
           {/* Accesos rápidos a la comunidad, al experto y a los kits.
              Tarjetas blancas elevadas: despegan del fondo pálido del héroe y se
              leen como acciones pulsables, un escalón por debajo del buscador. */}
+          {/* Accesos rápidos como BOTONES con color por acción + flecha: destacan
+              como pulsables y se distinguen entre sí sin competir con el botón
+              primario azul "Explorar directorio". */}
           <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-3">
             {[
-              { icon: <UserPlus className="h-5 w-5" />, label: t('home.cta.join'), to: '/crear-cuenta' },
-              { icon: <MessageCircleQuestion className="h-5 w-5" />, label: t('home.cta.expert'), to: '/pregunta-al-experto' },
-              { icon: <BookOpenCheck className="h-5 w-5" />, label: t('home.cta.kits'), to: '/kit' },
+              { icon: <UserPlus className="h-5 w-5" />, label: t('home.cta.join'), to: '/crear-cuenta',
+                border: 'border-brand-600', iconBg: 'bg-brand-600', text: 'text-brand-800', arrow: 'text-brand-600', ring: 'focus-visible:ring-brand-500' },
+              { icon: <MessageCircleQuestion className="h-5 w-5" />, label: t('home.cta.expert'), to: '/pregunta-al-experto',
+                border: 'border-teal-600', iconBg: 'bg-teal-600', text: 'text-teal-800', arrow: 'text-teal-600', ring: 'focus-visible:ring-teal-500' },
+              { icon: <BookOpenCheck className="h-5 w-5" />, label: t('home.cta.kits'), to: '/kit',
+                border: 'border-amber-600', iconBg: 'bg-amber-600', text: 'text-amber-800', arrow: 'text-amber-600', ring: 'focus-visible:ring-amber-500' },
             ].map((c) => (
               <button
                 key={c.to}
                 onClick={() => navigate(c.to)}
-                className="group flex items-center gap-3 rounded-2xl border border-brand-200 bg-white px-4 py-3.5 text-start shadow-sm min-h-[44px] transition-all motion-safe:duration-150 hover:border-brand-400 hover:shadow-md motion-safe:hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-500"
+                className={`group flex items-center gap-3 rounded-2xl border-2 ${c.border} bg-white px-4 py-3.5 text-start shadow-sm min-h-[44px] transition-all motion-safe:duration-150 hover:shadow-md motion-safe:hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${c.ring}`}
               >
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-100 text-brand-700 transition-colors group-hover:bg-brand-600 group-hover:text-white">
+                <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${c.iconBg} text-white`}>
                   {c.icon}
                 </span>
-                <span className="font-semibold leading-snug text-brand-800">{c.label}</span>
+                <span className={`flex-1 font-semibold leading-snug ${c.text}`}>{c.label}</span>
+                <ArrowRight className={`h-4 w-4 shrink-0 ${c.arrow} transition-transform motion-safe:group-hover:translate-x-0.5 rtl:rotate-180`} aria-hidden="true" />
               </button>
             ))}
           </div>
