@@ -2672,7 +2672,7 @@
         "reqs": [
           "Be among the first 500 per country.",
           "Share an experience on the blog.",
-          "Photo, full bio and verified email/phone.",
+          "Photo and complete bio, with verified email.",
           "Optional: a $10 USD donation unlocks an exclusive course.",
           "Recommend Neuromundi to at least 5 people."
         ]
@@ -5127,7 +5127,7 @@
           "Webinars, early blog access and exclusive giveaways"
         ],
         "reqs": [
-          "Profile photo, bio and phone",
+          "Profile photo and bio",
           "At least 1 blog post",
           "5 referrals to the community"
         ]
@@ -5321,7 +5321,7 @@
   "counters": {
     "badge": "By the numbers",
     "title": "Neuromundi by the numbers",
-    "countries": "Countries in the 2026–2027 rollout plan",
+    "countries": "Countries and territories expanding 2026–2027",
     "popTitle": "Target population worldwide",
     "millions": "million",
     "ndSub": "neurodevelopmental conditions",
@@ -5331,6 +5331,7 @@
     "professions": "Professions and specialties",
     "areas": "Intervention areas",
     "conditions": "Neurological conditions (ICD-11)",
-    "source": "Estimates: GBD 2021 (The Lancet Neurology) for neurological and neurodevelopmental conditions; neurodivergence ~15–20% of the population."
+    "source": "Estimates: GBD 2021 (The Lancet Neurology) for neurological and neurodevelopmental conditions; neurodivergence ~15–20% of the population.",
+    "countriesSub": "Includes territories; the UN recognizes 193 countries."
   }
 }

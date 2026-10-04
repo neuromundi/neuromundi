@@ -2709,7 +2709,7 @@
         "reqs": [
           "Zu den ersten 500 pro Land gehören.",
           "Eine Erfahrung im Blog teilen.",
-          "Foto, vollständige Bio und verifizierte E-Mail/Telefon.",
+          "Foto und vollständige Biografie, mit verifizierter E-Mail.",
           "Optional: Eine Spende von 10 USD schaltet einen exklusiven Kurs frei.",
           "Empfiehl Neuromundi mindestens 5 Personen."
         ]
@@ -5127,7 +5127,7 @@
           "Webinare, früher Blog-Zugang und exklusive Verlosungen"
         ],
         "reqs": [
-          "Profilfoto, Biografie und Telefon",
+          "Profilfoto und Biografie",
           "Mindestens 1 Blogbeitrag",
           "5 Empfehlungen an die Gemeinschaft"
         ]
@@ -5321,7 +5321,7 @@
   "counters": {
     "badge": "In Zahlen",
     "title": "Neuromundi in Zahlen",
-    "countries": "Länder im Ausbauplan 2026–2027",
+    "countries": "Länder und Gebiete im Ausbau 2026–2027",
     "popTitle": "Zielbevölkerung weltweit",
     "millions": "Millionen",
     "ndSub": "Neuroentwicklungsstörungen",
@@ -5331,6 +5331,7 @@
     "professions": "Berufe und Fachgebiete",
     "areas": "Interventionsbereiche",
     "conditions": "Neurologische Erkrankungen (ICD-11)",
-    "source": "Schätzungen: GBD 2021 (The Lancet Neurology) für neurologische und Neuroentwicklungsstörungen; Neurodivergenz ~15–20 % der Bevölkerung."
+    "source": "Schätzungen: GBD 2021 (The Lancet Neurology) für neurologische und Neuroentwicklungsstörungen; Neurodivergenz ~15–20 % der Bevölkerung.",
+    "countriesSub": "Einschließlich Gebieten; die UNO erkennt 193 Länder an."
   }
 }

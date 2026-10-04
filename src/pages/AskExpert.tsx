@@ -10,6 +10,7 @@ import { MessageCircleQuestion, Check, ShieldCheck, Mail } from 'lucide-react';
 import { Button, useToast } from '@/components/ui';
 import { useCategories } from '@/hooks/useCategories';
 import { CountryFilter } from '@/components/common/CountryFilter';
+import { useCountry } from '@/stores/countryStore';
 import { supabase } from '@/lib/supabase';
 
 const EXPERT_EMAIL = 'admin@neuromundi.com';
@@ -20,6 +21,7 @@ export function AskExpert() {
   const catLabel = useCatLabel();
   const toast = useToast();
   const { categories } = useCategories();
+  const { country } = useCountry();
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -35,6 +37,7 @@ export function AskExpert() {
       `${t('expert.form.name')}: ${name || '—'}`,
       `${t('expert.form.email')}: ${email || '—'}`,
       `${t('expert.form.category')}: ${categories.find((c) => String(c.id) === categoryId)?.name ?? '—'}`,
+      `${t('directory.countryLabel')}: ${country || '—'}`,
       '',
       question.trim(),
     ].join('\n');
@@ -53,6 +56,7 @@ export function AskExpert() {
       `${t('expert.form.name')}: ${name || '—'}`,
       `${t('expert.form.email')}: ${email || '—'}`,
       `${t('expert.form.category')}: ${catName}`,
+      `${t('directory.countryLabel')}: ${country || '—'}`,
       '',
       question.trim(),
     ].join('\n');
@@ -61,6 +65,7 @@ export function AskExpert() {
         body: {
           category: 'pregunta-experto',
           message,
+          country: country || undefined,
           replyTo: email || undefined,
           url: window.location.href,
           userAgent: navigator.userAgent,

@@ -2672,7 +2672,7 @@
         "reqs": [
           "Ser de los primeros 500 por país.",
           "Compartir alguna experiencia en el blog.",
-          "Foto, biografía completa y correo/teléfono verificados.",
+          "Foto y biografía completa, con correo verificado.",
           "Opcional: con un donativo de $10 USD recibes acceso a un curso exclusivo.",
           "Recomienda Neuromundi al menos a 5 personas."
         ]
@@ -5127,7 +5127,7 @@
           "Webinars, blog anticipado y sorteos exclusivos"
         ],
         "reqs": [
-          "Foto de perfil, biografía y teléfono",
+          "Foto de perfil y biografía",
           "Al menos 1 publicación en el blog",
           "5 recomendaciones a la comunidad"
         ]
@@ -5321,7 +5321,7 @@
   "counters": {
     "badge": "En cifras",
     "title": "Neuromundi en cifras",
-    "countries": "Países en el plan de expansión 2026–2027",
+    "countries": "Países y territorios en expansión 2026–2027",
     "popTitle": "Población objetivo en el mundo",
     "millions": "millones",
     "ndSub": "trastornos del neurodesarrollo",
@@ -5331,6 +5331,7 @@
     "professions": "Profesiones y especialidades",
     "areas": "Áreas de intervención",
     "conditions": "Afecciones neurológicas (CIE-11)",
-    "source": "Estimaciones: GBD 2021 (The Lancet Neurology) para afecciones neurológicas y del neurodesarrollo; neurodivergencia ~15–20% de la población."
+    "source": "Estimaciones: GBD 2021 (The Lancet Neurology) para afecciones neurológicas y del neurodesarrollo; neurodivergencia ~15–20% de la población.",
+    "countriesSub": "Incluye territorios; la ONU reconoce 193 países."
   }
 }

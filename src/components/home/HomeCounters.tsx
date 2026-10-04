@@ -71,6 +71,7 @@ export function HomeCounters() {
           run={inView}
           value={N_COUNTRIES}
           label={t('counters.countries')}
+          sub={t('counters.countriesSub')}
           icon={<Globe2 className="h-6 w-6 text-white" />}
           accent="bg-gradient-to-br from-brand-600 to-evs-5"
         />

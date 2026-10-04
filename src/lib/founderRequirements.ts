@@ -75,9 +75,9 @@ export function computeFounderProgress(kind: FounderKind, i: FounderInputs): Fou
   push('slot', bin(i.isFounder));
   push('photo', bin(!!i.avatarUrl));
   push('bio', bin(!!i.bio && i.bio.trim().length >= BIO_MIN));
-  push('contact', bin(!!i.phone));
 
   if (kind === 'families') {
+    // Familias/pacientes: NO se les exige teléfono (solo foto, bio y correo verificado).
     push('blog', bin(i.blogPosts >= 1));
     // Las familias conservan la recomendación a la comunidad (meta 5).
     push('referrals', i.referralCount / REFERRAL_TARGET_FAMILIES, {
@@ -88,6 +88,8 @@ export function computeFounderProgress(kind: FounderKind, i: FounderInputs): Fou
     // Profesionales y prestadores (perfiles de pago). Se ELIMINARON como
     // requisitos los "beneficios verificados por QR" y las "recomendaciones";
     // basta con cuota cubierta, descuento activo y los datos de perfil.
+    // Perfiles de pago: sí conservan el teléfono de contacto.
+    push('contact', bin(!!i.phone));
     if (kind === 'professionals' && i.providerType === 'service_provider') {
       push('cedula', bin(!!i.cedula));
     }
