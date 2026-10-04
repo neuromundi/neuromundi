@@ -4991,7 +4991,8 @@
     "label": "您的档案涵盖哪些板块？",
     "hint": "可选择1个或全部3个。您将出现在所选每个板块的目录中。",
     "conditionsLabel": "您诊治哪些神经系统疾病？",
-    "conditionsHint": "请选择适用项（可选）。"
+    "conditionsHint": "请选择适用项（可选）。",
+    "suggestedHint": "我们已根据你的职业预选了最可能的板块，你可以更改。"
   },
   "disc": {
     "title": "按国家/地区的折扣",
@@ -5327,7 +5328,7 @@
     "ndSub": "神经发育障碍",
     "perSix": "约每 6 人中 1 人",
     "perThree": "约每 3 人中 1 人",
-    "catTitle": "专业与服务目录",
+    "catTitle": "专业、产品和服务目录",
     "professions": "职业与专业",
     "areas": "干预领域",
     "conditions": "神经系统疾病（ICD-11）",

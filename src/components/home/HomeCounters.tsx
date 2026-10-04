@@ -84,21 +84,18 @@ export function HomeCounters() {
           icon={<Stethoscope className="h-5 w-5 text-white" />} accent="bg-violet-500" />
       </div>
 
-      {/* Catálogo */}
+      {/* Catálogo: especialidades + productos y servicios en una sola fila de 4. */}
       <h3 className="mt-1 text-[11px] font-semibold uppercase tracking-wide text-muted">{t('counters.catTitle')}</h3>
-      <div className="grid grid-cols-3 gap-2.5">
+      <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
         <Stat run={inView} value={N_SPECIALTIES} label={t('counters.professions')}
           icon={<GraduationCap className="h-5 w-5 text-white" />} accent="bg-brand-600" />
         <Stat run={inView} value={N_AREAS} label={t('counters.areas')}
           icon={<Compass className="h-5 w-5 text-white" />} accent="bg-sky-600" />
         <Stat run={inView} value={N_CONDITIONS} label={t('counters.conditions')}
           icon={<Stethoscope className="h-5 w-5 text-white" />} accent="bg-violet-600" />
+        <Stat run={inView} value={N_STORE_CATS} label={t('counters.storeCats')}
+          icon={<ShoppingBag className="h-5 w-5 text-white" />} accent="bg-amber-500" />
       </div>
-
-      {/* Categorías de productos y servicios: línea final, a todo el ancho, para
-          dejar claro que son un conteo distinto al de especialidades. */}
-      <Stat run={inView} value={N_STORE_CATS} label={t('counters.storeCats')}
-        icon={<ShoppingBag className="h-5 w-5 text-white" />} accent="bg-amber-500" />
 
       <p className="mt-1 text-[11px] leading-relaxed text-muted">{t('counters.source')}</p>
     </div>

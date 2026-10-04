@@ -4991,7 +4991,8 @@
     "label": "Quali sezioni copre il tuo profilo?",
     "hint": "Scegli 1 o tutte e 3. Comparirai nella directory di ogni sezione scelta.",
     "conditionsLabel": "Quali patologie neurologiche tratti?",
-    "conditionsHint": "Seleziona quelle pertinenti (facoltativo)."
+    "conditionsHint": "Seleziona quelle pertinenti (facoltativo).",
+    "suggestedHint": "Abbiamo preselezionato le sezioni più probabili per la tua professione. Puoi modificarle."
   },
   "disc": {
     "title": "Sconti per Paese",
@@ -5327,7 +5328,7 @@
     "ndSub": "disturbi del neurosviluppo",
     "perSix": "≈ 1 persona su 6",
     "perThree": "≈ 1 persona su 3",
-    "catTitle": "Catalogo di specialità e servizi",
+    "catTitle": "Catalogo di specialità, prodotti e servizi",
     "professions": "Professioni e specialità",
     "areas": "Aree di intervento",
     "conditions": "Condizioni neurologiche (ICD-11)",

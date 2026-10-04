@@ -4991,7 +4991,8 @@
     "label": "Quelles sections votre profil couvre-t-il ?",
     "hint": "Choisissez 1 ou les 3. Vous apparaîtrez dans l’annuaire de chaque section choisie.",
     "conditionsLabel": "Quelles affections neurologiques prenez-vous en charge ?",
-    "conditionsHint": "Sélectionnez celles qui s’appliquent (facultatif)."
+    "conditionsHint": "Sélectionnez celles qui s’appliquent (facultatif).",
+    "suggestedHint": "Nous avons présélectionné les sections les plus probables selon votre profession. Vous pouvez les modifier."
   },
   "disc": {
     "title": "Remises par pays",
@@ -5327,7 +5328,7 @@
     "ndSub": "troubles du neurodéveloppement",
     "perSix": "≈ 1 personne sur 6",
     "perThree": "≈ 1 personne sur 3",
-    "catTitle": "Catalogue de spécialités et services",
+    "catTitle": "Catalogue de spécialités, produits et services",
     "professions": "Professions et spécialités",
     "areas": "Domaines d'intervention",
     "conditions": "Affections neurologiques (CIM-11)",

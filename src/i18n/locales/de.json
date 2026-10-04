@@ -4991,7 +4991,8 @@
     "label": "Welche Bereiche deckt dein Profil ab?",
     "hint": "Wähle 1 oder alle 3. Du erscheinst im Verzeichnis jeder gewählten Sektion.",
     "conditionsLabel": "Welche neurologischen Erkrankungen behandelst du?",
-    "conditionsHint": "Wähle alle zutreffenden aus (optional)."
+    "conditionsHint": "Wähle alle zutreffenden aus (optional).",
+    "suggestedHint": "Wir haben die wahrscheinlichsten Bereiche für deinen Beruf vorausgewählt. Du kannst sie ändern."
   },
   "disc": {
     "title": "Rabatte nach Land",
@@ -5327,7 +5328,7 @@
     "ndSub": "Neuroentwicklungsstörungen",
     "perSix": "≈ 1 von 6 Personen",
     "perThree": "≈ 1 von 3 Personen",
-    "catTitle": "Katalog der Fachgebiete und Dienste",
+    "catTitle": "Katalog an Fachgebieten, Produkten und Diensten",
     "professions": "Berufe und Fachgebiete",
     "areas": "Interventionsbereiche",
     "conditions": "Neurologische Erkrankungen (ICD-11)",

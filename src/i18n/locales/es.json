@@ -4996,7 +4996,8 @@
     "label": "¿Qué secciones abarca tu perfil?",
     "hint": "Elige 1 o las 3. Aparecerás en el directorio de cada sección seleccionada.",
     "conditionsLabel": "¿Qué afecciones neurológicas atiendes?",
-    "conditionsHint": "Selecciona las que correspondan (opcional)."
+    "conditionsHint": "Selecciona las que correspondan (opcional).",
+    "suggestedHint": "Preseleccionamos las secciones más probables según tu profesión. Puedes cambiarlas."
   },
   "disc": {
     "title": "Descuentos por país",
@@ -5327,7 +5328,7 @@
     "ndSub": "trastornos del neurodesarrollo",
     "perSix": "≈ 1 de cada 6 personas",
     "perThree": "≈ 1 de cada 3 personas",
-    "catTitle": "Catálogo de especialidades y servicios",
+    "catTitle": "Catálogo de especialidades, productos y servicios",
     "professions": "Profesiones y especialidades",
     "areas": "Áreas de intervención",
     "conditions": "Afecciones neurológicas (CIE-11)",

@@ -97,7 +97,12 @@ export function useCampaign() {
   const popupActiveFor = (country: string | null): boolean => {
     if (!config?.active || !config.popup_active) return false;
     const cont = continentForCountry(country);
-    return cont ? config.popup_continents?.[cont] === true : false;
+    // País desconocido (visitante que aún no elige país, típico en incógnito o
+    // primera visita): NO se suprime. `popup_active` es el interruptor maestro;
+    // los continentes solo acotan cuando SÍ se conoce el país. Antes esto
+    // devolvía false y el popup no aparecía nunca para quien no había elegido país.
+    if (!cont) return true;
+    return config.popup_continents?.[cont] === true;
   };
 
   return { config, loading, unlockAtFor, directoryLockedFor, popupActiveFor, founderDiscount: founderDiscountNow(config) };

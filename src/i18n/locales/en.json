@@ -4996,7 +4996,8 @@
     "label": "Which sections does your profile cover?",
     "hint": "Choose 1 or all 3. You’ll appear in the directory of each selected section.",
     "conditionsLabel": "Which neurological conditions do you treat?",
-    "conditionsHint": "Select all that apply (optional)."
+    "conditionsHint": "Select all that apply (optional).",
+    "suggestedHint": "We preselected the most likely sections for your profession. You can change them."
   },
   "disc": {
     "title": "Discounts by country",
@@ -5327,7 +5328,7 @@
     "ndSub": "neurodevelopmental conditions",
     "perSix": "≈ 1 in 6 people",
     "perThree": "≈ 1 in 3 people",
-    "catTitle": "Catalog of specialties and services",
+    "catTitle": "Catalog of specialties, products and services",
     "professions": "Professions and specialties",
     "areas": "Intervention areas",
     "conditions": "Neurological conditions (ICD-11)",
