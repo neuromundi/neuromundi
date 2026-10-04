@@ -103,11 +103,11 @@ export function Home() {
           <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-3">
             {[
               { icon: <UserPlus className="h-5 w-5" />, label: t('home.cta.join'), to: '/crear-cuenta',
-                border: 'border-brand-600', iconBg: 'bg-brand-600', text: 'text-brand-800', arrow: 'text-brand-600', ring: 'focus-visible:ring-brand-500' },
+                border: 'border-brand-600', iconBg: 'bg-brand-600', text: 'text-brand-800', ring: 'focus-visible:ring-brand-500' },
               { icon: <MessageCircleQuestion className="h-5 w-5" />, label: t('home.cta.expert'), to: '/pregunta-al-experto',
-                border: 'border-teal-600', iconBg: 'bg-teal-600', text: 'text-teal-800', arrow: 'text-teal-600', ring: 'focus-visible:ring-teal-500' },
+                border: 'border-teal-600', iconBg: 'bg-teal-600', text: 'text-teal-800', ring: 'focus-visible:ring-teal-500' },
               { icon: <BookOpenCheck className="h-5 w-5" />, label: t('home.cta.kits'), to: '/kit',
-                border: 'border-amber-600', iconBg: 'bg-amber-600', text: 'text-amber-800', arrow: 'text-amber-600', ring: 'focus-visible:ring-amber-500' },
+                border: 'border-amber-600', iconBg: 'bg-amber-600', text: 'text-amber-800', ring: 'focus-visible:ring-amber-500' },
             ].map((c) => (
               <button
                 key={c.to}
@@ -118,7 +118,6 @@ export function Home() {
                   {c.icon}
                 </span>
                 <span className={`flex-1 font-semibold leading-snug ${c.text}`}>{c.label}</span>
-                <ArrowRight className={`h-4 w-4 shrink-0 ${c.arrow} transition-transform motion-safe:group-hover:translate-x-0.5 rtl:rotate-180`} aria-hidden="true" />
               </button>
             ))}
           </div>
