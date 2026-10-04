@@ -4394,9 +4394,33 @@
     }
   },
   "memberBadges": {
-    "title": "Vos badges",
-    "desc": "Téléchargez et partagez ces badges sur votre site et vos réseaux.",
-    "download": "Télécharger"
+    "title": "Badges pour les membres Neuromundi",
+    "subtitle": "Des reconnaissances vérifiables que les membres obtiennent et affichent sur leur profil. Elles inspirent confiance aux familles.",
+    "cta": "Voir le registre vérifiable",
+    "verified": {
+      "name": "Vérifié",
+      "desc": "Identité et diplômes vérifiés par Neuromundi."
+    },
+    "neuroaffirming": {
+      "name": "Neuro-affirmatif",
+      "desc": "Pratique attestée par les avis : adaptation sensorielle, flexibilité et traitement humain."
+    },
+    "founder": {
+      "name": "Membre Fondateur",
+      "desc": "Reconnaissance permanente pour ceux qui ont cru les premiers à la communauté."
+    },
+    "ally": {
+      "name": "Allié Distingué",
+      "desc": "Prestataires aux notes et à la participation remarquables."
+    },
+    "memberType": {
+      "name": "Badge par type de membre",
+      "desc": "Badge téléchargeable selon le rôle : spécialiste, école, commerce, entreprise, ONG…"
+    },
+    "neuroId": {
+      "name": "Neuromundi ID",
+      "desc": "Identifiant numérique vérifiable avec QR, valable hors ligne."
+    }
   },
   "esp": {
     "miss": {

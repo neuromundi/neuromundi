@@ -4394,9 +4394,33 @@
     }
   },
   "memberBadges": {
-    "title": "Deine Abzeichen",
-    "desc": "Lade diese Abzeichen herunter und teile sie auf deiner Website und in sozialen Medien.",
-    "download": "Herunterladen"
+    "title": "Abzeichen für Neuromundi-Mitglieder",
+    "subtitle": "Überprüfbare Auszeichnungen, die Mitglieder erhalten und im Profil zeigen. Sie schaffen Vertrauen bei Familien.",
+    "cta": "Überprüfbares Register ansehen",
+    "verified": {
+      "name": "Verifiziert",
+      "desc": "Identität und Qualifikationen von Neuromundi geprüft."
+    },
+    "neuroaffirming": {
+      "name": "Neuroaffirmativ",
+      "desc": "Durch Bewertungen belegt: sensorische Anpassung, Flexibilität und menschlicher Umgang."
+    },
+    "founder": {
+      "name": "Gründungsmitglied",
+      "desc": "Dauerhafte Anerkennung für die, die zuerst an die Gemeinschaft glaubten."
+    },
+    "ally": {
+      "name": "Ausgezeichneter Partner",
+      "desc": "Anbieter mit herausragenden Bewertungen und Beteiligung."
+    },
+    "memberType": {
+      "name": "Abzeichen nach Mitgliedstyp",
+      "desc": "Herunterladbares Abzeichen je Rolle: Fachkraft, Schule, Geschäft, Unternehmen, NGO…"
+    },
+    "neuroId": {
+      "name": "Neuromundi ID",
+      "desc": "Überprüfbarer digitaler Ausweis mit QR, offline gültig."
+    }
   },
   "esp": {
     "miss": {

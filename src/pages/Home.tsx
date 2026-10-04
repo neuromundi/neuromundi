@@ -13,6 +13,7 @@ const SECTION_ICONS = { Sprout, Sparkles, Stethoscope } as const;
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui';
 import { ComparisonTable } from '@/components/home/ComparisonTable';
+import { MemberBadgesBanner } from '@/components/home/MemberBadgesBanner';
 import { SearchableSelect } from '@/components/directory/SearchableSelect';
 import { FoundersCounter } from '@/components/campaign/FoundersCounter';
 import { ComingSoonBanner } from '@/components/campaign/ComingSoonBanner';
@@ -142,6 +143,9 @@ export function Home() {
       </section>
 
       <FoundersCounter />
+
+      {/* Distintivos para miembros Neuromundi: prueba social, debajo del héroe. */}
+      <MemberBadgesBanner />
 
       {/* Confianza */}
       <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">

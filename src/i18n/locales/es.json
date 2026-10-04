@@ -4394,9 +4394,33 @@
     }
   },
   "memberBadges": {
-    "title": "Tus distintivos",
-    "desc": "Descarga y comparte estos distintivos en tu web y redes.",
-    "download": "Descargar"
+    "title": "Distintivos para miembros Neuromundi",
+    "subtitle": "Reconocimientos verificables que los miembros ganan y muestran en su perfil. Generan confianza en las familias.",
+    "cta": "Ver registro verificable",
+    "verified": {
+      "name": "Verificado",
+      "desc": "Identidad y credenciales revisadas por Neuromundi."
+    },
+    "neuroaffirming": {
+      "name": "Neuroafirmativo",
+      "desc": "Práctica avalada por reseñas: adaptación sensorial, flexibilidad y trato humano."
+    },
+    "founder": {
+      "name": "Miembro Fundador",
+      "desc": "Reconocimiento permanente a quienes creyeron primero en la comunidad."
+    },
+    "ally": {
+      "name": "Aliado Destacado",
+      "desc": "Prestadores con calificación y participación sobresalientes."
+    },
+    "memberType": {
+      "name": "Distintivo por tipo de miembro",
+      "desc": "Insignia descargable según el rol: especialista, escuela, comercio, empresa, ONG…"
+    },
+    "neuroId": {
+      "name": "Neuromundi ID",
+      "desc": "Credencial digital verificable con QR, válida sin conexión."
+    }
   },
   "esp": {
     "miss": {

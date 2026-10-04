@@ -4394,9 +4394,33 @@
     }
   },
   "memberBadges": {
-    "title": "Your badges",
-    "desc": "Download and share these badges on your site and social media.",
-    "download": "Download"
+    "title": "Badges for Neuromundi members",
+    "subtitle": "Verifiable recognitions members earn and show on their profile. They build trust with families.",
+    "cta": "See verifiable registry",
+    "verified": {
+      "name": "Verified",
+      "desc": "Identity and credentials reviewed by Neuromundi."
+    },
+    "neuroaffirming": {
+      "name": "Neuro-affirming",
+      "desc": "Practice backed by reviews: sensory adaptation, flexibility and humane treatment."
+    },
+    "founder": {
+      "name": "Founding Member",
+      "desc": "Permanent recognition for those who believed in the community first."
+    },
+    "ally": {
+      "name": "Featured Ally",
+      "desc": "Providers with outstanding ratings and participation."
+    },
+    "memberType": {
+      "name": "Member-type badge",
+      "desc": "Downloadable badge by role: specialist, school, shop, company, NGO…"
+    },
+    "neuroId": {
+      "name": "Neuromundi ID",
+      "desc": "Verifiable digital credential with QR, valid offline."
+    }
   },
   "esp": {
     "miss": {
