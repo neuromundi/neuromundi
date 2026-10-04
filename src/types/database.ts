@@ -84,6 +84,9 @@ export interface Database {
           is_published: boolean;
           is_advisor: boolean;
           neuroaffirming: boolean;
+          is_inclusive_school: boolean;
+          is_inclusive_company: boolean;
+          is_institutional_ally: boolean;
           accepts_neuromundi_id: boolean;
           latitude: number | null;
           longitude: number | null;
@@ -176,6 +179,9 @@ export interface Database {
           is_verified?: boolean;
           is_published?: boolean;
           neuroaffirming?: boolean;
+          is_inclusive_school?: boolean;
+          is_inclusive_company?: boolean;
+          is_institutional_ally?: boolean;
           accepts_neuromundi_id?: boolean;
           latitude?: number | null;
           longitude?: number | null;
@@ -1990,6 +1996,10 @@ export interface Database {
       };
       admin_set_published: {
         Args: { p_id: string; p_value: boolean };
+        Returns: undefined;
+      };
+      admin_set_profile_flag: {
+        Args: { p_id: string; p_flag: string; p_value: boolean };
         Returns: undefined;
       };
       admin_set_neuroaffirming: {

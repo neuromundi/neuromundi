@@ -1020,7 +1020,11 @@
     "secCarousel": "カルーセル",
     "secSuggestions": "提案",
     "secMembers": "メンバー",
-    "secExemptions": "免除"
+    "secExemptions": "免除",
+    "grantSchool": "インクルーシブ・スクールを付与",
+    "grantCompany": "インクルーシブ企業を付与",
+    "grantAlly": "Neuromundi アライを付与",
+    "badgeRevoke": "バッジを取り消す"
   },
   "reg": {
     "typePatient": "患者",
@@ -2641,7 +2645,7 @@
     "viewProfile": "ディレクトリのプロフィールを見る"
   },
   "badge": {
-    "aliado": "注目のアライ",
+    "aliado": "優秀メンバー",
     "embajador": "Neuromundi アンバサダー",
     "enRevision": "審査中",
     "miembro": "認証済みメンバー"
@@ -4421,7 +4425,10 @@
     "outstanding": {
       "name": "優秀メンバー",
       "desc": "レビューに基づく卓越した品質と献身。"
-    }
+    },
+    "inclusiveSchool": "インクルーシブ・スクール",
+    "inclusiveCompany": "インクルーシブ企業",
+    "institutionalAlly": "Neuromundi アライ"
   },
   "esp": {
     "miss": {

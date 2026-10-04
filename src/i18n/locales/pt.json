@@ -1020,7 +1020,11 @@
     "secCarousel": "Carrossel",
     "secSuggestions": "Sugestões",
     "secMembers": "Membros",
-    "secExemptions": "Isenções"
+    "secExemptions": "Isenções",
+    "grantSchool": "Conceder Escola Inclusiva",
+    "grantCompany": "Conceder Empresa Inclusiva",
+    "grantAlly": "Conceder Aliado Neuromundi",
+    "badgeRevoke": "Revogar distintivo"
   },
   "reg": {
     "typePatient": "Paciente",
@@ -2641,7 +2645,7 @@
     "viewProfile": "Ver perfil no diretório"
   },
   "badge": {
-    "aliado": "Aliado Destacado",
+    "aliado": "Membro em Destaque",
     "embajador": "Embaixador Neuromundi",
     "enRevision": "Em análise",
     "miembro": "Membro Verificado"
@@ -4421,7 +4425,10 @@
     "outstanding": {
       "name": "Membro em Destaque",
       "desc": "Qualidade e compromisso excelentes segundo as avaliações."
-    }
+    },
+    "inclusiveSchool": "Escola Inclusiva",
+    "inclusiveCompany": "Empresa Inclusiva",
+    "institutionalAlly": "Aliado Neuromundi"
   },
   "esp": {
     "miss": {

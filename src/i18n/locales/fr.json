@@ -1020,7 +1020,11 @@
     "secCarousel": "Carrousel",
     "secSuggestions": "Suggestions",
     "secMembers": "Membres",
-    "secExemptions": "Exonérations"
+    "secExemptions": "Exonérations",
+    "grantSchool": "Attribuer École Inclusive",
+    "grantCompany": "Attribuer Entreprise Inclusive",
+    "grantAlly": "Attribuer Allié Neuromundi",
+    "badgeRevoke": "Révoquer le badge"
   },
   "reg": {
     "typePatient": "Patient",
@@ -2641,7 +2645,7 @@
     "viewProfile": "Voir la fiche dans l’annuaire"
   },
   "badge": {
-    "aliado": "Allié en vedette",
+    "aliado": "Membre Distingué",
     "embajador": "Ambassadeur Neuromundi",
     "enRevision": "En cours d’examen",
     "miembro": "Membre vérifié"
@@ -4421,7 +4425,10 @@
     "outstanding": {
       "name": "Membre Distingué",
       "desc": "Qualité et engagement remarquables selon les avis."
-    }
+    },
+    "inclusiveSchool": "École Inclusive",
+    "inclusiveCompany": "Entreprise Inclusive",
+    "institutionalAlly": "Allié Neuromundi"
   },
   "esp": {
     "miss": {

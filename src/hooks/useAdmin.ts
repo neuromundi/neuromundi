@@ -19,7 +19,11 @@ export interface UseAdminValue {
   setVerified: (id: string, value: boolean) => Promise<Result<true>>;
   setPublished: (id: string, value: boolean) => Promise<Result<true>>;
   setNeuroaffirming: (id: string, value: boolean) => Promise<Result<true>>;
+  /** Distintivos por tipo otorgados por admin: is_inclusive_school | is_inclusive_company | is_institutional_ally. */
+  setProfileFlag: (id: string, flag: ProfileBadgeFlag, value: boolean) => Promise<Result<true>>;
 }
+
+export type ProfileBadgeFlag = 'is_inclusive_school' | 'is_inclusive_company' | 'is_institutional_ally';
 
 export function useAdmin(filter: AdminFilter): UseAdminValue {
   const [all, setAll] = useState<Profile[]>([]);
@@ -84,6 +88,17 @@ export function useAdmin(filter: AdminFilter): UseAdminValue {
     return { ok: true, data: true };
   }, [all]);
 
+  const setProfileFlag = useCallback<UseAdminValue['setProfileFlag']>(async (id, flag, value) => {
+    const previous = all;
+    patchLocal(id, { [flag]: value } as Partial<Profile>);
+    const { error: err } = await supabase.rpc('admin_set_profile_flag', { p_id: id, p_flag: flag, p_value: value });
+    if (err) {
+      setAll(previous);
+      return { ok: false, error: toMessage(err, 'No se pudo actualizar.') };
+    }
+    return { ok: true, data: true };
+  }, [all]);
+
   const providers = useMemo(() => {
     switch (filter) {
       case 'pending':
@@ -95,5 +110,5 @@ export function useAdmin(filter: AdminFilter): UseAdminValue {
     }
   }, [all, filter]);
 
-  return { providers, loading, error, refetch, setVerified, setPublished, setNeuroaffirming };
+  return { providers, loading, error, refetch, setVerified, setPublished, setNeuroaffirming, setProfileFlag };
 }

@@ -1057,7 +1057,11 @@
     "secCarousel": "캐러셀",
     "secSuggestions": "제안",
     "secMembers": "회원",
-    "secExemptions": "면제"
+    "secExemptions": "면제",
+    "grantSchool": "포용 학교 부여",
+    "grantCompany": "포용 기업 부여",
+    "grantAlly": "Neuromundi 파트너 부여",
+    "badgeRevoke": "배지 취소"
   },
   "reg": {
     "typePatient": "환자",
@@ -2629,7 +2633,7 @@
   },
   "badge": {
     "miembro": "인증 회원",
-    "aliado": "우수 협력자",
+    "aliado": "우수 회원",
     "embajador": "Neuromundi 대사",
     "enRevision": "검토 중"
   },
@@ -4421,7 +4425,10 @@
     "outstanding": {
       "name": "우수 회원",
       "desc": "리뷰 기준 뛰어난 품질과 헌신."
-    }
+    },
+    "inclusiveSchool": "포용 학교",
+    "inclusiveCompany": "포용 기업",
+    "institutionalAlly": "Neuromundi 파트너"
   },
   "esp": {
     "miss": {

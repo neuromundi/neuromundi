@@ -7,9 +7,9 @@
  */
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ShieldCheck, ShieldOff, Eye, EyeOff, ExternalLink, RefreshCw, FileText, Sparkles } from 'lucide-react';
+import { ShieldCheck, ShieldOff, Eye, EyeOff, ExternalLink, RefreshCw, FileText, Sparkles, Award } from 'lucide-react';
 import { Button, Tabs, SkeletonCard, useToast , Avatar, DistintivoBadge} from '@/components/ui';
-import { useAdmin, type AdminFilter } from '@/hooks/useAdmin';
+import { useAdmin, type AdminFilter, type ProfileBadgeFlag } from '@/hooks/useAdmin';
 import { useAuth } from '@/hooks/useAuth';
 import { ProductManager } from '@/components/merchant/ProductManager';
 import { AdminProducts } from './AdminProducts';
@@ -50,12 +50,14 @@ function ProviderRow({
   onVerify,
   onPublish,
   onNeuro,
+  onFlag,
   badge,
 }: {
   provider: Profile;
   onVerify: (id: string, value: boolean) => void;
   onPublish: (id: string, value: boolean) => void;
   onNeuro: (id: string, value: boolean) => void;
+  onFlag: (id: string, flag: ProfileBadgeFlag, value: boolean) => void;
   badge?: BadgeResult | null;
 }) {
   const { t } = useTranslation();
@@ -148,6 +150,25 @@ function ProviderRow({
         >
           {provider.neuroaffirming ? t('admin.neuroRevoke') : t('admin.neuroGrant')}
         </Button>
+        {provider.provider_type === 'school' && (
+          <Button size="sm" variant={provider.is_inclusive_school ? 'ghost' : 'secondary'}
+            onClick={() => onFlag(provider.id, 'is_inclusive_school', !provider.is_inclusive_school)}
+            leadingIcon={<Award className="h-4 w-4" />}>
+            {provider.is_inclusive_school ? t('admin.badgeRevoke') : t('admin.grantSchool')}
+          </Button>
+        )}
+        {provider.provider_type === 'company' && (
+          <Button size="sm" variant={provider.is_inclusive_company ? 'ghost' : 'secondary'}
+            onClick={() => onFlag(provider.id, 'is_inclusive_company', !provider.is_inclusive_company)}
+            leadingIcon={<Award className="h-4 w-4" />}>
+            {provider.is_inclusive_company ? t('admin.badgeRevoke') : t('admin.grantCompany')}
+          </Button>
+        )}
+        <Button size="sm" variant={provider.is_institutional_ally ? 'ghost' : 'secondary'}
+          onClick={() => onFlag(provider.id, 'is_institutional_ally', !provider.is_institutional_ally)}
+          leadingIcon={<Award className="h-4 w-4" />}>
+          {provider.is_institutional_ally ? t('admin.badgeRevoke') : t('admin.grantAlly')}
+        </Button>
         {provider.website_url && (
           <a
             href={provider.website_url}
@@ -164,7 +185,7 @@ function ProviderRow({
 }
 
 function ProviderList({ filter }: { filter: AdminFilter }) {
-  const { providers, loading, setVerified, setPublished, setNeuroaffirming } = useAdmin(filter);
+  const { providers, loading, setVerified, setPublished, setNeuroaffirming, setProfileFlag } = useAdmin(filter);
   const badges = useAdminBadges();
   const toast = useToast();
   const { t } = useTranslation();
@@ -181,6 +202,10 @@ function ProviderList({ filter }: { filter: AdminFilter }) {
     const res = await setNeuroaffirming(id, value);
     if (!res.ok) toast.error(res.error);
   };
+  const onFlag = async (id: string, flag: ProfileBadgeFlag, value: boolean) => {
+    const res = await setProfileFlag(id, flag, value);
+    if (!res.ok) toast.error(res.error);
+  };
 
   if (loading) return <div className="space-y-3"><SkeletonCard rows={0} /><SkeletonCard rows={0} /></div>;
   if (providers.length === 0) {
@@ -193,7 +218,7 @@ function ProviderList({ filter }: { filter: AdminFilter }) {
   return (
     <ul className="space-y-3">
       {providers.map((p) => (
-        <ProviderRow key={p.id} provider={p} onVerify={onVerify} onPublish={onPublish} onNeuro={onNeuro} badge={badges.get(p.id) ?? null} />
+        <ProviderRow key={p.id} provider={p} onVerify={onVerify} onPublish={onPublish} onNeuro={onNeuro} onFlag={onFlag} badge={badges.get(p.id) ?? null} />
       ))}
     </ul>
   );

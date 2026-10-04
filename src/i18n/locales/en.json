@@ -1057,7 +1057,11 @@
     "secCarousel": "Carousel",
     "secSuggestions": "Suggestions",
     "secMembers": "Members",
-    "secExemptions": "Exemptions"
+    "secExemptions": "Exemptions",
+    "grantSchool": "Grant Inclusive School",
+    "grantCompany": "Grant Inclusive Company",
+    "grantAlly": "Grant Neuromundi Ally",
+    "badgeRevoke": "Revoke badge"
   },
   "reg": {
     "typePatient": "Patient",
@@ -2629,7 +2633,7 @@
   },
   "badge": {
     "miembro": "Verified Member",
-    "aliado": "Featured Ally",
+    "aliado": "Outstanding Member",
     "embajador": "Neuromundi Ambassador",
     "enRevision": "Under review"
   },
@@ -4421,7 +4425,10 @@
     "outstanding": {
       "name": "Outstanding Member",
       "desc": "Outstanding quality and commitment per reviews."
-    }
+    },
+    "inclusiveSchool": "Inclusive School",
+    "inclusiveCompany": "Inclusive Company",
+    "institutionalAlly": "Neuromundi Ally"
   },
   "esp": {
     "miss": {

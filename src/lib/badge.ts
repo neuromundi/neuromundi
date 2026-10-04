@@ -148,11 +148,15 @@ export function computeBadge(i: BadgeInputs): BadgeResult {
   };
 }
 
-/** Metadatos de presentación por nivel (imagen del distintivo + clave i18n). */
-export const BADGE_META: Record<BadgeLevel, { image: string; labelKey: string; ring: string }> = {
-  miembro: { image: '/badges/miembro-verificado.jpg', labelKey: 'badge.miembro', ring: 'ring-cyan-300' },
-  aliado: { image: '/badges/aliado-destacado.jpg', labelKey: 'badge.aliado', ring: 'ring-amber-300' },
-  embajador: { image: '/badges/embajador-neuromundi.jpg', labelKey: 'badge.embajador', ring: 'ring-violet-300' },
+/**
+ * Metadatos de presentación por nivel. `art` = clave en badgeArt (resuelve la
+ * imagen por idioma); `image` = respaldo directo en español. El nivel `aliado`
+ * se renombró a "Miembro Destacado" (clave interna sin cambios).
+ */
+export const BADGE_META: Record<BadgeLevel, { art: string; image: string; labelKey: string; ring: string }> = {
+  miembro: { art: 'miembro-verificado', image: '/badges/miembro-verificado.jpg', labelKey: 'badge.miembro', ring: 'ring-cyan-300' },
+  aliado: { art: 'miembro-destacado', image: '/badges/miembro-destacado.jpg', labelKey: 'badge.aliado', ring: 'ring-amber-300' },
+  embajador: { art: 'embajador-neuromundi', image: '/badges/embajador-neuromundi.jpg', labelKey: 'badge.embajador', ring: 'ring-violet-300' },
 };
 
 // ── ¿Qué falta para el siguiente nivel? ──────────────────────────────────────

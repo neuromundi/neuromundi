@@ -1057,7 +1057,11 @@
     "secCarousel": "الشريط الدوّار",
     "secSuggestions": "الاقتراحات",
     "secMembers": "الأعضاء",
-    "secExemptions": "الإعفاءات"
+    "secExemptions": "الإعفاءات",
+    "grantSchool": "منح مدرسة دامجة",
+    "grantCompany": "منح شركة دامجة",
+    "grantAlly": "منح حليف Neuromundi",
+    "badgeRevoke": "إلغاء الشارة"
   },
   "reg": {
     "typePatient": "مريض",
@@ -2629,7 +2633,7 @@
   },
   "badge": {
     "miembro": "عضو موثَّق",
-    "aliado": "الحليف المميّز",
+    "aliado": "عضو متميّز",
     "embajador": "سفير Neuromundi",
     "enRevision": "قيد المراجعة"
   },
@@ -4421,7 +4425,10 @@
     "outstanding": {
       "name": "عضو متميّز",
       "desc": "جودة والتزام متميّزان وفق المراجعات."
-    }
+    },
+    "inclusiveSchool": "مدرسة دامجة",
+    "inclusiveCompany": "شركة دامجة",
+    "institutionalAlly": "حليف Neuromundi"
   },
   "esp": {
     "miss": {

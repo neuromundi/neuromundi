@@ -17,6 +17,7 @@ import { useTranslation } from 'react-i18next';
 import { useCatLabel } from '@/lib/catLabel';
 import { cn } from '@/lib/utils';
 import { SECTION_BY_VALUE } from '@/data/sections';
+import { badgeArt } from '@/data/badgeArt';
 import { Button, EVSBadge, SkeletonCard, DistintivoBadge, FounderBadge } from '@/components/ui';
 import { ConnectButton, SaveToListButton } from '@/components/directory';
 import { BookAppointment } from '@/components/booking/BookAppointment';
@@ -45,7 +46,7 @@ const ProviderMiniMap = lazy(() =>
 export function ProviderProfile() {
   const { id = '' } = useParams();
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const catLabel = useCatLabel();
   const { isProvider, isParent, isConsumer, userId } = useAuth();
   const { profile, categories, network, loading } = useProviderProfile(id);
@@ -322,6 +323,28 @@ export function ProviderProfile() {
             <EVSBadge score={rating?.evs_score ?? null} totalReviews={rating?.total_reviews ?? 0} size="lg" />
             <DistintivoBadge badge={badge} size="md" showLabel showReview={userId === id} />
           </div>
+          {(profile.is_inclusive_school || profile.is_inclusive_company || profile.is_institutional_ally) && (
+            <div className="mt-2 flex flex-wrap items-center gap-4">
+              {profile.is_inclusive_school && (
+                <span className="inline-flex items-center gap-2" title={t('memberBadges.inclusiveSchool')}>
+                  <img src={badgeArt('escuela-inclusiva', i18n.language)} alt={t('memberBadges.inclusiveSchool')} className="h-14 w-14 object-contain" loading="lazy" />
+                  <span className="text-sm font-semibold text-slate-800">{t('memberBadges.inclusiveSchool')}</span>
+                </span>
+              )}
+              {profile.is_inclusive_company && (
+                <span className="inline-flex items-center gap-2" title={t('memberBadges.inclusiveCompany')}>
+                  <img src={badgeArt('empresa-inclusiva', i18n.language)} alt={t('memberBadges.inclusiveCompany')} className="h-14 w-14 object-contain" loading="lazy" />
+                  <span className="text-sm font-semibold text-slate-800">{t('memberBadges.inclusiveCompany')}</span>
+                </span>
+              )}
+              {profile.is_institutional_ally && (
+                <span className="inline-flex items-center gap-2" title={t('memberBadges.institutionalAlly')}>
+                  <img src={badgeArt('aliados-neuromundi', i18n.language)} alt={t('memberBadges.institutionalAlly')} className="h-14 w-14 object-contain" loading="lazy" />
+                  <span className="text-sm font-semibold text-slate-800">{t('memberBadges.institutionalAlly')}</span>
+                </span>
+              )}
+            </div>
+          )}
           {(profile.year_started != null || profile.certified_staff) && (
             <div className="mt-2 flex flex-wrap items-center gap-2">
               {profile.year_started != null && (

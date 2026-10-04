@@ -1020,7 +1020,11 @@
     "secCarousel": "Karussell",
     "secSuggestions": "Vorschläge",
     "secMembers": "Mitglieder",
-    "secExemptions": "Befreiungen"
+    "secExemptions": "Befreiungen",
+    "grantSchool": "Inklusive Schule vergeben",
+    "grantCompany": "Inklusives Unternehmen vergeben",
+    "grantAlly": "Neuromundi-Partner vergeben",
+    "badgeRevoke": "Abzeichen entziehen"
   },
   "reg": {
     "typePatient": "Patient",
@@ -2641,7 +2645,7 @@
     "viewProfile": "Verzeichnisprofil ansehen"
   },
   "badge": {
-    "aliado": "Herausragender Verbündeter",
+    "aliado": "Herausragendes Mitglied",
     "embajador": "Neuromundi-Botschafter",
     "enRevision": "In Prüfung",
     "miembro": "Verifiziertes Mitglied"
@@ -4421,7 +4425,10 @@
     "outstanding": {
       "name": "Herausragendes Mitglied",
       "desc": "Herausragende Qualität und Engagement laut Bewertungen."
-    }
+    },
+    "inclusiveSchool": "Inklusive Schule",
+    "inclusiveCompany": "Inklusives Unternehmen",
+    "institutionalAlly": "Neuromundi-Partner"
   },
   "esp": {
     "miss": {

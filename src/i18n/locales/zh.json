@@ -1020,7 +1020,11 @@
     "secCarousel": "轮播",
     "secSuggestions": "建议",
     "secMembers": "会员",
-    "secExemptions": "豁免"
+    "secExemptions": "豁免",
+    "grantSchool": "授予包容性学校",
+    "grantCompany": "授予包容性企业",
+    "grantAlly": "授予 Neuromundi 伙伴",
+    "badgeRevoke": "撤销徽章"
   },
   "reg": {
     "typePatient": "患者",
@@ -2641,7 +2645,7 @@
     "viewProfile": "查看目录中的资料"
   },
   "badge": {
-    "aliado": "卓越伙伴",
+    "aliado": "杰出会员",
     "embajador": "Neuromundi 大使",
     "enRevision": "审核中",
     "miembro": "已认证会员"
@@ -4421,7 +4425,10 @@
     "outstanding": {
       "name": "杰出会员",
       "desc": "评价显示出色的质量与投入。"
-    }
+    },
+    "inclusiveSchool": "包容性学校",
+    "inclusiveCompany": "包容性企业",
+    "institutionalAlly": "Neuromundi 伙伴"
   },
   "esp": {
     "miss": {

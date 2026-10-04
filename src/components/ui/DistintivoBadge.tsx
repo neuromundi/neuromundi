@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { Clock } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { BADGE_META, type BadgeResult } from '@/lib/badge';
+import { badgeArt } from '@/data/badgeArt';
 
 const SIZES = { sm: 'h-9 w-9', md: 'h-16 w-16', lg: 'h-24 w-24' } as const;
 
@@ -23,7 +24,7 @@ export interface DistintivoBadgeProps {
 }
 
 export function DistintivoBadge({ badge, size = 'md', showLabel = false, showReview = false, className }: DistintivoBadgeProps) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   if (!badge) return null;
 
   if (badge.level) {
@@ -32,7 +33,7 @@ export function DistintivoBadge({ badge, size = 'md', showLabel = false, showRev
     return (
       <span className={cn('inline-flex items-center gap-2', className)} title={label}>
         <img
-          src={meta.image}
+          src={badgeArt(meta.art, i18n.language)}
           alt={label}
           loading="lazy"
           decoding="async"

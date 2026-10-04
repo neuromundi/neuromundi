@@ -1057,7 +1057,11 @@
     "secCarousel": "קרוסלה",
     "secSuggestions": "הצעות",
     "secMembers": "חברים",
-    "secExemptions": "פטורים"
+    "secExemptions": "פטורים",
+    "grantSchool": "הענקת בית ספר מכיל",
+    "grantCompany": "הענקת חברה מכילה",
+    "grantAlly": "הענקת שותף Neuromundi",
+    "badgeRevoke": "ביטול התג"
   },
   "reg": {
     "typePatient": "מטופל/ת",
@@ -2629,7 +2633,7 @@
   },
   "badge": {
     "miembro": "חבר מאומת",
-    "aliado": "בעל ברית מצטיין",
+    "aliado": "חבר מצטיין",
     "embajador": "שגריר Neuromundi",
     "enRevision": "בבדיקה"
   },
@@ -4421,7 +4425,10 @@
     "outstanding": {
       "name": "חבר מצטיין",
       "desc": "איכות ומחויבות יוצאות דופן לפי הביקורות."
-    }
+    },
+    "inclusiveSchool": "בית ספר מכיל",
+    "inclusiveCompany": "חברה מכילה",
+    "institutionalAlly": "שותף Neuromundi"
   },
   "esp": {
     "miss": {
