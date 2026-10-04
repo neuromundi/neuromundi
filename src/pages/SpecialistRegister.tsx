@@ -356,6 +356,7 @@ export function SpecialistRegister({ onSuccess, complete = false }: { onSuccess?
             onToggleSection={toggleSection}
             neuroConditions={neuroConditions}
             onToggleCondition={toggleCondition}
+            suggestFor={profession}
           />
           <div>
             <label className={labelCls}>{t('spec.specialties')}</label>
