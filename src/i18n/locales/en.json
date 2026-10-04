@@ -4400,31 +4400,27 @@
   },
   "memberBadges": {
     "title": "Badges for Neuromundi members",
-    "subtitle": "Verifiable recognitions members earn and show on their profile. They build trust with families.",
+    "subtitle": "Official, verifiable recognitions members earn and show on their profile. They build trust with families.",
     "cta": "See verifiable registry",
     "verified": {
-      "name": "Verified",
+      "name": "Verified Member",
       "desc": "Identity and credentials reviewed by Neuromundi."
     },
-    "neuroaffirming": {
-      "name": "Neuro-affirming",
-      "desc": "Practice backed by reviews: sensory adaptation, flexibility and humane treatment."
+    "ally": {
+      "name": "Featured Ally",
+      "desc": "Outstanding quality and commitment per reviews."
+    },
+    "ambassador": {
+      "name": "Neuromundi Ambassador",
+      "desc": "Human excellence: the badge's highest level."
     },
     "founder": {
       "name": "Founding Member",
       "desc": "Permanent recognition for those who believed in the community first."
     },
-    "ally": {
-      "name": "Featured Ally",
-      "desc": "Providers with outstanding ratings and participation."
-    },
-    "memberType": {
-      "name": "Member-type badge",
-      "desc": "Downloadable badge by role: specialist, school, shop, company, NGO…"
-    },
-    "neuroId": {
-      "name": "Neuromundi ID",
-      "desc": "Verifiable digital credential with QR, valid offline."
+    "globalMember": {
+      "name": "Neuromundi Global Member",
+      "desc": "Active member of the global Neuromundi network."
     }
   },
   "esp": {

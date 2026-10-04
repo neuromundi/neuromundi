@@ -1,22 +1,25 @@
 /**
- * MemberBadgesBanner — banner público de la portada que informa los distintivos
- * que Neuromundi otorga a sus miembros (Verificado, Neuroafirmativo, Miembro
- * Fundador, Aliado Destacado, Distintivo por tipo de miembro y Neuromundi ID),
- * cada uno con su descripción. Genera confianza y prueba social. Lleva a la
- * página pública de verificación (/verificados).
+ * MemberBadgesBanner — banner público de la portada que muestra los DISTINTIVOS
+ * OFICIALES que Neuromundi otorga a sus miembros, con su arte real y su
+ * descripción. Genera confianza y prueba social. Lleva a la página pública de
+ * verificación (/verificados).
+ *
+ * Los tres niveles del distintivo del prestador (Miembro Verificado → Aliado
+ * Destacado → Embajador) viven en public/badges/*.jpg; el de fundador en
+ * public/badges/soy-fundador-neuromundi.jpg; y el de miembro global en
+ * public/badge/neuromundi-global-member-512.png.
  */
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Award, ShieldCheck, HeartHandshake, Crown, Star, BadgeCheck, QrCode, ArrowRight } from 'lucide-react';
+import { Award, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui';
 
 const BADGES = [
-  { key: 'verified', Icon: ShieldCheck, accent: 'border-l-brand-600', iconBg: 'bg-brand-600', text: 'text-brand-800' },
-  { key: 'neuroaffirming', Icon: HeartHandshake, accent: 'border-l-violet-600', iconBg: 'bg-violet-600', text: 'text-violet-800' },
-  { key: 'founder', Icon: Crown, accent: 'border-l-amber-600', iconBg: 'bg-amber-600', text: 'text-amber-800' },
-  { key: 'ally', Icon: Star, accent: 'border-l-teal-600', iconBg: 'bg-teal-600', text: 'text-teal-800' },
-  { key: 'memberType', Icon: BadgeCheck, accent: 'border-l-sky-700', iconBg: 'bg-sky-700', text: 'text-sky-900' },
-  { key: 'neuroId', Icon: QrCode, accent: 'border-l-slate-600', iconBg: 'bg-slate-600', text: 'text-slate-800' },
+  { key: 'verified', img: '/badges/miembro-verificado.jpg' },
+  { key: 'ally', img: '/badges/aliado-destacado.jpg' },
+  { key: 'ambassador', img: '/badges/embajador-neuromundi.jpg' },
+  { key: 'founder', img: '/badges/soy-fundador-neuromundi.jpg' },
+  { key: 'globalMember', img: '/badge/neuromundi-global-member-512.png' },
 ] as const;
 
 export function MemberBadgesBanner() {
@@ -33,16 +36,20 @@ export function MemberBadgesBanner() {
       </div>
       <p className="mt-1 text-sm text-muted">{t('memberBadges.subtitle')}</p>
 
-      <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        {BADGES.map(({ key, Icon, accent, iconBg, text }) => (
-          <div key={key} className={`rounded-2xl border border-slate-100 border-l-4 ${accent} bg-white p-4 shadow-sm`}>
-            <div className="flex items-center gap-2.5">
-              <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${iconBg} text-white`}>
-                <Icon className="h-5 w-5" aria-hidden="true" />
-              </span>
-              <h3 className={`text-sm font-bold leading-snug ${text}`}>{t(`memberBadges.${key}.name`)}</h3>
-            </div>
-            <p className="mt-2 text-xs leading-relaxed text-muted">{t(`memberBadges.${key}.desc`)}</p>
+      <div className="mt-5 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+        {BADGES.map(({ key, img }) => (
+          <div key={key} className="flex flex-col items-center rounded-2xl border border-slate-100 bg-white p-4 text-center shadow-sm">
+            <img
+              src={img}
+              alt={t(`memberBadges.${key}.name`)}
+              width={96}
+              height={96}
+              loading="lazy"
+              decoding="async"
+              className="h-24 w-24 shrink-0 object-contain"
+            />
+            <h3 className="mt-2 text-sm font-bold leading-snug text-slate-900">{t(`memberBadges.${key}.name`)}</h3>
+            <p className="mt-1 text-xs leading-relaxed text-muted">{t(`memberBadges.${key}.desc`)}</p>
           </div>
         ))}
       </div>

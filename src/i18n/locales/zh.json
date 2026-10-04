@@ -4400,31 +4400,27 @@
   },
   "memberBadges": {
     "title": "Neuromundi 会员徽章",
-    "subtitle": "会员获得并在资料中展示的可验证认可，赢得家庭的信任。",
+    "subtitle": "会员获得并在资料中展示的官方、可验证认可，赢得家庭的信任。",
     "cta": "查看可验证登记",
     "verified": {
-      "name": "已验证",
+      "name": "已验证会员",
       "desc": "身份与资质经 Neuromundi 审核。"
     },
-    "neuroaffirming": {
-      "name": "神经肯定",
-      "desc": "由评价背书：感官适应、灵活性与人性化对待。"
+    "ally": {
+      "name": "杰出伙伴",
+      "desc": "评价显示出色的质量与投入。"
+    },
+    "ambassador": {
+      "name": "Neuromundi 大使",
+      "desc": "人文卓越：徽章的最高等级。"
     },
     "founder": {
       "name": "创始会员",
       "desc": "对最早信任社区者的永久认可。"
     },
-    "ally": {
-      "name": "杰出伙伴",
-      "desc": "评分与参与度出色的服务者。"
-    },
-    "memberType": {
-      "name": "按会员类型徽章",
-      "desc": "按角色可下载的徽章：专家、学校、商店、企业、NGO…"
-    },
-    "neuroId": {
-      "name": "Neuromundi ID",
-      "desc": "带二维码的可验证数字凭证，离线有效。"
+    "globalMember": {
+      "name": "Neuromundi 全球会员",
+      "desc": "全球 Neuromundi 网络的活跃会员。"
     }
   },
   "esp": {

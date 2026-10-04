@@ -4400,31 +4400,27 @@
   },
   "memberBadges": {
     "title": "Abzeichen für Neuromundi-Mitglieder",
-    "subtitle": "Überprüfbare Auszeichnungen, die Mitglieder erhalten und im Profil zeigen. Sie schaffen Vertrauen bei Familien.",
+    "subtitle": "Offizielle, überprüfbare Auszeichnungen, die Mitglieder erhalten und im Profil zeigen. Sie schaffen Vertrauen bei Familien.",
     "cta": "Überprüfbares Register ansehen",
     "verified": {
-      "name": "Verifiziert",
+      "name": "Verifiziertes Mitglied",
       "desc": "Identität und Qualifikationen von Neuromundi geprüft."
     },
-    "neuroaffirming": {
-      "name": "Neuroaffirmativ",
-      "desc": "Durch Bewertungen belegt: sensorische Anpassung, Flexibilität und menschlicher Umgang."
+    "ally": {
+      "name": "Ausgezeichneter Partner",
+      "desc": "Herausragende Qualität und Engagement laut Bewertungen."
+    },
+    "ambassador": {
+      "name": "Neuromundi-Botschafter",
+      "desc": "Menschliche Exzellenz: die höchste Stufe des Abzeichens."
     },
     "founder": {
       "name": "Gründungsmitglied",
       "desc": "Dauerhafte Anerkennung für die, die zuerst an die Gemeinschaft glaubten."
     },
-    "ally": {
-      "name": "Ausgezeichneter Partner",
-      "desc": "Anbieter mit herausragenden Bewertungen und Beteiligung."
-    },
-    "memberType": {
-      "name": "Abzeichen nach Mitgliedstyp",
-      "desc": "Herunterladbares Abzeichen je Rolle: Fachkraft, Schule, Geschäft, Unternehmen, NGO…"
-    },
-    "neuroId": {
-      "name": "Neuromundi ID",
-      "desc": "Überprüfbarer digitaler Ausweis mit QR, offline gültig."
+    "globalMember": {
+      "name": "Neuromundi Global Member",
+      "desc": "Aktives Mitglied des globalen Neuromundi-Netzwerks."
     }
   },
   "esp": {

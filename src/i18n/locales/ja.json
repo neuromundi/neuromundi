@@ -4400,31 +4400,27 @@
   },
   "memberBadges": {
     "title": "Neuromundi メンバーの認定バッジ",
-    "subtitle": "メンバーが獲得しプロフィールに表示できる、検証可能な認定です。家族の信頼を高めます。",
+    "subtitle": "メンバーが獲得しプロフィールに表示できる、公式で検証可能な認定です。家族の信頼を高めます。",
     "cta": "検証可能な登録を見る",
     "verified": {
-      "name": "認証済み",
+      "name": "認証メンバー",
       "desc": "Neuromundi が本人確認と資格を確認済み。"
     },
-    "neuroaffirming": {
-      "name": "ニューロアファーミング",
-      "desc": "レビューに基づく実践：感覚への配慮、柔軟性、人間的な対応。"
+    "ally": {
+      "name": "注目のアライ",
+      "desc": "レビューに基づく卓越した品質と献身。"
+    },
+    "ambassador": {
+      "name": "Neuromundi アンバサダー",
+      "desc": "人間的卓越性：バッジの最上位。"
     },
     "founder": {
       "name": "創設メンバー",
       "desc": "最初にコミュニティを信じた方への永続的な称号。"
     },
-    "ally": {
-      "name": "注目のアライ",
-      "desc": "評価と参加が優れた提供者。"
-    },
-    "memberType": {
-      "name": "メンバー種別バッジ",
-      "desc": "役割別にダウンロードできるバッジ：専門家、学校、店舗、企業、NGO…"
-    },
-    "neuroId": {
-      "name": "Neuromundi ID",
-      "desc": "QR付きの検証可能なデジタル証明。オフラインでも有効。"
+    "globalMember": {
+      "name": "Neuromundi グローバルメンバー",
+      "desc": "グローバルな Neuromundi ネットワークの現役メンバー。"
     }
   },
   "esp": {

@@ -4400,31 +4400,27 @@
   },
   "memberBadges": {
     "title": "Badges pour les membres Neuromundi",
-    "subtitle": "Des reconnaissances vérifiables que les membres obtiennent et affichent sur leur profil. Elles inspirent confiance aux familles.",
+    "subtitle": "Des reconnaissances officielles et vérifiables que les membres obtiennent et affichent sur leur profil. Elles inspirent confiance aux familles.",
     "cta": "Voir le registre vérifiable",
     "verified": {
-      "name": "Vérifié",
+      "name": "Membre Vérifié",
       "desc": "Identité et diplômes vérifiés par Neuromundi."
     },
-    "neuroaffirming": {
-      "name": "Neuro-affirmatif",
-      "desc": "Pratique attestée par les avis : adaptation sensorielle, flexibilité et traitement humain."
+    "ally": {
+      "name": "Allié Distingué",
+      "desc": "Qualité et engagement remarquables selon les avis."
+    },
+    "ambassador": {
+      "name": "Ambassadeur Neuromundi",
+      "desc": "Excellence humaine : le niveau le plus élevé du badge."
     },
     "founder": {
       "name": "Membre Fondateur",
       "desc": "Reconnaissance permanente pour ceux qui ont cru les premiers à la communauté."
     },
-    "ally": {
-      "name": "Allié Distingué",
-      "desc": "Prestataires aux notes et à la participation remarquables."
-    },
-    "memberType": {
-      "name": "Badge par type de membre",
-      "desc": "Badge téléchargeable selon le rôle : spécialiste, école, commerce, entreprise, ONG…"
-    },
-    "neuroId": {
-      "name": "Neuromundi ID",
-      "desc": "Identifiant numérique vérifiable avec QR, valable hors ligne."
+    "globalMember": {
+      "name": "Membre Global Neuromundi",
+      "desc": "Membre actif du réseau mondial Neuromundi."
     }
   },
   "esp": {

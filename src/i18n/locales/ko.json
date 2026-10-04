@@ -4400,31 +4400,27 @@
   },
   "memberBadges": {
     "title": "Neuromundi 회원 배지",
-    "subtitle": "회원이 획득해 프로필에 표시하는 검증 가능한 인증으로, 가족의 신뢰를 높입니다.",
+    "subtitle": "회원이 획득해 프로필에 표시하는 공식·검증 가능한 인증으로, 가족의 신뢰를 높입니다.",
     "cta": "검증 가능한 등록부 보기",
     "verified": {
-      "name": "인증됨",
+      "name": "인증 회원",
       "desc": "Neuromundi가 신원과 자격을 확인함."
     },
-    "neuroaffirming": {
-      "name": "뉴로affirming",
-      "desc": "리뷰로 뒷받침되는 실천: 감각 배려, 유연성, 인간적인 대우."
+    "ally": {
+      "name": "우수 동반자",
+      "desc": "리뷰 기준 뛰어난 품질과 헌신."
+    },
+    "ambassador": {
+      "name": "Neuromundi 대사",
+      "desc": "인간적 탁월함: 배지의 최고 등급."
     },
     "founder": {
       "name": "창립 회원",
       "desc": "커뮤니티를 먼저 믿어준 분들께 드리는 영구적 인정."
     },
-    "ally": {
-      "name": "우수 동반자",
-      "desc": "평점과 참여가 뛰어난 제공자."
-    },
-    "memberType": {
-      "name": "회원 유형별 배지",
-      "desc": "역할별 다운로드 배지: 전문가, 학교, 상점, 기업, NGO…"
-    },
-    "neuroId": {
-      "name": "Neuromundi ID",
-      "desc": "QR이 있는 검증 가능한 디지털 자격증, 오프라인에서도 유효."
+    "globalMember": {
+      "name": "Neuromundi 글로벌 회원",
+      "desc": "글로벌 Neuromundi 네트워크의 활동 회원."
     }
   },
   "esp": {

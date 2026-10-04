@@ -4400,31 +4400,27 @@
   },
   "memberBadges": {
     "title": "Distintivi per i membri Neuromundi",
-    "subtitle": "Riconoscimenti verificabili che i membri ottengono e mostrano nel profilo. Creano fiducia nelle famiglie.",
+    "subtitle": "Riconoscimenti ufficiali e verificabili che i membri ottengono e mostrano nel profilo. Creano fiducia nelle famiglie.",
     "cta": "Vedi il registro verificabile",
     "verified": {
-      "name": "Verificato",
+      "name": "Membro Verificato",
       "desc": "Identità e credenziali verificate da Neuromundi."
     },
-    "neuroaffirming": {
-      "name": "Neuroaffermativo",
-      "desc": "Pratica avallata dalle recensioni: adattamento sensoriale, flessibilità e trattamento umano."
+    "ally": {
+      "name": "Alleato in Evidenza",
+      "desc": "Qualità e impegno eccellenti secondo le recensioni."
+    },
+    "ambassador": {
+      "name": "Ambasciatore Neuromundi",
+      "desc": "Eccellenza umana: il livello più alto del distintivo."
     },
     "founder": {
       "name": "Membro Fondatore",
       "desc": "Riconoscimento permanente a chi ha creduto per primo nella comunità."
     },
-    "ally": {
-      "name": "Alleato in Evidenza",
-      "desc": "Operatori con valutazioni e partecipazione eccellenti."
-    },
-    "memberType": {
-      "name": "Distintivo per tipo di membro",
-      "desc": "Distintivo scaricabile per ruolo: specialista, scuola, negozio, azienda, ONG…"
-    },
-    "neuroId": {
-      "name": "Neuromundi ID",
-      "desc": "Credenziale digitale verificabile con QR, valida offline."
+    "globalMember": {
+      "name": "Membro Globale Neuromundi",
+      "desc": "Membro attivo della rete globale Neuromundi."
     }
   },
   "esp": {
