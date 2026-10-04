@@ -4406,10 +4406,6 @@
       "name": "Verifiziertes Mitglied",
       "desc": "Identität und Qualifikationen von Neuromundi geprüft."
     },
-    "ally": {
-      "name": "Ausgezeichneter Partner",
-      "desc": "Herausragende Qualität und Engagement laut Bewertungen."
-    },
     "ambassador": {
       "name": "Neuromundi-Botschafter",
       "desc": "Menschliche Exzellenz: die höchste Stufe des Abzeichens."
@@ -4421,6 +4417,10 @@
     "globalMember": {
       "name": "Neuromundi Global Member",
       "desc": "Aktives Mitglied des globalen Neuromundi-Netzwerks."
+    },
+    "outstanding": {
+      "name": "Herausragendes Mitglied",
+      "desc": "Herausragende Qualität und Engagement laut Bewertungen."
     }
   },
   "esp": {

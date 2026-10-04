@@ -13,17 +13,19 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Award, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui';
+import { badgeArt } from '@/data/badgeArt';
 
+// `art` = clave en badgeArt (resuelve la imagen por idioma); `key` = clave i18n del nombre.
 const BADGES = [
-  { key: 'verified', img: '/badges/miembro-verificado.jpg' },
-  { key: 'ally', img: '/badges/aliado-destacado.jpg' },
-  { key: 'ambassador', img: '/badges/embajador-neuromundi.jpg' },
-  { key: 'founder', img: '/badges/soy-fundador-neuromundi.jpg' },
-  { key: 'globalMember', img: '/badge/neuromundi-global-member-512.png' },
+  { key: 'verified', art: 'miembro-verificado' },
+  { key: 'outstanding', art: 'miembro-destacado' },
+  { key: 'ambassador', art: 'embajador-neuromundi' },
+  { key: 'founder', art: 'soy-fundador-neuromundi' },
+  { key: 'globalMember', art: 'neuromundi-global-member' },
 ] as const;
 
 export function MemberBadgesBanner() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
 
   return (
@@ -37,10 +39,10 @@ export function MemberBadgesBanner() {
       <p className="mt-1 text-sm text-muted">{t('memberBadges.subtitle')}</p>
 
       <div className="mt-5 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
-        {BADGES.map(({ key, img }) => (
+        {BADGES.map(({ key, art }) => (
           <div key={key} className="flex flex-col items-center rounded-2xl border border-slate-100 bg-white p-4 text-center shadow-sm">
             <img
-              src={img}
+              src={badgeArt(art, i18n.language)}
               alt={t(`memberBadges.${key}.name`)}
               width={96}
               height={96}

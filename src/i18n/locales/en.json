@@ -4406,10 +4406,6 @@
       "name": "Verified Member",
       "desc": "Identity and credentials reviewed by Neuromundi."
     },
-    "ally": {
-      "name": "Featured Ally",
-      "desc": "Outstanding quality and commitment per reviews."
-    },
     "ambassador": {
       "name": "Neuromundi Ambassador",
       "desc": "Human excellence: the badge's highest level."
@@ -4421,6 +4417,10 @@
     "globalMember": {
       "name": "Neuromundi Global Member",
       "desc": "Active member of the global Neuromundi network."
+    },
+    "outstanding": {
+      "name": "Outstanding Member",
+      "desc": "Outstanding quality and commitment per reviews."
     }
   },
   "esp": {

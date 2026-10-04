@@ -4406,10 +4406,6 @@
       "name": "認証メンバー",
       "desc": "Neuromundi が本人確認と資格を確認済み。"
     },
-    "ally": {
-      "name": "注目のアライ",
-      "desc": "レビューに基づく卓越した品質と献身。"
-    },
     "ambassador": {
       "name": "Neuromundi アンバサダー",
       "desc": "人間的卓越性：バッジの最上位。"
@@ -4421,6 +4417,10 @@
     "globalMember": {
       "name": "Neuromundi グローバルメンバー",
       "desc": "グローバルな Neuromundi ネットワークの現役メンバー。"
+    },
+    "outstanding": {
+      "name": "優秀メンバー",
+      "desc": "レビューに基づく卓越した品質と献身。"
     }
   },
   "esp": {

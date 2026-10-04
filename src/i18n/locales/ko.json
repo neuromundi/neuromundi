@@ -4406,10 +4406,6 @@
       "name": "인증 회원",
       "desc": "Neuromundi가 신원과 자격을 확인함."
     },
-    "ally": {
-      "name": "우수 동반자",
-      "desc": "리뷰 기준 뛰어난 품질과 헌신."
-    },
     "ambassador": {
       "name": "Neuromundi 대사",
       "desc": "인간적 탁월함: 배지의 최고 등급."
@@ -4421,6 +4417,10 @@
     "globalMember": {
       "name": "Neuromundi 글로벌 회원",
       "desc": "글로벌 Neuromundi 네트워크의 활동 회원."
+    },
+    "outstanding": {
+      "name": "우수 회원",
+      "desc": "리뷰 기준 뛰어난 품질과 헌신."
     }
   },
   "esp": {

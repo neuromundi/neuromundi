@@ -4406,10 +4406,6 @@
       "name": "已验证会员",
       "desc": "身份与资质经 Neuromundi 审核。"
     },
-    "ally": {
-      "name": "杰出伙伴",
-      "desc": "评价显示出色的质量与投入。"
-    },
     "ambassador": {
       "name": "Neuromundi 大使",
       "desc": "人文卓越：徽章的最高等级。"
@@ -4421,6 +4417,10 @@
     "globalMember": {
       "name": "Neuromundi 全球会员",
       "desc": "全球 Neuromundi 网络的活跃会员。"
+    },
+    "outstanding": {
+      "name": "杰出会员",
+      "desc": "评价显示出色的质量与投入。"
     }
   },
   "esp": {

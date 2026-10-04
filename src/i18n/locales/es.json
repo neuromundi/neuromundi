@@ -4406,10 +4406,6 @@
       "name": "Miembro Verificado",
       "desc": "Identidad y credenciales revisadas por Neuromundi."
     },
-    "ally": {
-      "name": "Aliado Destacado",
-      "desc": "Calidad y compromiso sobresalientes según las reseñas."
-    },
     "ambassador": {
       "name": "Embajador Neuromundi",
       "desc": "Excelencia humana: el nivel más alto del distintivo."
@@ -4421,6 +4417,10 @@
     "globalMember": {
       "name": "Miembro Global Neuromundi",
       "desc": "Miembro activo de la red global Neuromundi."
+    },
+    "outstanding": {
+      "name": "Miembro Destacado",
+      "desc": "Calidad y compromiso sobresalientes según las reseñas."
     }
   },
   "esp": {
