@@ -12,7 +12,6 @@ import { SECTIONS } from '@/data/sections';
 const SECTION_ICONS = { Sprout, Sparkles, Stethoscope } as const;
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui';
-import { HeroCarousel } from '@/components/home/HeroCarousel';
 import { ComparisonTable } from '@/components/home/ComparisonTable';
 import { SearchableSelect } from '@/components/directory/SearchableSelect';
 import { FoundersCounter } from '@/components/campaign/FoundersCounter';
@@ -129,7 +128,9 @@ export function Home() {
         </div>
 
         <div className="order-first lg:order-last">
-          <HeroCarousel className="mx-auto w-full max-w-md lg:max-w-sm" />
+          {/* Contadores "Neuromundi en cifras": ocupan el lugar del antiguo
+              carrusel, en la mitad superior (máxima visibilidad). */}
+          <HomeCounters />
           <div className="mt-4 flex justify-center">
             <button
               type="button"
@@ -222,8 +223,6 @@ export function Home() {
         <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-muted">{t('allies.title')}</h2>
         {deferInView && <Suspense fallback={null}><AlliesGrid /></Suspense>}
       </section>
-
-      {deferInView && <HomeCounters />}
     </div>
   );
 }
