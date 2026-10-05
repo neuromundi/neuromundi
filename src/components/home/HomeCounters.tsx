@@ -47,13 +47,13 @@ function Stat({ value, run, suffix, label, sub, icon, accent }: {
 }) {
   const n = useCountUp(value, run);
   return (
-    <div className="rounded-2xl border border-slate-100 bg-white p-4 text-center shadow-sm">
+    <div className="min-w-0 rounded-2xl border border-slate-100 bg-white p-2.5 text-center shadow-sm sm:p-4">
       <span className={`mx-auto mb-2 flex h-10 w-10 items-center justify-center rounded-xl ${accent}`}>{icon}</span>
-      <p className="text-2xl font-extrabold text-slate-900">
-        {n.toLocaleString()}{suffix ? <span className="text-base font-bold text-slate-500"> {suffix}</span> : null}
+      <p className="text-xl font-extrabold text-slate-900 sm:text-2xl">
+        {n.toLocaleString()}{suffix ? <span className="text-sm font-bold text-slate-500 sm:text-base"> {suffix}</span> : null}
       </p>
-      <p className="mt-1 text-xs font-semibold leading-snug text-slate-800">{label}</p>
-      {sub && <p className="mt-0.5 text-[11px] leading-snug text-muted">{sub}</p>}
+      <p className="mt-1 hyphens-auto break-words text-[11px] font-semibold leading-snug text-slate-800 sm:text-xs">{label}</p>
+      {sub && <p className="mt-0.5 hyphens-auto break-words text-[10px] leading-snug text-muted sm:text-[11px]">{sub}</p>}
     </div>
   );
 }
