@@ -4430,7 +4430,12 @@
     "inclusiveCompany": "包容性企业",
     "institutionalAlly": "Neuromundi 伙伴",
     "servicesQuality": "高品质服务",
-    "productsQuality": "高品质产品"
+    "productsQuality": "高品质产品",
+    "neuroaffirmingDesc": "由评价背书：感官适应、灵活性与人性化对待。",
+    "servicesQualityDesc": "评价优异的诊所与服务提供者。",
+    "productsQualityDesc": "产品评价优异的商家。",
+    "inclusiveSchoolDesc": "设有融合计划的学校。",
+    "inclusiveCompanyDesc": "实行职场融合的企业。"
   },
   "esp": {
     "miss": {

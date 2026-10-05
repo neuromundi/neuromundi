@@ -4430,7 +4430,12 @@
     "inclusiveCompany": "Azienda Inclusiva",
     "institutionalAlly": "Alleato Neuromundi",
     "servicesQuality": "Servizi di Alta Qualità",
-    "productsQuality": "Prodotti di Alta Qualità"
+    "productsQuality": "Prodotti di Alta Qualità",
+    "neuroaffirmingDesc": "Pratica avallata dalle recensioni: adattamento sensoriale, flessibilità e trattamento umano.",
+    "servicesQualityDesc": "Cliniche e operatori di servizi con ottime valutazioni.",
+    "productsQualityDesc": "Negozi con prodotti dalle ottime valutazioni.",
+    "inclusiveSchoolDesc": "Scuole con programma di inclusione.",
+    "inclusiveCompanyDesc": "Aziende con inclusione lavorativa."
   },
   "esp": {
     "miss": {

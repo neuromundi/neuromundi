@@ -4430,7 +4430,12 @@
     "inclusiveCompany": "شركة دامجة",
     "institutionalAlly": "حليف Neuromundi",
     "servicesQuality": "خدمات عالية الجودة",
-    "productsQuality": "منتجات عالية الجودة"
+    "productsQuality": "منتجات عالية الجودة",
+    "neuroaffirmingDesc": "ممارسة مدعومة بالمراجعات: التكيّف الحسي والمرونة والمعاملة الإنسانية.",
+    "servicesQualityDesc": "عيادات ومقدّمو خدمات بتقييمات ممتازة.",
+    "productsQualityDesc": "متاجر بمنتجات ذات تقييمات ممتازة.",
+    "inclusiveSchoolDesc": "مدارس لديها برنامج دمج.",
+    "inclusiveCompanyDesc": "شركات تطبّق الدمج في العمل."
   },
   "esp": {
     "miss": {

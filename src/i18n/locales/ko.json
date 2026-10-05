@@ -4430,7 +4430,12 @@
     "inclusiveCompany": "포용 기업",
     "institutionalAlly": "Neuromundi 파트너",
     "servicesQuality": "고품질 서비스",
-    "productsQuality": "고품질 제품"
+    "productsQuality": "고품질 제품",
+    "neuroaffirmingDesc": "리뷰로 뒷받침되는 실천: 감각 배려, 유연성, 인간적인 대우.",
+    "servicesQualityDesc": "평점이 뛰어난 클리닉과 서비스 제공자.",
+    "productsQualityDesc": "평점이 뛰어난 제품을 파는 상점.",
+    "inclusiveSchoolDesc": "포용 프로그램이 있는 학교.",
+    "inclusiveCompanyDesc": "직장 내 포용을 실천하는 기업."
   },
   "esp": {
     "miss": {

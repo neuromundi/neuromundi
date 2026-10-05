@@ -4430,7 +4430,12 @@
     "inclusiveCompany": "חברה מכילה",
     "institutionalAlly": "שותף Neuromundi",
     "servicesQuality": "שירותים באיכות גבוהה",
-    "productsQuality": "מוצרים באיכות גבוהה"
+    "productsQuality": "מוצרים באיכות גבוהה",
+    "neuroaffirmingDesc": "פרקטיקה מגובה בחוות דעת: התאמה חושית, גמישות ויחס אנושי.",
+    "servicesQualityDesc": "מרפאות ונותני שירות בדירוג מצוין.",
+    "productsQualityDesc": "חנויות עם מוצרים בדירוג מצוין.",
+    "inclusiveSchoolDesc": "בתי ספר עם תוכנית הכלה.",
+    "inclusiveCompanyDesc": "חברות עם הכלה תעסוקתית."
   },
   "esp": {
     "miss": {

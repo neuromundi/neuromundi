@@ -4430,7 +4430,12 @@
     "inclusiveCompany": "インクルーシブ企業",
     "institutionalAlly": "Neuromundi アライ",
     "servicesQuality": "高品質サービス",
-    "productsQuality": "高品質製品"
+    "productsQuality": "高品質製品",
+    "neuroaffirmingDesc": "レビューに基づく実践：感覚への配慮、柔軟性、人間的な対応。",
+    "servicesQualityDesc": "評価が優れたクリニック・サービス提供者。",
+    "productsQualityDesc": "評価が優れた商品を扱う店舗。",
+    "inclusiveSchoolDesc": "インクルージョン・プログラムのある学校。",
+    "inclusiveCompanyDesc": "職場インクルージョンのある企業。"
   },
   "esp": {
     "miss": {
