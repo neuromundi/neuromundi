@@ -88,6 +88,10 @@ export function resolveInitialLanguage(navLang: string, stored: string | null): 
 
 function detectInitial(): LanguageCode {
   if (typeof window !== 'undefined') {
+    // Prerender (react-snap): el snapshot estático se captura en ESPAÑOL, que es
+    // el idioma canónico (x-default) de la portada. Así el HTML servido a todos
+    // sale en español y el cliente cambia al idioma del usuario al hidratar.
+    if (navigator.userAgent === 'ReactSnap') return 'es';
     const stored = window.localStorage.getItem(STORAGE_KEY);
     return resolveInitialLanguage(navigator.language || 'en', stored);
   }

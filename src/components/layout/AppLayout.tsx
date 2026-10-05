@@ -142,6 +142,11 @@ export function AppLayout() {
     }
   });
   const [authView, setAuthView] = useState<AuthView>('none');
+  // Durante el prerender (react-snap) NO se renderiza ningún emergente: si no,
+  // react-snap los hornea en el HTML estático (en inglés y sin Supabase), y en
+  // el cliente aparecen "pegados" y sin poder cerrarse. En el cliente real
+  // (UA normal) esto es siempre false, así que todo funciona igual.
+  const isPrerender = typeof navigator !== 'undefined' && navigator.userAgent === 'ReactSnap';
   const [showWelcome, setShowWelcome] = useState(false);
   // UI no crítica (banner de registro suave, botón flotante de soporte): sus
   // chunks se descargaban durante el primer pintado y entraban en la cadena
@@ -412,18 +417,18 @@ export function AppLayout() {
           El fallback es `null` a propósito — un spinner de un modal que aún no
           existe sería ruido. */}
       <Suspense fallback={null}>
-        {showVideo && <WelcomeVideo onDone={dismissVideo} />}
-        {showWelcome && <WelcomePopup onClose={() => setShowWelcome(false)} />}
-        {showTour && <GuidedTour onClose={closeTour} />}
-        {showCampaignPopup && (
+        {!isPrerender && showVideo && <WelcomeVideo onDone={dismissVideo} />}
+        {!isPrerender && showWelcome && <WelcomePopup onClose={() => setShowWelcome(false)} />}
+        {!isPrerender && showTour && <GuidedTour onClose={closeTour} />}
+        {!isPrerender && showCampaignPopup && (
           <CampaignWelcomePopup
             onClose={() => setShowCampaignPopup(false)}
             onSeeBenefits={() => { setShowCampaignPopup(false); navigate('/beneficios'); }}
           />
         )}
-        {typeof window !== 'undefined' && window.location.search.includes('membership=') && <MembershipSuccessNotice />}
-        {showFounder && !campaignActive && <FounderPopup onClose={closeFounder} />}
-        {founderJustClaimed && !founderCongratsDismissed && (
+        {!isPrerender && typeof window !== 'undefined' && window.location.search.includes('membership=') && <MembershipSuccessNotice />}
+        {!isPrerender && showFounder && !campaignActive && <FounderPopup onClose={closeFounder} />}
+        {!isPrerender && founderJustClaimed && !founderCongratsDismissed && (
           <FounderCongratsPopup onClose={() => setFounderCongratsDismissed(true)} />
         )}
         {isAuthenticated && suspendedAt && (
