@@ -647,7 +647,7 @@ export function AppLayout() {
       {/* Barra inferior móvil */}
       {/* Hoja "Más" (solo móvil): opciones que no caben en la barra inferior. */}
       {moreOpen && (
-        <div className="fixed inset-0 z-40 lg:hidden" role="dialog" aria-modal="true">
+        <div className="fixed inset-0 z-40 lg:hidden" role="dialog" aria-modal="true" aria-label={t('nav.more')}>
           <div className="absolute inset-0 bg-slate-900/40" onClick={() => setMoreOpen(false)} />
           <div className="absolute inset-x-0 bottom-0 max-h-[85dvh] overflow-y-auto overscroll-contain rounded-t-3xl bg-white p-4 pb-24 shadow-2xl">
             <div className="mb-2 flex items-center justify-between">

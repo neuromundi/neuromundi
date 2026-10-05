@@ -13,20 +13,26 @@ const SECTION_ICONS = { Sprout, Sparkles, Stethoscope } as const;
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui';
 import { ComparisonTable } from '@/components/home/ComparisonTable';
-import { MemberBadgesBanner } from '@/components/home/MemberBadgesBanner';
 import { SearchableSelect } from '@/components/directory/SearchableSelect';
 import { FoundersCounter } from '@/components/campaign/FoundersCounter';
 import { ComingSoonBanner } from '@/components/campaign/ComingSoonBanner';
+import { lazy, Suspense } from 'react';
 
 import { HomeCounters } from '@/components/home/HomeCounters';
 import { HeartHandshake, Award } from 'lucide-react';
 import { useCountry } from '@/stores/countryStore';
 import { COUNTRIES } from '@/data/countries';
+import { useInView } from '@/hooks/useInView';
+
+// Banner de distintivos (10 imágenes): fuera del bundle inicial y montado al
+// acercarse al viewport, para no cargar su DOM/imágenes en la ruta crítica.
+const MemberBadgesBanner = lazy(() => import('@/components/home/MemberBadgesBanner').then((m) => ({ default: m.MemberBadgesBanner })));
 
 export function Home() {
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
   const { country, setCountry } = useCountry();
+  const [badgesRef, badgesInView] = useInView<HTMLDivElement>();
 
   // Nombre del país localizado para mostrar; el `value` sigue siendo el nombre
   // canónico (español) para que coincida con `profiles.country` al filtrar.
@@ -144,8 +150,11 @@ export function Home() {
 
       <FoundersCounter />
 
-      {/* Distintivos para miembros Neuromundi: prueba social, debajo del héroe. */}
-      <MemberBadgesBanner />
+      {/* Distintivos para miembros Neuromundi: prueba social, debajo del héroe.
+          Diferido por viewport para aligerar la carga inicial (DOM e imágenes). */}
+      <div ref={badgesRef}>
+        {badgesInView && <Suspense fallback={null}><MemberBadgesBanner /></Suspense>}
+      </div>
 
       {/* Confianza */}
       <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">

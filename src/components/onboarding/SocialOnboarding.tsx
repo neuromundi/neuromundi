@@ -93,6 +93,7 @@ export function SocialOnboarding() {
       <div
         role="dialog"
         aria-modal="true"
+        aria-label={t('onb.title')}
         className={`max-h-[90vh] w-full overflow-y-auto rounded-2xl bg-white p-6 shadow-2xl ${isProvider ? 'max-w-4xl' : 'max-w-3xl'}`}
       >
         <h2 className="text-xl font-bold text-slate-900">{t('onb.title')}</h2>
@@ -151,7 +152,7 @@ export function SocialOnboarding() {
           incompletos. */}
       {confirming && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center bg-slate-900/70 p-4">
-          <div role="alertdialog" aria-modal="true" className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-2xl">
+          <div role="alertdialog" aria-modal="true" aria-label={t('onb.cancelConfirmTitle')} className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-2xl">
             <h3 className="text-lg font-bold text-slate-900">{t('onb.cancelConfirmTitle')}</h3>
             <p className="mt-2 text-sm text-slate-700">{t('onb.cancelConfirmBody')}</p>
             <div className="mt-5 flex flex-col gap-2">
