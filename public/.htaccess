@@ -122,3 +122,38 @@
   AddType application/javascript .js
   AddType image/svg+xml .svg
 </IfModule>
+
+# --- 6) Cabeceras de seguridad -----------------------------------------------
+# Las marca PageSpeed/Lighthouse (Prácticas recomendadas). Se usan `always` para
+# que apliquen también a respuestas de error.
+<IfModule mod_headers.c>
+  # HSTS: el sitio ya fuerza HTTPS; fija el navegador a HTTPS por 1 año.
+  # includeSubDomains asume que TODOS los subdominios (p. ej. admin.*) sirven
+  # HTTPS —que es el caso—. Sin `preload` a propósito (es un compromiso mayor).
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+
+  # Evita el "MIME sniffing" (no interpretar un archivo como otro tipo).
+  Header always set X-Content-Type-Options "nosniff"
+
+  # No filtrar la URL completa como referer a terceros.
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # Anti-clickjacking: la página no puede incrustarse en iframes ajenos.
+  Header always set X-Frame-Options "SAMEORIGIN"
+
+  # Aislamiento de origen (COOP). unsafe-none no aplica; same-origin aísla.
+  Header always set Cross-Origin-Opener-Policy "same-origin"
+
+  # Desactiva APIs potentes que la app NO usa en su propio origen (la geo se hace
+  # por IP, no por la API del navegador; las videoconsultas abren meet.jit.si en
+  # navegación, no en iframe, así que cámara/micrófono no se usan en este origen).
+  Header always set Permissions-Policy "geolocation=(), camera=(), microphone=(), browsing-topics=()"
+
+  # CSP: orígenes acotados a lo que la app realmente carga. object-src 'none',
+  # base-uri y frame-ancestors 'self' son la protección anti-XSS/clickjacking.
+  # `'unsafe-inline'` en script-src es necesario por los scripts en línea del
+  # index.html (precarga del héroe, arranque de gtag) y el onload de la hoja de
+  # fuentes. Si algo se bloqueara, cambia temporalmente el nombre de esta cabecera
+  # a `Content-Security-Policy-Report-Only` para diagnosticar sin romper.
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob: https:; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://ipwho.is https://www.google-analytics.com https://www.googletagmanager.com; media-src 'self' blob: https:; worker-src 'self' blob:; manifest-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+</IfModule>

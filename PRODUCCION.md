@@ -660,3 +660,16 @@ La imagen es ilustrativa; la autoridad es la URL de verificación (revocable con
 **Marketing**
 - [ ] Enviar los 10 mensajes de alianza prioritarios (hoja "Envíos prioritarios").
 - [ ] Publicar flyers/copys con UTM por comunidad (rastreador).
+
+## Rendimiento y seguridad (PageSpeed) — oct 2026
+- **Prerender de la portada ACTIVADO en CI**: el workflow usa `npm run build:prerender`
+  (react-snap, ya en devDependencies). Pinta el pliegue superior desde HTML estático
+  (mejora LCP/FCP/CLS en móvil). Es **no-fatal**: si react-snap no puede lanzar Chromium,
+  el paso termina en éxito y queda la SPA normal. Tras desplegar, **verifica la portada**
+  (que hidrate bien y no haya parpadeo) y **purga la caché del CDN**.
+- **Cabeceras de seguridad en `public/.htaccess`** (sección 6): HSTS, X-Content-Type-Options,
+  Referrer-Policy, X-Frame-Options, COOP, Permissions-Policy y **Content-Security-Policy**.
+  La CSP está acotada a los orígenes reales (Supabase, Google Fonts, Analytics, ipwho.is;
+  imágenes/mapas por `img-src https:`). Jitsi y Stripe son navegación externa, no iframes,
+  así que no requieren excepción. **Si algo se bloqueara** tras desplegar, renombra
+  temporalmente la cabecera a `Content-Security-Policy-Report-Only` y revisa la consola.

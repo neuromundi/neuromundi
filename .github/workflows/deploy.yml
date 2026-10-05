@@ -67,7 +67,7 @@ jobs:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
           VITE_CARTO_KEY: ${{ secrets.VITE_CARTO_KEY }}
-        run: npm run build
+        run: npm run build:prerender
 
       # Red de seguridad: si el .htaccess no llegó a dist/, las rutas del sitio
       # devolverían 404 en Apache. Mejor fallar aquí que desplegar roto.
