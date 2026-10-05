@@ -5335,13 +5335,15 @@
     "ally": "Neuromundi 官方伙伴"
   },
   "registry": {
-    "title": "已验证的伙伴",
-    "subtitle": "Neuromundi 的官方合作组织。",
+    "title": "验证已授予的徽章",
+    "subtitle": "你可以在此核实徽章是否由我们授予。",
     "lookupTitle": "按编号验证徽章",
     "placeholder": "编号，例如 NM-000123",
     "alliesTitle": "官方伙伴",
     "empty": "该国家尚未发布伙伴。",
-    "visit": "访问"
+    "visit": "访问",
+    "communityTitle": "帮助我们保护徽章",
+    "communityBody": "Neuromundi 徽章是家庭信任的象征。在社区的帮助下，我们防止盗用与滥用。如果你发现疑似不真实的徽章，请在此核实，并使用页脚的“举报”按钮进行举报。"
   },
   "launch": {
     "soonTitle": "即将在你的国家上线",

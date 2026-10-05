@@ -5335,13 +5335,15 @@
     "ally": "Neuromundi 公式アライ"
   },
   "registry": {
-    "title": "認証済みのアライ",
-    "subtitle": "Neuromundiの公式パートナー団体。",
+    "title": "付与されたバッジを確認",
+    "subtitle": "当方が付与したバッジかどうかをここで確認できます。",
     "lookupTitle": "会員番号でバッジを確認",
     "placeholder": "会員番号 例 NM-000123",
     "alliesTitle": "公式アライ",
     "empty": "この国の公開アライはまだありません。",
-    "visit": "見る"
+    "visit": "見る",
+    "communityTitle": "バッジの保護にご協力ください",
+    "communityBody": "Neuromundi のバッジは家族にとって信頼の証です。コミュニティの協力により、偽造や不正使用を防ぎます。本物でないと思われるバッジを見つけたら、ここで確認し、フッターの「通報」ボタンから報告してください。"
   },
   "launch": {
     "soonTitle": "まもなくあなたの国でも",

@@ -6,7 +6,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { ShieldCheck, Search } from 'lucide-react';
+import { ShieldCheck, Search, ShieldAlert } from 'lucide-react';
 import { Button } from '@/components/ui';
 import { supabase } from '@/lib/supabase';
 import { useCountry } from '@/stores/countryStore';
@@ -42,6 +42,15 @@ export function VerifiedRegistry() {
         <ShieldCheck className="h-10 w-10 opacity-90" aria-hidden="true" />
         <h1 className="mt-3 text-3xl font-extrabold">{t('registry.title')}</h1>
         <p className="mt-2 max-w-xl text-white/90">{t('registry.subtitle')}</p>
+      </section>
+
+      {/* Llamado a la comunidad: proteger los distintivos contra piratería/uso indebido. */}
+      <section className="flex items-start gap-3 rounded-2xl border border-amber-200 bg-amber-50 p-5">
+        <ShieldAlert className="mt-0.5 h-6 w-6 shrink-0 text-amber-600" aria-hidden="true" />
+        <div>
+          <h2 className="font-bold text-slate-900">{t('registry.communityTitle')}</h2>
+          <p className="mt-1 text-sm text-slate-700">{t('registry.communityBody')}</p>
+        </div>
       </section>
 
       <section className="rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">

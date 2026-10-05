@@ -5335,13 +5335,15 @@
     "ally": "Offizieller Neuromundi-Partner"
   },
   "registry": {
-    "title": "Verifizierte Partner",
-    "subtitle": "Offizielle Partnerorganisationen von Neuromundi.",
+    "title": "Ein vergebenes Abzeichen prüfen",
+    "subtitle": "Hier kannst du prüfen, ob ein Abzeichen von uns vergeben wurde.",
     "lookupTitle": "Ein Abzeichen per Kennung prüfen",
     "placeholder": "Kennung, z. B. NM-000123",
     "alliesTitle": "Offizielle Partner",
     "empty": "Für dieses Land sind noch keine Partner veröffentlicht.",
-    "visit": "Besuchen"
+    "visit": "Besuchen",
+    "communityTitle": "Hilf uns, die Abzeichen zu schützen",
+    "communityBody": "Neuromundi-Abzeichen sind ein Vertrauenssymbol für Familien. Mit Hilfe der Gemeinschaft verhindern wir Piraterie und Missbrauch. Wenn du ein Abzeichen siehst, das du für unecht hältst, prüfe es hier und melde es über die Schaltfläche „Melden“ in der Fußzeile."
   },
   "launch": {
     "soonTitle": "Bald in deinem Land",

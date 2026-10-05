@@ -5335,13 +5335,15 @@
     "ally": "Neuromundi 공식 제휴처"
   },
   "registry": {
-    "title": "인증된 제휴처",
-    "subtitle": "Neuromundi의 공식 파트너 조직.",
+    "title": "수여된 배지 확인",
+    "subtitle": "여기서 배지가 당사에서 수여되었는지 확인할 수 있습니다.",
     "lookupTitle": "회원번호로 배지 확인",
     "placeholder": "회원번호, 예: NM-000123",
     "alliesTitle": "공식 제휴처",
     "empty": "이 국가에 게시된 제휴처가 아직 없습니다.",
-    "visit": "방문"
+    "visit": "방문",
+    "communityTitle": "배지 보호에 함께해 주세요",
+    "communityBody": "Neuromundi 배지는 가족에게 신뢰의 상징입니다. 커뮤니티의 도움으로 위조와 오용을 방지합니다. 진짜가 아닌 것으로 의심되는 배지를 발견하면 여기서 확인하고 푸터의 「신고」 버튼으로 신고해 주세요."
   },
   "launch": {
     "soonTitle": "곧 당신의 국가에서",

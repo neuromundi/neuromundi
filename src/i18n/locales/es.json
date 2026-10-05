@@ -5335,13 +5335,15 @@
     "ally": "Aliado oficial de Neuromundi"
   },
   "registry": {
-    "title": "Aliados verificados",
-    "subtitle": "Organizaciones aliadas oficiales de Neuromundi.",
+    "title": "Verifica un distintivo otorgado",
+    "subtitle": "Aquí puedes verificar si un distintivo fue otorgado por nosotros.",
     "lookupTitle": "Verifica un distintivo por folio",
     "placeholder": "Folio, p. ej. NM-000123",
     "alliesTitle": "Aliados oficiales",
     "empty": "Aún no hay aliados publicados para este país.",
-    "visit": "Visitar"
+    "visit": "Visitar",
+    "communityTitle": "Ayúdanos a proteger los distintivos",
+    "communityBody": "Los distintivos Neuromundi son un símbolo de confianza para las familias. Con la ayuda de la comunidad evitamos la piratería y el uso indebido. Si ves un distintivo que sospechas no es auténtico, verifícalo aquí y repórtalo con el botón «Denuncia» del pie de página."
   },
   "launch": {
     "soonTitle": "Pronto en tu país",

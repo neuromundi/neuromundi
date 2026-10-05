@@ -5335,13 +5335,15 @@
     "ally": "Official Neuromundi ally"
   },
   "registry": {
-    "title": "Verified allies",
-    "subtitle": "Official partner organizations of Neuromundi.",
+    "title": "Verify an awarded badge",
+    "subtitle": "Here you can check whether a badge was awarded by us.",
     "lookupTitle": "Verify a badge by ID",
     "placeholder": "ID, e.g. NM-000123",
     "alliesTitle": "Official allies",
     "empty": "No allies published for this country yet.",
-    "visit": "Visit"
+    "visit": "Visit",
+    "communityTitle": "Help us protect the badges",
+    "communityBody": "Neuromundi badges are a symbol of trust for families. With the community's help we prevent piracy and misuse. If you see a badge you suspect is not authentic, verify it here and report it using the “Report” button in the footer."
   },
   "launch": {
     "soonTitle": "Coming soon to your country",
