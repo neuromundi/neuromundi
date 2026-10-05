@@ -13,6 +13,7 @@ const SECTION_ICONS = { Sprout, Sparkles, Stethoscope } as const;
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui';
 import { ComparisonTable } from '@/components/home/ComparisonTable';
+import { WelcomeVideoHome } from '@/components/home/WelcomeVideoHome';
 import { SearchableSelect } from '@/components/directory/SearchableSelect';
 import { FoundersCounter } from '@/components/campaign/FoundersCounter';
 import { ComingSoonBanner } from '@/components/campaign/ComingSoonBanner';
@@ -150,12 +151,6 @@ export function Home() {
 
       <FoundersCounter />
 
-      {/* Distintivos para miembros Neuromundi: prueba social, debajo del héroe.
-          Diferido por viewport para aligerar la carga inicial (DOM e imágenes). */}
-      <div ref={badgesRef}>
-        {badgesInView && <Suspense fallback={null}><MemberBadgesBanner /></Suspense>}
-      </div>
-
       {/* Confianza */}
       <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         <Feature icon={<Heart className="h-6 w-6" />} title={t('home.f1.title')}>{t('home.f1.body')}</Feature>
@@ -190,6 +185,9 @@ export function Home() {
           </div>
         </div>
       </section>
+
+      {/* Video de bienvenida: banda a todo el ancho tras "¿Qué es Neuromundi?/Kit". */}
+      <WelcomeVideoHome />
 
       {/* Comparativa: Neuromundi frente a los directorios/plataformas más usados. */}
       <ComparisonTable />
@@ -227,6 +225,12 @@ export function Home() {
           </div>
         </div>
       </section>
+
+      {/* Distintivos para miembros Neuromundi: al fondo de la portada.
+          Diferido por viewport para aligerar la carga (DOM e imágenes). */}
+      <div ref={badgesRef} className="mt-16">
+        {badgesInView && <Suspense fallback={null}><MemberBadgesBanner /></Suspense>}
+      </div>
 
     </div>
   );

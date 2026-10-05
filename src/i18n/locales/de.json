@@ -241,6 +241,11 @@
       "title": "Lernen Sie unsere Partner kennen",
       "body": "Organisationen, Verbände und Unternehmen, die mit Neuromundi die Inklusion vorantreiben.",
       "cta": "Partner ansehen"
+    },
+    "video": {
+      "badge": "Video",
+      "title": "Neuromundi in einer Minute kennenlernen",
+      "subtitle": "Ein kurzer Blick darauf, wer wir sind und wie wir Familien begleiten."
     }
   },
   "auth": {

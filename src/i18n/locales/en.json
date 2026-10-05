@@ -278,6 +278,11 @@
       "title": "Meet our allies",
       "body": "Organizations, associations and companies advancing inclusion together with Neuromundi.",
       "cta": "View allies"
+    },
+    "video": {
+      "badge": "Video",
+      "title": "Get to know Neuromundi in a minute",
+      "subtitle": "A short look at who we are and how we support families."
     }
   },
   "auth": {

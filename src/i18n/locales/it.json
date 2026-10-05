@@ -241,6 +241,11 @@
       "title": "Conosci i nostri alleati",
       "body": "Organizzazioni, associazioni e aziende che promuovono l'inclusione insieme a Neuromundi.",
       "cta": "Vedi gli alleati"
+    },
+    "video": {
+      "badge": "Video",
+      "title": "Scopri Neuromundi in un minuto",
+      "subtitle": "Uno sguardo breve a chi siamo e come accompagniamo le famiglie."
     }
   },
   "auth": {

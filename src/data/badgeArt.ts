@@ -16,7 +16,7 @@ export const BADGE_ART: Record<string, Record<string, string>> = {
   'soy-fundador-neuromundi': { es: '/badges/soy-fundador-neuromundi.jpg' },
   'neuromundi-global-member': { es: '/badges/neuromundi-global-member.png', en: '/badges/neuromundi-global-member-en.png' },
   'aliados-neuromundi': { es: '/badges/aliados-neuromundi.jpg', en: '/badges/aliados-neuromundi-en.png' },
-  'escuela-inclusiva': { es: '/badges/escuela-inclusiva.jpg', en: '/badges/escuela-inclusiva-en.png' },
+  'escuela-inclusiva': { es: '/badges/escuela-inclusiva.png', en: '/badges/escuela-inclusiva-en.png' },
   'empresa-inclusiva': { es: '/badges/empresa-inclusiva.png', en: '/badges/empresa-inclusiva-en.png' },
   'neuroafirmativo': { es: '/badges/neuroafirmativo.png', en: '/badges/neuroafirmativo-en.png' },
   'servicios-alta-calidad': { es: '/badges/servicios-alta-calidad.png' },

@@ -278,6 +278,11 @@
       "title": "제휴처를 만나보세요",
       "body": "Neuromundi와 함께 포용을 추진하는 단체, 협회, 기업.",
       "cta": "제휴처 보기"
+    },
+    "video": {
+      "badge": "영상",
+      "title": "1분으로 만나는 Neuromundi",
+      "subtitle": "우리가 누구이며 가족을 어떻게 돕는지 짧게 소개합니다."
     }
   },
   "auth": {
