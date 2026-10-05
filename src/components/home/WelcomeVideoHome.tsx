@@ -47,11 +47,17 @@ export function WelcomeVideoHome() {
       </div>
       {videoUrl && (
         <div className="mx-auto mt-5 max-w-xs overflow-hidden rounded-3xl border border-slate-100 bg-black shadow-sm">
+          {/* Vista previa: reproducción automática SILENCIADA en bucle. Mantiene
+              los controles para que la persona pueda activar el sonido. Solo se
+              descarga al entrar en viewport (la sección está diferida con useInView). */}
           <video
             className="aspect-[9/16] h-auto w-full object-contain"
             controls
+            autoPlay
+            muted
+            loop
             playsInline
-            preload="none"
+            preload="metadata"
             aria-label={t('home.video.title')}
           >
             <source src={videoUrl} />
