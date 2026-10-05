@@ -159,8 +159,8 @@ export function Home() {
         <Feature icon={<Lock className="h-6 w-6" />} title={t('home.f4.title')}>{t('home.f4.body')}</Feature>
       </div>
 
-      {/* Acerca + invitación al Kit — en una misma línea en escritorio, apiladas en móvil */}
-      <section className="mt-16 grid items-stretch gap-8 lg:grid-cols-2">
+      {/* Acerca + Video + invitación al Kit — tres columnas en escritorio, apiladas en móvil */}
+      <section className="mt-16 grid items-stretch gap-8 lg:grid-cols-3">
         <div className="flex flex-col justify-center">
           <h2 className="text-2xl font-bold text-slate-900">{t('home.about.title')}</h2>
           <p className="mt-3 text-muted">{t('home.about.body1')}</p>
@@ -171,6 +171,9 @@ export function Home() {
             </Button>
           </div>
         </div>
+
+        {/* Columna central: video de bienvenida (vista previa + modal). */}
+        <WelcomeVideoHome />
 
         <div className="overflow-hidden rounded-3xl border border-brand-100 bg-gradient-to-br from-brand-50 to-white p-6 sm:p-8">
           <div className="flex h-full flex-col justify-center">
@@ -185,9 +188,6 @@ export function Home() {
           </div>
         </div>
       </section>
-
-      {/* Video de bienvenida: banda a todo el ancho tras "¿Qué es Neuromundi?/Kit". */}
-      <WelcomeVideoHome />
 
       {/* Comparativa: Neuromundi frente a los directorios/plataformas más usados. */}
       <ComparisonTable />
