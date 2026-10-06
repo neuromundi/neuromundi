@@ -87,53 +87,88 @@ function bloquePrecio(r: Row): string {
     <p style="margin:0 0 6px;font-weight:800;font-size:15px;color:#0c4a6e">Su cuota, sin rodeos</p>
     <p style="margin:0;font-size:14px;line-height:1.6;color:#334155">
       La membresía anual para su tipo de perfil es de <b>${MXN(Number(r.precio_ordinario))} ${cur}</b>.
-      Si la activa <b>antes del 31 de octubre de 2026</b> queda como Miembro Fundador y paga
+      Si la activa <b>antes del 30 de octubre de 2026</b> queda como Miembro Fundador y paga
       <b style="color:#0369a1">${MXN(Number(r.precio_fundador))} ${cur} al año</b>, la mitad, y ese precio se le respeta en las renovaciones.
       <br><br>La tarifa de fundador es <b>anual</b>; el pago mensual existe, pero a cuota ordinaria.<br><br>Reclamar la ficha no cobra nada y el pago es un paso posterior: usted decide si lo da.
     </p>
   </div>`;
 }
 
+// Quién no paga cuota. Se define arriba porque bloqueFechas la usa.
+const esFree = (r: Row) =>
+  r.sector === 'publico' || r.sector === 'social' || r.provider_type === 'ngo' || r.provider_type === 'company';
+
 // Las DOS fechas de la campaña, deliberadamente separadas.
 //
-// En prosa seguida el lector las fusiona y entiende "si no pago para el 31 de
-// octubre me borran del directorio", que es falso: confirmar la ficha es
-// gratuito y conserva los datos de contacto visibles, se pague o no.
+// En prosa seguida el lector las fusiona y entiende "si no pago me borran del
+// directorio", que es falso: la ficha sigue apareciendo siempre con su nombre,
+// tipo, ciudad, estado y especialización.
 //
-// Esa separación no es sólo redacción. A quien confirma y no paga se le aplica
-// la MISMA degradación que a quien nunca confirmó, nunca la suspensión: de lo
-// contrario responder saldría peor que ignorar, y el correo estaría prometiendo
-// algo que el sistema contradice seis semanas después.
+// CORRECCIÓN (6 oct 2026). La versión anterior decía que confirmar la ficha
+// "conserva los datos de contacto visibles, se pague o no". Desde la migración
+// 0166 eso es FALSO: la visibilidad del contacto depende de `cuota_cubierta`
+// (pagada o exenta), no de la confirmación, y una ficha reclamada sin pagar se
+// degrada igual que una que nadie reclamó. Medido el 30 de septiembre: tras el
+// plazo, ficha reclamada sin pagar devuelve teléfono nulo.
 //
-// OJO: la degradación del 15 de noviembre AÚN NO ESTÁ CONSTRUIDA. Este texto la
-// compromete por escrito ante los destinatarios, así que es una fecha límite
-// dura de desarrollo, no una intención.
+// Por eso el texto ahora separa los dos incentivos, que son ejes distintos:
+//   · confirmar  -> sube en el orden de resultados (columna `verificada`)
+//   · cuota      -> conserva teléfono, WhatsApp, correo, sitio, domicilio y mapa
+//
+// Las dos fechas se movieron a día hábil: el 31 de octubre caía en sábado y el
+// 16 de noviembre es descanso obligatorio por la Revolución. Ambas viven en
+// `campaign_config` (founder_deadline_by_country y verificacion_deadline); si
+// cambian ahí, hay que cambiarlas aquí.
 function bloqueFechas(r: Row): string {
   const cur = r.moneda || 'MXN';
   const hayPrecio = r.precio_configurado && r.precio_fundador && r.precio_ordinario;
-  const lineaPago = hayPrecio
-    ? `<p style="margin:0 0 10px;font-size:14px;line-height:1.6;color:#334155">
-         <b>31 de octubre de 2026</b> — último día para activar su membresía como Miembro
-         Fundador y pagar <b style="color:#0369a1">${MXN(Number(r.precio_fundador))} ${cur}</b>
-         al año en lugar de <b>${MXN(Number(r.precio_ordinario))} ${cur}</b>.
-         Después de esa fecha aplica la cuota ordinaria.
+  const exento = esFree(r);
+
+  const lineaPago = (hayPrecio && !exento)
+    ? `<p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#334155">
+         <b>30 de octubre de 2026</b> — último día para quedar como Miembro Fundador y pagar
+         <b style="color:#0369a1">${MXN(Number(r.precio_fundador))} ${cur}</b> al año en lugar de
+         <b>${MXN(Number(r.precio_ordinario))} ${cur}</b>. Después de esa fecha aplica la cuota ordinaria.
        </p>`
     : '';
+
+  const cuerpo = exento
+    ? `<p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#334155">
+         <b>17 de noviembre de 2026</b> — último día para confirmar su ficha. Desde el 18, el
+         directorio muestra los datos de contacto únicamente de los perfiles con la cuota cubierta.
+         <b>Su organización está exenta de cuota</b>, así que conserva su teléfono, su correo, su
+         sitio web y su ubicación sin pagar nada.
+       </p>
+       <p style="margin:0;font-size:14px;line-height:1.6;color:#334155">
+         Confirmar su ficha sigue siendo lo que le conviene: es gratuito, le da el control de sus
+         datos y coloca su perfil por encima de las fichas sin confirmar en los resultados de búsqueda.
+       </p>`
+    : `${lineaPago}<p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#334155">
+         <b>17 de noviembre de 2026</b> — último día para confirmar su ficha. Desde el 18, el
+         directorio muestra los datos de contacto únicamente de los perfiles con la cuota cubierta.
+       </p>
+       <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#334155">
+         <b>Confirmar su ficha es gratuito</b> y no lo obliga a contratar nada: sirve para tomar
+         posesión de su perfil, corregir sus datos y decidir qué se publica. Le conviene hacerlo,
+         porque las fichas sin confirmar aparecen por debajo de las confirmadas en los resultados de
+         búsqueda. Pero conviene decirlo con claridad:
+         <b>la visibilidad del contacto depende de la cuota, no de la confirmación</b>.
+       </p>
+       <p style="margin:0;font-size:14px;line-height:1.6;color:#334155">
+         Su ficha seguirá apareciendo siempre, con su nombre, tipo de perfil, ciudad, estado y
+         especialización. Lo que deja de mostrarse sin cuota cubierta es el teléfono, el WhatsApp,
+         el correo, el sitio web, el domicilio y la ubicación en el mapa.
+       </p>`;
+
+  const titulo = exento
+    ? 'Una fecha que conviene tener presente'
+    : (hayPrecio ? 'Dos fechas, y son independientes' : 'Una fecha que conviene tener presente');
+
   return `<div style="margin:18px 0;padding:14px 16px;border:1px solid #e2e8f0;border-radius:12px">
-    <p style="margin:0 0 8px;font-weight:800;font-size:15px;color:#0f172a">${hayPrecio ? 'Dos fechas, y son independientes' : 'Una fecha que conviene tener presente'}</p>
-    ${lineaPago}
-    <p style="margin:0;font-size:14px;line-height:1.6;color:#334155">
-      <b>15 de noviembre de 2026</b> — último día para confirmar su ficha.
-      <b>Confirmar es gratuito</b> y no requiere contratar nada. Las fichas que nadie
-      confirme quedarán marcadas como <i>sin verificar</i>: seguirán apareciendo, pero
-      sin teléfono, sin correo y sin sitio web, y por debajo de los perfiles verificados
-      en los resultados de búsqueda.
-    </p>
+    <p style="margin:0 0 8px;font-weight:800;font-size:15px;color:#0f172a">${titulo}</p>
+    ${cuerpo}
   </div>`;
 }
-
-const esFree = (r: Row) =>
-  r.sector === 'publico' || r.sector === 'social' || r.provider_type === 'ngo' || r.provider_type === 'company';
 
 function segmentOf(r: Row): 'nuevos' | 'ya_publico_social' | 'ya_privado' {
   if (!r.ya_contactado_8sep) return 'nuevos';
