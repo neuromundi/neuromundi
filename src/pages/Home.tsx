@@ -218,7 +218,7 @@ export function Home() {
             <h2 className="mt-3 text-2xl font-bold text-slate-900">{t('home.alliesPromo.title')}</h2>
             <p className="mt-2 leading-relaxed text-slate-700">{t('home.alliesPromo.body')}</p>
             <div className="mt-5 flex flex-wrap gap-2">
-              <Button size="lg" onClick={() => navigate('/verificados')} leadingIcon={<HeartHandshake className="h-5 w-5" />}>
+              <Button size="lg" onClick={() => navigate('/aliados')} leadingIcon={<HeartHandshake className="h-5 w-5" />}>
                 {t('home.alliesPromo.cta')}
               </Button>
             </div>

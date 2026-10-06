@@ -5380,5 +5380,9 @@
     "conditions": "신경계 질환 (ICD-11)",
     "source": "추정치: 신경계 질환 및 신경발달장애는 GBD 2021 (The Lancet Neurology); 신경다양성 ~인구의 15–20%.",
     "storeCats": "제품 및 서비스 카테고리"
+  },
+  "alliesPage": {
+    "title": "파트너를 만나보세요",
+    "subtitle": "Neuromundi 커뮤니티를 지원하는 기관과 기업."
   }
 }

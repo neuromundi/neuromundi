@@ -81,6 +81,7 @@ const Author = lazy(() => import('@/pages/Author').then((m) => ({ default: m.Aut
 const Manifiesto = lazy(() => import('@/pages/Manifiesto').then((m) => ({ default: m.Manifiesto })));
 const Donate = lazy(() => import('@/pages/Donate').then((m) => ({ default: m.Donate })));
 const DonorWall = lazy(() => import('@/pages/DonorWall').then((m) => ({ default: m.DonorWall })));
+const Allies = lazy(() => import('@/pages/Allies').then((m) => ({ default: m.Allies })));
 const Founders = lazy(() => import('@/pages/Founders').then((m) => ({ default: m.Founders })));
 const Events = lazy(() => import('@/pages/Events').then((m) => ({ default: m.Events })));
 const CalendarPage = lazy(() => import('@/pages/Calendar').then((m) => ({ default: m.Calendar })));
@@ -134,6 +135,7 @@ const router = createBrowserRouter([
       { path: '/manifiesto', element: <Manifiesto /> },
       { path: '/donar', element: <Donate /> },
       { path: '/donantes', element: <DonorWall /> },
+      { path: '/aliados', element: <Allies /> },
       { path: '/fundadores', element: <Founders /> },
       { path: '/beneficios', element: <Benefits /> },
       { path: '/become-a-founder', element: <BecomeFounder /> },

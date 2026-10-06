@@ -5380,5 +5380,9 @@
     "conditions": "Neurologische Erkrankungen (ICD-11)",
     "source": "Schätzungen: GBD 2021 (The Lancet Neurology) für neurologische und Neuroentwicklungsstörungen; Neurodivergenz ~15–20 % der Bevölkerung.",
     "storeCats": "Produkt- und Dienstleistungskategorien"
+  },
+  "alliesPage": {
+    "title": "Unsere Partner",
+    "subtitle": "Institutionen und Unternehmen, die die Neuromundi-Gemeinschaft unterstützen."
   }
 }

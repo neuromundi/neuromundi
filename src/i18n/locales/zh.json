@@ -5380,5 +5380,9 @@
     "conditions": "神经系统疾病（ICD-11）",
     "source": "估算：神经系统疾病与神经发育障碍来自 GBD 2021（The Lancet Neurology）；神经多样性约占人口 15–20%。",
     "storeCats": "产品和服务类别"
+  },
+  "alliesPage": {
+    "title": "认识我们的伙伴",
+    "subtitle": "支持 Neuromundi 社区的机构与企业。"
   }
 }

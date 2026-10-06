@@ -5380,5 +5380,9 @@
     "conditions": "Condizioni neurologiche (ICD-11)",
     "source": "Stime: GBD 2021 (The Lancet Neurology) per condizioni neurologiche e del neurosviluppo; neurodivergenza ~15–20% della popolazione.",
     "storeCats": "Categorie di prodotti e servizi"
+  },
+  "alliesPage": {
+    "title": "Scopri i nostri alleati",
+    "subtitle": "Istituzioni e aziende che sostengono la comunità Neuromundi."
   }
 }

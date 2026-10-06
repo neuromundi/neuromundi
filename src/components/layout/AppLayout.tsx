@@ -427,7 +427,10 @@ export function AppLayout() {
           />
         )}
         {!isPrerender && typeof window !== 'undefined' && window.location.search.includes('membership=') && <MembershipSuccessNotice />}
-        {!isPrerender && showFounder && !campaignActive && <FounderPopup onClose={closeFounder} />}
+        {/* El popup de fundadores SÍ aparece durante la campaña (la campaña busca
+            atraer fundadores). Solo se evita que se encime con el de bienvenida:
+            sale tras cerrar ese. */}
+        {!isPrerender && showFounder && !showCampaignPopup && <FounderPopup onClose={closeFounder} />}
         {!isPrerender && founderJustClaimed && !founderCongratsDismissed && (
           <FounderCongratsPopup onClose={() => setFounderCongratsDismissed(true)} />
         )}

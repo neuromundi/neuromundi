@@ -5380,5 +5380,9 @@
     "conditions": "Affections neurologiques (CIM-11)",
     "source": "Estimations : GBD 2021 (The Lancet Neurology) pour les affections neurologiques et neurodéveloppementales ; neurodivergence ~15–20 % de la population.",
     "storeCats": "Catégories de produits et services"
+  },
+  "alliesPage": {
+    "title": "Découvrez nos alliés",
+    "subtitle": "Institutions et entreprises qui soutiennent la communauté Neuromundi."
   }
 }

@@ -5380,5 +5380,9 @@
     "conditions": "Afecções neurológicas (CID-11)",
     "source": "Estimativas: GBD 2021 (The Lancet Neurology) para afecções neurológicas e do neurodesenvolvimento; neurodivergência ~15–20% da população.",
     "storeCats": "Categorias de produtos e serviços"
+  },
+  "alliesPage": {
+    "title": "Conheça nossos aliados",
+    "subtitle": "Instituições e empresas que apoiam a comunidade Neuromundi."
   }
 }
