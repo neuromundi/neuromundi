@@ -47,7 +47,7 @@ function Stat({ value, run, suffix, label, sub, icon, accent }: {
 }) {
   const n = useCountUp(value, run);
   return (
-    <div className="min-w-0 rounded-2xl border border-slate-100 bg-white p-2.5 text-center shadow-sm sm:p-4">
+    <div className="flex min-h-[120px] min-w-0 flex-col items-center justify-center rounded-2xl border border-slate-100 bg-white p-2.5 text-center shadow-sm sm:min-h-[140px] sm:p-4">
       <span className={`mx-auto mb-2 flex h-10 w-10 items-center justify-center rounded-xl ${accent}`}>{icon}</span>
       <p className="text-xl font-extrabold text-slate-900 sm:text-2xl">
         {n.toLocaleString()}{suffix ? <span className="text-sm font-bold text-slate-500 sm:text-base"> {suffix}</span> : null}

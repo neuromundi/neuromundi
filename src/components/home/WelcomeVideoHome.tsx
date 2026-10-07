@@ -58,23 +58,27 @@ export function WelcomeVideoHome() {
         <p className="mt-1 text-sm text-muted">{t('home.video.subtitle')}</p>
       </div>
 
-      {videoUrl && (
-        <button
-          type="button"
-          onClick={() => setOpen(true)}
-          aria-label={t('home.video.title')}
-          className="group relative mt-3 min-h-[220px] flex-1 overflow-hidden rounded-3xl border border-slate-100 bg-black shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
-        >
-          {/* Vista previa: autoplay silenciado en bucle, llena la columna (cover). */}
+      {/* El contenedor del video SIEMPRE se renderiza con altura reservada, aunque
+          el archivo aún no se haya detectado: así no "aparece" después de cargar
+          empujando el contenido de abajo (evita CLS). El video se inserta dentro
+          cuando está disponible. */}
+      <button
+        type="button"
+        onClick={() => { if (videoUrl) setOpen(true); }}
+        aria-label={t('home.video.title')}
+        disabled={!videoUrl}
+        className="group relative mt-3 min-h-[280px] flex-1 overflow-hidden rounded-3xl border border-slate-100 bg-black shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+      >
+        {videoUrl && (
           <video className="absolute inset-0 h-full w-full object-cover opacity-90 transition group-hover:opacity-100" autoPlay muted loop playsInline preload="metadata" aria-hidden="true">
             <source src={videoUrl} />
           </video>
-          <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" aria-hidden="true" />
-          <span className="pointer-events-none absolute inset-0 flex items-center justify-center">
-            <PlayCircle className="h-16 w-16 text-white/95 drop-shadow-lg transition group-hover:scale-105" aria-hidden="true" />
-          </span>
-        </button>
-      )}
+        )}
+        <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" aria-hidden="true" />
+        <span className="pointer-events-none absolute inset-0 flex items-center justify-center">
+          <PlayCircle className="h-16 w-16 text-white/95 drop-shadow-lg transition group-hover:scale-105" aria-hidden="true" />
+        </span>
+      </button>
 
       {/* Modal centrado: ventana sobre la portada, sin abarcarla toda. */}
       {open && videoUrl && (
