@@ -419,7 +419,9 @@ export function AppLayout() {
       <Suspense fallback={null}>
         {!isPrerender && showVideo && <WelcomeVideo onDone={dismissVideo} />}
         {!isPrerender && showWelcome && <WelcomePopup onClose={() => setShowWelcome(false)} />}
-        {!isPrerender && showTour && <GuidedTour onClose={closeTour} />}
+        {/* Tour guiado DESACTIVADO por decisión de producto. Para reactivarlo,
+            vuelve a poner `showTour &&` aquí. */}
+        {false && !isPrerender && showTour && <GuidedTour onClose={closeTour} />}
         {!isPrerender && showCampaignPopup && (
           <CampaignWelcomePopup
             onClose={() => setShowCampaignPopup(false)}

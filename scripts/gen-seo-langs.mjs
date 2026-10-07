@@ -220,8 +220,17 @@ try {
   // Snapshots por RUTA profunda (español): canónica propia por página. Sin
   // hreflang (no tienen equivalentes por idioma). El .htaccess sirve
   // dist/<ruta>.html cuando existe; si no, la ruta cae a la SPA como siempre.
+  // Canónica cruzada: las páginas legales existen bajo doble slug (es + en). Para
+  // evitar contenido duplicado, las variantes en español apuntan su canónica a la
+  // versión en INGLÉS (la elegida como canónica oficial, ya indexada y en sitemap).
+  const CANONICAL_OVERRIDE = {
+    terminos: 'terms',
+    privacidad: 'privacy',
+  };
+
   let rcount = 0;
   for (const [path, cfg] of Object.entries(ROUTES)) {
+    const canon = CANONICAL_OVERRIDE[path] ?? path;
     const html = src
       // Elimina el bloque de alternativas hreflang (incluido x-default): estas
       // páginas existen en una sola URL, no por idioma.
@@ -230,10 +239,10 @@ try {
       .replace(/(<meta name="description" content=")[^"]*(")/, `$1${escAttr(cfg.desc)}$2`)
       .replace(/(<meta property="og:title" content=")[^"]*(")/, `$1${escAttr(cfg.title)}$2`)
       .replace(/(<meta property="og:description" content=")[^"]*(")/, `$1${escAttr(cfg.desc)}$2`)
-      .replace(/(<meta property="og:url" content=")[^"]*(")/, `$1${ORIGIN}/${path}$2`)
+      .replace(/(<meta property="og:url" content=")[^"]*(")/, `$1${ORIGIN}/${canon}$2`)
       .replace(/(<meta name="twitter:title" content=")[^"]*(")/, `$1${escAttr(cfg.title)}$2`)
       .replace(/(<meta name="twitter:description" content=")[^"]*(")/, `$1${escAttr(cfg.desc)}$2`)
-      .replace(/(<link rel="canonical" href=")[^"]*(")/, `$1${ORIGIN}/${path}$2`);
+      .replace(/(<link rel="canonical" href=")[^"]*(")/, `$1${ORIGIN}/${canon}$2`);
 
     writeFileSync(join(DIST, `${path}.html`), html, 'utf8');
     rcount++;
