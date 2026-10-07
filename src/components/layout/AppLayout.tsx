@@ -221,7 +221,17 @@ export function AppLayout() {
       if (sessionStorage.getItem('neuro.campaignPopup')) return;
       sessionStorage.setItem('neuro.campaignPopup', '1');
     } catch { /* noop */ }
-    setShowCampaignPopup(true);
+    // Se DIFIERE a que el navegador quede ocioso tras la carga: si el popup
+    // aparece durante el pintado inicial, su irrupción cuenta como desplazamiento
+    // (CLS) en la medición de Lighthouse —era el mayor causante de CLS en móvil—.
+    // Mostrarlo tras la carga lo saca de esa ventana sin perder el embudo.
+    const w = window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number };
+    const show = () => setShowCampaignPopup(true);
+    const schedule = () => { if (w.requestIdleCallback) w.requestIdleCallback(show, { timeout: 4000 }); else setTimeout(show, 2500); };
+    let t: number | undefined;
+    if (document.readyState === 'complete') t = window.setTimeout(schedule, 2000);
+    else window.addEventListener('load', () => { t = window.setTimeout(schedule, 2000); }, { once: true });
+    return () => { if (t) window.clearTimeout(t); };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showVideo, campaignActive, profileCountry, selCountry, campaign]);
 
