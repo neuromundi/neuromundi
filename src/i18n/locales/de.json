@@ -5416,5 +5416,22 @@
     "sending": "Wird gesendet…",
     "sent": "Dokument zur Prüfung gesendet",
     "tooBig": "Die Datei überschreitet {{mb}} MB"
+  },
+  "orgletter": {
+    "download": "Briefvorlage herunterladen",
+    "heading": "Schreiben zur Erklärung als faktische Organisation",
+    "placeDate": "Ort und Datum",
+    "to": "An die zuständige Stelle — Neuromundi-Team:",
+    "intro": "Hiermit erklären wir an Eides statt, dass wir eine faktische, gemeinnützige Organisation bilden, die sich der Begleitung der Gemeinschaft von Neuroentwicklung, Neurodivergenz und neurologischen Erkrankungen widmet. Wir verfügen über keine formelle Gründungsurkunde; dieses Schreiben ersetzt sie zu Verifizierungszwecken gegenüber Neuromundi.",
+    "fOrg": "Name der Organisation",
+    "fRep": "Vertreter / Kontaktperson",
+    "fPhone": "Telefon",
+    "fEmail": "E-Mail",
+    "fCity": "Ort / Stadt",
+    "fCountry": "Land",
+    "fPurpose": "Zweck oder Tätigkeit zum Wohl der Gemeinschaft",
+    "declare": "Wir erklären, dass die hier angegebenen Daten wahrheitsgemäß sind, und ermächtigen Neuromundi, sie zu überprüfen. Im Falle einer Falschangabe akzeptieren wir die Löschung unserer Registrierung und des entsprechenden Siegels.",
+    "signature": "Name und Unterschrift des Vertreters",
+    "note": "Dieses Dokument ist eine von Neuromundi vorgeschlagene Vorlage. Das Schreiben ersetzt die Gründungsurkunde ausschließlich zur Verifizierung faktischer Organisationen; es verleiht keine Rechtspersönlichkeit."
   }
 }

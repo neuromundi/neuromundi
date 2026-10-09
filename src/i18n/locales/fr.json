@@ -5416,5 +5416,22 @@
     "sending": "Envoi…",
     "sent": "Document envoyé pour examen",
     "tooBig": "Le fichier dépasse {{mb}} Mo"
+  },
+  "orgletter": {
+    "download": "Télécharger le modèle de lettre",
+    "heading": "Lettre de déclaration en tant qu'organisation de fait",
+    "placeDate": "Lieu et date",
+    "to": "À qui de droit — Équipe Neuromundi :",
+    "intro": "Par la présente, nous déclarons, sous peine de parjure, constituer une organisation de fait, sans but lucratif, dédiée à l'accompagnement de la communauté du neurodéveloppement, de la neurodivergence et des affections neurologiques. Nous n'avons pas de statuts constitutifs formels ; cette lettre les remplace aux fins de vérification auprès de Neuromundi.",
+    "fOrg": "Nom de l'organisation",
+    "fRep": "Représentant / personne de contact",
+    "fPhone": "Téléphone",
+    "fEmail": "Courriel",
+    "fCity": "Localité / ville",
+    "fCountry": "Pays",
+    "fPurpose": "Objet ou activité au bénéfice de la communauté",
+    "declare": "Nous déclarons que les informations indiquées ici sont véridiques et autorisons Neuromundi à les vérifier. En cas de fausse déclaration, nous acceptons l'annulation de notre inscription et du sceau correspondant.",
+    "signature": "Nom et signature du représentant",
+    "note": "Ce document est un modèle proposé par Neuromundi. La lettre remplace les statuts constitutifs uniquement aux fins de vérification des organisations de fait ; elle ne confère pas de personnalité juridique."
   }
 }

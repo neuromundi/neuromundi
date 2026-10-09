@@ -5416,5 +5416,22 @@
     "sending": "Enviando…",
     "sent": "Documento enviado para revisão",
     "tooBig": "O arquivo excede {{mb}} MB"
+  },
+  "orgletter": {
+    "download": "Baixar modelo de carta",
+    "heading": "Carta de manifestação como organização de fato",
+    "placeDate": "Local e data",
+    "to": "A quem possa interessar — Equipe Neuromundi:",
+    "intro": "Pela presente manifestamos, sob as penas da lei, que constituímos uma organização de fato, sem fins lucrativos, dedicada ao acompanhamento da comunidade de neurodesenvolvimento, neurodivergência e afecções neurológicas. Não possuímos ato constitutivo formal; esta carta o substitui para efeitos de verificação junto à Neuromundi.",
+    "fOrg": "Nome da organização",
+    "fRep": "Representante / pessoa de contato",
+    "fPhone": "Telefone",
+    "fEmail": "E-mail",
+    "fCity": "Localidade / cidade",
+    "fCountry": "País",
+    "fPurpose": "Objeto ou atividade em benefício da comunidade",
+    "declare": "Declaramos que os dados aqui informados são verídicos e autorizamos a Neuromundi a verificá-los. Em caso de falsidade, aceitamos o cancelamento do nosso registro e do selo correspondente.",
+    "signature": "Nome e assinatura do representante",
+    "note": "Este documento é um modelo sugerido pela Neuromundi. A carta substitui o ato constitutivo apenas para efeitos de verificação de organizações de fato; não confere personalidade jurídica."
   }
 }

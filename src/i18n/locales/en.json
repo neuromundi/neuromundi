@@ -5416,5 +5416,22 @@
     "sending": "Sending…",
     "sent": "Document sent for review",
     "tooBig": "The file exceeds {{mb}} MB"
+  },
+  "orgletter": {
+    "download": "Download letter template",
+    "heading": "Letter declaring an organization in fact",
+    "placeDate": "Place and date",
+    "to": "To whom it may concern — Neuromundi team:",
+    "intro": "We hereby declare, under penalty of perjury, that we constitute an organization in fact, non‑profit, dedicated to supporting the neurodevelopment, neurodivergence and neurological‑conditions community. We do not have a formal incorporation deed; this letter replaces it for verification purposes before Neuromundi.",
+    "fOrg": "Organization name",
+    "fRep": "Representative / contact person",
+    "fPhone": "Phone",
+    "fEmail": "Email",
+    "fCity": "Town / city",
+    "fCountry": "Country",
+    "fPurpose": "Purpose or activity for the benefit of the community",
+    "declare": "We declare that the information stated here is truthful and we authorize Neuromundi to verify it. In case of falsehood, we accept the cancellation of our registration and of the corresponding seal.",
+    "signature": "Name and signature of the representative",
+    "note": "This document is a template suggested by Neuromundi. The letter replaces the incorporation deed solely for the purpose of verifying organizations in fact; it does not grant legal personality."
   }
 }

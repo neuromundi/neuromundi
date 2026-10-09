@@ -5416,5 +5416,22 @@
     "sending": "Enviando…",
     "sent": "Documento enviado a revisión",
     "tooBig": "El archivo supera {{mb}} MB"
+  },
+  "orgletter": {
+    "download": "Descargar plantilla de carta",
+    "heading": "Carta de manifestación como organización de hecho",
+    "placeDate": "Lugar y fecha",
+    "to": "A quien corresponda — Equipo de Neuromundi:",
+    "intro": "Por medio de la presente manifestamos, bajo protesta de decir verdad, que constituimos una organización de hecho, sin fines de lucro, dedicada al acompañamiento de la comunidad de neurodesarrollo, neurodivergencia y afecciones neurológicas. No contamos con acta constitutiva formal; esta carta la sustituye para efectos de verificación ante Neuromundi.",
+    "fOrg": "Nombre de la organización",
+    "fRep": "Representante / persona de contacto",
+    "fPhone": "Teléfono",
+    "fEmail": "Correo electrónico",
+    "fCity": "Localidad / ciudad",
+    "fCountry": "País",
+    "fPurpose": "Objeto o actividad en beneficio de la comunidad",
+    "declare": "Declaramos que los datos aquí asentados son verídicos y autorizamos a Neuromundi a verificarlos. En caso de falsedad, aceptamos la cancelación de nuestro registro y del distintivo correspondiente.",
+    "signature": "Nombre y firma del representante",
+    "note": "Este documento es una plantilla sugerida por Neuromundi. La carta sustituye al acta constitutiva únicamente para efectos de verificación de organizaciones de hecho; no otorga personalidad jurídica."
   }
 }

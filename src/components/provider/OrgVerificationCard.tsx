@@ -8,9 +8,10 @@
  */
 import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { BadgeCheck, FileUp, ShieldAlert, ShieldCheck } from 'lucide-react';
+import { BadgeCheck, Download, FileUp, ShieldAlert, ShieldCheck } from 'lucide-react';
 import { Button, useToast } from '@/components/ui';
 import { supabase } from '@/lib/supabase';
+import { openOrgLetterTemplate } from '@/lib/orgLetterTemplate';
 
 const MAX_MB = 10;
 
@@ -21,8 +22,29 @@ type Estado = {
 };
 
 export function OrgVerificationCard({ userId }: { userId: string }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const toast = useToast();
+
+  function descargarPlantilla() {
+    openOrgLetterTemplate({
+      brand: 'Neuromundi',
+      fileTitle: t('orgletter.heading'),
+      heading: t('orgletter.heading'),
+      placeDate: t('orgletter.placeDate'),
+      to: t('orgletter.to'),
+      intro: t('orgletter.intro'),
+      fOrg: t('orgletter.fOrg'),
+      fRep: t('orgletter.fRep'),
+      fPhone: t('orgletter.fPhone'),
+      fEmail: t('orgletter.fEmail'),
+      fCity: t('orgletter.fCity'),
+      fCountry: t('orgletter.fCountry'),
+      fPurpose: t('orgletter.fPurpose'),
+      declare: t('orgletter.declare'),
+      signature: t('orgletter.signature'),
+      note: t('orgletter.note'),
+    }, i18n.language);
+  }
   const [estado, setEstado] = useState<Estado | null>(null);
   const [abierto, setAbierto] = useState(false);
   const [kind, setKind] = useState<'acta' | 'carta'>('acta');
@@ -114,6 +136,17 @@ export function OrgVerificationCard({ userId }: { userId: string }) {
                   <option value="carta">{t('orgdoc.kindCarta')}</option>
                 </select>
                 <p className="mt-1 text-xs text-muted">{t('orgdoc.kindHint')}</p>
+                {kind === 'carta' && (
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    className="mt-2"
+                    leadingIcon={<Download className="h-4 w-4" aria-hidden="true" />}
+                    onClick={descargarPlantilla}
+                  >
+                    {t('orgletter.download')}
+                  </Button>
+                )}
               </div>
 
               <label className="inline-flex w-fit cursor-pointer items-center gap-2 rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">

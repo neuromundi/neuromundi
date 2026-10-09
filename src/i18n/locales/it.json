@@ -5416,5 +5416,22 @@
     "sending": "Invio…",
     "sent": "Documento inviato per revisione",
     "tooBig": "Il file supera {{mb}} MB"
+  },
+  "orgletter": {
+    "download": "Scarica il modello di lettera",
+    "heading": "Lettera di dichiarazione come organizzazione di fatto",
+    "placeDate": "Luogo e data",
+    "to": "A chi di competenza — Team Neuromundi:",
+    "intro": "Con la presente dichiariamo, sotto la nostra responsabilità, di costituire un'organizzazione di fatto, senza scopo di lucro, dedicata all'accompagnamento della comunità del neurosviluppo, della neurodivergenza e delle affezioni neurologiche. Non disponiamo di un atto costitutivo formale; questa lettera lo sostituisce ai fini della verifica presso Neuromundi.",
+    "fOrg": "Nome dell'organizzazione",
+    "fRep": "Rappresentante / persona di contatto",
+    "fPhone": "Telefono",
+    "fEmail": "Email",
+    "fCity": "Località / città",
+    "fCountry": "Paese",
+    "fPurpose": "Oggetto o attività a beneficio della comunità",
+    "declare": "Dichiariamo che i dati qui riportati sono veritieri e autorizziamo Neuromundi a verificarli. In caso di falsità, accettiamo l'annullamento della nostra iscrizione e del relativo sigillo.",
+    "signature": "Nome e firma del rappresentante",
+    "note": "Questo documento è un modello suggerito da Neuromundi. La lettera sostituisce l'atto costitutivo solo ai fini della verifica delle organizzazioni di fatto; non conferisce personalità giuridica."
   }
 }
