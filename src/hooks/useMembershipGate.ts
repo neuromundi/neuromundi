@@ -26,8 +26,9 @@ export function useMembershipGate() {
   const wasBlocked = useRef(false);
 
   // Solo pagan cuota los prestadores (servicios, comercios, escuelas). Las
-  // Empresas inclusivas (provider_type='company') son SIEMPRE gratuitas.
-  const mustPay = isAuthenticated && !isAdmin && !isAdvisor && role === 'provider' && providerType !== 'company';
+  // Empresas inclusivas ('company') y las ONG ('ngo') son SIEMPRE gratuitas.
+  const mustPay = isAuthenticated && !isAdmin && !isAdvisor && role === 'provider'
+    && providerType !== 'company' && providerType !== 'ngo';
   const graceOver = status === 'pending' && (daysLeft ?? 0) <= 0;
   const blocked = mustPay && !loading && (status === 'past_due' || graceOver);
 

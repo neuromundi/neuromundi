@@ -3897,6 +3897,15 @@
       "approved": "Exonération approuvée pour douze mois.",
       "rejectedOk": "Exonération refusée.",
       "docError": "L'attestation n'a pas pu être ouverte."
+    },
+    "orgdoc": {
+      "title": "Vérification des organisations",
+      "desc": "ONG ayant téléversé leurs statuts ou leur lettre. L'approbation active leur siège de Fondatrice.",
+      "empty": "Rien à examiner",
+      "emptyDesc": "Aucune organisation en attente de vérification.",
+      "noteReject": "Motif du refus (l'organisation le verra) :",
+      "approved": "Organisation vérifiée",
+      "rejectedOk": "Document refusé"
     }
   },
   "callout": {
@@ -5384,5 +5393,28 @@
   "alliesPage": {
     "title": "Découvrez nos alliés",
     "subtitle": "Institutions et entreprises qui soutiennent la communauté Neuromundi."
+  },
+  "orgdoc": {
+    "title": "Vérification de l'organisation",
+    "intro": "Pour compter comme Fondatrice et afficher le sceau d'organisation vérifiée, téléversez vos statuts constitutifs ou, à défaut, une lettre vous déclarant organisation de fait.",
+    "approved": "Organisation vérifiée. Votre documentation a été approuvée.",
+    "pending": "Nous avons reçu votre document. Un administrateur l'examinera sous peu.",
+    "rejected": "Non approuvé : {{motivo}}. Vous pouvez envoyer un nouveau document.",
+    "start": "Vérifier l'organisation",
+    "resend": "Envoyer un autre document",
+    "kind": "Type de document",
+    "kindActa": "Statuts constitutifs",
+    "kindCarta": "Lettre — organisation de fait",
+    "kindHint": "Pas de statuts ? Une lettre signée vous déclarant organisation de fait est acceptée.",
+    "chooseFile": "Choisir un fichier",
+    "fileReady": "Fichier prêt",
+    "uploading": "Téléversement…",
+    "uploaded": "Fichier téléversé",
+    "uploadError": "Le fichier n'a pas pu être téléversé",
+    "needFile": "Joignez d'abord le document",
+    "send": "Envoyer pour examen",
+    "sending": "Envoi…",
+    "sent": "Document envoyé pour examen",
+    "tooBig": "Le fichier dépasse {{mb}} Mo"
   }
 }

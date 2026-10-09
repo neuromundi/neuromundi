@@ -3897,6 +3897,15 @@
       "approved": "Esenzione approvata per dodici mesi.",
       "rejectedOk": "Esenzione non approvata.",
       "docError": "Non è stato possibile aprire il certificato."
+    },
+    "orgdoc": {
+      "title": "Verifica delle organizzazioni",
+      "desc": "ONG che hanno caricato atto o lettera. L'approvazione abilita il loro posto da Fondatrice.",
+      "empty": "Niente da revisionare",
+      "emptyDesc": "Nessuna organizzazione in attesa di verifica.",
+      "noteReject": "Motivo del rifiuto (l'organizzazione lo vedrà):",
+      "approved": "Organizzazione verificata",
+      "rejectedOk": "Documento rifiutato"
     }
   },
   "callout": {
@@ -5384,5 +5393,28 @@
   "alliesPage": {
     "title": "Scopri i nostri alleati",
     "subtitle": "Istituzioni e aziende che sostengono la comunità Neuromundi."
+  },
+  "orgdoc": {
+    "title": "Verifica dell'organizzazione",
+    "intro": "Per contare come Fondatrice e mostrare il sigillo di organizzazione verificata, carica l'atto costitutivo o, in mancanza, una lettera che vi dichiara organizzazione di fatto.",
+    "approved": "Organizzazione verificata. La tua documentazione è stata approvata.",
+    "pending": "Abbiamo ricevuto il tuo documento. Un amministratore lo esaminerà a breve.",
+    "rejected": "Non approvato: {{motivo}}. Puoi inviare un nuovo documento.",
+    "start": "Verifica organizzazione",
+    "resend": "Invia un altro documento",
+    "kind": "Tipo di documento",
+    "kindActa": "Atto costitutivo",
+    "kindCarta": "Lettera — organizzazione di fatto",
+    "kindHint": "Nessun atto costitutivo? È accettata una lettera firmata che vi dichiara organizzazione di fatto.",
+    "chooseFile": "Scegli file",
+    "fileReady": "File pronto",
+    "uploading": "Caricamento…",
+    "uploaded": "File caricato",
+    "uploadError": "Impossibile caricare il file",
+    "needFile": "Allega prima il documento",
+    "send": "Invia per revisione",
+    "sending": "Invio…",
+    "sent": "Documento inviato per revisione",
+    "tooBig": "Il file supera {{mb}} MB"
   }
 }

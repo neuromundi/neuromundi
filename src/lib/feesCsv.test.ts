@@ -122,6 +122,27 @@ describe('parseCsv — tolerancia', () => {
     const csv = toCsv([base]) + '\r\n\r\n';
     expect(parseCsv(csv).rows).toHaveLength(1);
   });
+
+  it('recupera un archivo que Excel envolvió entre comillas (regional con coma)', () => {
+    // Excel en locale con "," abre nuestro ";" en una sola celda y al guardar
+    // entrecomilla cada fila: "pais;tipo;...". No debe decir "faltan columnas".
+    const csv = [
+      '"pais;tipo;clase;moneda;mensual;anual;anual_referencia;sin_centavos"',
+      '"México;medical_specialist;founder;MXN;1000;10000;12000;no"',
+    ].join('\r\n');
+    const { rows, errors } = parseCsv(csv);
+    expect(errors).toEqual([]);
+    expect(rows).toHaveLength(1);
+    expect(rows[0].tipo).toBe('medical_specialist');
+    expect(rows[0].mensual).toBe(1000);
+  });
+
+  it('ignora una primera línea "sep=;" de Excel', () => {
+    const csv = 'sep=;\n' + 'pais;tipo;clase;moneda;mensual;anual;anual_referencia;sin_centavos\nMéxico;medical_specialist;founder;MXN;1000;10000;12000;no';
+    const { rows, errors } = parseCsv(csv);
+    expect(errors).toEqual([]);
+    expect(rows[0].tipo).toBe('medical_specialist');
+  });
 });
 
 describe('parseCsv — errores', () => {

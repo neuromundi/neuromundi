@@ -3897,6 +3897,15 @@
       "approved": "Befreiung für zwölf Monate bewilligt.",
       "rejectedOk": "Befreiung abgelehnt.",
       "docError": "Der Nachweis konnte nicht geöffnet werden."
+    },
+    "orgdoc": {
+      "title": "Verifizierung von Organisationen",
+      "desc": "NGOs, die ihre Urkunde oder ihr Schreiben hochgeladen haben. Die Genehmigung aktiviert ihren Gründer-Platz.",
+      "empty": "Nichts zu prüfen",
+      "emptyDesc": "Keine Organisationen warten auf Verifizierung.",
+      "noteReject": "Ablehnungsgrund (die Organisation sieht ihn):",
+      "approved": "Organisation verifiziert",
+      "rejectedOk": "Dokument abgelehnt"
     }
   },
   "callout": {
@@ -5384,5 +5393,28 @@
   "alliesPage": {
     "title": "Unsere Partner",
     "subtitle": "Institutionen und Unternehmen, die die Neuromundi-Gemeinschaft unterstützen."
+  },
+  "orgdoc": {
+    "title": "Verifizierung der Organisation",
+    "intro": "Um als Gründerin zu zählen und das Siegel „verifizierte Organisation“ zu tragen, lade deine Gründungsurkunde hoch oder, falls nicht vorhanden, ein Schreiben, das euch als faktische Organisation erklärt.",
+    "approved": "Verifizierte Organisation. Deine Unterlagen wurden genehmigt.",
+    "pending": "Wir haben dein Dokument erhalten. Ein Administrator prüft es in Kürze.",
+    "rejected": "Nicht genehmigt: {{motivo}}. Du kannst ein neues Dokument senden.",
+    "start": "Organisation verifizieren",
+    "resend": "Weiteres Dokument senden",
+    "kind": "Dokumenttyp",
+    "kindActa": "Gründungsurkunde",
+    "kindCarta": "Schreiben — faktische Organisation",
+    "kindHint": "Keine Gründungsurkunde? Ein unterschriebenes Schreiben, das euch als faktische Organisation erklärt, wird akzeptiert.",
+    "chooseFile": "Datei wählen",
+    "fileReady": "Datei bereit",
+    "uploading": "Wird hochgeladen…",
+    "uploaded": "Datei hochgeladen",
+    "uploadError": "Die Datei konnte nicht hochgeladen werden",
+    "needFile": "Hänge zuerst das Dokument an",
+    "send": "Zur Prüfung senden",
+    "sending": "Wird gesendet…",
+    "sent": "Dokument zur Prüfung gesendet",
+    "tooBig": "Die Datei überschreitet {{mb}} MB"
   }
 }

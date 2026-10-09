@@ -211,10 +211,49 @@ export function templateCsv(): string {
   ]);
 }
 
+/**
+ * Excel en una configuración regional con COMA como separador de listas abre
+ * nuestro archivo (que va con ";") metiendo toda la fila en una sola celda; al
+ * guardar, envuelve cada renglón que contiene ";" entre comillas:
+ *   "pais;tipo;clase;…"
+ * `splitCsvLine` respeta esas comillas y devolvería un único campo, de modo que
+ * "faltan todas las columnas". Si cada línea es un único campo entrecomillado,
+ * las desenvolvemos (y des-escapamos "" → ") para recuperar el contenido real.
+ */
+function unwrapExcelQuotedLines(lines: string[], delim: string): string[] {
+  const allWrapped = lines.every((l) => {
+    const t = l.trim();
+    return t.length >= 2 && t.startsWith('"') && t.endsWith('"') && splitCsvLine(t, delim).length === 1;
+  });
+  if (!allWrapped) return lines;
+  return lines.map((l) => {
+    const t = l.trim();
+    return t.slice(1, -1).replace(/""/g, '"');
+  });
+}
+
+/**
+ * Elige el delimitador que MÁS encabezados reconoce, probando ";", "," y tab, y
+ * considerando además el caso "Excel envolvió todo entre comillas". Para un
+ * archivo bien formado gana la variante sin desenvolver (no hay regresión).
+ */
+function pickLayout(lines: string[]): { delim: string; unwrapped: string[] } {
+  const candidates: Array<';' | ',' | '\t'> = [';', ',', '\t'];
+  let best = { delim: ';', unwrapped: lines, score: -1 };
+  for (const delim of candidates) {
+    for (const unwrapped of [lines, unwrapExcelQuotedLines(lines, delim)]) {
+      const header = splitCsvLine(unwrapped[0], delim).map(normKey);
+      const score = FEE_CSV_HEADERS.filter((h) => header.includes(h)).length;
+      if (score > best.score) best = { delim, unwrapped, score };
+    }
+  }
+  return { delim: best.delim, unwrapped: best.unwrapped };
+}
+
 /** Lee un CSV y devuelve las filas válidas y los errores por línea. */
 export function parseCsv(text: string): FeeCsvParseResult {
   const clean = text.replace(/^﻿/, '');
-  const lines = clean.split(/\r\n|\n|\r/).filter((l) => l.trim() !== '');
+  let lines = clean.split(/\r\n|\n|\r/).filter((l) => l.trim() !== '');
   const rows: FeeCsvRow[] = [];
   const errors: FeeCsvError[] = [];
 
@@ -222,7 +261,16 @@ export function parseCsv(text: string): FeeCsvParseResult {
     return { rows, errors: [{ linea: 0, motivo: 'El archivo está vacío.' }] };
   }
 
-  const delim = detectDelimiter(lines[0]);
+  // Excel escribe a veces una primera línea "sep=;" para indicar el separador.
+  const sepMatch = lines[0].trim().match(/^sep=(.)$/i);
+  if (sepMatch) lines = lines.slice(1);
+  if (lines.length === 0) {
+    return { rows, errors: [{ linea: 0, motivo: 'El archivo está vacío.' }] };
+  }
+
+  const layout = pickLayout(lines);
+  const delim = layout.delim;
+  lines = layout.unwrapped;
   const commaIsDecimal = delim === ';';
   const header = splitCsvLine(lines[0], delim).map(normKey);
 

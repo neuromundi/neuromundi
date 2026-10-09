@@ -33,12 +33,19 @@ const COLOR: Record<string, string> = {
   vigente: 'bg-emerald-100 text-emerald-800',
 };
 
+type OrgDoc = {
+  id: string; nombre: string | null; provider_type: string | null; member_no: string | null;
+  org_doc_kind: string | null; org_doc_url: string | null; org_doc_submitted_at: string | null;
+};
+
 export function AdminExemptions() {
   const { t } = useTranslation();
   const toast = useToast();
   const [filas, setFilas] = useState<Fila[] | null>(null);
   const [todas, setTodas] = useState(false);
   const [ocupado, setOcupado] = useState<string | null>(null);
+  const [orgDocs, setOrgDocs] = useState<OrgDoc[] | null>(null);
+  const [ocupadoDoc, setOcupadoDoc] = useState<string | null>(null);
 
   const cargar = useCallback(async () => {
     setFilas(null);
@@ -48,7 +55,28 @@ export function AdminExemptions() {
     setFilas((data as Fila[]) ?? []);
   }, [todas, toast]);
 
+  const cargarDocs = useCallback(async () => {
+    setOrgDocs(null);
+    const { data, error } = await (supabase as unknown as Rpc).rpc('admin_pending_org_docs');
+    if (error) { setOrgDocs([]); return; }
+    setOrgDocs((data as OrgDoc[]) ?? []);
+  }, []);
+
   useEffect(() => { void cargar(); }, [cargar]);
+  useEffect(() => { void cargarDocs(); }, [cargarDocs]);
+
+  async function resolverDoc(d: OrgDoc, aprobar: boolean) {
+    const nota = aprobar ? '' : (window.prompt(t('adm.orgdoc.noteReject'), '') ?? null);
+    if (!aprobar && nota === null) return;
+    setOcupadoDoc(d.id);
+    const { error } = await (supabase as unknown as Rpc).rpc('admin_set_org_doc', {
+      p_user: d.id, p_approve: aprobar, p_note: nota,
+    });
+    setOcupadoDoc(null);
+    if (error) { toast.error(error.message); return; }
+    toast.success(aprobar ? t('adm.orgdoc.approved') : t('adm.orgdoc.rejectedOk'));
+    void cargarDocs();
+  }
 
   async function resolver(f: Fila, aprobar: boolean) {
     const nota = aprobar
@@ -141,6 +169,55 @@ export function AdminExemptions() {
           ))}
         </ul>
       )}
+
+      {/* Cola de verificación documental de organizaciones (acta / carta). */}
+      <div className="mt-8 border-t border-slate-200 pt-6">
+        <h2 className="text-lg font-bold text-slate-900">{t('adm.orgdoc.title')}</h2>
+        <p className="text-sm text-muted">{t('adm.orgdoc.desc')}</p>
+
+        {orgDocs === null ? (
+          <div className="mt-4"><SkeletonCard rows={2} /></div>
+        ) : orgDocs.length === 0 ? (
+          <div className="mt-4"><EmptyState title={t('adm.orgdoc.empty')} description={t('adm.orgdoc.emptyDesc')} /></div>
+        ) : (
+          <ul className="mt-4 space-y-3">
+            {orgDocs.map((d) => (
+              <li key={d.id} className="rounded-2xl border border-slate-200 bg-white p-4">
+                <div className="flex flex-wrap items-start justify-between gap-3">
+                  <div className="min-w-0">
+                    <p className="font-semibold text-slate-900">{d.nombre ?? d.id}</p>
+                    <p className="text-sm text-muted">
+                      {(d.member_no ? `NM-${d.member_no} · ` : '')}{d.provider_type ?? '—'} · {t(d.org_doc_kind === 'acta' ? 'orgdoc.kindActa' : 'orgdoc.kindCarta')}
+                    </p>
+                  </div>
+                  <span className="rounded-full bg-sky-100 px-2.5 py-1 text-xs font-semibold text-sky-800">
+                    {t('orgdoc.pending')}
+                  </span>
+                </div>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {d.org_doc_url && (
+                    <Button size="sm" variant="secondary"
+                            leadingIcon={<FileText className="h-4 w-4" aria-hidden="true" />}
+                            onClick={() => void abrirDoc(d.org_doc_url!)}>
+                      {t('adm.exe.openDoc')}
+                    </Button>
+                  )}
+                  <Button size="sm" loading={ocupadoDoc === d.id}
+                          leadingIcon={<Check className="h-4 w-4" aria-hidden="true" />}
+                          onClick={() => void resolverDoc(d, true)}>
+                    {t('adm.exe.approve')}
+                  </Button>
+                  <Button size="sm" variant="danger" loading={ocupadoDoc === d.id}
+                          leadingIcon={<X className="h-4 w-4" aria-hidden="true" />}
+                          onClick={() => void resolverDoc(d, false)}>
+                    {t('adm.exe.reject')}
+                  </Button>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </section>
   );
 }

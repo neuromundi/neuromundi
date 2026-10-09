@@ -3897,6 +3897,15 @@
       "approved": "Isenção aprovada por doze meses.",
       "rejectedOk": "Isenção não aprovada.",
       "docError": "Não foi possível abrir o comprovante."
+    },
+    "orgdoc": {
+      "title": "Verificação de organizações",
+      "desc": "ONGs que enviaram seu ato ou carta. Aprovar habilita o assento de Fundadora.",
+      "empty": "Nada para revisar",
+      "emptyDesc": "Nenhuma organização aguardando verificação.",
+      "noteReject": "Motivo da recusa (a organização verá):",
+      "approved": "Organização verificada",
+      "rejectedOk": "Documento recusado"
     }
   },
   "callout": {
@@ -5384,5 +5393,28 @@
   "alliesPage": {
     "title": "Conheça nossos aliados",
     "subtitle": "Instituições e empresas que apoiam a comunidade Neuromundi."
+  },
+  "orgdoc": {
+    "title": "Verificação da organização",
+    "intro": "Para contar como Fundadora e exibir o selo de organização verificada, envie seu ato constitutivo ou, na falta dele, uma carta de manifestação como organização de fato.",
+    "approved": "Organização verificada. Sua documentação foi aprovada.",
+    "pending": "Recebemos seu documento. Um administrador irá revisá-lo em breve.",
+    "rejected": "Não aprovado: {{motivo}}. Você pode enviar um novo documento.",
+    "start": "Verificar organização",
+    "resend": "Enviar outro documento",
+    "kind": "Tipo de documento",
+    "kindActa": "Ato constitutivo",
+    "kindCarta": "Carta — organização de fato",
+    "kindHint": "Sem ato constitutivo? Aceita-se uma carta assinada de manifestação como organização de fato.",
+    "chooseFile": "Escolher arquivo",
+    "fileReady": "Arquivo pronto",
+    "uploading": "Enviando…",
+    "uploaded": "Arquivo enviado",
+    "uploadError": "Não foi possível enviar o arquivo",
+    "needFile": "Anexe primeiro o documento",
+    "send": "Enviar para revisão",
+    "sending": "Enviando…",
+    "sent": "Documento enviado para revisão",
+    "tooBig": "O arquivo excede {{mb}} MB"
   }
 }

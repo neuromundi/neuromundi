@@ -159,6 +159,12 @@ export interface Database {
           suspend_until: string | null;
           pre_suspend_published: boolean | null;
           winback_until: string | null;
+          org_doc_url: string | null;
+          org_doc_kind: string | null;
+          org_doc_status: string | null;
+          org_doc_note: string | null;
+          org_doc_submitted_at: string | null;
+          org_doc_reviewed_at: string | null;
           created_at: string;
           updated_at: string;
         };
@@ -1965,6 +1971,22 @@ export interface Database {
       claim_founder_slot: {
         Args: { p_kind: string; p_country: string | null };
         Returns: boolean;
+      };
+      claim_free_founder_seat: {
+        Args: Record<string, never>;
+        Returns: boolean;
+      };
+      submit_org_document: {
+        Args: { p_url: string; p_kind: string };
+        Returns: boolean;
+      };
+      admin_set_org_doc: {
+        Args: { p_user: string; p_approve: boolean; p_note?: string | null };
+        Returns: boolean;
+      };
+      admin_pending_org_docs: {
+        Args: Record<string, never>;
+        Returns: { id: string; nombre: string | null; provider_type: string | null; member_no: string | null; org_doc_kind: string | null; org_doc_url: string | null; org_doc_submitted_at: string | null }[];
       };
       is_founder: {
         Args: { p_id: string };

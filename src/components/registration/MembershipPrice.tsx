@@ -19,7 +19,7 @@ import { useTranslation } from 'react-i18next';
 import { useCountry } from '@/stores/countryStore';
 import { supabase } from '@/lib/supabase';
 
-const FREE = new Set(['patient', 'parent', 'company']);
+const FREE = new Set(['patient', 'parent', 'company', 'ngo']);
 const TYPE_MAP: Record<string, string> = { clinic: 'clinic', service_provider: 'specialist' };
 
 interface Quote {

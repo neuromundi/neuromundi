@@ -71,6 +71,18 @@ export function computeFounderProgress(kind: FounderKind, i: FounderInputs): Fou
     return { items, pct: totalC === 0 ? 0 : Math.round((sumC / totalC) * 100), metCount: items.filter((it) => it.met).length, total: totalC };
   }
 
+  // ONG inclusivas: registro gratuito. Requisitos = asiento + foto + biografía
+  // + teléfono (sin cuota, cédula, blog ni recomendaciones).
+  if (kind === 'ngos') {
+    push('slot', bin(i.isFounder));
+    push('photo', bin(!!i.avatarUrl));
+    push('bio', bin(!!i.bio && i.bio.trim().length >= BIO_MIN));
+    push('contact', bin(!!i.phone));
+    const totalN = items.length;
+    const sumN = items.reduce((a, it) => a + it.fraction, 0);
+    return { items, pct: totalN === 0 ? 0 : Math.round((sumN / totalN) * 100), metCount: items.filter((it) => it.met).length, total: totalN };
+  }
+
   // Comunes a todos los demás perfiles.
   push('slot', bin(i.isFounder));
   push('photo', bin(!!i.avatarUrl));

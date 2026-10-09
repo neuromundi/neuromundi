@@ -3897,6 +3897,15 @@
       "approved": "Exemption approved for twelve months.",
       "rejectedOk": "Exemption rejected.",
       "docError": "The certificate could not be opened."
+    },
+    "orgdoc": {
+      "title": "Organization verification",
+      "desc": "NGOs that uploaded their deed or letter. Approving enables their Founder seat.",
+      "empty": "Nothing to review",
+      "emptyDesc": "No organizations are awaiting verification.",
+      "noteReject": "Reason for rejection (the organization will see it):",
+      "approved": "Organization verified",
+      "rejectedOk": "Document rejected"
     }
   },
   "callout": {
@@ -5384,5 +5393,28 @@
   "alliesPage": {
     "title": "Meet our allies",
     "subtitle": "Institutions and companies that support the Neuromundi community."
+  },
+  "orgdoc": {
+    "title": "Organization verification",
+    "intro": "To count as a Founder and show the verified‑organization seal, upload your incorporation deed or, if you don't have one, a letter declaring yourselves an organization in fact.",
+    "approved": "Verified organization. Your documentation was approved.",
+    "pending": "We received your document. An administrator will review it shortly.",
+    "rejected": "Not approved: {{motivo}}. You can send a new document.",
+    "start": "Verify organization",
+    "resend": "Send another document",
+    "kind": "Document type",
+    "kindActa": "Incorporation deed",
+    "kindCarta": "Letter — organization in fact",
+    "kindHint": "No incorporation deed? A signed letter declaring yourselves an organization in fact is accepted.",
+    "chooseFile": "Choose file",
+    "fileReady": "File ready",
+    "uploading": "Uploading…",
+    "uploaded": "File uploaded",
+    "uploadError": "The file could not be uploaded",
+    "needFile": "Attach the document first",
+    "send": "Send for review",
+    "sending": "Sending…",
+    "sent": "Document sent for review",
+    "tooBig": "The file exceeds {{mb}} MB"
   }
 }

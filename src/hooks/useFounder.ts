@@ -21,17 +21,22 @@ import { useAuthStore } from '@/stores/authStore';
 import { getFounderOptoutFlag, clearFounderOptoutFlag } from '@/lib/founderPref';
 import type { ProviderType } from '@/types/database';
 
-export type FounderKind = 'families' | 'professionals' | 'providers' | 'companies';
+export type FounderKind = 'families' | 'professionals' | 'providers' | 'companies' | 'ngos';
 
 /** Mapea el rol / tipo de proveedor al grupo de fundador correspondiente. */
 export function founderKindFor(role: string | null | undefined, providerType: ProviderType | null | undefined): FounderKind | null {
   if (role === 'parent' || role === 'patient') return 'families';
   if (role === 'provider') {
     if (providerType === 'company') return 'companies'; // empresas: track propio (cupo 20 + 2 vacantes)
+    if (providerType === 'ngo') return 'ngos';          // ONG: track propio gratuito (foto+bio+teléfono)
     return providerType === 'merchant' ? 'providers' : 'professionals';
   }
   return null; // admin u otros: no participan
 }
+
+/** Sectores de registro GRATUITO (exentos): obtienen el asiento de fundador por
+ *  claim_free_founder_seat(), no por el webhook de Stripe. */
+export const FREE_FOUNDER_TYPES: ReadonlyArray<ProviderType> = ['company', 'ngo'];
 
 /** ¿Este id de perfil es Miembro Fundador? (lectura pública). */
 export const FOUNDER_CAPACITY: Record<FounderKind, number> = {
@@ -44,6 +49,7 @@ export const FOUNDER_CAPACITY: Record<FounderKind, number> = {
   professionals: 300,
   providers: 150,
   companies: 20,
+  ngos: 20,
 };
 
 /**
@@ -150,6 +156,13 @@ export function useFounderAutoClaim() {
     // dispara la felicitación una sola vez, que es justo después de pagar.
     const vistoKey = `nm_founder_visto_${userId}`;
     (async () => {
+      // Sectores GRATUITOS (empresa / ONG): no pasan por el pago, así que el
+      // asiento se intenta otorgar aquí con la RPC acotada (se auto-valida cupo
+      // y requisito objetivo; si no cumple, simplemente devuelve false).
+      if (FREE_FOUNDER_TYPES.includes(profile.provider_type as ProviderType)) {
+        await supabase.rpc('claim_free_founder_seat');
+        if (cancelled) return;
+      }
       const { data: existing } = await supabase
         .from('founder_members')
         .select('user_id')

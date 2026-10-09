@@ -3897,6 +3897,15 @@
       "approved": "豁免已批准十二个月。",
       "rejectedOk": "豁免未获批准。",
       "docError": "无法打开证明文件。"
+    },
+    "orgdoc": {
+      "title": "组织验证",
+      "desc": "已上传章程或信函的 NGO。批准后将启用其创始成员席位。",
+      "empty": "暂无待审",
+      "emptyDesc": "没有等待验证的组织。",
+      "noteReject": "拒绝原因（组织可见）：",
+      "approved": "组织已验证",
+      "rejectedOk": "文件已拒绝"
     }
   },
   "callout": {
@@ -5384,5 +5393,28 @@
   "alliesPage": {
     "title": "认识我们的伙伴",
     "subtitle": "支持 Neuromundi 社区的机构与企业。"
+  },
+  "orgdoc": {
+    "title": "组织验证",
+    "intro": "若要作为创始成员并显示“已验证组织”徽章，请上传成立章程；如无，可上传声明为事实组织的信函。",
+    "approved": "组织已验证。您的材料已通过。",
+    "pending": "我们已收到您的文件，管理员将很快审核。",
+    "rejected": "未通过：{{motivo}}。您可以重新提交文件。",
+    "start": "验证组织",
+    "resend": "再发送一份文件",
+    "kind": "文件类型",
+    "kindActa": "成立章程",
+    "kindCarta": "信函 — 事实组织",
+    "kindHint": "没有成立章程？可接受一封声明为事实组织的签署信函。",
+    "chooseFile": "选择文件",
+    "fileReady": "文件已就绪",
+    "uploading": "上传中…",
+    "uploaded": "文件已上传",
+    "uploadError": "无法上传文件",
+    "needFile": "请先附上文件",
+    "send": "提交审核",
+    "sending": "提交中…",
+    "sent": "文件已提交审核",
+    "tooBig": "文件超过 {{mb}} MB"
   }
 }

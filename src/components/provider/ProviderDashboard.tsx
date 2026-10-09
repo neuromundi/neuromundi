@@ -94,6 +94,7 @@ import type { Offer, OfferStatus, OfferInsert, ProviderType, TransactionStatus }
 import { DIMENSION_LABEL_KEY } from '@/types/app';
 import { PublicationSteps } from './PublicationSteps';
 import { ExemptionCard } from './ExemptionCard';
+import { OrgVerificationCard } from './OrgVerificationCard';
 import { LockedFeature } from './LockedFeature';
 import { useMembership } from '@/hooks/useMembership';
 import { ProfileCompletion } from './ProfileCompletion';
@@ -808,6 +809,9 @@ export function ProviderDashboard() {
       <PublicationSteps userId={userId} />
       {/* Expediente de exención: quién no paga cuota y hasta cuándo. */}
       <ExemptionCard userId={userId} />
+      {/* Verificación documental de la ONG (acta o carta de org. de hecho):
+          condiciona el asiento de Fundadora. */}
+      {providerType === 'ngo' && <OrgVerificationCard userId={userId} />}
       {isFounder ? (
         <div className="mb-4 flex items-center gap-3 rounded-2xl border border-brand-200 bg-brand-50 p-3">
           <FounderBadge isFounder size="md" />
