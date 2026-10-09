@@ -3905,7 +3905,12 @@
       "emptyDesc": "Nenhuma organização aguardando verificação.",
       "noteReject": "Motivo da recusa (a organização verá):",
       "approved": "Organização verificada",
-      "rejectedOk": "Documento recusado"
+      "rejectedOk": "Documento recusado",
+      "checklistTitle": "Revisão mínima antes de aprovar:",
+      "check1": "O telefone e o e-mail parecem reais.",
+      "check2": "Há rastro público da organização (página, grupo ou menção).",
+      "check3": "O objeto declarado corresponde à comunidade (neurodesenvolvimento, neurodivergência ou afecções).",
+      "check4": "O documento anexado é legível e corresponde ao declarado."
     }
   },
   "callout": {

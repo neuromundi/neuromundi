@@ -3905,7 +3905,12 @@
       "emptyDesc": "Keine Organisationen warten auf Verifizierung.",
       "noteReject": "Ablehnungsgrund (die Organisation sieht ihn):",
       "approved": "Organisation verifiziert",
-      "rejectedOk": "Dokument abgelehnt"
+      "rejectedOk": "Dokument abgelehnt",
+      "checklistTitle": "Mindestprüfung vor der Genehmigung:",
+      "check1": "Telefon und E-Mail wirken echt.",
+      "check2": "Es gibt eine öffentliche Spur der Organisation (Seite, Gruppe oder Erwähnung).",
+      "check3": "Der angegebene Zweck passt zur Gemeinschaft (Neuroentwicklung, Neurodivergenz oder Erkrankungen).",
+      "check4": "Das angehängte Dokument ist lesbar und stimmt mit den Angaben überein."
     }
   },
   "callout": {

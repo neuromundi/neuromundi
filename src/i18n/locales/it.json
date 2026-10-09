@@ -3905,7 +3905,12 @@
       "emptyDesc": "Nessuna organizzazione in attesa di verifica.",
       "noteReject": "Motivo del rifiuto (l'organizzazione lo vedrà):",
       "approved": "Organizzazione verificata",
-      "rejectedOk": "Documento rifiutato"
+      "rejectedOk": "Documento rifiutato",
+      "checklistTitle": "Verifica minima prima di approvare:",
+      "check1": "Telefono ed email sembrano reali.",
+      "check2": "Esiste una traccia pubblica dell'organizzazione (pagina, gruppo o menzione).",
+      "check3": "L'oggetto dichiarato corrisponde alla comunità (neurosviluppo, neurodivergenza o affezioni).",
+      "check4": "Il documento allegato è leggibile e corrisponde a quanto dichiarato."
     }
   },
   "callout": {

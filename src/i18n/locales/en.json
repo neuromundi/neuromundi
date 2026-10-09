@@ -3905,7 +3905,12 @@
       "emptyDesc": "No organizations are awaiting verification.",
       "noteReject": "Reason for rejection (the organization will see it):",
       "approved": "Organization verified",
-      "rejectedOk": "Document rejected"
+      "rejectedOk": "Document rejected",
+      "checklistTitle": "Minimum review before approving:",
+      "check1": "The phone and email look real.",
+      "check2": "There is a public trace of the organization (page, group or mention).",
+      "check3": "The stated purpose matches the community (neurodevelopment, neurodivergence or conditions).",
+      "check4": "The attached document is legible and matches what was declared."
     }
   },
   "callout": {

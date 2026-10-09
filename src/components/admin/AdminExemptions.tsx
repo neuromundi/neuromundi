@@ -46,6 +46,18 @@ export function AdminExemptions() {
   const [ocupado, setOcupado] = useState<string | null>(null);
   const [orgDocs, setOrgDocs] = useState<OrgDoc[] | null>(null);
   const [ocupadoDoc, setOcupadoDoc] = useState<string | null>(null);
+  // Mini-checklist de revisión (30 s) por documento. Aprobar exige marcarla toda.
+  const [checks, setChecks] = useState<Record<string, boolean[]>>({});
+  const CHECK_KEYS = ['check1', 'check2', 'check3', 'check4'] as const;
+  const getChecks = (id: string) => checks[id] ?? CHECK_KEYS.map(() => false);
+  const allChecked = (id: string) => getChecks(id).every(Boolean);
+  const toggleCheck = (id: string, i: number) =>
+    setChecks((prev) => {
+      const cur = prev[id] ?? CHECK_KEYS.map(() => false);
+      const next = cur.slice();
+      next[i] = !next[i];
+      return { ...prev, [id]: next };
+    });
 
   const cargar = useCallback(async () => {
     setFilas(null);
@@ -194,6 +206,19 @@ export function AdminExemptions() {
                     {t('orgdoc.pending')}
                   </span>
                 </div>
+                {/* Mini-checklist de revisión: aprobar exige marcarla completa. */}
+                <div className="mt-3 rounded-xl border border-amber-200 bg-amber-50 p-3">
+                  <p className="text-xs font-semibold text-amber-900">{t('adm.orgdoc.checklistTitle')}</p>
+                  <div className="mt-2 flex flex-col gap-1.5">
+                    {CHECK_KEYS.map((k, i) => (
+                      <label key={k} className="flex items-start gap-2 text-sm text-slate-700">
+                        <input type="checkbox" className="mt-0.5 h-4 w-4 rounded border-slate-300"
+                               checked={getChecks(d.id)[i]} onChange={() => toggleCheck(d.id, i)} />
+                        <span>{t(`adm.orgdoc.${k}`)}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
                 <div className="mt-3 flex flex-wrap gap-2">
                   {d.org_doc_url && (
                     <Button size="sm" variant="secondary"
@@ -202,7 +227,7 @@ export function AdminExemptions() {
                       {t('adm.exe.openDoc')}
                     </Button>
                   )}
-                  <Button size="sm" loading={ocupadoDoc === d.id}
+                  <Button size="sm" loading={ocupadoDoc === d.id} disabled={!allChecked(d.id)}
                           leadingIcon={<Check className="h-4 w-4" aria-hidden="true" />}
                           onClick={() => void resolverDoc(d, true)}>
                     {t('adm.exe.approve')}
