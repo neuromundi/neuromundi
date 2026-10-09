@@ -12,8 +12,6 @@ import { SECTIONS } from '@/data/sections';
 const SECTION_ICONS = { Sprout, Sparkles, Stethoscope } as const;
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui';
-import { ComparisonTable } from '@/components/home/ComparisonTable';
-import { WelcomeVideoHome } from '@/components/home/WelcomeVideoHome';
 import { SearchableSelect } from '@/components/directory/SearchableSelect';
 import { FoundersCounter } from '@/components/campaign/FoundersCounter';
 import { ComingSoonBanner } from '@/components/campaign/ComingSoonBanner';
@@ -29,11 +27,18 @@ import { useInView } from '@/hooks/useInView';
 // acercarse al viewport, para no cargar su DOM/imágenes en la ruta crítica.
 const MemberBadgesBanner = lazy(() => import('@/components/home/MemberBadgesBanner').then((m) => ({ default: m.MemberBadgesBanner })));
 
+// Bajo el pliegue y con consulta propia a Supabase: fuera del bundle inicial y
+// de la hidratación crítica; se montan al acercarse al viewport (useInView).
+const ComparisonTable = lazy(() => import('@/components/home/ComparisonTable').then((m) => ({ default: m.ComparisonTable })));
+const WelcomeVideoHome = lazy(() => import('@/components/home/WelcomeVideoHome').then((m) => ({ default: m.WelcomeVideoHome })));
+
 export function Home() {
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
   const { country, setCountry } = useCountry();
   const [badgesRef, badgesInView] = useInView<HTMLDivElement>();
+  const [videoRef, videoInView] = useInView<HTMLDivElement>();
+  const [cmpRef, cmpInView] = useInView<HTMLDivElement>();
 
   // Nombre del país localizado para mostrar; el `value` sigue siendo el nombre
   // canónico (español) para que coincida con `profiles.country` al filtrar.
@@ -172,8 +177,12 @@ export function Home() {
           </div>
         </div>
 
-        {/* Columna central: video de bienvenida (vista previa + modal). */}
-        <WelcomeVideoHome />
+        {/* Columna central: video de bienvenida (vista previa + modal). Diferido
+            del bundle inicial; se monta al acercarse al viewport. La caja reserva
+            altura para no provocar salto de diseño (CLS) mientras carga. */}
+        <div ref={videoRef} className="flex min-h-[360px] flex-col">
+          {videoInView && <Suspense fallback={null}><WelcomeVideoHome /></Suspense>}
+        </div>
 
         <div className="overflow-hidden rounded-3xl border border-brand-100 bg-gradient-to-br from-brand-50 to-white p-6 sm:p-8">
           <div className="flex h-full flex-col justify-center">
@@ -189,8 +198,12 @@ export function Home() {
         </div>
       </section>
 
-      {/* Comparativa: Neuromundi frente a los directorios/plataformas más usados. */}
-      <ComparisonTable />
+      {/* Comparativa: Neuromundi frente a los directorios/plataformas más usados.
+          Diferida (consulta Supabase + DOM pesado): fuera del bundle inicial, se
+          monta al acercarse al viewport. */}
+      <div ref={cmpRef}>
+        {cmpInView && <Suspense fallback={null}><ComparisonTable /></Suspense>}
+      </div>
 
       {/* Fundadores + Donantes: dos tarjetas gemelas (mismo contenedor degradado
           que la sección del Kit). Cada una conduce a su muro. En móvil se apilan. */}
