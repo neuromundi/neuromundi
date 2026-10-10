@@ -25,7 +25,9 @@ export function CampaignWelcomePopup({ onClose, onSeeBenefits }: { onClose: () =
     let alive = true;
     const lang = (i18n.language || 'es').slice(0, 2);
     const candidates: string[] = [];
-    if (lang !== 'es') candidates.push(`/welcome-neuromundi-${lang}.webm`, `/welcome-neuromundi-${lang}.mp4`);
+    // Video por idioma (incluido español, que tiene su propio -es). Respaldo final
+    // al archivo base, que NO se toca (sirve de inglés / idiomas sin versión propia).
+    candidates.push(`/welcome-neuromundi-${lang}.webm`, `/welcome-neuromundi-${lang}.mp4`);
     candidates.push('/welcome-neuromundi.webm', '/welcome-neuromundi.mp4');
     (async () => {
       for (const url of candidates) {
