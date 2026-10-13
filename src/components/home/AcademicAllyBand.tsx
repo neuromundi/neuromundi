@@ -10,7 +10,13 @@ import { useTranslation } from 'react-i18next';
 import { ArrowRight } from 'lucide-react';
 
 export function AcademicAllyBand() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  // El Observatorio tiene una página de la alianza en inglés y otra en español.
+  // Se dirige según el idioma resuelto (selección del usuario → navegador → ubicación).
+  const isEn = (i18n.language || 'es').slice(0, 2) === 'en';
+  const observatoryUrl = isEn
+    ? 'https://www.observaneuro.com/en/neuromundialliance'
+    : 'https://www.observaneuro.com/alianzaneuromundi';
   return (
     <section
       className="my-12 flex flex-wrap items-center gap-6 rounded-3xl border border-slate-200 bg-gradient-to-br from-white via-slate-50 to-sky-50 p-6 shadow-sm sm:p-7"
@@ -34,7 +40,7 @@ export function AcademicAllyBand() {
         <h2 id="ally-title" className="mt-3 text-2xl font-extrabold text-[#0d2545]">{t('ally.title')}</h2>
         <p className="mx-auto mt-2 max-w-prose leading-relaxed text-slate-600 sm:mx-0">{t('ally.text')}</p>
         <a
-          href="https://www.observaneuro.com/alianzaneuromundi"
+          href={observatoryUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="mt-4 inline-flex items-center gap-2 rounded-xl bg-[#0d2545] px-4 py-2.5 text-sm font-bold text-white transition hover:bg-[#13365f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0d2545]"
