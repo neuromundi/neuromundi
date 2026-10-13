@@ -67,7 +67,7 @@ async function sendEmail(
 interface Row {
   token: string; correo: string; nombre: string;
   provider_type: string | null; sector: string | null;
-  estado: string | null; ciudad: string | null;
+  estado: string | null; ciudad: string | null; pais?: string | null;
   ya_contactado_8sep: boolean; correo_personal: boolean;
   // Solo vienen cuando la cola es por tanda (directorio_invitaciones_cola_tanda).
   orden?: number; affiliate_type?: string | null; moneda?: string | null;
@@ -80,14 +80,63 @@ interface Row {
 // discrepar. Si la ficha no tiene tarifa configurada se devuelve null y el
 // correo cae al texto genérico en vez de inventar una cifra.
 const MXN = (n: number) => '$' + n.toLocaleString('es-MX', { maximumFractionDigits: 0 });
+
+// ---------------------------------------------------------------------------
+// LOS RELOJES DE LA CAMPANA VIVEN EN UN SOLO LUGAR: campaign_config.
+//
+// Antes estaban escritos a mano en cinco puntos de este archivo, con un
+// comentario que pedia acordarse de cambiarlos a mano si cambiaban en la base.
+// Eso garantizaba que algun dia el correo prometiera una fecha y la plataforma
+// aplicara otra. Ahora se leen de la base en cada invocacion:
+//
+//   · founder_deadline_by_country[pais]  -> ultimo dia de precio de fundador
+//   · verificacion_deadline              -> desde ese dia se degrada el contacto
+//
+// El plazo de fundador es POR PAIS. Si la ficha no trae pais se usa el de
+// Mexico. Si la base no tiene fecha, la frase correspondiente NO se escribe:
+// el correo prefiere callar antes que inventar una fecha.
+// ---------------------------------------------------------------------------
+const TZ = 'America/Mexico_City';
+const fechaLarga = (d: Date) =>
+  new Intl.DateTimeFormat('es-MX', { timeZone: TZ, day: 'numeric', month: 'long', year: 'numeric' }).format(d);
+const diaYMes = (d: Date) =>
+  new Intl.DateTimeFormat('es-MX', { timeZone: TZ, day: 'numeric', month: 'long' }).format(d);
+
+let RELOJES: { verif: Date | null; fundadorPorPais: Record<string, string> } =
+  { verif: null, fundadorPorPais: {} };
+
+async function cargarRelojes(): Promise<void> {
+  const { data } = await admin
+    .from('campaign_config')
+    .select('verificacion_deadline, founder_deadline_by_country')
+    .eq('id', 1)
+    .maybeSingle();
+  const v = (data as { verificacion_deadline?: string | null } | null)?.verificacion_deadline ?? null;
+  RELOJES = {
+    verif: v ? new Date(v) : null,
+    fundadorPorPais: ((data as { founder_deadline_by_country?: Record<string, string> } | null)
+      ?.founder_deadline_by_country ?? {}),
+  };
+}
+
+// Fecha de fundador que le toca a ESTE destinatario, por su pais.
+function fundadorDe(r: Row): Date | null {
+  const m = RELOJES.fundadorPorPais;
+  const iso = m[r.pais || 'México'] ?? m['México'] ?? null;
+  return iso ? new Date(iso) : null;
+}
+// Ultimo dia para confirmar = el dia anterior al corte; el corte es cuando degrada.
+const ultimoDiaConfirmar = (): Date | null =>
+  RELOJES.verif ? new Date(RELOJES.verif.getTime() - 86400000) : null;
 function bloquePrecio(r: Row): string {
   if (!r.precio_configurado || !r.precio_fundador || !r.precio_ordinario) return '';
   const cur = r.moneda || 'MXN';
+  const fd = fundadorDe(r);
   return `<div style="margin:18px 0;padding:14px 16px;border:1px solid #bae6fd;background:#f0f9ff;border-radius:12px">
     <p style="margin:0 0 6px;font-weight:800;font-size:15px;color:#0c4a6e">Su cuota, sin rodeos</p>
     <p style="margin:0;font-size:14px;line-height:1.6;color:#334155">
       La membresía anual para su tipo de perfil es de <b>${MXN(Number(r.precio_ordinario))} ${cur}</b>.
-      Si la activa <b>antes del 30 de octubre de 2026</b> queda como Miembro Fundador y paga
+      Si la activa <b>${fd ? `antes del ${fechaLarga(fd)}` : 'durante la campaña de fundadores'}</b> queda como Miembro Fundador y paga
       <b style="color:#0369a1">${MXN(Number(r.precio_fundador))} ${cur} al año</b>, la mitad, y ese precio se le respeta en las renovaciones.
       <br><br>La tarifa de fundador es <b>anual</b>; el pago mensual existe, pero a cuota ordinaria.<br><br>Reclamar la ficha no cobra nada y el pago es un paso posterior: usted decide si lo da.
     </p>
@@ -115,18 +164,29 @@ const esFree = (r: Row) =>
 //   · confirmar  -> sube en el orden de resultados (columna `verificada`)
 //   · cuota      -> conserva teléfono, WhatsApp, correo, sitio, domicilio y mapa
 //
-// Las dos fechas se movieron a día hábil: el 31 de octubre caía en sábado y el
-// 16 de noviembre es descanso obligatorio por la Revolución. Ambas viven en
-// `campaign_config` (founder_deadline_by_country y verificacion_deadline); si
-// cambian ahí, hay que cambiarlas aquí.
+// Las dos fechas se leen de `campaign_config` en cada invocación
+// (founder_deadline_by_country, por país, y verificacion_deadline). Ya NO se
+// escriben a mano aquí: cambiarlas en la base cambia el correo. Se eligen en
+// día hábil y en hora de Ciudad de México.
 function bloqueFechas(r: Row): string {
   const cur = r.moneda || 'MXN';
   const hayPrecio = r.precio_configurado && r.precio_fundador && r.precio_ordinario;
   const exento = esFree(r);
+  const fd = fundadorDe(r);
+  const confirmar = ultimoDiaConfirmar();
+  const corte = RELOJES.verif;
 
-  const lineaPago = (hayPrecio && !exento)
+  // Si falta cualquiera de las dos fechas en la base, esta frase no se escribe:
+  // mas vale un correo sin plazo que un correo con un plazo inventado.
+  const lineaPlazo = (confirmar && corte)
+    ? `<b>${fechaLarga(confirmar)}</b> — último día para confirmar su ficha. Desde el
+       ${diaYMes(corte)}, el directorio muestra los datos de contacto únicamente de los
+       perfiles con la cuota cubierta.`
+    : '';
+
+  const lineaPago = (hayPrecio && !exento && fd)
     ? `<p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#334155">
-         <b>30 de octubre de 2026</b> — último día para quedar como Miembro Fundador y pagar
+         <b>${fechaLarga(fd)}</b> — último día para quedar como Miembro Fundador y pagar
          <b style="color:#0369a1">${MXN(Number(r.precio_fundador))} ${cur}</b> al año en lugar de
          <b>${MXN(Number(r.precio_ordinario))} ${cur}</b>. Después de esa fecha aplica la cuota ordinaria.
        </p>`
@@ -134,8 +194,7 @@ function bloqueFechas(r: Row): string {
 
   const cuerpo = exento
     ? `<p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#334155">
-         <b>17 de noviembre de 2026</b> — último día para confirmar su ficha. Desde el 18, el
-         directorio muestra los datos de contacto únicamente de los perfiles con la cuota cubierta.
+         ${lineaPlazo}
          <b>Su organización está exenta de cuota</b>, así que conserva su teléfono, su correo, su
          sitio web y su ubicación sin pagar nada.
        </p>
@@ -144,8 +203,7 @@ function bloqueFechas(r: Row): string {
          datos y coloca su perfil por encima de las fichas sin confirmar en los resultados de búsqueda.
        </p>`
     : `${lineaPago}<p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#334155">
-         <b>17 de noviembre de 2026</b> — último día para confirmar su ficha. Desde el 18, el
-         directorio muestra los datos de contacto únicamente de los perfiles con la cuota cubierta.
+         ${lineaPlazo}
        </p>
        <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#334155">
          <b>Confirmar su ficha es gratuito</b> y no lo obliga a contratar nada: sirve para tomar
@@ -160,9 +218,11 @@ function bloqueFechas(r: Row): string {
          el correo, el sitio web, el domicilio y la ubicación en el mapa.
        </p>`;
 
+  if (!lineaPlazo && !lineaPago) return '';
+
   const titulo = exento
     ? 'Una fecha que conviene tener presente'
-    : (hayPrecio ? 'Dos fechas, y son independientes' : 'Una fecha que conviene tener presente');
+    : (lineaPago && lineaPlazo ? 'Dos fechas, y son independientes' : 'Una fecha que conviene tener presente');
 
   return `<div style="margin:18px 0;padding:14px 16px;border:1px solid #e2e8f0;border-radius:12px">
     <p style="margin:0 0 8px;font-weight:800;font-size:15px;color:#0f172a">${titulo}</p>
@@ -372,6 +432,9 @@ Deno.serve(async (req: Request) => {
     return json(401, { error: 'No autorizado' });
   }
 
+  // Los plazos se leen de campaign_config en cada invocación, nunca se fijan aquí.
+  await cargarRelojes();
+
   let body: { send?: boolean; limit?: number; segment?: string; tipo_correo?: string; token?: string; fundador?: boolean; promo?: string | null; tanda?: number } = {};
   try { body = await req.json(); } catch { /* vacío = dry-run, todos */ }
   const doSend = body.send === true;
@@ -390,18 +453,18 @@ Deno.serve(async (req: Request) => {
     // panel admin vía admin_enviar_invitacion.
     const { data: inv, error: e1 } = await admin
       .from('directorio_invitaciones')
-      .select('token, correo, cancelada_en, usada_en, baja_en, expira_en, directorio:directorio_id (nombre, provider_type, sector, estado, ciudad)')
+      .select('token, correo, cancelada_en, usada_en, baja_en, expira_en, directorio:directorio_id (nombre, provider_type, sector, estado, ciudad, pais)')
       .eq('token', body.token)
       .maybeSingle();
     if (e1) return json(500, { error: e1.message });
     if (!inv || inv.cancelada_en || inv.usada_en || inv.baja_en || (inv.expira_en && new Date(inv.expira_en) <= new Date())) {
       return json(404, { error: 'invitación no disponible' });
     }
-    const d = (inv as { directorio?: { nombre?: string; provider_type?: string; sector?: string; estado?: string; ciudad?: string } }).directorio ?? {};
+    const d = (inv as { directorio?: { nombre?: string; provider_type?: string; sector?: string; estado?: string; ciudad?: string; pais?: string } }).directorio ?? {};
     rows = [{
       token: inv.token, correo: inv.correo, nombre: d.nombre ?? '',
       provider_type: d.provider_type ?? null, sector: d.sector ?? null,
-      estado: d.estado ?? null, ciudad: d.ciudad ?? null,
+      estado: d.estado ?? null, ciudad: d.ciudad ?? null, pais: d.pais ?? null,
       ya_contactado_8sep: false,
       correo_personal: /@(gmail|hotmail|outlook|yahoo|live|icloud|me|aol|msn|gmx|prodigy)\./i.test(inv.correo),
     }];
@@ -409,8 +472,8 @@ Deno.serve(async (req: Request) => {
     // Si viene `tanda`, la cola respeta el plan (directorio_plan_invitacion) y
     // trae la tarifa exacta de cada ficha. Sin `tanda`, comportamiento anterior.
     const { data, error } = body.tanda
-      ? await admin.rpc('directorio_invitaciones_cola_tanda', { p_tanda: body.tanda, p_limit: 200 })
-      : await admin.rpc('directorio_invitaciones_cola', { p_limit: 1000 });
+      ? await admin.rpc('directorio_invitaciones_cola_tanda_v2', { p_tanda: body.tanda, p_limit: 200 })
+      : await admin.rpc('directorio_invitaciones_cola_v2', { p_limit: 1000 });
     if (error) return json(500, { error: error.message });
     rows = (data ?? []) as Row[];
     if (segment !== 'todos') rows = rows.filter((r) => segmentOf(r) === segment);
@@ -426,6 +489,14 @@ Deno.serve(async (req: Request) => {
       dry_run: true, segment, tipo_correo: tipoCorreo, total: rows.length,
       por_tanda: porTanda, por_tipo_correo: { personal, institucional },
       ejemplos: rows.slice(0, 5).map((r) => ({ correo: r.correo, nombre: r.nombre, tanda: segmentOf(r), personal: r.correo_personal })),
+      relojes: {
+        degradacion_contacto: RELOJES.verif ? RELOJES.verif.toISOString() : null,
+        ultimo_dia_confirmar: ultimoDiaConfirmar()?.toISOString() ?? null,
+        fundador_por_pais_en_este_lote: Object.fromEntries(
+          [...new Set(rows.map((r) => r.pais || 'México'))]
+            .map((pz) => [pz, RELOJES.fundadorPorPais[pz] ?? RELOJES.fundadorPorPais['México'] ?? null]),
+        ),
+      },
       nota: 'DRY-RUN: no se envió ni se marcó nada. Para enviar: {"send": true, "segment": "...", "tipo_correo": "...", "limit": N}.',
     });
   }
