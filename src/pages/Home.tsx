@@ -18,6 +18,7 @@ import { ComingSoonBanner } from '@/components/campaign/ComingSoonBanner';
 import { lazy, Suspense } from 'react';
 
 import { HomeCounters } from '@/components/home/HomeCounters';
+import { AcademicAllyBand } from '@/components/home/AcademicAllyBand';
 import { HeartHandshake, Award } from 'lucide-react';
 import { useCountry } from '@/stores/countryStore';
 import { COUNTRIES } from '@/data/countries';
@@ -238,6 +239,9 @@ export function Home() {
           </div>
         </div>
       </section>
+
+      {/* Aliado académico: Observatorio Internacional de Neuroeducación y Neurodiversidad. */}
+      <AcademicAllyBand />
 
       {/* Distintivos para miembros Neuromundi: al fondo de la portada.
           Diferido por viewport para aligerar la carga (DOM e imágenes). */}

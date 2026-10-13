@@ -5438,5 +5438,13 @@
     "declare": "Dichiariamo che i dati qui riportati sono veritieri e autorizziamo Neuromundi a verificarli. In caso di falsità, accettiamo l'annullamento della nostra iscrizione e del relativo sigillo.",
     "signature": "Nome e firma del rappresentante",
     "note": "Questo documento è un modello suggerito da Neuromundi. La lettera sostituisce l'atto costitutivo solo ai fini della verifica delle organizzazioni di fatto; non conferisce personalità giuridica."
+  },
+  "ally": {
+    "badge": "Alleato accademico",
+    "title": "Una comunità con basi scientifiche",
+    "text": "Camminiamo mano nella mano con l'Observatorio Internacional de Neuroeducación y Neurodiversidad (Osservatorio Internazionale di Neuroeducazione e Neurodiversità), il nostro alleato accademico indipendente. Questa alleanza ci impegna affinché ciò che trovi qui —risorse, guide e criteri— si basi sull'evidenza e su una visione neuroaffermativa, lontano da mode e pseudoscienza.",
+    "cta": "Vedi l'Osservatorio",
+    "note": "Alleanza accademica di orientamento e contenuti; non implica un avallo clinico di ogni operatore elencato.",
+    "logoAlt": "Observatorio Internacional de Neuroeducación y Neurodiversidad"
   }
 }

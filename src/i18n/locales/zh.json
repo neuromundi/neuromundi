@@ -5438,5 +5438,13 @@
     "declare": "我们声明此处所填信息属实，并授权 Neuromundi 进行核实。如有不实，我们接受取消注册及相应徽章。",
     "signature": "代表姓名及签名",
     "note": "本文件为 Neuromundi 建议的模板。本函仅为核实事实组织之目的替代成立章程，并不赋予法人资格。"
+  },
+  "ally": {
+    "badge": "学术伙伴",
+    "title": "以科学为基础的社区",
+    "text": "我们与独立的学术伙伴Observatorio Internacional de Neuroeducación y Neurodiversidad（国际神经教育与神经多样性观察机构）携手同行。这一合作让我们承诺：你在这里看到的资源、指南与标准，都以证据和神经肯定的理念为基础，远离潮流与伪科学。",
+    "cta": "访问观察机构",
+    "note": "学术合作用于提供指引与内容，并不代表对所列每位服务者的临床背书。",
+    "logoAlt": "Observatorio Internacional de Neuroeducación y Neurodiversidad"
   }
 }

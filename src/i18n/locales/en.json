@@ -5438,5 +5438,13 @@
     "declare": "We declare that the information stated here is truthful and we authorize Neuromundi to verify it. In case of falsehood, we accept the cancellation of our registration and of the corresponding seal.",
     "signature": "Name and signature of the representative",
     "note": "This document is a template suggested by Neuromundi. The letter replaces the incorporation deed solely for the purpose of verifying organizations in fact; it does not grant legal personality."
+  },
+  "ally": {
+    "badge": "Academic ally",
+    "title": "A community grounded in science",
+    "text": "We work hand in hand with the Observatorio Internacional de Neuroeducación y Neurodiversidad (Observatorio Internacional de Neuroeducación y Neurodiversidad), our independent academic ally. This alliance commits us to keeping what you find here —resources, guides and criteria— grounded in evidence and in a neuroaffirming approach, far from fads and pseudoscience.",
+    "cta": "Visit the Observatory",
+    "note": "An academic alliance for guidance and content; it does not imply clinical endorsement of each listed provider.",
+    "logoAlt": "Observatorio Internacional de Neuroeducación y Neurodiversidad"
   }
 }

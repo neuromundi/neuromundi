@@ -5438,5 +5438,13 @@
     "declare": "여기에 기재한 정보가 사실임을 선언하며, Neuromundi가 이를 확인하도록 승인합니다. 허위가 있을 경우 등록 및 해당 배지의 취소를 받아들입니다.",
     "signature": "대표자 성명 및 서명",
     "note": "본 문서는 Neuromundi가 제안하는 템플릿입니다. 이 서한은 사실상의 단체 인증 목적에 한해 설립 정관을 대신하며, 법인격을 부여하지 않습니다."
+  },
+  "ally": {
+    "badge": "학술 파트너",
+    "title": "과학에 기반한 커뮤니티",
+    "text": "우리는 독립적인 학술 파트너인 Observatorio Internacional de Neuroeducación y Neurodiversidad(신경교육·신경다양성 국제 관측소)와 함께 나아갑니다. 이 제휴를 통해 이곳의 자료·가이드·기준이 유행이나 유사과학이 아니라 근거와 신경긍정적 관점에 기반하도록 약속합니다.",
+    "cta": "관측소 보기",
+    "note": "학술 제휴는 안내와 콘텐츠에 관한 것이며, 등록된 각 제공자에 대한 임상적 보증을 의미하지 않습니다.",
+    "logoAlt": "Observatorio Internacional de Neuroeducación y Neurodiversidad"
   }
 }

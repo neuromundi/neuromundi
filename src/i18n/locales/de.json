@@ -5438,5 +5438,13 @@
     "declare": "Wir erklären, dass die hier angegebenen Daten wahrheitsgemäß sind, und ermächtigen Neuromundi, sie zu überprüfen. Im Falle einer Falschangabe akzeptieren wir die Löschung unserer Registrierung und des entsprechenden Siegels.",
     "signature": "Name und Unterschrift des Vertreters",
     "note": "Dieses Dokument ist eine von Neuromundi vorgeschlagene Vorlage. Das Schreiben ersetzt die Gründungsurkunde ausschließlich zur Verifizierung faktischer Organisationen; es verleiht keine Rechtspersönlichkeit."
+  },
+  "ally": {
+    "badge": "Akademischer Partner",
+    "title": "Eine Gemeinschaft auf wissenschaftlicher Grundlage",
+    "text": "Wir arbeiten Hand in Hand mit dem Observatorio Internacional de Neuroeducación y Neurodiversidad (Internationales Observatorium für Neuroedukation und Neurodiversität), unserem unabhängigen akademischen Partner. Diese Partnerschaft verpflichtet uns, dass die Inhalte hier —Ressourcen, Leitfäden und Kriterien— auf Evidenz und einem neuroaffirmativen Ansatz beruhen, fern von Moden und Pseudowissenschaft.",
+    "cta": "Observatorium ansehen",
+    "note": "Akademische Partnerschaft für Orientierung und Inhalte; sie bedeutet keine klinische Bestätigung einzelner gelisteter Anbieter.",
+    "logoAlt": "Observatorio Internacional de Neuroeducación y Neurodiversidad"
   }
 }
