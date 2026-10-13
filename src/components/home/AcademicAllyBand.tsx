@@ -34,7 +34,7 @@ export function AcademicAllyBand() {
         <h2 id="ally-title" className="mt-3 text-2xl font-extrabold text-[#0d2545]">{t('ally.title')}</h2>
         <p className="mx-auto mt-2 max-w-prose leading-relaxed text-slate-600 sm:mx-0">{t('ally.text')}</p>
         <a
-          href="https://www.observaneuro.com"
+          href="https://www.observaneuro.com/alianzaneuromundi"
           target="_blank"
           rel="noopener noreferrer"
           className="mt-4 inline-flex items-center gap-2 rounded-xl bg-[#0d2545] px-4 py-2.5 text-sm font-bold text-white transition hover:bg-[#13365f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0d2545]"
