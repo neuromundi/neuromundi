@@ -90,7 +90,7 @@ const MXN = (n: number) => '$' + n.toLocaleString('es-MX', { maximumFractionDigi
 // aplicara otra. Ahora se leen de la base en cada invocacion:
 //
 //   · founder_deadline_by_country[pais]  -> ultimo dia de precio de fundador
-//   · verificacion_deadline              -> desde ese dia se degrada el contacto
+//   · verificacion_deadline              -> desde ese dia se retiran las fichas
 //
 // El plazo de fundador es POR PAIS. Si la ficha no trae pais se usa el de
 // Mexico. Si la base no tiene fecha, la frase correspondiente NO se escribe:
@@ -125,7 +125,7 @@ function fundadorDe(r: Row): Date | null {
   const iso = m[r.pais || 'México'] ?? m['México'] ?? null;
   return iso ? new Date(iso) : null;
 }
-// Ultimo dia para confirmar = el dia anterior al corte; el corte es cuando degrada.
+// Ultimo dia para confirmar = el dia anterior al corte; en el corte se retiran.
 const ultimoDiaConfirmar = (): Date | null =>
   RELOJES.verif ? new Date(RELOJES.verif.getTime() - 86400000) : null;
 function bloquePrecio(r: Row): string {
@@ -153,16 +153,18 @@ const esFree = (r: Row) =>
 // directorio", que es falso: la ficha sigue apareciendo siempre con su nombre,
 // tipo, ciudad, estado y especialización.
 //
-// CORRECCIÓN (6 oct 2026). La versión anterior decía que confirmar la ficha
-// "conserva los datos de contacto visibles, se pague o no". Desde la migración
-// 0166 eso es FALSO: la visibilidad del contacto depende de `cuota_cubierta`
-// (pagada o exenta), no de la confirmación, y una ficha reclamada sin pagar se
-// degrada igual que una que nadie reclamó. Medido el 30 de septiembre: tras el
-// plazo, ficha reclamada sin pagar devuelve teléfono nulo.
+// POLITICA VIGENTE (13 oct 2026, decision de Enyoria): la ficha no confirmada
+// NO se degrada, se RETIRA del directorio en verificacion_deadline. Migracion
+// 0203 (funcion ficha_visible + predicado en directorio_publico).
 //
-// Por eso el texto ahora separa los dos incentivos, que son ejes distintos:
-//   · confirmar  -> sube en el orden de resultados (columna `verificada`)
-//   · cuota      -> conserva teléfono, WhatsApp, correo, sitio, domicilio y mapa
+// CORREGIDO (14 oct 2026): los dos ultimos parrafos de la rama no exenta decian
+// la politica ANTERIOR (ficha visible sin datos de contacto). Ahora dicen lo
+// mismo que el cierre del correo de primer contacto, aprobado por Enyoria.
+//
+// OJO con la palabra "vitalicia" del parrafo de exentos: cuota_cubierta()
+// respeta exencion_vigente_hasta, asi que una exencion con fecha de caducidad
+// retiraria esa ficha del directorio y el correo ya habra prometido lo
+// contrario. Las exenciones se otorgan SIN fecha de vencimiento.
 //
 // Las dos fechas se leen de `campaign_config` en cada invocación
 // (founder_deadline_by_country, por país, y verificacion_deadline). Ya NO se
@@ -205,16 +207,15 @@ function bloqueFechas(r: Row): string {
          ${lineaPlazo}
        </p>
        <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#334155">
-         <b>Confirmar su ficha es gratuito</b> y no lo obliga a contratar nada: sirve para tomar
-         posesión de su perfil, corregir sus datos y decidir qué se publica. Le conviene hacerlo,
-         porque las fichas sin confirmar aparecen por debajo de las confirmadas en los resultados de
-         búsqueda. Pero conviene decirlo con claridad:
-         <b>la visibilidad del contacto depende de la cuota, no de la confirmación</b>.
+         <b>Confirmar su ficha es gratuito</b> y no lo obliga a nada en ese momento: sirve para tomar
+         posesión de su perfil, corregir sus datos y decidir qué se publica. Las fichas confirmadas
+         aparecen por encima de las que no lo están en los resultados de búsqueda.
        </p>
        <p style="margin:0;font-size:14px;line-height:1.6;color:#334155">
-         Su ficha seguirá apareciendo siempre, con su nombre, tipo de perfil, ciudad, estado y
-         especialización. Lo que deja de mostrarse sin cuota cubierta es el teléfono, el WhatsApp,
-         el correo, el sitio web, el domicilio y la ubicación en el mapa.
+         Para que su ficha siga publicada después del <b>${corte ? fechaLarga(corte) : ''}</b> sólo se
+         requiere que complete su perfil y cubra la cuota correspondiente. Si no se cumple con alguno
+         de los requisitos retiramos su ficha del directorio. En todo momento respetamos su decisión
+         si no desea formar parte de Neuromundi.
        </p>`;
 
   if (!lineaPlazo && !lineaPago) return '';
@@ -287,39 +288,38 @@ function beneficios(r: Row, fundador = true): string {
   let items: string[];
   if (pt === 'company') {
     items = [
-      '🏷️&nbsp; Publique <b>vacantes y oportunidades inclusivas</b> y llegue a talento neurodivergente.',
-      '🏅&nbsp; Obtenga el <b>distintivo de Empresa Inclusiva</b> descargable para su web y sus redes.',
+      '🏷️&nbsp; Publicar <b>vacantes y oportunidades inclusivas</b> y llegar a talento neurodivergente.',
+      '🏅&nbsp; Obtener el <b>distintivo de Empresa Inclusiva</b> descargable para su web y sus redes.',
       '🆓&nbsp; Membresía <b>gratuita</b> para empresas inclusivas.',
     ];
   } else if (pt === 'ngo') {
     items = [
       '🆓&nbsp; Membresía <b>gratuita</b> para organizaciones de la sociedad civil.',
-      '🤝&nbsp; Publique <b>oportunidades</b> (voluntariado, servicio social) y difunda su labor.',
-      '👪&nbsp; Aparezca ante <b>familias</b> que buscan apoyo en su región.',
+      '🤝&nbsp; Publicar <b>oportunidades</b> (voluntariado, servicio social) y difundir su labor.',
+      '👪&nbsp; Aparecer ante <b>familias</b> que buscan apoyo en su región.',
     ];
   } else if (pt === 'school' || pt === 'clinic') {
     items = [
-      '🏫&nbsp; <b>Programa de inclusión visible:</b> muestre sus grados, su propuesta y sus admisiones a las familias.',
-      '📅&nbsp; <b>Agenda y reservas en línea:</b> reciba citas directas, presenciales o en línea, desde su perfil.',
-      '💬&nbsp; <b>Canal directo de contacto:</b> mensajería inmediata con las familias que buscan sus servicios.',
+      '📅&nbsp; <b>Agenda y reservas en línea:</b> recibir citas directas, presenciales o en línea, desde su perfil.',
+      '💬&nbsp; <b>Canal directo de contacto:</b> mensajería inmediata con pacientes, familias y otros miembros de la plataforma que buscan crear contactos y redes de colaboración.',
     ];
   } else if (pt === 'merchant') {
     items = [
-      '🛍️&nbsp; Venda sus productos en la <b>Tienda</b> y cobre directo — Neuromundi <b>no retiene comisión</b>.',
-      '🔎&nbsp; Aparezca ante familias que buscan productos neuroafirmativos.',
-      '⭐&nbsp; Reciba <b>reseñas</b> que dan confianza a nuevos clientes.',
+      '🛍️&nbsp; Vender sus productos en la <b>Tienda</b> y cobrar directo — Neuromundi <b>no retiene comisión</b>.',
+      '🔎&nbsp; Aparecer ante familias que buscan productos neuroafirmativos.',
+      '⭐&nbsp; Recibir <b>reseñas</b> que dan confianza a nuevos clientes.',
     ];
   } else if (pt === 'tourism') {
     items = [
-      '🌿&nbsp; Preséntese como <b>espacio de bajo impacto sensorial</b> con sus horarios amigables.',
-      '🔎&nbsp; Aparezca ante familias que buscan lugares de esparcimiento inclusivos.',
-      '⭐&nbsp; Reciba <b>reseñas</b> de la comunidad.',
+      '🌿&nbsp; Presentarse como <b>espacio de bajo impacto sensorial</b> con sus horarios amigables.',
+      '🔎&nbsp; Aparecer ante familias que buscan lugares de esparcimiento inclusivos.',
+      '⭐&nbsp; Recibir <b>reseñas</b> de la comunidad.',
     ];
   } else {
     // especialistas y prestadores de servicio (service_provider, wellness, legal, caregiver, etc.)
     items = [
-      '📅&nbsp; <b>Agenda y reservas en línea:</b> reciba citas directas, presenciales o en línea, integradas a su calendario.',
-      '💬&nbsp; <b>Canal directo de contacto:</b> mensajería inmediata con las familias que requieren su especialización.',
+      '📅&nbsp; <b>Agenda y reservas en línea:</b> recibir citas directas, presenciales o en línea, integradas a su calendario.',
+      '💬&nbsp; <b>Canal directo de contacto:</b> mensajería inmediata con pacientes, familias y otros miembros de la plataforma que buscan crear contactos y redes de colaboración.',
       '📈&nbsp; <b>Métricas de impacto:</b> visualizaciones, clics y solicitudes de contacto de su perfil.',
     ];
   }
@@ -328,9 +328,9 @@ function beneficios(r: Row, fundador = true): string {
     ? '<li style="margin:6px 0">🏆&nbsp; <b>Distintivo «Fundador Neuromundi»:</b> sello de prestigio para su perfil, su sitio web y sus redes sociales.</li>'
     : '';
   return `<ul style="margin:8px 0 0;padding:0;list-style:none;color:#334155;font-size:14px;line-height:1.5">${li}
-    <li style="margin:6px 0">🧰&nbsp; <b>Sus contenidos en toda la plataforma:</b> publique sus productos en la <b>Tienda</b>, sus cursos y talleres en <b>Academy</b>, sus actividades en <b>Eventos</b> y sus artículos en el <b>Blog</b>.</li>
-    <li style="margin:6px 0">⭐&nbsp; <b>Reseñas y distintivos:</b> acumule reseñas de la comunidad y obtenga los distintivos que acreditan su calidad y su compromiso.</li>
-    <li style="margin:6px 0">🎓&nbsp; <b>Formación e instrumentos:</b> acceso gratuito al curso de bienvenida y al kit de herramientas clínicas y educativas.</li>
+    <li style="margin:6px 0">🧰&nbsp; <b>Incrementar su visibilidad, sus contactos y sus ingresos:</b> ofrecer todos sus servicios y productos en la plataforma, publicar sus productos en la <b>Tienda</b> con enlaces a su tienda oficial, sus cursos y talleres en <b>Academy</b>, sus actividades en <b>Eventos</b> y sus artículos en el <b>Blog</b>.</li>
+    <li style="margin:6px 0">⭐&nbsp; <b>Reseñas y distintivos:</b> acumular reseñas de la comunidad y obtener los distintivos que acreditan su calidad y su compromiso.</li>
+    <li style="margin:6px 0">🎓&nbsp; <b>Formación e instrumentos:</b> acceso gratuito a cursos, talleres y eventos exclusivos para miembros Neuromundi.</li>
     ${founderLi}
     <li style="margin:6px 0">📋&nbsp; <b>Liderazgo en el sector:</b> participación prioritaria en la 1.ª Encuesta sobre la Situación Neurológica Mundial.</li>
   </ul>`;
@@ -449,10 +449,20 @@ function buildEmail(r: Row, fundador = true, promo: string | null = null): { sub
          <b>Miembro Fundador</b>. Queremos que forme parte de la base fundadora de la plataforma,
          con estas condiciones de por vida:</p>
        <p style="margin:12px 0;padding:14px 16px;border:1px solid #bae6fd;background:#f0f9ff;border-radius:12px;font-size:15px;line-height:1.6;color:#0c4a6e">
-         Descuento del <b>50%</b>, por lo que su cuota anual vitalicia<sup>*</sup> como Miembro Fundador
-         es de <b style="color:#0369a1">${MXN(Number(r.precio_fundador))} ${cur} al año</b>,
-         en lugar de <b>${MXN(Number(r.precio_ordinario))} ${cur}</b>.
+         <u>Descuento vitalicio</u><sup>*</sup> del <b>50%</b> como Miembro Fundador: Sólo
+         <b style="color:#0369a1">${MXN(Number(r.precio_fundador))} ${cur} al año</b>,
+         en lugar del precio ordinario de <b>${MXN(Number(r.precio_ordinario))} ${cur}</b>.
        </p>`
+    : '';
+
+  // Las organizaciones exentas NO reciben parrafoOferta (no tienen tarifa), y sin
+  // esto el correo nunca les dice que no pagan nada: medido el 14 oct 2026, 119 de
+  // las 195 fichas exentas de las tandas 5 a 8 no lo veian en ningun lado, porque
+  // la viñeta de membresia gratuita solo existe para ngo y company.
+  const parrafoExento = (esFree(r) && !hayTarifa)
+    ? `<p>En virtud del carácter público y social de su organización, su membresía en
+         Neuromundi es gratuita en forma vitalicia. No hay cuota de inscripción ni cuota anual.
+         Completar su perfil no le cuesta nada, ni ahora ni después.</p>`
     : '';
 
   const parrafoPlazo = fd
@@ -466,9 +476,11 @@ function buildEmail(r: Row, fundador = true, promo: string | null = null): { sub
      <p>Si por el contrario usted no desea aceptarla y prefiere retirar su ficha del directorio,
        puede hacerlo desde ese mismo enlace.</p>`
     + (corte
-      ? `<p>En caso de no elegir ninguna de las dos opciones, su ficha se retirará del
-           directorio el <b>${fechaLarga(corte)}</b>. No publicamos fichas de quien no nos ha
-           confirmado que quiere estar.</p>`
+      ? `<p>Para que su ficha siga publicada después del <b>${fechaLarga(corte)}</b> sólo se
+           requiere que ${hayTarifa ? 'complete su perfil y cubra la cuota correspondiente'
+             : 'complete su perfil'}. Si no se cumple con ${hayTarifa ? 'alguno de los requisitos'
+             : 'ese requisito'} retiramos su ficha del directorio. En todo momento respetamos su
+           decisión si no desea formar parte de Neuromundi.</p>`
       : '');
 
   const notaInflacion = hayTarifa
@@ -484,11 +496,12 @@ function buildEmail(r: Row, fundador = true, promo: string | null = null): { sub
       empresas y organizaciones de la sociedad civil en torno a <b>neurodesarrollo, neurodivergencias
       y afecciones neurológicas</b>.</p>
     <p>Hemos analizado su perfil y consideramos que sería un excelente miembro de Neuromundi, por lo
-      que hemos agregado su ficha profesional a nuestro directorio público.</p>
+      que hemos agregado su perfil a nuestro directorio público.</p>
     <p>Su información básica ya es visible para quien busque perfiles como el suyo en el directorio.</p>
-    <p>Al reclamar y activar su perfil completo, usted podrá hacer uso de estas herramientas:</p>
+    <p>Al reclamar y activar su perfil completo, usted tendrá acceso libre e ilimitado a:</p>
     ${beneficios(r)}
     ${parrafoOferta}
+    ${parrafoExento}
     ${tablaComparativa(r)}
     ${parrafoPlazo}
     ${parrafoCierre}
@@ -496,7 +509,7 @@ function buildEmail(r: Row, fundador = true, promo: string | null = null): { sub
 
   return {
     subject: `${rawNombre}: active su perfil y asegure su cuota de Miembro Fundador`,
-    html: shell('Bienvenido a Neuromundi', promoBlock + cuerpo, 'Activar o retirar mi ficha', claim),
+    html: shell('Le damos la bienvenida a Neuromundi', promoBlock + cuerpo, 'Activar o retirar mi ficha', claim),
   };
 }
 
@@ -535,12 +548,27 @@ Deno.serve(async (req: Request) => {
       return json(404, { error: 'invitación no disponible' });
     }
     const d = (inv as { directorio?: { nombre?: string; provider_type?: string; sector?: string; estado?: string; ciudad?: string; pais?: string } }).directorio ?? {};
+    // La cola (rama de abajo) ya trae la tarifa de cada ficha; esta rama no, asi
+    // que hay que pedirla aqui. OJO con el nombre del parametro: la funcion se
+    // declara registration_quote(p_type, p_country). Con cualquier otro nombre la
+    // llamada falla EN SILENCIO, el precio llega vacio y el correo sale sin el
+    // parrafo del 50% y sin la nota de inflacion, con el rango generico en la tabla.
+    const cot = await admin.rpc('registration_quote', {
+      p_type: d.provider_type ?? 'service_provider',
+      p_country: d.pais ?? 'Mexico',
+    });
+    if (cot.error) return json(500, { error: `registration_quote: ${cot.error.message}` });
+    const q = (cot.data ?? {}) as { currency?: string; founder_annual?: number; ordinary_annual?: number; configured?: boolean };
     rows = [{
       token: inv.token, correo: inv.correo, nombre: d.nombre ?? '',
       provider_type: d.provider_type ?? null, sector: d.sector ?? null,
       estado: d.estado ?? null, ciudad: d.ciudad ?? null, pais: d.pais ?? null,
       ya_contactado_8sep: false,
       correo_personal: /@(gmail|hotmail|outlook|yahoo|live|icloud|me|aol|msn|gmx|prodigy)\./i.test(inv.correo),
+      moneda: q.currency ?? 'MXN',
+      precio_fundador: q.founder_annual ?? null,
+      precio_ordinario: q.ordinary_annual ?? null,
+      precio_configurado: q.configured ?? false,
     }];
   } else {
     // Si viene `tanda`, la cola respeta el plan (directorio_plan_invitacion) y
@@ -562,6 +590,9 @@ Deno.serve(async (req: Request) => {
     return json(200, {
       dry_run: true, segment, tipo_correo: tipoCorreo, total: rows.length,
       por_tanda: porTanda, por_tipo_correo: { personal, institucional },
+      // Remitente efectivo: permite comprobar CAMPAIGN_FROM antes de cada tanda
+      // sin tener que mandar un correo de verdad.
+      remitente: FROM,
       ejemplos: rows.slice(0, 5).map((r) => ({ correo: r.correo, nombre: r.nombre, tanda: segmentOf(r), personal: r.correo_personal })),
       relojes: {
         retiro_de_fichas: RELOJES.verif ? RELOJES.verif.toISOString() : null,

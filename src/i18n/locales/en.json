@@ -1072,7 +1072,8 @@
     "grantSchool": "Grant Inclusive School",
     "grantCompany": "Grant Inclusive Company",
     "grantAlly": "Grant Neuromundi Ally",
-    "badgeRevoke": "Revoke badge"
+    "badgeRevoke": "Revoke badge",
+    "secFichas": "Listings"
   },
   "reg": {
     "typePatient": "Patient",
@@ -5452,5 +5453,39 @@
     "cta": "Visit the Observatory",
     "note": "An academic alliance for guidance and content; it does not imply clinical endorsement of each listed provider.",
     "logoAlt": "Observatorio Internacional de Neuroeducación y Neurodiversidad"
+  },
+  "adminFichas": {
+    "unavailable": "Could not load the directory summary.",
+    "refresh": "Refresh",
+    "generatedAt": "Data as of",
+    "fichasTitle": "Directory listings",
+    "total": "Listings in total",
+    "publicadas": "Published",
+    "borrador": "Draft",
+    "reclamadas": "Claimed",
+    "dadasDeBaja": "Withdrawn",
+    "sinCorreo": "No email",
+    "correoRebotado": "Email bounced",
+    "retiroTitle": "If the deadline fell today ({{fecha}})",
+    "sobreviven": "Stay published",
+    "seRetirarian": "Would be withdrawn",
+    "bajasTitle": "Withdrawal reasons",
+    "bajasEmpty": "No listing has been withdrawn yet.",
+    "motivo": "Reason",
+    "fichas": "Listings",
+    "invTitle": "Invitations",
+    "invTotal": "In total",
+    "nuncaEnviadas": "Never sent",
+    "enviadas": "Sent",
+    "abiertas": "Opened",
+    "reclamadasInv": "Claimed",
+    "bajaInv": "Asked to be removed",
+    "canceladas": "Cancelled",
+    "vencidasSinReclamar": "Expired unclaimed",
+    "vencen30": "Expire within 30 days",
+    "tasasTitle": "Rates over {{enviadas}} sent",
+    "apertura": "Open rate",
+    "reclamo": "Claim rate",
+    "rechazo": "Opt-out rate"
   }
 }

@@ -1072,7 +1072,8 @@
     "grantSchool": "منح مدرسة دامجة",
     "grantCompany": "منح شركة دامجة",
     "grantAlly": "منح حليف Neuromundi",
-    "badgeRevoke": "إلغاء الشارة"
+    "badgeRevoke": "إلغاء الشارة",
+    "secFichas": "Fichas"
   },
   "reg": {
     "typePatient": "مريض",
@@ -5452,5 +5453,39 @@
     "cta": "زيارة المرصد",
     "note": "تحالف أكاديمي للتوجيه والمحتوى؛ ولا يعني اعتمادًا سريريًا لكل مقدّم خدمة مُدرَج.",
     "logoAlt": "Observatorio Internacional de Neuroeducación y Neurodiversidad"
+  },
+  "adminFichas": {
+    "unavailable": "No se pudo cargar el resumen del directorio.",
+    "refresh": "Actualizar",
+    "generatedAt": "Datos al",
+    "fichasTitle": "Fichas del directorio",
+    "total": "Fichas en total",
+    "publicadas": "Publicadas",
+    "borrador": "En borrador",
+    "reclamadas": "Reclamadas",
+    "dadasDeBaja": "Dadas de baja",
+    "sinCorreo": "Sin correo",
+    "correoRebotado": "Correo rebotado",
+    "retiroTitle": "Si el plazo venciera hoy ({{fecha}})",
+    "sobreviven": "Siguen publicadas",
+    "seRetirarian": "Se retirarian",
+    "bajasTitle": "Motivos de baja",
+    "bajasEmpty": "Ninguna ficha se ha dado de baja todavia.",
+    "motivo": "Motivo",
+    "fichas": "Fichas",
+    "invTitle": "Invitaciones",
+    "invTotal": "En total",
+    "nuncaEnviadas": "Nunca enviadas",
+    "enviadas": "Enviadas",
+    "abiertas": "Abiertas",
+    "reclamadasInv": "Reclamadas",
+    "bajaInv": "Pidieron baja",
+    "canceladas": "Canceladas",
+    "vencidasSinReclamar": "Vencidas sin reclamar",
+    "vencen30": "Vencen en 30 dias",
+    "tasasTitle": "Tasas sobre {{enviadas}} enviadas",
+    "apertura": "Apertura",
+    "reclamo": "Reclamo",
+    "rechazo": "Rechazo"
   }
 }

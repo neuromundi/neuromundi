@@ -1327,6 +1327,27 @@ export interface Database {
         Args: { p_correo: string; p_nombre: string | null; p_provider_type?: string; p_fundador?: boolean; p_cortesia?: boolean; p_send?: boolean };
         Returns: { token: string; ficha_id: string; enviado: boolean; promo: string | null }[];
       };
+      /** Agregados del directorio para el panel admin (migracion 0205): fichas por
+       *  estado, bajas por motivo, invitaciones vencidas sin reclamar y tasas.
+       *  Devuelve null si quien llama no es admin ni asesor. */
+      admin_directorio_resumen: {
+        Args: Record<string, never>;
+        Returns: {
+          fichas: {
+            total: number; publicadas: number; borrador: number; dadas_de_baja: number;
+            reclamadas: number; correo_rebotado: number; sin_correo: number;
+          };
+          retiro_proyectado: { fecha: string | null; sobreviven: number; se_retirarian: number };
+          bajas_por_motivo: { motivo: string; fichas: number }[];
+          invitaciones: {
+            total: number; nunca_enviadas: number; enviadas: number; abiertas: number;
+            reclamadas: number; baja: number; canceladas: number;
+            vencidas_sin_reclamar: number; vencen_en_30_dias: number; vivas: number;
+          };
+          tasas: { enviadas: number; apertura: number | null; reclamo: number | null; rechazo: number | null };
+          generado_en: string;
+        } | null;
+      };
       /** Listado de invitaciones del directorio para el admin (estado + rastreo de apertura). */
       admin_directorio_invitaciones: {
         Args: Record<string, never>;
