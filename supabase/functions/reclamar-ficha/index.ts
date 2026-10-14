@@ -136,9 +136,15 @@ Deno.serve(async (req) => {
     membership_due_at: cobrable
       ? new Date(Date.now() + 15 * 86400000).toISOString()
       : null,
-    // Su ficha ya era pública; reclamarla no debe hacerlo desaparecer del
-    // directorio mientras completa el perfil.
-    is_published: true,
+    // NO publicar aquí. El disparador trg_gate_publicacion rechaza
+    // is_published = true mientras falten foto, descripción, teléfono, país o
+    // la cuota, y ese rechazo tumbaba TODO el reclamo con un 500 genérico
+    // ("Algo falló de nuestro lado"). Quien publica es publicar_si_procede(),
+    // que marcar_ficha_reclamada() llama en el paso 4 y que solo publica
+    // cuando el perfil ya cumple. Mientras tanto la ficha del directorio
+    // sigue visible: directorio_publico solo la oculta cuando el perfil
+    // reclamante ya está publicado.
+    is_published: false,
   }, { onConflict: 'id' });
   if (ePerfil) return json({ error: 'no se pudo crear el perfil' }, 500);
 

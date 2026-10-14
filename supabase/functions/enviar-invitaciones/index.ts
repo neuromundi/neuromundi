@@ -179,9 +179,8 @@ function bloqueFechas(r: Row): string {
   // Si falta cualquiera de las dos fechas en la base, esta frase no se escribe:
   // mas vale un correo sin plazo que un correo con un plazo inventado.
   const lineaPlazo = (confirmar && corte)
-    ? `<b>${fechaLarga(confirmar)}</b> — último día para confirmar su ficha. Desde el
-       ${diaYMes(corte)}, el directorio muestra los datos de contacto únicamente de los
-       perfiles con la cuota cubierta.`
+    ? `<b>${fechaLarga(confirmar)}</b> — último día para confirmar su ficha. A partir del
+       ${diaYMes(corte)}, las fichas que no se hayan confirmado se retiran del directorio.`
     : '';
 
   const lineaPago = (hayPrecio && !exento && fd)
@@ -195,12 +194,12 @@ function bloqueFechas(r: Row): string {
   const cuerpo = exento
     ? `<p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#334155">
          ${lineaPlazo}
-         <b>Su organización está exenta de cuota</b>, así que conserva su teléfono, su correo, su
-         sitio web y su ubicación sin pagar nada.
+         <b>Su organización está exenta de cuota</b>: conserva su teléfono, su correo, su sitio
+         web y su ubicación sin pagar nada.
        </p>
        <p style="margin:0;font-size:14px;line-height:1.6;color:#334155">
-         Confirmar su ficha sigue siendo lo que le conviene: es gratuito, le da el control de sus
-         datos y coloca su perfil por encima de las fichas sin confirmar en los resultados de búsqueda.
+         Lo único que necesitamos es que confirme la ficha. Es gratuito, toma un minuto y le da el
+         control de sus datos. Si no la confirma, la retiramos del directorio en esa fecha.
        </p>`
     : `${lineaPago}<p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#334155">
          ${lineaPlazo}
@@ -467,11 +466,9 @@ function buildEmail(r: Row, fundador = true, promo: string | null = null): { sub
      <p>Si por el contrario usted no desea aceptarla y prefiere retirar su ficha del directorio,
        puede hacerlo desde ese mismo enlace.</p>`
     + (corte
-      ? `<p>En caso de no elegir ninguna de las dos opciones, su ficha permanecerá en el
-           directorio con su información básica y aparecerá <b>por debajo de los perfiles
-           confirmados</b> en los resultados de búsqueda. A partir del
-           <b>${fechaLarga(corte)}</b>, los datos de contacto se muestran únicamente en los
-           perfiles confirmados.</p>`
+      ? `<p>En caso de no elegir ninguna de las dos opciones, su ficha se retirará del
+           directorio el <b>${fechaLarga(corte)}</b>. No publicamos fichas de quien no nos ha
+           confirmado que quiere estar.</p>`
       : '');
 
   const notaInflacion = hayTarifa
@@ -499,7 +496,7 @@ function buildEmail(r: Row, fundador = true, promo: string | null = null): { sub
 
   return {
     subject: `${rawNombre}: active su perfil y asegure su cuota de Miembro Fundador`,
-    html: shell('Bienvenido a Neuromundi', promoBlock + cuerpo, 'Activar o eliminar mi perfil', claim),
+    html: shell('Bienvenido a Neuromundi', promoBlock + cuerpo, 'Activar o retirar mi ficha', claim),
   };
 }
 
@@ -567,7 +564,7 @@ Deno.serve(async (req: Request) => {
       por_tanda: porTanda, por_tipo_correo: { personal, institucional },
       ejemplos: rows.slice(0, 5).map((r) => ({ correo: r.correo, nombre: r.nombre, tanda: segmentOf(r), personal: r.correo_personal })),
       relojes: {
-        degradacion_contacto: RELOJES.verif ? RELOJES.verif.toISOString() : null,
+        retiro_de_fichas: RELOJES.verif ? RELOJES.verif.toISOString() : null,
         ultimo_dia_confirmar: ultimoDiaConfirmar()?.toISOString() ?? null,
         fundador_por_pais_en_este_lote: Object.fromEntries(
           [...new Set(rows.map((r) => r.pais || 'México'))]
