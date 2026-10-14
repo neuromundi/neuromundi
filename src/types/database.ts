@@ -1327,6 +1327,31 @@ export interface Database {
         Args: { p_correo: string; p_nombre: string | null; p_provider_type?: string; p_fundador?: boolean; p_cortesia?: boolean; p_send?: boolean };
         Returns: { token: string; ficha_id: string; enviado: boolean; promo: string | null }[];
       };
+      /** Fichas que se retirarian del directorio al vencer el plazo (migracion 0206). */
+      admin_fichas_retiradas: {
+        Args: { p_limit?: number; p_buscar?: string | null };
+        Returns: {
+          ficha_id: string;
+          nombre: string | null;
+          provider_type: string | null;
+          sector: string | null;
+          estado: string | null;
+          ciudad: string | null;
+          pais: string | null;
+          correo: string | null;
+          sitio_web: string | null;
+          telefono: string | null;
+          reclamada_por: string | null;
+          publicacion_forzada: boolean;
+          publicacion_forzada_en: string | null;
+          publicacion_forzada_nota: string | null;
+        }[];
+      };
+      /** Marca o desmarca una ficha para seguir publicada pese a no estar confirmada. */
+      admin_republicar_ficha: {
+        Args: { p_ficha: string; p_republicar?: boolean; p_nota?: string | null };
+        Returns: boolean;
+      };
       /** Agregados del directorio para el panel admin (migracion 0205): fichas por
        *  estado, bajas por motivo, invitaciones vencidas sin reclamar y tasas.
        *  Devuelve null si quien llama no es admin ni asesor. */

@@ -5486,6 +5486,24 @@
     "tasasTitle": "Tasas sobre {{enviadas}} enviadas",
     "apertura": "Apertura",
     "reclamo": "Reclamo",
-    "rechazo": "Rechazo"
+    "rechazo": "Rechazo",
+    "retiradasTitle": "Fichas que se retiran al vencer el plazo",
+    "retiradasHelp": "Estas fichas desaparecen del directorio el dia del corte porque no se han confirmado. Puede republicar las que decida: seguiran visibles aunque nadie las reclame.",
+    "retiradasEmpty": "No hay fichas en esta situacion.",
+    "retiradasCount": "{{total}} fichas · {{republicadas}} republicadas a mano",
+    "buscar": "Buscar",
+    "buscarPlaceholder": "Nombre, ciudad o estado",
+    "colFicha": "Ficha",
+    "colUbicacion": "Ubicacion",
+    "colContacto": "Contacto",
+    "colEstado": "Estado",
+    "colAccion": "Accion",
+    "verSitio": "Ver sitio",
+    "estadoRepublicada": "Republicada",
+    "estadoSeRetira": "Se retira",
+    "republicar": "Republicar",
+    "volverARetirar": "Volver a retirar",
+    "republicadaDone": "Ficha republicada.",
+    "retiradaDone": "La ficha vuelve a retirarse al vencer el plazo."
   }
 }

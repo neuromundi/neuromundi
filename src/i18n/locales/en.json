@@ -5486,6 +5486,24 @@
     "tasasTitle": "Rates over {{enviadas}} sent",
     "apertura": "Open rate",
     "reclamo": "Claim rate",
-    "rechazo": "Opt-out rate"
+    "rechazo": "Opt-out rate",
+    "retiradasTitle": "Listings withdrawn when the deadline passes",
+    "retiradasHelp": "These listings disappear from the directory on the cut-off date because they have not been confirmed. You can republish the ones you choose: they stay visible even if nobody claims them.",
+    "retiradasEmpty": "No listings in this situation.",
+    "retiradasCount": "{{total}} listings · {{republicadas}} republished manually",
+    "buscar": "Search",
+    "buscarPlaceholder": "Name, city or state",
+    "colFicha": "Listing",
+    "colUbicacion": "Location",
+    "colContacto": "Contact",
+    "colEstado": "Status",
+    "colAccion": "Action",
+    "verSitio": "Open site",
+    "estadoRepublicada": "Republished",
+    "estadoSeRetira": "Will be withdrawn",
+    "republicar": "Republish",
+    "volverARetirar": "Withdraw again",
+    "republicadaDone": "Listing republished.",
+    "retiradaDone": "The listing will be withdrawn again when the deadline passes."
   }
 }

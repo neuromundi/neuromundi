@@ -301,7 +301,7 @@ function beneficios(r: Row, fundador = true): string {
   } else if (pt === 'school' || pt === 'clinic') {
     items = [
       '📅&nbsp; <b>Agenda y reservas en línea:</b> recibir citas directas, presenciales o en línea, desde su perfil.',
-      '💬&nbsp; <b>Canal directo de contacto:</b> mensajería inmediata con pacientes, familias y otros miembros de la plataforma que buscan crear contactos y redes de colaboración.',
+      '💬&nbsp; <b>Canal directo de contacto:</b> mensajería inmediata con pacientes, familias, clientes potenciales y otros miembros de la plataforma que buscan crear contactos y redes de colaboración.',
     ];
   } else if (pt === 'merchant') {
     items = [
@@ -319,7 +319,7 @@ function beneficios(r: Row, fundador = true): string {
     // especialistas y prestadores de servicio (service_provider, wellness, legal, caregiver, etc.)
     items = [
       '📅&nbsp; <b>Agenda y reservas en línea:</b> recibir citas directas, presenciales o en línea, integradas a su calendario.',
-      '💬&nbsp; <b>Canal directo de contacto:</b> mensajería inmediata con pacientes, familias y otros miembros de la plataforma que buscan crear contactos y redes de colaboración.',
+      '💬&nbsp; <b>Canal directo de contacto:</b> mensajería inmediata con pacientes, familias, clientes potenciales y otros miembros de la plataforma que buscan crear contactos y redes de colaboración.',
       '📈&nbsp; <b>Métricas de impacto:</b> visualizaciones, clics y solicitudes de contacto de su perfil.',
     ];
   }
@@ -507,8 +507,13 @@ function buildEmail(r: Row, fundador = true, promo: string | null = null): { sub
     ${parrafoCierre}
     ${notaInflacion}`;
 
+  // El asunto es lo unico que ve el destinatario antes de abrir. A una
+  // organizacion exenta no se le puede pedir que "asegure su cuota": o no abre
+  // el correo creyendo que le van a cobrar, o lo abre y se siente enganada.
   return {
-    subject: `${rawNombre}: active su perfil y asegure su cuota de Miembro Fundador`,
+    subject: esFree(r)
+      ? `${rawNombre}: su perfil en Neuromundi, sin costo para su organización`
+      : `${rawNombre}: active su perfil y asegure su cuota de Miembro Fundador`,
     html: shell('Le damos la bienvenida a Neuromundi', promoBlock + cuerpo, 'Activar o retirar mi ficha', claim),
   };
 }

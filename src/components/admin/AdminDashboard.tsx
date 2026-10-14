@@ -252,7 +252,7 @@ export function AdminDashboard({ advisor = false }: { advisor?: boolean } = {}) 
   // La tabla de miembros necesita ancho: el panel vivía en max-w-2xl (672 px),
   // que para una tabla con cinco columnas y botones es asfixiante. El resto de
   // las secciones se leen mejor en columna estrecha, así que sólo esa se ensancha.
-  const anchoPanel = section === 'members' ? 'max-w-7xl' : 'max-w-2xl';
+  const anchoPanel = section === 'members' || section === 'fichas' ? 'max-w-7xl' : 'max-w-2xl';
 
   return (
     <div className={`mx-auto w-full p-4 ${anchoPanel}`}>

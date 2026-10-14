@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import { Button, SkeletonCard } from '@/components/ui';
 import { supabase } from '@/lib/supabase';
+import { AdminFichasRetiradas } from './AdminFichasRetiradas';
 
 interface Resumen {
   fichas: {
@@ -158,6 +159,8 @@ export function AdminFichas() {
           <Tarjeta icon={Clock} label={t('adminFichas.vencen30')} value={r.invitaciones.vencen_en_30_dias} tone={aviso(r.invitaciones.vencen_en_30_dias)} />
         </div>
       </section>
+
+      <AdminFichasRetiradas />
 
       <section>
         <h2 className="mb-2 text-sm font-bold uppercase tracking-wide text-muted">
