@@ -21,6 +21,7 @@ import {
 import { Button, SkeletonCard } from '@/components/ui';
 import { supabase } from '@/lib/supabase';
 import { AdminFichasRetiradas } from './AdminFichasRetiradas';
+import { AdminCapturaTelefonica } from './AdminCapturaTelefonica';
 
 interface Resumen {
   fichas: {
@@ -159,6 +160,8 @@ export function AdminFichas() {
           <Tarjeta icon={Clock} label={t('adminFichas.vencen30')} value={r.invitaciones.vencen_en_30_dias} tone={aviso(r.invitaciones.vencen_en_30_dias)} />
         </div>
       </section>
+
+      <AdminCapturaTelefonica />
 
       <AdminFichasRetiradas />
 

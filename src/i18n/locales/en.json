@@ -5504,6 +5504,17 @@
     "republicar": "Republish",
     "volverARetirar": "Withdraw again",
     "republicadaDone": "Listing republished.",
-    "retiradaDone": "The listing will be withdrawn again when the deadline passes."
+    "retiradaDone": "The listing will be withdrawn again when the deadline passes.",
+    "capturaTitle": "Emails gathered by phone",
+    "capturaHelp": "Published listings with no email, those with a phone number first. Write the email down as soon as you hang up and the listing is queued for the batch you choose.",
+    "capturaEmpty": "No listings left without an email.",
+    "capturaCount": "{{total}} listings without email · {{conTelefono}} with a phone number",
+    "buscarTelPlaceholder": "Name, city, state or phone",
+    "tandaDestino": "Batch",
+    "colTelefono": "Phone",
+    "colCorreoNuevo": "Email",
+    "sinTelefono": "No phone",
+    "guardarYEncolar": "Save",
+    "altaDone": "Email saved. The listing joined batch {{tanda}}."
   }
 }

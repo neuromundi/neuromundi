@@ -1327,6 +1327,30 @@ export interface Database {
         Args: { p_correo: string; p_nombre: string | null; p_provider_type?: string; p_fundador?: boolean; p_cortesia?: boolean; p_send?: boolean };
         Returns: { token: string; ficha_id: string; enviado: boolean; promo: string | null }[];
       };
+      /** Fichas publicadas sin correo, con telefono primero (migracion 0207b). */
+      admin_fichas_sin_correo: {
+        Args: { p_limit?: number; p_buscar?: string | null };
+        Returns: {
+          ficha_id: string;
+          nombre: string | null;
+          provider_type: string | null;
+          sector: string | null;
+          estado: string | null;
+          ciudad: string | null;
+          pais: string | null;
+          telefono: string | null;
+          sitio_web: string | null;
+          especializacion: string | null;
+        }[];
+      };
+      /** Captura un correo conseguido por telefono y mete la ficha a una tanda (migracion 0207). */
+      admin_alta_correo_ficha: {
+        Args: { p_ficha: string; p_correo: string; p_tanda?: number; p_nota?: string | null };
+        Returns: {
+          ok: boolean; ficha: string; nombre: string | null; correo: string;
+          tanda: number; orden: number; token: string; expira_en: string;
+        };
+      };
       /** Fichas que se retirarian del directorio al vencer el plazo (migracion 0206). */
       admin_fichas_retiradas: {
         Args: { p_limit?: number; p_buscar?: string | null };

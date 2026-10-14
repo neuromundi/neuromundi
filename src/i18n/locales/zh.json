@@ -5504,6 +5504,17 @@
     "republicar": "Republicar",
     "volverARetirar": "Volver a retirar",
     "republicadaDone": "Ficha republicada.",
-    "retiradaDone": "La ficha vuelve a retirarse al vencer el plazo."
+    "retiradaDone": "La ficha vuelve a retirarse al vencer el plazo.",
+    "capturaTitle": "Correos conseguidos por telefono",
+    "capturaHelp": "Fichas publicadas que no tienen correo. Primero las que si tienen telefono. Anote el correo en cuanto cuelgue y la ficha queda lista para la tanda que elija.",
+    "capturaEmpty": "No quedan fichas sin correo.",
+    "capturaCount": "{{total}} fichas sin correo · {{conTelefono}} con telefono",
+    "buscarTelPlaceholder": "Nombre, ciudad, estado o telefono",
+    "tandaDestino": "Tanda",
+    "colTelefono": "Telefono",
+    "colCorreoNuevo": "Correo",
+    "sinTelefono": "Sin telefono",
+    "guardarYEncolar": "Guardar",
+    "altaDone": "Correo guardado. La ficha entro a la tanda {{tanda}}."
   }
 }
