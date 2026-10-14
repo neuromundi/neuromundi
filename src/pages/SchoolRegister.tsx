@@ -27,7 +27,15 @@ import { SCHOOL_GRADES } from '@/data/satCatalogs';
 import { INSTITUTION_TYPES, INCLUSION_MODELS, SUPPORT_SERVICES } from '@/data/schoolCatalog';
 import { useCountryField } from '@/hooks/useCountryField';
 
-const inputCls = 'w-full rounded-xl border border-slate-200 p-3 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500';
+// Los campos llevan fondo propio y borde definido para que se distingan del
+// papel blanco de la tarjeta; al enfocarlos pasan a blanco con anillo, de modo
+// que siempre se vea cuál se está llenando.
+const inputCls = 'w-full rounded-xl border border-slate-300 bg-slate-50 p-3 text-base transition-colors hover:border-slate-400 focus-visible:border-brand-400 focus-visible:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500';
+// El PAÍS no es un campo más: de él dependen la cuota y la moneda del cobro.
+// Va resaltado en azul para que se vea antes que el resto y no se conteste al
+// descuido.
+const countryCls = 'w-full rounded-xl border-2 border-brand-400 bg-brand-50 p-3 text-base font-semibold text-slate-900 transition-colors focus-visible:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500';
+const countryHintCls = 'mt-1 text-xs font-medium text-brand-700';
 const labelCls = 'mb-1 block font-semibold text-slate-900';
 const sectionTitle = 'text-sm font-semibold uppercase tracking-wide text-muted';
 
@@ -226,10 +234,11 @@ export function SchoolRegister({ onSuccess, complete = false }: { onSuccess?: ()
         <section className="space-y-4">
               <div>
                 <label className={labelCls} htmlFor="school-f3">{t('reg.country')}</label>
-                <select id="school-f3" className={inputCls} value={country} onChange={(e) => { setCountry(e.target.value); setStateName(''); setMunicipality(''); }}>
+                <select id="school-f3" className={countryCls} value={country} onChange={(e) => { setCountry(e.target.value); setStateName(''); setMunicipality(''); }}>
                   <option value="">{t('reg.selectCountry')}</option>
                   {COUNTRIES.map((c) => <option key={c.code} value={c.name}>{countryLabel(c.code, c.name)}</option>)}
                 </select>
+                <p className={countryHintCls}>{t('reg.countryFeeHint')}</p>
               </div>
 
               {/* En móvil la barra lateral es `hidden lg:block`, así que el precio
@@ -366,11 +375,11 @@ export function SchoolRegister({ onSuccess, complete = false }: { onSuccess?: ()
 
         <label className="flex items-start gap-3 text-sm text-slate-700">
           <input type="checkbox" className="mt-0.5 h-5 w-5 rounded border-slate-300 text-brand-500" checked={acceptTerms} onChange={(e) => setAcceptTerms(e.target.checked)} />
-          <span>{t('onb.acceptTerms')}</span>
+          <span>{t('reg.acceptPre')}{' '}<a href="/terms" target="_blank" rel="noopener noreferrer" className="font-semibold text-brand-700 underline">{t('auth.terms')}</a>{' '}{t('reg.acceptMid')}{' '}<a href="/privacy" target="_blank" rel="noopener noreferrer" className="font-semibold text-brand-700 underline">{t('auth.privacy')}</a>{t('reg.acceptPost')}</span>
         </label>
         <label className="flex items-start gap-3 text-sm text-slate-700">
           <input type="checkbox" className="mt-0.5 h-5 w-5 rounded border-slate-300 text-brand-500" checked={acceptRules} onChange={(e) => setAcceptRules(e.target.checked)} />
-          <span>{t('onb.acceptRules')}</span>
+          <span>{t('reg.acceptRulesPre')}{' '}<a href="/reglamento" target="_blank" rel="noopener noreferrer" className="font-semibold text-brand-700 underline">{t('reg.rulesLink')}</a>{t('reg.acceptRulesPost')}</span>
         </label>
         <label className="flex items-start gap-3 text-sm text-slate-700">
           <input type="checkbox" className="mt-0.5 h-5 w-5 rounded border-slate-300 text-brand-500" checked={acceptManifesto} onChange={(e) => setAcceptManifesto(e.target.checked)} />

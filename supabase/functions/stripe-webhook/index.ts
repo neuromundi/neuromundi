@@ -363,6 +363,30 @@ Deno.serve(async (req: Request) => {
             }
             // Y su propio referente cobra recompensa (solo la primera vez).
             await applyReferralReward(admin, stripe, payerId);
+
+            // COMISIÓN DEL REFERIDOR (migración 0210). Va aquí y NO en
+            // checkout.session.completed: en el primer pago de una suscripción
+            // Stripe dispara los DOS eventos, y devengar en ambos cobraría dos
+            // veces. invoice.paid cubre el primer pago y todas las renovaciones.
+            //
+            // La factura es la llave de idempotencia: si Stripe reintenta el
+            // webhook, el libro rechaza el duplicado por restricción única.
+            //
+            // Best-effort absoluto: un fallo del libro no puede tumbar el
+            // procesamiento de un pago ya cobrado.
+            try {
+              const esPrimerPago = inv.billing_reason === 'subscription_create';
+              const { data: com } = await admin.rpc('devengar_comision_membresia', {
+                p_referred: payerId,
+                p_base_cents: inv.amount_paid ?? 0,
+                p_currency: inv.currency ?? 'mxn',
+                p_stripe_ref: inv.id,
+                p_primer_pago: esPrimerPago,
+              });
+              console.log('[comision]', inv.id, JSON.stringify(com));
+            } catch (e) {
+              console.error('devengar_comision_membresia', e);
+            }
           }
         }
         break;

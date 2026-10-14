@@ -79,6 +79,11 @@ Deno.serve(async (req) => {
   const ficha = fichas?.[0];
   if (!ficha) return json({ error: 'invitación no válida, ya usada o vencida' }, 410);
 
+  // País de la ficha. ficha_por_token no lo devuelve y cambiar su tipo de
+  // retorno exige borrarla, así que vive en su propio ayudante (migración 0209).
+  const { data: paisRpc } = await admin.rpc('ficha_pais_por_token', { p_token: token });
+  const paisFicha = (typeof paisRpc === 'string' && paisRpc.trim()) ? paisRpc.trim() : 'México';
+
   // 2 · Crear la cuenta con SU correo. Sin confirmar de oficio: el enlace mágico
   //     que recibe a continuación es la confirmación, y así queda constancia de
   //     que alguien con acceso a ese buzón aceptó.
@@ -127,7 +132,12 @@ Deno.serve(async (req) => {
     // y las fichas se guardan con country='México' (migración 0131). Con 'MX' el
     // perfil reclamado no casa con el filtro y desaparecería del directorio con
     // México seleccionado (el valor por defecto).
-    country: 'México',
+    //
+    // CORREGIDO (14 oct 2026): antes decía 'México' a secas, para TODA ficha.
+    // Con las 218 fichas de Latinoamérica eso habría registrado a un prestador
+    // chileno como mexicano y le habría cobrado en pesos mexicanos, no lo que
+    // le cotizó su correo. El país sale ahora de la propia ficha.
+    country: paisFicha,
     services_offered: ficha.especializacion,
     // 'pending' con fecha límite: así useMembership calcula la cotización y las
     // opciones de pago, y la plataforma le muestra la cuota como a cualquier

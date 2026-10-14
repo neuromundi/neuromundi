@@ -1036,7 +1036,8 @@
     "grantCompany": "Conceder Empresa Inclusiva",
     "grantAlly": "Conceder Aliado Neuromundi",
     "badgeRevoke": "Revogar distintivo",
-    "secFichas": "Fichas"
+    "secFichas": "Fichas",
+    "secComisiones": "Comisiones"
   },
   "reg": {
     "typePatient": "Paciente",
@@ -1186,7 +1187,8 @@
       "notConfigured": "O custo será exibido quando estiver configurado para o seu país.",
       "pickCountry": "Selecione o seu país para ver o valor da sua assinatura"
     },
-    "afterConfirmPay": "Depois de confirmar seu e-mail e entrar, será solicitado que você conclua o pagamento da sua assinatura."
+    "afterConfirmPay": "Depois de confirmar seu e-mail e entrar, será solicitado que você conclua o pagamento da sua assinatura.",
+    "countryFeeHint": "Do seu país dependem a cota e a moeda em que você é cobrado."
   },
   "loc": {
     "title": "Minhas filiais",
@@ -1302,7 +1304,11 @@
     "successBody": "Bem-vindo como Membro Fundador da Neuromundi. Seu selo já está ativo.",
     "freezeNotice": "Sua anuidade fica congelada para sempre: protege de aumentos futuros (exceto o ajuste anual pela inflação do seu país).",
     "successCta": "Entendi!",
-    "twoMonthsFree": "2 meses grátis"
+    "twoMonthsFree": "2 meses grátis",
+    "monthlyWarnTitle": "Se pagar por mês, você abre mão da sua cota de Membro Fundador",
+    "monthlyWarnBody": "O desconto vitalício de Membro Fundador só vale para a assinatura anual. No pagamento mensal você paga a cota comum: {{monthly}} por mês. Na anual você paga {{annual}} por ano e mantém esse preço enquanto continuar sendo membro.",
+    "monthlyWarnKeep": "Manter a cota anual",
+    "monthlyWarnGo": "Continuar com pagamento mensal"
   },
   "rules": {
     "version": "Versão",
@@ -5516,5 +5522,35 @@
     "sinTelefono": "Sin telefono",
     "guardarYEncolar": "Guardar",
     "altaDone": "Correo guardado. La ficha entro a la tanda {{tanda}}."
+  },
+  "comisiones": {
+    "title": "Comisiones por referido",
+    "help": "Dinero devengado por cada pago de membresia de un perfil que alguien recomendo. Esta pantalla no paga: registra lo que se debe y deja constancia de que ya se pago.",
+    "unavailable": "No se pudieron cargar las comisiones.",
+    "vacio": "No hay comisiones en este estado.",
+    "refresh": "Actualizar",
+    "estado": "Estado",
+    "estados": {
+      "devengada": "Por pagar",
+      "pagada": "Pagadas",
+      "revertida": "Revertidas",
+      "todas": "Todas"
+    },
+    "porPagar": "por pagar a {{referidores}} referidores",
+    "colReferidor": "Referidor",
+    "colReferidos": "Referidos",
+    "colMonto": "Monto",
+    "colSituacion": "Situacion",
+    "colAccion": "Accion",
+    "vigente": "Vigente",
+    "noVigente": "No vigente",
+    "conCuenta": "Con cuenta de cobro",
+    "sinCuenta": "Sin cuenta de cobro",
+    "liquidar": "Marcar pagadas",
+    "liquidadas": "Comisiones marcadas como pagadas.",
+    "notaPrompt": "Como se le pago (referencia de transferencia, fecha, banco). Puede dejarlo vacio.",
+    "primerPago": "primer pago",
+    "renovacion": "renovacion",
+    "pagadaEl": "pagada el"
   }
 }

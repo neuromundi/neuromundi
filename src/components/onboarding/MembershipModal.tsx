@@ -10,7 +10,7 @@
  */
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { CreditCard, Ticket, CheckCircle2, Crown } from 'lucide-react';
+import { CreditCard, Ticket, CheckCircle2, Crown, AlertTriangle } from 'lucide-react';
 import { Modal, Button, useToast } from '@/components/ui';
 import { useMembership, type BillingPeriod } from '@/hooks/useMembership';
 import { cn } from '@/lib/utils';
@@ -30,13 +30,18 @@ const PROMO_ERRORS: Record<string, string> = {
 export function MembershipModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   const { t, i18n } = useTranslation();
   const toast = useToast();
-  const { status, daysLeft, quote, options, loading, referralPct, countryPct, promo: activePromo, startCheckout, redeemPromo } = useMembership();
+  const { status, daysLeft, quote, options, loading, referralPct, countryPct, promo: activePromo, monthlyOrdinary, startCheckout, redeemPromo } = useMembership();
   const { founderDiscount: campaignDisc, isMarketComingSoon } = useCampaign();
   const profileCountry = useAuthStore((s) => s.profile?.country ?? null);
   const [promo, setPromo] = useState('');
   const [showPromo, setShowPromo] = useState(false);
   const [busy, setBusy] = useState(false);
   const [period, setPeriod] = useState<BillingPeriod>('annual');
+  // Aviso preventivo antes de pasar a mensual: el descuento vitalicio de
+  // Miembro Fundador SOLO rige en la suscripción anual. Quien elige mensual
+  // renuncia a él, y debe enterarse ANTES de llegar a la pantalla de Stripe,
+  // no al ver el cargo.
+  const [confirmMonthly, setConfirmMonthly] = useState(false);
   // Promo canjeada EN ESTA sesión (el % o monto lo devuelve redeem_promo_code),
   // para incluirla en la vista previa del primer pago.
   const [appliedPromo, setAppliedPromo] = useState<{ benefit: string; pct: number; amount: number; currency: string } | null>(null);
@@ -85,6 +90,20 @@ export function MembershipModal({ open, onClose }: { open: boolean; onClose: () 
 
   const fmt = (n: number, currency: string) =>
     new Intl.NumberFormat(undefined, { style: 'currency', currency }).format(n);
+
+  // Pierde el beneficio de fundador quien pasa a mensual: solo entonces hay
+  // algo que advertir.
+  const pierdeFundador = (options?.is_founder ?? false) || campaignDisc.pct > 0;
+  // El importe mensual que se enseña es el ORDINARIO, que es el que cobra
+  // Stripe. options.monthly_amount viene en clase fundador y NO se cobra nunca,
+  // así que no sirve ni como respaldo: si la cuota ordinaria no está
+  // configurada se pinta un guión. Mejor no dar precio que dar uno falso.
+  const monthlyShown = monthlyOrdinary?.amount ?? null;
+
+  const elegirPeriodo = (p: BillingPeriod) => {
+    if (p === 'monthly' && pierdeFundador) { setConfirmMonthly(true); return; }
+    setPeriod(p);
+  };
 
   const amountText =
     quote != null
@@ -166,14 +185,14 @@ export function MembershipModal({ open, onClose }: { open: boolean; onClose: () 
             <div className="grid gap-2 sm:grid-cols-2" role="group" aria-label={t('membership.choosePeriod')}>
               {(['annual', 'monthly'] as const).map((p) => {
                 const isAnnual = p === 'annual';
-                const amount = isAnnual ? options.annual_amount : options.monthly_amount;
+                const amount = isAnnual ? options.annual_amount : monthlyShown;
                 const selected = period === p;
                 const saving = isAnnual ? annualSaving(options.annual_amount, options.annual_list_amount) : 0;
                 return (
                   <button
                     key={p}
                     type="button"
-                    onClick={() => setPeriod(p)}
+                    onClick={() => elegirPeriodo(p)}
                     aria-pressed={selected}
                     className={cn(
                       'rounded-2xl border-2 p-3 text-left transition-colors',
@@ -236,6 +255,34 @@ export function MembershipModal({ open, onClose }: { open: boolean; onClose: () 
                 )}
               </p>
               <p className="mt-1 text-[11px] text-muted">{t('membership.firstPaymentNote')}</p>
+            </div>
+          )}
+
+          {/* Aviso preventivo: pasar a mensual cuesta la cuota de fundador. */}
+          {confirmMonthly && (
+            <div role="alertdialog" aria-labelledby="aviso-mensual" className="rounded-2xl border-2 border-amber-300 bg-amber-50 p-4">
+              <p id="aviso-mensual" className="flex items-start gap-2 text-sm font-bold text-amber-900">
+                <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0" aria-hidden="true" />
+                {t('membership.monthlyWarnTitle')}
+              </p>
+              <p className="mt-2 text-sm text-amber-900">
+                {t('membership.monthlyWarnBody', {
+                  annual: options?.annual_amount != null ? fmt(options.annual_amount, options.currency) : '—',
+                  monthly: monthlyShown != null && options ? fmt(monthlyShown, options.currency) : '—',
+                })}
+              </p>
+              <div className="mt-3 grid gap-2 sm:grid-cols-2">
+                <Button onClick={() => { setPeriod('annual'); setConfirmMonthly(false); }} fullWidth>
+                  {t('membership.monthlyWarnKeep')}
+                </Button>
+                <Button
+                  variant="secondary"
+                  onClick={() => { setPeriod('monthly'); setConfirmMonthly(false); }}
+                  fullWidth
+                >
+                  {t('membership.monthlyWarnGo')}
+                </Button>
+              </div>
             </div>
           )}
 

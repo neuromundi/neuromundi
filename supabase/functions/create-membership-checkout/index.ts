@@ -23,6 +23,19 @@ const corsHeaders = {
 const json = (status: number, body: unknown) =>
   new Response(JSON.stringify(body), { status, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
 
+// Monedas SIN decimales según Stripe: el importe se manda tal cual, sin
+// multiplicar por 100. Las demás (la inmensa mayoría, MXN incluida) sí llevan
+// el ×100 porque Stripe cobra en centavos.
+//
+// ESTA LISTA ES LA AUTORIDAD, NO LA COLUMNA membership_prices.zero_decimal.
+// Esa columna venía con true en LAS DIECISÉIS monedas, de modo que el checkout
+// mandaba 500 en lugar de 50000 y cobraba MXN 5.00 por una cuota de MXN 500.
+// Un dato mal capturado no puede volver a dividir un precio entre cien.
+const ZERO_DECIMAL = new Set([
+  'bif', 'clp', 'djf', 'gnf', 'jpy', 'kmf', 'krw', 'mga', 'pyg',
+  'rwf', 'ugx', 'vnd', 'vuv', 'xaf', 'xof', 'xpf',
+]);
+
 Deno.serve(async (req: Request) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders });
   if (req.method !== 'POST') return json(405, { error: 'Método no permitido' });
@@ -88,9 +101,15 @@ Deno.serve(async (req: Request) => {
   if (!price?.currency || price.amount == null) {
     return json(400, { error: 'No hay cuota configurada para este tipo de afiliado y país.' });
   }
-  const pricing = { currency: String(price.currency), zero_decimal: price.zero_decimal === true };
+  const pricing = { currency: String(price.currency), zero_decimal: ZERO_DECIMAL.has(String(price.currency).toLowerCase()) };
   const amountLocal = Number(price.amount);
   const unitAmount = pricing.zero_decimal ? Math.round(amountLocal) : Math.round(amountLocal * 100);
+  // Red de seguridad: si una cuota configurada acabara cobrándose por menos de
+  // lo que cuesta procesarla, es un error de datos, no una oferta. Mejor fallar
+  // ruidosamente que cobrar de menos a 294 organizaciones.
+  if (amountLocal > 0 && unitAmount < 100) {
+    return json(500, { error: 'Cuota mal configurada para esta moneda. Avise al administrador.' });
+  }
 
   // ── Descuentos ────────────────────────────────────────────────────────────
   // (1) Programa de recomendación (membership_discount → total_pct):

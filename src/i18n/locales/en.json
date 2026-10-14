@@ -1073,7 +1073,8 @@
     "grantCompany": "Grant Inclusive Company",
     "grantAlly": "Grant Neuromundi Ally",
     "badgeRevoke": "Revoke badge",
-    "secFichas": "Listings"
+    "secFichas": "Listings",
+    "secComisiones": "Commissions"
   },
   "reg": {
     "typePatient": "Patient",
@@ -1223,7 +1224,8 @@
       "notConfigured": "The cost will show once it's configured for your country.",
       "pickCountry": "Select your country to see your membership price"
     },
-    "afterConfirmPay": "After you confirm your email and sign in, you'll be asked to complete your membership payment."
+    "afterConfirmPay": "After you confirm your email and sign in, you'll be asked to complete your membership payment.",
+    "countryFeeHint": "Your country determines your fee and the currency you are charged in."
   },
   "loc": {
     "title": "My branches",
@@ -1339,7 +1341,11 @@
     "successBody": "Welcome as a Neuromundi Founder Member. Your badge is now active.",
     "freezeNotice": "Your annual fee is frozen for life: it protects you from future increases (except the yearly inflation adjustment for your country).",
     "successCta": "Got it!",
-    "twoMonthsFree": "2 months free"
+    "twoMonthsFree": "2 months free",
+    "monthlyWarnTitle": "Paying monthly means giving up your Founding Member rate",
+    "monthlyWarnBody": "The lifetime Founding Member discount applies only to the annual subscription. With monthly billing you pay the ordinary rate: {{monthly}} per month. The annual subscription is {{annual}} per year, and you keep that price for as long as you remain a member.",
+    "monthlyWarnKeep": "Keep the annual rate",
+    "monthlyWarnGo": "Continue with monthly billing"
   },
   "rules": {
     "version": "Version",
@@ -5516,5 +5522,35 @@
     "sinTelefono": "No phone",
     "guardarYEncolar": "Save",
     "altaDone": "Email saved. The listing joined batch {{tanda}}."
+  },
+  "comisiones": {
+    "title": "Referral commissions",
+    "help": "Money earned on each membership payment by a profile someone referred. This screen does not pay: it records what is owed and leaves a record that it was paid.",
+    "unavailable": "Could not load commissions.",
+    "vacio": "No commissions in this state.",
+    "refresh": "Refresh",
+    "estado": "Status",
+    "estados": {
+      "devengada": "Owed",
+      "pagada": "Paid",
+      "revertida": "Reversed",
+      "todas": "All"
+    },
+    "porPagar": "owed to {{referidores}} referrers",
+    "colReferidor": "Referrer",
+    "colReferidos": "Referrals",
+    "colMonto": "Amount",
+    "colSituacion": "Status",
+    "colAccion": "Action",
+    "vigente": "Active",
+    "noVigente": "Not active",
+    "conCuenta": "Payout account set",
+    "sinCuenta": "No payout account",
+    "liquidar": "Mark as paid",
+    "liquidadas": "Commissions marked as paid.",
+    "notaPrompt": "How it was paid (transfer reference, date, bank). You can leave this empty.",
+    "primerPago": "first payment",
+    "renovacion": "renewal",
+    "pagadaEl": "paid on"
   }
 }

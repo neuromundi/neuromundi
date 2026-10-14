@@ -1327,6 +1327,31 @@ export interface Database {
         Args: { p_correo: string; p_nombre: string | null; p_provider_type?: string; p_fundador?: boolean; p_cortesia?: boolean; p_send?: boolean };
         Returns: { token: string; ficha_id: string; enviado: boolean; promo: string | null }[];
       };
+      /** Comisiones por referido agrupadas por referidor (migracion 0210c). */
+      admin_comisiones_membresia: {
+        Args: { p_estado?: string | null };
+        Returns: {
+          referrer_id: string; referidor: string | null; correo: string | null;
+          referidor_vigente: boolean; cuenta_de_cobro: boolean;
+          comisiones: number; referidos: number;
+          monto_cents: number; currency: string | null;
+          primera: string | null; ultima: string | null;
+        }[];
+      };
+      /** Detalle de las comisiones de un referidor (migracion 0210c). */
+      admin_comisiones_detalle: {
+        Args: { p_referrer: string };
+        Returns: {
+          id: string; referido: string | null; es_primer_pago: boolean;
+          base_cents: number; comision_pct: number; amount_cents: number; currency: string;
+          status: string; creada_en: string; pagada_en: string | null; pagada_nota: string | null;
+        }[];
+      };
+      /** Marca como pagadas las comisiones devengadas de un referidor (migracion 0210c). */
+      admin_liquidar_comisiones: {
+        Args: { p_referrer: string; p_nota?: string | null };
+        Returns: { ok: boolean; comisiones: number; amount_cents: number };
+      };
       /** Fichas publicadas sin correo, con telefono primero (migracion 0207b). */
       admin_fichas_sin_correo: {
         Args: { p_limit?: number; p_buscar?: string | null };
@@ -1526,6 +1551,16 @@ export interface Database {
       my_membership_options: {
         Args: Record<string, never>;
         Returns: { affiliate_type: string; member_class: 'founder' | 'ordinary'; currency: string; monthly_amount: number | null; annual_amount: number | null; annual_list_amount: number | null; zero_decimal: boolean; is_founder: boolean }[];
+      };
+      /**
+       * Cuota MENSUAL ordinaria: la que cobra Stripe si se elige pago por mes.
+       * my_membership_options devuelve la fila en clase fundador, cuyo
+       * monthly_amount no se cobra nunca (el descuento de fundador solo rige
+       * en el anual).
+       */
+      my_membership_monthly_ordinary: {
+        Args: Record<string, never>;
+        Returns: { currency: string; monthly_amount: number | null }[];
       };
       affiliate_type_for: {
         Args: { p_user: string };

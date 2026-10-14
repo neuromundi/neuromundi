@@ -1073,7 +1073,8 @@
     "grantCompany": "포용 기업 부여",
     "grantAlly": "Neuromundi 파트너 부여",
     "badgeRevoke": "배지 취소",
-    "secFichas": "Fichas"
+    "secFichas": "Fichas",
+    "secComisiones": "Comisiones"
   },
   "reg": {
     "typePatient": "환자",
@@ -1223,7 +1224,8 @@
       "notConfigured": "해당 국가에 설정되면 비용이 표시됩니다.",
       "pickCountry": "회원비를 확인하려면 국가를 선택하세요"
     },
-    "afterConfirmPay": "이메일을 확인하고 로그인하면 멤버십 결제를 완료하도록 안내합니다."
+    "afterConfirmPay": "이메일을 확인하고 로그인하면 멤버십 결제를 완료하도록 안내합니다.",
+    "countryFeeHint": "국가에 따라 회비와 결제 통화가 정해집니다."
   },
   "loc": {
     "title": "내 지점",
@@ -1339,7 +1341,11 @@
     "successBody": "Neuromundi 창립 회원이 되신 것을 환영합니다. 배지가 활성화되었습니다.",
     "freezeNotice": "연회비가 평생 동결됩니다: 향후 인상으로부터 보호됩니다(귀하 국가의 연간 물가 조정 제외).",
     "successCta": "확인!",
-    "twoMonthsFree": "2개월 무료"
+    "twoMonthsFree": "2개월 무료",
+    "monthlyWarnTitle": "월 단위로 결제하면 창립 회원 요금을 포기하게 됩니다",
+    "monthlyWarnBody": "창립 회원 평생 할인은 연간 구독에만 적용됩니다. 월 결제를 선택하면 일반 요금인 월 {{monthly}}을 내게 됩니다. 연간 구독은 연 {{annual}}이며, 회원으로 있는 동안 그 가격이 유지됩니다.",
+    "monthlyWarnKeep": "연간 요금 유지",
+    "monthlyWarnGo": "월 결제로 계속"
   },
   "rules": {
     "version": "버전",
@@ -5516,5 +5522,35 @@
     "sinTelefono": "Sin telefono",
     "guardarYEncolar": "Guardar",
     "altaDone": "Correo guardado. La ficha entro a la tanda {{tanda}}."
+  },
+  "comisiones": {
+    "title": "Comisiones por referido",
+    "help": "Dinero devengado por cada pago de membresia de un perfil que alguien recomendo. Esta pantalla no paga: registra lo que se debe y deja constancia de que ya se pago.",
+    "unavailable": "No se pudieron cargar las comisiones.",
+    "vacio": "No hay comisiones en este estado.",
+    "refresh": "Actualizar",
+    "estado": "Estado",
+    "estados": {
+      "devengada": "Por pagar",
+      "pagada": "Pagadas",
+      "revertida": "Revertidas",
+      "todas": "Todas"
+    },
+    "porPagar": "por pagar a {{referidores}} referidores",
+    "colReferidor": "Referidor",
+    "colReferidos": "Referidos",
+    "colMonto": "Monto",
+    "colSituacion": "Situacion",
+    "colAccion": "Accion",
+    "vigente": "Vigente",
+    "noVigente": "No vigente",
+    "conCuenta": "Con cuenta de cobro",
+    "sinCuenta": "Sin cuenta de cobro",
+    "liquidar": "Marcar pagadas",
+    "liquidadas": "Comisiones marcadas como pagadas.",
+    "notaPrompt": "Como se le pago (referencia de transferencia, fecha, banco). Puede dejarlo vacio.",
+    "primerPago": "primer pago",
+    "renovacion": "renovacion",
+    "pagadaEl": "pagada el"
   }
 }

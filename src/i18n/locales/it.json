@@ -1036,7 +1036,8 @@
     "grantCompany": "Assegna Azienda Inclusiva",
     "grantAlly": "Assegna Alleato Neuromundi",
     "badgeRevoke": "Revoca distintivo",
-    "secFichas": "Fichas"
+    "secFichas": "Fichas",
+    "secComisiones": "Comisiones"
   },
   "reg": {
     "typePatient": "Paziente",
@@ -1186,7 +1187,8 @@
       "notConfigured": "Il costo verrà mostrato quando sarà configurato per il tuo paese.",
       "pickCountry": "Seleziona il tuo paese per vedere il costo della tua iscrizione"
     },
-    "afterConfirmPay": "Dopo aver confermato l'email e aver effettuato l'accesso, ti verrà chiesto di completare il pagamento della tua iscrizione."
+    "afterConfirmPay": "Dopo aver confermato l'email e aver effettuato l'accesso, ti verrà chiesto di completare il pagamento della tua iscrizione.",
+    "countryFeeHint": "Dal tuo paese dipendono la quota e la valuta in cui ti viene addebitata."
   },
   "loc": {
     "title": "Le mie filiali",
@@ -1302,7 +1304,11 @@
     "successBody": "Benvenuto come Membro Fondatore di Neuromundi. Il tuo distintivo è attivo.",
     "freezeNotice": "La tua quota annuale è congelata a vita: ti protegge da aumenti futuri (salvo l’adeguamento annuo all’inflazione del tuo Paese).",
     "successCta": "Capito!",
-    "twoMonthsFree": "2 mesi gratis"
+    "twoMonthsFree": "2 mesi gratis",
+    "monthlyWarnTitle": "Pagando al mese rinunci alla tua quota di Membro Fondatore",
+    "monthlyWarnBody": "Lo sconto a vita da Membro Fondatore vale solo per l'abbonamento annuale. Con il pagamento mensile paghi la quota ordinaria: {{monthly}} al mese. Con l'annuale paghi {{annual}} all'anno e mantieni quel prezzo finché resti membro.",
+    "monthlyWarnKeep": "Mantieni la quota annuale",
+    "monthlyWarnGo": "Continua con il pagamento mensile"
   },
   "rules": {
     "version": "Versione",
@@ -5516,5 +5522,35 @@
     "sinTelefono": "Sin telefono",
     "guardarYEncolar": "Guardar",
     "altaDone": "Correo guardado. La ficha entro a la tanda {{tanda}}."
+  },
+  "comisiones": {
+    "title": "Comisiones por referido",
+    "help": "Dinero devengado por cada pago de membresia de un perfil que alguien recomendo. Esta pantalla no paga: registra lo que se debe y deja constancia de que ya se pago.",
+    "unavailable": "No se pudieron cargar las comisiones.",
+    "vacio": "No hay comisiones en este estado.",
+    "refresh": "Actualizar",
+    "estado": "Estado",
+    "estados": {
+      "devengada": "Por pagar",
+      "pagada": "Pagadas",
+      "revertida": "Revertidas",
+      "todas": "Todas"
+    },
+    "porPagar": "por pagar a {{referidores}} referidores",
+    "colReferidor": "Referidor",
+    "colReferidos": "Referidos",
+    "colMonto": "Monto",
+    "colSituacion": "Situacion",
+    "colAccion": "Accion",
+    "vigente": "Vigente",
+    "noVigente": "No vigente",
+    "conCuenta": "Con cuenta de cobro",
+    "sinCuenta": "Sin cuenta de cobro",
+    "liquidar": "Marcar pagadas",
+    "liquidadas": "Comisiones marcadas como pagadas.",
+    "notaPrompt": "Como se le pago (referencia de transferencia, fecha, banco). Puede dejarlo vacio.",
+    "primerPago": "primer pago",
+    "renovacion": "renovacion",
+    "pagadaEl": "pagada el"
   }
 }

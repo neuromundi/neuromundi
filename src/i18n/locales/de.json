@@ -1036,7 +1036,8 @@
     "grantCompany": "Inklusives Unternehmen vergeben",
     "grantAlly": "Neuromundi-Partner vergeben",
     "badgeRevoke": "Abzeichen entziehen",
-    "secFichas": "Fichas"
+    "secFichas": "Fichas",
+    "secComisiones": "Comisiones"
   },
   "reg": {
     "typePatient": "Patient",
@@ -1186,7 +1187,8 @@
       "notConfigured": "Die Gebühr wird angezeigt, sobald sie für dein Land konfiguriert ist.",
       "pickCountry": "Wählen Sie Ihr Land, um den Mitgliedsbeitrag zu sehen"
     },
-    "afterConfirmPay": "Nachdem du deine E-Mail bestätigt und dich angemeldet hast, wirst du gebeten, die Zahlung deiner Mitgliedschaft abzuschließen."
+    "afterConfirmPay": "Nachdem du deine E-Mail bestätigt und dich angemeldet hast, wirst du gebeten, die Zahlung deiner Mitgliedschaft abzuschließen.",
+    "countryFeeHint": "Ihr Land bestimmt den Beitrag und die Währung der Abrechnung."
   },
   "loc": {
     "title": "Meine Filialen",
@@ -1302,7 +1304,11 @@
     "successBody": "Willkommen als Neuromundi-Gründungsmitglied. Dein Abzeichen ist aktiv.",
     "freezeNotice": "Dein Jahresbeitrag ist lebenslang eingefroren: Schutz vor künftigen Erhöhungen (außer der jährlichen Inflationsanpassung deines Landes).",
     "successCta": "Verstanden!",
-    "twoMonthsFree": "2 Monate gratis"
+    "twoMonthsFree": "2 Monate gratis",
+    "monthlyWarnTitle": "Bei monatlicher Zahlung verzichten Sie auf Ihren Gründungsmitglied-Beitrag",
+    "monthlyWarnBody": "Der lebenslange Rabatt für Gründungsmitglieder gilt nur für das Jahresabonnement. Bei monatlicher Zahlung gilt der reguläre Beitrag: {{monthly}} pro Monat. Im Jahresabonnement zahlen Sie {{annual}} pro Jahr und behalten diesen Preis, solange Sie Mitglied bleiben.",
+    "monthlyWarnKeep": "Jahresbeitrag behalten",
+    "monthlyWarnGo": "Mit monatlicher Zahlung fortfahren"
   },
   "rules": {
     "version": "Version",
@@ -5516,5 +5522,35 @@
     "sinTelefono": "Sin telefono",
     "guardarYEncolar": "Guardar",
     "altaDone": "Correo guardado. La ficha entro a la tanda {{tanda}}."
+  },
+  "comisiones": {
+    "title": "Comisiones por referido",
+    "help": "Dinero devengado por cada pago de membresia de un perfil que alguien recomendo. Esta pantalla no paga: registra lo que se debe y deja constancia de que ya se pago.",
+    "unavailable": "No se pudieron cargar las comisiones.",
+    "vacio": "No hay comisiones en este estado.",
+    "refresh": "Actualizar",
+    "estado": "Estado",
+    "estados": {
+      "devengada": "Por pagar",
+      "pagada": "Pagadas",
+      "revertida": "Revertidas",
+      "todas": "Todas"
+    },
+    "porPagar": "por pagar a {{referidores}} referidores",
+    "colReferidor": "Referidor",
+    "colReferidos": "Referidos",
+    "colMonto": "Monto",
+    "colSituacion": "Situacion",
+    "colAccion": "Accion",
+    "vigente": "Vigente",
+    "noVigente": "No vigente",
+    "conCuenta": "Con cuenta de cobro",
+    "sinCuenta": "Sin cuenta de cobro",
+    "liquidar": "Marcar pagadas",
+    "liquidadas": "Comisiones marcadas como pagadas.",
+    "notaPrompt": "Como se le pago (referencia de transferencia, fecha, banco). Puede dejarlo vacio.",
+    "primerPago": "primer pago",
+    "renovacion": "renovacion",
+    "pagadaEl": "pagada el"
   }
 }

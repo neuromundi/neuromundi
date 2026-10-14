@@ -39,6 +39,14 @@ export interface MembershipState {
   countryPct: number;
   /** Código promocional activo del usuario (my_membership_promo), si lo hay. */
   promo: { benefit: string; pct: number; amount: number; currency: string } | null;
+  /**
+   * Cuota MENSUAL ordinaria: la que de verdad cobra Stripe si el usuario elige
+   * pagar por mes. El descuento de Miembro Fundador solo rige en el anual, de
+   * modo que options.monthly_amount (clase fundador) NO es lo que se cobra.
+   * Mostrar aquel importe y cobrar éste era un precio mostrado distinto del
+   * precio cobrado. null = no configurada.
+   */
+  monthlyOrdinary: { currency: string; amount: number } | null;
   loading: boolean;
 }
 
@@ -54,6 +62,7 @@ export function useMembership() {
     referralPct: 0,
     countryPct: 0,
     promo: null,
+    monthlyOrdinary: null,
     loading: true,
   });
 
@@ -87,6 +96,20 @@ export function useMembership() {
       const { data: opt } = await supabase.rpc('my_membership_options');
       const row = Array.isArray(opt) ? opt[0] : opt;
       if (row) options = row as MembershipOptions;
+    }
+
+    // Cuota mensual ORDINARIA. Se consulta aparte porque my_membership_options
+    // resuelve toda la fila en clase fundador y su monthly_amount no es el que
+    // se cobra. Falla a null sin bloquear.
+    let monthlyOrdinary: MembershipState['monthlyOrdinary'] = null;
+    if (p && p.membership_status !== 'exempt') {
+      try {
+        const { data: mo } = await supabase.rpc('my_membership_monthly_ordinary');
+        const row = Array.isArray(mo) ? mo[0] : mo;
+        if (row?.currency && row.monthly_amount != null) {
+          monthlyOrdinary = { currency: String(row.currency), amount: Number(row.monthly_amount) };
+        }
+      } catch { monthlyOrdinary = null; }
     }
 
     // Descuentos que se componen en el checkout, para poder previsualizar el
@@ -134,6 +157,7 @@ export function useMembership() {
       referralPct,
       countryPct,
       promo,
+      monthlyOrdinary,
       loading: false,
     });
   }, [userId, role, providerType]);
