@@ -244,6 +244,27 @@ function footerLegal(): string {
   </p>`;
 }
 
+// Firma institucional. Va en TEXTO a proposito: Outlook bloquea imagenes por
+// defecto y una firma hecha de imagen deja al destinatario sin nombre ni
+// telefono. El logo es pequeno y lleva alt, asi que si no carga no estorba.
+function firmaOficial(): string {
+  return `<table role="presentation" cellpadding="0" cellspacing="0" style="margin:18px 0 0">
+    <tr>
+      <td style="padding-right:14px;vertical-align:middle">
+        <img src="${SITE}/icon-192.png" width="64" height="64" alt="Neuromundi"
+             style="display:block;border:0;width:64px;height:64px">
+      </td>
+      <td style="vertical-align:middle;border-left:2px solid #e2e8f0;padding-left:14px;font-size:13px;line-height:1.5;color:#334155">
+        <b style="font-size:15px;color:#0f172a">Mtra. Nelly Montoya</b><br>
+        CEO &amp; Fundadora &middot; Neuromundi<br>
+        <a href="mailto:admin@neuromundi.com" style="color:#0369a1;text-decoration:none">admin@neuromundi.com</a>
+        &middot; (442) 271 4419<br>
+        <a href="${SITE}" style="color:#0369a1;text-decoration:none"><b>www.neuromundi.com</b></a>
+      </td>
+    </tr>
+  </table>`;
+}
+
 function shell(title: string, bodyHtml: string, ctaText: string, ctaUrl: string): string {
   return `<div style="font-family:Arial,Helvetica,sans-serif;max-width:560px;margin:0 auto;color:#0f172a">
     <div style="background:linear-gradient(90deg,#0ea5e9,#0369a1);color:#fff;padding:16px 20px;border-radius:14px 14px 0 0;font-weight:800;letter-spacing:.04em">NEUROMUNDI</div>
@@ -251,6 +272,7 @@ function shell(title: string, bodyHtml: string, ctaText: string, ctaUrl: string)
       <h1 style="font-size:20px;margin:0 0 12px">${title}</h1>
       ${bodyHtml}
       <p style="margin:22px 0 8px"><a href="${ctaUrl}" style="display:inline-block;background:#0ea5e9;color:#fff;text-decoration:none;font-weight:700;padding:12px 20px;border-radius:12px">${ctaText}</a></p>
+      ${firmaOficial()}
       ${footerLegal()}
     </div>
   </div>`;
@@ -278,9 +300,9 @@ function beneficios(r: Row, fundador = true): string {
     ];
   } else if (pt === 'school' || pt === 'clinic') {
     items = [
-      '🏫&nbsp; Muestre su <b>programa de inclusión</b>, grados y admisiones a las familias.',
-      '📅&nbsp; Reciba solicitudes y <b>agende citas</b> desde su perfil.',
-      '💬&nbsp; Mensajería directa con familias que buscan sus servicios.',
+      '🏫&nbsp; <b>Programa de inclusión visible:</b> muestre sus grados, su propuesta y sus admisiones a las familias.',
+      '📅&nbsp; <b>Agenda y reservas en línea:</b> reciba citas directas, presenciales o en línea, desde su perfil.',
+      '💬&nbsp; <b>Canal directo de contacto:</b> mensajería inmediata con las familias que buscan sus servicios.',
     ];
   } else if (pt === 'merchant') {
     items = [
@@ -297,19 +319,21 @@ function beneficios(r: Row, fundador = true): string {
   } else {
     // especialistas y prestadores de servicio (service_provider, wellness, legal, caregiver, etc.)
     items = [
-      '📅&nbsp; Reciba citas con su <b>agenda y widget de reserva</b>, presencial o en línea.',
-      '💬&nbsp; Mensajería directa con las <b>familias</b> que buscan su especialidad.',
-      '📈&nbsp; Consulte <b>métricas</b> de su perfil (vistas y contactos).',
+      '📅&nbsp; <b>Agenda y reservas en línea:</b> reciba citas directas, presenciales o en línea, integradas a su calendario.',
+      '💬&nbsp; <b>Canal directo de contacto:</b> mensajería inmediata con las familias que requieren su especialización.',
+      '📈&nbsp; <b>Métricas de impacto:</b> visualizaciones, clics y solicitudes de contacto de su perfil.',
     ];
   }
   const li = items.map((t) => `<li style="margin:6px 0">${t}</li>`).join('');
   const founderLi = fundador
-    ? '<li style="margin:6px 0">🏆&nbsp; <b>Distintivo Fundador Neuromundi</b> para su perfil, su web y sus redes.</li>'
+    ? '<li style="margin:6px 0">🏆&nbsp; <b>Distintivo «Fundador Neuromundi»:</b> sello de prestigio para su perfil, su sitio web y sus redes sociales.</li>'
     : '';
   return `<ul style="margin:8px 0 0;padding:0;list-style:none;color:#334155;font-size:14px;line-height:1.5">${li}
-    <li style="margin:6px 0">🎓&nbsp; Acceso <b>gratuito</b> al <b>curso de bienvenida</b> y al <b>kit de herramientas</b>.</li>
+    <li style="margin:6px 0">🧰&nbsp; <b>Sus contenidos en toda la plataforma:</b> publique sus productos en la <b>Tienda</b>, sus cursos y talleres en <b>Academy</b>, sus actividades en <b>Eventos</b> y sus artículos en el <b>Blog</b>.</li>
+    <li style="margin:6px 0">⭐&nbsp; <b>Reseñas y distintivos:</b> acumule reseñas de la comunidad y obtenga los distintivos que acreditan su calidad y su compromiso.</li>
+    <li style="margin:6px 0">🎓&nbsp; <b>Formación e instrumentos:</b> acceso gratuito al curso de bienvenida y al kit de herramientas clínicas y educativas.</li>
     ${founderLi}
-    <li style="margin:6px 0">📋&nbsp; Participe en la <b>primera encuesta internacional</b> de la comunidad y reciba sus resultados.</li>
+    <li style="margin:6px 0">📋&nbsp; <b>Liderazgo en el sector:</b> participación prioritaria en la 1.ª Encuesta sobre la Situación Neurológica Mundial.</li>
   </ul>`;
 }
 
@@ -412,18 +436,71 @@ function buildEmail(r: Row, fundador = true, promo: string | null = null): { sub
     ${bloqueFechas(r)}`;
     return { subject: `${rawNombre}: le reservamos su perfil en Neuromundi`, html: shell('Conviértase en Fundador Neuromundi', promoBlock + cuerpo, 'Quiero ser fundador', claim) };
   }
-  const intro = esFree(r)
-    ? `<p>Hola, equipo de <b>${nombre}</b>:</p>
-       <p>Su organización ya aparece en el <b>directorio público de Neuromundi</b>. Para su tipo de organización la membresía es <b>gratuita</b>. Al <b>completar su perfil</b> obtiene:</p>`
-    : `<p>Hola, equipo de <b>${nombre}</b>:</p>
-       <p>Su ficha ya aparece en el <b>directorio público de Neuromundi</b>, la comunidad global de neurodesarrollo, neurodivergencia y afecciones neurológicas. Al <b>completar su perfil</b> obtiene:</p>`;
-  const cuerpo = `${intro}
+  // --- Primer contacto. Redacción de Enyoria (13 oct 2026). -----------------
+  // Las cifras y las fechas NO se escriben aquí: salen de registration_quote y
+  // de campaign_config, para que el correo no pueda discrepar del cobro ni de
+  // lo que aplica la plataforma.
+  const fd = fundadorDe(r);
+  const corte = RELOJES.verif;
+  const hayTarifa = r.precio_configurado && r.precio_fundador && r.precio_ordinario && !esFree(r);
+  const cur = r.moneda || 'MXN';
+
+  const parrafoOferta = hayTarifa
+    ? `<p>Y para motivarle aún más a formar parte de Neuromundi, le ofrecemos ingresar como
+         <b>Miembro Fundador</b>. Queremos que forme parte de la base fundadora de la plataforma,
+         con estas condiciones de por vida:</p>
+       <p style="margin:12px 0;padding:14px 16px;border:1px solid #bae6fd;background:#f0f9ff;border-radius:12px;font-size:15px;line-height:1.6;color:#0c4a6e">
+         Descuento del <b>50%</b>, por lo que su cuota anual vitalicia<sup>*</sup> como Miembro Fundador
+         es de <b style="color:#0369a1">${MXN(Number(r.precio_fundador))} ${cur} al año</b>,
+         en lugar de <b>${MXN(Number(r.precio_ordinario))} ${cur}</b>.
+       </p>`
+    : '';
+
+  const parrafoPlazo = fd
+    ? `<p>Para hacer efectivo este beneficio le agradeceremos ingresar mediante el siguiente enlace
+         y completar su perfil <b>antes del ${fechaLarga(fd)}</b>.</p>`
+    : `<p>Para hacer efectivo este beneficio le agradeceremos ingresar mediante el siguiente enlace
+         y completar su perfil.</p>`;
+
+  const parrafoCierre = `<p>Esperamos nos favorezca aceptando esta invitación y nos permita recibirle
+       en la comunidad Neuromundi.</p>
+     <p>Si por el contrario usted no desea aceptarla y prefiere retirar su ficha del directorio,
+       puede hacerlo desde ese mismo enlace.</p>`
+    + (corte
+      ? `<p>En caso de no elegir ninguna de las dos opciones, su ficha permanecerá en el
+           directorio con su información básica y aparecerá <b>por debajo de los perfiles
+           confirmados</b> en los resultados de búsqueda. A partir del
+           <b>${fechaLarga(corte)}</b>, los datos de contacto se muestran únicamente en los
+           perfiles confirmados.</p>`
+      : '');
+
+  const notaInflacion = hayTarifa
+    ? `<p style="color:#64748b;font-size:12px;line-height:1.5;margin-top:16px">
+         <sup>*</sup> La cuota anual sólo se actualizará en la misma proporción que el incremento
+         anual inflacionario correspondiente a su país.
+       </p>`
+    : '';
+
+  const cuerpo = `<p>Hola, <b>${nombre}</b>:</p>
+    <p><b>Neuromundi</b> es más que un directorio: es la primera comunidad a nivel global que enlaza a
+      pacientes, familias, especialistas, proveedores, prestadores de servicios, clínicas, escuelas,
+      empresas y organizaciones de la sociedad civil en torno a <b>neurodesarrollo, neurodivergencias
+      y afecciones neurológicas</b>.</p>
+    <p>Hemos analizado su perfil y consideramos que sería un excelente miembro de Neuromundi, por lo
+      que hemos agregado su ficha profesional a nuestro directorio público.</p>
+    <p>Su información básica ya es visible para quien busque perfiles como el suyo en el directorio.</p>
+    <p>Al reclamar y activar su perfil completo, usted podrá hacer uso de estas herramientas:</p>
     ${beneficios(r)}
-    <p style="margin-top:12px">Y si lo completa ahora, entra como <b>Miembro Fundador</b>, con <u>beneficios preferentes de por vida</u>.</p>
-    ${bloquePrecio(r)}
-      ${tablaComparativa(r)}
-    ${bloqueFechas(r)}`;
-  return { subject: `${rawNombre}: conviértase en Fundador Neuromundi`, html: shell('Conviértase en Fundador Neuromundi', promoBlock + cuerpo, 'Quiero ser fundador', claim) };
+    ${parrafoOferta}
+    ${tablaComparativa(r)}
+    ${parrafoPlazo}
+    ${parrafoCierre}
+    ${notaInflacion}`;
+
+  return {
+    subject: `${rawNombre}: active su perfil y asegure su cuota de Miembro Fundador`,
+    html: shell('Bienvenido a Neuromundi', promoBlock + cuerpo, 'Activar o eliminar mi perfil', claim),
+  };
 }
 
 Deno.serve(async (req: Request) => {
