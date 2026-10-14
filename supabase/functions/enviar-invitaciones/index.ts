@@ -238,8 +238,8 @@ function segmentOf(r: Row): 'nuevos' | 'ya_publico_social' | 'ya_privado' {
 // Pie legal (LFPDPPP): origen del dato + aviso de privacidad + ARCO + baja.
 function footerLegal(): string {
   return `<p style="color:#64748b;font-size:12px;margin-top:18px;line-height:1.5">
-    Recibes este correo porque tu organización aparece en directorios públicos (como el DENUE del INEGI) relacionados con neurodesarrollo, neurodivergencia y afecciones neurológicas, y por eso figura en el directorio público de Neuromundi.
-    Tratamos tus datos conforme a nuestro <a href="${SITE}/privacy" style="color:#0369a1">Aviso de Privacidad</a>. Puedes ejercer tus derechos ARCO (acceso, rectificación, cancelación u oposición) o pedir que retiremos tu ficha usando el enlace de arriba, o respondiendo a este correo.
+    Recibe este correo porque su organización aparece en directorios públicos (como el DENUE del INEGI) relacionados con neurodesarrollo, neurodivergencia y afecciones neurológicas, y por eso figura en el directorio público de Neuromundi.
+    Tratamos sus datos conforme a nuestro <a href="${SITE}/privacy" style="color:#0369a1">Aviso de Privacidad</a>. Puede ejercer sus derechos ARCO (acceso, rectificación, cancelación u oposición) o pedir que retiremos su ficha usando el enlace de arriba, o respondiendo a este correo.
     <br><br>Neuromundi · comunidad global de neurodesarrollo, neurodivergencia y afecciones neurológicas.
   </p>`;
 }
@@ -266,50 +266,50 @@ function beneficios(r: Row, fundador = true): string {
   let items: string[];
   if (pt === 'company') {
     items = [
-      '🏷️&nbsp; Publica <b>vacantes y oportunidades inclusivas</b> y llega a talento neurodivergente.',
-      '🏅&nbsp; Obtén el <b>distintivo de Empresa Inclusiva</b> descargable para tu web y redes.',
+      '🏷️&nbsp; Publique <b>vacantes y oportunidades inclusivas</b> y llegue a talento neurodivergente.',
+      '🏅&nbsp; Obtenga el <b>distintivo de Empresa Inclusiva</b> descargable para su web y sus redes.',
       '🆓&nbsp; Membresía <b>gratuita</b> para empresas inclusivas.',
     ];
   } else if (pt === 'ngo') {
     items = [
       '🆓&nbsp; Membresía <b>gratuita</b> para organizaciones de la sociedad civil.',
-      '🤝&nbsp; Publica <b>oportunidades</b> (voluntariado, servicio social) y difunde tu labor.',
-      '👪&nbsp; Aparece ante <b>familias</b> que buscan apoyo en tu región.',
+      '🤝&nbsp; Publique <b>oportunidades</b> (voluntariado, servicio social) y difunda su labor.',
+      '👪&nbsp; Aparezca ante <b>familias</b> que buscan apoyo en su región.',
     ];
   } else if (pt === 'school' || pt === 'clinic') {
     items = [
-      '🏫&nbsp; Muestra tu <b>programa de inclusión</b>, grados y admisiones a las familias.',
-      '📅&nbsp; Recibe solicitudes y <b>agenda citas</b> desde tu perfil.',
-      '💬&nbsp; Mensajería directa con familias que buscan tus servicios.',
+      '🏫&nbsp; Muestre su <b>programa de inclusión</b>, grados y admisiones a las familias.',
+      '📅&nbsp; Reciba solicitudes y <b>agende citas</b> desde su perfil.',
+      '💬&nbsp; Mensajería directa con familias que buscan sus servicios.',
     ];
   } else if (pt === 'merchant') {
     items = [
-      '🛍️&nbsp; Vende tus productos en la <b>Tienda</b> y cobra directo — Neuromundi <b>no retiene comisión</b>.',
-      '🔎&nbsp; Aparece ante familias que buscan productos neuroafirmativos.',
-      '⭐&nbsp; Recibe <b>reseñas</b> que dan confianza a nuevos clientes.',
+      '🛍️&nbsp; Venda sus productos en la <b>Tienda</b> y cobre directo — Neuromundi <b>no retiene comisión</b>.',
+      '🔎&nbsp; Aparezca ante familias que buscan productos neuroafirmativos.',
+      '⭐&nbsp; Reciba <b>reseñas</b> que dan confianza a nuevos clientes.',
     ];
   } else if (pt === 'tourism') {
     items = [
-      '🌿&nbsp; Preséntate como <b>espacio de bajo impacto sensorial</b> con tus horarios amigables.',
-      '🔎&nbsp; Aparece ante familias que buscan lugares de esparcimiento inclusivos.',
-      '⭐&nbsp; Recibe <b>reseñas</b> de la comunidad.',
+      '🌿&nbsp; Preséntese como <b>espacio de bajo impacto sensorial</b> con sus horarios amigables.',
+      '🔎&nbsp; Aparezca ante familias que buscan lugares de esparcimiento inclusivos.',
+      '⭐&nbsp; Reciba <b>reseñas</b> de la comunidad.',
     ];
   } else {
     // especialistas y prestadores de servicio (service_provider, wellness, legal, caregiver, etc.)
     items = [
-      '📅&nbsp; Recibe citas con tu <b>agenda y widget de reserva</b>, presencial o en línea.',
-      '💬&nbsp; Mensajería directa con las <b>familias</b> que buscan tu especialidad.',
-      '📈&nbsp; Consulta <b>métricas</b> de tu perfil (vistas y contactos).',
+      '📅&nbsp; Reciba citas con su <b>agenda y widget de reserva</b>, presencial o en línea.',
+      '💬&nbsp; Mensajería directa con las <b>familias</b> que buscan su especialidad.',
+      '📈&nbsp; Consulte <b>métricas</b> de su perfil (vistas y contactos).',
     ];
   }
   const li = items.map((t) => `<li style="margin:6px 0">${t}</li>`).join('');
   const founderLi = fundador
-    ? '<li style="margin:6px 0">🏆&nbsp; <b>Distintivo Fundador Neuromundi</b> para tu perfil, tu web y tus redes.</li>'
+    ? '<li style="margin:6px 0">🏆&nbsp; <b>Distintivo Fundador Neuromundi</b> para su perfil, su web y sus redes.</li>'
     : '';
   return `<ul style="margin:8px 0 0;padding:0;list-style:none;color:#334155;font-size:14px;line-height:1.5">${li}
     <li style="margin:6px 0">🎓&nbsp; Acceso <b>gratuito</b> al <b>curso de bienvenida</b> y al <b>kit de herramientas</b>.</li>
     ${founderLi}
-    <li style="margin:6px 0">📋&nbsp; Participa en la <b>primera encuesta internacional</b> de la comunidad y recibe sus resultados.</li>
+    <li style="margin:6px 0">📋&nbsp; Participe en la <b>primera encuesta internacional</b> de la comunidad y reciba sus resultados.</li>
   </ul>`;
 }
 
@@ -362,14 +362,14 @@ function tablaComparativa(r?: Row): string {
 
 function buildEmail(r: Row, fundador = true, promo: string | null = null): { subject: string; html: string } {
   const claim = `${SITE}/reclamar/${r.token}`;
-  const rawNombre = r.nombre || 'tu organización';
+  const rawNombre = r.nombre || 'su organización';
   const nombre = esc(rawNombre); // escapado para el HTML; el asunto usa rawNombre
   const seg = segmentOf(r);
 
   // Bloque de cortesía: si viene un código exento, se anuncia arriba del cuerpo.
   const promoBlock = promo
     ? `<p style="margin:0 0 14px;font-size:15px;line-height:1.6;color:#065f46;background:#ecfdf5;border:1px solid #a7f3d0;border-radius:12px;padding:12px 14px">
-        🎁 <b>Invitación de cortesía:</b> tu membresía es <b>sin costo</b>. Al registrarte, ingresa este código en el paso de membresía:
+        🎁 <b>Invitación de cortesía:</b> su membresía es <b>sin costo</b>. Al registrarse, ingrese este código en el paso de membresía:
         <br><span style="display:inline-block;margin-top:6px;font-size:18px;font-weight:800;letter-spacing:.04em;color:#047857">${esc(promo)}</span>
       </p>`
     : '';
@@ -380,50 +380,50 @@ function buildEmail(r: Row, fundador = true, promo: string | null = null): { sub
   if (!fundador) {
     const intro = esFree(r)
       ? `<p>Hola, equipo de <b>${nombre}</b>:</p>
-         <p>Te invitamos a <b>Neuromundi</b>, la comunidad global de neurodesarrollo, neurodivergencia y afecciones neurológicas. Para tu tipo de organización la membresía es <b>gratuita</b>. Al <b>completar tu perfil</b> obtienes:</p>`
+         <p>Le invitamos a <b>Neuromundi</b>, la comunidad global de neurodesarrollo, neurodivergencia y afecciones neurológicas. Para su tipo de organización la membresía es <b>gratuita</b>. Al <b>completar su perfil</b> obtiene:</p>`
       : `<p>Hola, equipo de <b>${nombre}</b>:</p>
-         <p>Te invitamos a <b>Neuromundi</b>, la comunidad global de neurodesarrollo, neurodivergencia y afecciones neurológicas. Al <b>completar tu perfil</b> obtienes:</p>`;
+         <p>Le invitamos a <b>Neuromundi</b>, la comunidad global de neurodesarrollo, neurodivergencia y afecciones neurológicas. Al <b>completar su perfil</b> obtiene:</p>`;
     const cuerpo = `${intro}
       ${beneficios(r, false)}
       ${bloquePrecio(r)}
       ${tablaComparativa(r)}
     ${bloqueFechas(r)}`;
-    return { subject: `${rawNombre}: te invitamos a Neuromundi`, html: shell('Únete a Neuromundi', promoBlock + cuerpo, 'Completar mi perfil', claim) };
+    return { subject: `${rawNombre}: le invitamos a Neuromundi`, html: shell('Únase a Neuromundi', promoBlock + cuerpo, 'Completar mi perfil', claim) };
   }
 
   if (seg === 'ya_publico_social') {
     const cuerpo = `<p>Hola, equipo de <b>${nombre}</b>:</p>
-      <p>Hace unos días te escribimos sobre tu perfil en el directorio de Neuromundi. Si aquel mensaje daba a entender que había una cuota, <b>una disculpa</b>: para una organización como la tuya la membresía es <b>gratuita</b>.</p>
-      <p>Al <b>completar tu perfil</b> obtienes:</p>
+      <p>Hace unos días le escribimos sobre su perfil en el directorio de Neuromundi. Si aquel mensaje daba a entender que había una cuota, <b>una disculpa</b>: para una organización como la suya la membresía es <b>gratuita</b>.</p>
+      <p>Al <b>completar su perfil</b> obtiene:</p>
       ${beneficios(r)}
       <p style="margin-top:12px">Y la <b>Insignia de Miembro Fundador</b>, con <u>beneficios preferentes de por vida</u>.</p>
       ${bloquePrecio(r)}
       ${tablaComparativa(r)}
     ${bloqueFechas(r)}`;
-    return { subject: `${rawNombre}: tu perfil en Neuromundi es gratuito — complétalo`, html: shell('Conviértete en Fundador Neuromundi', promoBlock + cuerpo, 'Quiero ser fundador', claim) };
+    return { subject: `${rawNombre}: su perfil en Neuromundi es gratuito — complételo`, html: shell('Conviértase en Fundador Neuromundi', promoBlock + cuerpo, 'Quiero ser fundador', claim) };
   }
   if (seg === 'ya_privado') {
     const cuerpo = `<p>Hola, equipo de <b>${nombre}</b>:</p>
-      <p>Hace unos días te invitamos a completar tu perfil en el directorio de Neuromundi. Por si se te pasó, aquí está de nuevo lo que obtienes al completarlo:</p>
+      <p>Hace unos días le invitamos a completar su perfil en el directorio de Neuromundi. Por si se le pasó, aquí está de nuevo lo que obtiene al completarlo:</p>
       ${beneficios(r)}
-      <p style="margin-top:12px">Además, al completarlo ahora entras como <b>Miembro Fundador</b>, con <u>beneficios preferentes de por vida</u>.</p>
+      <p style="margin-top:12px">Además, al completarlo ahora entra como <b>Miembro Fundador</b>, con <u>beneficios preferentes de por vida</u>.</p>
       ${bloquePrecio(r)}
       ${tablaComparativa(r)}
     ${bloqueFechas(r)}`;
-    return { subject: `${rawNombre}: te reservamos tu perfil en Neuromundi`, html: shell('Conviértete en Fundador Neuromundi', promoBlock + cuerpo, 'Quiero ser fundador', claim) };
+    return { subject: `${rawNombre}: le reservamos su perfil en Neuromundi`, html: shell('Conviértase en Fundador Neuromundi', promoBlock + cuerpo, 'Quiero ser fundador', claim) };
   }
   const intro = esFree(r)
     ? `<p>Hola, equipo de <b>${nombre}</b>:</p>
-       <p>Tu organización ya aparece en el <b>directorio público de Neuromundi</b>. Para tu tipo de organización la membresía es <b>gratuita</b>. Al <b>completar tu perfil</b> obtienes:</p>`
+       <p>Su organización ya aparece en el <b>directorio público de Neuromundi</b>. Para su tipo de organización la membresía es <b>gratuita</b>. Al <b>completar su perfil</b> obtiene:</p>`
     : `<p>Hola, equipo de <b>${nombre}</b>:</p>
-       <p>Tu ficha ya aparece en el <b>directorio público de Neuromundi</b>, la comunidad global de neurodesarrollo, neurodivergencia y afecciones neurológicas. Al <b>completar tu perfil</b> obtienes:</p>`;
+       <p>Su ficha ya aparece en el <b>directorio público de Neuromundi</b>, la comunidad global de neurodesarrollo, neurodivergencia y afecciones neurológicas. Al <b>completar su perfil</b> obtiene:</p>`;
   const cuerpo = `${intro}
     ${beneficios(r)}
-    <p style="margin-top:12px">Y si lo completas ahora, entras como <b>Miembro Fundador</b>, con <u>beneficios preferentes de por vida</u>.</p>
+    <p style="margin-top:12px">Y si lo completa ahora, entra como <b>Miembro Fundador</b>, con <u>beneficios preferentes de por vida</u>.</p>
     ${bloquePrecio(r)}
       ${tablaComparativa(r)}
     ${bloqueFechas(r)}`;
-  return { subject: `${rawNombre}: conviértete en Fundador Neuromundi`, html: shell('Conviértete en Fundador Neuromundi', promoBlock + cuerpo, 'Quiero ser fundador', claim) };
+  return { subject: `${rawNombre}: conviértase en Fundador Neuromundi`, html: shell('Conviértase en Fundador Neuromundi', promoBlock + cuerpo, 'Quiero ser fundador', claim) };
 }
 
 Deno.serve(async (req: Request) => {
