@@ -684,7 +684,13 @@
     "commentLabel": "Want to add anything? (optional)",
     "commentPlaceholder": "Tell us what made this visit special…",
     "anonymous": "Publish my rating anonymously",
-    "required": "Please rate this section"
+    "required": "Please rate this section",
+    "invite": {
+      "title": "Your voice counts",
+      "body": "You've completed your profile. Would you help us with the First International Survey? It's anonymous and takes ~5 minutes.",
+      "cta": "Take the survey",
+      "later": "Not now"
+    }
   },
   "dimHelp": {
     "quality": "How good the service or product was overall.",

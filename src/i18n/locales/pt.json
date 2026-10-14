@@ -647,7 +647,13 @@
     "commentLabel": "Quer adicionar algo? (opcional)",
     "commentPlaceholder": "Conte o que tornou esta visita especial…",
     "anonymous": "Publicar minha avaliação de forma anônima",
-    "required": "Avalie esta seção"
+    "required": "Avalie esta seção",
+    "invite": {
+      "title": "Sua voz conta",
+      "body": "Você concluiu seu perfil. Ajuda-nos com a Primeira Pesquisa Internacional? É anônima e leva ~5 minutos.",
+      "cta": "Responder",
+      "later": "Agora não"
+    }
   },
   "dimHelp": {
     "quality": "Quão bom foi o serviço ou produto no geral.",

@@ -647,7 +647,13 @@
     "commentLabel": "Vuoi aggiungere qualcosa? (facoltativo)",
     "commentPlaceholder": "Raccontaci cosa ha reso speciale questa visita…",
     "anonymous": "Pubblica la mia valutazione in forma anonima",
-    "required": "Valuta questa sezione"
+    "required": "Valuta questa sezione",
+    "invite": {
+      "title": "La tua voce conta",
+      "body": "Hai completato il tuo profilo. Ci aiuti con la Prima Indagine Internazionale? È anonima e richiede ~5 minuti.",
+      "cta": "Rispondi",
+      "later": "Non ora"
+    }
   },
   "dimHelp": {
     "quality": "Quanto è stato buono il servizio o il prodotto in generale.",

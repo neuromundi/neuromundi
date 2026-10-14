@@ -647,7 +647,13 @@
     "commentLabel": "想补充点什么吗？（可选）",
     "commentPlaceholder": "告诉我们这次到访的特别之处…",
     "anonymous": "匿名发布我的评价",
-    "required": "请为此项评分"
+    "required": "请为此项评分",
+    "invite": {
+      "title": "你的声音很重要",
+      "body": "你已完成资料。愿意协助我们完成首次国际调查吗？匿名，约需5分钟。",
+      "cta": "参与调查",
+      "later": "暂不"
+    }
   },
   "dimHelp": {
     "quality": "服务或商品的整体质量。",

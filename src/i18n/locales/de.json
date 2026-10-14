@@ -647,7 +647,13 @@
     "commentLabel": "Möchtest du etwas hinzufügen? (optional)",
     "commentPlaceholder": "Erzähl uns, was diesen Besuch besonders gemacht hat…",
     "anonymous": "Meine Bewertung anonym veröffentlichen",
-    "required": "Bitte bewerte diesen Abschnitt"
+    "required": "Bitte bewerte diesen Abschnitt",
+    "invite": {
+      "title": "Deine Stimme zählt",
+      "body": "Du hast dein Profil vervollständigt. Hilfst du uns bei der Ersten Internationalen Umfrage? Sie ist anonym und dauert ~5 Minuten.",
+      "cta": "Teilnehmen",
+      "later": "Jetzt nicht"
+    }
   },
   "dimHelp": {
     "quality": "Wie gut der Service oder das Produkt insgesamt war.",

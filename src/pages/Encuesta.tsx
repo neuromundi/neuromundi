@@ -53,6 +53,8 @@ export function Encuesta() {
     });
     if (error) { setStatus('error'); setErr('No se pudo enviar. Intenta de nuevo.'); return; }
     setStatus('done');
+    // Apaga para siempre (en este dispositivo) la invitación del banner inferior.
+    try { localStorage.setItem('neuro.surveyInvite.answered', '1'); } catch { /* noop */ }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 

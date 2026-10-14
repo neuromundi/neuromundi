@@ -647,7 +647,13 @@
     "commentLabel": "Vous voulez ajouter quelque chose ? (facultatif)",
     "commentPlaceholder": "Dites-nous ce qui a rendu cette visite spéciale…",
     "anonymous": "Publier mon évaluation de façon anonyme",
-    "required": "Veuillez évaluer cette section"
+    "required": "Veuillez évaluer cette section",
+    "invite": {
+      "title": "Votre voix compte",
+      "body": "Vous avez complété votre profil. Nous aideriez-vous avec la Première Enquête Internationale ? Elle est anonyme et prend ~5 minutes.",
+      "cta": "Répondre",
+      "later": "Plus tard"
+    }
   },
   "dimHelp": {
     "quality": "Qualité globale du service ou du produit.",

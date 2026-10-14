@@ -684,7 +684,13 @@
     "commentLabel": "¿Quieres agregar algo? (opcional)",
     "commentPlaceholder": "Cuéntanos qué hizo especial esta visita…",
     "anonymous": "Publicar mi calificación de forma anónima",
-    "required": "Falta calificar esta sección"
+    "required": "Falta calificar esta sección",
+    "invite": {
+      "title": "Tu voz cuenta",
+      "body": "Ya completaste tu perfil. ¿Nos ayudas con la Primera Encuesta Internacional? Es anónima y toma ~5 minutos.",
+      "cta": "Responder",
+      "later": "Ahora no"
+    }
   },
   "dimHelp": {
     "quality": "Qué tan bueno fue el servicio o producto en general.",
