@@ -116,7 +116,11 @@ export function MembershipModal({ open, onClose }: { open: boolean; onClose: () 
   // Promo efectiva: la canjeada en esta sesión tiene prioridad (feedback
   // inmediato); si no, la que ya tuviera el usuario (my_membership_promo).
   const effectivePromo = appliedPromo ?? activePromo;
-  const previewBase = options ? (period === 'annual' ? options.annual_amount : options.monthly_amount) : null;
+  // El mensual parte de monthlyShown (cuota ORDINARIA, la que cobra Stripe) y
+  // NO de options.monthly_amount, que viene en clase fundador. Usar aquel era
+  // el mismo defecto ya corregido en la tarjeta de precio: el modal llegaba a
+  // enseñar dos cifras distintas y ninguna era la del cargo.
+  const previewBase = options ? (period === 'annual' ? options.annual_amount : monthlyShown) : null;
   let previewFinal: number | null = null;
   let previewOffPct = 0;
   if (options && previewBase != null) {
