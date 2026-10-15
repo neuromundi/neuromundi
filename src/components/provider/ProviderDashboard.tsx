@@ -811,7 +811,14 @@ export function ProviderDashboard() {
           completar el perfil, cubrir la cuota y publicar. Los tres pasos van
           arriba del todo, con lo que falta de cada uno. */}
       <PublicationSteps userId={userId} />
-      {/* Expediente de exención: quién no paga cuota y hasta cuándo. */}
+      {/* Expediente de exención. SOLO a quien puede tener derecho a ella:
+          organizaciones civiles, empresas y entidades del sector público o
+          social. Antes se mostraba a TODOS los prestadores, de modo que una
+          clínica o un especialista que acababa de pagar su cuota veía una
+          solicitud de exención — insinuando una salida que no existe para él e
+          invitando a trámites que sólo se pueden rechazar.
+          Quien ya tenga un expediente abierto lo sigue viendo aunque su tipo
+          haya cambiado: la propia tarjeta se oculta sola si no hay nada. */}
       <ExemptionCard userId={userId} />
       {/* Verificación documental de la ONG (acta o carta de org. de hecho):
           condiciona el asiento de Fundadora. */}

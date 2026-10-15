@@ -56,10 +56,22 @@ export function ExemptionCard({ userId }: { userId: string }) {
   useEffect(() => { void leer(); }, [leer]);
 
   if (!estado) return null;
-  // Sin exención vigente ni en trámite y sin sector que la justifique: nada que
-  // mostrar salvo la puerta de entrada para quien crea tener derecho.
   const enTramite = !!estado.solicitada && !estado.aprobada;
   const vigente = !!estado.aprobada && !estado.vencida;
+
+  // ESTA TARJETA NO SE LE ENSEÑA A QUIEN NO PUEDE PEDIR LA EXENCIÓN.
+  //
+  // Antes se mostraba a TODOS los prestadores: una clínica o un especialista
+  // que acababa de pagar su cuota veía una solicitud de exención, lo que
+  // insinúa una salida que para él no existe e invita a un trámite que sólo
+  // puede terminar en rechazo.
+  //
+  // `aplica` lo calcula la base con exento_de_cuota(sector, provider_type): es
+  // true para organizaciones civiles, empresas y entidades de los sectores
+  // público y social. Quien ya tenga un expediente abierto o vigente lo sigue
+  // viendo aunque su clasificación haya cambiado, para que nadie pierda de
+  // vista un trámite en curso.
+  if (!estado.aplica && !enTramite && !vigente) return null;
 
   async function subir(e: React.ChangeEvent<HTMLInputElement>) {
     const f = e.target.files?.[0];

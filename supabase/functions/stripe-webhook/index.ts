@@ -430,10 +430,45 @@ Deno.serve(async (req: Request) => {
         // SOLO LAS FACTURAS DE LA MEMBRESÍA. Antes se activaba la membresía con
         // CUALQUIER factura del cliente, sin comprobar que viniera de su
         // suscripción de membresía.
-        const invSubId = typeof inv.subscription === 'string'
-          ? inv.subscription
-          : (inv.subscription as { id?: string } | null)?.id ?? null;
-        if (!invSubId) break; // factura suelta: no mueve la membresía
+        //
+        // DE DONDE SALE LA SUSCRIPCION DE LA FACTURA.
+        //
+        // Stripe movio este dato de sitio entre versiones de su API: en las
+        // antiguas viene como `invoice.subscription`, y en las nuevas bajo
+        // `invoice.parent.subscription_details.subscription`. El endpoint del
+        // webhook puede estar fijado a una version distinta de la que usa este
+        // codigo, asi que se miran LAS DOS, y como ultimo recurso se deduce de
+        // las lineas de la factura.
+        //
+        // Esto no es teorico: el 15 de octubre de 2026 el primer pago real
+        // entro, la membresia se activo y el asiento de fundador se concedio,
+        // pero LA COMISION NO SE DEVENGO porque este bloque salia antes de
+        // llegar a ella. Y salia en silencio, respondiendo 200.
+        const invAny = inv as unknown as {
+          subscription?: string | { id?: string } | null;
+          parent?: { subscription_details?: { subscription?: string | { id?: string } | null } | null } | null;
+        };
+        const sacarId = (v: string | { id?: string } | null | undefined): string | null =>
+          typeof v === 'string' ? v : (v?.id ?? null);
+        const invSubId =
+          sacarId(invAny.subscription)
+          ?? sacarId(invAny.parent?.subscription_details?.subscription)
+          ?? sacarId((inv.lines?.data ?? []).map((l) => (l as { subscription?: string | null }).subscription)
+                      .find((x) => !!x) ?? null);
+
+        if (!invSubId) {
+          // NO se sale en silencio. Una factura de la que no se puede deducir
+          // la suscripcion, pero que pertenece a un cliente con membresia, es
+          // justo el caso que hace que alguien pague y no se le acredite.
+          console.error('[invoice.paid sin suscripcion]', inv.id, customerId);
+          await admin.rpc('notify_admins', {
+            p_type: 'invoice_sin_suscripcion',
+            p_title: 'Factura pagada sin suscripción identificable',
+            p_body: 'Entró un invoice.paid del que no se pudo deducir la suscripción. Revisar si corresponde a una membresía y acreditarla a mano.',
+            p_data: { invoice: inv.id, customer: customerId ?? null },
+          }).catch(() => { /* el aviso es best-effort */ });
+          break;
+        }
 
         // LA LÍNEA CORRECTA, NO LA PRIMERA. `lines.data[0]` puede ser una línea
         // de prorrateo o de crédito, con un periodo ya vencido: se guardaba

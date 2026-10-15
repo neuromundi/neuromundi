@@ -14,7 +14,7 @@
  * fieldset/legend y role adecuado, foco visible y textos claros. El público es
  * neurodivergente: se evita la sobrecarga mostrando cada bloque solo cuando toca.
  */
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Heart, Sparkles, Gift, Truck, ShieldCheck, Building2, User } from 'lucide-react';
 import { Button, useToast } from '@/components/ui';
@@ -72,6 +72,25 @@ export function DonationSection() {
   // Muro.
   const [publishConsent, setPublishConsent] = useState(false);
   const [publishAs, setPublishAs] = useState('');
+
+  // PRECARGA DE LOS DATOS DEL DONANTE.
+  //
+  // useState(valor) lee ese valor UNA sola vez, en el primer render. Cuando se
+  // entra a donar desde el panel, el perfil todavía se está cargando en ese
+  // instante, así que los campos nacían vacíos y ya nunca se llenaban: el
+  // donante veía un formulario en blanco pese a tener sesión iniciada, y tenía
+  // que escribir a mano datos que la plataforma ya conoce.
+  //
+  // Sólo se rellena lo que siga vacío, para no pisar nada que la persona haya
+  // escrito mientras el perfil terminaba de cargar.
+  useEffect(() => {
+    if (!profile) return;
+    setContactName((v) => v || profile.full_name || '');
+    setOrgName((v) => v || profile.business_name || '');
+    setShipRecipient((v) => v || profile.full_name || '');
+    const correo = useAuthStore.getState().user?.email ?? '';
+    if (correo) setEmail((v) => v || correo);
+  }, [profile]);
 
   // Física / envío.
   const [waivePhysical, setWaivePhysical] = useState(false);
