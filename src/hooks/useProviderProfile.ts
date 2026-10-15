@@ -8,10 +8,10 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
 import { toMessage } from '@/lib/utils';
-import type { Category, Profile, ProviderSummary } from '@/types/app';
+import type { Category, ProviderSummary, PerfilPublico } from '@/types/app';
 
 export interface UseProviderProfileValue {
-  profile: Profile | null;
+  profile: PerfilPublico | null;
   categories: Category[];
   network: ProviderSummary[];
   loading: boolean;
@@ -19,7 +19,7 @@ export interface UseProviderProfileValue {
 }
 
 export function useProviderProfile(id: string | null): UseProviderProfileValue {
-  const [profile, setProfile] = useState<Profile | null>(null);
+  const [profile, setProfile] = useState<PerfilPublico | null>(null);
   const [categories, setCategories] = useState<Category[]>([]);
   const [network, setNetwork] = useState<ProviderSummary[]>([]);
   const [loading, setLoading] = useState(true);
@@ -40,7 +40,7 @@ export function useProviderProfile(id: string | null): UseProviderProfileValue {
         // —que son la mayoría de los resultados— abrían un perfil vacío porque
         // su id no existe en profiles. La vista ya filtra publicado/no-reclamado.
         const { data: prof, error: pErr } = await supabase
-          .from('directorio_publico')
+          .from('directorio_publico_seguro')
           .select('*')
           .eq('id', id)
           .eq('is_published', true)

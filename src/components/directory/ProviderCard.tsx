@@ -66,9 +66,13 @@ export function ProviderCard({
   // Estado "solo-nombre": el titular RECLAMÓ o creó su perfil pero aún no paga
   // su membresía (`membership_status = 'pending'`). Ahí la búsqueda solo revela
   // nombre/razón social + ciudad (incentivo de pago). Las fichas SIN reclamar
-  // (membership_status 'exempt' en la vista) NO se enmascaran: muestran sus
-  // datos públicos para que el directorio no parezca vacío ni un engaño.
-  const locked = !['active', 'exempt', 'past_due'].includes(provider.membership_status ?? '');
+  // (exentos) NO se enmascaran: muestran sus datos públicos para que el
+  // directorio no parezca vacío ni un engaño.
+  //
+  // `perfil_activo` sustituye a membership_status desde la migración 0220: la
+  // vista pública ya no dice si alguien está moroso, sólo si su perfil está
+  // operativo, que es lo único que esta decisión necesitaba.
+  const locked = provider.perfil_activo === false;
 
   if (locked) {
     return (

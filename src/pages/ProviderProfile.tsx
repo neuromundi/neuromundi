@@ -107,7 +107,10 @@ export function ProviderProfile() {
   // secciones (incentivo de pago). Las fichas SIN reclamar ('exempt' en la vista)
   // NO se enmascaran: muestran sus datos públicos (contacto incluido) para dar
   // confianza; solo llevan una nota informativa de que se están completando.
-  const locked = !['active', 'exempt', 'past_due'].includes((profile as { membership_status?: string }).membership_status ?? '');
+  // `perfil_activo` sustituye a membership_status (migración 0220): para
+  // decidir si se bloquea la vista basta un sí/no, y el estado de la membresía
+  // —si alguien está moroso— no tiene por qué salir en una vista pública.
+  const locked = (profile as { perfil_activo?: boolean }).perfil_activo === false;
   const website = profile.website || profile.website_url;
 
   // "Cómo llegar": deep-links de navegación cuando hay coordenadas. Si no hay

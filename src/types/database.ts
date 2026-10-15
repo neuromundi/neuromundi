@@ -1291,6 +1291,31 @@ export interface Database {
         };
         Relationships: [];
       };
+      /**
+       * Vista pública SEGURA (migración 0220). Misma forma que
+       * directorio_publico pero sin las 30 columnas privadas —Stripe, datos
+       * fiscales, RFC, nacimiento, género, salud, estado de membresía,
+       * suspensiones—. Es la única que leen anon y authenticated; la vista
+       * completa quedó reservada al rol de servicio.
+       */
+      directorio_publico_seguro: {
+        Row: Omit<
+          Database['public']['Tables']['profiles']['Row'],
+          'qr_token' | 'birth_date' | 'gender' | 'condition' | 'membership_status'
+          | 'membership_due_at' | 'membership_paid_until' | 'membership_period'
+          | 'stripe_customer_id' | 'stripe_subscription_id' | 'stripe_connect_id'
+          | 'stripe_charges_enabled' | 'promo_code_used' | 'rfc' | 'public_key'
+          | 'referred_by' | 'referred_at' | 'referral_credit_pct'
+          | 'suspended_at' | 'suspend_until' | 'pre_suspend_published' | 'winback_until'
+          | 'rules_version_accepted' | 'rules_accepted_at'
+        > & {
+          origen: 'perfil' | 'ficha';
+          clee: string | null;
+          reclamable: boolean;
+          perfil_activo: boolean;
+        };
+        Relationships: [];
+      };
     };
 
     Functions: {

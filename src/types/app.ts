@@ -53,8 +53,26 @@ export type PrescriptionInsert = TablesInsert<'prescriptions'>;
 
 // ── Composiciones para la UI ─────────────────────────────────────────────────
 
+/**
+ * Lo que de verdad devuelve la vista pública del directorio (migración 0220):
+ * el perfil SIN las columnas privadas. Si algo del directorio intenta leer un
+ * identificador de Stripe, el RFC, la fecha de nacimiento o el estado de la
+ * membresía, el compilador lo detiene aquí — antes se habría pedido en vano y
+ * habría llegado vacío en tiempo de ejecución.
+ */
+export type PerfilPublico = Omit<
+  Profile,
+  'qr_token' | 'birth_date' | 'gender' | 'condition'
+  | 'membership_status' | 'membership_due_at' | 'membership_paid_until' | 'membership_period'
+  | 'stripe_customer_id' | 'stripe_subscription_id' | 'stripe_connect_id' | 'stripe_charges_enabled'
+  | 'promo_code_used' | 'rfc' | 'public_key'
+  | 'referred_by' | 'referred_at' | 'referral_credit_pct'
+  | 'suspended_at' | 'suspend_until' | 'pre_suspend_published' | 'winback_until'
+  | 'rules_version_accepted' | 'rules_accepted_at'
+> & { perfil_activo?: boolean };
+
 /** Proveedor enriquecido con su EVS y categorías, listo para el directorio. */
-export interface ProviderWithRating extends Profile {
+export interface ProviderWithRating extends PerfilPublico {
   rating: ProviderRating | null;
   categories: Category[];
   /** Distintivo oficial calculado (src/lib/badge). Opcional: lo adjunta el directorio. */

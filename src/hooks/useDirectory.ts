@@ -17,9 +17,9 @@ import { K_OFFERINGS } from '@/data/kCatalog';
 import { NEURO_CONDITIONS } from '@/data/neuroConditionsCatalog';
 import type {
   Category,
-  Profile,
   ProviderRating,
   ProviderWithRating,
+  PerfilPublico,
 } from '@/types/app';
 
 const K_ALL = Object.values(K_OFFERINGS).flat();
@@ -90,7 +90,7 @@ export function useDirectory(filters: DirectoryFilters): UseDirectoryValue {
       //    directorio que todavía no tienen dueño (vista directorio_publico).
       //    Segmentado por país en el servidor: no traemos otros países.
       let query = supabase
-        .from('directorio_publico')
+        .from('directorio_publico_seguro')
         .select('*')
         .eq('role', 'provider')
         .eq('is_published', true);
@@ -98,7 +98,7 @@ export function useDirectory(filters: DirectoryFilters): UseDirectoryValue {
       const { data: profiles, error: pErr } = await query;
       if (pErr) throw pErr;
 
-      const list: Profile[] = profiles ?? [];
+      const list: PerfilPublico[] = profiles ?? [];
       const ids = list.map((p) => p.id);
       if (ids.length === 0) {
         setProviders([]);

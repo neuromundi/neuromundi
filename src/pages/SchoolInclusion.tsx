@@ -9,14 +9,14 @@ import { useTranslation } from 'react-i18next';
 import { School, MapPin, ArrowRight, Search } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { SkeletonCard } from '@/components/ui';
-import type { Profile } from '@/types/app';
+import type { PerfilPublico } from '@/types/app';
 import { providerOtherText } from '@/lib/utils';
 import { useCountry } from '@/stores/countryStore';
 import { CountryFilter } from '@/components/common/CountryFilter';
 
 export function SchoolInclusion() {
   const { t } = useTranslation();
-  const [schools, setSchools] = useState<Profile[]>([]);
+  const [schools, setSchools] = useState<PerfilPublico[]>([]);
   const [loading, setLoading] = useState(true);
   const [q, setQ] = useState('');
   const { country } = useCountry();
@@ -30,14 +30,14 @@ export function SchoolInclusion() {
       // sombra, asesores docentes, etc.), para vincular la categoría del catálogo
       // con esta sección.
       let query = supabase
-        .from('directorio_publico')
+        .from('directorio_publico_seguro')
         .select('*')
         .eq('role', 'provider')
         .eq('is_published', true)
         .or('provider_type.eq.school,intervention_areas.cs.{educacion_inclusiva}');
       if (country) query = query.eq('country', country);
       const { data } = await query;
-      setSchools((data as Profile[]) ?? []);
+      setSchools((data as PerfilPublico[]) ?? []);
       setLoading(false);
     })();
   }, [country]);
