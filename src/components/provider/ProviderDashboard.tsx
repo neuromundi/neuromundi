@@ -6,6 +6,7 @@
  * useProviderRatings); este componente solo orquesta UI y estados de vista.
  */
 import { useMemo, useState } from 'react';
+import { EmpresaPlazoAviso } from '@/components/membership/EmpresaPlazoAviso';
 import { useTranslation } from 'react-i18next';
 import {
   Radar,
@@ -196,6 +197,9 @@ function OffersTab({ providerId }: { providerId: string }) {
 
   return (
     <div className="space-y-4">
+      {/* Plazo para publicar la primera oferta: sólo se pinta a las empresas
+          que aún no tienen ninguna viva (migración 0223). */}
+      <EmpresaPlazoAviso />
       <ProfileCompletion />
       <HowTo stepsKey="howto.offers" />
       <Button onClick={openNew} leadingIcon={<Plus className="h-5 w-5" />} fullWidth>

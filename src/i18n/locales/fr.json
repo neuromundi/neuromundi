@@ -5586,5 +5586,17 @@
       "rechazada": "Refusées",
       "todas": "Toutes"
     }
+  },
+  "empresaPlazo": {
+    "titulo": "Votre adhésion gratuite est provisoire",
+    "tituloGrave": "Publiez une offre pour retrouver votre visibilité",
+    "provisional": "Votre adhésion est gratuite parce que votre entreprise propose emploi, bénévolat ou service civique aux personnes neurodivergentes. Il vous reste {{dias}} jours pour publier votre première offre ; sinon, votre profil n'apparaîtra plus dans l'annuaire.",
+    "sinDirectorio": "Votre profil n'apparaît plus dans l'annuaire faute d'offre publiée. Dans {{dias}} jours, la messagerie et Academy seront également limitées.",
+    "limitada": "La messagerie et Academy sont limitées car votre entreprise n'a aucune offre publiée. Votre compte, vos données et votre accès restent intacts.",
+    "comoReactivar": "Aucun frais. Publiez une offre d'emploi, de bénévolat ou de service civique et tout est rétabli immédiatement.",
+    "muroTitulo": "Cette section est limitée",
+    "muroCuerpo": "Votre adhésion est gratuite parce que votre entreprise propose emploi, bénévolat ou service civique, et 45 jours se sont écoulés sans aucune offre publiée.",
+    "muroNota": "Aucun frais, aucune donnée perdue. Publiez une offre et cette section revient immédiatement.",
+    "muroCta": "Publier une offre"
   }
 }

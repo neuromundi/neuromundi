@@ -7,6 +7,8 @@
  * Los enlaces en los mensajes se muestran como enlaces clicables.
  */
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEmpresaLimitada } from '@/hooks/useEmpresaLimitada';
+import { EmpresaLimitadaMuro } from '@/components/membership/EmpresaLimitadaMuro';
 import { useTranslation } from 'react-i18next';
 import { MessageSquare, Send, Video, ArrowLeft, Plus, Search, FileText, Trash2 } from 'lucide-react';
 import { Button, useToast, EmptyState, Avatar, SkeletonCard } from '@/components/ui';
@@ -54,6 +56,7 @@ function folioToNumber(raw: string): number | null {
 }
 
 export function Messages() {
+  const { limitada: empresaLimitada } = useEmpresaLimitada();
   const { t } = useTranslation();
   const toast = useToast();
   const { isAdmin, isProvider } = useAuth();
@@ -170,6 +173,10 @@ export function Messages() {
     const url = jitsiRoomUrl(active?.other_id || undefined);
     setText((v) => (v ? `${v}\n${url}` : `${t('msg.roomPrefix')} ${url}`));
   };
+
+  // Empresa con 45 días sin publicar oferta: esta pantalla queda limitada
+  // hasta que publique una (migración 0223). No hay cargo de por medio.
+  if (empresaLimitada) return <EmpresaLimitadaMuro />;
 
   return (
     <main className="mx-auto max-w-5xl p-4">

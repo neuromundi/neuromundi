@@ -7,6 +7,8 @@
  * aparecen en los tres) y por nivel. Cualquiera puede inscribirse.
  */
 import { useMemo, useState } from 'react';
+import { useEmpresaLimitada } from '@/hooks/useEmpresaLimitada';
+import { EmpresaLimitadaMuro } from '@/components/membership/EmpresaLimitadaMuro';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { GraduationCap, BookOpen, Play, Check, HeartHandshake, Stethoscope, School, Search } from 'lucide-react';
@@ -24,6 +26,7 @@ const PROFILES: { key: ProfileKey; icon: typeof HeartHandshake; color: string }[
 ];
 
 export function Academy() {
+  const { limitada: empresaLimitada } = useEmpresaLimitada();
   const { t } = useTranslation();
   const toast = useToast();
   const navigate = useNavigate();
@@ -53,6 +56,10 @@ export function Academy() {
   );
 
   const themes = profile ? (t(`lms.profiles.${profile}.themes`, { returnObjects: true }) as string[]) : [];
+
+  // Empresa con 45 días sin publicar oferta: esta pantalla queda limitada
+  // hasta que publique una (migración 0223). No hay cargo de por medio.
+  if (empresaLimitada) return <EmpresaLimitadaMuro />;
 
   return (
     <main className="mx-auto max-w-5xl space-y-6 p-4">

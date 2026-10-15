@@ -1601,6 +1601,15 @@ export interface Database {
         Returns: { ok: boolean; concedida?: boolean; motivo?: string };
       };
       /** Lugares de fundador ya tomados (migración 0222). */
+      /** Estado del plazo de oferta de una empresa exenta (migración 0223). */
+      empresa_estado: {
+        Args: { p_id: string };
+        Returns: { aplica: boolean; con_oferta?: boolean; dias?: number; etapa?: string; dias_para_directorio?: number; dias_para_limite?: number };
+      };
+      empresa_con_oferta: {
+        Args: { p_id: string };
+        Returns: boolean;
+      };
       founder_cupo_usado: {
         Args: { p_country: string; p_kind: string };
         Returns: number;

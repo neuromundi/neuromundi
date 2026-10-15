@@ -5586,5 +5586,17 @@
       "rechazada": "Declined",
       "todas": "All"
     }
+  },
+  "empresaPlazo": {
+    "titulo": "Your free membership is provisional",
+    "tituloGrave": "Post an opening to get your visibility back",
+    "provisional": "Your membership is free because your company offers jobs, volunteering or community placements to neurodivergent people. You have {{dias}} days left to post your first opening; otherwise your profile will stop appearing in the directory.",
+    "sinDirectorio": "Your profile no longer appears in the directory because you have no openings posted. In {{dias}} days, messaging and Academy will be limited too.",
+    "limitada": "Messaging and Academy are limited because your company has no openings posted. Your account, your data and your access are untouched.",
+    "comoReactivar": "There is no charge. Post a job, volunteering or community placement and everything is restored immediately.",
+    "muroTitulo": "This section is limited",
+    "muroCuerpo": "Your membership is free because your company offers jobs, volunteering or community placements, and 45 days have passed without a single opening posted.",
+    "muroNota": "There is no charge and you have lost no data. Post an opening and this section comes back immediately.",
+    "muroCta": "Post an opening"
   }
 }

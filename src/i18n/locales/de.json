@@ -5586,5 +5586,17 @@
       "rechazada": "Abgelehnt",
       "todas": "Alle"
     }
+  },
+  "empresaPlazo": {
+    "titulo": "Ihre kostenlose Mitgliedschaft ist vorläufig",
+    "tituloGrave": "Veröffentlichen Sie ein Angebot, um wieder sichtbar zu werden",
+    "provisional": "Ihre Mitgliedschaft ist kostenlos, weil Ihr Unternehmen neurodivergenten Menschen Arbeit, Ehrenamt oder Praktika anbietet. Sie haben noch {{dias}} Tage, um Ihr erstes Angebot zu veröffentlichen; andernfalls erscheint Ihr Profil nicht mehr im Verzeichnis.",
+    "sinDirectorio": "Ihr Profil erscheint nicht mehr im Verzeichnis, da kein Angebot veröffentlicht ist. In {{dias}} Tagen werden auch Nachrichten und Academy eingeschränkt.",
+    "limitada": "Nachrichten und Academy sind eingeschränkt, weil Ihr Unternehmen kein Angebot veröffentlicht hat. Konto, Daten und Zugang bleiben unberührt.",
+    "comoReactivar": "Es fallen keine Kosten an. Veröffentlichen Sie ein Angebot und alles wird sofort wiederhergestellt.",
+    "muroTitulo": "Dieser Bereich ist eingeschränkt",
+    "muroCuerpo": "Ihre Mitgliedschaft ist kostenlos, weil Ihr Unternehmen Arbeit, Ehrenamt oder Praktika anbietet, und seit 45 Tagen wurde kein Angebot veröffentlicht.",
+    "muroNota": "Keine Kosten, keine verlorenen Daten. Veröffentlichen Sie ein Angebot und dieser Bereich ist sofort wieder da.",
+    "muroCta": "Angebot veröffentlichen"
   }
 }

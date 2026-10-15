@@ -5586,5 +5586,17 @@
       "rechazada": "Rechazadas",
       "todas": "Todas"
     }
+  },
+  "empresaPlazo": {
+    "titulo": "Su membresía gratuita es provisional",
+    "tituloGrave": "Publique una oferta para recuperar su visibilidad",
+    "provisional": "Su membresía no tiene costo porque su empresa ofrece empleo, voluntariado o servicio social a personas neurodivergentes. Le quedan {{dias}} días para publicar su primera oferta; si no lo hace, su perfil dejará de aparecer en el directorio.",
+    "sinDirectorio": "Su perfil ya no aparece en el directorio porque no tiene ninguna oferta publicada. En {{dias}} días también se limitarán la mensajería y Academy.",
+    "limitada": "La mensajería y Academy están limitadas porque su empresa no tiene ninguna oferta publicada. Su cuenta, sus datos y su acceso siguen intactos.",
+    "comoReactivar": "No hay ningún cargo. Publique una oferta de empleo, voluntariado o servicio social y todo se reactiva de inmediato.",
+    "muroTitulo": "Esta sección está limitada",
+    "muroCuerpo": "Su membresía es gratuita porque su empresa ofrece empleo, voluntariado o servicio social, y lleva 45 días sin publicar ninguna oferta.",
+    "muroNota": "No hay ningún cargo ni ha perdido datos. Publique una oferta y esta sección se reactiva de inmediato.",
+    "muroCta": "Publicar una oferta"
   }
 }

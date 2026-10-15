@@ -5586,5 +5586,17 @@
       "rechazada": "Rifiutate",
       "todas": "Tutte"
     }
+  },
+  "empresaPlazo": {
+    "titulo": "La tua iscrizione gratuita è provvisoria",
+    "tituloGrave": "Pubblica un'offerta per tornare visibile",
+    "provisional": "La tua iscrizione è gratuita perché la tua azienda offre lavoro, volontariato o servizio civile a persone neurodivergenti. Ti restano {{dias}} giorni per pubblicare la prima offerta; altrimenti il tuo profilo smetterà di comparire nella directory.",
+    "sinDirectorio": "Il tuo profilo non compare più nella directory perché non hai nessuna offerta pubblicata. Tra {{dias}} giorni verranno limitate anche la messaggistica e Academy.",
+    "limitada": "Messaggistica e Academy sono limitate perché la tua azienda non ha nessuna offerta pubblicata. Account, dati e accesso restano intatti.",
+    "comoReactivar": "Non c'è nessun addebito. Pubblica un'offerta e tutto si riattiva subito.",
+    "muroTitulo": "Questa sezione è limitata",
+    "muroCuerpo": "La tua iscrizione è gratuita perché la tua azienda offre lavoro, volontariato o servizio civile, e sono passati 45 giorni senza nessuna offerta pubblicata.",
+    "muroNota": "Nessun addebito e nessun dato perso. Pubblica un'offerta e questa sezione torna subito.",
+    "muroCta": "Pubblica un'offerta"
   }
 }
