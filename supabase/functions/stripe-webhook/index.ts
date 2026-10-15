@@ -31,6 +31,15 @@ const admin = createClient(
   { auth: { persistSession: false } },
 );
 
+// Monedas que Stripe maneja SIN decimales: su importe ya viene en la unidad
+// entera y no se divide entre 100. La lista corta ('jpy','krw','clp','vnd')
+// que circula por el resto del proyecto deja fuera doce, PYG entre ellas, que
+// este proyecto ya usa para Paraguay.
+const SIN_DECIMALES = new Set([
+  'bif', 'clp', 'djf', 'gnf', 'jpy', 'kmf', 'krw', 'mga', 'pyg',
+  'rwf', 'ugx', 'vnd', 'vuv', 'xaf', 'xof', 'xpf',
+]);
+
 const toIso = (unixSeconds?: number | null) =>
   unixSeconds ? new Date(unixSeconds * 1000).toISOString() : null;
 
@@ -164,7 +173,20 @@ Deno.serve(async (req: Request) => {
           paidUntil = toIso(sub.current_period_end);
         }
         if (userId) {
-          await admin
+          // ESTE UPDATE ES EL PAGO. Si falla, la persona pagó y no tiene nada.
+          //
+          // Antes no se revisaba su `error`: supabase-js NO lanza excepciones,
+          // devuelve { data, error }, así que un fallo aquí pasaba inadvertido,
+          // el switch continuaba, la función respondía 200 y Stripe NO
+          // reintentaba. El cobro quedaba hecho y el perfil en 'pending', sin
+          // publicar y sin rastro. Hay seis disparadores BEFORE sobre profiles
+          // que pueden abortar este UPDATE, así que no es una hipótesis remota.
+          //
+          // Ahora: se revisa el error Y se comprueba que de verdad se tocó la
+          // fila (`select('id')`), porque un UPDATE que no encuentra a nadie
+          // tampoco devuelve error. Si algo de eso falla se avisa a los admins
+          // y se responde 500, para que Stripe reintente durante tres días.
+          const { data: activado, error: errAct } = await admin
             .from('profiles')
             .update({
               membership_status: 'active',
@@ -173,7 +195,22 @@ Deno.serve(async (req: Request) => {
               membership_paid_until: paidUntil,
               membership_period: s.metadata?.period === 'monthly' ? 'monthly' : 'annual',
             })
-            .eq('id', userId);
+            .eq('id', userId)
+            .select('id');
+          if (errAct || !activado || activado.length === 0) {
+            const detalle = errAct?.message ?? 'el perfil no fue encontrado';
+            console.error('[ACTIVACION FALLIDA]', userId, s.id, detalle);
+            await admin.rpc('notify_admins', {
+              p_type: 'membership_activation_failed',
+              p_title: 'Un pago entró y la membresía NO se activó',
+              p_body: 'Stripe cobró pero no se pudo activar la membresía. Revisar y resolver a mano.',
+              p_data: { user_id: userId, session_id: s.id, error: detalle },
+            }).catch(() => { /* el aviso es best-effort; el 500 no */ });
+            return new Response(
+              JSON.stringify({ error: `No se pudo activar la membresía: ${detalle}` }),
+              { status: 500, headers: { 'Content-Type': 'application/json' } },
+            );
+          }
           // Asiento de Miembro Fundador: se otorga AQUÍ, después del pago, no al
           // entrar a la plataforma. Antes lo tomaba useFounderAutoClaim en la
           // primera visita, así que un visitante que nunca pagaba bloqueaba un
@@ -237,7 +274,14 @@ Deno.serve(async (req: Request) => {
                 p_user_id: userId,
                 p_code: allyCode,
                 p_currency: s.currency ?? null,
-                p_amount: s.amount_total != null ? s.amount_total / 100 : null,
+                // Las monedas sin decimales (CLP, PYG…) no llevan el /100:
+                // antes se dividía siempre y el crédito quedaba cien veces por
+                // debajo en esos países.
+                p_amount: s.amount_total != null
+                  ? (SIN_DECIMALES.has((s.currency ?? '').toLowerCase())
+                      ? s.amount_total
+                      : s.amount_total / 100)
+                  : null,
               });
             }
           } catch (e) {
@@ -277,6 +321,26 @@ Deno.serve(async (req: Request) => {
         const ch = event.data.object as Stripe.Charge;
         const pi = typeof ch.payment_intent === 'string' ? ch.payment_intent : ch.payment_intent?.id;
         if (!pi) break;
+
+        // PARCIAL NO ES TOTAL. Stripe emite charge.refunded también cuando se
+        // devuelve una parte. Antes no se miraba: devolver $50 de una compra de
+        // $2 000 marcaba el pedido entero como reembolsado, sacaba el donativo
+        // del muro, dejaba la cita como no pagada y anulaba el crédito del
+        // aliado. Un reembolso parcial se avisa y se resuelve a mano; no se
+        // revierte nada automáticamente.
+        const totalCobrado = ch.amount ?? 0;
+        const totalDevuelto = ch.amount_refunded ?? 0;
+        if (totalCobrado > 0 && totalDevuelto > 0 && totalDevuelto < totalCobrado) {
+          console.log('[reembolso parcial]', ch.id, totalDevuelto, 'de', totalCobrado);
+          await admin.rpc('notify_admins', {
+            p_type: 'partial_refund',
+            p_title: 'Reembolso parcial: requiere revisión',
+            p_body: 'Se devolvió una parte del cobro. No se revirtió nada de forma automática.',
+            p_data: { charge: ch.id, devuelto: totalDevuelto, cobrado: totalCobrado, currency: ch.currency },
+          }).catch(() => { /* best-effort */ });
+          break;
+        }
+
         // El pedido se guarda con el id de la sesión, no del PaymentIntent, así
         // que hay que localizar la sesión que originó este cobro.
         const sessions = await stripe.checkout.sessions.list({ payment_intent: pi, limit: 1 });
@@ -284,8 +348,41 @@ Deno.serve(async (req: Request) => {
         if (!sessionId) break;
         // Si era una membresía con código de alianza, anula su crédito.
         const refUser = sessions.data[0]?.metadata?.user_id;
+        const refKind = sessions.data[0]?.metadata?.kind;
         if (refUser) {
           await admin.from('alliance_credits').update({ status: 'void' }).eq('source_user_id', refUser);
+        }
+
+        // REEMBOLSO DE MEMBRESÍA. Antes este bloque tocaba pedidos, donativos,
+        // pagos y citas, pero NUNCA profiles: se devolvía el dinero y la
+        // persona conservaba doce meses de servicio publicado, porque
+        // cuota_cubierta() mira membership_status y membership_paid_until, y
+        // ninguno de los dos se movía. Además el referidor se quedaba con su
+        // comisión sobre dinero devuelto.
+        //
+        // 'refunded' no existe en el CHECK de membership_status (sólo pending,
+        // active, past_due y exempt), así que se vuelve a 'pending' y se limpia
+        // la fecha de vigencia, que es lo que de verdad abre el servicio.
+        if (refUser && refKind !== 'product' && refKind !== 'donation'
+            && refKind !== 'consultation' && refKind !== 'therapy') {
+          const { error: errRev } = await admin
+            .from('profiles')
+            .update({ membership_status: 'pending', membership_paid_until: null })
+            .eq('id', refUser);
+          if (errRev) console.error('revertir membresia reembolsada', errRev.message);
+          // La comisión del referidor se revierte: se devengó sobre un ingreso
+          // que ya no existe.
+          await admin
+            .from('membership_commissions')
+            .update({ status: 'revertida', revertida_en: new Date().toISOString() })
+            .eq('referred_id', refUser)
+            .eq('status', 'devengada');
+          await admin.rpc('notify_admins', {
+            p_type: 'membership_refunded',
+            p_title: 'Membresía reembolsada',
+            p_body: 'Se devolvió una membresía: el perfil vuelve a pendiente y la comisión del referidor queda revertida.',
+            p_data: { user_id: refUser, charge: ch.id },
+          }).catch(() => { /* best-effort */ });
         }
         await admin
           .from('orders')
@@ -329,7 +426,30 @@ Deno.serve(async (req: Request) => {
       case 'invoice.paid': {
         const inv = event.data.object as Stripe.Invoice;
         const customerId = typeof inv.customer === 'string' ? inv.customer : inv.customer?.id;
-        const invLine = inv.lines?.data?.[0];
+
+        // SOLO LAS FACTURAS DE LA MEMBRESÍA. Antes se activaba la membresía con
+        // CUALQUIER factura del cliente, sin comprobar que viniera de su
+        // suscripción de membresía.
+        const invSubId = typeof inv.subscription === 'string'
+          ? inv.subscription
+          : (inv.subscription as { id?: string } | null)?.id ?? null;
+        if (!invSubId) break; // factura suelta: no mueve la membresía
+
+        // LA LÍNEA CORRECTA, NO LA PRIMERA. `lines.data[0]` puede ser una línea
+        // de prorrateo o de crédito, con un periodo ya vencido: se guardaba
+        // entonces una vigencia en el pasado junto a un estado 'active', y la
+        // periodicidad se deducía de ese mismo intervalo corto, de modo que una
+        // anual con prorrateo quedaba registrada como mensual. Se toma la línea
+        // de la suscripción con el periodo que termina más tarde.
+        const lineas = (inv.lines?.data ?? []).filter((l) => {
+          const lsub = (l as { subscription?: string | null }).subscription;
+          return !lsub || lsub === invSubId;
+        });
+        const invLine = lineas.reduce<typeof lineas[number] | undefined>((mejor, l) => {
+          const fin = l?.period?.end ?? 0;
+          return !mejor || fin > (mejor.period?.end ?? 0) ? l : mejor;
+        }, undefined) ?? inv.lines?.data?.[0];
+
         const paidUntil = toIso(invLine?.period?.end ?? null);
         // Periodicidad inferida del intervalo de la línea (≤ 45 días = mensual).
         let invPeriod: 'monthly' | 'annual' | null = null;
@@ -391,15 +511,37 @@ Deno.serve(async (req: Request) => {
         }
         break;
       }
-      case 'invoice.payment_failed':
+      // UN COBRO FALLIDO NO ES UNA CANCELACIÓN. Antes los dos eventos
+      // compartían el mismo bloque y ambos dejaban 'past_due': quien cancelaba
+      // por su voluntad quedaba marcado como moroso, con la vigencia intacta, y
+      // aparecía así en el panel y en los recordatorios.
+      case 'invoice.payment_failed': {
+        const obj = event.data.object as { customer?: string | { id: string } };
+        const customerId = typeof obj.customer === 'string' ? obj.customer : obj.customer?.id;
+        if (customerId) {
+          // Moroso de verdad: Stripe seguirá reintentando. No se toca la
+          // vigencia, porque los días ya pagados siguen siendo suyos.
+          const { error } = await admin
+            .from('profiles')
+            .update({ membership_status: 'past_due' })
+            .eq('stripe_customer_id', customerId);
+          if (error) console.error('marcar past_due', error.message);
+        }
+        break;
+      }
       case 'customer.subscription.deleted': {
         const obj = event.data.object as { customer?: string | { id: string } };
         const customerId = typeof obj.customer === 'string' ? obj.customer : obj.customer?.id;
         if (customerId) {
-          await admin
+          // Suscripción terminada. El servicio dura lo que ya está pagado:
+          // membership_paid_until NO se toca, y cuota_cubierta() lo respeta.
+          // Se vacía stripe_subscription_id para que no quede apuntando a una
+          // suscripción que ya no existe.
+          const { error } = await admin
             .from('profiles')
-            .update({ membership_status: 'past_due' })
+            .update({ membership_status: 'pending', stripe_subscription_id: null })
             .eq('stripe_customer_id', customerId);
+          if (error) console.error('cerrar suscripcion', error.message);
         }
         break;
       }
