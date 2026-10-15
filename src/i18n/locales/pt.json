@@ -5637,5 +5637,30 @@
     "verPerfil": "Ver meu perfil público",
     "muroFundadores": "Mural de fundadores",
     "muroDonantes": "Mural de doadores"
+  },
+  "mispagos": {
+    "tab": "Meus pagamentos",
+    "title": "Meus pagamentos",
+    "help": "Sua cota, suas doações e as comissões que ganhou por indicar, em um só lugar.",
+    "refresh": "Atualizar",
+    "unavailable": "Não foi possível carregar seu histórico agora. Tente de novo.",
+    "vacioTitle": "Ainda não há movimentos",
+    "vacio": "Quando pagar sua cota, doar ou ganhar uma comissão, aparecerá aqui.",
+    "nota": "Os valores vêm do registro próprio do Neuromundi. Para a nota fiscal, escreva para admin@neuromundi.com.",
+    "tipo": {
+      "cuota": "Cota de associação",
+      "donativo": "Doação",
+      "comision": "Comissão por indicação"
+    },
+    "total": {
+      "cuota": "Pago em cota",
+      "donativo": "Doado",
+      "comision": "Ganho por indicação"
+    },
+    "pagado": "Pago",
+    "devuelto": "Devolvido",
+    "revertida": "Revertida",
+    "porCobrar": "A receber",
+    "cobrada": "Recebida"
   }
 }

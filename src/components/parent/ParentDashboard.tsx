@@ -7,7 +7,7 @@
  * las procesa en cola, una por una.
  */
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { QrCode, Tag, History, Package, ListChecks, CalendarClock, FolderHeart, Store, Gift } from 'lucide-react';
+import { QrCode, Tag, History, Package, ListChecks, CalendarClock, FolderHeart, Store, Gift, Receipt } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Tabs, SkeletonCard } from '@/components/ui';
 import { useAuth } from '@/hooks/useAuth';
@@ -27,6 +27,7 @@ import { FounderBadge } from '@/components/ui';
 import { useFounderStatus } from '@/hooks/useFounder';
 import { FounderRequirements } from '@/components/founder/FounderRequirements';
 import { RecommendPanel } from '@/components/referral/RecommendPanel';
+import { MisPagos } from '@/components/payments/MisPagos';
 import { DonateCallout } from '@/components/donation/DonateCallout';
 import { ContinueLearning } from '@/components/toolkit/ContinueLearning';
 import { TribeForumsPanel } from '@/components/tribe/TribeForumsPanel';
@@ -232,6 +233,12 @@ export function ParentDashboard() {
             label: t('shop.myStore'),
             icon: <Store className="h-4 w-4" aria-hidden="true" />,
             content: userId ? <ProductManager vendorId={userId} /> : <SkeletonCard rows={2} />,
+          },
+          {
+            id: 'mispagos',
+            label: t('mispagos.tab'),
+            icon: <Receipt className="h-4 w-4" aria-hidden="true" />,
+            content: <MisPagos />,
           },
           {
             id: 'recommend',

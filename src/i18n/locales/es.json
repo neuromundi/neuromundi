@@ -5637,5 +5637,30 @@
     "verPerfil": "Ver mi perfil público",
     "muroFundadores": "Muro de fundadores",
     "muroDonantes": "Muro de donantes"
+  },
+  "mispagos": {
+    "tab": "Mis pagos",
+    "title": "Mis pagos",
+    "help": "Su cuota, sus donativos y las comisiones que ha ganado por recomendar, en un solo lugar.",
+    "refresh": "Actualizar",
+    "unavailable": "No se pudo cargar su historial ahora. Inténtelo de nuevo.",
+    "vacioTitle": "Aún no hay movimientos",
+    "vacio": "Cuando pague su cuota, haga un donativo o gane una comisión, aparecerá aquí.",
+    "nota": "Las cifras provienen del registro propio de Neuromundi. Para el comprobante fiscal, escriba a admin@neuromundi.com.",
+    "tipo": {
+      "cuota": "Cuota de membresía",
+      "donativo": "Donativo",
+      "comision": "Comisión por recomendar"
+    },
+    "total": {
+      "cuota": "Pagado en cuota",
+      "donativo": "Donado",
+      "comision": "Ganado por recomendar"
+    },
+    "pagado": "Pagado",
+    "devuelto": "Devuelto",
+    "revertida": "Revertida",
+    "porCobrar": "Por cobrar",
+    "cobrada": "Cobrada"
   }
 }

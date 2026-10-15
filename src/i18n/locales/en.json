@@ -5637,5 +5637,30 @@
     "verPerfil": "View my public profile",
     "muroFundadores": "Founders wall",
     "muroDonantes": "Donors wall"
+  },
+  "mispagos": {
+    "tab": "My payments",
+    "title": "My payments",
+    "help": "Your membership fee, your donations and the commissions you have earned by referring, all in one place.",
+    "refresh": "Refresh",
+    "unavailable": "Could not load your history right now. Please try again.",
+    "vacioTitle": "No activity yet",
+    "vacio": "Once you pay your fee, make a donation or earn a commission, it will show up here.",
+    "nota": "Figures come from Neuromundi’s own ledger. For a tax receipt, write to admin@neuromundi.com.",
+    "tipo": {
+      "cuota": "Membership fee",
+      "donativo": "Donation",
+      "comision": "Referral commission"
+    },
+    "total": {
+      "cuota": "Paid in fees",
+      "donativo": "Donated",
+      "comision": "Earned by referring"
+    },
+    "pagado": "Paid",
+    "devuelto": "Refunded",
+    "revertida": "Reversed",
+    "porCobrar": "Pending payout",
+    "cobrada": "Paid out"
   }
 }

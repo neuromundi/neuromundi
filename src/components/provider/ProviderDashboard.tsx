@@ -16,33 +16,7 @@ import {
   PolarRadiusAxis,
   ResponsiveContainer,
 } from 'recharts';
-import {
-  Tag,
-  ScanLine,
-  History,
-  Star,
-  Plus,
-  Pencil,
-  Trash2,
-  Play,
-  Pause,
-  Download,
-  Stethoscope,
-  Boxes,
-  Users,
-  CalendarClock,
-  BarChart3,
-  CreditCard,
-  FileText,
-  FolderHeart,
-  Link2,
-  GraduationCap,
-  Store,
-  Gift,
-  Megaphone,
-  Briefcase,
-  Lock,
-} from 'lucide-react';
+import { Tag, ScanLine, History, Star, Plus, Pencil, Trash2, Play, Pause, Download, Stethoscope, Boxes, Users, CalendarClock, BarChart3, CreditCard, FileText, FolderHeart, Link2, GraduationCap, Store, Gift, Megaphone, Briefcase, Lock, Receipt } from 'lucide-react';
 import {
   Tabs,
   Modal,
@@ -89,6 +63,7 @@ import { FounderRequirements } from '@/components/founder/FounderRequirements';
 import { FounderCountdownCard } from '@/components/membership/FounderCountdownCard';
 import { DonateCallout } from '@/components/donation/DonateCallout';
 import { RecommendPanel } from '@/components/referral/RecommendPanel';
+import { MisPagos } from '@/components/payments/MisPagos';
 import { defaultOfferValues, type OfferFormValues } from '@/lib/schemas';
 import { formatDate, formatDateTime, exportToCsv } from '@/lib/utils';
 import type { Offer, OfferStatus, OfferInsert, ProviderType, TransactionStatus } from '@/types/app';
@@ -739,6 +714,16 @@ export function ProviderDashboard() {
     content: <ProviderPayments />,
   };
 
+  // "Pagos" (arriba) es lo que COBRA a sus clientes. Esta es lo que ha PAGADO
+  // él: cuota, donativos y comisiones ganadas. Son cosas distintas y van
+  // separadas a propósito.
+  const misPagosTab = {
+    id: 'mispagos',
+    label: t('mispagos.tab'),
+    icon: <Receipt className="h-4 w-4" aria-hidden="true" />,
+    content: <MisPagos />,
+  };
+
   const contentTab = {
     id: 'content',
     label: t('content.tab'),
@@ -782,6 +767,7 @@ export function ProviderDashboard() {
     ...(featureTab ? [featureTab] : []),
     ...(storeTab ? [storeTab] : []),
     affiliateTab,
+    misPagosTab,
     networkTab,
     tribeForumsTab,
     recommendTab,

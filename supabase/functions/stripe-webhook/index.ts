@@ -370,6 +370,10 @@ Deno.serve(async (req: Request) => {
             .update({ membership_status: 'pending', membership_paid_until: null })
             .eq('id', refUser);
           if (errRev) console.error('revertir membresia reembolsada', errRev.message);
+          // El asiento de la cuota en el libro propio también se revierte, o el
+          // libro seguiría declarando un ingreso que se devolvió.
+          await admin.rpc('revertir_ultimo_pago_de_membresia', { p_user: refUser })
+            .then(({ error }) => { if (error) console.error('revertir asiento de cuota', error.message); });
           // La comisión del referidor se revierte: se devengó sobre un ingreso
           // que ya no existe.
           await admin
@@ -537,6 +541,29 @@ Deno.serve(async (req: Request) => {
             //
             // Best-effort absoluto: un fallo del libro no puede tumbar el
             // procesamiento de un pago ya cobrado.
+            // LIBRO PROPIO DE CUOTAS (migración 0228). Hasta el 15 de octubre
+            // de 2026 Neuromundi no asentaba en ninguna tabla las cuotas que
+            // cobraba: sólo quedaba su efecto (membership_paid_until) en el
+            // perfil. Sin este libro no hay de dónde decirle a nadie qué pagó,
+            // cuándo y cuánto, y la contabilidad depende de que Stripe siga
+            // ahí. Va aquí y no en checkout.session.completed por lo mismo que
+            // la comisión: el primer pago dispara los dos eventos. La factura
+            // es la llave única, así que una reentrega no duplica el asiento.
+            try {
+              await admin.rpc('registrar_pago_de_membresia', {
+                p_user: payerId,
+                p_amount_cents: inv.amount_paid ?? 0,
+                p_currency: inv.currency ?? 'mxn',
+                p_stripe_ref: inv.id,
+                p_concepto: inv.billing_reason === 'subscription_create' ? 'inscripcion' : 'renovacion',
+                p_period: invPeriod,
+                p_member_class: null,
+                p_paid_until: paidUntil,
+              });
+            } catch (e) {
+              console.error('registrar_pago_de_membresia', e);
+            }
+
             try {
               const esPrimerPago = inv.billing_reason === 'subscription_create';
               const { data: com } = await admin.rpc('devengar_comision_membresia', {

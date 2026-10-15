@@ -5637,5 +5637,30 @@
     "verPerfil": "公開プロフィールを見る",
     "muroFundadores": "創設メンバーの一覧",
     "muroDonantes": "寄付者の一覧"
+  },
+  "mispagos": {
+    "tab": "お支払い",
+    "title": "お支払い",
+    "help": "会費、寄付、紹介で得た報酬を一か所にまとめています。",
+    "refresh": "更新",
+    "unavailable": "履歴を読み込めませんでした。もう一度お試しください。",
+    "vacioTitle": "まだ記録がありません",
+    "vacio": "会費の支払い、寄付、報酬の獲得があるとここに表示されます。",
+    "nota": "金額は Neuromundi の帳簿に基づきます。領収書は admin@neuromundi.com までご連絡ください。",
+    "tipo": {
+      "cuota": "会費",
+      "donativo": "寄付",
+      "comision": "紹介報酬"
+    },
+    "total": {
+      "cuota": "会費の支払い合計",
+      "donativo": "寄付合計",
+      "comision": "紹介で得た報酬"
+    },
+    "pagado": "支払い済み",
+    "devuelto": "返金済み",
+    "revertida": "取消済み",
+    "porCobrar": "受取待ち",
+    "cobrada": "受取済み"
   }
 }

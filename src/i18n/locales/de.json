@@ -5637,5 +5637,30 @@
     "verPerfil": "Mein öffentliches Profil ansehen",
     "muroFundadores": "Gründerwand",
     "muroDonantes": "Spenderwand"
+  },
+  "mispagos": {
+    "tab": "Meine Zahlungen",
+    "title": "Meine Zahlungen",
+    "help": "Ihr Beitrag, Ihre Spenden und die durch Empfehlungen verdienten Provisionen an einem Ort.",
+    "refresh": "Aktualisieren",
+    "unavailable": "Verlauf konnte nicht geladen werden. Bitte erneut versuchen.",
+    "vacioTitle": "Noch keine Vorgänge",
+    "vacio": "Sobald Sie Ihren Beitrag zahlen, spenden oder eine Provision verdienen, erscheint es hier.",
+    "nota": "Die Beträge stammen aus dem eigenen Buch von Neuromundi. Für einen Beleg schreiben Sie an admin@neuromundi.com.",
+    "tipo": {
+      "cuota": "Mitgliedsbeitrag",
+      "donativo": "Spende",
+      "comision": "Empfehlungsprovision"
+    },
+    "total": {
+      "cuota": "Für Beiträge gezahlt",
+      "donativo": "Gespendet",
+      "comision": "Durch Empfehlungen verdient"
+    },
+    "pagado": "Bezahlt",
+    "devuelto": "Erstattet",
+    "revertida": "Storniert",
+    "porCobrar": "Ausstehend",
+    "cobrada": "Ausgezahlt"
   }
 }

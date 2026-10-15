@@ -1390,6 +1390,15 @@ export interface Database {
           actualizado_en: string;
         };
       };
+      /** Cuotas, donativos y comisiones de la persona que consulta (migracion 0228). */
+      mis_pagos: {
+        Args: Record<string, never>;
+        Returns: {
+          tipo: string; concepto: string | null; monto_cents: number;
+          currency: string | null; fecha: string | null;
+          estado: string | null; referencia: string | null;
+        }[];
+      };
       /** Minimo acumulado para liquidar, en centavos; null si no hay tipo de cambio (0226). */
       umbral_liquidacion_cents: {
         Args: { p_currency: string | null };

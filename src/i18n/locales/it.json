@@ -5637,5 +5637,30 @@
     "verPerfil": "Vedi il mio profilo pubblico",
     "muroFundadores": "Muro dei fondatori",
     "muroDonantes": "Muro dei donatori"
+  },
+  "mispagos": {
+    "tab": "I miei pagamenti",
+    "title": "I miei pagamenti",
+    "help": "La tua quota, le tue donazioni e le commissioni guadagnate con le segnalazioni, in un solo posto.",
+    "refresh": "Aggiorna",
+    "unavailable": "Impossibile caricare lo storico. Riprova.",
+    "vacioTitle": "Ancora nessun movimento",
+    "vacio": "Quando pagherai la quota, farai una donazione o guadagnerai una commissione, apparirà qui.",
+    "nota": "Gli importi provengono dal registro di Neuromundi. Per la ricevuta fiscale scrivi a admin@neuromundi.com.",
+    "tipo": {
+      "cuota": "Quota associativa",
+      "donativo": "Donazione",
+      "comision": "Commissione di segnalazione"
+    },
+    "total": {
+      "cuota": "Pagato in quote",
+      "donativo": "Donato",
+      "comision": "Guadagnato con le segnalazioni"
+    },
+    "pagado": "Pagato",
+    "devuelto": "Rimborsato",
+    "revertida": "Annullata",
+    "porCobrar": "Da incassare",
+    "cobrada": "Incassata"
   }
 }

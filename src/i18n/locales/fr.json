@@ -5637,5 +5637,30 @@
     "verPerfil": "Voir mon profil public",
     "muroFundadores": "Mur des fondateurs",
     "muroDonantes": "Mur des donateurs"
+  },
+  "mispagos": {
+    "tab": "Mes paiements",
+    "title": "Mes paiements",
+    "help": "Votre cotisation, vos dons et les commissions gagnées par vos recommandations, au même endroit.",
+    "refresh": "Actualiser",
+    "unavailable": "Impossible de charger votre historique. Réessayez.",
+    "vacioTitle": "Aucun mouvement pour l’instant",
+    "vacio": "Dès que vous payez votre cotisation, faites un don ou gagnez une commission, cela apparaîtra ici.",
+    "nota": "Les montants proviennent du registre de Neuromundi. Pour un justificatif fiscal, écrivez à admin@neuromundi.com.",
+    "tipo": {
+      "cuota": "Cotisation",
+      "donativo": "Don",
+      "comision": "Commission de parrainage"
+    },
+    "total": {
+      "cuota": "Payé en cotisation",
+      "donativo": "Donné",
+      "comision": "Gagné par parrainage"
+    },
+    "pagado": "Payé",
+    "devuelto": "Remboursé",
+    "revertida": "Annulée",
+    "porCobrar": "À percevoir",
+    "cobrada": "Perçue"
   }
 }

@@ -5637,5 +5637,30 @@
     "verPerfil": "查看我的公开主页",
     "muroFundadores": "创始会员墙",
     "muroDonantes": "捐赠者墙"
+  },
+  "mispagos": {
+    "tab": "我的付款",
+    "title": "我的付款",
+    "help": "您的会费、捐赠和推荐所得佣金，集中在一处。",
+    "refresh": "刷新",
+    "unavailable": "暂时无法加载记录，请重试。",
+    "vacioTitle": "暂无记录",
+    "vacio": "缴纳会费、捐赠或获得佣金后，将显示在这里。",
+    "nota": "金额来自 Neuromundi 自有账簿。如需发票，请联系 admin@neuromundi.com。",
+    "tipo": {
+      "cuota": "会员费",
+      "donativo": "捐赠",
+      "comision": "推荐佣金"
+    },
+    "total": {
+      "cuota": "会费合计",
+      "donativo": "捐赠合计",
+      "comision": "推荐所得"
+    },
+    "pagado": "已支付",
+    "devuelto": "已退款",
+    "revertida": "已冲销",
+    "porCobrar": "待结算",
+    "cobrada": "已结算"
   }
 }
