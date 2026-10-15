@@ -1222,7 +1222,12 @@
       "pending": "프로필을 완성하면 비용이 표시됩니다.",
       "specialistPending": "직업을 선택하면 바로 회원 비용이 표시됩니다.",
       "notConfigured": "해당 국가에 설정되면 비용이 표시됩니다.",
-      "pickCountry": "회원비를 확인하려면 국가를 선택하세요"
+      "pickCountry": "회원비를 확인하려면 국가를 선택하세요",
+      "labelOrdinaria": "일반 요금",
+      "labelAnual": "연간 요금",
+      "diezDoce": "10개월 결제로 12개월 이용",
+      "ahorroFundador": "창립 회원 요금이면 월 결제보다 연간 {{amount}} 저렴하며, 갱신할 때마다 그 가격이 유지됩니다.",
+      "ahorroAnual": "연간 요금을 한 번에 결제하면 월 결제보다 {{amount}} 저렴합니다."
     },
     "afterConfirmPay": "이메일을 확인하고 로그인하면 멤버십 결제를 완료하도록 안내합니다.",
     "countryFeeHint": "국가에 따라 회비와 결제 통화가 정해집니다."

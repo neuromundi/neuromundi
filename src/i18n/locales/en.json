@@ -1222,7 +1222,12 @@
       "pending": "The cost will appear once you complete your profile.",
       "specialistPending": "Your membership cost will appear as soon as you choose your profession.",
       "notConfigured": "The cost will show once it's configured for your country.",
-      "pickCountry": "Select your country to see your membership price"
+      "pickCountry": "Select your country to see your membership price",
+      "labelOrdinaria": "standard rate",
+      "labelAnual": "annual rate",
+      "diezDoce": "pay 10 months, get 12",
+      "ahorroFundador": "With the Founding Member rate you pay {{amount}} less per year than month by month, and that price is kept for you at every renewal.",
+      "ahorroAnual": "Paying for the year up front costs {{amount}} less than month by month."
     },
     "afterConfirmPay": "After you confirm your email and sign in, you'll be asked to complete your membership payment.",
     "countryFeeHint": "Your country determines your fee and the currency you are charged in."

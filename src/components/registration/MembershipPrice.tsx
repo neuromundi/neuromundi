@@ -96,35 +96,59 @@ export function MembershipPrice({ type, affiliate, pending, pendingText, boxed, 
 
   function priceInner(): JSX.Element | null {
     const cur = q?.currency || 'MXN';
-    // El descuento de Miembro Fundador rige SOLO en la suscripcion anual, asi
+    // El descuento de Miembro Fundador rige SOLO en la suscripción anual, así
     // que la ventaja se mide sobre el precio ANUAL, no sobre el mensual.
-    // Antes se medía con founder_monthly; al retirar esa cifra de la tabla
-    // (migración 0216) el bloque entero se habría apagado y la página habría
-    // dejado de anunciar el precio de fundador, que es el eje de la campaña.
     const hasFounder =
       q?.founder_annual != null && q?.ordinary_annual != null && q.founder_annual !== q.ordinary_annual;
     // El importe mensual SIEMPRE es el ordinario: pagar por mes es renunciar
-    // a la cuota de fundador. Enseñar aquí el de fundador sería anunciar la
-    // mitad de lo que Stripe va a cobrar.
-    const bigMonthly = q?.ordinary_monthly;
-    const bigAnnual = hasFounder ? q?.founder_annual : q?.ordinary_annual;
-    if (!q || !q.configured || bigMonthly == null) return null;
+    // a la cuota de fundador.
+    const mensual = q?.ordinary_monthly;
+    if (!q || !q.configured || mensual == null) return null;
+
+    // Lo que cuesta un año pagando mes a mes. Sin esta cifra las dos columnas
+    // no son comparables y el lector tiene que multiplicar de cabeza.
+    const mensualAlAnio = mensual * 12;
+    // La columna derecha es SIEMPRE el anual que de verdad se puede contratar:
+    // el de fundador mientras haya cupo y plazo, el ordinario después. Así la
+    // oferta de pagar 10 meses y recibir 12 nunca desaparece de la pantalla:
+    // cambia de cifra, no de existencia.
+    const anual = hasFounder ? q.founder_annual : q.ordinary_annual;
+    const ahorro = anual != null ? mensualAlAnio - anual : null;
+
+    const Etiqueta = ({ texto, destacada }: { texto: string; destacada?: boolean }) => (
+      <span className={`inline-block rounded px-1.5 py-0.5 text-[11px] font-bold ${
+        destacada ? 'bg-brand-600 text-white' : 'bg-sky-100 text-brand-800'
+      }`}>{texto}</span>
+    );
+
     return (
       <>
-        <div className="text-2xl font-extrabold text-brand-700">
-          {q.is_from && <span className="text-sm font-semibold text-muted">{t('reg.price.from')} </span>}
-          {fmt(bigMonthly, cur)}<span className="text-sm font-medium text-muted">{t('reg.price.perMonth')}</span>
+        <div className="mt-1">
+          <Etiqueta texto={t('reg.price.labelOrdinaria')} />
+          <div className="text-xl font-extrabold text-brand-700">
+            {q.is_from && <span className="text-sm font-semibold text-muted">{t('reg.price.from')} </span>}
+            {fmt(mensual, cur)}<span className="text-sm font-medium text-muted">{t('reg.price.perMonth')}</span>
+            <span className="ml-1 text-xs font-medium text-muted">· {fmt(mensualAlAnio, cur)}{t('reg.price.perYear')}</span>
+          </div>
         </div>
-        {bigAnnual != null && (
-          <div className="text-xs text-muted">
-            {t('reg.price.or')}{' '}
-            {hasFounder && q.ordinary_annual != null && (
-              <span className="text-slate-400 line-through">{fmt(q.ordinary_annual, cur)} </span>
-            )}
-            <b className="text-slate-900">{fmt(bigAnnual, cur)}</b>{t('reg.price.perYear')}
+
+        {anual != null && (
+          <div className="mt-2">
+            <Etiqueta texto={hasFounder ? t('reg.price.founderBadge') : t('reg.price.labelAnual')} destacada={hasFounder} />
+            <div className="text-xl font-extrabold text-brand-700">
+              {fmt(anual, cur)}<span className="text-sm font-medium text-muted">{t('reg.price.perYear')}</span>
+            </div>
+            <div className="text-xs font-medium text-sage-700">{t('reg.price.diezDoce')}</div>
           </div>
         )}
-        {hasFounder && <span className="mt-1 inline-block rounded-full bg-sky-100 px-2 py-0.5 text-[11px] font-bold text-brand-700">{t('reg.price.founderBadge')}</span>}
+
+        {ahorro != null && ahorro > 0 && (
+          <p className="mt-2 text-xs text-slate-700">
+            {hasFounder
+              ? t('reg.price.ahorroFundador', { amount: fmt(ahorro, cur) })
+              : t('reg.price.ahorroAnual', { amount: fmt(ahorro, cur) })}
+          </p>
+        )}
       </>
     );
   }

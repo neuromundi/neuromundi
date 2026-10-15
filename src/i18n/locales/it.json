@@ -1185,7 +1185,12 @@
       "pending": "Il costo apparirà al completamento del profilo.",
       "specialistPending": "Il costo della tua iscrizione apparirà appena scegli la tua professione.",
       "notConfigured": "Il costo verrà mostrato quando sarà configurato per il tuo paese.",
-      "pickCountry": "Seleziona il tuo paese per vedere il costo della tua iscrizione"
+      "pickCountry": "Seleziona il tuo paese per vedere il costo della tua iscrizione",
+      "labelOrdinaria": "quota ordinaria",
+      "labelAnual": "quota annuale",
+      "diezDoce": "paghi 10 mesi e ne ricevi 12",
+      "ahorroFundador": "Con il prezzo da fondatore paghi {{amount}} in meno all'anno rispetto al mese, e quel prezzo ti viene mantenuto a ogni rinnovo.",
+      "ahorroAnual": "Pagando l'anno in una volta paghi {{amount}} in meno rispetto al mese."
     },
     "afterConfirmPay": "Dopo aver confermato l'email e aver effettuato l'accesso, ti verrà chiesto di completare il pagamento della tua iscrizione.",
     "countryFeeHint": "Dal tuo paese dipendono la quota e la valuta in cui ti viene addebitata."

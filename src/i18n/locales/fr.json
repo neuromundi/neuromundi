@@ -1185,7 +1185,12 @@
       "pending": "Le coût apparaîtra une fois ton profil complété.",
       "specialistPending": "Le coût de ton adhésion apparaîtra dès que tu choisiras ta profession.",
       "notConfigured": "Le coût s'affichera une fois configuré pour ton pays.",
-      "pickCountry": "Sélectionnez votre pays pour voir le prix de votre adhésion"
+      "pickCountry": "Sélectionnez votre pays pour voir le prix de votre adhésion",
+      "labelOrdinaria": "tarif normal",
+      "labelAnual": "tarif annuel",
+      "diezDoce": "payez 10 mois, recevez-en 12",
+      "ahorroFundador": "Avec le tarif Membre Fondateur, vous payez {{amount}} de moins par an qu'au mois, et ce prix vous est conservé à chaque renouvellement.",
+      "ahorroAnual": "En payant l'année d'un coup, vous payez {{amount}} de moins qu'au mois."
     },
     "afterConfirmPay": "Après avoir confirmé votre e-mail et vous être connecté, il vous sera demandé de finaliser le paiement de votre adhésion.",
     "countryFeeHint": "Votre pays détermine votre cotisation et la devise de facturation."

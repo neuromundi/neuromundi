@@ -1222,7 +1222,12 @@
       "pending": "El costo aparecerá al completar tu perfil.",
       "specialistPending": "Aquí se mostrará el costo de tu membresía en cuanto elijas tu profesión.",
       "notConfigured": "El costo se mostrará cuando esté configurado para tu país.",
-      "pickCountry": "Selecciona tu país para ver el costo de tu membresía"
+      "pickCountry": "Selecciona tu país para ver el costo de tu membresía",
+      "labelOrdinaria": "cuota ordinaria",
+      "labelAnual": "cuota anual",
+      "diezDoce": "pagas 10 meses y recibes 12",
+      "ahorroFundador": "Con el precio de fundador pagas {{amount}} menos al año que mes a mes, y ese precio se te respeta en cada renovación.",
+      "ahorroAnual": "Pagando el año de una vez pagas {{amount}} menos que mes a mes."
     },
     "afterConfirmPay": "Al confirmar tu correo e iniciar sesión, se te pedirá completar el pago de tu membresía.",
     "countryFeeHint": "De tu país dependen la cuota y la moneda en que se te cobra."

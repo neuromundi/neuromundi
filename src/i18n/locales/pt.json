@@ -1185,7 +1185,12 @@
       "pending": "O custo aparecerá ao completar o seu perfil.",
       "specialistPending": "O custo da sua associação aparecerá assim que você escolher a sua profissão.",
       "notConfigured": "O custo será exibido quando estiver configurado para o seu país.",
-      "pickCountry": "Selecione o seu país para ver o valor da sua assinatura"
+      "pickCountry": "Selecione o seu país para ver o valor da sua assinatura",
+      "labelOrdinaria": "cota comum",
+      "labelAnual": "cota anual",
+      "diezDoce": "paga 10 meses e recebe 12",
+      "ahorroFundador": "Com o preço de fundador você paga {{amount}} a menos por ano do que mês a mês, e esse preço é mantido em cada renovação.",
+      "ahorroAnual": "Pagando o ano de uma vez você paga {{amount}} a menos do que mês a mês."
     },
     "afterConfirmPay": "Depois de confirmar seu e-mail e entrar, será solicitado que você conclua o pagamento da sua assinatura.",
     "countryFeeHint": "Do seu país dependem a cota e a moeda em que você é cobrado."
