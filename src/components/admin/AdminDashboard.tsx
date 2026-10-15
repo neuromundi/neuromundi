@@ -35,6 +35,7 @@ import { AdminCampaign } from './AdminCampaign';
 import { AdminInvitations } from './AdminInvitations';
 import { AdminFichas } from './AdminFichas';
 import { AdminComisiones } from './AdminComisiones';
+import { AdminSolicitudesFundador } from './AdminSolicitudesFundador';
 import { AdminHeroCarousel } from './AdminHeroCarousel';
 import { formatDate, cn } from '@/lib/utils';
 import type { Profile } from '@/types/app';
@@ -318,7 +319,12 @@ export function AdminDashboard({ advisor = false }: { advisor?: boolean } = {}) 
       ) : section === 'donations' ? (
         <AdminDonations />
       ) : section === 'founders' ? (
-        <AdminFounders />
+        // La bandeja de solicitudes va junto al padrón de fundadores: quien
+        // revisa el cupo es quien decide sobre quien se quedó fuera de él.
+        <div className="space-y-8">
+          <AdminSolicitudesFundador />
+          <AdminFounders />
+        </div>
       ) : section === 'badges' ? (
         <AdminMemberBadges />
       ) : section === 'carousel' ? (

@@ -5552,5 +5552,34 @@
     "primerPago": "primer pago",
     "renovacion": "renovacion",
     "pagadaEl": "pagada el"
+  },
+  "solFund": {
+    "title": "Anfragen zum Gründungsmitglied-Beitrag",
+    "help": "Personen, die den Gründungsmitglied-Beitrag anfragen, obwohl die Plätze ihres Landes vergeben sind oder die Frist abgelaufen ist. Gewähren berechtigt nur diese Person; das allgemeine Kontingent bleibt unverändert.",
+    "refresh": "Aktualisieren",
+    "unavailable": "Anfragen konnten nicht geladen werden.",
+    "vacio": "Keine Anfragen in diesem Status.",
+    "colQuien": "Wer",
+    "colPais": "Land",
+    "colCupo": "Vergeben / Kontingent",
+    "colPedida": "Angefragt",
+    "colNota": "Notiz",
+    "colAccion": "Aktion",
+    "conceder": "Gewähren",
+    "rechazar": "Ablehnen",
+    "okConcedida": "Gründungsmitglied-Beitrag gewährt.",
+    "okRechazada": "Anfrage abgelehnt.",
+    "errResolver": "Die Anfrage konnte nicht bearbeitet werden.",
+    "ofrecer": "Die Plätze für Gründungsmitglieder in Ihrem Land sind vergeben oder die Frist ist abgelaufen. Sie können um einen Platz bitten; wir prüfen jede Anfrage einzeln.",
+    "pedirCta": "Gründungsmitglied-Beitrag anfragen",
+    "pedirOk": "Anfrage gesendet. Wir melden uns nach der Prüfung.",
+    "pedirError": "Die Anfrage konnte nicht gesendet werden.",
+    "pendienteAviso": "Ihre Anfrage wird geprüft. Wir melden uns, sobald es eine Antwort gibt.",
+    "estados": {
+      "pendiente": "Offen",
+      "aprobada": "Gewährt",
+      "rechazada": "Abgelehnt",
+      "todas": "Alle"
+    }
   }
 }

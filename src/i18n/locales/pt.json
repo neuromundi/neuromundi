@@ -5552,5 +5552,34 @@
     "primerPago": "primer pago",
     "renovacion": "renovacion",
     "pagadaEl": "pagada el"
+  },
+  "solFund": {
+    "title": "Pedidos de cota de fundador",
+    "help": "Quem pede a cota de Membro Fundador quando as vagas do seu país acabaram ou o prazo venceu. Conceder autoriza apenas essa pessoa: a cota geral não muda.",
+    "refresh": "Atualizar",
+    "unavailable": "Não foi possível carregar os pedidos.",
+    "vacio": "Não há pedidos neste estado.",
+    "colQuien": "Quem",
+    "colPais": "País",
+    "colCupo": "Usadas / vagas",
+    "colPedida": "Pedido em",
+    "colNota": "Nota",
+    "colAccion": "Ação",
+    "conceder": "Conceder",
+    "rechazar": "Recusar",
+    "okConcedida": "Cota de fundador autorizada.",
+    "okRechazada": "Pedido recusado.",
+    "errResolver": "Não foi possível resolver o pedido.",
+    "ofrecer": "As vagas de Membro Fundador do seu país acabaram ou o prazo venceu. Você pode pedir que reservemos uma; analisamos caso a caso.",
+    "pedirCta": "Solicitar a cota de fundador",
+    "pedirOk": "Pedido enviado. Avisamos assim que analisarmos.",
+    "pedirError": "Não foi possível enviar o pedido.",
+    "pendienteAviso": "Seu pedido de cota de fundador está em análise. Avisamos assim que houver resposta.",
+    "estados": {
+      "pendiente": "Pendentes",
+      "aprobada": "Aprovados",
+      "rechazada": "Recusados",
+      "todas": "Todos"
+    }
   }
 }

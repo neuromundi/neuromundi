@@ -5552,5 +5552,34 @@
     "primerPago": "primer pago",
     "renovacion": "renovacion",
     "pagadaEl": "pagada el"
+  },
+  "solFund": {
+    "title": "Solicitudes de cuota de fundador",
+    "help": "Quienes piden la cuota de Miembro Fundador cuando el cupo de su país ya se agotó o venció el plazo. Conceder autoriza sólo a esa persona: el cupo general no se mueve.",
+    "refresh": "Actualizar",
+    "unavailable": "No se pudieron cargar las solicitudes.",
+    "vacio": "No hay solicitudes en este estado.",
+    "colQuien": "Quién",
+    "colPais": "País",
+    "colCupo": "Usados / cupo",
+    "colPedida": "Pedida",
+    "colNota": "Nota",
+    "colAccion": "Acción",
+    "conceder": "Conceder",
+    "rechazar": "Rechazar",
+    "okConcedida": "Cuota de fundador autorizada.",
+    "okRechazada": "Solicitud rechazada.",
+    "errResolver": "No se pudo resolver la solicitud.",
+    "ofrecer": "El cupo de Miembro Fundador de tu país ya se agotó o venció el plazo. Puedes pedir que te lo reservemos; lo revisamos uno por uno.",
+    "pedirCta": "Solicitar la cuota de fundador",
+    "pedirOk": "Solicitud enviada. Te avisamos en cuanto la revisemos.",
+    "pedirError": "No se pudo enviar la solicitud.",
+    "pendienteAviso": "Tu solicitud de cuota de fundador está en revisión. Te avisamos en cuanto haya respuesta.",
+    "estados": {
+      "pendiente": "Pendientes",
+      "aprobada": "Aprobadas",
+      "rechazada": "Rechazadas",
+      "todas": "Todas"
+    }
   }
 }

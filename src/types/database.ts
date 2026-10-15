@@ -1558,6 +1558,23 @@ export interface Database {
        * monthly_amount no se cobra nunca (el descuento de fundador solo rige
        * en el anual).
        */
+      /** Solicitud de cuota de fundador fuera de cupo o plazo (migración 0218). */
+      solicitar_cuota_fundador: {
+        Args: { p_nota?: string | null };
+        Returns: { ok: boolean; motivo?: string; country?: string; kind?: string };
+      };
+      mi_solicitud_fundador: {
+        Args: Record<string, never>;
+        Returns: { status: string; solicitada_en?: string; resuelta_en?: string | null; nota_admin?: string | null };
+      };
+      admin_solicitudes_fundador: {
+        Args: { p_status?: string };
+        Returns: { user_id: string; nombre: string | null; correo: string | null; pais: string | null; kind: string | null; affiliate_type: string | null; nota_usuario: string | null; status: string; solicitada_en: string; nota_admin: string | null; usados: number | null; cupo: number | null }[];
+      };
+      admin_resolver_solicitud_fundador: {
+        Args: { p_user: string; p_conceder: boolean; p_nota?: string | null };
+        Returns: { ok: boolean; concedida?: boolean; motivo?: string };
+      };
       my_membership_monthly_ordinary: {
         Args: Record<string, never>;
         Returns: { currency: string; monthly_amount: number | null }[];

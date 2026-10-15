@@ -5552,5 +5552,34 @@
     "primerPago": "first payment",
     "renovacion": "renewal",
     "pagadaEl": "paid on"
+  },
+  "solFund": {
+    "title": "Founding Member requests",
+    "help": "People asking for the Founding Member rate once their country's places have run out or the deadline has passed. Granting authorises that person only: the general cap does not move.",
+    "refresh": "Refresh",
+    "unavailable": "Requests could not be loaded.",
+    "vacio": "No requests in this state.",
+    "colQuien": "Who",
+    "colPais": "Country",
+    "colCupo": "Used / cap",
+    "colPedida": "Requested",
+    "colNota": "Note",
+    "colAccion": "Action",
+    "conceder": "Grant",
+    "rechazar": "Decline",
+    "okConcedida": "Founding Member rate authorised.",
+    "okRechazada": "Request declined.",
+    "errResolver": "The request could not be resolved.",
+    "ofrecer": "The Founding Member places for your country have run out, or the deadline has passed. You can ask us to reserve one; we review each request individually.",
+    "pedirCta": "Request the Founding Member rate",
+    "pedirOk": "Request sent. We'll let you know once we've reviewed it.",
+    "pedirError": "The request could not be sent.",
+    "pendienteAviso": "Your Founding Member request is under review. We'll let you know as soon as there's an answer.",
+    "estados": {
+      "pendiente": "Pending",
+      "aprobada": "Approved",
+      "rechazada": "Declined",
+      "todas": "All"
+    }
   }
 }

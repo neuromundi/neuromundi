@@ -5552,5 +5552,34 @@
     "primerPago": "primer pago",
     "renovacion": "renovacion",
     "pagadaEl": "pagada el"
+  },
+  "solFund": {
+    "title": "Richieste di quota da fondatore",
+    "help": "Chi chiede la quota da Membro Fondatore quando i posti del suo paese sono esauriti o il termine è scaduto. Concedere autorizza solo quella persona: il tetto generale non cambia.",
+    "refresh": "Aggiorna",
+    "unavailable": "Impossibile caricare le richieste.",
+    "vacio": "Nessuna richiesta in questo stato.",
+    "colQuien": "Chi",
+    "colPais": "Paese",
+    "colCupo": "Usati / tetto",
+    "colPedida": "Richiesta il",
+    "colNota": "Nota",
+    "colAccion": "Azione",
+    "conceder": "Concedere",
+    "rechazar": "Rifiutare",
+    "okConcedida": "Quota da fondatore autorizzata.",
+    "okRechazada": "Richiesta rifiutata.",
+    "errResolver": "Impossibile gestire la richiesta.",
+    "ofrecer": "I posti da Membro Fondatore del tuo paese sono esauriti, o il termine è scaduto. Puoi chiedere che te ne riserviamo uno; valutiamo caso per caso.",
+    "pedirCta": "Richiedere la quota da fondatore",
+    "pedirOk": "Richiesta inviata. Ti avvisiamo appena l'avremo valutata.",
+    "pedirError": "Impossibile inviare la richiesta.",
+    "pendienteAviso": "La tua richiesta è in esame. Ti avvisiamo appena ci sarà una risposta.",
+    "estados": {
+      "pendiente": "In attesa",
+      "aprobada": "Approvate",
+      "rechazada": "Rifiutate",
+      "todas": "Tutte"
+    }
   }
 }

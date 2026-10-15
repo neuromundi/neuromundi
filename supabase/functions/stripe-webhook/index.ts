@@ -476,8 +476,16 @@ Deno.serve(async (req: Request) => {
           if (payerId) {
             // Si esta factura se cobró con el cupón de recomendación, el
             // crédito ya se usó: se pone a cero.
+            // Dos caminos gastan el crédito acumulado de recomendación:
+            //  - el cupón 'referral' que crea applyReferralReward al premiar;
+            //  - el cupón 'discount' del checkout, que compone referral_pct
+            //    con el resto de descuentos y lleva referral_used = '1'.
+            // Antes sólo se miraba el primero, de modo que quien pagaba por el
+            // segundo camino conservaba su crédito intacto y volvía a gastarlo
+            // en cada cobro siguiente.
+            const cupMeta = (inv.discount?.coupon?.metadata ?? {}) as Record<string, string>;
             const usedReferralCoupon =
-              (inv.discount?.coupon?.metadata as Record<string, string> | undefined)?.kind === 'referral';
+              cupMeta.kind === 'referral' || cupMeta.referral_used === '1';
             if (usedReferralCoupon) {
               await admin.rpc('consume_referral_credit', { p_user: payerId });
             }

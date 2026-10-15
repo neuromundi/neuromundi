@@ -5552,5 +5552,34 @@
     "primerPago": "primer pago",
     "renovacion": "renovacion",
     "pagadaEl": "pagada el"
+  },
+  "solFund": {
+    "title": "创始会员资费申请",
+    "help": "所在国家名额已满或期限已过后仍申请创始会员资费的人。批准仅对该用户生效，总名额不变。",
+    "refresh": "刷新",
+    "unavailable": "无法加载申请。",
+    "vacio": "该状态下没有申请。",
+    "colQuien": "申请人",
+    "colPais": "国家",
+    "colCupo": "已用 / 名额",
+    "colPedida": "申请时间",
+    "colNota": "备注",
+    "colAccion": "操作",
+    "conceder": "批准",
+    "rechazar": "拒绝",
+    "okConcedida": "已批准创始会员资费。",
+    "okRechazada": "已拒绝申请。",
+    "errResolver": "无法处理该申请。",
+    "ofrecer": "您所在国家的创始会员名额已满，或期限已过。您可以申请保留名额，我们会逐一审核。",
+    "pedirCta": "申请创始会员资费",
+    "pedirOk": "申请已提交。审核后将通知您。",
+    "pedirError": "申请提交失败。",
+    "pendienteAviso": "您的创始会员资费申请正在审核中，有结果会通知您。",
+    "estados": {
+      "pendiente": "待处理",
+      "aprobada": "已批准",
+      "rechazada": "已拒绝",
+      "todas": "全部"
+    }
   }
 }

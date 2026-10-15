@@ -71,6 +71,36 @@ Deno.serve(async (req: Request) => {
   if (!profile) return json(404, { error: 'Perfil no encontrado' });
   if (profile.membership_status === 'exempt') return json(400, { error: 'Tu cuenta está exenta de pago.' });
 
+  // NADIE CONTRATA DOS VECES. Antes lo único que se rechazaba era 'exempt': un
+  // miembro con suscripción viva podía abrir el modal en otra pestaña, o
+  // invocar esta función con su propio token, y crear una SEGUNDA suscripción
+  // sobre el mismo cliente de Stripe. El webhook sobrescribe entonces
+  // stripe_subscription_id con la nueva y la primera queda huérfana: sigue
+  // facturando cada año y ya no se puede cancelar desde la aplicación.
+  //
+  // Se comprueba contra Stripe, no contra la base: la base puede ir atrasada
+  // respecto de la realidad del cobro, y es la realidad la que cobra.
+  if (profile.stripe_customer_id) {
+    try {
+      const vivas = await stripe.subscriptions.list({
+        customer: profile.stripe_customer_id, status: 'active', limit: 1,
+      });
+      const pendientes = await stripe.subscriptions.list({
+        customer: profile.stripe_customer_id, status: 'trialing', limit: 1,
+      });
+      if (vivas.data.length > 0 || pendientes.data.length > 0) {
+        return json(409, {
+          error: 'Ya tienes una suscripción activa. Gestiónala desde Ajustes en lugar de contratar otra.',
+          code: 'subscription_exists',
+        });
+      }
+    } catch (e) {
+      // Si Stripe no responde no se bloquea el alta de un cliente nuevo, pero
+      // queda registrado: este es el punto exacto donde nace un doble cobro.
+      console.error('comprobar suscripcion existente', e);
+    }
+  }
+
   // El tipo NO se toma de provider_type: eso agrupaba a todos los especialistas
   // como 'service_provider' e impedía cobrar la cuota médica. affiliate_type_for
   // aplica la clasificación (profesión + override del admin).
@@ -215,7 +245,17 @@ Deno.serve(async (req: Request) => {
         percent_off: discountPct,
         duration: 'once',
         name: `Descuento Neuromundi (-${discountPct}%)`,
-        metadata: { user_id: u.user.id, kind: 'discount', referral_pct: String(referralPct), promo_pct: String(pct), country_pct: String(countryPct) },
+        // `referral_used` le dice al webhook que este cupón SÍ gastó el crédito
+        // acumulado de recomendación. Antes el webhook sólo consumía el crédito
+        // cuando el cupón venía marcado como kind 'referral', y este camino lo
+        // marcaba como 'discount': el crédito se aplicaba y NO se ponía a cero,
+        // así que el mismo porcentaje volvía a descontarse en cada cobro
+        // posterior, indefinidamente.
+        metadata: {
+          user_id: u.user.id, kind: 'discount',
+          referral_pct: String(referralPct), promo_pct: String(pct), country_pct: String(countryPct),
+          referral_used: referralPct > 0 ? '1' : '0',
+        },
       });
       discounts = [{ coupon: coupon.id }];
     }

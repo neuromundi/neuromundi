@@ -5552,5 +5552,34 @@
     "primerPago": "primer pago",
     "renovacion": "renovacion",
     "pagadaEl": "pagada el"
+  },
+  "solFund": {
+    "title": "창립 회원 요금 신청",
+    "help": "해당 국가의 자리가 모두 찼거나 기한이 지난 뒤 창립 회원 요금을 요청한 분들입니다. 승인하면 그 사람만 적용되며 전체 정원은 변하지 않습니다.",
+    "refresh": "새로고침",
+    "unavailable": "신청을 불러오지 못했습니다.",
+    "vacio": "이 상태의 신청이 없습니다.",
+    "colQuien": "신청자",
+    "colPais": "국가",
+    "colCupo": "사용 / 정원",
+    "colPedida": "신청 일시",
+    "colNota": "메모",
+    "colAccion": "처리",
+    "conceder": "승인",
+    "rechazar": "거절",
+    "okConcedida": "창립 회원 요금을 승인했습니다.",
+    "okRechazada": "신청을 거절했습니다.",
+    "errResolver": "신청을 처리하지 못했습니다.",
+    "ofrecer": "국가의 창립 회원 자리가 모두 찼거나 기한이 지났습니다. 자리를 요청하실 수 있으며, 건별로 검토합니다.",
+    "pedirCta": "창립 회원 요금 신청하기",
+    "pedirOk": "신청을 보냈습니다. 검토 후 알려드리겠습니다.",
+    "pedirError": "신청을 보내지 못했습니다.",
+    "pendienteAviso": "창립 회원 요금 신청을 검토 중입니다. 결과가 나오면 알려드리겠습니다.",
+    "estados": {
+      "pendiente": "대기",
+      "aprobada": "승인됨",
+      "rechazada": "거절됨",
+      "todas": "전체"
+    }
   }
 }

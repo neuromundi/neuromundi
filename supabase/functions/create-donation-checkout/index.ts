@@ -37,7 +37,17 @@ const FALLBACK_THRESHOLDS: Record<string, Record<string, number>> = {
   MXN: { seed: 200, ally: 1000, driver: 2000, ambassador: 3000 },
   EUR: { seed: 10, ally: 50, driver: 100, ambassador: 150 },
 };
-const ZERO_DECIMAL = new Set(['jpy', 'krw', 'clp', 'vnd']);
+// Monedas SIN decimales según Stripe: el importe va tal cual, sin ×100.
+//
+// La lista anterior ('jpy','krw','clp','vnd') dejaba fuera DOCE monedas, entre
+// ellas PYG, que este proyecto ya usa para Paraguay: una consulta de
+// PYG 150 000 se habría cobrado como PYG 15 000 000, cien veces más. Es el
+// mismo error de factor cien que ya ocurrió en la membresía, aquí todavía
+// latente porque ningún prestador tiene moneda de cobro configurada.
+const ZERO_DECIMAL = new Set([
+  'bif', 'clp', 'djf', 'gnf', 'jpy', 'kmf', 'krw', 'mga', 'pyg',
+  'rwf', 'ugx', 'vnd', 'vuv', 'xaf', 'xof', 'xpf',
+]);
 const LEVELS = ['seed', 'ally', 'driver', 'ambassador'] as const;
 
 function levelFor(amount: number, thresholds: Record<string, number>): string | null {
@@ -115,6 +125,12 @@ Deno.serve(async (req: Request) => {
 
   const cur = currency.toLowerCase();
   const unitAmount = ZERO_DECIMAL.has(cur) ? Math.round(amount) : Math.round(amount * 100);
+  // Red de seguridad igual que en la membresía: si un importe configurado acaba
+  // por debajo de 100 unidades mínimas, es un error de datos o de moneda, no
+  // una oferta. Mejor fallar ruidosamente que cobrar cien veces de menos.
+  if (amount > 0 && unitAmount < 100) {
+    return json(400, { error: 'Importe mal configurado para esta moneda. Avise al administrador.' });
+  }
 
   // Recompensas digitales automáticas: solo si es miembro (hay a quién otorgar).
   const grantCourse = donorUserId != null;

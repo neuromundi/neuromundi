@@ -5552,5 +5552,34 @@
     "primerPago": "primer pago",
     "renovacion": "renovacion",
     "pagadaEl": "pagada el"
+  },
+  "solFund": {
+    "title": "創設メンバー料金の申請",
+    "help": "お住まいの国の枠が埋まった、または期限が過ぎた後に創設メンバー料金を希望する方の一覧です。承認してもその方だけが対象となり、全体の枠は変わりません。",
+    "refresh": "更新",
+    "unavailable": "申請を読み込めませんでした。",
+    "vacio": "この状態の申請はありません。",
+    "colQuien": "申請者",
+    "colPais": "国",
+    "colCupo": "使用 / 枠",
+    "colPedida": "申請日時",
+    "colNota": "メモ",
+    "colAccion": "操作",
+    "conceder": "承認",
+    "rechazar": "却下",
+    "okConcedida": "創設メンバー料金を承認しました。",
+    "okRechazada": "申請を却下しました。",
+    "errResolver": "申請を処理できませんでした。",
+    "ofrecer": "お住まいの国の創設メンバー枠は埋まったか、期限が過ぎています。確保の申請ができます。一件ずつ確認します。",
+    "pedirCta": "創設メンバー料金を申請する",
+    "pedirOk": "申請を送信しました。確認後にご連絡します。",
+    "pedirError": "申請を送信できませんでした。",
+    "pendienteAviso": "創設メンバー料金の申請を確認中です。結果が出次第ご連絡します。",
+    "estados": {
+      "pendiente": "確認中",
+      "aprobada": "承認済み",
+      "rechazada": "却下",
+      "todas": "すべて"
+    }
   }
 }

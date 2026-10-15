@@ -8,7 +8,7 @@
  * Los importes ya vienen resueltos por la base según el tipo de afiliado
  * (médico / no médico), la clase (fundador u ordinaria) y el país.
  */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CreditCard, Ticket, CheckCircle2, Crown, AlertTriangle } from 'lucide-react';
 import { Modal, Button, useToast } from '@/components/ui';
@@ -17,6 +17,7 @@ import { cn } from '@/lib/utils';
 import { annualSaving, combinedDiscountPct, priceAfterPct } from '@/lib/pricing';
 import { useAuthStore } from '@/stores/authStore';
 import { useCampaign } from '@/hooks/useCampaign';
+import { supabase } from '@/lib/supabase';
 import { Clock } from 'lucide-react';
 
 const PROMO_ERRORS: Record<string, string> = {
@@ -42,6 +43,11 @@ export function MembershipModal({ open, onClose }: { open: boolean; onClose: () 
   // renuncia a él, y debe enterarse ANTES de llegar a la pantalla de Stripe,
   // no al ver el cargo.
   const [confirmMonthly, setConfirmMonthly] = useState(false);
+  // Solicitud de cuota de fundador fuera de cupo o de plazo (migración 0218).
+  // Sólo se ofrece a quien NO es elegible: a quien sí lo es no hay nada que
+  // pedirle, y enseñarle el botón sembraría la duda de que su precio peligra.
+  const [solFund, setSolFund] = useState<string>('cargando');
+  const [pidiendo, setPidiendo] = useState(false);
   // Promo canjeada EN ESTA sesión (el % o monto lo devuelve redeem_promo_code),
   // para incluirla en la vista previa del primer pago.
   const [appliedPromo, setAppliedPromo] = useState<{ benefit: string; pct: number; amount: number; currency: string } | null>(null);
@@ -50,6 +56,28 @@ export function MembershipModal({ open, onClose }: { open: boolean; onClose: () 
   const active = status === 'active';
   // País en fase "próximamente 2027": se ocultan las tarifas y el pago.
   const comingSoon = isMarketComingSoon(profileCountry);
+
+  // Estado de la solicitud propia. Se consulta al abrir, no antes: es una
+  // pantalla que la mayoría no verá nunca.
+  useEffect(() => {
+    if (!open) return;
+    let vivo = true;
+    (async () => {
+      const { data } = await supabase.rpc('mi_solicitud_fundador');
+      if (vivo) setSolFund(((data as { status?: string } | null)?.status) ?? 'ninguna');
+    })();
+    return () => { vivo = false; };
+  }, [open]);
+
+  const pedirFundador = async () => {
+    setPidiendo(true);
+    const { data, error } = await supabase.rpc('solicitar_cuota_fundador', { p_nota: null });
+    setPidiendo(false);
+    const r = data as { ok?: boolean; motivo?: string } | null;
+    if (error || !r?.ok) { toast.error(t('solFund.pedirError')); return; }
+    setSolFund('pendiente');
+    toast.success(t('solFund.pedirOk'));
+  };
 
   const onPay = async () => {
     setBusy(true);
@@ -293,6 +321,28 @@ export function MembershipModal({ open, onClose }: { open: boolean; onClose: () 
           <Button onClick={onPay} loading={busy} leadingIcon={<CreditCard className="h-5 w-5" />} fullWidth>
             {t('membership.payNow')}
           </Button>
+
+          {/* Se quedó fuera del cupo de fundador: puede pedirlo. */}
+          {!options?.is_founder && solFund !== 'cargando' && solFund !== 'aprobada' && (
+            <div className="rounded-2xl border border-amber-200 bg-amber-50/70 p-3">
+              {solFund === 'pendiente' ? (
+                <p className="text-sm text-amber-900">{t('solFund.pendienteAviso')}</p>
+              ) : (
+                <>
+                  <p className="text-sm text-amber-900">{t('solFund.ofrecer')}</p>
+                  <Button
+                    variant="secondary"
+                    onClick={() => void pedirFundador()}
+                    loading={pidiendo}
+                    leadingIcon={<Crown className="h-4 w-4" />}
+                    fullWidth
+                  >
+                    {t('solFund.pedirCta')}
+                  </Button>
+                </>
+              )}
+            </div>
+          )}
 
           {showPromo ? (
             <div className="space-y-2">

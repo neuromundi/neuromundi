@@ -5552,5 +5552,34 @@
     "primerPago": "primer pago",
     "renovacion": "renovacion",
     "pagadaEl": "pagada el"
+  },
+  "solFund": {
+    "title": "Demandes de tarif Membre Fondateur",
+    "help": "Les personnes qui demandent le tarif Membre Fondateur alors que les places de leur pays sont épuisées ou que le délai est passé. Accorder n'autorise que cette personne : le quota général ne bouge pas.",
+    "refresh": "Actualiser",
+    "unavailable": "Impossible de charger les demandes.",
+    "vacio": "Aucune demande dans cet état.",
+    "colQuien": "Qui",
+    "colPais": "Pays",
+    "colCupo": "Utilisées / quota",
+    "colPedida": "Demandé le",
+    "colNota": "Note",
+    "colAccion": "Action",
+    "conceder": "Accorder",
+    "rechazar": "Refuser",
+    "okConcedida": "Tarif Membre Fondateur autorisé.",
+    "okRechazada": "Demande refusée.",
+    "errResolver": "Impossible de traiter la demande.",
+    "ofrecer": "Les places de Membre Fondateur de votre pays sont épuisées, ou le délai est passé. Vous pouvez demander qu'on vous en réserve une ; nous étudions chaque demande.",
+    "pedirCta": "Demander le tarif Membre Fondateur",
+    "pedirOk": "Demande envoyée. Nous vous répondrons après examen.",
+    "pedirError": "Impossible d'envoyer la demande.",
+    "pendienteAviso": "Votre demande de tarif Membre Fondateur est à l'étude. Nous vous tenons au courant.",
+    "estados": {
+      "pendiente": "En attente",
+      "aprobada": "Accordées",
+      "rechazada": "Refusées",
+      "todas": "Toutes"
+    }
   }
 }

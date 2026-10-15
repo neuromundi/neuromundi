@@ -19,7 +19,17 @@ const cors = {
 const json = (s: number, b: unknown) =>
   new Response(JSON.stringify(b), { status: s, headers: { ...cors, 'Content-Type': 'application/json' } });
 
-const ZERO_DECIMAL = new Set(['jpy', 'krw', 'clp', 'vnd']);
+// Monedas SIN decimales según Stripe: el importe va tal cual, sin ×100.
+//
+// La lista anterior ('jpy','krw','clp','vnd') dejaba fuera DOCE monedas, entre
+// ellas PYG, que este proyecto ya usa para Paraguay: una consulta de
+// PYG 150 000 se habría cobrado como PYG 15 000 000, cien veces más. Es el
+// mismo error de factor cien que ya ocurrió en la membresía, aquí todavía
+// latente porque ningún prestador tiene moneda de cobro configurada.
+const ZERO_DECIMAL = new Set([
+  'bif', 'clp', 'djf', 'gnf', 'jpy', 'kmf', 'krw', 'mga', 'pyg',
+  'rwf', 'ugx', 'vnd', 'vuv', 'xaf', 'xof', 'xpf',
+]);
 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: cors });
@@ -82,6 +92,12 @@ Deno.serve(async (req) => {
     if (!(amount > 0) || !currency) return json(400, { error: 'El prestador no configuró el precio de la consulta.' });
   }
   const unitAmount = ZERO_DECIMAL.has(currency) ? Math.round(amount) : Math.round(amount * 100);
+  // Red de seguridad igual que en la membresía: si un importe configurado acaba
+  // por debajo de 100 unidades mínimas, es un error de datos o de moneda, no
+  // una oferta. Mejor fallar ruidosamente que cobrar cien veces de menos.
+  if (amount > 0 && unitAmount < 100) {
+    return json(400, { error: 'Importe mal configurado para esta moneda. Avise al administrador.' });
+  }
 
   // Datos del pagador para el reporte de facturación.
   const { data: payer } = await admin.from('profiles').select('full_name, business_name, rfc').eq('id', u.user.id).single();
