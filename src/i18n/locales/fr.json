@@ -104,7 +104,8 @@
     "founders": "Fondateurs",
     "labor": "Inclusion professionnelle",
     "tribe": "Neurocamps",
-    "red": "Réseau Neuromundi"
+    "red": "Réseau Neuromundi",
+    "donors": "Donateurs"
   },
   "home": {
     "title": "La première communauté mondiale spécialisée en :",
@@ -2992,7 +2993,28 @@
     "accrued": "Vous avez {{pct}} % cumulés pour votre prochain paiement (plafond {{max}} %).",
     "rules": "Votre lien est valable {{days}} jours après réception. La personne qui s’abonne obtient 5 % sur son premier paiement, et vous gagnez {{step}} % par filleul payant. Les patients et familles s’inscrivent gratuitement : ni remise ni récompense, mais l’utilisation est enregistrée.",
     "creditLive": "Votre remise s’applique à votre prochaine facture uniquement ; si vous avez déjà un abonnement actif, elle est appliquée automatiquement.",
-    "raffleTickets": "Vous avez {{count}} ticket(s) de tirage. Invitez plus de personnes pour en gagner davantage."
+    "raffleTickets": "Vous avez {{count}} ticket(s) de tirage. Invitez plus de personnes pour en gagner davantage.",
+    "payout": {
+      "title": "Où souhaitez-vous être payé",
+      "help": "Les commissions sont versées chaque samedi à partir de 25 USD cumulés (ou l'équivalent dans votre devise). Indiquez ici où les recevoir.",
+      "method": "Méthode",
+      "mStripe": "Stripe",
+      "mTransfer": "Virement bancaire",
+      "mPaypal": "PayPal",
+      "mOther": "Autre",
+      "holder": "Titulaire du compte",
+      "country": "Pays",
+      "currency": "Devise",
+      "bank": "Banque",
+      "identifier": "CLABE, IBAN ou e-mail PayPal",
+      "notes": "Remarques",
+      "save": "Enregistrer",
+      "saved": "Coordonnées enregistrées",
+      "saveFail": "Enregistrement impossible",
+      "required": "Indiquez au moins le titulaire et les coordonnées du compte.",
+      "privacy": "Seuls vous et l’administration de Neuromundi voyez ces informations.",
+      "stripeNote": "Vous encaissez déjà via Stripe : vos commissions y seront versées. Rien à remplir."
+    }
   },
   "renewal": {
     "title": "Votre adhésion va être renouvelée",
@@ -5556,7 +5578,12 @@
     "notaPrompt": "Como se le pago (referencia de transferencia, fecha, banco). Puede dejarlo vacio.",
     "primerPago": "primer pago",
     "renovacion": "renovacion",
-    "pagadaEl": "pagada el"
+    "pagadaEl": "pagada el",
+    "regla": "Versement chaque samedi · minimum 25 USD cumulés",
+    "umbralOk": "Atteint le minimum",
+    "umbralNo": "En dessous du minimum ({{monto}})",
+    "umbralSinTc": "Aucun taux de change chargé pour {{moneda}}",
+    "cobraPor": "Payé par : {{metodo}}"
   },
   "solFund": {
     "title": "Demandes de tarif Membre Fondateur",

@@ -104,7 +104,8 @@
     "founders": "Gründer",
     "labor": "Berufliche Inklusion",
     "tribe": "Neurocamps",
-    "red": "Neuromundi-Netzwerk"
+    "red": "Neuromundi-Netzwerk",
+    "donors": "Spender"
   },
   "home": {
     "title": "Die erste globale Community, spezialisiert auf:",
@@ -2992,7 +2993,28 @@
     "accrued": "Du hast {{pct}}% für deine nächste Zahlung angesammelt (max. {{max}}%).",
     "rules": "Dein Link gilt {{days}} Tage ab Erhalt. Wer damit abschließt, erhält 5% auf die erste Zahlung, und du bekommst {{step}}% pro zahlender Empfehlung. Patienten und Familien treten kostenlos bei: kein Rabatt, keine Prämie, aber die Nutzung wird erfasst.",
     "creditLive": "Dein Rabatt gilt nur für die nächste Rechnung; bei aktivem Abo wird er automatisch angewendet.",
-    "raffleTickets": "Du hast {{count}} Los(e) für die Verlosung. Lade mehr Leute ein, um mehr zu erhalten."
+    "raffleTickets": "Du hast {{count}} Los(e) für die Verlosung. Lade mehr Leute ein, um mehr zu erhalten.",
+    "payout": {
+      "title": "Wohin Ihre Auszahlung gehen soll",
+      "help": "Provisionen werden jeden Samstag ab 25 USD Guthaben (oder dem Gegenwert in Ihrer Währung) ausgezahlt. Geben Sie hier an, wohin.",
+      "method": "Zahlungsweg",
+      "mStripe": "Stripe",
+      "mTransfer": "Banküberweisung",
+      "mPaypal": "PayPal",
+      "mOther": "Andere",
+      "holder": "Kontoinhaber",
+      "country": "Land",
+      "currency": "Währung",
+      "bank": "Bank",
+      "identifier": "CLABE, IBAN oder PayPal-E-Mail",
+      "notes": "Hinweise",
+      "save": "Speichern",
+      "saved": "Auszahlungsdaten gespeichert",
+      "saveFail": "Speichern fehlgeschlagen",
+      "required": "Bitte geben Sie mindestens Kontoinhaber und Kontodaten an.",
+      "privacy": "Nur Sie und die Neuromundi-Verwaltung sehen diese Daten.",
+      "stripeNote": "Sie kassieren bereits über Stripe – Provisionen laufen darüber. Nichts auszufüllen."
+    }
   },
   "renewal": {
     "title": "Deine Mitgliedschaft steht zur Verlängerung an",
@@ -5556,7 +5578,12 @@
     "notaPrompt": "Como se le pago (referencia de transferencia, fecha, banco). Puede dejarlo vacio.",
     "primerPago": "primer pago",
     "renovacion": "renovacion",
-    "pagadaEl": "pagada el"
+    "pagadaEl": "pagada el",
+    "regla": "Auszahlung jeden Samstag · mindestens 25 USD",
+    "umbralOk": "Mindestbetrag erreicht",
+    "umbralNo": "Unter dem Mindestbetrag ({{monto}})",
+    "umbralSinTc": "Kein Wechselkurs für {{moneda}} hinterlegt",
+    "cobraPor": "Auszahlung über: {{metodo}}"
   },
   "solFund": {
     "title": "Anfragen zum Gründungsmitglied-Beitrag",

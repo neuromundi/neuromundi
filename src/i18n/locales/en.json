@@ -141,7 +141,8 @@
     "founders": "Founders",
     "labor": "Job inclusion",
     "tribe": "Neurocamps",
-    "red": "Neuromundi Network"
+    "red": "Neuromundi Network",
+    "donors": "Donors"
   },
   "home": {
     "title": "The first global community specialized in:",
@@ -2992,7 +2993,28 @@
     "accrued": "You have {{pct}}% accrued toward your next payment (cap {{max}}%).",
     "rules": "Your link is valid for {{days}} days after it is received. Whoever subscribes with it gets 5% off their first payment, and you earn {{step}}% for each referral who pays. Patients and families join free: no discount or reward, but the use is recorded.",
     "creditLive": "Your discount applies to your next invoice only; if you already have an active subscription it is applied automatically.",
-    "raffleTickets": "You have {{count}} raffle ticket(s). Invite more people to earn more."
+    "raffleTickets": "You have {{count}} raffle ticket(s). Invite more people to earn more.",
+    "payout": {
+      "title": "Where you want to be paid",
+      "help": "Commissions are settled every Saturday once you have accrued at least 25 USD (or the equivalent in your currency). Tell us here where to send them.",
+      "method": "Method",
+      "mStripe": "Stripe",
+      "mTransfer": "Bank transfer",
+      "mPaypal": "PayPal",
+      "mOther": "Other",
+      "holder": "Account holder",
+      "country": "Country",
+      "currency": "Currency",
+      "bank": "Bank",
+      "identifier": "CLABE, IBAN or PayPal email",
+      "notes": "Notes",
+      "save": "Save",
+      "saved": "Payout details saved",
+      "saveFail": "Could not save",
+      "required": "Please give at least the account holder and the account details.",
+      "privacy": "Only you and the Neuromundi administration can see these details.",
+      "stripeNote": "You already collect through Stripe, so commissions go there. Nothing to fill in."
+    }
   },
   "renewal": {
     "title": "Your membership is about to renew",
@@ -5556,7 +5578,12 @@
     "notaPrompt": "How it was paid (transfer reference, date, bank). You can leave this empty.",
     "primerPago": "first payment",
     "renovacion": "renewal",
-    "pagadaEl": "paid on"
+    "pagadaEl": "paid on",
+    "regla": "Settled every Saturday · minimum 25 USD accrued",
+    "umbralOk": "Meets the minimum",
+    "umbralNo": "Below the minimum ({{monto}})",
+    "umbralSinTc": "No exchange rate loaded for {{moneda}}",
+    "cobraPor": "Paid via: {{metodo}}"
   },
   "solFund": {
     "title": "Founding Member requests",

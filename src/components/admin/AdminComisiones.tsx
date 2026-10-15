@@ -13,7 +13,7 @@
 import type React from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { RefreshCw, Banknote, CheckCircle2, AlertTriangle, ChevronDown, ChevronRight } from 'lucide-react';
+import { RefreshCw, Banknote, CheckCircle2, AlertTriangle, ChevronDown, ChevronRight, CalendarCheck } from 'lucide-react';
 import { Button, SkeletonCard } from '@/components/ui';
 import { useToast } from '@/components/ui/Toast';
 import { supabase } from '@/lib/supabase';
@@ -24,10 +24,15 @@ interface Fila {
   correo: string | null;
   referidor_vigente: boolean;
   cuenta_de_cobro: boolean;
+  metodo_cobro: string | null;
+  cuenta_titular: string | null;
+  cuenta_identificador: string | null;
   comisiones: number;
   referidos: number;
   monto_cents: number;
   currency: string | null;
+  umbral_cents: number | null;
+  alcanza_umbral: boolean | null;
   primera: string | null;
   ultima: string | null;
 }
@@ -52,6 +57,17 @@ const money = (cents: number, cur?: string | null) =>
   new Intl.NumberFormat('es-MX', {
     style: 'currency', currency: (cur || 'mxn').toUpperCase(), maximumFractionDigits: 2,
   }).format((cents ?? 0) / 100);
+
+// Nombre legible del método de cobro declarado por el referidor.
+const metodoLabel = (m: string | null, t: (k: string) => string) => {
+  switch (m) {
+    case 'stripe': return t('recommend.payout.mStripe');
+    case 'transferencia': return t('recommend.payout.mTransfer');
+    case 'paypal': return t('recommend.payout.mPaypal');
+    case 'otro': return t('recommend.payout.mOther');
+    default: return t('comisiones.conCuenta');
+  }
+};
 
 const fecha = (iso: string | null) =>
   iso ? new Intl.DateTimeFormat('es-MX', {
@@ -125,6 +141,10 @@ export function AdminComisiones() {
       </div>
 
       <p className="text-sm text-muted">{t('comisiones.help')}</p>
+      <p className="flex items-center gap-2 text-sm font-medium text-warm-800">
+        <CalendarCheck className="h-4 w-4 shrink-0" aria-hidden="true" />
+        {t('comisiones.regla')}
+      </p>
 
       {error ? (
         <p className="rounded-2xl border border-dashed border-slate-200 p-4 text-center text-sm text-muted">
@@ -184,8 +204,26 @@ export function AdminComisiones() {
                           </span>
                         )}
                         <span className="block text-muted">
-                          {f.cuenta_de_cobro ? t('comisiones.conCuenta') : t('comisiones.sinCuenta')}
+                          {f.cuenta_de_cobro
+                            ? t('comisiones.cobraPor', { metodo: metodoLabel(f.metodo_cobro, t) })
+                            : t('comisiones.sinCuenta')}
                         </span>
+                        {f.cuenta_de_cobro && f.cuenta_identificador ? (
+                          <span className="block font-mono text-[11px] text-muted">
+                            {f.cuenta_titular ? `${f.cuenta_titular} · ` : ''}{f.cuenta_identificador}
+                          </span>
+                        ) : null}
+                        {f.alcanza_umbral === null ? (
+                          <span className="block text-amber-700">
+                            {t('comisiones.umbralSinTc', { moneda: f.currency ?? '—' })}
+                          </span>
+                        ) : f.alcanza_umbral ? (
+                          <span className="block text-sage-700">{t('comisiones.umbralOk')}</span>
+                        ) : (
+                          <span className="block text-amber-700">
+                            {t('comisiones.umbralNo', { monto: money(f.umbral_cents ?? 0, f.currency) })}
+                          </span>
+                        )}
                       </td>
                       <td className="px-3 py-2 text-right">
                         {estado === 'devengada' ? (

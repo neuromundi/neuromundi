@@ -104,7 +104,8 @@
     "founders": "创始成员",
     "labor": "就业融合",
     "tribe": "Neurocamps",
-    "red": "Neuromundi 网络"
+    "red": "Neuromundi 网络",
+    "donors": "捐赠者"
   },
   "home": {
     "title": "首个专注于以下领域的全球社区：",
@@ -2992,7 +2993,28 @@
     "accrued": "你已累积 {{pct}}% 用于下次付款（上限 {{max}}%）。",
     "rules": "你的链接自收到起 {{days}} 天内有效。通过它订阅的人首次付款可享 5% 优惠，每有一位付费推荐你可获得 {{step}}%。患者与家庭免费加入：无折扣也无奖励，但会记录使用。",
     "creditLive": "折扣仅适用于你的下一张账单；若已有有效订阅，会自动应用。",
-    "raffleTickets": "你有 {{count}} 张抽奖券。邀请更多人可获得更多。"
+    "raffleTickets": "你有 {{count}} 张抽奖券。邀请更多人可获得更多。",
+    "payout": {
+      "title": "您希望在哪里收款",
+      "help": "佣金每周六结算，累计满 25 美元（或等值当地货币）即可提取。请在此填写收款方式。",
+      "method": "收款方式",
+      "mStripe": "Stripe",
+      "mTransfer": "银行转账",
+      "mPaypal": "PayPal",
+      "mOther": "其他",
+      "holder": "账户持有人",
+      "country": "国家",
+      "currency": "货币",
+      "bank": "银行",
+      "identifier": "IBAN、账号或 PayPal 邮箱",
+      "notes": "备注",
+      "save": "保存",
+      "saved": "收款信息已保存",
+      "saveFail": "保存失败",
+      "required": "请至少填写账户持有人和账户信息。",
+      "privacy": "仅您本人和 Neuromundi 管理方可查看这些信息。",
+      "stripeNote": "您已通过 Stripe 收款，佣金也会汇到那里，无需填写。"
+    }
   },
   "renewal": {
     "title": "你的会员资格即将续期",
@@ -5556,7 +5578,12 @@
     "notaPrompt": "Como se le pago (referencia de transferencia, fecha, banco). Puede dejarlo vacio.",
     "primerPago": "primer pago",
     "renovacion": "renovacion",
-    "pagadaEl": "pagada el"
+    "pagadaEl": "pagada el",
+    "regla": "每周六结算 · 累计满 25 美元",
+    "umbralOk": "已达最低额",
+    "umbralNo": "未达最低额（{{monto}}）",
+    "umbralSinTc": "未加载 {{moneda}} 的汇率",
+    "cobraPor": "收款方式：{{metodo}}"
   },
   "solFund": {
     "title": "创始会员资费申请",

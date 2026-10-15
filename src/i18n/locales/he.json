@@ -141,7 +141,8 @@
     "founders": "מייסדים",
     "labor": "הכלה תעסוקתית",
     "tribe": "Neurocamps",
-    "red": "רשת Neuromundi"
+    "red": "רשת Neuromundi",
+    "donors": "תורמים"
   },
   "home": {
     "title": "הקהילה הגלובלית הראשונה המתמחה ב:",
@@ -2992,7 +2993,28 @@
     "accrued": "צברת {{pct}}% לקראת התשלום הבא שלך (מקסימום {{max}}%).",
     "rules": "הקישור שלך תקף ל-{{days}} ימים לאחר קבלתו. מי שנרשם איתו מקבל 5% הנחה על התשלום הראשון, ואתה מרוויח {{step}}% על כל מופנה שמשלם. מטופלים ומשפחות מצטרפים בחינם: ללא הנחה או תגמול, אך השימוש נרשם.",
     "creditLive": "ההנחה שלך חלה על החשבונית הבאה שלך בלבד; אם כבר יש לך מנוי פעיל, היא מוחלת אוטומטית.",
-    "raffleTickets": "יש לכם {{count}} כרטיסי הגרלה. הזמינו עוד אנשים כדי לזכות בעוד."
+    "raffleTickets": "יש לכם {{count}} כרטיסי הגרלה. הזמינו עוד אנשים כדי לזכות בעוד.",
+    "payout": {
+      "title": "היכן ברצונך לקבל תשלום",
+      "help": "העמלות מסולקות בכל שבת מרף של 25 דולר שנצברו (או השווי במטבע שלך). ציין כאן לאן להעביר.",
+      "method": "אמצעי תשלום",
+      "mStripe": "Stripe",
+      "mTransfer": "העברה בנקאית",
+      "mPaypal": "PayPal",
+      "mOther": "אחר",
+      "holder": "בעל החשבון",
+      "country": "מדינה",
+      "currency": "מטבע",
+      "bank": "בנק",
+      "identifier": "IBAN, מספר חשבון או דוא״ל PayPal",
+      "notes": "הערות",
+      "save": "שמירה",
+      "saved": "פרטי התשלום נשמרו",
+      "saveFail": "השמירה נכשלה",
+      "required": "יש למלא לפחות את בעל החשבון ופרטי החשבון.",
+      "privacy": "רק את/ה וההנהלה של Neuromundi רואים פרטים אלה.",
+      "stripeNote": "את/ה כבר גובה דרך Stripe, ולכן העמלות יועברו שם. אין צורך למלא דבר."
+    }
   },
   "renewal": {
     "title": "החברות שלך עומדת להתחדש",
@@ -5556,7 +5578,12 @@
     "notaPrompt": "Como se le pago (referencia de transferencia, fecha, banco). Puede dejarlo vacio.",
     "primerPago": "primer pago",
     "renovacion": "renovacion",
-    "pagadaEl": "pagada el"
+    "pagadaEl": "pagada el",
+    "regla": "סליקה בכל שבת · מינימום 25 דולר",
+    "umbralOk": "עבר את הרף",
+    "umbralNo": "מתחת לרף ({{monto}})",
+    "umbralSinTc": "לא נטען שער חליפין עבור {{moneda}}",
+    "cobraPor": "תשלום באמצעות: {{metodo}}"
   },
   "solFund": {
     "title": "בקשות לתעריף חבר מייסד",

@@ -529,6 +529,7 @@ export function AppLayout() {
                   { to: '/tribu', label: t('nav.tribe'), icon: <Users className="h-4 w-4" /> },
                   { to: '/red', label: t('nav.red'), icon: <BadgeCheck className="h-4 w-4" /> },
                   { to: '/fundadores', label: t('nav.founders'), icon: <Award className="h-4 w-4" /> },
+                  { to: '/donantes', label: t('nav.donors'), icon: <Heart className="h-4 w-4" /> },
                   { to: '/proteccion-datos', label: t('nav.dataProtection'), icon: <ShieldCheck className="h-4 w-4" /> },
                   { to: '/pregunta-al-experto', label: t('nav.askExpert'), icon: <MessageCircleQuestion className="h-4 w-4" /> },
                 ]}
@@ -646,6 +647,8 @@ export function AppLayout() {
         <Link to="/manifiesto" className="hover:text-brand-700">{t('footer.manifesto')}</Link>
         <span className="mx-2">·</span>
         <Link to="/fundadores" className="hover:text-brand-700">{t('nav.founders')}</Link>
+        <span className="mx-2">·</span>
+        <Link to="/donantes" className="hover:text-brand-700">{t('nav.donors')}</Link>
         <span className="mx-2">·</span>
         <Link to="/verificados" className="hover:text-brand-700">{t('registry.title')}</Link>
         <span className="mx-2">·</span>

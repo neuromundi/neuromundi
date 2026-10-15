@@ -1352,16 +1352,48 @@ export interface Database {
         Args: { p_correo: string; p_nombre: string | null; p_provider_type?: string; p_fundador?: boolean; p_cortesia?: boolean; p_send?: boolean };
         Returns: { token: string; ficha_id: string; enviado: boolean; promo: string | null }[];
       };
-      /** Comisiones por referido agrupadas por referidor (migracion 0210c). */
+      /** Comisiones por referido agrupadas por referidor (migraciones 0210c y 0226). */
       admin_comisiones_membresia: {
         Args: { p_estado?: string | null };
         Returns: {
           referrer_id: string; referidor: string | null; correo: string | null;
           referidor_vigente: boolean; cuenta_de_cobro: boolean;
+          metodo_cobro: string | null; cuenta_titular: string | null;
+          cuenta_identificador: string | null;
           comisiones: number; referidos: number;
           monto_cents: number; currency: string | null;
+          umbral_cents: number | null; alcanza_umbral: boolean | null;
           primera: string | null; ultima: string | null;
         }[];
+      };
+      /** Cuenta de cobro declarada por el propio referidor (migracion 0226). */
+      mi_cuenta_de_cobro: {
+        Args: Record<string, never>;
+        Returns: {
+          user_id: string; metodo: string; titular: string | null;
+          pais: string | null; moneda: string | null; banco: string | null;
+          identificador: string | null; notas: string | null;
+          actualizado_en: string;
+        } | null;
+      };
+      /** Alta o actualizacion de la cuenta de cobro propia (migracion 0226). */
+      guardar_cuenta_de_cobro: {
+        Args: {
+          p_metodo: string; p_titular?: string | null; p_pais?: string | null;
+          p_moneda?: string | null; p_banco?: string | null;
+          p_identificador?: string | null; p_notas?: string | null;
+        };
+        Returns: {
+          user_id: string; metodo: string; titular: string | null;
+          pais: string | null; moneda: string | null; banco: string | null;
+          identificador: string | null; notas: string | null;
+          actualizado_en: string;
+        };
+      };
+      /** Minimo acumulado para liquidar, en centavos; null si no hay tipo de cambio (0226). */
+      umbral_liquidacion_cents: {
+        Args: { p_currency: string | null };
+        Returns: number | null;
       };
       /** Detalle de las comisiones de un referidor (migracion 0210c). */
       admin_comisiones_detalle: {

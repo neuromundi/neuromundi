@@ -104,7 +104,8 @@
     "founders": "創設メンバー",
     "labor": "就労インクルージョン",
     "tribe": "Neurocamps",
-    "red": "Neuromundiネットワーク"
+    "red": "Neuromundiネットワーク",
+    "donors": "寄付者"
   },
   "home": {
     "title": "以下に特化した世界初のコミュニティ:",
@@ -2992,7 +2993,28 @@
     "accrued": "次回の支払いに{{pct}}%が貯まっています（上限{{max}}%）。",
     "rules": "リンクは受け取ってから{{days}}日間有効です。これで登録した方は初回支払いが5%割引、あなたは支払いのあった紹介1件につき{{step}}%を獲得します。患者・家族は無料登録のため割引も特典もありませんが、利用は記録されます。",
     "creditLive": "割引は次回の請求にのみ適用されます。有効なサブスクリプションがある場合は自動的に適用されます。",
-    "raffleTickets": "抽選券が{{count}}枚あります。もっと招待して増やしましょう。"
+    "raffleTickets": "抽選券が{{count}}枚あります。もっと招待して増やしましょう。",
+    "payout": {
+      "title": "受け取り先の指定",
+      "help": "報酬は毎週土曜日に、累計25米ドル（またはお客様の通貨での相当額）に達した時点でお支払いします。受け取り先をご記入ください。",
+      "method": "受取方法",
+      "mStripe": "Stripe",
+      "mTransfer": "銀行振込",
+      "mPaypal": "PayPal",
+      "mOther": "その他",
+      "holder": "口座名義",
+      "country": "国",
+      "currency": "通貨",
+      "bank": "銀行名",
+      "identifier": "IBAN・口座番号またはPayPalのメールアドレス",
+      "notes": "備考",
+      "save": "保存",
+      "saved": "受け取り先を保存しました",
+      "saveFail": "保存できませんでした",
+      "required": "口座名義と口座情報は必ずご記入ください。",
+      "privacy": "この情報はご本人と Neuromundi 運営のみが閲覧できます。",
+      "stripeNote": "すでに Stripe で入金を受けているため、報酬もそちらに振り込まれます。入力は不要です。"
+    }
   },
   "renewal": {
     "title": "まもなく会員資格の更新時期です",
@@ -5556,7 +5578,12 @@
     "notaPrompt": "Como se le pago (referencia de transferencia, fecha, banco). Puede dejarlo vacio.",
     "primerPago": "primer pago",
     "renovacion": "renovacion",
-    "pagadaEl": "pagada el"
+    "pagadaEl": "pagada el",
+    "regla": "毎週土曜日に精算・累計25米ドルから",
+    "umbralOk": "最低額に到達",
+    "umbralNo": "最低額に未達（{{monto}}）",
+    "umbralSinTc": "{{moneda}} の為替レートが未登録です",
+    "cobraPor": "受取方法：{{metodo}}"
   },
   "solFund": {
     "title": "創設メンバー料金の申請",

@@ -12,6 +12,7 @@ import { supabase } from '@/lib/supabase';
 import { useAuthStore } from '@/stores/authStore';
 import { useReferralSummary } from '@/hooks/useReferralProgram';
 import { referralUrl, formatMemberNo } from '@/lib/referral';
+import { CuentaDeCobroCard } from './CuentaDeCobroCard';
 import { track } from '@/lib/track';
 
 export function RecommendPanel() {
@@ -117,6 +118,8 @@ export function RecommendPanel() {
           <p className="text-sm font-medium text-amber-900">{t('recommend.raffleTickets', { count: tickets })}</p>
         </div>
       )}
+
+      <CuentaDeCobroCard />
 
       <div className="flex items-start gap-2 rounded-2xl border border-warm-200 bg-warm-50 p-3 text-sm text-warm-800">
         <Clock className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />

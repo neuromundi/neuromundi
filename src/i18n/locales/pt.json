@@ -104,7 +104,8 @@
     "founders": "Fundadores",
     "labor": "Inclusão laboral",
     "tribe": "Neurocamps",
-    "red": "Rede Neuromundi"
+    "red": "Rede Neuromundi",
+    "donors": "Doadores"
   },
   "home": {
     "title": "A primeira comunidade global especializada em:",
@@ -2992,7 +2993,28 @@
     "accrued": "Você acumulou {{pct}}% para o próximo pagamento (limite {{max}}%).",
     "rules": "Seu link vale {{days}} dias após ser recebido. Quem assinar com ele ganha 5% no primeiro pagamento, e você ganha {{step}}% por cada indicado que pagar. Pacientes e famílias entram grátis: sem desconto nem recompensa, mas o uso fica registrado.",
     "creditLive": "Seu desconto vale apenas para a próxima fatura; se já tiver assinatura ativa, é aplicado automaticamente.",
-    "raffleTickets": "Você tem {{count}} bilhete(s) do sorteio. Convide mais pessoas para ganhar mais."
+    "raffleTickets": "Você tem {{count}} bilhete(s) do sorteio. Convide mais pessoas para ganhar mais.",
+    "payout": {
+      "title": "Onde você quer receber",
+      "help": "As comissões são liquidadas todo sábado a partir de 25 USD acumulados (ou o equivalente na sua moeda). Informe aqui onde deseja recebê-las.",
+      "method": "Método",
+      "mStripe": "Stripe",
+      "mTransfer": "Transferência bancária",
+      "mPaypal": "PayPal",
+      "mOther": "Outro",
+      "holder": "Titular da conta",
+      "country": "País",
+      "currency": "Moeda",
+      "bank": "Banco",
+      "identifier": "CLABE, IBAN ou e-mail do PayPal",
+      "notes": "Notas",
+      "save": "Salvar",
+      "saved": "Dados de recebimento salvos",
+      "saveFail": "Não foi possível salvar",
+      "required": "Informe ao menos o titular e os dados da conta.",
+      "privacy": "Somente você e a administração do Neuromundi veem estes dados.",
+      "stripeNote": "Você já recebe pelo Stripe, então as comissões saem por lá. Não precisa preencher nada."
+    }
   },
   "renewal": {
     "title": "Sua associação está prestes a renovar",
@@ -5556,7 +5578,12 @@
     "notaPrompt": "Como se le pago (referencia de transferencia, fecha, banco). Puede dejarlo vacio.",
     "primerPago": "primer pago",
     "renovacion": "renovacion",
-    "pagadaEl": "pagada el"
+    "pagadaEl": "pagada el",
+    "regla": "Liquidação todo sábado · mínimo de 25 USD acumulados",
+    "umbralOk": "Atinge o mínimo",
+    "umbralNo": "Ainda abaixo do mínimo ({{monto}})",
+    "umbralSinTc": "Sem taxa de câmbio carregada para {{moneda}}",
+    "cobraPor": "Recebe por: {{metodo}}"
   },
   "solFund": {
     "title": "Pedidos de cota de fundador",

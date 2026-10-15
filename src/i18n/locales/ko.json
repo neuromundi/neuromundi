@@ -141,7 +141,8 @@
     "founders": "창립 멤버",
     "labor": "고용 포용",
     "tribe": "Neurocamps",
-    "red": "Neuromundi 네트워크"
+    "red": "Neuromundi 네트워크",
+    "donors": "후원자"
   },
   "home": {
     "title": "다음 분야에 특화된 세계 최초의 커뮤니티:",
@@ -2992,7 +2993,28 @@
     "accrued": "다음 결제에 {{pct}}%가 적립되었습니다(최대 {{max}}%).",
     "rules": "링크는 수신 후 {{days}}일간 유효합니다. 링크로 구독하는 사람은 첫 결제에서 5% 할인을 받고, 결제하는 추천인마다 {{step}}%를 받습니다. 환자와 가족은 무료로 가입합니다: 할인이나 보상은 없지만 사용은 기록됩니다.",
     "creditLive": "할인은 다음 청구서에만 적용됩니다. 이미 활성 구독이 있다면 자동으로 적용됩니다.",
-    "raffleTickets": "추첨권이 {{count}}장 있습니다. 더 많은 사람을 초대해 늘리세요."
+    "raffleTickets": "추첨권이 {{count}}장 있습니다. 더 많은 사람을 초대해 늘리세요.",
+    "payout": {
+      "title": "정산 받을 곳",
+      "help": "수수료는 매주 토요일에 누적 25 USD(또는 해당 통화 기준 상당액)부터 정산됩니다. 받으실 곳을 입력해 주세요.",
+      "method": "수령 방법",
+      "mStripe": "Stripe",
+      "mTransfer": "계좌 이체",
+      "mPaypal": "PayPal",
+      "mOther": "기타",
+      "holder": "예금주",
+      "country": "국가",
+      "currency": "통화",
+      "bank": "은행",
+      "identifier": "IBAN, 계좌번호 또는 PayPal 이메일",
+      "notes": "메모",
+      "save": "저장",
+      "saved": "정산 정보를 저장했습니다",
+      "saveFail": "저장하지 못했습니다",
+      "required": "예금주와 계좌 정보는 반드시 입력해 주세요.",
+      "privacy": "이 정보는 본인과 Neuromundi 운영진만 볼 수 있습니다。",
+      "stripeNote": "이미 Stripe로 정산받고 있어 수수료도 그쪽으로 지급됩니다. 입력할 필요가 없습니다."
+    }
   },
   "renewal": {
     "title": "멤버십 갱신이 임박했습니다",
@@ -5556,7 +5578,12 @@
     "notaPrompt": "Como se le pago (referencia de transferencia, fecha, banco). Puede dejarlo vacio.",
     "primerPago": "primer pago",
     "renovacion": "renovacion",
-    "pagadaEl": "pagada el"
+    "pagadaEl": "pagada el",
+    "regla": "매주 토요일 정산 · 최소 누적 25 USD",
+    "umbralOk": "최소 금액 충족",
+    "umbralNo": "최소 금액 미달 ({{monto}})",
+    "umbralSinTc": "{{moneda}} 환율이 등록되지 않았습니다",
+    "cobraPor": "수령 방법: {{metodo}}"
   },
   "solFund": {
     "title": "창립 회원 요금 신청",
