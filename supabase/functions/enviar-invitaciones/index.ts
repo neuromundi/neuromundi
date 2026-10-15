@@ -290,7 +290,7 @@ function beneficios(r: Row, fundador = true): string {
     items = [
       '🏷️&nbsp; Publicar <b>vacantes y oportunidades inclusivas</b> y llegar a talento neurodivergente.',
       '🏅&nbsp; Obtener el <b>distintivo de Empresa Inclusiva</b> descargable para su web y sus redes.',
-      '🆓&nbsp; Membresía <b>gratuita</b> para empresas inclusivas.',
+      '🆓&nbsp; Membresía <b>gratuita</b> mientras mantenga publicada al menos una oferta.',
     ];
   } else if (pt === 'ngo') {
     items = [
@@ -459,10 +459,22 @@ function buildEmail(r: Row, fundador = true, promo: string | null = null): { sub
   // esto el correo nunca les dice que no pagan nada: medido el 14 oct 2026, 119 de
   // las 195 fichas exentas de las tandas 5 a 8 no lo veian en ningun lado, porque
   // la viñeta de membresia gratuita solo existe para ngo y company.
+  //
+  // LAS EMPRESAS LLEVAN UN PARRAFO DISTINTO (14 oct 2026). El texto de arriba
+  // promete membresia "vitalicia", y esa misma noche se establecio que una
+  // empresa pierde el directorio a los 30 dias y funciones a los 45 si no
+  // publica ninguna oferta (migracion 0223). Prometer "vitalicia" y retirar la
+  // visibilidad al mes es exactamente lo que hace que alguien se sienta
+  // enganado. A las organizaciones civiles y a los organismos publicos NO les
+  // aplica ese plazo, asi que conservan su parrafo sin cambios.
   const parrafoExento = (esFree(r) && !hayTarifa)
-    ? `<p>En virtud del carácter público y social de su organización, su membresía en
-         Neuromundi es gratuita en forma vitalicia. No hay cuota de inscripción ni cuota anual.
-         Completar su perfil no le cuesta nada, ni ahora ni después.</p>`
+    ? (r.provider_type === 'company'
+        ? `<p>Su membresía en Neuromundi es gratuita mientras mantenga publicada al menos una
+             oferta de empleo, voluntariado o servicio social. No hay cuota de inscripción ni
+             cuota anual, ni ahora ni después.</p>`
+        : `<p>En virtud del carácter público y social de su organización, su membresía en
+             Neuromundi es gratuita en forma vitalicia. No hay cuota de inscripción ni cuota anual.
+             Completar su perfil no le cuesta nada, ni ahora ni después.</p>`)
     : '';
 
   const parrafoPlazo = fd
