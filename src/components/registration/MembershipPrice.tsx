@@ -96,20 +96,34 @@ export function MembershipPrice({ type, affiliate, pending, pendingText, boxed, 
 
   function priceInner(): JSX.Element | null {
     const cur = q?.currency || 'MXN';
-    const hasFounder = q?.founder_monthly != null;
-    const bigMonthly = hasFounder ? q?.founder_monthly : q?.ordinary_monthly;
+    // El descuento de Miembro Fundador rige SOLO en la suscripcion anual, asi
+    // que la ventaja se mide sobre el precio ANUAL, no sobre el mensual.
+    // Antes se medía con founder_monthly; al retirar esa cifra de la tabla
+    // (migración 0216) el bloque entero se habría apagado y la página habría
+    // dejado de anunciar el precio de fundador, que es el eje de la campaña.
+    const hasFounder =
+      q?.founder_annual != null && q?.ordinary_annual != null && q.founder_annual !== q.ordinary_annual;
+    // El importe mensual SIEMPRE es el ordinario: pagar por mes es renunciar
+    // a la cuota de fundador. Enseñar aquí el de fundador sería anunciar la
+    // mitad de lo que Stripe va a cobrar.
+    const bigMonthly = q?.ordinary_monthly;
     const bigAnnual = hasFounder ? q?.founder_annual : q?.ordinary_annual;
     if (!q || !q.configured || bigMonthly == null) return null;
     return (
       <>
-        {hasFounder && q.ordinary_monthly != null && q.ordinary_monthly !== q.founder_monthly && (
-          <div className="text-xs text-slate-400"><span className="line-through">{fmt(q.ordinary_monthly, cur)}{t('reg.price.perMonth')}</span></div>
-        )}
         <div className="text-2xl font-extrabold text-brand-700">
           {q.is_from && <span className="text-sm font-semibold text-muted">{t('reg.price.from')} </span>}
           {fmt(bigMonthly, cur)}<span className="text-sm font-medium text-muted">{t('reg.price.perMonth')}</span>
         </div>
-        {bigAnnual != null && <div className="text-xs text-muted">{t('reg.price.or')} {fmt(bigAnnual, cur)}{t('reg.price.perYear')}</div>}
+        {bigAnnual != null && (
+          <div className="text-xs text-muted">
+            {t('reg.price.or')}{' '}
+            {hasFounder && q.ordinary_annual != null && (
+              <span className="text-slate-400 line-through">{fmt(q.ordinary_annual, cur)} </span>
+            )}
+            <b className="text-slate-900">{fmt(bigAnnual, cur)}</b>{t('reg.price.perYear')}
+          </div>
+        )}
         {hasFounder && <span className="mt-1 inline-block rounded-full bg-sky-100 px-2 py-0.5 text-[11px] font-bold text-brand-700">{t('reg.price.founderBadge')}</span>}
       </>
     );
