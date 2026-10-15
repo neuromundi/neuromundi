@@ -3005,15 +3005,19 @@
       "holder": "Kontoinhaber",
       "country": "Land",
       "currency": "Währung",
-      "bank": "Bank",
-      "identifier": "CLABE, IBAN oder PayPal-E-Mail",
       "notes": "Hinweise",
       "save": "Speichern",
       "saved": "Auszahlungsdaten gespeichert",
       "saveFail": "Speichern fehlgeschlagen",
-      "required": "Bitte geben Sie mindestens Kontoinhaber und Kontodaten an.",
       "privacy": "Nur Sie und die Neuromundi-Verwaltung sehen diese Daten.",
-      "stripeNote": "Sie kassieren bereits über Stripe – Provisionen laufen darüber. Nichts auszufüllen."
+      "stripeNote": "Sie kassieren bereits über Stripe – Provisionen laufen darüber. Nichts auszufüllen.",
+      "contact": "E-Mail oder Telefon, um Ihre Daten zu erfragen",
+      "contactHelp": "Wir speichern Ihre Kontonummer nicht. Zur Auszahlung melden wir uns hier, fragen die Daten ab und überweisen.",
+      "contactType": "Kontaktweg",
+      "cEmail": "E-Mail",
+      "cPhone": "Telefon",
+      "cWhatsapp": "WhatsApp",
+      "requiredContact": "Bitte Kontoinhaber und E-Mail oder Telefon angeben."
     }
   },
   "renewal": {
@@ -5583,7 +5587,8 @@
     "umbralOk": "Mindestbetrag erreicht",
     "umbralNo": "Unter dem Mindestbetrag ({{monto}})",
     "umbralSinTc": "Kein Wechselkurs für {{moneda}} hinterlegt",
-    "cobraPor": "Auszahlung über: {{metodo}}"
+    "cobraPor": "Auszahlung über: {{metodo}}",
+    "pedirDatos": "Fragen Sie die Bankdaten über diesen Weg ab, bevor Sie überweisen."
   },
   "solFund": {
     "title": "Anfragen zum Gründungsmitglied-Beitrag",

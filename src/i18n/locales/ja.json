@@ -3005,15 +3005,19 @@
       "holder": "口座名義",
       "country": "国",
       "currency": "通貨",
-      "bank": "銀行名",
-      "identifier": "IBAN・口座番号またはPayPalのメールアドレス",
       "notes": "備考",
       "save": "保存",
       "saved": "受け取り先を保存しました",
       "saveFail": "保存できませんでした",
-      "required": "口座名義と口座情報は必ずご記入ください。",
       "privacy": "この情報はご本人と Neuromundi 運営のみが閲覧できます。",
-      "stripeNote": "すでに Stripe で入金を受けているため、報酬もそちらに振り込まれます。入力は不要です。"
+      "stripeNote": "すでに Stripe で入金を受けているため、報酬もそちらに振り込まれます。入力は不要です。",
+      "contact": "お支払い情報をお尋ねする連絡先",
+      "contactHelp": "口座番号は保存しません。お支払いの際にこちらへご連絡し、情報を伺って送金します。",
+      "contactType": "連絡方法",
+      "cEmail": "メール",
+      "cPhone": "電話",
+      "cWhatsapp": "WhatsApp",
+      "requiredContact": "口座名義と連絡先（メールまたは電話）をご記入ください。"
     }
   },
   "renewal": {
@@ -5583,7 +5587,8 @@
     "umbralOk": "最低額に到達",
     "umbralNo": "最低額に未達（{{monto}}）",
     "umbralSinTc": "{{moneda}} の為替レートが未登録です",
-    "cobraPor": "受取方法：{{metodo}}"
+    "cobraPor": "受取方法：{{metodo}}",
+    "pedirDatos": "送金前にこの連絡先で口座情報をお尋ねください。"
   },
   "solFund": {
     "title": "創設メンバー料金の申請",

@@ -26,7 +26,7 @@ interface Fila {
   cuenta_de_cobro: boolean;
   metodo_cobro: string | null;
   cuenta_titular: string | null;
-  cuenta_identificador: string | null;
+  cuenta_contacto: string | null;
   comisiones: number;
   referidos: number;
   monto_cents: number;
@@ -208,10 +208,15 @@ export function AdminComisiones() {
                             ? t('comisiones.cobraPor', { metodo: metodoLabel(f.metodo_cobro, t) })
                             : t('comisiones.sinCuenta')}
                         </span>
-                        {f.cuenta_de_cobro && f.cuenta_identificador ? (
-                          <span className="block font-mono text-[11px] text-muted">
-                            {f.cuenta_titular ? `${f.cuenta_titular} · ` : ''}{f.cuenta_identificador}
-                          </span>
+                        {f.cuenta_de_cobro && f.cuenta_contacto ? (
+                          <>
+                            <span className="block text-[11px] text-muted">
+                              {f.cuenta_titular ? `${f.cuenta_titular} · ` : ''}{f.cuenta_contacto}
+                            </span>
+                            {f.metodo_cobro !== 'stripe' ? (
+                              <span className="block text-[11px] text-muted">{t('comisiones.pedirDatos')}</span>
+                            ) : null}
+                          </>
                         ) : null}
                         {f.alcanza_umbral === null ? (
                           <span className="block text-amber-700">

@@ -3005,15 +3005,19 @@
       "holder": "Titular de la cuenta",
       "country": "País",
       "currency": "Moneda",
-      "bank": "Banco",
-      "identifier": "CLABE, IBAN o correo de PayPal",
       "notes": "Notas",
       "save": "Guardar",
       "saved": "Datos de cobro guardados",
       "saveFail": "No se pudo guardar",
-      "required": "Indique al menos el titular y el dato de la cuenta.",
       "privacy": "Solo usted y la administración de Neuromundi ven estos datos.",
-      "stripeNote": "Ya cobra con Stripe, así que sus comisiones salen por ahí. No necesita llenar nada."
+      "stripeNote": "Ya cobra con Stripe, así que sus comisiones salen por ahí. No necesita llenar nada.",
+      "contact": "Correo o teléfono para pedirle los datos",
+      "contactHelp": "No guardamos su número de cuenta. Cuando le toque cobrar le escribimos por este medio, le pedimos los datos y hacemos la transferencia.",
+      "contactType": "Medio de contacto",
+      "cEmail": "Correo",
+      "cPhone": "Teléfono",
+      "cWhatsapp": "WhatsApp",
+      "requiredContact": "Indique el titular y un correo o teléfono de contacto."
     }
   },
   "renewal": {
@@ -5583,7 +5587,8 @@
     "umbralOk": "Alcanza el mínimo",
     "umbralNo": "Aún no alcanza el mínimo ({{monto}})",
     "umbralSinTc": "Sin tipo de cambio cargado para {{moneda}}",
-    "cobraPor": "Cobra por: {{metodo}}"
+    "cobraPor": "Cobra por: {{metodo}}",
+    "pedirDatos": "Pídale los datos bancarios por este medio antes de transferir."
   },
   "solFund": {
     "title": "Solicitudes de cuota de fundador",

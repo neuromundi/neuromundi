@@ -3005,15 +3005,19 @@
       "holder": "예금주",
       "country": "국가",
       "currency": "통화",
-      "bank": "은행",
-      "identifier": "IBAN, 계좌번호 또는 PayPal 이메일",
       "notes": "메모",
       "save": "저장",
       "saved": "정산 정보를 저장했습니다",
       "saveFail": "저장하지 못했습니다",
-      "required": "예금주와 계좌 정보는 반드시 입력해 주세요.",
       "privacy": "이 정보는 본인과 Neuromundi 운영진만 볼 수 있습니다。",
-      "stripeNote": "이미 Stripe로 정산받고 있어 수수료도 그쪽으로 지급됩니다. 입력할 필요가 없습니다."
+      "stripeNote": "이미 Stripe로 정산받고 있어 수수료도 그쪽으로 지급됩니다. 입력할 필요가 없습니다.",
+      "contact": "정산 정보를 여쭐 연락처",
+      "contactHelp": "계좌번호는 저장하지 않습니다. 정산 시점에 이 연락처로 연락드려 정보를 받고 송금합니다.",
+      "contactType": "연락 수단",
+      "cEmail": "이메일",
+      "cPhone": "전화",
+      "cWhatsapp": "WhatsApp",
+      "requiredContact": "예금주와 이메일 또는 전화번호를 입력해 주세요."
     }
   },
   "renewal": {
@@ -5583,7 +5587,8 @@
     "umbralOk": "최소 금액 충족",
     "umbralNo": "최소 금액 미달 ({{monto}})",
     "umbralSinTc": "{{moneda}} 환율이 등록되지 않았습니다",
-    "cobraPor": "수령 방법: {{metodo}}"
+    "cobraPor": "수령 방법: {{metodo}}",
+    "pedirDatos": "송금 전에 이 연락처로 계좌 정보를 요청하세요."
   },
   "solFund": {
     "title": "창립 회원 요금 신청",

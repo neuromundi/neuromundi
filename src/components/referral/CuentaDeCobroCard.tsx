@@ -17,14 +17,15 @@ import { supabase } from '@/lib/supabase';
 import { useAuthStore } from '@/stores/authStore';
 
 type Metodo = 'stripe' | 'transferencia' | 'paypal' | 'otro';
+type MedioContacto = 'email' | 'telefono' | 'whatsapp';
 
 interface CuentaDeCobro {
   metodo: Metodo;
   titular: string | null;
   pais: string | null;
   moneda: string | null;
-  banco: string | null;
-  identificador: string | null;
+  contacto: string | null;
+  contacto_tipo: MedioContacto | null;
   notas: string | null;
 }
 
@@ -41,8 +42,8 @@ export function CuentaDeCobroCard() {
   const [titular, setTitular] = useState('');
   const [pais, setPais] = useState('');
   const [moneda, setMoneda] = useState('');
-  const [banco, setBanco] = useState('');
-  const [identificador, setIdentificador] = useState('');
+  const [contacto, setContacto] = useState('');
+  const [contactoTipo, setContactoTipo] = useState<MedioContacto>('email');
   const [notas, setNotas] = useState('');
   const [guardando, setGuardando] = useState(false);
   const [listo, setListo] = useState(false);
@@ -56,8 +57,8 @@ export function CuentaDeCobroCard() {
       setTitular(c.titular ?? '');
       setPais(c.pais ?? '');
       setMoneda(c.moneda ?? '');
-      setBanco(c.banco ?? '');
-      setIdentificador(c.identificador ?? '');
+      setContacto(c.contacto ?? '');
+      setContactoTipo(c.contacto_tipo ?? 'email');
       setNotas(c.notas ?? '');
       setListo(true);
     });
@@ -72,8 +73,8 @@ export function CuentaDeCobroCard() {
   }, [profile]);
 
   const guardar = useCallback(async () => {
-    if (!titular.trim() || !identificador.trim()) {
-      toast.error(t('recommend.payout.required'));
+    if (!titular.trim() || !contacto.trim()) {
+      toast.error(t('recommend.payout.requiredContact'));
       return;
     }
     setGuardando(true);
@@ -82,8 +83,8 @@ export function CuentaDeCobroCard() {
       p_titular: titular,
       p_pais: pais,
       p_moneda: moneda,
-      p_banco: banco,
-      p_identificador: identificador,
+      p_contacto: contacto,
+      p_contacto_tipo: contactoTipo,
       p_notas: notas,
     });
     setGuardando(false);
@@ -93,7 +94,7 @@ export function CuentaDeCobroCard() {
     }
     setListo(true);
     toast.success(t('recommend.payout.saved'));
-  }, [metodo, titular, pais, moneda, banco, identificador, notas, t, toast]);
+  }, [metodo, titular, pais, moneda, contacto, contactoTipo, notas, t, toast]);
 
   if (!profile) return null;
 
@@ -135,16 +136,25 @@ export function CuentaDeCobroCard() {
         </label>
 
         <label>
-          <span className="mb-1 block text-xs font-semibold text-slate-700">{t('recommend.payout.identifier')}</span>
-          <input className={campo} value={identificador} onChange={(e) => setIdentificador(e.target.value)} />
+          <span className="mb-1 block text-xs font-semibold text-slate-700">{t('recommend.payout.contactType')}</span>
+          <select className={campo} value={contactoTipo}
+                  onChange={(e) => setContactoTipo(e.target.value as MedioContacto)}>
+            <option value="email">{t('recommend.payout.cEmail')}</option>
+            <option value="telefono">{t('recommend.payout.cPhone')}</option>
+            <option value="whatsapp">{t('recommend.payout.cWhatsapp')}</option>
+          </select>
         </label>
 
-        {metodo !== 'paypal' && (
-          <label>
-            <span className="mb-1 block text-xs font-semibold text-slate-700">{t('recommend.payout.bank')}</span>
-            <input className={campo} value={banco} onChange={(e) => setBanco(e.target.value)} />
-          </label>
-        )}
+        <label className="sm:col-span-2">
+          <span className="mb-1 block text-xs font-semibold text-slate-700">{t('recommend.payout.contact')}</span>
+          <input
+            className={campo}
+            value={contacto}
+            onChange={(e) => setContacto(e.target.value)}
+            inputMode={contactoTipo === 'email' ? 'email' : 'tel'}
+          />
+          <span className="mt-1 block text-xs text-muted">{t('recommend.payout.contactHelp')}</span>
+        </label>
 
         <label>
           <span className="mb-1 block text-xs font-semibold text-slate-700">{t('recommend.payout.country')}</span>

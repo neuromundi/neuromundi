@@ -3005,15 +3005,19 @@
       "holder": "Titular da conta",
       "country": "País",
       "currency": "Moeda",
-      "bank": "Banco",
-      "identifier": "CLABE, IBAN ou e-mail do PayPal",
       "notes": "Notas",
       "save": "Salvar",
       "saved": "Dados de recebimento salvos",
       "saveFail": "Não foi possível salvar",
-      "required": "Informe ao menos o titular e os dados da conta.",
       "privacy": "Somente você e a administração do Neuromundi veem estes dados.",
-      "stripeNote": "Você já recebe pelo Stripe, então as comissões saem por lá. Não precisa preencher nada."
+      "stripeNote": "Você já recebe pelo Stripe, então as comissões saem por lá. Não precisa preencher nada.",
+      "contact": "E-mail ou telefone para pedirmos seus dados",
+      "contactHelp": "Não guardamos o número da sua conta. Quando houver pagamento, entramos em contato por aqui, pedimos os dados e fazemos a transferência.",
+      "contactType": "Meio de contato",
+      "cEmail": "E-mail",
+      "cPhone": "Telefone",
+      "cWhatsapp": "WhatsApp",
+      "requiredContact": "Informe o titular e um e-mail ou telefone."
     }
   },
   "renewal": {
@@ -5583,7 +5587,8 @@
     "umbralOk": "Atinge o mínimo",
     "umbralNo": "Ainda abaixo do mínimo ({{monto}})",
     "umbralSinTc": "Sem taxa de câmbio carregada para {{moneda}}",
-    "cobraPor": "Recebe por: {{metodo}}"
+    "cobraPor": "Recebe por: {{metodo}}",
+    "pedirDatos": "Peça os dados bancários por este meio antes de transferir."
   },
   "solFund": {
     "title": "Pedidos de cota de fundador",

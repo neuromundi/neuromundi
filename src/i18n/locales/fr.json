@@ -3005,15 +3005,19 @@
       "holder": "Titulaire du compte",
       "country": "Pays",
       "currency": "Devise",
-      "bank": "Banque",
-      "identifier": "CLABE, IBAN ou e-mail PayPal",
       "notes": "Remarques",
       "save": "Enregistrer",
       "saved": "Coordonnées enregistrées",
       "saveFail": "Enregistrement impossible",
-      "required": "Indiquez au moins le titulaire et les coordonnées du compte.",
       "privacy": "Seuls vous et l’administration de Neuromundi voyez ces informations.",
-      "stripeNote": "Vous encaissez déjà via Stripe : vos commissions y seront versées. Rien à remplir."
+      "stripeNote": "Vous encaissez déjà via Stripe : vos commissions y seront versées. Rien à remplir.",
+      "contact": "E-mail ou téléphone pour vous demander vos coordonnées",
+      "contactHelp": "Nous ne conservons pas votre numéro de compte. Au moment du versement, nous vous écrivons ici, demandons vos coordonnées et effectuons le virement.",
+      "contactType": "Moyen de contact",
+      "cEmail": "E-mail",
+      "cPhone": "Téléphone",
+      "cWhatsapp": "WhatsApp",
+      "requiredContact": "Indiquez le titulaire et un e-mail ou téléphone."
     }
   },
   "renewal": {
@@ -5583,7 +5587,8 @@
     "umbralOk": "Atteint le minimum",
     "umbralNo": "En dessous du minimum ({{monto}})",
     "umbralSinTc": "Aucun taux de change chargé pour {{moneda}}",
-    "cobraPor": "Payé par : {{metodo}}"
+    "cobraPor": "Payé par : {{metodo}}",
+    "pedirDatos": "Demandez les coordonnées bancaires par ce moyen avant de virer."
   },
   "solFund": {
     "title": "Demandes de tarif Membre Fondateur",

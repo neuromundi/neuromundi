@@ -1359,7 +1359,7 @@ export interface Database {
           referrer_id: string; referidor: string | null; correo: string | null;
           referidor_vigente: boolean; cuenta_de_cobro: boolean;
           metodo_cobro: string | null; cuenta_titular: string | null;
-          cuenta_identificador: string | null;
+          cuenta_contacto: string | null;
           comisiones: number; referidos: number;
           monto_cents: number; currency: string | null;
           umbral_cents: number | null; alcanza_umbral: boolean | null;
@@ -1371,8 +1371,8 @@ export interface Database {
         Args: Record<string, never>;
         Returns: {
           user_id: string; metodo: string; titular: string | null;
-          pais: string | null; moneda: string | null; banco: string | null;
-          identificador: string | null; notas: string | null;
+          pais: string | null; moneda: string | null; contacto: string | null;
+          contacto_tipo: string | null; notas: string | null;
           actualizado_en: string;
         } | null;
       };
@@ -1380,13 +1380,13 @@ export interface Database {
       guardar_cuenta_de_cobro: {
         Args: {
           p_metodo: string; p_titular?: string | null; p_pais?: string | null;
-          p_moneda?: string | null; p_banco?: string | null;
-          p_identificador?: string | null; p_notas?: string | null;
+          p_moneda?: string | null; p_contacto?: string | null;
+          p_contacto_tipo?: string | null; p_notas?: string | null;
         };
         Returns: {
           user_id: string; metodo: string; titular: string | null;
-          pais: string | null; moneda: string | null; banco: string | null;
-          identificador: string | null; notas: string | null;
+          pais: string | null; moneda: string | null; contacto: string | null;
+          contacto_tipo: string | null; notas: string | null;
           actualizado_en: string;
         };
       };

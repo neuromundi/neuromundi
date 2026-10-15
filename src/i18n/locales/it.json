@@ -3005,15 +3005,19 @@
       "holder": "Intestatario del conto",
       "country": "Paese",
       "currency": "Valuta",
-      "bank": "Banca",
-      "identifier": "CLABE, IBAN o email PayPal",
       "notes": "Note",
       "save": "Salva",
       "saved": "Dati di pagamento salvati",
       "saveFail": "Impossibile salvare",
-      "required": "Indica almeno intestatario e dati del conto.",
       "privacy": "Solo tu e l’amministrazione di Neuromundi vedete questi dati.",
-      "stripeNote": "Incassi già con Stripe, quindi le commissioni passano di lì. Non devi compilare nulla."
+      "stripeNote": "Incassi già con Stripe, quindi le commissioni passano di lì. Non devi compilare nulla.",
+      "contact": "Email o telefono per chiederti i dati",
+      "contactHelp": "Non conserviamo il numero di conto. Al momento del pagamento ti scriviamo qui, chiediamo i dati ed effettuiamo il bonifico.",
+      "contactType": "Canale di contatto",
+      "cEmail": "Email",
+      "cPhone": "Telefono",
+      "cWhatsapp": "WhatsApp",
+      "requiredContact": "Indica intestatario e un email o telefono."
     }
   },
   "renewal": {
@@ -5583,7 +5587,8 @@
     "umbralOk": "Raggiunge il minimo",
     "umbralNo": "Sotto il minimo ({{monto}})",
     "umbralSinTc": "Nessun cambio caricato per {{moneda}}",
-    "cobraPor": "Pagato tramite: {{metodo}}"
+    "cobraPor": "Pagato tramite: {{metodo}}",
+    "pedirDatos": "Chiedi i dati bancari con questo mezzo prima di trasferire."
   },
   "solFund": {
     "title": "Richieste di quota da fondatore",

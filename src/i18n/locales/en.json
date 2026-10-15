@@ -3005,15 +3005,19 @@
       "holder": "Account holder",
       "country": "Country",
       "currency": "Currency",
-      "bank": "Bank",
-      "identifier": "CLABE, IBAN or PayPal email",
       "notes": "Notes",
       "save": "Save",
       "saved": "Payout details saved",
       "saveFail": "Could not save",
-      "required": "Please give at least the account holder and the account details.",
       "privacy": "Only you and the Neuromundi administration can see these details.",
-      "stripeNote": "You already collect through Stripe, so commissions go there. Nothing to fill in."
+      "stripeNote": "You already collect through Stripe, so commissions go there. Nothing to fill in.",
+      "contact": "Email or phone where we can ask for your details",
+      "contactHelp": "We do not store your account number. When a payout is due we contact you here, ask for the details and make the transfer.",
+      "contactType": "Contact channel",
+      "cEmail": "Email",
+      "cPhone": "Phone",
+      "cWhatsapp": "WhatsApp",
+      "requiredContact": "Please give the account holder and an email or phone."
     }
   },
   "renewal": {
@@ -5583,7 +5587,8 @@
     "umbralOk": "Meets the minimum",
     "umbralNo": "Below the minimum ({{monto}})",
     "umbralSinTc": "No exchange rate loaded for {{moneda}}",
-    "cobraPor": "Paid via: {{metodo}}"
+    "cobraPor": "Paid via: {{metodo}}",
+    "pedirDatos": "Ask for the bank details through this channel before transferring."
   },
   "solFund": {
     "title": "Founding Member requests",

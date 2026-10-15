@@ -3005,15 +3005,19 @@
       "holder": "账户持有人",
       "country": "国家",
       "currency": "货币",
-      "bank": "银行",
-      "identifier": "IBAN、账号或 PayPal 邮箱",
       "notes": "备注",
       "save": "保存",
       "saved": "收款信息已保存",
       "saveFail": "保存失败",
-      "required": "请至少填写账户持有人和账户信息。",
       "privacy": "仅您本人和 Neuromundi 管理方可查看这些信息。",
-      "stripeNote": "您已通过 Stripe 收款，佣金也会汇到那里，无需填写。"
+      "stripeNote": "您已通过 Stripe 收款，佣金也会汇到那里，无需填写。",
+      "contact": "用于索取收款信息的邮箱或电话",
+      "contactHelp": "我们不保存您的账号。到结算时会通过此联系方式与您联系，索取信息后转账。",
+      "contactType": "联系方式",
+      "cEmail": "邮箱",
+      "cPhone": "电话",
+      "cWhatsapp": "WhatsApp",
+      "requiredContact": "请填写账户持有人及邮箱或电话。"
     }
   },
   "renewal": {
@@ -5583,7 +5587,8 @@
     "umbralOk": "已达最低额",
     "umbralNo": "未达最低额（{{monto}}）",
     "umbralSinTc": "未加载 {{moneda}} 的汇率",
-    "cobraPor": "收款方式：{{metodo}}"
+    "cobraPor": "收款方式：{{metodo}}",
+    "pedirDatos": "转账前请通过此联系方式索取银行信息。"
   },
   "solFund": {
     "title": "创始会员资费申请",
