@@ -71,11 +71,15 @@ export function useFounderCapacity(kind: FounderKind | null, country: string | n
     (async () => {
       setLoading(true);
       const [countRes, capRes] = await Promise.all([
-        supabase.from('founder_members').select('user_id', { count: 'exact', head: true }).eq('kind', kind).eq('country', country),
+        // Cuenta por RPC y no leyendo la tabla: desde la migración 0222 el
+        // padrón de fundadores ya no es legible por cualquiera, y contar
+        // filas devolvería sólo las visibles. La función cuenta todas sin
+        // revelar quién es quién.
+        supabase.rpc('founder_cupo_usado', { p_country: country, p_kind: kind }),
         supabase.rpc('founder_cap_for', { p_country: country, p_kind: kind }),
       ]);
       if (cancelled) return;
-      setUsed(countRes.count ?? 0);
+      setUsed(typeof countRes.data === 'number' ? countRes.data : 0);
       setCapacity(typeof capRes.data === 'number' ? capRes.data : FOUNDER_CAPACITY[kind]);
       setLoading(false);
     })();

@@ -132,7 +132,18 @@ Deno.serve(async (req) => {
     cancel_url: `${origin}/tienda?buy=cancel`,
   });
 
-  await admin.from('orders').insert({
+
+  // SI NO QUEDA REGISTRO, NO SE ENTREGA LA URL DE PAGO.
+  //
+  // Antes este insert no revisaba su `error` —supabase-js no lanza, devuelve
+  // { data, error }— y la sesion de Stripe YA estaba creada: si el registro
+  // fallaba, el comprador pagaba igual y el webhook buscaba despues una fila
+  // que no existia. Venta cobrada sin pedido, sin comision y sin descuento de
+  // inventario, y nadie se enteraba.
+  //
+  // Ahora se expira la sesion y se devuelve error: mejor que no pueda pagar a
+  // que pague sin que quede constancia.
+  const { error: errReg } = await admin.from('orders').insert({
     product_id: product.id,
     buyer_id: u.user.id,
     vendor_id: product.vendor_id,
@@ -145,6 +156,11 @@ Deno.serve(async (req) => {
     buyer_name: buyerName,
     stripe_session_id: session.id,
   });
+  if (errReg) {
+    console.error('registro de pedido', errReg.message);
+    try { await stripe.checkout.sessions.expire(session.id); } catch { /* ya expirada o no expirable */ }
+    return json(500, { error: 'No se pudo registrar la operacion. Intentelo de nuevo.' });
+  }
 
   return json(200, { url: session.url });
   } catch (e) {

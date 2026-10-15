@@ -1600,6 +1600,11 @@ export interface Database {
         Args: { p_user: string; p_conceder: boolean; p_nota?: string | null };
         Returns: { ok: boolean; concedida?: boolean; motivo?: string };
       };
+      /** Lugares de fundador ya tomados (migración 0222). */
+      founder_cupo_usado: {
+        Args: { p_country: string; p_kind: string };
+        Returns: number;
+      };
       my_membership_monthly_ordinary: {
         Args: Record<string, never>;
         Returns: { currency: string; monthly_amount: number | null }[];
