@@ -5598,5 +5598,12 @@
     "muroCuerpo": "La tua iscrizione è gratuita perché la tua azienda offre lavoro, volontariato o servizio civile, e sono passati 45 giorni senza nessuna offerta pubblicata.",
     "muroNota": "Nessun addebito e nessun dato perso. Pubblica un'offerta e questa sezione torna subito.",
     "muroCta": "Pubblica un'offerta"
+  },
+  "pubOk": {
+    "titulo": "Il tuo profilo è pubblicato",
+    "cuerpo": "Ora compare nella directory e chiunque può trovarlo.",
+    "verPerfil": "Vedi il mio profilo pubblico",
+    "muroFundadores": "Muro dei fondatori",
+    "muroDonantes": "Muro dei donatori"
   }
 }

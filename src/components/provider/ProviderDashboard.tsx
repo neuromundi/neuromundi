@@ -94,6 +94,7 @@ import { formatDate, formatDateTime, exportToCsv } from '@/lib/utils';
 import type { Offer, OfferStatus, OfferInsert, ProviderType, TransactionStatus } from '@/types/app';
 import { DIMENSION_LABEL_KEY } from '@/types/app';
 import { PublicationSteps } from './PublicationSteps';
+import { PerfilPublicadoCard } from './PerfilPublicadoCard';
 import { ExemptionCard } from './ExemptionCard';
 import { OrgVerificationCard } from './OrgVerificationCard';
 import { LockedFeature } from './LockedFeature';
@@ -811,6 +812,10 @@ export function ProviderDashboard() {
           completar el perfil, cubrir la cuota y publicar. Los tres pasos van
           arriba del todo, con lo que falta de cada uno. */}
       <PublicationSteps userId={userId} />
+      {/* Y su contraparte: cuando YA está publicado, PublicationSteps se oculta
+          y antes no quedaba nada en su lugar. Esta tarjeta confirma el hecho y
+          lleva a verlo, y a los muros, que no tenían ningún enlace. */}
+      <PerfilPublicadoCard userId={userId} />
       {/* Expediente de exención. SOLO a quien puede tener derecho a ella:
           organizaciones civiles, empresas y entidades del sector público o
           social. Antes se mostraba a TODOS los prestadores, de modo que una

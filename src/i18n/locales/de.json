@@ -5598,5 +5598,12 @@
     "muroCuerpo": "Ihre Mitgliedschaft ist kostenlos, weil Ihr Unternehmen Arbeit, Ehrenamt oder Praktika anbietet, und seit 45 Tagen wurde kein Angebot veröffentlicht.",
     "muroNota": "Keine Kosten, keine verlorenen Daten. Veröffentlichen Sie ein Angebot und dieser Bereich ist sofort wieder da.",
     "muroCta": "Angebot veröffentlichen"
+  },
+  "pubOk": {
+    "titulo": "Ihr Profil ist veröffentlicht",
+    "cuerpo": "Es erscheint jetzt im Verzeichnis und ist für alle auffindbar.",
+    "verPerfil": "Mein öffentliches Profil ansehen",
+    "muroFundadores": "Gründerwand",
+    "muroDonantes": "Spenderwand"
   }
 }

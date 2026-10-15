@@ -5598,5 +5598,12 @@
     "muroCuerpo": "贵公司会员免费，但已有 45 天未发布任何机会。",
     "muroNota": "没有费用，也没有数据丢失。发布一条机会即可立即恢复。",
     "muroCta": "发布机会"
+  },
+  "pubOk": {
+    "titulo": "您的主页已发布",
+    "cuerpo": "现已显示在目录中，任何人都能找到。",
+    "verPerfil": "查看我的公开主页",
+    "muroFundadores": "创始会员墙",
+    "muroDonantes": "捐赠者墙"
   }
 }

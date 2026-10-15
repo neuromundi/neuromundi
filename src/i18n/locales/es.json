@@ -5598,5 +5598,12 @@
     "muroCuerpo": "Su membresía es gratuita porque su empresa ofrece empleo, voluntariado o servicio social, y lleva 45 días sin publicar ninguna oferta.",
     "muroNota": "No hay ningún cargo ni ha perdido datos. Publique una oferta y esta sección se reactiva de inmediato.",
     "muroCta": "Publicar una oferta"
+  },
+  "pubOk": {
+    "titulo": "Su perfil está publicado",
+    "cuerpo": "Ya aparece en el directorio y cualquiera puede encontrarlo.",
+    "verPerfil": "Ver mi perfil público",
+    "muroFundadores": "Muro de fundadores",
+    "muroDonantes": "Muro de donantes"
   }
 }

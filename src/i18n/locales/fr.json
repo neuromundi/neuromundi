@@ -5598,5 +5598,12 @@
     "muroCuerpo": "Votre adhésion est gratuite parce que votre entreprise propose emploi, bénévolat ou service civique, et 45 jours se sont écoulés sans aucune offre publiée.",
     "muroNota": "Aucun frais, aucune donnée perdue. Publiez une offre et cette section revient immédiatement.",
     "muroCta": "Publier une offre"
+  },
+  "pubOk": {
+    "titulo": "Votre profil est publié",
+    "cuerpo": "Il apparaît désormais dans l'annuaire et chacun peut le trouver.",
+    "verPerfil": "Voir mon profil public",
+    "muroFundadores": "Mur des fondateurs",
+    "muroDonantes": "Mur des donateurs"
   }
 }

@@ -5598,5 +5598,12 @@
     "muroCuerpo": "Your membership is free because your company offers jobs, volunteering or community placements, and 45 days have passed without a single opening posted.",
     "muroNota": "There is no charge and you have lost no data. Post an opening and this section comes back immediately.",
     "muroCta": "Post an opening"
+  },
+  "pubOk": {
+    "titulo": "Your profile is published",
+    "cuerpo": "It now appears in the directory and anyone can find it.",
+    "verPerfil": "View my public profile",
+    "muroFundadores": "Founders wall",
+    "muroDonantes": "Donors wall"
   }
 }
