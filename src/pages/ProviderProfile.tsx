@@ -269,7 +269,10 @@ export function ProviderProfile() {
         // fila (conectar, reservar, guardar). Una vez por carga de perfil.
         <div className="flex flex-wrap gap-2" onClickCapture={() => trackContactOnce(id)}>
           {isProvider && userId !== id && <ConnectButton providerId={id} />}
-          {isParent && <SaveToListButton providerId={id} />}
+          {/* El paciente tambien tiene listas: la base ya lo permite
+              (is_consumer abarca parent y patient) y solo esta pantalla lo
+              excluia. Auditoria 15 oct 2026, hallazgo M-16. */}
+          {isConsumer && <SaveToListButton providerId={id} />}
           {isConsumer && profile.provider_type === 'school'
             ? <BookAppointment providerId={id} label={t('school.tour')} />
             : isConsumer && <BookAppointment providerId={id} />}
