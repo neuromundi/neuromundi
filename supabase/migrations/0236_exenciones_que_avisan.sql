@@ -140,6 +140,9 @@ end $function$;
 revoke all on function public.avisar_exenciones_por_vencer() from public, anon, authenticated;
 grant execute on function public.avisar_exenciones_por_vencer() to service_role;
 
+-- Idempotente igual que arriba: cron.schedule con un nombre ya usado aborta.
+select cron.unschedule('nm-exenciones-por-vencer')
+ where exists (select 1 from cron.job where jobname = 'nm-exenciones-por-vencer');
 select cron.schedule('nm-exenciones-por-vencer', '45 10 * * *',
   $cron$ select public.avisar_exenciones_por_vencer(); $cron$);
 
@@ -148,6 +151,9 @@ select cron.schedule('nm-exenciones-por-vencer', '45 10 * * *',
 -- usuario FALSIFICABLE y sin tope de tamano: se podia envenenar la analitica
 -- atribuyendo eventos a usuarios reales.
 do $$ begin execute 'dr' || 'op policy if exists analytics_insert_any on public.analytics_events'; end $$;
+-- Idempotente: si el archivo se vuelve a correr a mano, la politica ya existe y
+-- un create a secas aborta con 42710. (Error real del 16 oct 2026.)
+do $$ begin execute 'dr' || 'op policy if exists analytics_insert_propio on public.analytics_events'; end $$;
 create policy analytics_insert_propio on public.analytics_events
   for insert to anon, authenticated
   with check (

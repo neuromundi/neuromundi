@@ -660,6 +660,392 @@
       "body": "你已完成资料。愿意协助我们完成首次国际调查吗？匿名，约需5分钟。",
       "cta": "参与调查",
       "later": "暂不"
+    },
+    "content": {
+      "ui": {
+        "badge": "📋 国际调查",
+        "title": "首届神经发育、神经多样性与神经系统疾病国际调查",
+        "intro": "请帮助我们了解国际现状，以改善获得支持的途径和陪伴的质量。您的回答是匿名的，大约需要 5 分钟。",
+        "step1": "1 · 关于您",
+        "step2": "2 · 您的身份与经历",
+        "step3": "3 · 最后",
+        "sectionPrefix": "板块",
+        "askRole": "您以什么身份作答？",
+        "askSections": "您参与哪些板块？（可多选）",
+        "askCountry": "您从哪个国家作答？",
+        "pickCountry": "请选择您的国家…",
+        "pick": "请选择…",
+        "writeHere": "在此填写…",
+        "optional": "（选填）",
+        "consentText": "部分回答可能被视为敏感健康数据。参与是自愿且匿名的；我们仅以汇总形式使用这些数据，用于发布结果和改进社区，并遵循我们的",
+        "privacyLink": "隐私声明",
+        "consentCheck": "我已阅读并同意以匿名、自愿的方式参与，并同意以汇总方式处理我的回答。",
+        "submit": "提交我的回答",
+        "sending": "正在提交…",
+        "footer": "Neuromundi 社区调查 · 便利抽样（非概率抽样）· 汇总结果发布于 neuromundi.com。",
+        "errRole": "请选择您的身份。",
+        "errSections": "请至少选择一个板块。",
+        "errCountry": "请选择您的国家。",
+        "errConsent": "必须同意知情同意声明才能提交。",
+        "errSend": "提交失败，请重试。",
+        "doneTitle": "感谢您的参与！",
+        "doneBody": "您的匿名回答已成为首届国际调查的一部分。我们将在 neuromundi.com 发布汇总结果。",
+        "doneHome": "返回首页"
+      },
+      "role": {
+        "familiar": "家属（父母／监护人／亲属）",
+        "persona": "本人／患者",
+        "especialista": "健康或教育领域的专业人士",
+        "proveedor": "产品供应商",
+        "servicios": "服务提供者",
+        "organizacion": "机构／非政府组织",
+        "escuela": "学校或诊所",
+        "empresa": "企业"
+      },
+      "section": {
+        "neurodesarrollo": "神经发育",
+        "neurodivergencias": "神经多样性",
+        "afecciones": "神经系统疾病"
+      },
+      "q": {
+        "acceso_facil": "找到您所需要的支持或专业人员有多容易？",
+        "trato_neuroafirmativo": "您得到的对待是否具有神经肯定性（感官调适、灵活安排、人性化对待）？",
+        "inclusion_escolar": "教育融合：是否能进入真正具有融合性的学校？",
+        "inclusion_laboral": "就业融合（成年人）：是否存在真正的机会？",
+        "carga_economica": "陪伴与照护的费用对您的家庭构成多大负担？",
+        "profesion": "您的职业或专业方向是什么？",
+        "modalidad": "您以哪种方式提供服务？",
+        "formacion": "您在所从事的领域接受过专门培训吗？",
+        "colaborar": "您有兴趣持续进修并参与社区协作吗？",
+        "herramientas": "您在工作中使用哪些数字工具？",
+        "productos": "您提供哪类产品？",
+        "barreras_llegar": "触达家庭的障碍：",
+        "interes_marketplace": "您有兴趣在专业平台上销售吗？",
+        "servicio_tipo": "您提供什么服务？",
+        "modalidad_serv": "服务方式：",
+        "retos_serv": "为这一群体提供服务的主要挑战：",
+        "interes_directorio": "您有兴趣登录专业目录吗？",
+        "servicios": "您的机构提供哪些服务或项目？",
+        "necesidades": "您的机构最需要什么？",
+        "colaborar_red": "你们有兴趣加入机构网络协作吗？",
+        "programa_inclusion": "你们有融合教育项目吗？",
+        "retos_inclusion": "融合方面的主要挑战：",
+        "apoyos_necesarios": "为了更好地实现融合，你们需要哪些支持？",
+        "contrata_nd": "你们会聘用神经多样性人才吗？",
+        "barreras_laboral": "就业融合的障碍：",
+        "interes_vacantes": "你们有兴趣发布包容性职位吗？",
+        "nd_edad_senal": "最早在什么年龄发现发育方面的迹象？",
+        "nd_vigilancia": "在儿童保健检查中是否进行过发育监测或筛查？",
+        "nd_intervencion_temprana": "是否在 3 岁前获得了早期干预？",
+        "nd_terapias": "你们使用过哪些神经发育相关治疗？",
+        "nd_barrera": "在神经发育方面最大的困难是什么？",
+        "nd_acceso_it": "在您所在地区，早期干预（0—3 岁）的可获得性如何？",
+        "nd_brecha_prof": "您观察到神经发育领域最大的缺口：",
+        "ndx_identificacion": "神经多样性是如何被识别的？",
+        "ndx_edad_dx": "如果有诊断，是在哪个阶段得到的？",
+        "ndx_adaptaciones": "在日常生活中您最需要哪些调适？",
+        "ndx_afirmativo": "您所处的环境（学校、职场、医疗）是真正的神经肯定性环境，而不只是\"容忍\"吗？",
+        "ndx_salud_mental": "您是否经历过相关的心理健康困难（焦虑、耗竭／倦怠）？",
+        "ndx_barrera": "您面临的主要障碍：",
+        "ndx_enfoque": "您的工作或机构是否采用神经肯定性取向（而非以\"矫正\"为中心）？",
+        "ndx_no_cubierto": "神经多样性领域最未被满足的需求：",
+        "af_tipo": "主要的神经系统疾病是什么？",
+        "af_acceso_neuro": "获得神经科诊疗和持续随访有多容易？",
+        "af_tratamiento": "您能持续获得所需的药物或治疗吗？",
+        "af_rehabilitacion": "您能获得所需的康复服务吗（物理、作业、言语、认知）？",
+        "af_urgencias": "发生危机或急症时，您知道该去哪里，并及时得到回应吗？",
+        "af_cuidador": "如果您是照护者，您在照护方面有支持吗？",
+        "af_barrera": "神经系统疾病方面最大的障碍：",
+        "af_oferta": "在您所在地区，神经科与康复服务的供给是否充足？",
+        "af_brecha_prof": "神经系统疾病领域最大的缺口：",
+        "necesidad_libre": "当下您所在的社区最缺少什么？"
+      },
+      "opt": {
+        "acceso_facil": {
+          "muy_facil": "非常容易",
+          "facil": "容易",
+          "dificil": "困难",
+          "muy_dificil": "非常困难"
+        },
+        "trato_neuroafirmativo": {
+          "si_claramente": "是，很明确",
+          "en_parte": "部分如此",
+          "no": "否",
+          "no_aplica": "不适用"
+        },
+        "inclusion_escolar": {
+          "si_con_apoyos": "是，有支持措施",
+          "parcial": "部分如此",
+          "no": "否",
+          "no_aplica": "不适用"
+        },
+        "inclusion_laboral": {
+          "si": "是",
+          "parcial": "部分如此",
+          "no": "否",
+          "no_aplica": "不适用"
+        },
+        "carga_economica": {
+          "no_es_una_carga": "没有负担",
+          "carga_moderada": "中等负担",
+          "carga_alta": "负担较重",
+          "carga_muy_alta": "负担很重",
+          "prefiero_no_decir": "不愿透露"
+        },
+        "modalidad": {
+          "presencial": "线下",
+          "en_linea": "线上"
+        },
+        "formacion": {
+          "si_formacion_especifica": "有，接受过专门培训",
+          "parcial_autodidacta": "部分／自学",
+          "no": "没有"
+        },
+        "colaborar": {
+          "si": "有兴趣",
+          "tal_vez": "也许",
+          "no": "没有"
+        },
+        "herramientas": {
+          "agenda_citas_en_linea": "线上预约／排程",
+          "expediente_electronico": "电子病历",
+          "teleconsulta": "远程诊疗",
+          "redes_sociales": "社交媒体",
+          "ninguna": "都不用"
+        },
+        "barreras_llegar": {
+          "costo_de_difusion": "推广成本",
+          "competencia": "竞争",
+          "logistica_envios": "物流／配送",
+          "poca_visibilidad_ante_familias": "在家庭中知名度低",
+          "desconocimiento_del_sector": "对该领域不了解"
+        },
+        "interes_marketplace": {
+          "si": "有兴趣",
+          "tal_vez": "也许",
+          "no": "没有"
+        },
+        "modalidad_serv": {
+          "presencial": "线下",
+          "a_domicilio": "上门",
+          "en_linea": "线上"
+        },
+        "retos_serv": {
+          "baja_demanda_que_pueda_pagar": "有支付能力的需求不足",
+          "falta_de_derivaciones": "缺少转介",
+          "falta_de_formacion_especifica": "缺少专门培训",
+          "poca_difusion": "推广不足",
+          "tramites_o_marco_legal": "手续或法规"
+        },
+        "interes_directorio": {
+          "si": "有兴趣",
+          "tal_vez": "也许",
+          "no": "没有"
+        },
+        "necesidades": {
+          "financiamiento": "资金",
+          "difusion": "推广",
+          "voluntariado": "志愿者",
+          "alianzas": "合作伙伴",
+          "formacion": "培训"
+        },
+        "colaborar_red": {
+          "si": "有兴趣",
+          "tal_vez": "也许",
+          "no": "没有"
+        },
+        "programa_inclusion": {
+          "si": "有",
+          "parcial": "部分有",
+          "no": "没有"
+        },
+        "retos_inclusion": {
+          "formacion_docente": "教师培训",
+          "cupo_recursos": "学位／资源",
+          "apoyo_especializado": "专业支持",
+          "sensibilizacion_de_la_comunida": "社区意识提升",
+          "financiamiento": "资金"
+        },
+        "contrata_nd": {
+          "si": "会",
+          "no_pero_nos_interesa": "目前没有，但有意愿",
+          "no": "不会"
+        },
+        "barreras_laboral": {
+          "desconocimiento": "缺乏了解",
+          "falta_de_apoyos_ajustes": "缺少支持／调适",
+          "procesos_de_rh": "人力资源流程",
+          "sensibilizacion": "意识提升",
+          "ninguna": "没有障碍"
+        },
+        "interes_vacantes": {
+          "si": "有兴趣",
+          "tal_vez": "也许",
+          "no": "没有"
+        },
+        "nd_edad_senal": {
+          "antes_del_1_er_ano": "1 岁以前",
+          "1_a_2_anos": "1 至 2 岁",
+          "3_a_4_anos": "3 至 4 岁",
+          "5_a_6_anos": "5 至 6 岁",
+          "edad_escolar": "学龄期",
+          "adolescencia_o_despues": "青春期或之后",
+          "no_aplica": "不适用"
+        },
+        "nd_vigilancia": {
+          "si_de_forma_sistematica": "有，而且是系统性的",
+          "a_veces": "有时有",
+          "no": "没有",
+          "no_lo_se": "不清楚"
+        },
+        "nd_intervencion_temprana": {
+          "si": "有",
+          "parcial": "部分有",
+          "no": "没有",
+          "no_aplica": "不适用"
+        },
+        "nd_terapias": {
+          "terapia_ocupacional_integracio": "作业治疗／感觉统合",
+          "fonoaudiologia_lenguaje": "言语语言治疗",
+          "psicopedagogia_aprendizaje": "学习与心理教育辅导",
+          "fisioterapia_neuromotora": "物理治疗／神经运动",
+          "analisis_conductual_aba": "应用行为分析（ABA）",
+          "dir_floortime": "DIR／Floortime",
+          "ninguna": "都没有"
+        },
+        "nd_barrera": {
+          "diagnostico_tardio": "诊断过晚",
+          "faltan_especialistas_en_interv": "缺少早期干预专业人员",
+          "costo_de_terapias_continuas": "持续治疗的费用",
+          "coordinar_terapias_con_la_escu": "治疗与学校之间的协调",
+          "informacion_confiable": "可靠的信息"
+        },
+        "nd_acceso_it": {
+          "buena": "良好",
+          "limitada": "有限",
+          "escasa": "稀缺",
+          "casi_nula": "几乎没有"
+        },
+        "nd_brecha_prof": {
+          "deteccion_tardia": "发现过晚",
+          "pocos_terapeutas_formados": "受过培训的治疗师太少",
+          "listas_de_espera": "等待名单",
+          "falta_de_trabajo_interdiscipli": "缺乏跨专业协作",
+          "continuidad_escuelaterapia": "学校与治疗的衔接"
+        },
+        "ndx_identificacion": {
+          "diagnostico_clinico_formal": "正式临床诊断",
+          "en_proceso_de_diagnostico": "诊断进行中",
+          "autoidentificacion_sin_diagnos": "未经正式诊断的自我识别",
+          "no_aplica": "不适用"
+        },
+        "ndx_edad_dx": {
+          "infancia_temprana": "婴幼儿期",
+          "ninez": "儿童期",
+          "adolescencia": "青春期",
+          "adultez": "成年期",
+          "aun_sin_diagnostico": "仍未确诊",
+          "no_aplica": "不适用"
+        },
+        "ndx_adaptaciones": {
+          "sensoriales_ruido_luz_texturas": "感官方面（噪音、光线、质地）",
+          "comunicacion_tiempos_claridad": "沟通方面（时间、清晰度、辅助沟通）",
+          "flexibilidad_de_rutinas_horari": "作息／时间安排的灵活性",
+          "apoyo_a_funciones_ejecutivas": "执行功能支持",
+          "espacios_de_calma_regulacion": "安静／情绪调节空间"
+        },
+        "ndx_afirmativo": {
+          "si": "是",
+          "en_parte": "部分如此",
+          "no": "否",
+          "no_aplica": "不适用"
+        },
+        "ndx_salud_mental": {
+          "si_con_apoyo": "有，并获得了支持",
+          "si_sin_apoyo": "有，但没有支持",
+          "no": "没有"
+        },
+        "ndx_barrera": {
+          "estigma_o_prejuicio": "污名或偏见",
+          "faltan_profesionales_neuroafir": "缺少具神经肯定性的专业人员",
+          "costo": "费用",
+          "falta_de_adaptaciones_en_escue": "学校或职场缺少调适",
+          "diagnostico_tardio_adultos_muj": "诊断过晚（成人／女性）"
+        },
+        "ndx_enfoque": {
+          "si_explicitamente": "是，明确如此",
+          "parcial": "部分如此",
+          "no": "否"
+        },
+        "ndx_no_cubierto": {
+          "diagnostico_en_adultos_y_mujer": "成人与女性的诊断",
+          "adaptaciones_escolares_laboral": "学校与职场的调适",
+          "salud_mental_asociada": "相关的心理健康",
+          "formacion_de_profesionales": "专业人员培训",
+          "autonomia_y_vida_independiente": "自主与独立生活"
+        },
+        "af_tipo": {
+          "epilepsia": "癫痫",
+          "parkinson_u_otro_trastorno_del": "帕金森病或其他运动障碍",
+          "esclerosis_multiple": "多发性硬化",
+          "ela_enfermedad_neuromuscular": "ALS／神经肌肉疾病",
+          "secuelas_de_acv_ictus": "脑卒中后遗症",
+          "lesion_cerebral_o_medular": "脑或脊髓损伤",
+          "cefaleas_migrana": "头痛／偏头痛",
+          "demencia_deterioro_cognitivo": "痴呆／认知衰退",
+          "otra": "其他"
+        },
+        "af_acceso_neuro": {
+          "facil": "容易",
+          "dificil": "困难",
+          "muy_dificil": "非常困难"
+        },
+        "af_tratamiento": {
+          "si_sin_problema": "是，没有困难",
+          "con_dificultad_o_alto_costo": "有困难或费用很高",
+          "no_siempre": "并非总能",
+          "no": "否"
+        },
+        "af_rehabilitacion": {
+          "si": "是",
+          "parcial": "部分如此",
+          "no": "否",
+          "no_aplica": "不适用"
+        },
+        "af_urgencias": {
+          "si": "是",
+          "a_veces": "有时",
+          "no": "否",
+          "no_aplica": "不适用"
+        },
+        "af_cuidador": {
+          "si": "有",
+          "poco": "很少",
+          "no": "没有",
+          "no_soy_cuidador_a": "我不是照护者"
+        },
+        "af_barrera": {
+          "pocos_neurologos_o_subespecial": "神经科或亚专科医生太少",
+          "costo_del_tratamiento_continuo": "持续治疗的费用",
+          "distancia_a_los_centros": "就医距离远",
+          "rehabilitacion_insuficiente": "康复服务不足",
+          "falta_de_apoyo_a_cuidadores": "缺少对照护者的支持",
+          "falta_de_continuidad_entre_niv": "各级医疗之间缺乏衔接"
+        },
+        "af_oferta": {
+          "suficiente": "充足",
+          "limitada": "有限",
+          "escasa": "稀缺",
+          "casi_nula": "几乎没有"
+        },
+        "af_brecha_prof": {
+          "falta_de_subespecialistas": "缺少亚专科医生",
+          "rehabilitacion": "康复服务",
+          "continuidad_del_tratamiento": "治疗的连续性",
+          "apoyo_a_cuidadores": "对照护者的支持",
+          "cuidados_paliativos_avanzados": "安宁疗护／重症照护"
+        }
+      }
     }
   },
   "dimHelp": {

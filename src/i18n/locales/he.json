@@ -697,6 +697,392 @@
       "body": "השלמת את הפרופיל שלך. תעזור לנו בסקר הבינלאומי הראשון? הוא אנונימי ואורך כ-5 דקות.",
       "cta": "למילוי הסקר",
       "later": "לא עכשיו"
+    },
+    "content": {
+      "ui": {
+        "badge": "📋 סקר בינלאומי",
+        "title": "הסקר הבינלאומי הראשון על התפתחות עצבית, שונות נוירולוגית ומחלות נוירולוגיות",
+        "intro": "עזרו לנו להכיר את המצב הבינלאומי כדי לשפר את הנגישות לתמיכה ואת איכות הליווי. התשובות אנונימיות ואורכות כחמש דקות.",
+        "step1": "1 · עליך",
+        "step2": "2 · המעמד והניסיון שלך",
+        "step3": "3 · לסיום",
+        "sectionPrefix": "תחום",
+        "askRole": "באיזה מעמד אתם עונים?",
+        "askSections": "באילו תחומים אתם מעורבים? (אחד או יותר)",
+        "askCountry": "מאיזו מדינה אתם עונים?",
+        "pickCountry": "בחרו את המדינה…",
+        "pick": "בחרו…",
+        "writeHere": "כתבו כאן…",
+        "optional": "(לא חובה)",
+        "consentText": "חלק מהתשובות עשויות להיחשב מידע רפואי רגיש. ההשתתפות היא מרצון ואנונימית; נשתמש בנתונים בצורה מצטברת בלבד, לפרסום תוצאות ולשיפור הקהילה, בהתאם ל",
+        "privacyLink": "הצהרת הפרטיות",
+        "consentCheck": "קראתי ואני מסכים להשתתף באופן אנונימי ומרצון, ומסכים לעיבוד המצטבר של תשובותיי.",
+        "submit": "שליחת התשובות",
+        "sending": "שולח…",
+        "footer": "סקר קהילת Neuromundi · מדגם נוחות (לא הסתברותי) · תוצאות מצטברות ב-neuromundi.com.",
+        "errRole": "בחרו את המעמד שלכם.",
+        "errSections": "בחרו לפחות תחום אחד.",
+        "errCountry": "בחרו את המדינה שלכם.",
+        "errConsent": "יש לאשר את ההסכמה כדי לשלוח.",
+        "errSend": "השליחה נכשלה. נסו שוב.",
+        "doneTitle": "תודה על ההשתתפות!",
+        "doneBody": "התשובה האנונימית שלכם היא כבר חלק מהסקר הבינלאומי הראשון. את התוצאות המצטברות נפרסם ב-neuromundi.com.",
+        "doneHome": "חזרה לדף הבית"
+      },
+      "role": {
+        "familiar": "בן משפחה (הורה/אפוטרופוס/קרוב)",
+        "persona": "האדם עצמו / מטופל",
+        "especialista": "מומחה או איש מקצוע בבריאות/חינוך",
+        "proveedor": "ספק מוצרים",
+        "servicios": "ספק שירותים",
+        "organizacion": "ארגון / עמותה",
+        "escuela": "בית ספר או מרפאה",
+        "empresa": "חברה"
+      },
+      "section": {
+        "neurodesarrollo": "התפתחות עצבית",
+        "neurodivergencias": "שונות נוירולוגית",
+        "afecciones": "מחלות נוירולוגיות"
+      },
+      "q": {
+        "acceso_facil": "כמה קל היה למצוא את התמיכה או את איש המקצוע שהיה דרוש לכם?",
+        "trato_neuroafirmativo": "האם היחס שקיבלתם היה מאשר-שונות (התאמה חושית, גמישות, יחס אנושי)?",
+        "inclusion_escolar": "שילוב בבית הספר: האם הייתה נגישות לבית ספר מכליל באמת?",
+        "inclusion_laboral": "שילוב בעבודה (מבוגרים): האם יש הזדמנויות אמיתיות?",
+        "carga_economica": "עד כמה עלות הליווי מהווה עומס על משק הבית שלכם?",
+        "profesion": "מה המקצוע או ההתמחות שלכם?",
+        "modalidad": "באיזה אופן אתם מעניקים שירות?",
+        "formacion": "האם קיבלתם הכשרה ייעודית בתחומים שבהם אתם עוסקים?",
+        "colaborar": "האם תתעניינו בהכשרה מתמשכת ובשיתוף פעולה בקהילה?",
+        "herramientas": "באילו כלים דיגיטליים אתם משתמשים בעבודתכם?",
+        "productos": "איזה סוג מוצרים אתם מציעים?",
+        "barreras_llegar": "חסמים בהגעה למשפחות:",
+        "interes_marketplace": "האם תתעניינו למכור בזירת מכר מתמחה?",
+        "servicio_tipo": "איזה שירות אתם מספקים?",
+        "modalidad_serv": "אופן:",
+        "retos_serv": "האתגרים המרכזיים במתן השירות לאוכלוסייה הזאת:",
+        "interes_directorio": "האם תתעניינו להופיע במדריך מתמחה?",
+        "servicios": "אילו שירותים או תוכניות הארגון שלכם מציע?",
+        "necesidades": "הצרכים הגדולים של הארגון שלכם:",
+        "colaborar_red": "האם תתעניינו לשתף פעולה ברשת של ארגונים?",
+        "programa_inclusion": "האם יש לכם תוכנית שילוב?",
+        "retos_inclusion": "אתגרי השילוב המרכזיים:",
+        "apoyos_necesarios": "איזו תמיכה הייתם צריכים כדי לשלב טוב יותר?",
+        "contrata_nd": "האם אתם מעסיקים אנשים בעלי שונות נוירולוגית?",
+        "barreras_laboral": "חסמים לשילוב בעבודה:",
+        "interes_vacantes": "האם תתעניינו לפרסם משרות מכלילות?",
+        "nd_edad_senal": "באיזה גיל זוהו הסימנים הראשונים בהתפתחות?",
+        "nd_vigilancia": "האם נעשה מעקב התפתחותי או סקר איתור בביקורי טיפת חלב?",
+        "nd_intervencion_temprana": "האם הייתה נגישות להתערבות מוקדמת לפני גיל שלוש?",
+        "nd_terapias": "באילו טיפולים התפתחותיים השתמשתם?",
+        "nd_barrera": "מה היה הקושי הגדול ביותר בהתפתחות העצבית?",
+        "nd_acceso_it": "עד כמה נגישה ההתערבות המוקדמת (גילאי 0–3) באזור שלכם?",
+        "nd_brecha_prof": "הפער הגדול ביותר שאתם רואים בהתפתחות עצבית:",
+        "ndx_identificacion": "כיצד זוהתה השונות הנוירולוגית?",
+        "ndx_edad_dx": "אם היה אבחון, באיזה שלב הוא התקבל?",
+        "ndx_adaptaciones": "אילו התאמות דרושות לכם יותר מכול ביום-יום?",
+        "ndx_afirmativo": "האם הסביבות שלכם (בית ספר, עבודה, בריאות) מאשרות שונות ולא רק \"סובלניות\"?",
+        "ndx_salud_mental": "האם התמודדתם עם קשיים נפשיים נלווים (חרדה, שחיקה)?",
+        "ndx_barrera": "החסם המרכזי שאתם חווים:",
+        "ndx_enfoque": "האם העבודה או הארגון שלכם פועלים בגישה מאשרת-שונות, שאינה מתמקדת ב\"נרמול\"?",
+        "ndx_no_cubierto": "הצורך הגדול ביותר שאינו נענה בשונות נוירולוגית:",
+        "af_tipo": "מהי המחלה הנוירולוגית המרכזית?",
+        "af_acceso_neuro": "כמה קל להגיע לנוירולוג ולמעקב מתמשך?",
+        "af_tratamiento": "האם יש לכם נגישות קבועה לתרופות או לטיפול?",
+        "af_rehabilitacion": "האם אתם מקבלים את השיקום הדרוש (פיזי, תעסוקתי, דיבור, קוגניטיבי)?",
+        "af_urgencias": "במשבר או במצב חירום, האם ידעתם לאן לפנות והייתה היענות בזמן?",
+        "af_cuidador": "אם אתם מטפלים בבן משפחה, האם יש לכם תמיכה בטיפול?",
+        "af_barrera": "החסם הגדול ביותר במחלה הנוירולוגית:",
+        "af_oferta": "עד כמה מספקים שירותי הנוירולוגיה והשיקום באזור שלכם?",
+        "af_brecha_prof": "הפער הגדול ביותר במחלות נוירולוגיות:",
+        "necesidad_libre": "מה הדבר שהכי חסר היום בקהילה שלכם?"
+      },
+      "opt": {
+        "acceso_facil": {
+          "muy_facil": "קל מאוד",
+          "facil": "קל",
+          "dificil": "קשה",
+          "muy_dificil": "קשה מאוד"
+        },
+        "trato_neuroafirmativo": {
+          "si_claramente": "כן, בבירור",
+          "en_parte": "בחלקו",
+          "no": "לא",
+          "no_aplica": "לא רלוונטי"
+        },
+        "inclusion_escolar": {
+          "si_con_apoyos": "כן, עם תמיכות",
+          "parcial": "חלקי",
+          "no": "לא",
+          "no_aplica": "לא רלוונטי"
+        },
+        "inclusion_laboral": {
+          "si": "כן",
+          "parcial": "חלקי",
+          "no": "לא",
+          "no_aplica": "לא רלוונטי"
+        },
+        "carga_economica": {
+          "no_es_una_carga": "אינו עומס",
+          "carga_moderada": "עומס בינוני",
+          "carga_alta": "עומס גבוה",
+          "carga_muy_alta": "עומס גבוה מאוד",
+          "prefiero_no_decir": "מעדיף לא לומר"
+        },
+        "modalidad": {
+          "presencial": "פרונטלי",
+          "en_linea": "מרחוק"
+        },
+        "formacion": {
+          "si_formacion_especifica": "כן, הכשרה ייעודית",
+          "parcial_autodidacta": "חלקית / לימוד עצמי",
+          "no": "לא"
+        },
+        "colaborar": {
+          "si": "כן",
+          "tal_vez": "אולי",
+          "no": "לא"
+        },
+        "herramientas": {
+          "agenda_citas_en_linea": "יומן / תורים מקוונים",
+          "expediente_electronico": "תיק רפואי ממוחשב",
+          "teleconsulta": "ייעוץ מרחוק",
+          "redes_sociales": "רשתות חברתיות",
+          "ninguna": "אף אחד"
+        },
+        "barreras_llegar": {
+          "costo_de_difusion": "עלות הפרסום",
+          "competencia": "תחרות",
+          "logistica_envios": "לוגיסטיקה / משלוחים",
+          "poca_visibilidad_ante_familias": "חשיפה נמוכה למשפחות",
+          "desconocimiento_del_sector": "חוסר היכרות עם התחום"
+        },
+        "interes_marketplace": {
+          "si": "כן",
+          "tal_vez": "אולי",
+          "no": "לא"
+        },
+        "modalidad_serv": {
+          "presencial": "פרונטלי",
+          "a_domicilio": "בבית הלקוח",
+          "en_linea": "מרחוק"
+        },
+        "retos_serv": {
+          "baja_demanda_que_pueda_pagar": "ביקוש מצומצם שיכול לשלם",
+          "falta_de_derivaciones": "מעט הפניות",
+          "falta_de_formacion_especifica": "חוסר הכשרה ייעודית",
+          "poca_difusion": "מעט פרסום",
+          "tramites_o_marco_legal": "בירוקרטיה או רגולציה"
+        },
+        "interes_directorio": {
+          "si": "כן",
+          "tal_vez": "אולי",
+          "no": "לא"
+        },
+        "necesidades": {
+          "financiamiento": "מימון",
+          "difusion": "פרסום",
+          "voluntariado": "התנדבות",
+          "alianzas": "שיתופי פעולה",
+          "formacion": "הכשרה"
+        },
+        "colaborar_red": {
+          "si": "כן",
+          "tal_vez": "אולי",
+          "no": "לא"
+        },
+        "programa_inclusion": {
+          "si": "כן",
+          "parcial": "חלקי",
+          "no": "לא"
+        },
+        "retos_inclusion": {
+          "formacion_docente": "הכשרת מורים",
+          "cupo_recursos": "מקומות / משאבים",
+          "apoyo_especializado": "תמיכה מקצועית",
+          "sensibilizacion_de_la_comunida": "העלאת מודעות בקהילה",
+          "financiamiento": "מימון"
+        },
+        "contrata_nd": {
+          "si": "כן",
+          "no_pero_nos_interesa": "לא, אבל מעניין אותנו",
+          "no": "לא"
+        },
+        "barreras_laboral": {
+          "desconocimiento": "חוסר היכרות",
+          "falta_de_apoyos_ajustes": "חוסר תמיכות / התאמות",
+          "procesos_de_rh": "תהליכי משאבי אנוש",
+          "sensibilizacion": "מודעות",
+          "ninguna": "אין"
+        },
+        "interes_vacantes": {
+          "si": "כן",
+          "tal_vez": "אולי",
+          "no": "לא"
+        },
+        "nd_edad_senal": {
+          "antes_del_1_er_ano": "לפני גיל שנה",
+          "1_a_2_anos": "גיל שנה עד שנתיים",
+          "3_a_4_anos": "גיל 3 עד 4",
+          "5_a_6_anos": "גיל 5 עד 6",
+          "edad_escolar": "גיל בית ספר",
+          "adolescencia_o_despues": "גיל ההתבגרות או אחריו",
+          "no_aplica": "לא רלוונטי"
+        },
+        "nd_vigilancia": {
+          "si_de_forma_sistematica": "כן, באופן שיטתי",
+          "a_veces": "לפעמים",
+          "no": "לא",
+          "no_lo_se": "לא ידוע לי"
+        },
+        "nd_intervencion_temprana": {
+          "si": "כן",
+          "parcial": "חלקי",
+          "no": "לא",
+          "no_aplica": "לא רלוונטי"
+        },
+        "nd_terapias": {
+          "terapia_ocupacional_integracio": "ריפוי בעיסוק / אינטגרציה חושית",
+          "fonoaudiologia_lenguaje": "קלינאות תקשורת / שפה",
+          "psicopedagogia_aprendizaje": "הוראה מתקנת / פסיכופדגוגיה",
+          "fisioterapia_neuromotora": "פיזיותרפיה / נוירו-מוטורי",
+          "analisis_conductual_aba": "ניתוח התנהגות יישומי (ABA)",
+          "dir_floortime": "DIR / Floortime",
+          "ninguna": "אף אחד"
+        },
+        "nd_barrera": {
+          "diagnostico_tardio": "אבחון מאוחר",
+          "faltan_especialistas_en_interv": "חסרים מומחים להתערבות מוקדמת",
+          "costo_de_terapias_continuas": "עלות טיפולים מתמשכים",
+          "coordinar_terapias_con_la_escu": "תיאום בין הטיפולים לבית הספר",
+          "informacion_confiable": "מידע מבוסס"
+        },
+        "nd_acceso_it": {
+          "buena": "טובה",
+          "limitada": "מוגבלת",
+          "escasa": "דלה",
+          "casi_nula": "כמעט אפסית"
+        },
+        "nd_brecha_prof": {
+          "deteccion_tardia": "איתור מאוחר",
+          "pocos_terapeutas_formados": "מעט מטפלים מוכשרים",
+          "listas_de_espera": "רשימות המתנה",
+          "falta_de_trabajo_interdiscipli": "חוסר עבודה בין-מקצועית",
+          "continuidad_escuelaterapia": "רצף בין בית הספר לטיפול"
+        },
+        "ndx_identificacion": {
+          "diagnostico_clinico_formal": "אבחון קליני פורמלי",
+          "en_proceso_de_diagnostico": "בתהליך אבחון",
+          "autoidentificacion_sin_diagnos": "זיהוי עצמי בלי אבחון פורמלי",
+          "no_aplica": "לא רלוונטי"
+        },
+        "ndx_edad_dx": {
+          "infancia_temprana": "גיל הרך",
+          "ninez": "ילדות",
+          "adolescencia": "גיל ההתבגרות",
+          "adultez": "בגרות",
+          "aun_sin_diagnostico": "עדיין בלי אבחון",
+          "no_aplica": "לא רלוונטי"
+        },
+        "ndx_adaptaciones": {
+          "sensoriales_ruido_luz_texturas": "חושיות (רעש, אור, מרקמים)",
+          "comunicacion_tiempos_claridad": "תקשורת (זמן, בהירות, תקשורת תומכת)",
+          "flexibilidad_de_rutinas_horari": "גמישות בשגרה ובלוחות זמנים",
+          "apoyo_a_funciones_ejecutivas": "תמיכה בתפקודים ניהוליים",
+          "espacios_de_calma_regulacion": "מרחבי רגיעה / ויסות"
+        },
+        "ndx_afirmativo": {
+          "si": "כן",
+          "en_parte": "בחלקו",
+          "no": "לא",
+          "no_aplica": "לא רלוונטי"
+        },
+        "ndx_salud_mental": {
+          "si_con_apoyo": "כן, עם תמיכה",
+          "si_sin_apoyo": "כן, בלי תמיכה",
+          "no": "לא"
+        },
+        "ndx_barrera": {
+          "estigma_o_prejuicio": "סטיגמה או דעה קדומה",
+          "faltan_profesionales_neuroafir": "חסרים אנשי מקצוע מאשרי-שונות",
+          "costo": "עלות",
+          "falta_de_adaptaciones_en_escue": "חוסר התאמות בבית הספר או בעבודה",
+          "diagnostico_tardio_adultos_muj": "אבחון מאוחר (מבוגרים/נשים)"
+        },
+        "ndx_enfoque": {
+          "si_explicitamente": "כן, במובהק",
+          "parcial": "חלקי",
+          "no": "לא"
+        },
+        "ndx_no_cubierto": {
+          "diagnostico_en_adultos_y_mujer": "אבחון אצל מבוגרים ונשים",
+          "adaptaciones_escolares_laboral": "התאמות בבית הספר ובעבודה",
+          "salud_mental_asociada": "בריאות נפשית נלווית",
+          "formacion_de_profesionales": "הכשרת אנשי מקצוע",
+          "autonomia_y_vida_independiente": "עצמאות וחיים עצמאיים"
+        },
+        "af_tipo": {
+          "epilepsia": "אפילפסיה",
+          "parkinson_u_otro_trastorno_del": "פרקינסון או הפרעת תנועה אחרת",
+          "esclerosis_multiple": "טרשת נפוצה",
+          "ela_enfermedad_neuromuscular": "ALS / מחלה נוירו-מוסקולרית",
+          "secuelas_de_acv_ictus": "תוצאות של שבץ",
+          "lesion_cerebral_o_medular": "פגיעת ראש או חוט שדרה",
+          "cefaleas_migrana": "כאבי ראש / מיגרנה",
+          "demencia_deterioro_cognitivo": "דמנציה / ירידה קוגניטיבית",
+          "otra": "אחר"
+        },
+        "af_acceso_neuro": {
+          "facil": "קל",
+          "dificil": "קשה",
+          "muy_dificil": "קשה מאוד"
+        },
+        "af_tratamiento": {
+          "si_sin_problema": "כן, בלי בעיה",
+          "con_dificultad_o_alto_costo": "בקשיים או בעלות גבוהה",
+          "no_siempre": "לא תמיד",
+          "no": "לא"
+        },
+        "af_rehabilitacion": {
+          "si": "כן",
+          "parcial": "חלקי",
+          "no": "לא",
+          "no_aplica": "לא רלוונטי"
+        },
+        "af_urgencias": {
+          "si": "כן",
+          "a_veces": "לפעמים",
+          "no": "לא",
+          "no_aplica": "לא רלוונטי"
+        },
+        "af_cuidador": {
+          "si": "כן",
+          "poco": "מעט",
+          "no": "לא",
+          "no_soy_cuidador_a": "אינני מטפל"
+        },
+        "af_barrera": {
+          "pocos_neurologos_o_subespecial": "מעט נוירולוגים או תתי-מומחים",
+          "costo_del_tratamiento_continuo": "עלות הטיפול המתמשך",
+          "distancia_a_los_centros": "מרחק מהמרכזים",
+          "rehabilitacion_insuficiente": "שיקום לא מספק",
+          "falta_de_apoyo_a_cuidadores": "חוסר תמיכה במטפלים",
+          "falta_de_continuidad_entre_niv": "חוסר רצף בין דרגי הטיפול"
+        },
+        "af_oferta": {
+          "suficiente": "מספקת",
+          "limitada": "מוגבלת",
+          "escasa": "דלה",
+          "casi_nula": "כמעט אפסית"
+        },
+        "af_brecha_prof": {
+          "falta_de_subespecialistas": "חוסר בתתי-מומחים",
+          "rehabilitacion": "שיקום",
+          "continuidad_del_tratamiento": "רצף הטיפול",
+          "apoyo_a_cuidadores": "תמיכה במטפלים",
+          "cuidados_paliativos_avanzados": "טיפול פליאטיבי / מתקדם"
+        }
+      }
     }
   },
   "dimHelp": {

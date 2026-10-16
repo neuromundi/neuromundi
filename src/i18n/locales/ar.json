@@ -697,6 +697,392 @@
       "body": "لقد أكملت ملفك الشخصي. هل تساعدنا في الاستبيان الدولي الأول؟ إنه مجهول الهوية ويستغرق نحو 5 دقائق.",
       "cta": "المشاركة",
       "later": "ليس الآن"
+    },
+    "content": {
+      "ui": {
+        "badge": "📋 استبيان دولي",
+        "title": "الاستبيان الدولي الأول حول النمو العصبي والتنوع العصبي والأمراض العصبية",
+        "intro": "ساعدونا في معرفة الواقع الدولي لتحسين الوصول إلى الدعم وجودة المصاحبة. إجاباتكم مجهولة الهوية وتستغرق نحو خمس دقائق.",
+        "step1": "١ · عنك",
+        "step2": "٢ · صفتك وخبرتك",
+        "step3": "٣ · للختام",
+        "sectionPrefix": "القسم",
+        "askRole": "بأي صفة تجيب؟",
+        "askSections": "في أي الأقسام تشارك؟ (واحد أو أكثر)",
+        "askCountry": "من أي بلد تجيب؟",
+        "pickCountry": "اختر بلدك…",
+        "pick": "اختر…",
+        "writeHere": "اكتب هنا…",
+        "optional": "(اختياري)",
+        "consentText": "قد تُعدّ بعض الإجابات بيانات صحية حساسة. المشاركة تطوعية ومجهولة الهوية، وسنستخدم البيانات بصورة مجمّعة فقط لنشر النتائج وتحسين المجتمع، وفقًا لـ",
+        "privacyLink": "إشعار الخصوصية",
+        "consentCheck": "قرأت ما ورد أعلاه وأوافق على المشاركة بصورة مجهولة وتطوعية، وأوافق على المعالجة المجمّعة لإجاباتي.",
+        "submit": "إرسال إجاباتي",
+        "sending": "جارٍ الإرسال…",
+        "footer": "استبيان مجتمع Neuromundi · عيّنة ميسّرة (غير احتمالية) · النتائج المجمّعة على neuromundi.com.",
+        "errRole": "اختر صفتك.",
+        "errSections": "اختر قسمًا واحدًا على الأقل.",
+        "errCountry": "اختر بلدك.",
+        "errConsent": "يجب الموافقة على الإقرار للإرسال.",
+        "errSend": "لم يتم الإرسال. حاول مرة أخرى.",
+        "doneTitle": "شكرًا لمشاركتك!",
+        "doneBody": "أصبحت إجابتك المجهولة جزءًا من الاستبيان الدولي الأول. سننشر النتائج المجمّعة على neuromundi.com.",
+        "doneHome": "العودة إلى الصفحة الرئيسية"
+      },
+      "role": {
+        "familiar": "أحد أفراد الأسرة (أب/أم/وليّ أمر/قريب)",
+        "persona": "الشخص المعني / المريض",
+        "especialista": "أخصائي أو مهني في الصحة أو التعليم",
+        "proveedor": "مورّد منتجات",
+        "servicios": "مقدّم خدمات",
+        "organizacion": "منظمة / منظمة غير حكومية",
+        "escuela": "مدرسة أو عيادة",
+        "empresa": "شركة"
+      },
+      "section": {
+        "neurodesarrollo": "النمو العصبي",
+        "neurodivergencias": "التنوع العصبي",
+        "afecciones": "الأمراض العصبية"
+      },
+      "q": {
+        "acceso_facil": "ما مدى سهولة إيجاد الدعم أو الأخصائي الذي كنت بحاجة إليه؟",
+        "trato_neuroafirmativo": "هل كانت المعاملة التي تلقيتموها داعمة للتنوع العصبي (تهيئة حسية، مرونة، معاملة إنسانية)؟",
+        "inclusion_escolar": "الدمج المدرسي: هل توافر الوصول إلى مدرسة شاملة فعلًا؟",
+        "inclusion_laboral": "الدمج في العمل (للراشدين): هل توجد فرص حقيقية؟",
+        "carga_economica": "ما حجم العبء الذي تمثله تكاليف المصاحبة على أسرتك؟",
+        "profesion": "ما مهنتك أو تخصصك؟",
+        "modalidad": "بأي صيغة تقدّم خدماتك؟",
+        "formacion": "هل تلقّيت تدريبًا متخصصًا في المجالات التي تعمل بها؟",
+        "colaborar": "هل تهتم بالتكوين المستمر والتعاون داخل المجتمع؟",
+        "herramientas": "ما الأدوات الرقمية التي تستخدمها في عملك؟",
+        "productos": "ما نوع المنتجات التي تقدّمها؟",
+        "barreras_llegar": "العوائق أمام الوصول إلى الأسر:",
+        "interes_marketplace": "هل تهتم بالبيع في سوق إلكتروني متخصص؟",
+        "servicio_tipo": "ما الخدمة التي تقدّمها؟",
+        "modalidad_serv": "الصيغة:",
+        "retos_serv": "أهم التحديات في تقديم خدمتك لهذه الفئة:",
+        "interes_directorio": "هل تهتم بالظهور في دليل متخصص؟",
+        "servicios": "ما الخدمات أو البرامج التي تقدّمها منظمتكم؟",
+        "necesidades": "أكبر احتياجات منظمتكم:",
+        "colaborar_red": "هل تهتمون بالتعاون في شبكة من المنظمات؟",
+        "programa_inclusion": "هل لديكم برنامج للدمج؟",
+        "retos_inclusion": "أهم تحديات الدمج:",
+        "apoyos_necesarios": "ما الدعم الذي تحتاجونه لتحقيق دمج أفضل؟",
+        "contrata_nd": "هل توظّفون أشخاصًا من ذوي التنوع العصبي؟",
+        "barreras_laboral": "عوائق الدمج في العمل:",
+        "interes_vacantes": "هل تهتمون بنشر وظائف شاملة؟",
+        "nd_edad_senal": "في أي عمر لوحظت أول العلامات في النمو؟",
+        "nd_vigilancia": "هل جرى تتبع النمو أو فحص مبكر في زيارات متابعة الطفل السليم؟",
+        "nd_intervencion_temprana": "هل أمكن الحصول على تدخل مبكر قبل سن الثالثة؟",
+        "nd_terapias": "ما علاجات النمو العصبي التي استخدمتموها؟",
+        "nd_barrera": "ما أكبر صعوبة واجهتكم في النمو العصبي؟",
+        "nd_acceso_it": "ما مدى توافر التدخل المبكر (من صفر إلى ثلاث سنوات) في منطقتك؟",
+        "nd_brecha_prof": "أكبر فجوة تلاحظها في النمو العصبي:",
+        "ndx_identificacion": "كيف تم التعرف على التنوع العصبي؟",
+        "ndx_edad_dx": "إذا كان هناك تشخيص، في أي مرحلة جاء؟",
+        "ndx_adaptaciones": "ما التهيئات التي تحتاجها أكثر في حياتك اليومية؟",
+        "ndx_afirmativo": "هل بيئاتك (المدرسة، العمل، الصحة) داعمة للتنوع العصبي لا «متحمّلة» له فقط؟",
+        "ndx_salud_mental": "هل واجهت صعوبات نفسية مرتبطة (قلق، إنهاك/احتراق نفسي)؟",
+        "ndx_barrera": "أهم عائق تواجهه:",
+        "ndx_enfoque": "هل تتبع ممارستك أو منظمتك نهجًا داعمًا للتنوع العصبي لا يقوم على «التطبيع»؟",
+        "ndx_no_cubierto": "أكبر حاجة غير مُلبّاة في التنوع العصبي:",
+        "af_tipo": "ما المرض العصبي الرئيسي؟",
+        "af_acceso_neuro": "ما مدى سهولة الوصول إلى طب الأعصاب وإلى متابعة مستمرة؟",
+        "af_tratamiento": "هل تحصل على دوائك أو علاجك بصورة مستمرة؟",
+        "af_rehabilitacion": "هل تحصل على التأهيل الذي تحتاجه (بدني، وظيفي، نطق، معرفي)؟",
+        "af_urgencias": "عند حدوث أزمة أو حالة طارئة، هل عرفت إلى أين تتوجه وجاء التدخل في وقته؟",
+        "af_cuidador": "إن كنت شخصًا يقدّم الرعاية، هل لديك دعم في الرعاية؟",
+        "af_barrera": "أكبر عائق في المرض العصبي:",
+        "af_oferta": "ما مدى كفاية خدمات طب الأعصاب والتأهيل في منطقتك؟",
+        "af_brecha_prof": "أكبر فجوة في الأمراض العصبية:",
+        "necesidad_libre": "ما أكثر ما ينقص مجتمعك اليوم؟"
+      },
+      "opt": {
+        "acceso_facil": {
+          "muy_facil": "سهل جدًا",
+          "facil": "سهل",
+          "dificil": "صعب",
+          "muy_dificil": "صعب جدًا"
+        },
+        "trato_neuroafirmativo": {
+          "si_claramente": "نعم، بوضوح",
+          "en_parte": "جزئيًا",
+          "no": "لا",
+          "no_aplica": "لا ينطبق"
+        },
+        "inclusion_escolar": {
+          "si_con_apoyos": "نعم، مع دعم",
+          "parcial": "جزئيًا",
+          "no": "لا",
+          "no_aplica": "لا ينطبق"
+        },
+        "inclusion_laboral": {
+          "si": "نعم",
+          "parcial": "جزئيًا",
+          "no": "لا",
+          "no_aplica": "لا ينطبق"
+        },
+        "carga_economica": {
+          "no_es_una_carga": "ليست عبئًا",
+          "carga_moderada": "عبء متوسط",
+          "carga_alta": "عبء كبير",
+          "carga_muy_alta": "عبء كبير جدًا",
+          "prefiero_no_decir": "أفضّل عدم الإجابة"
+        },
+        "modalidad": {
+          "presencial": "حضوريًا",
+          "en_linea": "عبر الإنترنت"
+        },
+        "formacion": {
+          "si_formacion_especifica": "نعم، تدريب متخصص",
+          "parcial_autodidacta": "جزئي / تعلّم ذاتي",
+          "no": "لا"
+        },
+        "colaborar": {
+          "si": "نعم",
+          "tal_vez": "ربما",
+          "no": "لا"
+        },
+        "herramientas": {
+          "agenda_citas_en_linea": "حجز المواعيد عبر الإنترنت",
+          "expediente_electronico": "السجل الإلكتروني",
+          "teleconsulta": "الاستشارة عن بعد",
+          "redes_sociales": "شبكات التواصل",
+          "ninguna": "لا شيء"
+        },
+        "barreras_llegar": {
+          "costo_de_difusion": "تكلفة الترويج",
+          "competencia": "المنافسة",
+          "logistica_envios": "الخدمات اللوجستية / الشحن",
+          "poca_visibilidad_ante_familias": "ضعف الظهور لدى الأسر",
+          "desconocimiento_del_sector": "قلة المعرفة بالقطاع"
+        },
+        "interes_marketplace": {
+          "si": "نعم",
+          "tal_vez": "ربما",
+          "no": "لا"
+        },
+        "modalidad_serv": {
+          "presencial": "حضوريًا",
+          "a_domicilio": "في المنزل",
+          "en_linea": "عبر الإنترنت"
+        },
+        "retos_serv": {
+          "baja_demanda_que_pueda_pagar": "قلة الطلب القادر على الدفع",
+          "falta_de_derivaciones": "قلة الإحالات",
+          "falta_de_formacion_especifica": "نقص التدريب المتخصص",
+          "poca_difusion": "قلة الترويج",
+          "tramites_o_marco_legal": "الإجراءات أو الإطار القانوني"
+        },
+        "interes_directorio": {
+          "si": "نعم",
+          "tal_vez": "ربما",
+          "no": "لا"
+        },
+        "necesidades": {
+          "financiamiento": "التمويل",
+          "difusion": "الترويج",
+          "voluntariado": "العمل التطوعي",
+          "alianzas": "الشراكات",
+          "formacion": "التكوين"
+        },
+        "colaborar_red": {
+          "si": "نعم",
+          "tal_vez": "ربما",
+          "no": "لا"
+        },
+        "programa_inclusion": {
+          "si": "نعم",
+          "parcial": "جزئيًا",
+          "no": "لا"
+        },
+        "retos_inclusion": {
+          "formacion_docente": "تدريب المعلمين",
+          "cupo_recursos": "الأماكن / الموارد",
+          "apoyo_especializado": "الدعم المتخصص",
+          "sensibilizacion_de_la_comunida": "توعية المجتمع",
+          "financiamiento": "التمويل"
+        },
+        "contrata_nd": {
+          "si": "نعم",
+          "no_pero_nos_interesa": "لا، لكن يهمنا الأمر",
+          "no": "لا"
+        },
+        "barreras_laboral": {
+          "desconocimiento": "قلة المعرفة",
+          "falta_de_apoyos_ajustes": "نقص الدعم / التهيئات",
+          "procesos_de_rh": "إجراءات الموارد البشرية",
+          "sensibilizacion": "التوعية",
+          "ninguna": "لا توجد"
+        },
+        "interes_vacantes": {
+          "si": "نعم",
+          "tal_vez": "ربما",
+          "no": "لا"
+        },
+        "nd_edad_senal": {
+          "antes_del_1_er_ano": "قبل السنة الأولى",
+          "1_a_2_anos": "من سنة إلى سنتين",
+          "3_a_4_anos": "من ٣ إلى ٤ سنوات",
+          "5_a_6_anos": "من ٥ إلى ٦ سنوات",
+          "edad_escolar": "سن المدرسة",
+          "adolescencia_o_despues": "المراهقة أو بعدها",
+          "no_aplica": "لا ينطبق"
+        },
+        "nd_vigilancia": {
+          "si_de_forma_sistematica": "نعم، بصورة منهجية",
+          "a_veces": "أحيانًا",
+          "no": "لا",
+          "no_lo_se": "لا أعرف"
+        },
+        "nd_intervencion_temprana": {
+          "si": "نعم",
+          "parcial": "جزئيًا",
+          "no": "لا",
+          "no_aplica": "لا ينطبق"
+        },
+        "nd_terapias": {
+          "terapia_ocupacional_integracio": "العلاج الوظيفي / التكامل الحسي",
+          "fonoaudiologia_lenguaje": "علاج النطق واللغة",
+          "psicopedagogia_aprendizaje": "الدعم التربوي النفسي / التعلّم",
+          "fisioterapia_neuromotora": "العلاج الطبيعي / الحركي العصبي",
+          "analisis_conductual_aba": "تحليل السلوك التطبيقي (ABA)",
+          "dir_floortime": "DIR / Floortime",
+          "ninguna": "لا شيء"
+        },
+        "nd_barrera": {
+          "diagnostico_tardio": "تشخيص متأخر",
+          "faltan_especialistas_en_interv": "نقص أخصائيي التدخل المبكر",
+          "costo_de_terapias_continuas": "تكلفة العلاجات المستمرة",
+          "coordinar_terapias_con_la_escu": "التنسيق بين العلاج والمدرسة",
+          "informacion_confiable": "المعلومات الموثوقة"
+        },
+        "nd_acceso_it": {
+          "buena": "جيد",
+          "limitada": "محدود",
+          "escasa": "شحيح",
+          "casi_nula": "شبه معدوم"
+        },
+        "nd_brecha_prof": {
+          "deteccion_tardia": "الكشف المتأخر",
+          "pocos_terapeutas_formados": "قلة المعالجين المؤهلين",
+          "listas_de_espera": "قوائم الانتظار",
+          "falta_de_trabajo_interdiscipli": "نقص العمل متعدد التخصصات",
+          "continuidad_escuelaterapia": "الاستمرارية بين المدرسة والعلاج"
+        },
+        "ndx_identificacion": {
+          "diagnostico_clinico_formal": "تشخيص سريري رسمي",
+          "en_proceso_de_diagnostico": "التشخيص قيد الإجراء",
+          "autoidentificacion_sin_diagnos": "تعرّف ذاتي دون تشخيص رسمي",
+          "no_aplica": "لا ينطبق"
+        },
+        "ndx_edad_dx": {
+          "infancia_temprana": "الطفولة المبكرة",
+          "ninez": "الطفولة",
+          "adolescencia": "المراهقة",
+          "adultez": "سن الرشد",
+          "aun_sin_diagnostico": "لا يوجد تشخيص بعد",
+          "no_aplica": "لا ينطبق"
+        },
+        "ndx_adaptaciones": {
+          "sensoriales_ruido_luz_texturas": "حسية (الضجيج، الضوء، الملامس)",
+          "comunicacion_tiempos_claridad": "التواصل (الوقت، الوضوح، التواصل المعزّز)",
+          "flexibilidad_de_rutinas_horari": "مرونة الروتين والمواعيد",
+          "apoyo_a_funciones_ejecutivas": "دعم الوظائف التنفيذية",
+          "espacios_de_calma_regulacion": "مساحات للهدوء والتنظيم"
+        },
+        "ndx_afirmativo": {
+          "si": "نعم",
+          "en_parte": "جزئيًا",
+          "no": "لا",
+          "no_aplica": "لا ينطبق"
+        },
+        "ndx_salud_mental": {
+          "si_con_apoyo": "نعم، مع دعم",
+          "si_sin_apoyo": "نعم، دون دعم",
+          "no": "لا"
+        },
+        "ndx_barrera": {
+          "estigma_o_prejuicio": "الوصم أو التحامل",
+          "faltan_profesionales_neuroafir": "نقص المهنيين الداعمين للتنوع العصبي",
+          "costo": "التكلفة",
+          "falta_de_adaptaciones_en_escue": "نقص التهيئات في المدرسة أو العمل",
+          "diagnostico_tardio_adultos_muj": "التشخيص المتأخر (الراشدون/النساء)"
+        },
+        "ndx_enfoque": {
+          "si_explicitamente": "نعم، بشكل صريح",
+          "parcial": "جزئيًا",
+          "no": "لا"
+        },
+        "ndx_no_cubierto": {
+          "diagnostico_en_adultos_y_mujer": "التشخيص لدى الراشدين والنساء",
+          "adaptaciones_escolares_laboral": "التهيئات المدرسية والمهنية",
+          "salud_mental_asociada": "الصحة النفسية المرتبطة",
+          "formacion_de_profesionales": "تكوين المهنيين",
+          "autonomia_y_vida_independiente": "الاستقلالية والحياة المستقلة"
+        },
+        "af_tipo": {
+          "epilepsia": "الصرع",
+          "parkinson_u_otro_trastorno_del": "باركنسون أو اضطراب حركي آخر",
+          "esclerosis_multiple": "التصلب المتعدد",
+          "ela_enfermedad_neuromuscular": "التصلب الجانبي الضموري / مرض عصبي عضلي",
+          "secuelas_de_acv_ictus": "آثار الجلطة الدماغية",
+          "lesion_cerebral_o_medular": "إصابة في الدماغ أو النخاع الشوكي",
+          "cefaleas_migrana": "الصداع / الشقيقة",
+          "demencia_deterioro_cognitivo": "الخرف / التراجع المعرفي",
+          "otra": "أخرى"
+        },
+        "af_acceso_neuro": {
+          "facil": "سهل",
+          "dificil": "صعب",
+          "muy_dificil": "صعب جدًا"
+        },
+        "af_tratamiento": {
+          "si_sin_problema": "نعم، دون مشكلة",
+          "con_dificultad_o_alto_costo": "بصعوبة أو بتكلفة عالية",
+          "no_siempre": "ليس دائمًا",
+          "no": "لا"
+        },
+        "af_rehabilitacion": {
+          "si": "نعم",
+          "parcial": "جزئيًا",
+          "no": "لا",
+          "no_aplica": "لا ينطبق"
+        },
+        "af_urgencias": {
+          "si": "نعم",
+          "a_veces": "أحيانًا",
+          "no": "لا",
+          "no_aplica": "لا ينطبق"
+        },
+        "af_cuidador": {
+          "si": "نعم",
+          "poco": "قليلًا",
+          "no": "لا",
+          "no_soy_cuidador_a": "لست مقدّم رعاية"
+        },
+        "af_barrera": {
+          "pocos_neurologos_o_subespecial": "قلة أطباء الأعصاب أو التخصصات الدقيقة",
+          "costo_del_tratamiento_continuo": "تكلفة العلاج المستمر",
+          "distancia_a_los_centros": "بعد المسافة عن المراكز",
+          "rehabilitacion_insuficiente": "تأهيل غير كافٍ",
+          "falta_de_apoyo_a_cuidadores": "نقص الدعم لمقدّمي الرعاية",
+          "falta_de_continuidad_entre_niv": "غياب الاستمرارية بين مستويات الرعاية"
+        },
+        "af_oferta": {
+          "suficiente": "كافية",
+          "limitada": "محدودة",
+          "escasa": "شحيحة",
+          "casi_nula": "شبه معدومة"
+        },
+        "af_brecha_prof": {
+          "falta_de_subespecialistas": "نقص التخصصات الدقيقة",
+          "rehabilitacion": "التأهيل",
+          "continuidad_del_tratamiento": "استمرارية العلاج",
+          "apoyo_a_cuidadores": "دعم مقدّمي الرعاية",
+          "cuidados_paliativos_avanzados": "الرعاية التلطيفية / المتقدمة"
+        }
+      }
     }
   },
   "dimHelp": {

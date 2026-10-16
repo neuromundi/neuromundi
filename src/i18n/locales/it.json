@@ -660,6 +660,392 @@
       "body": "Hai completato il tuo profilo. Ci aiuti con la Prima Indagine Internazionale? È anonima e richiede ~5 minuti.",
       "cta": "Rispondi",
       "later": "Non ora"
+    },
+    "content": {
+      "ui": {
+        "badge": "📋 Indagine internazionale",
+        "title": "Prima indagine internazionale su neurosviluppo, neurodivergenza e patologie neurologiche",
+        "intro": "Ci aiuti a conoscere la situazione internazionale per migliorare l’accesso e la qualità dell’accompagnamento. Le risposte sono anonime e richiedono circa 5 minuti.",
+        "step1": "1 · Su di lei",
+        "step2": "2 · Il suo profilo e la sua esperienza",
+        "step3": "3 · Per concludere",
+        "sectionPrefix": "Sezione",
+        "askRole": "Con quale profilo risponde?",
+        "askSections": "A quali sezioni partecipa? (una o più)",
+        "askCountry": "Da quale paese risponde?",
+        "pickCountry": "Selezioni il suo paese…",
+        "pick": "Selezioni…",
+        "writeHere": "Scriva qui…",
+        "optional": "(facoltativo)",
+        "consentText": "Alcune risposte possono essere considerate dati sensibili sulla salute. La partecipazione è volontaria e anonima; useremo i dati solo in forma aggregata, per pubblicare risultati e migliorare la comunità, secondo la nostra",
+        "privacyLink": "Informativa sulla privacy",
+        "consentCheck": "Ho letto e accetto di partecipare in forma anonima e volontaria, e acconsento al trattamento aggregato delle mie risposte.",
+        "submit": "Invia le mie risposte",
+        "sending": "Invio in corso…",
+        "footer": "Indagine della Comunità Neuromundi · campionamento di convenienza (non probabilistico) · risultati aggregati su neuromundi.com.",
+        "errRole": "Scelga il suo profilo.",
+        "errSections": "Scelga almeno una sezione.",
+        "errCountry": "Scelga il suo paese.",
+        "errConsent": "Deve accettare il consenso per inviare.",
+        "errSend": "Non è stato possibile inviare. Riprovi.",
+        "doneTitle": "Grazie per la partecipazione!",
+        "doneBody": "La sua risposta anonima fa ora parte della Prima indagine internazionale. Pubblicheremo i risultati aggregati su neuromundi.com.",
+        "doneHome": "Torna alla home"
+      },
+      "role": {
+        "familiar": "Familiare (genitore/tutore/parente)",
+        "persona": "Persona / paziente",
+        "especialista": "Specialista o professionista della salute/istruzione",
+        "proveedor": "Fornitore di prodotti",
+        "servicios": "Erogatore di servizi",
+        "organizacion": "Organizzazione / ONG",
+        "escuela": "Scuola o clinica",
+        "empresa": "Azienda"
+      },
+      "section": {
+        "neurodesarrollo": "Neurosviluppo",
+        "neurodivergencias": "Neurodivergenze",
+        "afecciones": "Patologie neurologiche"
+      },
+      "q": {
+        "acceso_facil": "Quanto è stato facile trovare il supporto o lo specialista di cui aveva bisogno?",
+        "trato_neuroafirmativo": "L’assistenza ricevuta è stata neuroaffermativa (adattamento sensoriale, flessibilità, trattamento umano)?",
+        "inclusion_escolar": "Inclusione scolastica: c’è stato accesso a una scuola davvero inclusiva?",
+        "inclusion_laboral": "Inclusione lavorativa (persone adulte): ci sono opportunità reali?",
+        "carga_economica": "Quanto pesa sul suo nucleo familiare il costo dell’accompagnamento?",
+        "profesion": "Qual è la sua professione o specializzazione?",
+        "modalidad": "Con quale modalità assiste le persone?",
+        "formacion": "Ha ricevuto una formazione specifica negli ambiti in cui opera?",
+        "colaborar": "Le interesserebbe formarsi in modo continuo e collaborare nella comunità?",
+        "herramientas": "Quali strumenti digitali usa nella sua attività?",
+        "productos": "Che tipo di prodotti offre?",
+        "barreras_llegar": "Ostacoli per raggiungere le famiglie:",
+        "interes_marketplace": "Le interesserebbe vendere su un marketplace specializzato?",
+        "servicio_tipo": "Quale servizio eroga?",
+        "modalidad_serv": "Modalità:",
+        "retos_serv": "Principali difficoltà nell’erogare il servizio a questa popolazione:",
+        "interes_directorio": "Le interesserebbe comparire in un elenco specializzato?",
+        "servicios": "Quali servizi o programmi offre la sua organizzazione?",
+        "necesidades": "Maggiori necessità della sua organizzazione:",
+        "colaborar_red": "Vi interesserebbe collaborare in una rete di organizzazioni?",
+        "programa_inclusion": "Avete un programma di inclusione?",
+        "retos_inclusion": "Principali sfide di inclusione:",
+        "apoyos_necesarios": "Di quali supporti avreste bisogno per includere meglio?",
+        "contrata_nd": "Assumete talenti neurodivergenti?",
+        "barreras_laboral": "Ostacoli all’inclusione lavorativa:",
+        "interes_vacantes": "Vi interesserebbe pubblicare posizioni inclusive?",
+        "nd_edad_senal": "A quale età sono stati notati i primi segnali nello sviluppo?",
+        "nd_vigilancia": "C’è stata sorveglianza dello sviluppo o screening nei bilanci di salute?",
+        "nd_intervencion_temprana": "C’è stato accesso all’intervento precoce prima dei 3 anni?",
+        "nd_terapias": "Quali terapie del neurosviluppo avete utilizzato?",
+        "nd_barrera": "Qual è stata la maggiore difficoltà nel neurosviluppo?",
+        "nd_acceso_it": "Quanto è accessibile l’intervento precoce (0–3 anni) nella sua zona?",
+        "nd_brecha_prof": "Il divario maggiore che osserva nel neurosviluppo:",
+        "ndx_identificacion": "Come è stata identificata la neurodivergenza?",
+        "ndx_edad_dx": "Se c’è stata una diagnosi, in quale fase è arrivata?",
+        "ndx_adaptaciones": "Di quali adattamenti ha più bisogno nella vita quotidiana?",
+        "ndx_afirmativo": "I suoi contesti (scuola, lavoro, sanità) sono neuroaffermativi e non solo «tolleranti»?",
+        "ndx_salud_mental": "Ha affrontato difficoltà di salute mentale associate (ansia, esaurimento/burnout)?",
+        "ndx_barrera": "Principale ostacolo che affronta:",
+        "ndx_enfoque": "La sua attività o organizzazione segue un approccio neuroaffermativo (non centrato sul «normalizzare»)?",
+        "ndx_no_cubierto": "Il bisogno più scoperto nella neurodivergenza:",
+        "af_tipo": "Qual è la patologia neurologica principale?",
+        "af_acceso_neuro": "Quanto è facile accedere alla neurologia e a un follow-up continuo?",
+        "af_tratamiento": "Ha accesso costante ai suoi farmaci o al trattamento?",
+        "af_rehabilitacion": "Accede alla riabilitazione di cui ha bisogno (fisica, occupazionale, logopedica, cognitiva)?",
+        "af_urgencias": "Di fronte a una crisi o a un’urgenza, sapeva dove andare e la risposta è stata tempestiva?",
+        "af_cuidador": "Se è una persona che assiste, ha supporto per l’assistenza?",
+        "af_barrera": "Ostacolo maggiore nella patologia neurologica:",
+        "af_oferta": "Quanto è sufficiente l’offerta di neurologia e riabilitazione nella sua zona?",
+        "af_brecha_prof": "Il divario maggiore nelle patologie neurologiche:",
+        "necesidad_libre": "Che cosa manca di PIÙ oggi nella sua comunità?"
+      },
+      "opt": {
+        "acceso_facil": {
+          "muy_facil": "Molto facile",
+          "facil": "Facile",
+          "dificil": "Difficile",
+          "muy_dificil": "Molto difficile"
+        },
+        "trato_neuroafirmativo": {
+          "si_claramente": "Sì, chiaramente",
+          "en_parte": "In parte",
+          "no": "No",
+          "no_aplica": "Non pertinente"
+        },
+        "inclusion_escolar": {
+          "si_con_apoyos": "Sì, con supporti",
+          "parcial": "Parziale",
+          "no": "No",
+          "no_aplica": "Non pertinente"
+        },
+        "inclusion_laboral": {
+          "si": "Sì",
+          "parcial": "Parziale",
+          "no": "No",
+          "no_aplica": "Non pertinente"
+        },
+        "carga_economica": {
+          "no_es_una_carga": "Non è un peso",
+          "carga_moderada": "Peso moderato",
+          "carga_alta": "Peso alto",
+          "carga_muy_alta": "Peso molto alto",
+          "prefiero_no_decir": "Preferisco non dirlo"
+        },
+        "modalidad": {
+          "presencial": "In presenza",
+          "en_linea": "Online"
+        },
+        "formacion": {
+          "si_formacion_especifica": "Sì, formazione specifica",
+          "parcial_autodidacta": "Parziale / da autodidatta",
+          "no": "No"
+        },
+        "colaborar": {
+          "si": "Sì",
+          "tal_vez": "Forse",
+          "no": "No"
+        },
+        "herramientas": {
+          "agenda_citas_en_linea": "Agenda / appuntamenti online",
+          "expediente_electronico": "Cartella elettronica",
+          "teleconsulta": "Teleconsulto",
+          "redes_sociales": "Social media",
+          "ninguna": "Nessuno"
+        },
+        "barreras_llegar": {
+          "costo_de_difusion": "Costo della promozione",
+          "competencia": "Concorrenza",
+          "logistica_envios": "Logistica / spedizioni",
+          "poca_visibilidad_ante_familias": "Scarsa visibilità presso le famiglie",
+          "desconocimiento_del_sector": "Scarsa conoscenza del settore"
+        },
+        "interes_marketplace": {
+          "si": "Sì",
+          "tal_vez": "Forse",
+          "no": "No"
+        },
+        "modalidad_serv": {
+          "presencial": "In presenza",
+          "a_domicilio": "A domicilio",
+          "en_linea": "Online"
+        },
+        "retos_serv": {
+          "baja_demanda_que_pueda_pagar": "Domanda solvibile ridotta",
+          "falta_de_derivaciones": "Mancanza di invii",
+          "falta_de_formacion_especifica": "Mancanza di formazione specifica",
+          "poca_difusion": "Poca promozione",
+          "tramites_o_marco_legal": "Burocrazia o quadro normativo"
+        },
+        "interes_directorio": {
+          "si": "Sì",
+          "tal_vez": "Forse",
+          "no": "No"
+        },
+        "necesidades": {
+          "financiamiento": "Finanziamento",
+          "difusion": "Promozione",
+          "voluntariado": "Volontariato",
+          "alianzas": "Alleanze",
+          "formacion": "Formazione"
+        },
+        "colaborar_red": {
+          "si": "Sì",
+          "tal_vez": "Forse",
+          "no": "No"
+        },
+        "programa_inclusion": {
+          "si": "Sì",
+          "parcial": "Parziale",
+          "no": "No"
+        },
+        "retos_inclusion": {
+          "formacion_docente": "Formazione docenti",
+          "cupo_recursos": "Posti / risorse",
+          "apoyo_especializado": "Supporto specialistico",
+          "sensibilizacion_de_la_comunida": "Sensibilizzazione della comunità",
+          "financiamiento": "Finanziamento"
+        },
+        "contrata_nd": {
+          "si": "Sì",
+          "no_pero_nos_interesa": "No, ma ci interessa",
+          "no": "No"
+        },
+        "barreras_laboral": {
+          "desconocimiento": "Scarsa conoscenza",
+          "falta_de_apoyos_ajustes": "Mancanza di supporti / adattamenti",
+          "procesos_de_rh": "Processi HR",
+          "sensibilizacion": "Sensibilizzazione",
+          "ninguna": "Nessuno"
+        },
+        "interes_vacantes": {
+          "si": "Sì",
+          "tal_vez": "Forse",
+          "no": "No"
+        },
+        "nd_edad_senal": {
+          "antes_del_1_er_ano": "Prima del 1° anno",
+          "1_a_2_anos": "1 o 2 anni",
+          "3_a_4_anos": "3 o 4 anni",
+          "5_a_6_anos": "5 o 6 anni",
+          "edad_escolar": "Età scolare",
+          "adolescencia_o_despues": "Adolescenza o dopo",
+          "no_aplica": "Non pertinente"
+        },
+        "nd_vigilancia": {
+          "si_de_forma_sistematica": "Sì, in modo sistematico",
+          "a_veces": "A volte",
+          "no": "No",
+          "no_lo_se": "Non lo so"
+        },
+        "nd_intervencion_temprana": {
+          "si": "Sì",
+          "parcial": "Parziale",
+          "no": "No",
+          "no_aplica": "Non pertinente"
+        },
+        "nd_terapias": {
+          "terapia_ocupacional_integracio": "Terapia occupazionale / integrazione sensoriale",
+          "fonoaudiologia_lenguaje": "Logopedia / linguaggio",
+          "psicopedagogia_aprendizaje": "Psicopedagogia / apprendimento",
+          "fisioterapia_neuromotora": "Fisioterapia / neuromotoria",
+          "analisis_conductual_aba": "Analisi comportamentale (ABA)",
+          "dir_floortime": "DIR / Floortime",
+          "ninguna": "Nessuna"
+        },
+        "nd_barrera": {
+          "diagnostico_tardio": "Diagnosi tardiva",
+          "faltan_especialistas_en_interv": "Mancano specialisti dell’intervento precoce",
+          "costo_de_terapias_continuas": "Costo delle terapie continue",
+          "coordinar_terapias_con_la_escu": "Coordinare le terapie con la scuola",
+          "informacion_confiable": "Informazione affidabile"
+        },
+        "nd_acceso_it": {
+          "buena": "Buona",
+          "limitada": "Limitata",
+          "escasa": "Scarsa",
+          "casi_nula": "Quasi nulla"
+        },
+        "nd_brecha_prof": {
+          "deteccion_tardia": "Individuazione tardiva",
+          "pocos_terapeutas_formados": "Pochi terapisti formati",
+          "listas_de_espera": "Liste d’attesa",
+          "falta_de_trabajo_interdiscipli": "Mancanza di lavoro interdisciplinare",
+          "continuidad_escuelaterapia": "Continuità scuola–terapia"
+        },
+        "ndx_identificacion": {
+          "diagnostico_clinico_formal": "Diagnosi clinica formale",
+          "en_proceso_de_diagnostico": "Diagnosi in corso",
+          "autoidentificacion_sin_diagnos": "Autoidentificazione senza diagnosi formale",
+          "no_aplica": "Non pertinente"
+        },
+        "ndx_edad_dx": {
+          "infancia_temprana": "Prima infanzia",
+          "ninez": "Infanzia",
+          "adolescencia": "Adolescenza",
+          "adultez": "Età adulta",
+          "aun_sin_diagnostico": "Ancora senza diagnosi",
+          "no_aplica": "Non pertinente"
+        },
+        "ndx_adaptaciones": {
+          "sensoriales_ruido_luz_texturas": "Sensoriali (rumore, luce, texture)",
+          "comunicacion_tiempos_claridad": "Comunicazione (tempi, chiarezza, CAA)",
+          "flexibilidad_de_rutinas_horari": "Flessibilità di routine/orari",
+          "apoyo_a_funciones_ejecutivas": "Supporto alle funzioni esecutive",
+          "espacios_de_calma_regulacion": "Spazi di calma / regolazione"
+        },
+        "ndx_afirmativo": {
+          "si": "Sì",
+          "en_parte": "In parte",
+          "no": "No",
+          "no_aplica": "Non pertinente"
+        },
+        "ndx_salud_mental": {
+          "si_con_apoyo": "Sì, con supporto",
+          "si_sin_apoyo": "Sì, senza supporto",
+          "no": "No"
+        },
+        "ndx_barrera": {
+          "estigma_o_prejuicio": "Stigma o pregiudizio",
+          "faltan_profesionales_neuroafir": "Mancano professionisti neuroaffermativi",
+          "costo": "Costo",
+          "falta_de_adaptaciones_en_escue": "Mancanza di adattamenti a scuola/lavoro",
+          "diagnostico_tardio_adultos_muj": "Diagnosi tardiva (adulti/donne)"
+        },
+        "ndx_enfoque": {
+          "si_explicitamente": "Sì, esplicitamente",
+          "parcial": "Parziale",
+          "no": "No"
+        },
+        "ndx_no_cubierto": {
+          "diagnostico_en_adultos_y_mujer": "Diagnosi in adulti e donne",
+          "adaptaciones_escolares_laboral": "Adattamenti scolastici/lavorativi",
+          "salud_mental_asociada": "Salute mentale associata",
+          "formacion_de_profesionales": "Formazione dei professionisti",
+          "autonomia_y_vida_independiente": "Autonomia e vita indipendente"
+        },
+        "af_tipo": {
+          "epilepsia": "Epilessia",
+          "parkinson_u_otro_trastorno_del": "Parkinson o altro disturbo del movimento",
+          "esclerosis_multiple": "Sclerosi multipla",
+          "ela_enfermedad_neuromuscular": "SLA / malattia neuromuscolare",
+          "secuelas_de_acv_ictus": "Esiti di ictus",
+          "lesion_cerebral_o_medular": "Lesione cerebrale o spinale",
+          "cefaleas_migrana": "Cefalee / emicrania",
+          "demencia_deterioro_cognitivo": "Demenza / declino cognitivo",
+          "otra": "Altro"
+        },
+        "af_acceso_neuro": {
+          "facil": "Facile",
+          "dificil": "Difficile",
+          "muy_dificil": "Molto difficile"
+        },
+        "af_tratamiento": {
+          "si_sin_problema": "Sì, senza problemi",
+          "con_dificultad_o_alto_costo": "Con difficoltà o a costo elevato",
+          "no_siempre": "Non sempre",
+          "no": "No"
+        },
+        "af_rehabilitacion": {
+          "si": "Sì",
+          "parcial": "Parziale",
+          "no": "No",
+          "no_aplica": "Non pertinente"
+        },
+        "af_urgencias": {
+          "si": "Sì",
+          "a_veces": "A volte",
+          "no": "No",
+          "no_aplica": "Non pertinente"
+        },
+        "af_cuidador": {
+          "si": "Sì",
+          "poco": "Poco",
+          "no": "No",
+          "no_soy_cuidador_a": "Non assisto nessuno"
+        },
+        "af_barrera": {
+          "pocos_neurologos_o_subespecial": "Pochi neurologi o sub-specialisti",
+          "costo_del_tratamiento_continuo": "Costo del trattamento continuo",
+          "distancia_a_los_centros": "Distanza dai centri",
+          "rehabilitacion_insuficiente": "Riabilitazione insufficiente",
+          "falta_de_apoyo_a_cuidadores": "Mancanza di supporto a chi assiste",
+          "falta_de_continuidad_entre_niv": "Mancanza di continuità tra livelli di cura"
+        },
+        "af_oferta": {
+          "suficiente": "Sufficiente",
+          "limitada": "Limitata",
+          "escasa": "Scarsa",
+          "casi_nula": "Quasi nulla"
+        },
+        "af_brecha_prof": {
+          "falta_de_subespecialistas": "Mancanza di sub-specialisti",
+          "rehabilitacion": "Riabilitazione",
+          "continuidad_del_tratamiento": "Continuità del trattamento",
+          "apoyo_a_cuidadores": "Supporto a chi assiste",
+          "cuidados_paliativos_avanzados": "Cure palliative / avanzate"
+        }
+      }
     }
   },
   "dimHelp": {

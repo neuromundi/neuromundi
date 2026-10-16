@@ -697,6 +697,392 @@
       "body": "프로필을 완성하셨습니다. 제1회 국제 설문에 참여해 주시겠어요? 익명이며 약 5분이 걸립니다.",
       "cta": "설문 참여",
       "later": "나중에"
+    },
+    "content": {
+      "ui": {
+        "badge": "📋 국제 조사",
+        "title": "신경발달, 신경다양성 및 신경계 질환에 관한 제1회 국제 조사",
+        "intro": "지원에 대한 접근성과 돌봄의 질을 개선할 수 있도록 국제 현황 파악에 참여해 주세요. 답변은 익명이며 약 5분이 걸립니다.",
+        "step1": "1 · 응답자 정보",
+        "step2": "2 · 입장과 경험",
+        "step3": "3 · 마지막으로",
+        "sectionPrefix": "영역",
+        "askRole": "어떤 입장에서 응답하시나요?",
+        "askSections": "어떤 영역에 참여하고 있나요? (복수 선택 가능)",
+        "askCountry": "어느 나라에서 응답하시나요?",
+        "pickCountry": "국가를 선택하세요…",
+        "pick": "선택하세요…",
+        "writeHere": "여기에 작성하세요…",
+        "optional": "(선택)",
+        "consentText": "일부 답변은 민감한 건강 정보로 간주될 수 있습니다. 참여는 자발적이고 익명입니다. 수집된 자료는 결과 공개와 커뮤니티 개선을 위해 집계된 형태로만 사용하며, 이는 당사의",
+        "privacyLink": "개인정보 처리방침",
+        "consentCheck": "위 내용을 읽었으며 익명으로 자발적으로 참여하는 데 동의하고, 답변의 집계 처리에 동의합니다.",
+        "submit": "답변 제출",
+        "sending": "제출 중…",
+        "footer": "Neuromundi 커뮤니티 조사 · 편의 표본(비확률 표본) · 집계 결과는 neuromundi.com에 공개합니다.",
+        "errRole": "입장을 선택해 주세요.",
+        "errSections": "영역을 하나 이상 선택해 주세요.",
+        "errCountry": "국가를 선택해 주세요.",
+        "errConsent": "제출하려면 동의가 필요합니다.",
+        "errSend": "제출하지 못했습니다. 다시 시도해 주세요.",
+        "doneTitle": "참여해 주셔서 감사합니다!",
+        "doneBody": "익명으로 보내 주신 답변이 제1회 국제 조사에 포함되었습니다. 집계 결과는 neuromundi.com에 공개할 예정입니다.",
+        "doneHome": "홈으로 돌아가기"
+      },
+      "role": {
+        "familiar": "가족(부모·보호자·친척)",
+        "persona": "본인 / 환자",
+        "especialista": "보건·교육 분야 전문가",
+        "proveedor": "제품 공급자",
+        "servicios": "서비스 제공자",
+        "organizacion": "단체 / NGO",
+        "escuela": "학교 또는 의원",
+        "empresa": "기업"
+      },
+      "section": {
+        "neurodesarrollo": "신경발달",
+        "neurodivergencias": "신경다양성",
+        "afecciones": "신경계 질환"
+      },
+      "q": {
+        "acceso_facil": "필요한 지원이나 전문가를 찾기가 얼마나 쉬웠나요?",
+        "trato_neuroafirmativo": "받은 응대가 신경긍정적이었나요(감각 조정, 유연성, 인간적인 대우)?",
+        "inclusion_escolar": "학교 통합: 실제로 통합적인 학교를 이용할 수 있었나요?",
+        "inclusion_laboral": "고용 통합(성인): 실질적인 기회가 있나요?",
+        "carga_economica": "돌봄 비용이 가계에 어느 정도 부담이 되나요?",
+        "profesion": "직업 또는 전문 분야는 무엇인가요?",
+        "modalidad": "어떤 방식으로 진료·지원하나요?",
+        "formacion": "담당 분야에 대한 전문 교육을 받았나요?",
+        "colaborar": "지속적인 교육과 커뮤니티 협력에 관심이 있나요?",
+        "herramientas": "업무에서 어떤 디지털 도구를 사용하나요?",
+        "productos": "어떤 종류의 제품을 제공하나요?",
+        "barreras_llegar": "가족에게 도달하는 데 있어서의 장벽:",
+        "interes_marketplace": "전문 마켓플레이스에서 판매할 의향이 있나요?",
+        "servicio_tipo": "어떤 서비스를 제공하나요?",
+        "modalidad_serv": "제공 방식:",
+        "retos_serv": "이 집단에 서비스를 제공할 때의 주요 과제:",
+        "interes_directorio": "전문 디렉터리에 등재할 의향이 있나요?",
+        "servicios": "단체에서 어떤 서비스나 사업을 운영하나요?",
+        "necesidades": "단체에서 가장 필요한 것:",
+        "colaborar_red": "단체 네트워크에서 협력할 의향이 있나요?",
+        "programa_inclusion": "통합 프로그램이 있나요?",
+        "retos_inclusion": "통합의 주요 과제:",
+        "apoyos_necesarios": "더 잘 포용하기 위해 어떤 지원이 필요하나요?",
+        "contrata_nd": "신경다양인 인재를 채용하나요?",
+        "barreras_laboral": "고용 통합의 장벽:",
+        "interes_vacantes": "포용적인 채용 공고를 게시할 의향이 있나요?",
+        "nd_edad_senal": "발달과 관련한 첫 신호를 알아차린 시기는 몇 살 무렵이었나요?",
+        "nd_vigilancia": "영유아 건강검진에서 발달 관찰이나 선별검사가 이루어졌나요?",
+        "nd_intervencion_temprana": "만 3세 이전에 조기 개입을 받을 수 있었나요?",
+        "nd_terapias": "이용한 신경발달 관련 치료는 무엇인가요?",
+        "nd_barrera": "신경발달과 관련해 가장 큰 어려움은 무엇이었나요?",
+        "nd_acceso_it": "거주 지역에서 조기 개입(0~3세)은 얼마나 접근하기 쉬운가요?",
+        "nd_brecha_prof": "신경발달 분야에서 가장 크게 느끼는 공백:",
+        "ndx_identificacion": "신경다양성은 어떻게 확인되었나요?",
+        "ndx_edad_dx": "진단이 있었다면 어느 시기에 받았나요?",
+        "ndx_adaptaciones": "일상에서 가장 필요한 조정은 무엇인가요?",
+        "ndx_afirmativo": "주변 환경(학교·직장·의료)이 단순히 \"참아 주는\" 수준이 아니라 신경긍정적인가요?",
+        "ndx_salud_mental": "관련된 정신건강 어려움(불안, 소진·번아웃)을 겪은 적이 있나요?",
+        "ndx_barrera": "겪고 있는 주요 장벽:",
+        "ndx_enfoque": "귀하의 실무나 단체는 \"정상화\"가 아닌 신경긍정적 접근을 따르나요?",
+        "ndx_no_cubierto": "신경다양성에서 가장 충족되지 않은 필요:",
+        "af_tipo": "주된 신경계 질환은 무엇인가요?",
+        "af_acceso_neuro": "신경과 진료와 지속적인 추적 관찰은 얼마나 받기 쉬운가요?",
+        "af_tratamiento": "약이나 치료를 꾸준히 받을 수 있나요?",
+        "af_rehabilitacion": "필요한 재활(물리·작업·언어·인지)을 받고 있나요?",
+        "af_urgencias": "위기나 응급 상황에서 어디로 가야 할지 알았고, 제때 대응이 있었나요?",
+        "af_cuidador": "돌봄을 하고 있다면, 돌봄에 대한 지원이 있나요?",
+        "af_barrera": "신경계 질환에서 가장 큰 장벽:",
+        "af_oferta": "거주 지역의 신경과와 재활 서비스는 충분한가요?",
+        "af_brecha_prof": "신경계 질환 분야에서 가장 큰 공백:",
+        "necesidad_libre": "지금 귀하의 지역에서 가장 부족한 것은 무엇인가요?"
+      },
+      "opt": {
+        "acceso_facil": {
+          "muy_facil": "매우 쉬웠다",
+          "facil": "쉬웠다",
+          "dificil": "어려웠다",
+          "muy_dificil": "매우 어려웠다"
+        },
+        "trato_neuroafirmativo": {
+          "si_claramente": "예, 분명히",
+          "en_parte": "부분적으로",
+          "no": "아니오",
+          "no_aplica": "해당 없음"
+        },
+        "inclusion_escolar": {
+          "si_con_apoyos": "예, 지원과 함께",
+          "parcial": "부분적으로",
+          "no": "아니오",
+          "no_aplica": "해당 없음"
+        },
+        "inclusion_laboral": {
+          "si": "예",
+          "parcial": "부분적으로",
+          "no": "아니오",
+          "no_aplica": "해당 없음"
+        },
+        "carga_economica": {
+          "no_es_una_carga": "부담이 아니다",
+          "carga_moderada": "보통 부담",
+          "carga_alta": "큰 부담",
+          "carga_muy_alta": "매우 큰 부담",
+          "prefiero_no_decir": "답하고 싶지 않다"
+        },
+        "modalidad": {
+          "presencial": "대면",
+          "en_linea": "온라인"
+        },
+        "formacion": {
+          "si_formacion_especifica": "예, 전문 교육을 받았다",
+          "parcial_autodidacta": "부분적 / 독학",
+          "no": "아니오"
+        },
+        "colaborar": {
+          "si": "예",
+          "tal_vez": "아마도",
+          "no": "아니오"
+        },
+        "herramientas": {
+          "agenda_citas_en_linea": "온라인 예약·일정",
+          "expediente_electronico": "전자 기록",
+          "teleconsulta": "원격 상담",
+          "redes_sociales": "소셜 미디어",
+          "ninguna": "사용하지 않음"
+        },
+        "barreras_llegar": {
+          "costo_de_difusion": "홍보 비용",
+          "competencia": "경쟁",
+          "logistica_envios": "물류 / 배송",
+          "poca_visibilidad_ante_familias": "가족에게 인지도가 낮음",
+          "desconocimiento_del_sector": "분야에 대한 이해 부족"
+        },
+        "interes_marketplace": {
+          "si": "예",
+          "tal_vez": "아마도",
+          "no": "아니오"
+        },
+        "modalidad_serv": {
+          "presencial": "대면",
+          "a_domicilio": "방문",
+          "en_linea": "온라인"
+        },
+        "retos_serv": {
+          "baja_demanda_que_pueda_pagar": "지불 가능한 수요 부족",
+          "falta_de_derivaciones": "의뢰·연계 부족",
+          "falta_de_formacion_especifica": "전문 교육 부족",
+          "poca_difusion": "홍보 부족",
+          "tramites_o_marco_legal": "행정 절차나 법제도"
+        },
+        "interes_directorio": {
+          "si": "예",
+          "tal_vez": "아마도",
+          "no": "아니오"
+        },
+        "necesidades": {
+          "financiamiento": "재원",
+          "difusion": "홍보",
+          "voluntariado": "자원봉사",
+          "alianzas": "협력 관계",
+          "formacion": "교육"
+        },
+        "colaborar_red": {
+          "si": "예",
+          "tal_vez": "아마도",
+          "no": "아니오"
+        },
+        "programa_inclusion": {
+          "si": "있다",
+          "parcial": "부분적으로 있다",
+          "no": "없다"
+        },
+        "retos_inclusion": {
+          "formacion_docente": "교사 연수",
+          "cupo_recursos": "정원 / 자원",
+          "apoyo_especializado": "전문적 지원",
+          "sensibilizacion_de_la_comunida": "지역사회의 인식",
+          "financiamiento": "재원"
+        },
+        "contrata_nd": {
+          "si": "채용한다",
+          "no_pero_nos_interesa": "아직 없지만 관심이 있다",
+          "no": "채용하지 않는다"
+        },
+        "barreras_laboral": {
+          "desconocimiento": "이해 부족",
+          "falta_de_apoyos_ajustes": "지원·조정 부족",
+          "procesos_de_rh": "인사 절차",
+          "sensibilizacion": "인식 개선",
+          "ninguna": "없다"
+        },
+        "interes_vacantes": {
+          "si": "예",
+          "tal_vez": "아마도",
+          "no": "아니오"
+        },
+        "nd_edad_senal": {
+          "antes_del_1_er_ano": "만 1세 이전",
+          "1_a_2_anos": "1~2세",
+          "3_a_4_anos": "3~4세",
+          "5_a_6_anos": "5~6세",
+          "edad_escolar": "학령기",
+          "adolescencia_o_despues": "청소년기 이후",
+          "no_aplica": "해당 없음"
+        },
+        "nd_vigilancia": {
+          "si_de_forma_sistematica": "예, 체계적으로",
+          "a_veces": "때때로",
+          "no": "아니오",
+          "no_lo_se": "모르겠다"
+        },
+        "nd_intervencion_temprana": {
+          "si": "예",
+          "parcial": "부분적으로",
+          "no": "아니오",
+          "no_aplica": "해당 없음"
+        },
+        "nd_terapias": {
+          "terapia_ocupacional_integracio": "작업치료 / 감각통합",
+          "fonoaudiologia_lenguaje": "언어치료",
+          "psicopedagogia_aprendizaje": "학습·교육심리 지원",
+          "fisioterapia_neuromotora": "물리치료 / 신경운동",
+          "analisis_conductual_aba": "응용행동분석(ABA)",
+          "dir_floortime": "DIR / 플로어타임",
+          "ninguna": "없음"
+        },
+        "nd_barrera": {
+          "diagnostico_tardio": "늦은 진단",
+          "faltan_especialistas_en_interv": "조기 개입 전문가 부족",
+          "costo_de_terapias_continuas": "지속적인 치료 비용",
+          "coordinar_terapias_con_la_escu": "치료와 학교의 조율",
+          "informacion_confiable": "신뢰할 수 있는 정보"
+        },
+        "nd_acceso_it": {
+          "buena": "좋다",
+          "limitada": "제한적이다",
+          "escasa": "부족하다",
+          "casi_nula": "거의 없다"
+        },
+        "nd_brecha_prof": {
+          "deteccion_tardia": "늦은 발견",
+          "pocos_terapeutas_formados": "교육받은 치료사 부족",
+          "listas_de_espera": "대기 명단",
+          "falta_de_trabajo_interdiscipli": "다학제 협력 부족",
+          "continuidad_escuelaterapia": "학교와 치료의 연계"
+        },
+        "ndx_identificacion": {
+          "diagnostico_clinico_formal": "정식 임상 진단",
+          "en_proceso_de_diagnostico": "진단 진행 중",
+          "autoidentificacion_sin_diagnos": "정식 진단 없는 자기 인식",
+          "no_aplica": "해당 없음"
+        },
+        "ndx_edad_dx": {
+          "infancia_temprana": "영유아기",
+          "ninez": "아동기",
+          "adolescencia": "청소년기",
+          "adultez": "성인기",
+          "aun_sin_diagnostico": "아직 진단 없음",
+          "no_aplica": "해당 없음"
+        },
+        "ndx_adaptaciones": {
+          "sensoriales_ruido_luz_texturas": "감각(소음, 빛, 촉감)",
+          "comunicacion_tiempos_claridad": "의사소통(시간, 명확성, AAC)",
+          "flexibilidad_de_rutinas_horari": "일과·일정의 유연성",
+          "apoyo_a_funciones_ejecutivas": "실행기능 지원",
+          "espacios_de_calma_regulacion": "안정·조절을 위한 공간"
+        },
+        "ndx_afirmativo": {
+          "si": "예",
+          "en_parte": "부분적으로",
+          "no": "아니오",
+          "no_aplica": "해당 없음"
+        },
+        "ndx_salud_mental": {
+          "si_con_apoyo": "예, 지원을 받았다",
+          "si_sin_apoyo": "예, 지원 없이",
+          "no": "아니오"
+        },
+        "ndx_barrera": {
+          "estigma_o_prejuicio": "낙인이나 편견",
+          "faltan_profesionales_neuroafir": "신경긍정적 전문가 부족",
+          "costo": "비용",
+          "falta_de_adaptaciones_en_escue": "학교·직장의 조정 부족",
+          "diagnostico_tardio_adultos_muj": "늦은 진단(성인·여성)"
+        },
+        "ndx_enfoque": {
+          "si_explicitamente": "예, 명시적으로",
+          "parcial": "부분적으로",
+          "no": "아니오"
+        },
+        "ndx_no_cubierto": {
+          "diagnostico_en_adultos_y_mujer": "성인과 여성의 진단",
+          "adaptaciones_escolares_laboral": "학교·직장의 조정",
+          "salud_mental_asociada": "동반되는 정신건강",
+          "formacion_de_profesionales": "전문가 양성",
+          "autonomia_y_vida_independiente": "자율성과 자립 생활"
+        },
+        "af_tipo": {
+          "epilepsia": "뇌전증",
+          "parkinson_u_otro_trastorno_del": "파킨슨병 등 운동 질환",
+          "esclerosis_multiple": "다발성 경화증",
+          "ela_enfermedad_neuromuscular": "ALS / 신경근육 질환",
+          "secuelas_de_acv_ictus": "뇌졸중 후유증",
+          "lesion_cerebral_o_medular": "뇌 또는 척수 손상",
+          "cefaleas_migrana": "두통 / 편두통",
+          "demencia_deterioro_cognitivo": "치매 / 인지 저하",
+          "otra": "기타"
+        },
+        "af_acceso_neuro": {
+          "facil": "쉽다",
+          "dificil": "어렵다",
+          "muy_dificil": "매우 어렵다"
+        },
+        "af_tratamiento": {
+          "si_sin_problema": "예, 문제없다",
+          "con_dificultad_o_alto_costo": "어렵거나 비용이 높다",
+          "no_siempre": "항상 그렇지는 않다",
+          "no": "아니오"
+        },
+        "af_rehabilitacion": {
+          "si": "예",
+          "parcial": "부분적으로",
+          "no": "아니오",
+          "no_aplica": "해당 없음"
+        },
+        "af_urgencias": {
+          "si": "예",
+          "a_veces": "때때로",
+          "no": "아니오",
+          "no_aplica": "해당 없음"
+        },
+        "af_cuidador": {
+          "si": "있다",
+          "poco": "거의 없다",
+          "no": "없다",
+          "no_soy_cuidador_a": "돌봄을 하지 않는다"
+        },
+        "af_barrera": {
+          "pocos_neurologos_o_subespecial": "신경과 또는 세부전문의 부족",
+          "costo_del_tratamiento_continuo": "지속 치료 비용",
+          "distancia_a_los_centros": "의료기관까지의 거리",
+          "rehabilitacion_insuficiente": "재활이 불충분함",
+          "falta_de_apoyo_a_cuidadores": "돌봄 제공자 지원 부족",
+          "falta_de_continuidad_entre_niv": "의료 단계 간 연계 부족"
+        },
+        "af_oferta": {
+          "suficiente": "충분하다",
+          "limitada": "제한적이다",
+          "escasa": "부족하다",
+          "casi_nula": "거의 없다"
+        },
+        "af_brecha_prof": {
+          "falta_de_subespecialistas": "세부전문의 부족",
+          "rehabilitacion": "재활",
+          "continuidad_del_tratamiento": "치료의 연속성",
+          "apoyo_a_cuidadores": "돌봄 제공자 지원",
+          "cuidados_paliativos_avanzados": "완화의료 / 고도 돌봄"
+        }
+      }
     }
   },
   "dimHelp": {

@@ -660,6 +660,392 @@
       "body": "プロフィールが完成しました。第1回国際調査にご協力いただけますか？匿名で約5分です。",
       "cta": "回答する",
       "later": "あとで"
+    },
+    "content": {
+      "ui": {
+        "badge": "📋 国際調査",
+        "title": "神経発達・ニューロダイバージェンス・神経疾患に関する第1回国際調査",
+        "intro": "支援へのアクセスと寄り添いの質を高めるため、国際的な状況の把握にご協力ください。回答は匿名で、所要時間は約5分です。",
+        "step1": "1 · あなたについて",
+        "step2": "2 · 立場と経験",
+        "step3": "3 · 最後に",
+        "sectionPrefix": "セクション",
+        "askRole": "どの立場で回答されますか。",
+        "askSections": "どのセクションに関わっていますか。（複数選択可）",
+        "askCountry": "どの国から回答されますか。",
+        "pickCountry": "国を選択してください…",
+        "pick": "選択してください…",
+        "writeHere": "ここに入力…",
+        "optional": "（任意）",
+        "consentText": "一部の回答は機微な健康情報に当たる場合があります。参加は任意かつ匿名です。データは集計した形でのみ、結果の公表とコミュニティの改善のために利用します。詳細は当方の",
+        "privacyLink": "プライバシーに関する通知",
+        "consentCheck": "上記を読み、匿名かつ任意で参加することに同意し、回答の集計処理に同意します。",
+        "submit": "回答を送信する",
+        "sending": "送信中…",
+        "footer": "Neuromundi コミュニティ調査 · 便宜的（非確率）標本 · 集計結果は neuromundi.com で公開します。",
+        "errRole": "立場を選んでください。",
+        "errSections": "セクションを少なくとも1つ選んでください。",
+        "errCountry": "国を選んでください。",
+        "errConsent": "送信するには同意が必要です。",
+        "errSend": "送信できませんでした。もう一度お試しください。",
+        "doneTitle": "ご参加ありがとうございました。",
+        "doneBody": "あなたの匿名の回答は第1回国際調査の一部になりました。集計結果は neuromundi.com で公開します。",
+        "doneHome": "ホームに戻る"
+      },
+      "role": {
+        "familiar": "家族（親・保護者・親族）",
+        "persona": "本人・患者",
+        "especialista": "医療・教育などの専門職",
+        "proveedor": "製品の提供者",
+        "servicios": "サービスの提供者",
+        "organizacion": "団体・NGO",
+        "escuela": "学校または診療所",
+        "empresa": "企業"
+      },
+      "section": {
+        "neurodesarrollo": "神経発達",
+        "neurodivergencias": "ニューロダイバージェンス",
+        "afecciones": "神経疾患"
+      },
+      "q": {
+        "acceso_facil": "必要な支援や専門職を見つけるのはどのくらい容易でしたか。",
+        "trato_neuroafirmativo": "受けた対応は神経肯定的（感覚面の配慮、柔軟な対応、人としての尊重）でしたか。",
+        "inclusion_escolar": "学校でのインクルージョン：本当にインクルーシブな学校を利用できましたか。",
+        "inclusion_laboral": "就労でのインクルージョン（成人）：実際の機会はありますか。",
+        "carga_economica": "支援にかかる費用は、ご家庭にとってどの程度の負担ですか。",
+        "profesion": "ご職業または専門分野は何ですか。",
+        "modalidad": "どの形態で対応していますか。",
+        "formacion": "担当している分野について専門的な研修を受けていますか。",
+        "colaborar": "継続的に学び、コミュニティで協働することに関心はありますか。",
+        "herramientas": "実務でどのデジタルツールを使っていますか。",
+        "productos": "どのような製品を提供していますか。",
+        "barreras_llegar": "家族に届くうえでの障壁：",
+        "interes_marketplace": "専門的なマーケットプレイスでの販売に関心はありますか。",
+        "servicio_tipo": "どのようなサービスを提供していますか。",
+        "modalidad_serv": "提供形態：",
+        "retos_serv": "この層にサービスを提供するうえでの主な課題：",
+        "interes_directorio": "専門ディレクトリへの掲載に関心はありますか。",
+        "servicios": "団体としてどのようなサービスや事業を行っていますか。",
+        "necesidades": "団体として最も必要としているもの：",
+        "colaborar_red": "団体のネットワークでの協働に関心はありますか。",
+        "programa_inclusion": "インクルージョンの取り組みはありますか。",
+        "retos_inclusion": "インクルージョンの主な課題：",
+        "apoyos_necesarios": "より良く受け入れるために、どのような支援が必要ですか。",
+        "contrata_nd": "ニューロダイバージェントな人材を採用していますか。",
+        "barreras_laboral": "就労インクルージョンの障壁：",
+        "interes_vacantes": "インクルーシブな求人の掲載に関心はありますか。",
+        "nd_edad_senal": "発達面での最初の兆しに気づいたのは何歳ごろですか。",
+        "nd_vigilancia": "乳幼児健診で発達の経過観察やスクリーニングは行われましたか。",
+        "nd_intervencion_temprana": "3歳より前に早期療育を受けられましたか。",
+        "nd_terapias": "これまで利用した神経発達に関わる療育はどれですか。",
+        "nd_barrera": "神経発達に関して最も困難だったことは何ですか。",
+        "nd_acceso_it": "お住まいの地域で、早期療育（0〜3歳）はどの程度利用しやすいですか。",
+        "nd_brecha_prof": "神経発達の領域で最も大きいと感じる不足：",
+        "ndx_identificacion": "ニューロダイバージェンスはどのように把握されましたか。",
+        "ndx_edad_dx": "診断があった場合、それはどの時期でしたか。",
+        "ndx_adaptaciones": "日常生活で最も必要な配慮はどれですか。",
+        "ndx_afirmativo": "身のまわりの環境（学校・職場・医療）は、単に「我慢される」のではなく神経肯定的ですか。",
+        "ndx_salud_mental": "関連する心の健康の困難（不安、疲弊・バーンアウト）はありましたか。",
+        "ndx_barrera": "直面している主な障壁：",
+        "ndx_enfoque": "あなたの実務や団体は、「正常化」を目的としない神経肯定的な方針をとっていますか。",
+        "ndx_no_cubierto": "ニューロダイバージェンスで最も満たされていない必要：",
+        "af_tipo": "主な神経疾患は何ですか。",
+        "af_acceso_neuro": "神経内科の受診と継続的なフォローはどの程度受けやすいですか。",
+        "af_tratamiento": "薬や治療を継続して受けられていますか。",
+        "af_rehabilitacion": "必要なリハビリ（理学・作業・言語・認知）を受けられていますか。",
+        "af_urgencias": "急な発作や緊急時に、どこへ行くか分かり、速やかな対応がありましたか。",
+        "af_cuidador": "介護・ケアをしている場合、ケアのための支援はありますか。",
+        "af_barrera": "神経疾患に関する最大の障壁：",
+        "af_oferta": "お住まいの地域で、神経内科とリハビリの体制は十分ですか。",
+        "af_brecha_prof": "神経疾患の領域で最も大きい不足：",
+        "necesidad_libre": "今、あなたの地域で最も足りていないものは何ですか。"
+      },
+      "opt": {
+        "acceso_facil": {
+          "muy_facil": "とても容易",
+          "facil": "容易",
+          "dificil": "困難",
+          "muy_dificil": "とても困難"
+        },
+        "trato_neuroafirmativo": {
+          "si_claramente": "はい、明確に",
+          "en_parte": "部分的に",
+          "no": "いいえ",
+          "no_aplica": "該当しない"
+        },
+        "inclusion_escolar": {
+          "si_con_apoyos": "はい、支援つきで",
+          "parcial": "部分的に",
+          "no": "いいえ",
+          "no_aplica": "該当しない"
+        },
+        "inclusion_laboral": {
+          "si": "はい",
+          "parcial": "部分的に",
+          "no": "いいえ",
+          "no_aplica": "該当しない"
+        },
+        "carga_economica": {
+          "no_es_una_carga": "負担ではない",
+          "carga_moderada": "やや負担",
+          "carga_alta": "大きな負担",
+          "carga_muy_alta": "非常に大きな負担",
+          "prefiero_no_decir": "答えたくない"
+        },
+        "modalidad": {
+          "presencial": "対面",
+          "en_linea": "オンライン"
+        },
+        "formacion": {
+          "si_formacion_especifica": "はい、専門的な研修あり",
+          "parcial_autodidacta": "部分的・独学",
+          "no": "いいえ"
+        },
+        "colaborar": {
+          "si": "はい",
+          "tal_vez": "たぶん",
+          "no": "いいえ"
+        },
+        "herramientas": {
+          "agenda_citas_en_linea": "オンライン予約・日程管理",
+          "expediente_electronico": "電子記録",
+          "teleconsulta": "オンライン診療・相談",
+          "redes_sociales": "SNS",
+          "ninguna": "使っていない"
+        },
+        "barreras_llegar": {
+          "costo_de_difusion": "広報の費用",
+          "competencia": "競合",
+          "logistica_envios": "物流・配送",
+          "poca_visibilidad_ante_familias": "家族への認知度が低い",
+          "desconocimiento_del_sector": "分野についての知識不足"
+        },
+        "interes_marketplace": {
+          "si": "はい",
+          "tal_vez": "たぶん",
+          "no": "いいえ"
+        },
+        "modalidad_serv": {
+          "presencial": "対面",
+          "a_domicilio": "訪問",
+          "en_linea": "オンライン"
+        },
+        "retos_serv": {
+          "baja_demanda_que_pueda_pagar": "支払える需要が少ない",
+          "falta_de_derivaciones": "紹介が少ない",
+          "falta_de_formacion_especifica": "専門的な研修の不足",
+          "poca_difusion": "広報の不足",
+          "tramites_o_marco_legal": "手続きや法制度"
+        },
+        "interes_directorio": {
+          "si": "はい",
+          "tal_vez": "たぶん",
+          "no": "いいえ"
+        },
+        "necesidades": {
+          "financiamiento": "資金",
+          "difusion": "広報",
+          "voluntariado": "ボランティア",
+          "alianzas": "連携先",
+          "formacion": "研修"
+        },
+        "colaborar_red": {
+          "si": "はい",
+          "tal_vez": "たぶん",
+          "no": "いいえ"
+        },
+        "programa_inclusion": {
+          "si": "ある",
+          "parcial": "部分的にある",
+          "no": "ない"
+        },
+        "retos_inclusion": {
+          "formacion_docente": "教員研修",
+          "cupo_recursos": "受け入れ枠・資源",
+          "apoyo_especializado": "専門的な支援",
+          "sensibilizacion_de_la_comunida": "地域の理解促進",
+          "financiamiento": "資金"
+        },
+        "contrata_nd": {
+          "si": "している",
+          "no_pero_nos_interesa": "していないが関心がある",
+          "no": "していない"
+        },
+        "barreras_laboral": {
+          "desconocimiento": "知識の不足",
+          "falta_de_apoyos_ajustes": "支援・配慮の不足",
+          "procesos_de_rh": "人事の仕組み",
+          "sensibilizacion": "理解促進",
+          "ninguna": "特にない"
+        },
+        "interes_vacantes": {
+          "si": "はい",
+          "tal_vez": "たぶん",
+          "no": "いいえ"
+        },
+        "nd_edad_senal": {
+          "antes_del_1_er_ano": "1歳より前",
+          "1_a_2_anos": "1〜2歳",
+          "3_a_4_anos": "3〜4歳",
+          "5_a_6_anos": "5〜6歳",
+          "edad_escolar": "学齢期",
+          "adolescencia_o_despues": "思春期以降",
+          "no_aplica": "該当しない"
+        },
+        "nd_vigilancia": {
+          "si_de_forma_sistematica": "はい、継続的に",
+          "a_veces": "ときどき",
+          "no": "いいえ",
+          "no_lo_se": "分からない"
+        },
+        "nd_intervencion_temprana": {
+          "si": "はい",
+          "parcial": "部分的に",
+          "no": "いいえ",
+          "no_aplica": "該当しない"
+        },
+        "nd_terapias": {
+          "terapia_ocupacional_integracio": "作業療法・感覚統合",
+          "fonoaudiologia_lenguaje": "言語聴覚療法",
+          "psicopedagogia_aprendizaje": "学習支援・教育心理",
+          "fisioterapia_neuromotora": "理学療法・神経運動",
+          "analisis_conductual_aba": "応用行動分析（ABA）",
+          "dir_floortime": "DIR／フロアタイム",
+          "ninguna": "利用していない"
+        },
+        "nd_barrera": {
+          "diagnostico_tardio": "診断が遅れた",
+          "faltan_especialistas_en_interv": "早期療育の専門職が足りない",
+          "costo_de_terapias_continuas": "継続的な療育の費用",
+          "coordinar_terapias_con_la_escu": "療育と学校の調整",
+          "informacion_confiable": "信頼できる情報"
+        },
+        "nd_acceso_it": {
+          "buena": "良い",
+          "limitada": "限られる",
+          "escasa": "乏しい",
+          "casi_nula": "ほとんどない"
+        },
+        "nd_brecha_prof": {
+          "deteccion_tardia": "発見の遅れ",
+          "pocos_terapeutas_formados": "研修を受けた療育者が少ない",
+          "listas_de_espera": "待機リスト",
+          "falta_de_trabajo_interdiscipli": "多職種連携の不足",
+          "continuidad_escuelaterapia": "学校と療育の連続性"
+        },
+        "ndx_identificacion": {
+          "diagnostico_clinico_formal": "正式な臨床診断",
+          "en_proceso_de_diagnostico": "診断の途中",
+          "autoidentificacion_sin_diagnos": "正式な診断のない自己認識",
+          "no_aplica": "該当しない"
+        },
+        "ndx_edad_dx": {
+          "infancia_temprana": "乳幼児期",
+          "ninez": "児童期",
+          "adolescencia": "思春期",
+          "adultez": "成人期",
+          "aun_sin_diagnostico": "まだ診断がない",
+          "no_aplica": "該当しない"
+        },
+        "ndx_adaptaciones": {
+          "sensoriales_ruido_luz_texturas": "感覚面（音・光・感触）",
+          "comunicacion_tiempos_claridad": "コミュニケーション（時間・明確さ・AAC）",
+          "flexibilidad_de_rutinas_horari": "日課や時間の柔軟さ",
+          "apoyo_a_funciones_ejecutivas": "実行機能の支援",
+          "espacios_de_calma_regulacion": "落ち着ける・整えられる場所"
+        },
+        "ndx_afirmativo": {
+          "si": "はい",
+          "en_parte": "部分的に",
+          "no": "いいえ",
+          "no_aplica": "該当しない"
+        },
+        "ndx_salud_mental": {
+          "si_con_apoyo": "はい、支援を受けた",
+          "si_sin_apoyo": "はい、支援はなかった",
+          "no": "いいえ"
+        },
+        "ndx_barrera": {
+          "estigma_o_prejuicio": "偏見やスティグマ",
+          "faltan_profesionales_neuroafir": "神経肯定的な専門職が足りない",
+          "costo": "費用",
+          "falta_de_adaptaciones_en_escue": "学校・職場での配慮の不足",
+          "diagnostico_tardio_adultos_muj": "診断の遅れ（成人・女性）"
+        },
+        "ndx_enfoque": {
+          "si_explicitamente": "はい、明確に",
+          "parcial": "部分的に",
+          "no": "いいえ"
+        },
+        "ndx_no_cubierto": {
+          "diagnostico_en_adultos_y_mujer": "成人と女性の診断",
+          "adaptaciones_escolares_laboral": "学校・職場の配慮",
+          "salud_mental_asociada": "関連する心の健康",
+          "formacion_de_profesionales": "専門職の養成",
+          "autonomia_y_vida_independiente": "自律と自立した生活"
+        },
+        "af_tipo": {
+          "epilepsia": "てんかん",
+          "parkinson_u_otro_trastorno_del": "パーキンソン病などの運動障害",
+          "esclerosis_multiple": "多発性硬化症",
+          "ela_enfermedad_neuromuscular": "ALS・神経筋疾患",
+          "secuelas_de_acv_ictus": "脳卒中の後遺症",
+          "lesion_cerebral_o_medular": "脳・脊髄の損傷",
+          "cefaleas_migrana": "頭痛・片頭痛",
+          "demencia_deterioro_cognitivo": "認知症・認知機能の低下",
+          "otra": "その他"
+        },
+        "af_acceso_neuro": {
+          "facil": "容易",
+          "dificil": "困難",
+          "muy_dificil": "とても困難"
+        },
+        "af_tratamiento": {
+          "si_sin_problema": "はい、問題なく",
+          "con_dificultad_o_alto_costo": "困難または高額",
+          "no_siempre": "常にではない",
+          "no": "いいえ"
+        },
+        "af_rehabilitacion": {
+          "si": "はい",
+          "parcial": "部分的に",
+          "no": "いいえ",
+          "no_aplica": "該当しない"
+        },
+        "af_urgencias": {
+          "si": "はい",
+          "a_veces": "ときどき",
+          "no": "いいえ",
+          "no_aplica": "該当しない"
+        },
+        "af_cuidador": {
+          "si": "ある",
+          "poco": "ほとんどない",
+          "no": "ない",
+          "no_soy_cuidador_a": "ケアはしていない"
+        },
+        "af_barrera": {
+          "pocos_neurologos_o_subespecial": "神経内科医や専門医が少ない",
+          "costo_del_tratamiento_continuo": "継続的な治療の費用",
+          "distancia_a_los_centros": "医療機関までの距離",
+          "rehabilitacion_insuficiente": "リハビリが不十分",
+          "falta_de_apoyo_a_cuidadores": "ケアをする人への支援がない",
+          "falta_de_continuidad_entre_niv": "医療の段階間の連携不足"
+        },
+        "af_oferta": {
+          "suficiente": "十分",
+          "limitada": "限られる",
+          "escasa": "乏しい",
+          "casi_nula": "ほとんどない"
+        },
+        "af_brecha_prof": {
+          "falta_de_subespecialistas": "専門医の不足",
+          "rehabilitacion": "リハビリ",
+          "continuidad_del_tratamiento": "治療の継続性",
+          "apoyo_a_cuidadores": "ケアをする人への支援",
+          "cuidados_paliativos_avanzados": "緩和ケア・高度なケア"
+        }
+      }
     }
   },
   "dimHelp": {
