@@ -17,6 +17,7 @@ import { RefreshCw, Banknote, CheckCircle2, AlertTriangle, ChevronDown, ChevronR
 import { Button, SkeletonCard } from '@/components/ui';
 import { useToast } from '@/components/ui/Toast';
 import { supabase } from '@/lib/supabase';
+import { montoLegible } from '@/lib/commissions';
 
 interface Fila {
   referrer_id: string;
@@ -53,10 +54,8 @@ interface Detalle {
 
 const ESTADOS = ['devengada', 'pagada', 'revertida', 'todas'] as const;
 
-const money = (cents: number, cur?: string | null) =>
-  new Intl.NumberFormat('es-MX', {
-    style: 'currency', currency: (cur || 'mxn').toUpperCase(), maximumFractionDigits: 2,
-  }).format((cents ?? 0) / 100);
+// Las monedas sin decimales se dividian entre 100 igual que el resto.
+const money = montoLegible;
 
 // Nombre legible del método de cobro declarado por el referidor.
 const metodoLabel = (m: string | null, t: (k: string) => string) => {
@@ -106,17 +105,31 @@ export function AdminComisiones() {
     const nota = window.prompt(t('comisiones.notaPrompt'), '');
     if (nota === null) return;
     setOcupada(f.referrer_id);
-    const { data, error: err } = await supabase.rpc('admin_liquidar_comisiones', {
+    // Se liquida POR MONEDA, y por debajo del minimo hay que confirmarlo: la
+    // funcion lanza excepcion salvo que se fuerce. (Hallazgo A-9.)
+    const forzar = f.alcanza_umbral === true
+      ? false
+      : window.confirm(t('comisiones.confirmarBajoUmbral'));
+    if (f.alcanza_umbral !== true && !forzar) { setOcupada(null); return; }
+    const { error: err } = await supabase.rpc('admin_liquidar_comisiones', {
       p_referrer: f.referrer_id, p_nota: nota || null,
+      p_currency: f.currency ?? null, p_forzar: forzar,
     });
     setOcupada(null);
-    if (err || !data) { toast.error(err?.message ?? t('common.errorGeneric')); return; }
+    // Devuelve cuantas filas liquido; 0 es un resultado valido, no un fallo.
+    if (err) { toast.error(err.message ?? t('common.errorGeneric')); return; }
     toast.success(t('comisiones.liquidadas'));
     void load(estado);
   };
 
-  const totalDebido = rows.reduce((a, r) => a + (r.monto_cents ?? 0), 0);
-  const moneda = rows[0]?.currency ?? 'mxn';
+  // NO SE SUMAN MONEDAS DISTINTAS. Antes se sumaban todos los montos y el
+  // resultado se rotulaba con la moneda de la primera fila: ocho pesos mas
+  // diecinueve dolares daban "27" en pesos. Ahora un total por moneda.
+  const totalesPorMoneda = rows.reduce<Record<string, number>>((acc, r) => {
+    const m = (r.currency ?? 'mxn').toLowerCase();
+    acc[m] = (acc[m] ?? 0) + (r.monto_cents ?? 0);
+    return acc;
+  }, {});
 
   if (loading) return <SkeletonCard rows={3} />;
 
@@ -159,7 +172,9 @@ export function AdminComisiones() {
           {estado === 'devengada' ? (
             <div className="rounded-2xl border border-slate-100 bg-white p-4 shadow-sm">
               <Banknote className="h-5 w-5 text-warm-700" aria-hidden="true" />
-              <p className="mt-2 text-2xl font-extrabold text-warm-700">{money(totalDebido, moneda)}</p>
+              {Object.entries(totalesPorMoneda).map(([m, total]) => (
+                <p key={m} className="mt-2 text-2xl font-extrabold text-warm-700 tabular-nums">{money(total, m)}</p>
+              ))}
               <p className="text-xs text-muted">{t('comisiones.porPagar', { referidores: rows.length })}</p>
             </div>
           ) : null}

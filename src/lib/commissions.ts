@@ -19,10 +19,27 @@
 
 /**
  * Monedas sin decimales: su unidad mínima ya es la unidad. 1000 JPY son 1000
- * yenes, no 10. Dividir entre 100 aquí mostraría importes 100 veces menores.
- * Debe coincidir con el ZERO_DECIMAL de las Edge Functions de checkout.
+ * yenes, no 10. Dividir entre 100 aquí muestra importes 100 veces menores.
+ *
+ * SON DIECISÉIS, LAS MISMAS QUE EN LAS FUNCIONES DE COBRO. Aquí había cuatro:
+ * faltaba PYG, y `membership_prices` sí tiene filas en guaraníes, así que una
+ * comisión de 150.000 se mostraba como 1.500,00 y se liquidaban mil quinientos
+ * en vez de ciento cincuenta mil. La lista está duplicada en seis archivos y ya
+ * divergió una vez. (Auditoría del 15 oct 2026, hallazgo M-1.)
  */
-export const ZERO_DECIMAL = new Set(['jpy', 'krw', 'clp', 'vnd']);
+export const ZERO_DECIMAL = new Set([
+  'bif', 'clp', 'djf', 'gnf', 'jpy', 'kmf', 'krw', 'mga', 'pyg',
+  'rwf', 'ugx', 'vnd', 'vuv', 'xaf', 'xof', 'xpf',
+]);
+
+/** Importe legible a partir de la unidad mínima de su moneda. */
+export function montoLegible(cents: number, cur?: string | null): string {
+  const moneda = (cur || 'mxn').toLowerCase();
+  const valor = ZERO_DECIMAL.has(moneda) ? (cents ?? 0) : (cents ?? 0) / 100;
+  return new Intl.NumberFormat('es-MX', {
+    style: 'currency', currency: moneda.toUpperCase(), maximumFractionDigits: 2,
+  }).format(valor);
+}
 
 export type CommissionStatus = 'payable' | 'paid' | 'reversed';
 

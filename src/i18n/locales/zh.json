@@ -5591,7 +5591,8 @@
     "umbralNo": "未达最低额（{{monto}}）",
     "umbralSinTc": "未加载 {{moneda}} 的汇率",
     "cobraPor": "收款方式：{{metodo}}",
-    "pedirDatos": "转账前请通过此联系方式索取银行信息。"
+    "pedirDatos": "转账前请通过此联系方式索取银行信息。",
+    "confirmarBajoUmbral": "该金额未达结算最低额。仍要支付吗？"
   },
   "solFund": {
     "title": "创始会员资费申请",

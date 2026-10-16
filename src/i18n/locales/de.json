@@ -5591,7 +5591,8 @@
     "umbralNo": "Unter dem Mindestbetrag ({{monto}})",
     "umbralSinTc": "Kein Wechselkurs für {{moneda}} hinterlegt",
     "cobraPor": "Auszahlung über: {{metodo}}",
-    "pedirDatos": "Fragen Sie die Bankdaten über diesen Weg ab, bevor Sie überweisen."
+    "pedirDatos": "Fragen Sie die Bankdaten über diesen Weg ab, bevor Sie überweisen.",
+    "confirmarBajoUmbral": "Dieser Betrag liegt unter dem Mindestbetrag. Trotzdem auszahlen?"
   },
   "solFund": {
     "title": "Anfragen zum Gründungsmitglied-Beitrag",

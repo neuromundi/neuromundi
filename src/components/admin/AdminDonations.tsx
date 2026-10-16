@@ -7,6 +7,7 @@
  *  · CRUD de ALIADOS (los logos del carrusel del home).
  */
 import { useState } from 'react';
+import { ZERO_DECIMAL } from '@/lib/commissions';
 import { useTranslation } from 'react-i18next';
 import { Coins, Star, StarOff, Eye, EyeOff, Truck, Pencil, Plus, Trash2, Save, Handshake, Banknote } from 'lucide-react';
 import { Button, SkeletonCard, EmptyState, useToast, useConfirm } from '@/components/ui';
@@ -30,8 +31,10 @@ function DonationRow({ d, onWall }: { d: AdminDonation; onWall: ReturnType<typeo
   const [logo, setLogo] = useState(d.wall_logo_url ?? '');
   const [busy, setBusy] = useState(false);
 
+  // Las dieciseis monedas sin decimales, no solo el yen: un donativo chileno o
+  // paraguayo se mostraba cien veces mas bajo. (Hallazgo M-1.)
   const amount = formatDonation(
-    d.currency === 'jpy' ? d.amount_cents : d.amount_cents / 100,
+    ZERO_DECIMAL.has((d.currency || '').toLowerCase()) ? d.amount_cents : d.amount_cents / 100,
     d.currency,
     i18n.language,
   );

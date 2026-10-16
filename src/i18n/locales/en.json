@@ -5591,7 +5591,8 @@
     "umbralNo": "Below the minimum ({{monto}})",
     "umbralSinTc": "No exchange rate loaded for {{moneda}}",
     "cobraPor": "Paid via: {{metodo}}",
-    "pedirDatos": "Ask for the bank details through this channel before transferring."
+    "pedirDatos": "Ask for the bank details through this channel before transferring.",
+    "confirmarBajoUmbral": "This amount is below the payout minimum. Pay it anyway?"
   },
   "solFund": {
     "title": "Founding Member requests",

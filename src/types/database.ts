@@ -1404,6 +1404,23 @@ export interface Database {
           actualizado_en: string;
         };
       };
+      /** Liquidacion de comisiones por moneda, con minimo de 25 USD (migracion 0233). */
+      admin_liquidar_comisiones: {
+        Args: {
+          p_referrer: string; p_nota?: string | null;
+          p_currency?: string | null; p_forzar?: boolean;
+        };
+        Returns: number;
+      };
+      /** Vigencia de las invitaciones del directorio para el panel (migracion 0232). */
+      admin_invitaciones_vigencia: {
+        Args: Record<string, never>;
+        Returns: {
+          vivas: number; sin_enviar: number; enviadas: number;
+          vencidas: number; vencen_en_15_dias: number;
+          primera_en_vencer: string | null;
+        }[];
+      };
       /** Cuotas, donativos y comisiones de la persona que consulta (migracion 0228). */
       mis_pagos: {
         Args: Record<string, never>;
@@ -1426,11 +1443,6 @@ export interface Database {
           base_cents: number; comision_pct: number; amount_cents: number; currency: string;
           status: string; creada_en: string; pagada_en: string | null; pagada_nota: string | null;
         }[];
-      };
-      /** Marca como pagadas las comisiones devengadas de un referidor (migracion 0210c). */
-      admin_liquidar_comisiones: {
-        Args: { p_referrer: string; p_nota?: string | null };
-        Returns: { ok: boolean; comisiones: number; amount_cents: number };
       };
       /** Fichas publicadas sin correo, con telefono primero (migracion 0207b). */
       admin_fichas_sin_correo: {

@@ -14,6 +14,7 @@ import { useTranslation } from 'react-i18next';
 import { RefreshCw, Receipt, Heart, Gift, CheckCircle2, RotateCcw, Clock } from 'lucide-react';
 import { Button, SkeletonCard, EmptyState } from '@/components/ui';
 import { supabase } from '@/lib/supabase';
+import { montoLegible } from '@/lib/commissions';
 
 type Tipo = 'cuota' | 'donativo' | 'comision';
 
@@ -27,10 +28,8 @@ interface Movimiento {
   referencia: string | null;
 }
 
-const money = (cents: number, cur?: string | null) =>
-  new Intl.NumberFormat('es-MX', {
-    style: 'currency', currency: (cur || 'mxn').toUpperCase(), maximumFractionDigits: 2,
-  }).format((cents ?? 0) / 100);
+// Las monedas sin decimales se dividian entre 100 igual que el resto.
+const money = montoLegible;
 
 const fecha = (iso: string | null) =>
   iso

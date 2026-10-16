@@ -5591,7 +5591,8 @@
     "umbralNo": "最低額に未達（{{monto}}）",
     "umbralSinTc": "{{moneda}} の為替レートが未登録です",
     "cobraPor": "受取方法：{{metodo}}",
-    "pedirDatos": "送金前にこの連絡先で口座情報をお尋ねください。"
+    "pedirDatos": "送金前にこの連絡先で口座情報をお尋ねください。",
+    "confirmarBajoUmbral": "この金額は精算の最低額に達していません。それでも支払いますか？"
   },
   "solFund": {
     "title": "創設メンバー料金の申請",

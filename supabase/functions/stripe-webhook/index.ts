@@ -320,7 +320,11 @@ Deno.serve(async (req: Request) => {
       case 'charge.refunded': {
         const ch = event.data.object as Stripe.Charge;
         const pi = typeof ch.payment_intent === 'string' ? ch.payment_intent : ch.payment_intent?.id;
-        if (!pi) break;
+        const facturaId = typeof ch.invoice === 'string' ? ch.invoice : ch.invoice?.id;
+        // Sin PaymentIntent NI factura no hay por donde empezar. Antes se salia
+        // solo por falta de PaymentIntent, y eso bastaba para que el reembolso
+        // de una membresia no revirtiera nada (ver mas abajo).
+        if (!pi && !facturaId) break;
 
         // PARCIAL NO ES TOTAL. Stripe emite charge.refunded también cuando se
         // devuelve una parte. Antes no se miraba: devolver $50 de una compra de
@@ -341,14 +345,67 @@ Deno.serve(async (req: Request) => {
           break;
         }
 
-        // El pedido se guarda con el id de la sesión, no del PaymentIntent, así
-        // que hay que localizar la sesión que originó este cobro.
-        const sessions = await stripe.checkout.sessions.list({ payment_intent: pi, limit: 1 });
-        const sessionId = sessions.data[0]?.id;
-        if (!sessionId) break;
+        // DOS CAMINOS, Y EL DE LA MEMBRESIA ES EL DE LA FACTURA.
+        //
+        // Lo de antes: se buscaba la sesion de pago filtrando por el
+        // PaymentIntent del cargo, y si no aparecia se salia. En una sesion de
+        // tipo SUSCRIPCION —que es como se cobra la membresia— Stripe deja
+        // session.payment_intent en NULO: el PaymentIntent del cargo pertenece
+        // a la FACTURA, no a la sesion. Esa busqueda no devolvia nada nunca, de
+        // modo que TODO el bloque de reverso de membresia era inalcanzable: se
+        // devolvia el dinero y el perfil conservaba doce meses publicado, el
+        // libro seguia declarando el ingreso y la comision seguia cobrable. Y
+        // en una renovacion no hay sesion en absoluto.
+        // (Auditoria del 15 oct 2026, hallazgo C-3.)
+        let refUser: string | undefined;
+        let refKind: string | undefined;
+        let sessionId: string | undefined;
+        let esMembresia = false;
+
+        if (facturaId) {
+          try {
+            const inv = await stripe.invoices.retrieve(facturaId);
+            const invAny2 = inv as unknown as {
+              subscription?: string | { id?: string } | null;
+              parent?: { subscription_details?: { subscription?: string | { id?: string } | null } | null } | null;
+            };
+            const sacar = (v: string | { id?: string } | null | undefined): string | null =>
+              typeof v === 'string' ? v : (v?.id ?? null);
+            const subId2 = sacar(invAny2.subscription)
+              ?? sacar(invAny2.parent?.subscription_details?.subscription);
+            if (subId2) {
+              const sub = await stripe.subscriptions.retrieve(subId2);
+              refUser = (sub.metadata?.user_id as string | undefined) ?? undefined;
+              esMembresia = true;
+            }
+          } catch (e) {
+            console.error('[reembolso] no se pudo resolver la factura', facturaId, e);
+          }
+        }
+
+        // Pagos simples (producto, donativo, consulta, terapia): esos SI tienen
+        // sesion localizable por su PaymentIntent.
+        if (!esMembresia && pi) {
+          const sessions = await stripe.checkout.sessions.list({ payment_intent: pi, limit: 1 });
+          sessionId = sessions.data[0]?.id;
+          refUser = sessions.data[0]?.metadata?.user_id;
+          refKind = sessions.data[0]?.metadata?.kind;
+        }
+
+        // Ni factura con suscripcion ni sesion: no se sale en silencio, porque
+        // es justo el caso en que un reembolso deja el servicio abierto.
+        if (!esMembresia && !sessionId) {
+          console.error('[reembolso sin origen identificable]', ch.id, pi, facturaId);
+          await admin.rpc('notify_admins', {
+            p_type: 'refund_sin_origen',
+            p_title: 'Reembolso que no se pudo atribuir',
+            p_body: 'Entro un reembolso del que no se pudo deducir la compra ni la membresia. Revisar y revertir a mano.',
+            p_data: { charge: ch.id, payment_intent: pi ?? null, invoice: facturaId ?? null },
+          }).catch(() => { /* best-effort */ });
+          break;
+        }
+
         // Si era una membresía con código de alianza, anula su crédito.
-        const refUser = sessions.data[0]?.metadata?.user_id;
-        const refKind = sessions.data[0]?.metadata?.kind;
         if (refUser) {
           await admin.from('alliance_credits').update({ status: 'void' }).eq('source_user_id', refUser);
         }
@@ -363,8 +420,8 @@ Deno.serve(async (req: Request) => {
         // 'refunded' no existe en el CHECK de membership_status (sólo pending,
         // active, past_due y exempt), así que se vuelve a 'pending' y se limpia
         // la fecha de vigencia, que es lo que de verdad abre el servicio.
-        if (refUser && refKind !== 'product' && refKind !== 'donation'
-            && refKind !== 'consultation' && refKind !== 'therapy') {
+        if (refUser && (esMembresia || (refKind !== 'product' && refKind !== 'donation'
+            && refKind !== 'consultation' && refKind !== 'therapy'))) {
           const { error: errRev } = await admin
             .from('profiles')
             .update({ membership_status: 'pending', membership_paid_until: null })
@@ -372,15 +429,34 @@ Deno.serve(async (req: Request) => {
           if (errRev) console.error('revertir membresia reembolsada', errRev.message);
           // El asiento de la cuota en el libro propio también se revierte, o el
           // libro seguiría declarando un ingreso que se devolvió.
-          await admin.rpc('revertir_ultimo_pago_de_membresia', { p_user: refUser })
-            .then(({ error }) => { if (error) console.error('revertir asiento de cuota', error.message); });
+          //
+          // POR FACTURA, NO "EL ULTIMO". revertir_ultimo_pago_de_membresia
+          // anulaba el asiento mas reciente del usuario, que no tiene por que
+          // ser el reembolsado: reembolsar el primer ano de un socio de tres
+          // anulaba el tercero, y el libro quedaba mal en las dos direcciones.
+          // (Hallazgo A-10.) Solo se cae a "el ultimo" si no hay factura.
+          if (facturaId) {
+            await admin.rpc('revertir_pago_de_membresia', { p_stripe_ref: facturaId })
+              .then(({ error }) => { if (error) console.error('revertir asiento de cuota', error.message); });
+          } else {
+            await admin.rpc('revertir_ultimo_pago_de_membresia', { p_user: refUser })
+              .then(({ error }) => { if (error) console.error('revertir asiento de cuota', error.message); });
+          }
           // La comisión del referidor se revierte: se devengó sobre un ingreso
-          // que ya no existe.
-          await admin
-            .from('membership_commissions')
-            .update({ status: 'revertida', revertida_en: new Date().toISOString() })
-            .eq('referred_id', refUser)
-            .eq('status', 'devengada');
+          // que ya no existe. SOLO LA DE ESTA FACTURA: antes no se filtraba y
+          // se revertian TODAS las devengadas de ese afiliado, de todos los
+          // anos, de modo que el referidor perdia comision que si gano y que
+          // nunca se devolvio. (Hallazgo A-10.)
+          {
+            let q = admin
+              .from('membership_commissions')
+              .update({ status: 'revertida', revertida_en: new Date().toISOString() })
+              .eq('referred_id', refUser)
+              .eq('status', 'devengada');
+            if (facturaId) q = q.eq('stripe_ref', facturaId);
+            const { error: errCom } = await q;
+            if (errCom) console.error('revertir comision', errCom.message);
+          }
           await admin.rpc('notify_admins', {
             p_type: 'membership_refunded',
             p_title: 'Membresía reembolsada',
@@ -388,6 +464,7 @@ Deno.serve(async (req: Request) => {
             p_data: { user_id: refUser, charge: ch.id },
           }).catch(() => { /* best-effort */ });
         }
+        if (!sessionId) break;   // lo que sigue se localiza por la sesion de pago
         await admin
           .from('orders')
           .update({ status: 'refunded' })
@@ -497,21 +574,41 @@ Deno.serve(async (req: Request) => {
           invPeriod = (pEnd - pStart) <= 45 * 86400 ? 'monthly' : 'annual';
         }
         if (customerId) {
-          await admin
+          // ESTE UPDATE ES LA RENOVACION. El mismo arreglo que ya tenia
+          // checkout.session.completed —revisar el error, comprobar que se
+          // toco alguna fila, y responder 500 para que Stripe reintente— NO se
+          // habia replicado aqui, que es la ruta por la que pasan TODAS las
+          // renovaciones. Si el UPDATE fallaba (hay seis disparadores BEFORE
+          // sobre profiles) o no encontraba la fila, el codigo seguia, payerId
+          // salia nulo, no se asentaba la cuota ni se devengaba la comision, y
+          // se respondia 200: el afiliado pagaba su segundo ano y se le
+          // despublicaba por impago. (Auditoria del 15 oct 2026, hallazgo A-1.)
+          const { data: renovado, error: errRen } = await admin
             .from('profiles')
             .update({
               membership_status: 'active',
               membership_paid_until: paidUntil,
               ...(invPeriod ? { membership_period: invPeriod } : {}),
             })
-            .eq('stripe_customer_id', customerId);
-
-          const { data: payer } = await admin
-            .from('profiles')
-            .select('id')
             .eq('stripe_customer_id', customerId)
-            .maybeSingle();
-          const payerId = payer?.id as string | undefined;
+            .select('id');
+
+          if (errRen || !renovado || renovado.length === 0) {
+            const detalle = errRen?.message ?? 'no se encontro el perfil de ese cliente de Stripe';
+            console.error('[RENOVACION FALLIDA]', customerId, inv.id, detalle);
+            await admin.rpc('notify_admins', {
+              p_type: 'membership_renewal_failed',
+              p_title: 'Entro una renovación y NO se acreditó',
+              p_body: 'Stripe cobró una renovación pero no se pudo actualizar la membresía. Revisar y resolver a mano.',
+              p_data: { customer: customerId, invoice: inv.id, error: detalle },
+            }).catch(() => { /* el aviso es best-effort; el 500 no */ });
+            return new Response(
+              JSON.stringify({ error: `No se pudo acreditar la renovación: ${detalle}` }),
+              { status: 500, headers: { 'Content-Type': 'application/json' } },
+            );
+          }
+
+          const payerId = renovado[0]?.id as string | undefined;
           if (payerId) {
             // Si esta factura se cobró con el cupón de recomendación, el
             // crédito ya se usó: se pone a cero.

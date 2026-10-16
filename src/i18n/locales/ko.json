@@ -5591,7 +5591,8 @@
     "umbralNo": "최소 금액 미달 ({{monto}})",
     "umbralSinTc": "{{moneda}} 환율이 등록되지 않았습니다",
     "cobraPor": "수령 방법: {{metodo}}",
-    "pedirDatos": "송금 전에 이 연락처로 계좌 정보를 요청하세요."
+    "pedirDatos": "송금 전에 이 연락처로 계좌 정보를 요청하세요.",
+    "confirmarBajoUmbral": "이 금액은 정산 최소 금액에 미달합니다. 그래도 지급할까요?"
   },
   "solFund": {
     "title": "창립 회원 요금 신청",

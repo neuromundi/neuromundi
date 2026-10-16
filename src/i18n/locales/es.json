@@ -5591,7 +5591,8 @@
     "umbralNo": "Aún no alcanza el mínimo ({{monto}})",
     "umbralSinTc": "Sin tipo de cambio cargado para {{moneda}}",
     "cobraPor": "Cobra por: {{metodo}}",
-    "pedirDatos": "Pídale los datos bancarios por este medio antes de transferir."
+    "pedirDatos": "Pídale los datos bancarios por este medio antes de transferir.",
+    "confirmarBajoUmbral": "Esta suma no alcanza el mínimo de liquidación. ¿Pagarla de todos modos?"
   },
   "solFund": {
     "title": "Solicitudes de cuota de fundador",

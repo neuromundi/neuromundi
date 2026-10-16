@@ -5591,7 +5591,8 @@
     "umbralNo": "En dessous du minimum ({{monto}})",
     "umbralSinTc": "Aucun taux de change chargé pour {{moneda}}",
     "cobraPor": "Payé par : {{metodo}}",
-    "pedirDatos": "Demandez les coordonnées bancaires par ce moyen avant de virer."
+    "pedirDatos": "Demandez les coordonnées bancaires par ce moyen avant de virer.",
+    "confirmarBajoUmbral": "Ce montant n’atteint pas le minimum de versement. Le payer quand même ?"
   },
   "solFund": {
     "title": "Demandes de tarif Membre Fondateur",

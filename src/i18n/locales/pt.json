@@ -5591,7 +5591,8 @@
     "umbralNo": "Ainda abaixo do mínimo ({{monto}})",
     "umbralSinTc": "Sem taxa de câmbio carregada para {{moneda}}",
     "cobraPor": "Recebe por: {{metodo}}",
-    "pedirDatos": "Peça os dados bancários por este meio antes de transferir."
+    "pedirDatos": "Peça os dados bancários por este meio antes de transferir.",
+    "confirmarBajoUmbral": "Este valor não atinge o mínimo de liquidação. Pagar mesmo assim?"
   },
   "solFund": {
     "title": "Pedidos de cota de fundador",

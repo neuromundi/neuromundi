@@ -5591,7 +5591,8 @@
     "umbralNo": "Sotto il minimo ({{monto}})",
     "umbralSinTc": "Nessun cambio caricato per {{moneda}}",
     "cobraPor": "Pagato tramite: {{metodo}}",
-    "pedirDatos": "Chiedi i dati bancari con questo mezzo prima di trasferire."
+    "pedirDatos": "Chiedi i dati bancari con questo mezzo prima di trasferire.",
+    "confirmarBajoUmbral": "Questo importo non raggiunge il minimo di liquidazione. Pagarlo comunque?"
   },
   "solFund": {
     "title": "Richieste di quota da fondatore",
