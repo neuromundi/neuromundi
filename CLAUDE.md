@@ -135,6 +135,16 @@ PY
   para que un `supabase db push` limpio no reejecute la historia.
 - **Nunca** volver a ejecutar lo que vive en `supabase/migraciones aplicadas a mano/`: son
   migraciones de datos de un solo uso y `0097b` BORRA fichas del directorio.
+- **`supabase gen types` en PowerShell: `>` escribe UTF-16, no UTF-8.** El archivo compila pero
+  rompe grep, los diffs y casi toda la herramienta. La forma correcta:
+  `npx supabase gen types typescript --project-id sboagswcehuxwfjdbhdn | Out-File -Encoding utf8 src/types/database.ts`
+  y **después** `node scripts/arreglar-tipos.mjs`, que repara tres cosas medidas el 16 oct 2026:
+  la codificación, los argumentos de función (el generador nunca les pone `| null` aunque en SQL
+  todo parámetro admita NULL: 207 argumentos) y los seis alias y el ayudante `Views<>` que el
+  generador no emite y que medio proyecto importa.
+- **La protección contra contraseñas filtradas NO es gratis.** Medido el 16 oct 2026 en el panel:
+  «Configuring leaked password protection via HaveIBeenPwned.org is available on Pro Plans and
+  up.» El informe de auditoría decía «sin costo»; era falso. El proyecto está en plan Free.
 - **NO barrer funciones "huérfanas" de la base.** Medido el 16 oct 2026: un rastreo que cruza
   el catálogo contra `rpc('nombre')` en el repositorio devuelve 29 candidatas, y al menos siete
   son FALSOS POSITIVOS que romperían producción:
