@@ -108,7 +108,10 @@ export function useCourse(courseId: string) {
       if (error) return { ok: false, error: toMessage(error) };
       setCompleted((p) => new Set(p).add(lessonId));
     } else {
-      await supabase.from('lesson_completions').delete().eq('user_id', userId).eq('lesson_id', lessonId);
+      // Desmarcar tambien puede fallar: antes la leccion se veia sin marcar y
+      // al recargar volvia marcada. (Auditoria 15 oct 2026, hallazgo M-3.)
+      const { error } = await supabase.from('lesson_completions').delete().eq('user_id', userId).eq('lesson_id', lessonId);
+      if (error) return { ok: false, error: toMessage(error) };
       setCompleted((p) => { const n = new Set(p); n.delete(lessonId); return n; });
     }
     return { ok: true, data: true };

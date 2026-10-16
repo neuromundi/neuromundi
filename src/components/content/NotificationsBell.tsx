@@ -5,12 +5,17 @@
  */
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { Bell, Trophy, Award, CalendarClock, Megaphone, MessageSquare, Users, Gift, HandCoins, Compass, PauseCircle, AlertTriangle, Briefcase, Ticket, MailOpen } from 'lucide-react';
 import { useNotifications } from '@/hooks/useNotifications';
+import { notifDestino } from '@/lib/notificationPrefs';
+import { useAvisarResultado } from '@/hooks/useAvisarResultado';
 
 export function NotificationsBell() {
   const { t } = useTranslation();
   const { items, unreadCount, markRead, markAllRead } = useNotifications();
+  const navigate = useNavigate();
+  const avisar = useAvisarResultado();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -43,7 +48,7 @@ export function NotificationsBell() {
           <div className="flex items-center justify-between px-2 py-1">
             <span className="text-sm font-semibold text-slate-900">{t('notif.title')}</span>
             {unreadCount > 0 && (
-              <button type="button" onClick={() => void markAllRead()} className="text-xs text-brand-700 hover:underline">
+              <button type="button" onClick={() => void avisar(markAllRead())} className="text-xs text-brand-700 hover:underline">
                 {t('notif.markAll')}
               </button>
             )}
@@ -88,8 +93,18 @@ export function NotificationsBell() {
                 const tPlace = [td.city, td.country].filter(Boolean).join(', ');
                 const ad = (n.data ?? {}) as { specialist_name?: string; recipient_name?: string; reason?: string; title?: string; from_name?: string };
                 const apptSuffix = n.type.replace('appt_', '');
-                const apptTitle = isAppt ? t(`notif.appt.${apptSuffix}.title`) : n.title;
-                const apptBody = isAppt ? t(`notif.appt.${apptSuffix}.body`, { name: ad.specialist_name || ad.recipient_name || '', title: ad.title || '', reason: ad.reason || '' }) : n.body;
+                // Los tipos creados por las migraciones recientes no estaban en
+                // esta cadena, así que se pintaban con el texto literal de la
+                // fila, escrito en español dentro del SQL: en coreano se leía
+                // "Su perfil dejó de aparecer en el directorio". Ahora se
+                // traduce por clave de tipo, y el texto de la fila queda sólo
+                // como último recurso. (Auditoría 15 oct 2026, hallazgo M-7.)
+                const apptTitle = isAppt
+                  ? t(`notif.appt.${apptSuffix}.title`)
+                  : t(`notif.tipo.${n.type}.title`, { defaultValue: n.title });
+                const apptBody = isAppt
+                  ? t(`notif.appt.${apptSuffix}.body`, { name: ad.specialist_name || ad.recipient_name || '', title: ad.title || '', reason: ad.reason || '' })
+                  : t(`notif.tipo.${n.type}.body`, { defaultValue: n.body });
                 const forumTitle = isForumNew ? t('notif.forumNew.title') : isForumPending ? t('notif.forumPending.title') : isForumApproved ? t('notif.forumApproved.title') : isForumModCall ? t('notif.forumModCall.title') : t('notif.forumModApproved.title');
                 const forumBody = isForumNew ? t('notif.forumNew.body', { title: fd.title || '' }) : isForumPending ? t('notif.forumPending.body') : isForumApproved ? t('notif.forumApproved.body', { title: fd.title || '' }) : isForumModCall ? t('notif.forumModCall.body', { title: fd.title || '' }) : t('notif.forumModApproved.body');
                 const rowTitle = isGrace ? graceTitle : isInviteOpen ? t('notif.inviteOpened.title') : isForum ? forumTitle : isTopicJob ? t('notif.topicJob.title') : isTopicVenue ? t('notif.topicVenue.title') : isBooking ? t('notif.booking.title') : isDM ? t('notif.dm.title') : isWaitSlot ? t('notif.waitlist.title') : isWaitJoin ? t('notif.waitlist.join') : n.type === 'referral_reward' ? t('notif.referral.reward') : isReferral ? t('notif.referral.title') : isCommission ? t('notif.commission.title') : isDirMatch ? t('notif.dirMatch.title') : apptTitle;
@@ -98,7 +113,13 @@ export function NotificationsBell() {
                   <li key={n.id}>
                     <button
                       type="button"
-                      onClick={() => !n.is_read && void markRead(n.id)}
+                      onClick={() => {
+                        if (!n.is_read) void markRead(n.id);
+                        // Antes ningún aviso navegaba: pulsarlo sólo lo marcaba
+                        // leído. (Hallazgo M-7.)
+                        const destino = notifDestino(n.type, n.data);
+                        if (destino) { setOpen(false); navigate(destino); }
+                      }}
                       className={`w-full rounded-xl p-2.5 text-left ${n.is_read ? 'bg-white' : 'bg-brand-50'}`}
                     >
                       <div className="flex items-center gap-2">

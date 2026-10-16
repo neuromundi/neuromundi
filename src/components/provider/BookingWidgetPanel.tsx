@@ -5,8 +5,9 @@
  */
 import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link2, Code, Copy, Check, CalendarClock } from 'lucide-react';
-import { Button, useToast, SkeletonCard } from '@/components/ui';
+import { Link2, Code, Copy, Check, CalendarClock, CheckCircle2, XCircle } from 'lucide-react';
+import { Button, useToast, SkeletonCard, AvisoDeFallo } from '@/components/ui';
+import { useAvisarResultado } from '@/hooks/useAvisarResultado';
 import { useProfile } from '@/hooks/useProfile';
 import { supabase } from '@/lib/supabase';
 import { formatDate } from '@/lib/utils';
@@ -21,7 +22,10 @@ export function BookingWidgetPanel() {
   const { profile } = useProfile();
   const [rows, setRows] = useState<BookingRow[]>([]);
   const [loading, setLoading] = useState(true);
+  // Un fallo de la consulta NO es un buzón vacío. (Hallazgo A-12.)
+  const [fallo, setFallo] = useState(false);
   const [copied, setCopied] = useState<'link' | 'code' | null>(null);
+  const avisar = useAvisarResultado();
 
   const folio = profile?.member_no != null ? `NM-${String(profile.member_no).padStart(6, '0')}` : '';
   const origin = typeof window !== 'undefined' ? window.location.origin : 'https://www.neuromundi.com';
@@ -31,14 +35,28 @@ export function BookingWidgetPanel() {
   const load = useCallback(async () => {
     if (!profile) return;
     setLoading(true);
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from('booking_requests')
       .select('id, name, contact, preferred, note, status, created_at')
       .order('created_at', { ascending: false })
       .limit(30);
-    setRows((data ?? []) as unknown as BookingRow[]);
+    setFallo(!!error);
+    setRows(error ? [] : ((data ?? []) as unknown as BookingRow[]));
     setLoading(false);
   }, [profile]);
+
+  /**
+   * Marca una solicitud. La política de la base ya permitía actualizar
+   * (booking_update_own); lo que faltaba era ofrecerlo en la pantalla: el
+   * prestador no distinguía lo pendiente de lo resuelto.
+   * (Auditoría 15 oct 2026, hallazgo M-19.)
+   */
+  const marcar = useCallback(async (id: string, estado: 'atendida' | 'descartada') => {
+    const { error } = await supabase.from('booking_requests').update({ status: estado }).eq('id', id);
+    if (error) return { ok: false, error: error.message };
+    setRows((p) => p.map((r) => (r.id === id ? { ...r, status: estado } : r)));
+    return { ok: true };
+  }, []);
 
   useEffect(() => { void load(); }, [load]);
 
@@ -91,16 +109,35 @@ export function BookingWidgetPanel() {
         </p>
         {loading ? (
           <SkeletonCard rows={1} />
+        ) : fallo ? (
+          <AvisoDeFallo onRetry={() => void load()} />
         ) : rows.length === 0 ? (
           <p className="rounded-xl border border-dashed border-slate-200 p-4 text-center text-sm text-muted">{t('widget.noRequests')}</p>
         ) : (
           <ul className="space-y-2">
             {rows.map((r) => (
-              <li key={r.id} className="rounded-xl border border-slate-100 bg-white p-3">
-                <p className="text-sm font-semibold text-slate-900">{r.name} · <span className="font-normal text-slate-600">{r.contact}</span></p>
+              <li key={r.id} className={`rounded-xl border border-slate-100 p-3 ${r.status === 'new' ? 'bg-white' : 'bg-slate-50'}`}>
+                <div className="flex items-start justify-between gap-2">
+                  <p className="text-sm font-semibold text-slate-900">{r.name} · <span className="font-normal text-slate-600">{r.contact}</span></p>
+                  {r.status !== 'new' && (
+                    <span className="shrink-0 rounded-full bg-slate-200 px-2 py-0.5 text-[11px] font-semibold text-slate-700">
+                      {t(`widget.status.${r.status}`)}
+                    </span>
+                  )}
+                </div>
                 {r.preferred && <p className="text-xs text-muted">{t('widget.preferred')}: {r.preferred}</p>}
                 {r.note && <p className="mt-1 text-sm text-slate-600">{r.note}</p>}
                 <p className="mt-1 text-xs text-muted">{formatDate(r.created_at)}</p>
+                {r.status === 'new' && (
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    <Button size="sm" leadingIcon={<CheckCircle2 className="h-4 w-4" />} onClick={() => void avisar(marcar(r.id, 'atendida'))}>
+                      {t('widget.markDone')}
+                    </Button>
+                    <Button size="sm" variant="secondary" leadingIcon={<XCircle className="h-4 w-4" />} onClick={() => void avisar(marcar(r.id, 'descartada'))}>
+                      {t('widget.markDiscard')}
+                    </Button>
+                  </div>
+                )}
               </li>
             ))}
           </ul>

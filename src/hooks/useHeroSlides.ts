@@ -88,15 +88,26 @@ export function useAdminHeroSlides() {
   }, [load]);
 
   /** Intercambia el orden con el vecino (dir -1 sube, +1 baja). */
-  const move = useCallback(async (id: string, dir: -1 | 1): Promise<void> => {
+  const move = useCallback(async (id: string, dir: -1 | 1): Promise<{ ok: boolean; error?: string }> => {
     const idx = slides.findIndex((s) => s.id === id);
     const j = idx + dir;
-    if (idx < 0 || j < 0 || j >= slides.length) return;
+    if (idx < 0 || j < 0 || j >= slides.length) return { ok: false };
     const a = slides[idx];
     const b = slides[j];
-    await supabase.from('hero_slides').update({ sort_order: b.sort_order }).eq('id', a.id);
-    await supabase.from('hero_slides').update({ sort_order: a.sort_order }).eq('id', b.id);
+    // Son DOS escrituras para un solo intercambio. Ninguna revisaba su error,
+    // así que si la segunda fallaba el carrusel quedaba con dos diapositivas en
+    // la misma posición y sin aviso. (Auditoría 15 oct 2026, hallazgo M-3.)
+    const primera = await supabase.from('hero_slides').update({ sort_order: b.sort_order }).eq('id', a.id);
+    if (primera.error) return { ok: false, error: primera.error.message };
+    const segunda = await supabase.from('hero_slides').update({ sort_order: a.sort_order }).eq('id', b.id);
+    if (segunda.error) {
+      // Se deshace la primera para no dejar el orden a medias.
+      await supabase.from('hero_slides').update({ sort_order: a.sort_order }).eq('id', a.id);
+      await load();
+      return { ok: false, error: segunda.error.message };
+    }
     await load();
+    return { ok: true };
   }, [slides, load]);
 
   return { slides, loading, reload: load, uploadImage, create, update, remove, move };

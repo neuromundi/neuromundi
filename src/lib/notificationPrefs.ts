@@ -19,10 +19,19 @@ export const NOTIF_CATEGORIES: NotifCategory[] = [
   'otras',
 ];
 
-/** Devuelve la categoría de un tipo de notificación. */
+/**
+ * Devuelve la categoría de un tipo de notificación.
+ *
+ * Espejo EXACTO de public.notif_category (migración 0244). Los tipos creados
+ * por las migraciones recientes caían todos en 'otras', y la categoría es lo
+ * que el usuario silencia: un aviso de que su ficha está a punto de retirarse
+ * por falta de cuota no puede estar en el mismo cajón que lo accesorio.
+ */
 export function notifCategory(type: string): NotifCategory {
-  if (type.startsWith('appt_') || type === 'booking_request' || type === 'waitlist_slot') return 'citas';
-  if (type === 'direct_message' || type === 'admin_message' || type === 'account_costo') return 'mensajes';
+  if (type.startsWith('appt_') || type === 'booking_request' || type === 'waitlist_slot'
+    || type === 'reservas_en_rafaga') return 'citas';
+  if (type === 'direct_message' || type === 'admin_message' || type === 'account_costo'
+    || type === 'pregunta_experto') return 'mensajes';
   if (
     type === 'post_achievement' ||
     type === 'badge' ||
@@ -37,12 +46,66 @@ export function notifCategory(type: string): NotifCategory {
     type === 'forum_pending' ||
     type === 'forum_approved' ||
     type === 'forum_mod_call' ||
-    type === 'forum_mod_approved'
+    type === 'forum_mod_approved' ||
+    type === 'donor_wall' ||
+    type === 'founder_wall' ||
+    type === 'muro_de_fundadores' ||
+    type === 'invite_opened'
   )
     return 'comunidad';
-  if (type === 'commission_paid' || type === 'donation_thanks' || type === 'membership_paid') return 'transacciones';
+  // Dinero y permanencia en el directorio.
+  if (
+    type === 'commission_paid' ||
+    type === 'donation_thanks' ||
+    type === 'membership_paid' ||
+    type === 'pago_terapia' ||
+    type === 'exencion_solicitada' ||
+    type === 'exencion_resuelta' ||
+    type === 'exencion_por_vencer' ||
+    type === 'founder_request' ||
+    type === 'founder_request_approved' ||
+    type === 'fundador_resolicita' ||
+    type === 'empresa_limitada' ||
+    type === 'empresa_reactivada' ||
+    type === 'empresa_sin_directorio' ||
+    type === 'directory_grace' ||
+    type === 'stock_agotado'
+  )
+    return 'transacciones';
   if (type === 'campaign') return 'campanas';
   return 'otras';
+}
+
+/**
+ * A dónde lleva un aviso al pulsarlo.
+ *
+ * Antes no llevaba a ninguna parte: pulsar "nueva solicitud de reserva" o "su
+ * perfil ya está publicado" sólo las marcaba leídas. (Auditoría 15 oct 2026,
+ * hallazgo M-7.) `null` = no hay destino sensato y el aviso sólo se marca.
+ */
+export function notifDestino(type: string, data?: unknown): string | null {
+  const d = (data ?? {}) as { post_id?: string; folio?: string; id?: string };
+  if (type.startsWith('appt_')) return '/calendario';
+  if (type === 'booking_request' || type === 'waitlist_slot' || type === 'waitlist_join') return '/panel';
+  if (type === 'direct_message' || type === 'admin_message') return '/mensajes';
+  if (type === 'post_achievement') return d.post_id ? `/contenido/${d.post_id}` : '/blog';
+  if (type === 'badge' || type === 'muro_de_fundadores' || type === 'founder_wall') return '/fundadores';
+  if (type === 'donor_wall' || type === 'donation_thanks') return '/donantes';
+  if (type === 'referral_use' || type === 'referral_reward' || type === 'commission_paid') return '/panel';
+  if (type === 'membership_paid' || type === 'pago_terapia') return '/panel';
+  if (type === 'exencion_solicitada' || type === 'exencion_resuelta' || type === 'exencion_por_vencer') return '/panel';
+  if (type === 'founder_request' || type === 'founder_request_approved' || type === 'fundador_resolicita') return '/panel';
+  if (type === 'empresa_limitada' || type === 'empresa_reactivada' || type === 'empresa_sin_directorio') return '/panel';
+  if (type === 'directory_grace' || type === 'suspension_reminder' || type === 'account_costo') return '/panel';
+  if (type === 'stock_agotado') return '/panel';
+  if (type === 'pregunta_experto' || type === 'reservas_en_rafaga' || type === 'invitaciones_renovadas') return '/panel';
+  if (type === 'directory_match') return '/directorio';
+  if (type === 'topic_job') return '/inclusion-laboral';
+  if (type === 'topic_venue') return '/directorio';
+  if (type.startsWith('forum_')) return '/tribu';
+  if (type === 'invite_opened') return '/panel';
+  if (type === 'campaign') return '/beneficios';
+  return null;
 }
 
 /** ¿El push de este tipo llegaría con estas preferencias? (para pruebas/preview) */

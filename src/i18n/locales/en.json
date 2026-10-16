@@ -2046,6 +2046,20 @@
         "title": "Your profile was removed from the directory",
         "body": "You won't appear in searches until you complete and pay for your profile."
       }
+    },
+    "tipo": {
+      "muro_de_fundadores": {
+        "title": "You are now on the founders wall",
+        "body": "Your name has been published on the Neuromundi founders wall."
+      },
+      "pago_terapia": {
+        "title": "A therapy monthly payment was charged",
+        "body": "A monthly therapy payment came in. You will see it in your payments panel."
+      },
+      "reservas_en_rafaga": {
+        "title": "Many booking requests to the same provider",
+        "body": "A provider received more than 20 booking requests in one hour. This may be abuse of the public form."
+      }
     }
   },
   "clin": {
@@ -3793,7 +3807,13 @@
     "noRequests": "No requests yet.",
     "preferred": "Preferred",
     "copied": "Copied",
-    "copyError": "Couldn't copy"
+    "copyError": "Couldn't copy",
+    "status": {
+      "atendida": "Handled",
+      "descartada": "Discarded"
+    },
+    "markDone": "Mark as handled",
+    "markDiscard": "Discard"
   },
   "push": {
     "title": "Push notifications",

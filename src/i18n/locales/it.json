@@ -2009,6 +2009,20 @@
         "title": "Il tuo profilo è stato rimosso dalla directory",
         "body": "Non comparirai nelle ricerche finché non completi e paghi il tuo profilo."
       }
+    },
+    "tipo": {
+      "muro_de_fundadores": {
+        "title": "Ora compare nel muro dei fondatori",
+        "body": "Il suo nome è stato pubblicato nel muro dei fondatori di Neuromundi."
+      },
+      "pago_terapia": {
+        "title": "È stata addebitata una mensilità di terapia",
+        "body": "È arrivato il pagamento mensile di una terapia. Lo vedrà nel suo pannello dei pagamenti."
+      },
+      "reservas_en_rafaga": {
+        "title": "Molte richieste di prenotazione allo stesso erogatore",
+        "body": "Un erogatore ha ricevuto più di 20 richieste in un’ora. Può essere un abuso del modulo pubblico."
+      }
     }
   },
   "clin": {
@@ -3793,7 +3807,13 @@
     "noRequests": "Ancora nessuna richiesta.",
     "preferred": "Preferito",
     "copied": "Copiato",
-    "copyError": "Copia non riuscita"
+    "copyError": "Copia non riuscita",
+    "status": {
+      "atendida": "Gestita",
+      "descartada": "Scartata"
+    },
+    "markDone": "Segna come gestita",
+    "markDiscard": "Scarta"
   },
   "push": {
     "title": "Notifiche push",

@@ -2009,6 +2009,20 @@
         "title": "Votre profil a été retiré de l'annuaire",
         "body": "Vous n'apparaîtrez pas dans les recherches tant que vous n'aurez pas complété et payé votre profil."
       }
+    },
+    "tipo": {
+      "muro_de_fundadores": {
+        "title": "Vous figurez sur le mur des fondateurs",
+        "body": "Votre nom a été publié sur le mur des fondateurs de Neuromundi."
+      },
+      "pago_terapia": {
+        "title": "Une mensualité de thérapie a été prélevée",
+        "body": "Le paiement mensuel d’une thérapie est arrivé. Vous le verrez dans votre tableau des paiements."
+      },
+      "reservas_en_rafaga": {
+        "title": "Beaucoup de demandes de rendez-vous pour un même prestataire",
+        "body": "Un prestataire a reçu plus de 20 demandes en une heure. Cela peut être un abus du formulaire public."
+      }
     }
   },
   "clin": {
@@ -3793,7 +3807,13 @@
     "noRequests": "Aucune demande pour l'instant.",
     "preferred": "Préféré",
     "copied": "Copié",
-    "copyError": "Copie impossible"
+    "copyError": "Copie impossible",
+    "status": {
+      "atendida": "Traitée",
+      "descartada": "Écartée"
+    },
+    "markDone": "Marquer comme traitée",
+    "markDiscard": "Écarter"
   },
   "push": {
     "title": "Notifications push",

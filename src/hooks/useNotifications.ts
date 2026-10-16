@@ -36,15 +36,22 @@ export function useNotifications() {
 
   const unreadCount = items.filter((n) => !n.is_read).length;
 
-  const markRead = useCallback(async (id: string) => {
-    await supabase.from('notifications').update({ is_read: true }).eq('id', id);
+  // Si la escritura falla NO se pinta como leída: antes el contador volvía a
+  // aparecer al recargar y el usuario no entendía por qué.
+  // (Auditoría 15 oct 2026, hallazgo M-3.)
+  const markRead = useCallback(async (id: string): Promise<{ ok: boolean; error?: string }> => {
+    const { error } = await supabase.from('notifications').update({ is_read: true }).eq('id', id);
+    if (error) return { ok: false, error: error.message };
     setItems((p) => p.map((n) => (n.id === id ? { ...n, is_read: true } : n)));
+    return { ok: true };
   }, []);
 
-  const markAllRead = useCallback(async () => {
-    if (!userId) return;
-    await supabase.from('notifications').update({ is_read: true }).eq('user_id', userId).eq('is_read', false);
+  const markAllRead = useCallback(async (): Promise<{ ok: boolean; error?: string }> => {
+    if (!userId) return { ok: false };
+    const { error } = await supabase.from('notifications').update({ is_read: true }).eq('user_id', userId).eq('is_read', false);
+    if (error) return { ok: false, error: error.message };
     setItems((p) => p.map((n) => ({ ...n, is_read: true })));
+    return { ok: true };
   }, [userId]);
 
   return { items, unreadCount, loading, reload: load, markRead, markAllRead };

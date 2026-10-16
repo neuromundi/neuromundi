@@ -57,12 +57,15 @@ export function useMessages() {
 
   const markThreadRead = useCallback(async (otherId: string) => {
     if (!userId) return;
-    await supabase
+    // Si falla NO se pone el hilo en cero: el contador volvería al recargar.
+    // (Auditoría 15 oct 2026, hallazgo M-3.)
+    const { error } = await supabase
       .from('messages')
       .update({ read_at: new Date().toISOString() })
       .eq('recipient_id', userId)
       .eq('sender_id', otherId)
       .is('read_at', null);
+    if (error) return;
     setThreads((p) => p.map((t) => (t.other_id === otherId ? { ...t, unread: 0 } : t)));
   }, [userId]);
 

@@ -2009,6 +2009,20 @@
         "title": "您的档案已从目录中移除",
         "body": "在您完善并支付档案之前，您不会出现在搜索结果中。"
       }
+    },
+    "tipo": {
+      "muro_de_fundadores": {
+        "title": "您已出现在创始成员墙",
+        "body": "您的名字已发布在 Neuromundi 创始成员墙上。"
+      },
+      "pago_terapia": {
+        "title": "已扣取一笔治疗月费",
+        "body": "一笔治疗月付款已到账。您可以在付款面板中查看。"
+      },
+      "reservas_en_rafaga": {
+        "title": "同一位服务提供者收到大量预约请求",
+        "body": "一位服务提供者在一小时内收到超过 20 条预约请求，可能是公开表单被滥用。"
+      }
     }
   },
   "clin": {
@@ -3793,7 +3807,13 @@
     "noRequests": "暂无请求。",
     "preferred": "期望",
     "copied": "已复制",
-    "copyError": "复制失败"
+    "copyError": "复制失败",
+    "status": {
+      "atendida": "已处理",
+      "descartada": "已忽略"
+    },
+    "markDone": "标记为已处理",
+    "markDiscard": "忽略"
   },
   "push": {
     "title": "推送通知",

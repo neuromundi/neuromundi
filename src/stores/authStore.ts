@@ -6,6 +6,7 @@
  */
 import { create } from 'zustand';
 import type { Session, User } from '@supabase/supabase-js';
+import { dejarSucursalesPendientes } from '@/lib/sucursalesPendientes';
 import { supabase } from '@/lib/supabase';
 import i18n from '@/i18n';
 import { logger, toMessage } from '@/lib/utils';
@@ -306,8 +307,15 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     if (error) return { ok: false, error: toMessage(error) };
 
     // Si hay sesión activa (confirmación de correo desactivada) y el proveedor
-    // registró sucursales, las insertamos. Si no, se podrán agregar en Ajustes.
+    // registró sucursales, las insertamos. SIN sesión ya no se pierden: quedan
+    // guardadas en el dispositivo y entran en el primer acceso
+    // (useSucursalesPendientes). Antes se descartaban en silencio y el pin del
+    // mapa —el valor central de un espacio de esparcimiento— desaparecía sin
+    // que nadie se lo dijera. (Auditoría 15 oct 2026, hallazgo M-17.)
     const userId = data.user?.id;
+    if (!data.session && locations && locations.length > 0) {
+      dejarSucursalesPendientes(locations);
+    }
     if (userId && data.session && locations && locations.length > 0) {
       const rows = locations
         .filter((l) => l.address && l.address.trim() !== '')

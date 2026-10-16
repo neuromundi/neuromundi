@@ -2046,6 +2046,20 @@
         "title": "Tu perfil se inactivó del directorio",
         "body": "No apareces en las búsquedas hasta que completes y pagues tu perfil."
       }
+    },
+    "tipo": {
+      "muro_de_fundadores": {
+        "title": "Ya aparece en el muro de fundadores",
+        "body": "Su nombre quedó publicado en el muro de fundadores de Neuromundi."
+      },
+      "pago_terapia": {
+        "title": "Se cobró una mensualidad de terapia",
+        "body": "Entró el pago mensual de una terapia. Lo verá en su panel de pagos."
+      },
+      "reservas_en_rafaga": {
+        "title": "Muchas solicitudes de reserva a un mismo prestador",
+        "body": "Un prestador recibió más de 20 solicitudes de reserva en una hora. Puede ser abuso del formulario público."
+      }
     }
   },
   "clin": {
@@ -3793,7 +3807,13 @@
     "noRequests": "Aún no recibes solicitudes.",
     "preferred": "Preferido",
     "copied": "Copiado",
-    "copyError": "No se pudo copiar"
+    "copyError": "No se pudo copiar",
+    "status": {
+      "atendida": "Atendida",
+      "descartada": "Descartada"
+    },
+    "markDone": "Marcar atendida",
+    "markDiscard": "Descartar"
   },
   "push": {
     "title": "Notificaciones push",

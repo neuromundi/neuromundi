@@ -2009,6 +2009,20 @@
         "title": "Ihr Profil wurde aus dem Verzeichnis entfernt",
         "body": "Sie erscheinen nicht in den Suchergebnissen, bis Sie Ihr Profil vervollständigen und bezahlen."
       }
+    },
+    "tipo": {
+      "muro_de_fundadores": {
+        "title": "Sie stehen jetzt auf der Gründerwand",
+        "body": "Ihr Name wurde auf der Gründerwand von Neuromundi veröffentlicht."
+      },
+      "pago_terapia": {
+        "title": "Eine Therapie-Monatsgebühr wurde abgebucht",
+        "body": "Die monatliche Zahlung für eine Therapie ist eingegangen. Sie sehen sie in Ihrer Zahlungsübersicht."
+      },
+      "reservas_en_rafaga": {
+        "title": "Viele Buchungsanfragen an dieselbe Fachkraft",
+        "body": "Eine Fachkraft hat in einer Stunde mehr als 20 Buchungsanfragen erhalten. Das kann Missbrauch des öffentlichen Formulars sein."
+      }
     }
   },
   "clin": {
@@ -3793,7 +3807,13 @@
     "noRequests": "Noch keine Anfragen.",
     "preferred": "Wunsch",
     "copied": "Kopiert",
-    "copyError": "Kopieren fehlgeschlagen"
+    "copyError": "Kopieren fehlgeschlagen",
+    "status": {
+      "atendida": "Erledigt",
+      "descartada": "Verworfen"
+    },
+    "markDone": "Als erledigt markieren",
+    "markDiscard": "Verwerfen"
   },
   "push": {
     "title": "Push-Benachrichtigungen",
