@@ -492,7 +492,9 @@
     "methodologiesLabel": "שיטות והסמכות",
     "accessibilityLabel": "נגישות",
     "location": "מיקום",
-    "servesAreas": "מטפל ב:"
+    "servesAreas": "מטפל ב:",
+    "agendarSinCuenta": "רוצה ליצור קשר? אפשר לבקש תור בלי לפתוח חשבון.",
+    "agendar": "בקשת תור"
   },
   "dim": {
     "quality": "איכות",
@@ -5289,7 +5291,8 @@
     "ctaCreate": "ליצור חשבון ולשמור את מקומי",
     "ctaLogin": "כבר יש לי חשבון, כניסה",
     "ctaPanel": "למעבר ללוח המייסד שלי",
-    "fineprint": "המקומות נשמרים לפי סדר ההגעה בכל מדינה."
+    "fineprint": "המקומות נשמרים לפי סדר ההגעה בכל מדינה.",
+    "quedanDe": "נותרו {{quedan}} מתוך {{total}} מקומות ב{{pais}}"
   },
   "suggest": {
     "dirTitle": "הצעת קטגוריה חדשה",
@@ -5673,5 +5676,29 @@
     "revertida": "בוטלה",
     "porCobrar": "ממתין לתשלום",
     "cobrada": "שולמה"
+  },
+  "membresia": {
+    "title": "החברות שלי",
+    "vigenteHasta": "בתוקף עד {{fecha}}",
+    "estado": {
+      "active": "פעילה",
+      "pending": "ממתינה לתשלום",
+      "past_due": "בפיגור",
+      "exempt": "פטורה"
+    },
+    "periodo": {
+      "annual": "שנתי",
+      "monthly": "חודשי"
+    },
+    "exenta": "החברות שלך ללא תשלום",
+    "exentaHasta": "הפטור בתוקף עד {{fecha}}.",
+    "baja": "ביטול החברות",
+    "bajaNota": "כל מה ששילמת נשמר; רק החידוש נעצר.",
+    "bajaTitulo": "ביטול החברות שלך",
+    "bajaAviso": "החברות תישאר פעילה עד {{fecha}} ולא תחודש לאחר מכן. אפשר להצטרף שוב בכל עת.",
+    "bajaConfirmar": "כן, לבטל",
+    "bajaHecha": "בוצע. לא תחויב/י שוב.",
+    "bajaFallo": "הביטול נכשל. נסה שוב או כתוב ל-admin@neuromundi.com.",
+    "yaDeBaja": "החברות בוטלה. היא בתוקף עד {{fecha}} ולא תחודש."
   }
 }

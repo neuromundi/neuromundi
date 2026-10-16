@@ -455,7 +455,9 @@
     "methodologiesLabel": "Metodologie e certificazioni",
     "accessibilityLabel": "Accessibilità",
     "location": "Posizione",
-    "servesAreas": "Si occupa di:"
+    "servesAreas": "Si occupa di:",
+    "agendarSinCuenta": "Vuoi metterti in contatto? Puoi chiedere un appuntamento senza creare un account.",
+    "agendar": "Chiedi un appuntamento"
   },
   "dim": {
     "quality": "Qualità",
@@ -5289,7 +5291,8 @@
     "ctaCreate": "Crea il mio account e prenota il mio posto",
     "ctaLogin": "Ho già un account, accedi",
     "ctaPanel": "Vai al mio pannello fondatore",
-    "fineprint": "I posti si riservano in ordine di arrivo in ogni Paese."
+    "fineprint": "I posti si riservano in ordine di arrivo in ogni Paese.",
+    "quedanDe": "Restano {{quedan}} posti su {{total}} in {{pais}}"
   },
   "suggest": {
     "dirTitle": "Suggerisci una nuova categoria",
@@ -5673,5 +5676,29 @@
     "revertida": "Annullata",
     "porCobrar": "Da incassare",
     "cobrada": "Incassata"
+  },
+  "membresia": {
+    "title": "La mia iscrizione",
+    "vigenteHasta": "Valida fino al {{fecha}}",
+    "estado": {
+      "active": "Attiva",
+      "pending": "Pagamento in sospeso",
+      "past_due": "Scaduta",
+      "exempt": "Esente"
+    },
+    "periodo": {
+      "annual": "pagamento annuale",
+      "monthly": "pagamento mensile"
+    },
+    "exenta": "La tua iscrizione è gratuita",
+    "exentaHasta": "L’esenzione vale fino al {{fecha}}.",
+    "baja": "Disdici la mia iscrizione",
+    "bajaNota": "Conservi quanto già pagato: si ferma solo il rinnovo.",
+    "bajaTitulo": "Disdire l’iscrizione",
+    "bajaAviso": "La tua iscrizione resta attiva fino al {{fecha}} e non si rinnoverà. Potrai riattivarla quando vuoi.",
+    "bajaConfirmar": "Sì, disdici",
+    "bajaHecha": "Fatto. Non ti verrà più addebitato nulla.",
+    "bajaFallo": "Non è stato possibile disdire. Riprova o scrivi a admin@neuromundi.com.",
+    "yaDeBaja": "La tua iscrizione è disdetta. Resta attiva fino al {{fecha}} e non si rinnoverà."
   }
 }

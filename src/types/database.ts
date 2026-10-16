@@ -1421,6 +1421,16 @@ export interface Database {
           primera_en_vencer: string | null;
         }[];
       };
+      /** Estado de la membresia propia, para la pantalla de baja (migracion 0234). */
+      mi_membresia: {
+        Args: Record<string, never>;
+        Returns: {
+          estado: string | null; vigente_hasta: string | null;
+          periodicidad: string | null; tiene_suscripcion: boolean;
+          baja_solicitada_en: string | null; exenta: boolean;
+          exencion_vigente_hasta: string | null;
+        }[];
+      };
       /** Cuotas, donativos y comisiones de la persona que consulta (migracion 0228). */
       mis_pagos: {
         Args: Record<string, never>;

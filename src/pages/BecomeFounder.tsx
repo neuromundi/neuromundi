@@ -12,15 +12,35 @@ import { useTranslation } from 'react-i18next';
 import { Award, Sparkles, Flag, Trophy, Sprout, Clock, HeartHandshake, Stethoscope, Store, Briefcase, Check } from 'lucide-react';
 import { Button } from '@/components/ui';
 import { useAuth } from '@/hooks/useAuth';
-import { FOUNDER_CAPACITY } from '@/hooks/useFounder';
+import { useFounderCapacity } from '@/hooks/useFounder';
+import type { FounderKind } from '@/hooks/useFounder';
+import { useCountry } from '@/stores/countryStore';
+
+/**
+ * LOS CUPOS QUE SE PUBLICAN TIENEN QUE SER LOS REALES.
+ *
+ * Esta página tomaba los números de unas constantes del código y los mostraba
+ * con el texto «Solo hay {{n}} lugares de fundador por país». El cupo real vive
+ * en la configuración de campaña y es MENOR en los 24 países configurados: para
+ * México, 40 comercios frente a los 150 publicados, 150 familias frente a 500.
+ * Y la tarjeta de fundador sí mostraba el número real, así que el visitante veía
+ * las dos cifras contradictorias en el mismo recorrido.
+ * (Auditoría del 15 oct 2026, hallazgo A-17.)
+ */
+const KIND_DE: Record<string, FounderKind> = {
+  families: 'families',
+  professionals: 'professionals',
+  merchants: 'providers',
+  companies: 'companies',
+};
 
 type Look = { icon: typeof HeartHandshake; iconBg: string; iconText: string; capBg: string; capText: string; check: string };
 
-const PROFILES: { key: string; cap: number; look: Look }[] = [
-  { key: 'families', cap: FOUNDER_CAPACITY.families, look: { icon: HeartHandshake, iconBg: 'bg-emerald-50', iconText: 'text-emerald-700', capBg: 'bg-emerald-50', capText: 'text-emerald-800', check: 'text-emerald-600' } },
-  { key: 'professionals', cap: FOUNDER_CAPACITY.professionals, look: { icon: Stethoscope, iconBg: 'bg-sky-50', iconText: 'text-sky-700', capBg: 'bg-sky-50', capText: 'text-sky-800', check: 'text-sky-600' } },
-  { key: 'merchants', cap: FOUNDER_CAPACITY.providers, look: { icon: Store, iconBg: 'bg-orange-50', iconText: 'text-orange-700', capBg: 'bg-orange-50', capText: 'text-orange-800', check: 'text-orange-600' } },
-  { key: 'companies', cap: FOUNDER_CAPACITY.companies, look: { icon: Briefcase, iconBg: 'bg-violet-50', iconText: 'text-violet-700', capBg: 'bg-violet-50', capText: 'text-violet-800', check: 'text-violet-600' } },
+const PROFILES: { key: string; kind: FounderKind; look: Look }[] = [
+  { key: 'families', kind: KIND_DE['families'] as FounderKind, look: { icon: HeartHandshake, iconBg: 'bg-emerald-50', iconText: 'text-emerald-700', capBg: 'bg-emerald-50', capText: 'text-emerald-800', check: 'text-emerald-600' } },
+  { key: 'professionals', kind: KIND_DE['professionals'] as FounderKind, look: { icon: Stethoscope, iconBg: 'bg-sky-50', iconText: 'text-sky-700', capBg: 'bg-sky-50', capText: 'text-sky-800', check: 'text-sky-600' } },
+  { key: 'merchants', kind: KIND_DE['merchants'] as FounderKind, look: { icon: Store, iconBg: 'bg-orange-50', iconText: 'text-orange-700', capBg: 'bg-orange-50', capText: 'text-orange-800', check: 'text-orange-600' } },
+  { key: 'companies', kind: KIND_DE['companies'] as FounderKind, look: { icon: Briefcase, iconBg: 'bg-violet-50', iconText: 'text-violet-700', capBg: 'bg-violet-50', capText: 'text-violet-800', check: 'text-violet-600' } },
 ];
 
 const VALUE_ICONS = [Flag, Trophy, Sprout];
@@ -69,48 +89,7 @@ export function BecomeFounder() {
       <p className="mt-1 text-sm text-muted">{t('becomeFounder.profilesSubtitle')}</p>
 
       <div className="mt-4 grid gap-4 md:grid-cols-2">
-        {PROFILES.map(({ key, cap, look }) => {
-          const Icon = look.icon;
-          const benefits = t(`becomeFounder.profiles.${key}.benefits`, { returnObjects: true, defaultValue: [] }) as string[];
-          const reqs = t(`becomeFounder.profiles.${key}.reqs`, { returnObjects: true, defaultValue: [] }) as string[];
-          return (
-            <section key={key} className="rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
-              <div className="flex items-center gap-3">
-                <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${look.iconBg} ${look.iconText}`}>
-                  <Icon className="h-5 w-5" aria-hidden="true" />
-                </span>
-                <div className="min-w-0">
-                  <p className="font-semibold text-slate-900">{t(`becomeFounder.profiles.${key}.name`)}</p>
-                  <p className="truncate text-xs text-muted">{t(`becomeFounder.profiles.${key}.who`)}</p>
-                </div>
-              </div>
-
-              <p className={`mt-3 inline-block rounded-full ${look.capBg} ${look.capText} px-3 py-1 text-xs font-semibold`}>
-                {t('becomeFounder.capacity', { n: cap })}
-              </p>
-
-              <p className="mt-3 text-xs font-bold uppercase tracking-wide text-muted">{t('becomeFounder.benefitsLabel')}</p>
-              <ul className="mt-1 space-y-1">
-                {benefits.map((b, i) => (
-                  <li key={i} className="flex gap-2 text-sm text-slate-700">
-                    <Check className={`mt-0.5 h-4 w-4 shrink-0 ${look.check}`} aria-hidden="true" />
-                    <span>{b}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <p className="mt-3 text-xs font-bold uppercase tracking-wide text-muted">{t('becomeFounder.reqsLabel')}</p>
-              <ul className="mt-1 space-y-1">
-                {reqs.map((r, i) => (
-                  <li key={i} className="flex gap-2 text-sm text-slate-600">
-                    <span aria-hidden="true" className="mt-0.5 text-slate-400">·</span>
-                    <span>{r}</span>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          );
-        })}
+        {PROFILES.map((perfil) => <TarjetaDePerfil key={perfil.key} kind={perfil.kind} look={perfil.look} />)}
       </div>
 
       {/* Permanencia */}
@@ -138,5 +117,58 @@ export function BecomeFounder() {
         <span className="text-xs text-muted sm:ml-auto">{t('becomeFounder.fineprint')}</span>
       </div>
     </div>
+  );
+}
+
+/** Una tarjeta de perfil, con el cupo REAL de su país leído de la base. */
+function TarjetaDePerfil({ kind, look }: { kind: FounderKind; look: Look }) {
+  const { t } = useTranslation();
+  const { country } = useCountry();
+  const { capacity, used, loading } = useFounderCapacity(kind, country || null);
+  const claveTexto = Object.keys(KIND_DE).find((k) => KIND_DE[k] === kind) ?? 'families';
+  const Icon = look.icon;
+  const benefits = t(`becomeFounder.profiles.${claveTexto}.benefits`, { returnObjects: true, defaultValue: [] }) as string[];
+  const reqs = t(`becomeFounder.profiles.${claveTexto}.reqs`, { returnObjects: true, defaultValue: [] }) as string[];
+  const quedan = Math.max(0, capacity - used);
+
+  return (
+    <section className="rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
+      <div className="flex items-center gap-3">
+        <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${look.iconBg} ${look.iconText}`}>
+          <Icon className="h-5 w-5" aria-hidden="true" />
+        </span>
+        <div className="min-w-0">
+          <p className="font-semibold text-slate-900">{t(`becomeFounder.profiles.${claveTexto}.name`)}</p>
+          <p className="truncate text-xs text-muted">{t(`becomeFounder.profiles.${claveTexto}.who`)}</p>
+        </div>
+      </div>
+
+      {/* El número que se publica es el que de verdad aplica a su país. */}
+      {!loading && capacity > 0 && (
+        <p className={`mt-3 inline-block rounded-full ${look.capBg} ${look.capText} px-3 py-1 text-xs font-semibold`}>
+          {t('becomeFounder.quedanDe', { quedan, total: capacity, pais: country })}
+        </p>
+      )}
+
+      <p className="mt-3 text-xs font-bold uppercase tracking-wide text-muted">{t('becomeFounder.benefitsLabel')}</p>
+      <ul className="mt-1 space-y-1">
+        {benefits.map((b, i) => (
+          <li key={i} className="flex gap-2 text-sm text-slate-700">
+            <Check className={`mt-0.5 h-4 w-4 shrink-0 ${look.check}`} aria-hidden="true" />
+            <span>{b}</span>
+          </li>
+        ))}
+      </ul>
+
+      <p className="mt-3 text-xs font-bold uppercase tracking-wide text-muted">{t('becomeFounder.reqsLabel')}</p>
+      <ul className="mt-1 space-y-1">
+        {reqs.map((r, i) => (
+          <li key={i} className="flex gap-2 text-sm text-slate-600">
+            <span aria-hidden="true" className="mt-0.5 text-slate-400">·</span>
+            <span>{r}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
   );
 }

@@ -492,7 +492,9 @@
     "methodologiesLabel": "المنهجيات والشهادات",
     "accessibilityLabel": "إمكانية الوصول",
     "location": "الموقع",
-    "servesAreas": "يخدم:"
+    "servesAreas": "يخدم:",
+    "agendarSinCuenta": "هل تريد التواصل؟ يمكنك طلب موعد دون إنشاء حساب.",
+    "agendar": "طلب موعد"
   },
   "dim": {
     "quality": "الجودة",
@@ -5289,7 +5291,8 @@
     "ctaCreate": "إنشاء حسابي وحجز مكاني",
     "ctaLogin": "لديّ حساب بالفعل، تسجيل الدخول",
     "ctaPanel": "الذهاب إلى لوحة المؤسس",
-    "fineprint": "تُحجز الأماكن بأسبقية التسجيل في كل دولة."
+    "fineprint": "تُحجز الأماكن بأسبقية التسجيل في كل دولة.",
+    "quedanDe": "تبقّى {{quedan}} من {{total}} مقعدًا في {{pais}}"
   },
   "suggest": {
     "dirTitle": "اقترح فئة جديدة",
@@ -5673,5 +5676,29 @@
     "revertida": "ملغاة",
     "porCobrar": "قيد الاستلام",
     "cobrada": "مستلمة"
+  },
+  "membresia": {
+    "title": "عضويتي",
+    "vigenteHasta": "سارية حتى {{fecha}}",
+    "estado": {
+      "active": "نشطة",
+      "pending": "بانتظار الدفع",
+      "past_due": "متأخرة السداد",
+      "exempt": "معفاة"
+    },
+    "periodo": {
+      "annual": "سنوي",
+      "monthly": "شهري"
+    },
+    "exenta": "عضويتك مجانية",
+    "exentaHasta": "يسري الإعفاء حتى {{fecha}}.",
+    "baja": "إلغاء عضويتي",
+    "bajaNota": "تحتفظ بكل ما دفعته؛ يتوقف التجديد فقط.",
+    "bajaTitulo": "إلغاء عضويتك",
+    "bajaAviso": "ستظل عضويتك سارية حتى {{fecha}} ولن تُجدَّد بعد ذلك. يمكنك الاشتراك مجددًا في أي وقت.",
+    "bajaConfirmar": "نعم، ألغِ",
+    "bajaHecha": "تم. لن تُحصَّل منك مبالغ أخرى.",
+    "bajaFallo": "تعذّر الإلغاء. حاول مجددًا أو راسل admin@neuromundi.com.",
+    "yaDeBaja": "تم إلغاء عضويتك. تبقى سارية حتى {{fecha}} ولن تُجدَّد."
   }
 }

@@ -455,7 +455,9 @@
     "methodologiesLabel": "手法・資格",
     "accessibilityLabel": "アクセシビリティ",
     "location": "所在地",
-    "servesAreas": "対応領域:"
+    "servesAreas": "対応領域:",
+    "agendarSinCuenta": "ご連絡をご希望ですか。アカウントを作らずに予約を申し込めます。",
+    "agendar": "予約を申し込む"
   },
   "dim": {
     "quality": "品質",
@@ -5289,7 +5291,8 @@
     "ctaCreate": "アカウントを作成して枠を確保",
     "ctaLogin": "アカウントを持っています。ログイン",
     "ctaPanel": "創設メンバー用パネルへ",
-    "fineprint": "枠は各国で先着順に確保されます。"
+    "fineprint": "枠は各国で先着順に確保されます。",
+    "quedanDe": "{{pais}}の残り枠 {{total}} 件中 {{quedan}} 件"
   },
   "suggest": {
     "dirTitle": "新しいカテゴリーを提案",
@@ -5673,5 +5676,29 @@
     "revertida": "取消済み",
     "porCobrar": "受取待ち",
     "cobrada": "受取済み"
+  },
+  "membresia": {
+    "title": "会員資格",
+    "vigenteHasta": "{{fecha}} まで有効",
+    "estado": {
+      "active": "有効",
+      "pending": "支払い待ち",
+      "past_due": "支払い遅延",
+      "exempt": "免除"
+    },
+    "periodo": {
+      "annual": "年払い",
+      "monthly": "月払い"
+    },
+    "exenta": "会費は無料です",
+    "exentaHasta": "免除は {{fecha}} までです。",
+    "baja": "会員資格を解約する",
+    "bajaNota": "お支払い済みの分はそのままです。更新だけが停止します。",
+    "bajaTitulo": "会員資格の解約",
+    "bajaAviso": "{{fecha}} まで有効で、その後は更新されません。いつでも再登録できます。",
+    "bajaConfirmar": "解約する",
+    "bajaHecha": "完了しました。今後の請求はありません。",
+    "bajaFallo": "解約できませんでした。もう一度お試しいただくか admin@neuromundi.com までご連絡ください。",
+    "yaDeBaja": "解約済みです。{{fecha}} まで有効で、更新されません。"
   }
 }

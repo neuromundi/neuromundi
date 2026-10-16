@@ -455,7 +455,9 @@
     "methodologiesLabel": "Metodologias e certificações",
     "accessibilityLabel": "Acessibilidade",
     "location": "Localização",
-    "servesAreas": "Atende:"
+    "servesAreas": "Atende:",
+    "agendarSinCuenta": "Quer entrar em contato? Pode pedir uma consulta sem criar conta.",
+    "agendar": "Pedir consulta"
   },
   "dim": {
     "quality": "Qualidade",
@@ -5289,7 +5291,8 @@
     "ctaCreate": "Criar minha conta e reservar meu lugar",
     "ctaLogin": "Já tenho conta, entrar",
     "ctaPanel": "Ir ao meu painel de fundador",
-    "fineprint": "As vagas são reservadas por ordem de chegada em cada país."
+    "fineprint": "As vagas são reservadas por ordem de chegada em cada país.",
+    "quedanDe": "Restam {{quedan}} de {{total}} lugares em {{pais}}"
   },
   "suggest": {
     "dirTitle": "Sugira uma nova categoria",
@@ -5673,5 +5676,29 @@
     "revertida": "Revertida",
     "porCobrar": "A receber",
     "cobrada": "Recebida"
+  },
+  "membresia": {
+    "title": "Minha associação",
+    "vigenteHasta": "Válida até {{fecha}}",
+    "estado": {
+      "active": "Ativa",
+      "pending": "Pagamento pendente",
+      "past_due": "Pagamento vencido",
+      "exempt": "Isenta"
+    },
+    "periodo": {
+      "annual": "pagamento anual",
+      "monthly": "pagamento mensal"
+    },
+    "exenta": "Sua associação é gratuita",
+    "exentaHasta": "A isenção vale até {{fecha}}.",
+    "baja": "Cancelar minha associação",
+    "bajaNota": "Você mantém tudo o que já pagou: apenas a renovação é interrompida.",
+    "bajaTitulo": "Cancelar sua associação",
+    "bajaAviso": "Sua associação continua ativa até {{fecha}} e não será renovada depois. Você pode contratar de novo quando quiser.",
+    "bajaConfirmar": "Sim, cancelar",
+    "bajaHecha": "Pronto. Você não será cobrado novamente.",
+    "bajaFallo": "Não foi possível cancelar. Tente de novo ou escreva para admin@neuromundi.com.",
+    "yaDeBaja": "Sua associação está cancelada. Continua ativa até {{fecha}} e não será renovada."
   }
 }

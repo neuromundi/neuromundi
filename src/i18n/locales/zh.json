@@ -455,7 +455,9 @@
     "methodologiesLabel": "方法与认证",
     "accessibilityLabel": "无障碍设施",
     "location": "位置",
-    "servesAreas": "服务领域："
+    "servesAreas": "服务领域：",
+    "agendarSinCuenta": "想要联系？无需注册账号即可预约。",
+    "agendar": "预约"
   },
   "dim": {
     "quality": "质量",
@@ -5289,7 +5291,8 @@
     "ctaCreate": "创建账户并预留我的名额",
     "ctaLogin": "我已有账户，登录",
     "ctaPanel": "前往我的创始成员面板",
-    "fineprint": "名额在各国按先到先得预留。"
+    "fineprint": "名额在各国按先到先得预留。",
+    "quedanDe": "{{pais}} 还剩 {{quedan}}/{{total}} 个名额"
   },
   "suggest": {
     "dirTitle": "建议新类别",
@@ -5673,5 +5676,29 @@
     "revertida": "已冲销",
     "porCobrar": "待结算",
     "cobrada": "已结算"
+  },
+  "membresia": {
+    "title": "我的会员",
+    "vigenteHasta": "有效期至 {{fecha}}",
+    "estado": {
+      "active": "有效",
+      "pending": "待付款",
+      "past_due": "已逾期",
+      "exempt": "免缴"
+    },
+    "periodo": {
+      "annual": "年付",
+      "monthly": "月付"
+    },
+    "exenta": "您的会员免费",
+    "exentaHasta": "免缴有效期至 {{fecha}}。",
+    "baja": "取消我的会员",
+    "bajaNota": "已付费的期间照常保留，仅停止续费。",
+    "bajaTitulo": "取消会员",
+    "bajaAviso": "会员有效期至 {{fecha}}，之后不再续费。您可随时重新加入。",
+    "bajaConfirmar": "确认取消",
+    "bajaHecha": "已完成，不会再扣费。",
+    "bajaFallo": "取消失败，请重试或联系 admin@neuromundi.com。",
+    "yaDeBaja": "已取消。有效期至 {{fecha}}，不会续费。"
   }
 }

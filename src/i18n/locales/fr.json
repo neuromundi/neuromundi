@@ -455,7 +455,9 @@
     "methodologiesLabel": "Méthodes et certifications",
     "accessibilityLabel": "Accessibilité",
     "location": "Emplacement",
-    "servesAreas": "Prend en charge :"
+    "servesAreas": "Prend en charge :",
+    "agendarSinCuenta": "Vous souhaitez prendre contact ? Vous pouvez demander un rendez-vous sans créer de compte.",
+    "agendar": "Demander un rendez-vous"
   },
   "dim": {
     "quality": "Qualité",
@@ -5289,7 +5291,8 @@
     "ctaCreate": "Créer mon compte et réserver ma place",
     "ctaLogin": "J'ai déjà un compte, se connecter",
     "ctaPanel": "Aller à mon espace fondateur",
-    "fineprint": "Les places sont réservées par ordre d'arrivée dans chaque pays."
+    "fineprint": "Les places sont réservées par ordre d'arrivée dans chaque pays.",
+    "quedanDe": "Il reste {{quedan}} places sur {{total}} en {{pais}}"
   },
   "suggest": {
     "dirTitle": "Suggérer une nouvelle catégorie",
@@ -5673,5 +5676,29 @@
     "revertida": "Annulée",
     "porCobrar": "À percevoir",
     "cobrada": "Perçue"
+  },
+  "membresia": {
+    "title": "Mon adhésion",
+    "vigenteHasta": "Valable jusqu’au {{fecha}}",
+    "estado": {
+      "active": "Active",
+      "pending": "Paiement en attente",
+      "past_due": "Paiement en retard",
+      "exempt": "Exonérée"
+    },
+    "periodo": {
+      "annual": "paiement annuel",
+      "monthly": "paiement mensuel"
+    },
+    "exenta": "Votre adhésion est gratuite",
+    "exentaHasta": "L’exonération court jusqu’au {{fecha}}.",
+    "baja": "Résilier mon adhésion",
+    "bajaNota": "Vous conservez ce que vous avez payé : seul le renouvellement s’arrête.",
+    "bajaTitulo": "Résilier votre adhésion",
+    "bajaAviso": "Votre adhésion reste active jusqu’au {{fecha}} et ne sera pas renouvelée. Vous pourrez y souscrire à nouveau quand vous voudrez.",
+    "bajaConfirmar": "Oui, résilier",
+    "bajaHecha": "C’est fait. Vous ne serez plus débité.",
+    "bajaFallo": "Résiliation impossible. Réessayez ou écrivez à admin@neuromundi.com.",
+    "yaDeBaja": "Votre adhésion est résiliée. Elle reste active jusqu’au {{fecha}} et ne sera pas renouvelée."
   }
 }

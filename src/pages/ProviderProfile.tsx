@@ -2,6 +2,7 @@
  * ProviderProfile — perfil público de un proveedor (internacionalizado).
  */
 import { lazy, Suspense, useEffect, useRef, useState } from 'react';
+import { formatMemberNo } from '@/lib/referral';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import {
   Radar,
@@ -11,7 +12,7 @@ import {
   PolarRadiusAxis,
   ResponsiveContainer,
 } from 'recharts';
-import { ArrowLeft, MapPin, ShieldCheck, Tag, Users, Sparkles, Waves, LifeBuoy, Heart, Star, BadgeCheck, Clock, Phone, Globe, Navigation, CalendarDays, UserCheck } from 'lucide-react';
+import { ArrowLeft, MapPin, ShieldCheck, Tag, Users, Sparkles, Waves, LifeBuoy, Heart, Star, BadgeCheck, Clock, Phone, Globe, Navigation, CalendarDays, UserCheck, MessageCircle } from 'lucide-react';
 import { safeHttpUrl } from '@/lib/safeUrl';
 import { useTranslation } from 'react-i18next';
 import { useCatLabel } from '@/lib/catLabel';
@@ -49,7 +50,7 @@ export function ProviderProfile() {
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
   const catLabel = useCatLabel();
-  const { isProvider, isParent, isConsumer, userId } = useAuth();
+  const { isProvider, isParent, isConsumer, userId, isAuthenticated } = useAuth();
   const { profile, categories, network, loading } = useProviderProfile(id);
   const { badge } = useProviderBadge(id);
   const { isFounder } = useFounderStatus(id);
@@ -205,10 +206,17 @@ export function ProviderProfile() {
         </section>
       )}
 
-      {/* Datos de contacto de la ficha sin reclamar (fuentes públicas). Da
-          confianza al visitante mientras el titular no gestiona su perfil. Los
-          miembros con cuenta usan sus botones de contacto/reserva. */}
-      {isFicha && (profile.phone || website || profile.address || profile.services_offered) && (
+      {/* CONTACTO, TAMBIÉN PARA QUIEN PAGA.
+          Antes este bloque era exclusivo de las fichas sin reclamar: un miembro
+          real no mostraba teléfono, sitio, WhatsApp ni redes, y sus botones
+          exigían sesión y rol. Resultado: el prestador pagaba por visibilidad,
+          recibía visitas y NADIE podía contactarlo — quedaba menos contactable
+          que la ficha gratuita de al lado, mientras el correo de invitación le
+          prometía «canal directo de contacto».
+          Los campos ya se piden en el registro, se guardan y la vista pública
+          los expone; sólo faltaba pintarlos.
+          (Auditoría del 15 oct 2026, hallazgo C-6.) */}
+      {(profile.phone || website || profile.address || profile.whatsapp || profile.services_offered) && (
         <section className="rounded-2xl border border-slate-100 bg-white p-4">
           <h2 className="mb-2 font-semibold text-slate-900">{t('profile.contact')}</h2>
           <ul className="space-y-1.5 text-sm text-slate-700">
@@ -216,6 +224,17 @@ export function ProviderProfile() {
               <li className="flex items-center gap-2">
                 <Phone className="h-4 w-4 shrink-0 text-brand-600" aria-hidden="true" />
                 <a href={`tel:${profile.phone}`} className="hover:underline">{profile.phone}</a>
+              </li>
+            )}
+            {profile.whatsapp && (
+              <li className="flex items-center gap-2">
+                <MessageCircle className="h-4 w-4 shrink-0 text-sage-600" aria-hidden="true" />
+                <a
+                  href={`https://wa.me/${String(profile.whatsapp).replace(/[^0-9]/g, '')}`}
+                  target="_blank" rel="noopener noreferrer" className="hover:underline"
+                >
+                  WhatsApp
+                </a>
               </li>
             )}
             {website && safeHttpUrl(website) && (
@@ -251,13 +270,31 @@ export function ProviderProfile() {
         <div className="flex flex-wrap gap-2" onClickCapture={() => trackContactOnce(id)}>
           {isProvider && userId !== id && <ConnectButton providerId={id} />}
           {isParent && <SaveToListButton providerId={id} />}
-          {isConsumer && profile.provider_type === 'service_provider' && <BookAppointment providerId={id} />}
-          {isConsumer && profile.provider_type === 'school' && <BookAppointment providerId={id} label={t('school.tour')} />}
+          {isConsumer && profile.provider_type === 'school'
+            ? <BookAppointment providerId={id} label={t('school.tour')} />
+            : isConsumer && <BookAppointment providerId={id} />}
           {(isConsumer || isParent) && userId !== id && canReview && (
             <Button variant="secondary" leadingIcon={<Star className="h-4 w-4" />} onClick={() => setReviewOpen(true)}>
               {t('review.button')}
             </Button>
           )}
+        </div>
+      )}
+
+      {/* AGENDAR SIN CUENTA. /reservar/:folio ya existía, su función está
+          concedida a anónimos y notifica al prestador, y no estaba enlazada
+          desde ningún sitio público: la única vía de contacto que no exige
+          sesión era inalcanzable. (Hallazgos C-6 y A-16.) */}
+      {!isFicha && !isAuthenticated && profile.member_no != null && (
+        <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-brand-200 bg-brand-50 p-4">
+          <p className="text-sm text-brand-900">{t('profile.agendarSinCuenta')}</p>
+          <Button
+            variant="secondary"
+            onClick={() => navigate(`/reservar/${formatMemberNo(profile.member_no as number)}`)}
+            leadingIcon={<CalendarDays className="h-4 w-4" />}
+          >
+            {t('profile.agendar')}
+          </Button>
         </div>
       )}
 

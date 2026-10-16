@@ -14,6 +14,7 @@ import { useTranslation } from 'react-i18next';
 import { RefreshCw, Receipt, Heart, Gift, CheckCircle2, RotateCcw, Clock } from 'lucide-react';
 import { Button, SkeletonCard, EmptyState } from '@/components/ui';
 import { supabase } from '@/lib/supabase';
+import { MiMembresia } from './MiMembresia';
 import { montoLegible } from '@/lib/commissions';
 
 type Tipo = 'cuota' | 'donativo' | 'comision';
@@ -103,6 +104,8 @@ export function MisPagos() {
       </div>
 
       <p className="text-sm text-muted">{t('mispagos.help')}</p>
+
+      <MiMembresia />
 
       {falla ? (
         <p className="rounded-2xl border border-dashed border-slate-200 p-4 text-center text-sm text-muted">

@@ -492,7 +492,9 @@
     "methodologiesLabel": "Metodologías y certificaciones",
     "accessibilityLabel": "Accesibilidad",
     "location": "Ubicación",
-    "servesAreas": "Atiende:"
+    "servesAreas": "Atiende:",
+    "agendarSinCuenta": "¿Quiere ponerse en contacto? Puede pedir una cita sin crear cuenta.",
+    "agendar": "Pedir una cita"
   },
   "dim": {
     "quality": "Calidad",
@@ -5289,7 +5291,8 @@
     "ctaCreate": "Crear mi cuenta y reservar mi lugar",
     "ctaLogin": "Ya tengo cuenta, entrar",
     "ctaPanel": "Ir a mi panel de fundador",
-    "fineprint": "Los cupos se reservan por orden de llegada en cada país."
+    "fineprint": "Los cupos se reservan por orden de llegada en cada país.",
+    "quedanDe": "Quedan {{quedan}} de {{total}} lugares en {{pais}}"
   },
   "suggest": {
     "dirTitle": "Sugiere una nueva categoría",
@@ -5673,5 +5676,29 @@
     "revertida": "Revertida",
     "porCobrar": "Por cobrar",
     "cobrada": "Cobrada"
+  },
+  "membresia": {
+    "title": "Mi membresía",
+    "vigenteHasta": "Vigente hasta el {{fecha}}",
+    "estado": {
+      "active": "Activa",
+      "pending": "Pendiente de pago",
+      "past_due": "Con pago vencido",
+      "exempt": "Exenta"
+    },
+    "periodo": {
+      "annual": "pago anual",
+      "monthly": "pago mensual"
+    },
+    "exenta": "Su membresía es gratuita",
+    "exentaHasta": "La exención rige hasta el {{fecha}}.",
+    "baja": "Dar de baja mi membresía",
+    "bajaNota": "Conservará todo lo que ya pagó: sólo se detiene la renovación.",
+    "bajaTitulo": "Dar de baja su membresía",
+    "bajaAviso": "Su membresía seguirá activa hasta el {{fecha}} y no se renovará después. Podrá volver a contratarla cuando quiera.",
+    "bajaConfirmar": "Sí, dar de baja",
+    "bajaHecha": "Listo. No se le volverá a cobrar.",
+    "bajaFallo": "No se pudo dar de baja. Inténtelo de nuevo o escriba a admin@neuromundi.com.",
+    "yaDeBaja": "Su membresía está dada de baja. Sigue activa hasta el {{fecha}} y no se renovará."
   }
 }

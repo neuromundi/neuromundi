@@ -492,7 +492,9 @@
     "methodologiesLabel": "방법론 및 자격",
     "accessibilityLabel": "접근성",
     "location": "위치",
-    "servesAreas": "지원 영역:"
+    "servesAreas": "지원 영역:",
+    "agendarSinCuenta": "연락하고 싶으신가요? 계정을 만들지 않고도 예약을 요청할 수 있습니다.",
+    "agendar": "예약 요청"
   },
   "dim": {
     "quality": "품질",
@@ -5289,7 +5291,8 @@
     "ctaCreate": "계정을 만들고 자리 예약하기",
     "ctaLogin": "이미 계정이 있습니다. 로그인",
     "ctaPanel": "내 창립 멤버 패널로 이동",
-    "fineprint": "자리는 각 국가에서 선착순으로 예약됩니다."
+    "fineprint": "자리는 각 국가에서 선착순으로 예약됩니다.",
+    "quedanDe": "{{pais}} 잔여 {{quedan}}/{{total}}석"
   },
   "suggest": {
     "dirTitle": "새 카테고리 제안",
@@ -5673,5 +5676,29 @@
     "revertida": "취소됨",
     "porCobrar": "지급 대기",
     "cobrada": "지급 완료"
+  },
+  "membresia": {
+    "title": "내 멤버십",
+    "vigenteHasta": "{{fecha}}까지 유효",
+    "estado": {
+      "active": "활성",
+      "pending": "결제 대기",
+      "past_due": "연체",
+      "exempt": "면제"
+    },
+    "periodo": {
+      "annual": "연간",
+      "monthly": "월간"
+    },
+    "exenta": "회비가 면제됩니다",
+    "exentaHasta": "면제는 {{fecha}}까지입니다.",
+    "baja": "멤버십 해지",
+    "bajaNota": "이미 결제한 기간은 그대로 유지되고 갱신만 중단됩니다.",
+    "bajaTitulo": "멤버십 해지",
+    "bajaAviso": "{{fecha}}까지 유지되며 이후 갱신되지 않습니다. 언제든 다시 가입할 수 있습니다.",
+    "bajaConfirmar": "네, 해지합니다",
+    "bajaHecha": "완료했습니다. 다시 청구되지 않습니다.",
+    "bajaFallo": "해지하지 못했습니다. 다시 시도하거나 admin@neuromundi.com 으로 문의해 주세요.",
+    "yaDeBaja": "해지되었습니다. {{fecha}}까지 유지되며 갱신되지 않습니다."
   }
 }

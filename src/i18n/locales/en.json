@@ -492,7 +492,9 @@
     "methodologiesLabel": "Methods & certifications",
     "accessibilityLabel": "Accessibility",
     "location": "Location",
-    "servesAreas": "Serves:"
+    "servesAreas": "Serves:",
+    "agendarSinCuenta": "Want to get in touch? You can request an appointment without creating an account.",
+    "agendar": "Request an appointment"
   },
   "dim": {
     "quality": "Quality",
@@ -5289,7 +5291,8 @@
     "ctaCreate": "Create my account and reserve my spot",
     "ctaLogin": "I already have an account, sign in",
     "ctaPanel": "Go to my founder panel",
-    "fineprint": "Spots are reserved first-come, first-served in each country."
+    "fineprint": "Spots are reserved first-come, first-served in each country.",
+    "quedanDe": "{{quedan}} of {{total}} places left in {{pais}}"
   },
   "suggest": {
     "dirTitle": "Suggest a new category",
@@ -5673,5 +5676,29 @@
     "revertida": "Reversed",
     "porCobrar": "Pending payout",
     "cobrada": "Paid out"
+  },
+  "membresia": {
+    "title": "My membership",
+    "vigenteHasta": "Valid through {{fecha}}",
+    "estado": {
+      "active": "Active",
+      "pending": "Payment pending",
+      "past_due": "Past due",
+      "exempt": "Exempt"
+    },
+    "periodo": {
+      "annual": "annual",
+      "monthly": "monthly"
+    },
+    "exenta": "Your membership is free",
+    "exentaHasta": "The exemption runs through {{fecha}}.",
+    "baja": "Cancel my membership",
+    "bajaNota": "You keep everything you already paid for — only the renewal stops.",
+    "bajaTitulo": "Cancel your membership",
+    "bajaAviso": "Your membership stays active through {{fecha}} and will not renew after that. You can sign up again any time.",
+    "bajaConfirmar": "Yes, cancel",
+    "bajaHecha": "Done. You will not be charged again.",
+    "bajaFallo": "We could not cancel. Please try again or write to admin@neuromundi.com.",
+    "yaDeBaja": "Your membership is cancelled. It stays active through {{fecha}} and will not renew."
   }
 }

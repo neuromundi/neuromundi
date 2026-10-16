@@ -455,7 +455,9 @@
     "methodologiesLabel": "Methoden und Zertifizierungen",
     "accessibilityLabel": "Barrierefreiheit",
     "location": "Standort",
-    "servesAreas": "Betreut:"
+    "servesAreas": "Betreut:",
+    "agendarSinCuenta": "Möchten Sie Kontakt aufnehmen? Sie können einen Termin ohne Konto anfragen.",
+    "agendar": "Termin anfragen"
   },
   "dim": {
     "quality": "Qualität",
@@ -5289,7 +5291,8 @@
     "ctaCreate": "Konto erstellen und Platz reservieren",
     "ctaLogin": "Ich habe schon ein Konto, anmelden",
     "ctaPanel": "Zu meinem Gründerbereich",
-    "fineprint": "Die Plätze werden pro Land nach Eingang vergeben."
+    "fineprint": "Die Plätze werden pro Land nach Eingang vergeben.",
+    "quedanDe": "Noch {{quedan}} von {{total}} Plätzen in {{pais}}"
   },
   "suggest": {
     "dirTitle": "Neue Kategorie vorschlagen",
@@ -5673,5 +5676,29 @@
     "revertida": "Storniert",
     "porCobrar": "Ausstehend",
     "cobrada": "Ausgezahlt"
+  },
+  "membresia": {
+    "title": "Meine Mitgliedschaft",
+    "vigenteHasta": "Gültig bis {{fecha}}",
+    "estado": {
+      "active": "Aktiv",
+      "pending": "Zahlung ausstehend",
+      "past_due": "Überfällig",
+      "exempt": "Befreit"
+    },
+    "periodo": {
+      "annual": "jährlich",
+      "monthly": "monatlich"
+    },
+    "exenta": "Ihre Mitgliedschaft ist kostenlos",
+    "exentaHasta": "Die Befreiung gilt bis {{fecha}}.",
+    "baja": "Mitgliedschaft kündigen",
+    "bajaNota": "Sie behalten alles Bezahlte – nur die Verlängerung endet.",
+    "bajaTitulo": "Mitgliedschaft kündigen",
+    "bajaAviso": "Ihre Mitgliedschaft bleibt bis {{fecha}} aktiv und verlängert sich danach nicht. Sie können jederzeit erneut beitreten.",
+    "bajaConfirmar": "Ja, kündigen",
+    "bajaHecha": "Erledigt. Es wird nichts mehr abgebucht.",
+    "bajaFallo": "Kündigung fehlgeschlagen. Bitte erneut versuchen oder an admin@neuromundi.com schreiben.",
+    "yaDeBaja": "Ihre Mitgliedschaft ist gekündigt. Sie läuft bis {{fecha}} und verlängert sich nicht."
   }
 }
