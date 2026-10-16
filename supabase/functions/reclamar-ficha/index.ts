@@ -95,13 +95,24 @@ Deno.serve(async (req) => {
 
   let userId = creado?.user?.id;
 
-  // Si ya existía una cuenta con ese correo, se reutiliza en vez de duplicarla.
+  // SI YA EXISTE UNA CUENTA CON ESE CORREO, AQUI SE PARA.
+  //
+  // Antes se reutilizaba esa cuenta, se le sobrescribia el perfil con los datos
+  // de la ficha y, en el paso 5, se generaba un enlace magico que se devolvia
+  // EN EL CUERPO DE LA RESPUESTA. Quien tuviera el token de invitacion quedaba
+  // con un enlace que lo iniciaba sesion como esa persona, sin haber tenido
+  // nunca acceso a su buzon: el token equivalia a la contrasena de la cuenta.
+  // (Auditoria del 15 oct 2026, hallazgo C-4.)
+  //
+  // El caso legitimo —alguien que ya se registro por su cuenta y ahora quiere
+  // reclamar su ficha— se resuelve entrando a su sesion, no por aqui.
   if (eUser && /already|exist/i.test(eUser.message)) {
-    const { data: lista } = await admin.auth.admin.listUsers({ page: 1, perPage: 1000 });
-    userId = lista?.users.find((u) => u.email?.toLowerCase() === ficha.correo.toLowerCase())?.id;
-  } else if (eUser) {
-    return json({ error: 'no se pudo crear la cuenta' }, 500);
+    return json({
+      error: 'Ya existe una cuenta de Neuromundi con ese correo. Inicie sesión con ella y reclame su ficha desde su panel.',
+      code: 'cuenta_existente',
+    }, 409);
   }
+  if (eUser) return json({ error: 'no se pudo crear la cuenta' }, 500);
   if (!userId) return json({ error: 'no se pudo resolver la cuenta' }, 500);
 
   // 3 · Crear su perfil con los datos de la ficha.
@@ -155,6 +166,12 @@ Deno.serve(async (req) => {
     // sigue visible: directorio_publico solo la oculta cuando el perfil
     // reclamante ya está publicado.
     is_published: false,
+    // ACEPTACION DEL REGLAMENTO. Sin esto la aplicacion considera que falta el
+    // alta y, en vez de la aplicacion, monta a pantalla completa el formulario
+    // de onboarding, cuyo unico boton de salida BORRA la cuenta recien creada.
+    // El titular ya acepto: recibio el correo, abrio su enlace y pulso para
+    // reclamar su ficha. (Auditoria del 15 oct 2026, hallazgo C-8.)
+    rules_version_accepted: '2026-07',
   }, { onConflict: 'id' });
   if (ePerfil) return json({ error: 'no se pudo crear el perfil' }, 500);
 

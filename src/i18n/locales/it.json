@@ -1194,7 +1194,10 @@
       "ahorroAnual": "Pagando l'anno in una volta paghi {{amount}} in meno rispetto al mese."
     },
     "afterConfirmPay": "Dopo aver confermato l'email e aver effettuato l'accesso, ti verrà chiesto di completare il pagamento della tua iscrizione.",
-    "countryFeeHint": "Dal tuo paese dipendono la quota e la valuta in cui ti viene addebitata."
+    "countryFeeHint": "Dal tuo paese dipendono la quota e la valuta in cui ti viene addebitata.",
+    "fotoSubida": "La tua foto è salvata nel profilo.",
+    "fotoPendiente": "Abbiamo salvato la tua foto su questo dispositivo: verrà caricata al primo accesso.",
+    "fotoFallo": "Non siamo riusciti a salvare la foto. Potrai caricarla dal tuo profilo."
   },
   "loc": {
     "title": "Le mie filiali",

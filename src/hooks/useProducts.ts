@@ -64,7 +64,7 @@ export function useProducts(opts: UseProductsOptions = {}): UseProductsValue {
 
       const [vendorsRes, catsRes] = await Promise.all([
         vendorIds.length
-          ? supabase.from('profiles').select('id, business_name, full_name').in('id', vendorIds)
+          ? supabase.from('perfiles_basicos').select('id, business_name, full_name').in('id', vendorIds)
           : Promise.resolve({ data: [], error: null }),
         catIds.length
           ? supabase.from('categories').select('id, name').in('id', catIds)

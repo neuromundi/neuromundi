@@ -49,7 +49,7 @@ export function useSurvey(): UseSurveyValue {
     try {
       const [providerRes, offerRes] = await Promise.all([
         supabase
-          .from('profiles')
+          .from('perfiles_basicos')
           .select('business_name, full_name, provider_type')
           .eq('id', transaction.provider_id)
           .maybeSingle(),

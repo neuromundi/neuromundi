@@ -1194,7 +1194,10 @@
       "ahorroAnual": "Wer das Jahr auf einmal zahlt, zahlt {{amount}} weniger als monatlich."
     },
     "afterConfirmPay": "Nachdem du deine E-Mail bestätigt und dich angemeldet hast, wirst du gebeten, die Zahlung deiner Mitgliedschaft abzuschließen.",
-    "countryFeeHint": "Ihr Land bestimmt den Beitrag und die Währung der Abrechnung."
+    "countryFeeHint": "Ihr Land bestimmt den Beitrag und die Währung der Abrechnung.",
+    "fotoSubida": "Ihr Foto ist im Profil gespeichert.",
+    "fotoPendiente": "Wir haben Ihr Foto auf diesem Gerät gespeichert: Es wird bei Ihrer ersten Anmeldung hochgeladen.",
+    "fotoFallo": "Ihr Foto konnte nicht gespeichert werden. Sie können es im Profil hochladen."
   },
   "loc": {
     "title": "Meine Filialen",

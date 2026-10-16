@@ -71,7 +71,7 @@ export function useProviderProfile(id: string | null): UseProviderProfileValue {
           );
           if (otherIds.length) {
             const { data: profs } = await supabase
-              .from('profiles')
+              .from('perfiles_basicos')
               .select('id, full_name, business_name, city, avatar_url, provider_type')
               .in('id', otherIds)
               .eq('is_published', true);

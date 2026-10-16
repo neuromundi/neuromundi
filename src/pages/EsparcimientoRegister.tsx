@@ -9,6 +9,8 @@
  * también en specialties[] para que sea indexable en el buscador.
  */
 import { useState } from 'react';
+import { entregarFotoDeRegistro } from '@/lib/fotoPendiente';
+import { useAuthStore } from '@/stores/authStore';
 import { useTranslation } from 'react-i18next';
 import { setFounderOptoutFlag } from '@/lib/founderPref';
 import { isStrongPassword } from '@/lib/password';
@@ -48,6 +50,8 @@ export function EsparcimientoRegister({ onSuccess, complete = false }: { onSucce
 
   const [name, setName] = useState('');
   const [logoUrl, setLogoUrl] = useState<string | null>(null);
+  // El archivo, no solo la vista previa: antes se tiraba al enviar.
+  const [archivoFoto, setArchivoFoto] = useState<File | null>(null);
   const [venueType, setVenueType] = useState('');
   const [description, setDescription] = useState('');
   const [sections, setSections] = useState<string[]>([]);
@@ -88,7 +92,7 @@ export function EsparcimientoRegister({ onSuccess, complete = false }: { onSucce
 
   const onLogo = (e: React.ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files?.[0];
-    if (f) setLogoUrl(URL.createObjectURL(f));
+    if (f) { setLogoUrl(URL.createObjectURL(f)); setArchivoFoto(f); }
   };
 
   const submit = async () => {
@@ -145,6 +149,18 @@ export function EsparcimientoRegister({ onSuccess, complete = false }: { onSucce
     const res = complete ? await completeProfile(payload) : await signUp(payload);
     setBusy(false);
     if (!res.ok) { toast.error(res.error); return; }
+
+    // LA FOTO. Antes solo se mostraba una vista previa y el archivo se tiraba,
+    // mientras la pantalla decia que se subiria en el primer acceso. Ahora es
+    // verdad: si ya hay sesion sube aqui, y si no, queda guardada en este
+    // dispositivo y useFotoPendiente la sube al entrar.
+    if (archivoFoto) {
+      const uid = useAuthStore.getState().user?.id ?? null;
+      const comoFue = await entregarFotoDeRegistro(archivoFoto, uid);
+      if (comoFue === 'subida') toast.success(t('reg.fotoSubida'));
+      else if (comoFue === 'pendiente') toast.success(t('reg.fotoPendiente'));
+      else toast.error(t('reg.fotoFallo'));
+    }
     if (logoUrl) toast.success(t('k.logoLater'));
     try { localStorage.setItem('neuromundi.pendingWelcome', '1'); } catch { /* ignore */ }
     if (complete) { onSuccess?.(); return; }

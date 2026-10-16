@@ -165,7 +165,7 @@ export function usePrescriptions(
       const prodMap = new Map((products ?? []).map((p) => [p.id, p]));
 
       const { data: therapist } = await supabase
-        .from('profiles')
+        .from('perfiles_basicos')
         .select('business_name, full_name')
         .eq('id', presc.therapist_id)
         .maybeSingle();

@@ -4,6 +4,8 @@
  * + vista previa en vivo. Las ofertas se guardan en specialties[] (indexable).
  */
 import { useMemo, useState } from 'react';
+import { entregarFotoDeRegistro } from '@/lib/fotoPendiente';
+import { useAuthStore } from '@/stores/authStore';
 import { useTranslation } from 'react-i18next';
 import { setFounderOptoutFlag } from '@/lib/founderPref';
 import { isStrongPassword } from '@/lib/password';
@@ -57,6 +59,8 @@ export function KProviderRegister({ typeKey, onSuccess, complete = false }: { ty
 
   const [name, setName] = useState('');
   const [logoUrl, setLogoUrl] = useState<string | null>(null);
+  // El archivo, no solo la vista previa: antes se tiraba al enviar.
+  const [archivoFoto, setArchivoFoto] = useState<File | null>(null);
   const [description, setDescription] = useState('');
   const [picked, togglePick] = useToggleList();
   const [sections, toggleSection] = useToggleList();
@@ -103,7 +107,7 @@ export function KProviderRegister({ typeKey, onSuccess, complete = false }: { ty
 
   const onLogo = (e: React.ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files?.[0];
-    if (f) setLogoUrl(URL.createObjectURL(f));
+    if (f) { setLogoUrl(URL.createObjectURL(f)); setArchivoFoto(f); }
   };
 
 
@@ -155,6 +159,18 @@ export function KProviderRegister({ typeKey, onSuccess, complete = false }: { ty
     const res = complete ? await completeProfile(payload) : await signUp(payload);
     setBusy(false);
     if (!res.ok) { toast.error(res.error); return; }
+
+    // LA FOTO. Antes solo se mostraba una vista previa y el archivo se tiraba,
+    // mientras la pantalla decia que se subiria en el primer acceso. Ahora es
+    // verdad: si ya hay sesion sube aqui, y si no, queda guardada en este
+    // dispositivo y useFotoPendiente la sube al entrar.
+    if (archivoFoto) {
+      const uid = useAuthStore.getState().user?.id ?? null;
+      const comoFue = await entregarFotoDeRegistro(archivoFoto, uid);
+      if (comoFue === 'subida') toast.success(t('reg.fotoSubida'));
+      else if (comoFue === 'pendiente') toast.success(t('reg.fotoPendiente'));
+      else toast.error(t('reg.fotoFallo'));
+    }
     if (logoUrl) toast.success(t('k.logoLater'));
     try { localStorage.setItem('neuromundi.pendingWelcome', '1'); } catch { /* ignore */ }
     if (complete) { onSuccess?.(); return; }

@@ -1231,7 +1231,10 @@
       "ahorroAnual": "Pagando el año de una vez pagas {{amount}} menos que mes a mes."
     },
     "afterConfirmPay": "Al confirmar tu correo e iniciar sesión, se te pedirá completar el pago de tu membresía.",
-    "countryFeeHint": "De tu país dependen la cuota y la moneda en que se te cobra."
+    "countryFeeHint": "De tu país dependen la cuota y la moneda en que se te cobra.",
+    "fotoSubida": "Su foto quedó guardada en su perfil.",
+    "fotoPendiente": "Guardamos su foto en este dispositivo: se subirá a su perfil en cuanto entre por primera vez.",
+    "fotoFallo": "No pudimos guardar su foto. Podrá subirla desde Mi Perfil."
   },
   "loc": {
     "title": "Mis sucursales",

@@ -86,7 +86,7 @@ export function useCalendar() {
     const names: Record<string, string> = {};
     if (provIds.length > 0) {
       const { data: profs } = await supabase
-        .from('profiles')
+        .from('perfiles_basicos')
         .select('id, business_name, full_name')
         .in('id', provIds);
       for (const p of profs ?? []) names[p.id] = p.business_name || p.full_name || '';

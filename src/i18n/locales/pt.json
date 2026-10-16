@@ -1194,7 +1194,10 @@
       "ahorroAnual": "Pagando o ano de uma vez você paga {{amount}} a menos do que mês a mês."
     },
     "afterConfirmPay": "Depois de confirmar seu e-mail e entrar, será solicitado que você conclua o pagamento da sua assinatura.",
-    "countryFeeHint": "Do seu país dependem a cota e a moeda em que você é cobrado."
+    "countryFeeHint": "Do seu país dependem a cota e a moeda em que você é cobrado.",
+    "fotoSubida": "Sua foto ficou salva no seu perfil.",
+    "fotoPendiente": "Guardamos sua foto neste dispositivo: será enviada ao seu perfil no primeiro acesso.",
+    "fotoFallo": "Não conseguimos salvar sua foto. Você poderá enviá-la no seu perfil."
   },
   "loc": {
     "title": "Minhas filiais",

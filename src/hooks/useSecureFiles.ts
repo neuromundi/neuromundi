@@ -46,7 +46,7 @@ export function useSecureFiles(patientId: string) {
       if (!userId) return { ok: false, error: 'Sin sesión' };
       // Los destinatarios incluyen siempre al emisor (para poder releer su propio envío).
       const ids = Array.from(new Set([userId, ...recipientIds]));
-      const { data: keys } = await supabase.from('profiles').select('id, public_key').in('id', ids);
+      const { data: keys } = await supabase.from('perfiles_basicos').select('id, public_key').in('id', ids);
       const recipients = (keys ?? []).filter((k) => k.public_key).map((k) => ({ id: k.id, publicKeyB64: k.public_key as string }));
       if (recipients.length === 0) return { ok: false, error: 'Ningún destinatario tiene llave pública aún.' };
 

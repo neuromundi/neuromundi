@@ -44,6 +44,18 @@ Deno.serve(async (req: Request) => {
   const stripeKey = Deno.env.get('STRIPE_SECRET_KEY') ?? '';
   if (!stripeKey) return json(500, { error: 'Falta STRIPE_SECRET_KEY en el servidor.' });
 
+  // El cliente de Stripe se construye AQUI, no mas abajo. Estaba declarado
+  // despues del guardia contra la doble suscripcion, que lo usa: leer una
+  // constante antes de su declaracion lanza ReferenceError en CADA ejecucion,
+  // el catch de ese guardia lo tragaba y se seguia adelante. Resultado: el
+  // guardia nunca funciono y nada impedia una segunda suscripcion sobre el
+  // mismo cliente. (Auditoria del 15 oct 2026, hallazgo C-2.)
+  const stripe = new Stripe(stripeKey, {
+    apiVersion: '2024-06-20',
+    httpClient: Stripe.createFetchHttpClient(),
+  });
+
+
   const url = Deno.env.get('SUPABASE_URL') ?? '';
   const authHeader = req.headers.get('Authorization') ?? '';
   if (!authHeader) return json(401, { error: 'No autenticado' });
@@ -95,9 +107,14 @@ Deno.serve(async (req: Request) => {
         });
       }
     } catch (e) {
-      // Si Stripe no responde no se bloquea el alta de un cliente nuevo, pero
-      // queda registrado: este es el punto exacto donde nace un doble cobro.
+      // Este es el punto exacto donde nace un doble cobro: si no sabemos si ya
+      // tiene suscripcion, NO se sigue. Mejor pedirle que lo intente de nuevo
+      // que cobrarle dos veces al ano de por vida.
       console.error('comprobar suscripcion existente', e);
+      return json(503, {
+        error: 'No pudimos confirmar el estado de tu suscripción. Inténtalo de nuevo en un momento.',
+        code: 'stripe_unavailable',
+      });
     }
   }
 
@@ -197,11 +214,6 @@ Deno.serve(async (req: Request) => {
   const origin = ALLOWED_ORIGINS.includes(reqOrigin)
     ? reqOrigin
     : (Deno.env.get('PUBLIC_SITE_URL') ?? 'https://www.neuromundi.com');
-
-  const stripe = new Stripe(stripeKey, {
-    apiVersion: '2024-06-20',
-    httpClient: Stripe.createFetchHttpClient(),
-  });
 
   // Cliente de Stripe (reutiliza si ya existe).
   let customerId = profile.stripe_customer_id ?? undefined;

@@ -63,7 +63,7 @@ export function useParentLists(): UseParentListsValue {
         const summaries: Record<string, ProviderSummary> = {};
         if (providerIds.length) {
           const { data: profs } = await supabase
-            .from('profiles')
+            .from('perfiles_basicos')
             .select('id, full_name, business_name, city, avatar_url, provider_type')
             .in('id', providerIds);
           for (const p of profs ?? []) {

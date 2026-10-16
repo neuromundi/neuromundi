@@ -9,6 +9,8 @@
  * (durante el registro puede no haber sesión activa por la confirmación de correo).
  */
 import { useMemo, useState } from 'react';
+import { entregarFotoDeRegistro } from '@/lib/fotoPendiente';
+import { useAuthStore } from '@/stores/authStore';
 import { useTranslation } from 'react-i18next';
 import { setFounderOptoutFlag } from '@/lib/founderPref';
 import { isStrongPassword } from '@/lib/password';
@@ -64,6 +66,8 @@ export function SpecialistRegister({ onSuccess, complete = false }: { onSuccess?
   const [profession, setProfession] = useState('');
   const [bio, setBio] = useState('');
   const [photoUrl, setPhotoUrl] = useState<string | null>(null);
+  // El archivo, no solo la vista previa: antes se tiraba al enviar.
+  const [archivoFoto, setArchivoFoto] = useState<File | null>(null);
   const [modalities, toggleModality] = useToggleList();
   // Contacto
   const [whatsapp, setWhatsapp] = useState('');
@@ -117,7 +121,7 @@ export function SpecialistRegister({ onSuccess, complete = false }: { onSuccess?
 
   const onPhoto = (e: React.ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files?.[0];
-    if (f) setPhotoUrl(URL.createObjectURL(f));
+    if (f) { setPhotoUrl(URL.createObjectURL(f)); setArchivoFoto(f); }
   };
 
 
@@ -175,7 +179,18 @@ export function SpecialistRegister({ onSuccess, complete = false }: { onSuccess?
     const res = complete ? await completeProfile(payload) : await signUp(payload);
     setBusy(false);
     if (!res.ok) { toast.error(res.error); return; }
-    if (photoUrl) toast.success(t('spec.photoLater'));
+
+    // LA FOTO. Antes solo se mostraba una vista previa y el archivo se tiraba,
+    // mientras la pantalla decia que se subiria en el primer acceso. Ahora es
+    // verdad: si ya hay sesion sube aqui, y si no, queda guardada en este
+    // dispositivo y useFotoPendiente la sube al entrar.
+    if (archivoFoto) {
+      const uid = useAuthStore.getState().user?.id ?? null;
+      const comoFue = await entregarFotoDeRegistro(archivoFoto, uid);
+      if (comoFue === 'subida') toast.success(t('reg.fotoSubida'));
+      else if (comoFue === 'pendiente') toast.success(t('reg.fotoPendiente'));
+      else toast.error(t('reg.fotoFallo'));
+    }
     try { localStorage.setItem('neuromundi.pendingWelcome', '1'); } catch { /* ignore */ }
     // En modo "completar" no hay confirmación por correo: se entra directo.
     if (complete) { onSuccess?.(); return; }

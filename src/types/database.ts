@@ -1297,7 +1297,21 @@ export interface Database {
        * fiscales, RFC, nacimiento, género, salud, estado de membresía,
        * suspensiones—. Es la única que leen anon y authenticated; la vista
        * completa quedó reservada al rol de servicio.
+       *
+       * perfiles_basicos — identidad minima de un perfil para mostrarlo junto a
+       * otro usuario (migracion 0229). Reproduce la visibilidad de filas que
+       * tenia la tabla, con 11 columnas en vez de 119. Sustituye a leer
+       * public.profiles desde el cliente para perfiles ajenos: anon ya no tiene
+       * SELECT sobre la tabla y authenticated solo ve su propia fila.
        */
+      perfiles_basicos: {
+        Row: Pick<
+          Database['public']['Tables']['profiles']['Row'],
+          'id' | 'full_name' | 'business_name' | 'avatar_url' | 'city' | 'country'
+          | 'provider_type' | 'is_verified' | 'member_no' | 'is_published' | 'public_key'
+        >;
+        Relationships: [];
+      };
       directorio_publico_seguro: {
         Row: Omit<
           Database['public']['Tables']['profiles']['Row'],

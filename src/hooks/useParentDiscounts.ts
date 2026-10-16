@@ -63,7 +63,7 @@ export function useParentDiscounts(parentId: string | null): UseParentDiscountsV
           : Promise.resolve({ data: [], error: null }),
         providerIds.length
           ? supabase
-              .from('profiles')
+              .from('perfiles_basicos')
               .select('id, business_name, full_name, avatar_url')
               .in('id', providerIds)
           : Promise.resolve({ data: [], error: null }),

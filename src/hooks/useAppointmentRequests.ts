@@ -73,7 +73,7 @@ export function useAppointmentRequests() {
     const names: Record<string, string> = {};
     if (otherIds.length > 0) {
       const { data: profs } = await supabase
-        .from('profiles')
+        .from('perfiles_basicos')
         .select('id, business_name, full_name')
         .in('id', otherIds);
       for (const p of profs ?? []) names[p.id] = p.business_name || p.full_name || '';

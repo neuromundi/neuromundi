@@ -64,7 +64,7 @@ export function useStore() {
         setRatings(rmap);
         // Confianza del vendedor (solo perfiles publicados son legibles por RLS).
         const { data: vs } = await supabase
-          .from('profiles')
+          .from('perfiles_basicos')
           .select('id, is_verified, member_no, country')
           .in('id', vendorIds);
         const smap: Record<string, SellerTrust> = {};

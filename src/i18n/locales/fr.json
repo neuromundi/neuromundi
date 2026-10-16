@@ -1194,7 +1194,10 @@
       "ahorroAnual": "En payant l'année d'un coup, vous payez {{amount}} de moins qu'au mois."
     },
     "afterConfirmPay": "Après avoir confirmé votre e-mail et vous être connecté, il vous sera demandé de finaliser le paiement de votre adhésion.",
-    "countryFeeHint": "Votre pays détermine votre cotisation et la devise de facturation."
+    "countryFeeHint": "Votre pays détermine votre cotisation et la devise de facturation.",
+    "fotoSubida": "Votre photo est enregistrée sur votre profil.",
+    "fotoPendiente": "Nous avons gardé votre photo sur cet appareil : elle sera envoyée à votre profil à votre première connexion.",
+    "fotoFallo": "Nous n’avons pas pu enregistrer votre photo. Vous pourrez l’ajouter depuis votre profil."
   },
   "loc": {
     "title": "Mes succursales",

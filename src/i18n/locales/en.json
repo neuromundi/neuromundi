@@ -1231,7 +1231,10 @@
       "ahorroAnual": "Paying for the year up front costs {{amount}} less than month by month."
     },
     "afterConfirmPay": "After you confirm your email and sign in, you'll be asked to complete your membership payment.",
-    "countryFeeHint": "Your country determines your fee and the currency you are charged in."
+    "countryFeeHint": "Your country determines your fee and the currency you are charged in.",
+    "fotoSubida": "Your photo is saved to your profile.",
+    "fotoPendiente": "We saved your photo on this device: it will upload to your profile the first time you sign in.",
+    "fotoFallo": "We could not save your photo. You can upload it from your profile."
   },
   "loc": {
     "title": "My branches",

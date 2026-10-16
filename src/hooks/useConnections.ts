@@ -73,7 +73,7 @@ export function useConnections(): UseConnectionsValue {
       );
       if (otherIds.length) {
         const { data: profs } = await supabase
-          .from('profiles')
+          .from('perfiles_basicos')
           .select('id, full_name, business_name, city, avatar_url, provider_type')
           .in('id', otherIds);
         const map: Record<string, ProviderSummary> = {};

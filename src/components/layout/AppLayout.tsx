@@ -6,6 +6,7 @@
  * estado activo visible y labels claros (poca carga cognitiva).
  */
 import { NavLink, Outlet, useNavigate, Link, useLocation } from 'react-router-dom';
+import { useFotoPendiente } from '@/hooks/useFotoPendiente';
 import { Compass, LayoutDashboard, Settings, LogIn, LogOut, ShieldCheck, MessageCircleQuestion, School, GraduationCap, Grid3x3, X, BookOpenCheck, BookOpen, ShieldAlert, CalendarDays, ShoppingBag, MessageSquare, MessageCircle, Heart, Lightbulb, Award, Briefcase, Users, BadgeCheck } from 'lucide-react';
 import { Suspense, lazy, useEffect, useState, type ComponentType } from 'react';
 import type { ReactNode } from 'react';
@@ -95,6 +96,8 @@ function NavItem({ to, icon, label }: { to: string; icon: ReactNode; label: stri
 }
 
 export function AppLayout() {
+  // Sube la foto que quedó del registro, en el primer acceso.
+  useFotoPendiente();
   const { isAuthenticated, isAdmin, isAdvisor, role, fullName, signOut, needsOnboarding } = useAuth();
   const { t } = useTranslation();
   const toast = useToast();
