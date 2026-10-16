@@ -172,6 +172,7 @@ Deno.serve(async (req) => {
     // El titular ya acepto: recibio el correo, abrio su enlace y pulso para
     // reclamar su ficha. (Auditoria del 15 oct 2026, hallazgo C-8.)
     rules_version_accepted: '2026-07',
+    rules_accepted_at: new Date().toISOString(),
   }, { onConflict: 'id' });
   if (ePerfil) return json({ error: 'no se pudo crear el perfil' }, 500);
 
