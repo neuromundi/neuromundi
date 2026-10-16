@@ -38,3 +38,6 @@ export type { FounderBadgeProps } from './FounderBadge';
 
 export { PasswordInput } from './PasswordInput';
 export type { PasswordInputProps } from './PasswordInput';
+
+export { AvisoDeFallo } from './AvisoDeFallo';
+export type { AvisoDeFalloProps } from './AvisoDeFallo';

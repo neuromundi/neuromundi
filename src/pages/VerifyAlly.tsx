@@ -6,7 +6,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { BadgeCheck, XCircle, HeartHandshake } from 'lucide-react';
+import { BadgeCheck, XCircle, HeartHandshake, AlertTriangle } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 
 interface AllyResult { found: boolean; name: string | null; website: string | null; countries: string[] | null; vigente: boolean }
@@ -16,19 +16,21 @@ export function VerifyAlly() {
   const { id } = useParams<{ id: string }>();
   const [res, setRes] = useState<AllyResult | null>(null);
   const [loading, setLoading] = useState(true);
+  // Mismo caso que VerifyBadge (hallazgo C-10). Y el try/catch que habia aqui
+  // era codigo muerto: supabase-js devuelve { data, error } y nunca lanza.
+  const [fallo, setFallo] = useState(false);
 
   useEffect(() => {
     let alive = true;
     (async () => {
       setLoading(true);
-      try {
-        const { data } = await supabase.rpc('verify_ally', { p_id: id ?? '' });
-        const row = Array.isArray(data) ? data[0] : data;
-        if (alive) setRes((row as AllyResult) ?? null);
-      } catch {
-        if (alive) setRes({ found: false, name: null, website: null, countries: null, vigente: false });
+      const { data, error } = await supabase.rpc('verify_ally', { p_id: id ?? '' });
+      const row = Array.isArray(data) ? data[0] : data;
+      if (alive) {
+        setFallo(!!error);
+        setRes(error ? null : ((row as AllyResult) ?? null));
+        setLoading(false);
       }
-      if (alive) setLoading(false);
     })();
     return () => { alive = false; };
   }, [id]);
@@ -40,6 +42,12 @@ export function VerifyAlly() {
       <h1 className="text-center text-2xl font-extrabold text-slate-900">{t('verify.title')}</h1>
       {loading ? (
         <p className="text-center text-muted">{t('verify.checking')}</p>
+      ) : fallo ? (
+        <div className="rounded-3xl border border-slate-200 bg-slate-50 p-6 text-center">
+          <AlertTriangle className="mx-auto h-12 w-12 text-slate-400" aria-hidden="true" />
+          <p className="mt-3 font-bold text-slate-800">{t('verify.noSePudo')}</p>
+          <p className="mt-1 text-sm text-muted">{t('verify.noSePudoAyuda')}</p>
+        </div>
       ) : !res?.found ? (
         <div className="rounded-3xl border border-red-200 bg-red-50 p-6 text-center">
           <XCircle className="mx-auto h-12 w-12 text-red-500" aria-hidden="true" />

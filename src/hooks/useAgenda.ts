@@ -98,7 +98,17 @@ export function useProviderAgenda() {
   const saveAvailability = useCallback(async (rows: TablesInsert<'provider_availability'>[]): Promise<Result<true>> => {
     if (!userId) return { ok: false, error: 'Sin sesión' };
     // Reemplaza la disponibilidad por completo.
-    await supabase.from('provider_availability').delete().eq('provider_id', userId);
+    //
+    // EL BORRADO SE REVISA. Antes no: si fallaba y había filas nuevas, el
+    // prestador quedaba con la UNIÓN de su horario viejo y el nuevo —la tabla
+    // no tiene restricción única sobre día y hora, así que el insertado no
+    // choca— y se le agendaban pacientes en horas en las que ya no atiende. Y
+    // si vaciaba su horario y el borrado fallaba, la función devolvía éxito
+    // mientras la pantalla seguía mostrando el horario viejo.
+    // (Auditoría del 15 oct 2026, hallazgo A-15.)
+    const { error: errBorrado } = await supabase
+      .from('provider_availability').delete().eq('provider_id', userId);
+    if (errBorrado) return { ok: false, error: toMessage(errBorrado) };
     if (rows.length > 0) {
       const { error } = await supabase.from('provider_availability').insert(rows.map((r) => ({ ...r, provider_id: userId })));
       if (error) return { ok: false, error: toMessage(error) };
@@ -158,8 +168,16 @@ export function useProviderAgenda() {
         video_link: videoLink || null,
       });
       if (error) return { ok: false, error: toMessage(error) };
-      await supabase.from('waitlist').update({ status: 'assigned' }).eq('id', entry.id);
+      // Sacar al paciente de la lista de espera NO era opcional: si fallaba, la
+      // cita quedaba creada y el paciente seguía en estado «esperando», así que
+      // reaparecía en el panel y se le podía asignar una segunda cita. La
+      // pantalla, mientras tanto, decía que todo salió bien. (Hallazgo A-15.)
+      const { error: errLista } = await supabase
+        .from('waitlist').update({ status: 'assigned' }).eq('id', entry.id);
       await load();
+      if (errLista) {
+        return { ok: false, error: toMessage(errLista, 'La cita se creó, pero el paciente sigue en la lista de espera. Quítelo a mano.') };
+      }
       return { ok: true, data: true };
     },
     [userId, load],

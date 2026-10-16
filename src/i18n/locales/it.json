@@ -80,7 +80,9 @@
     "edit": "Modifica",
     "errorGeneric": "Qualcosa è andato storto. Riprova.",
     "refresh": "Aggiorna",
-    "remove": "Rimuovi"
+    "remove": "Rimuovi",
+    "loadFailed": "Impossibile caricare. Non significa che non ci sia nulla: riprova.",
+    "retry": "Riprova"
   },
   "nav": {
     "directory": "Directory",
@@ -3866,7 +3868,8 @@
       "saveCaptions": "Salva frasi",
       "replaceImage": "Sostituisci immagine",
       "saved": "Salvato",
-      "needImage": "Seleziona un'immagine"
+      "needImage": "Seleziona un'immagine",
+      "added": "Scena aggiunta"
     },
     "members": {
       "hint": "One row per account. Suspend, reactivate, waive the fee and extend validity here. Permanent deletion is deliberately absent: it destroys data that cannot be recovered and follows a separate path.",
@@ -4501,7 +4504,9 @@
     "servicesQualityDesc": "Cliniche e operatori di servizi con ottime valutazioni.",
     "productsQualityDesc": "Negozi con prodotti dalle ottime valutazioni.",
     "inclusiveSchoolDesc": "Scuole con programma di inclusione.",
-    "inclusiveCompanyDesc": "Aziende con inclusione lavorativa."
+    "inclusiveCompanyDesc": "Aziende con inclusione lavorativa.",
+    "desc": "Il tuo distintivo di socio, pronto da scaricare per il sito o i social.",
+    "download": "Scarica il distintivo"
   },
   "esp": {
     "miss": {
@@ -5403,7 +5408,9 @@
     "founder": "Membro Fondatore",
     "neuro": "Profilo neuroaffermativo",
     "lookupBtn": "Verifica",
-    "ally": "Alleato ufficiale di Neuromundi"
+    "ally": "Alleato ufficiale di Neuromundi",
+    "noSePudo": "Non è stato possibile verificare ora",
+    "noSePudoAyuda": "Questo NON significa che il distintivo non esista. Riprova tra poco."
   },
   "registry": {
     "title": "Verifica un distintivo assegnato",

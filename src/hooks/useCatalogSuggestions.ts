@@ -21,12 +21,17 @@ export interface CatalogSuggestion {
 
 export function useAdminCatalogSuggestions() {
   const [items, setItems] = useState<CatalogSuggestion[]>([]);
+  // TRES ESTADOS, NO DOS: cargando, vacio y FALLO. Antes el error se miraba y
+  // se descartaba en la misma expresion, asi que un fallo de la consulta se
+  // pintaba como «no hay nada». (Auditoria 15 oct 2026, hallazgo A-12.)
+  const [fallo, setFallo] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const load = useCallback(async () => {
     setLoading(true);
     const { data, error } = await supabase.rpc('admin_catalog_suggestions');
     setItems(error ? [] : ((data as CatalogSuggestion[] | null) ?? []));
+        setFallo(!!error);
     setLoading(false);
   }, []);
 
@@ -47,5 +52,5 @@ export function useAdminCatalogSuggestions() {
     [load],
   );
 
-  return { items, loading, reload: load, setStatus };
+  return { items, loading, fallo, reload: load, setStatus };
 }

@@ -8,7 +8,7 @@
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Briefcase, MapPin, Search, Globe, Users, GraduationCap, Wallet, Mail, ExternalLink, Info } from 'lucide-react';
-import { SkeletonCard, EmptyState } from '@/components/ui';
+import { SkeletonCard, EmptyState, AvisoDeFallo } from '@/components/ui';
 import { usePublicJobs, usePublicJobsCountries, type PublicJob, type OpportunityType } from '@/hooks/useJobOpenings';
 import { useCountry } from '@/stores/countryStore';
 import { useCountryLabel } from '@/lib/countryLabel';
@@ -97,7 +97,7 @@ export function LaborInclusion() {
     return '';
   }, [selected, globalCountry]);
 
-  const { jobs, loading } = usePublicJobs(effective || null, oppType === 'all' ? null : oppType);
+  const { jobs, loading, fallo } = usePublicJobs(effective || null, oppType === 'all' ? null : oppType);
 
   const filtered = useMemo(() => {
     const needle = q.trim().toLowerCase();
@@ -162,6 +162,8 @@ export function LaborInclusion() {
       <div className="mt-6">
         {loading ? (
           <SkeletonCard rows={4} />
+        ) : fallo ? (
+          <AvisoDeFallo />
         ) : filtered.length === 0 ? (
           <EmptyState icon={<Briefcase className="h-6 w-6" />} title={t('labor.emptyTitle')} description={t('labor.empty')} />
         ) : (

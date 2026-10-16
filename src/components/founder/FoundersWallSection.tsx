@@ -8,7 +8,7 @@
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Star, Building2, User, Globe, Award } from 'lucide-react';
-import { SkeletonCard, EmptyState } from '@/components/ui';
+import { SkeletonCard, EmptyState, AvisoDeFallo } from '@/components/ui';
 import { useFoundersWall, useFoundersWallCountries, type FounderEntry } from '@/hooks/useFoundersWall';
 import { useCountry } from '@/stores/countryStore';
 import { formatMemberNo } from '@/lib/referral';
@@ -59,7 +59,7 @@ export function FoundersWallSection() {
     return '';
   }, [selected, globalCountry, countries]);
 
-  const { entries, loading } = useFoundersWall(effective || null);
+  const { entries, loading, fallo } = useFoundersWall(effective || null);
 
   const { featured, rest } = useMemo(
     () => ({
@@ -93,6 +93,8 @@ export function FoundersWallSection() {
 
       {loading ? (
         <SkeletonCard rows={4} />
+      ) : fallo ? (
+        <AvisoDeFallo />
       ) : entries.length === 0 ? (
         <EmptyState icon={<Award className="h-6 w-6" />} title={t('foundersWall.title')} description={t('foundersWall.empty')} />
       ) : (

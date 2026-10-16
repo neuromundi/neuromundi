@@ -80,7 +80,9 @@
     "edit": "Edit",
     "errorGeneric": "Something went wrong. Please try again.",
     "refresh": "Refresh",
-    "remove": "Remove"
+    "remove": "Remove",
+    "loadFailed": "Could not load. This does not mean there is nothing here — please try again.",
+    "retry": "Try again"
   },
   "followUs": {
     "title": "Follow us",
@@ -3866,7 +3868,8 @@
       "saveCaptions": "Save captions",
       "replaceImage": "Replace image",
       "saved": "Saved",
-      "needImage": "Select an image"
+      "needImage": "Select an image",
+      "added": "Scene added"
     },
     "members": {
       "hint": "One row per account. Suspend, reactivate, waive the fee and extend validity here. Permanent deletion is deliberately absent: it destroys data that cannot be recovered and follows a separate path.",
@@ -4501,7 +4504,9 @@
     "servicesQualityDesc": "Clinics and service providers with excellent ratings.",
     "productsQualityDesc": "Shops with excellently rated products.",
     "inclusiveSchoolDesc": "Schools with an inclusion program.",
-    "inclusiveCompanyDesc": "Companies with workplace inclusion."
+    "inclusiveCompanyDesc": "Companies with workplace inclusion.",
+    "desc": "Your member badge, ready to download and place on your site or social profiles.",
+    "download": "Download badge"
   },
   "esp": {
     "miss": {
@@ -5403,7 +5408,9 @@
     "founder": "Founding Member",
     "neuro": "Neuro-affirming profile",
     "lookupBtn": "Verify",
-    "ally": "Official Neuromundi ally"
+    "ally": "Official Neuromundi ally",
+    "noSePudo": "We could not verify right now",
+    "noSePudoAyuda": "This does NOT mean the credential is invalid. Please try again shortly."
   },
   "registry": {
     "title": "Verify an awarded badge",

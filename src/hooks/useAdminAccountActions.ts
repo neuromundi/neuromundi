@@ -22,12 +22,17 @@ export interface AccountAction {
 
 export function useAdminAccountActions() {
   const [items, setItems] = useState<AccountAction[]>([]);
+  // TRES ESTADOS, NO DOS: cargando, vacio y FALLO. Antes el error se miraba y
+  // se descartaba en la misma expresion, asi que un fallo de la consulta se
+  // pintaba como «no hay nada». (Auditoria 15 oct 2026, hallazgo A-12.)
+  const [fallo, setFallo] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const load = useCallback(async () => {
     setLoading(true);
     const { data, error } = await supabase.rpc('admin_account_actions');
     setItems(error ? [] : ((data as AccountAction[] | null) ?? []));
+        setFallo(!!error);
     setLoading(false);
   }, []);
 
@@ -35,5 +40,5 @@ export function useAdminAccountActions() {
     void load();
   }, [load]);
 
-  return { items, loading, reload: load };
+  return { items, loading, fallo, reload: load };
 }

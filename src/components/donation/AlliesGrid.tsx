@@ -12,6 +12,7 @@
  * (sin países fijados) más los del país seleccionado.
  */
 import { useTranslation } from 'react-i18next';
+import { AvisoDeFallo } from '@/components/ui';
 import { useAllies } from '@/hooks/useDonorWall';
 import { useCountry } from '@/stores/countryStore';
 
@@ -50,7 +51,11 @@ function Logo({ name, logo, website }: { name: string; logo: string; website: st
 export function AlliesGrid() {
   const { t } = useTranslation();
   const { country } = useCountry();
-  const { allies, loading } = useAllies(country);
+  const { allies, loading, fallo } = useAllies(country);
+
+  // Si la consulta FALLÓ no se calla: desaparecer sin decir nada hace que un
+  // aliado que sí está activo parezca que no existe. (Hallazgo A-12.)
+  if (fallo) return <AvisoDeFallo />;
 
   if (loading || allies.length === 0) {
     // Sin aliados aún: no ocupamos espacio con una cuadrícula vacía. La leyenda,

@@ -8,7 +8,7 @@
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Award, Eye, EyeOff, Star, StarOff, Globe } from 'lucide-react';
-import { SkeletonCard, EmptyState, useToast } from '@/components/ui';
+import { SkeletonCard, EmptyState, useToast, AvisoDeFallo } from '@/components/ui';
 import { useAdminFounders, type AdminFounder } from '@/hooks/useAdminFounders';
 
 const KIND_KEY: Record<AdminFounder['kind'], string> = {
@@ -90,7 +90,7 @@ function Row({ f, onWall }: { f: AdminFounder; onWall: ReturnType<typeof useAdmi
 
 export function AdminFounders() {
   const { t } = useTranslation();
-  const { rows, loading, setWall } = useAdminFounders();
+  const { rows, loading, fallo, reload, setWall } = useAdminFounders();
   const [country, setCountry] = useState('');
 
   const countries = useMemo(
@@ -123,6 +123,8 @@ export function AdminFounders() {
 
       {loading ? (
         <SkeletonCard rows={4} />
+      ) : fallo ? (
+        <AvisoDeFallo onRetry={() => void reload()} />
       ) : shown.length === 0 ? (
         <EmptyState icon={<Award className="h-6 w-6" />} title={t('adm.founders.emptyTitle')} description={t('adm.founders.empty')} />
       ) : (

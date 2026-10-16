@@ -29,6 +29,10 @@ export interface Ally {
 
 export function useDonorWall() {
   const [entries, setEntries] = useState<WallEntry[]>([]);
+  // TRES ESTADOS, NO DOS: cargando, vacio y FALLO. Antes el error se miraba y
+  // se descartaba en la misma expresion, asi que un fallo de la consulta se
+  // pintaba como «no hay nada». (Auditoria 15 oct 2026, hallazgo A-12.)
+  const [fallo, setFallo] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -37,13 +41,14 @@ export function useDonorWall() {
       const { data, error } = await supabase.rpc('donor_wall');
       if (alive) {
         setEntries(error ? [] : ((data as WallEntry[] | null) ?? []));
+        setFallo(!!error);
         setLoading(false);
       }
     })();
     return () => { alive = false; };
   }, []);
 
-  return { entries, loading };
+  return { entries, loading, fallo };
 }
 
 /**
@@ -53,6 +58,10 @@ export function useDonorWall() {
  */
 export function useAllies(country?: string | null) {
   const [allies, setAllies] = useState<Ally[]>([]);
+  // TRES ESTADOS, NO DOS: cargando, vacio y FALLO. Antes el error se miraba y
+  // se descartaba en la misma expresion, asi que un fallo de la consulta se
+  // pintaba como «no hay nada». (Auditoria 15 oct 2026, hallazgo A-12.)
+  const [fallo, setFallo] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -65,6 +74,7 @@ export function useAllies(country?: string | null) {
         .order('sort_order', { ascending: true });
       if (alive) {
         setAllies(error ? [] : ((data as Ally[] | null) ?? []));
+        setFallo(!!error);
         setLoading(false);
       }
     })();
@@ -75,5 +85,5 @@ export function useAllies(country?: string | null) {
     ? allies.filter((a) => !a.countries || a.countries.length === 0 || a.countries.includes(country))
     : allies;
 
-  return { allies: filtered, loading };
+  return { allies: filtered, loading, fallo };
 }

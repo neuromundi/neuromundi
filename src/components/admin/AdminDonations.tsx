@@ -7,6 +7,7 @@
  *  · CRUD de ALIADOS (los logos del carrusel del home).
  */
 import { useState } from 'react';
+import { useAvisarResultado } from '@/hooks/useAvisarResultado';
 import { ZERO_DECIMAL } from '@/lib/commissions';
 import { useTranslation } from 'react-i18next';
 import { Coins, Star, StarOff, Eye, EyeOff, Truck, Pencil, Plus, Trash2, Save, Handshake, Banknote } from 'lucide-react';
@@ -143,6 +144,8 @@ function DonationRow({ d, onWall }: { d: AdminDonation; onWall: ReturnType<typeo
 /** Editor de importes de donación por moneda. */
 function TiersManager() {
   const { t } = useTranslation();
+  // Nunca se tira el resultado de una escritura. (Hallazgo A-13.)
+  const avisar = useAvisarResultado();
   const toast = useToast();
   const { rows, loading, save } = useAdminDonationTiers();
   // Copia editable local; se compara contra la fila original al guardar.
@@ -202,7 +205,7 @@ function TiersManager() {
                   {numField(t('donate.level.ambassador.name'), r.ambassador_amount, (n) => setField(base.currency, base, { ambassador_amount: n }))}
                 </div>
                 <div className="mt-2 flex items-center gap-3">
-                  <Button size="sm" loading={busyCur === base.currency} onClick={() => void onSave(base)} leadingIcon={<Save className="h-4 w-4" />}>
+                  <Button size="sm" loading={busyCur === base.currency} onClick={() => void avisar(onSave(base))} leadingIcon={<Save className="h-4 w-4" />}>
                     {t('adm.tier.save')}
                   </Button>
                   <label className="flex items-center gap-1.5 text-xs text-slate-700">

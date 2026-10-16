@@ -209,6 +209,10 @@ export interface ForumFilters {
 
 export function useTribeForums(filters: ForumFilters) {
   const [forums, setForums] = useState<TribeForum[]>([]);
+  // TRES ESTADOS, NO DOS: cargando, vacio y FALLO. Antes el error se miraba y
+  // se descartaba en la misma expresion, asi que un fallo de la consulta se
+  // pintaba como «no hay nada». (Auditoria 15 oct 2026, hallazgo A-12.)
+  const [fallo, setFallo] = useState(false);
   const [loading, setLoading] = useState(true);
   const { query, country, language, theme, section } = filters;
 
@@ -219,6 +223,7 @@ export function useTribeForums(filters: ForumFilters) {
       p_section: section ?? null,
     });
     setForums(error ? [] : ((data as TribeForum[] | null) ?? []));
+        setFallo(!!error);
     setLoading(false);
   }, [query, country, language, theme, section]);
 
@@ -251,7 +256,7 @@ export function useTribeForums(filters: ForumFilters) {
     return !error;
   }, [load]);
 
-  return { forums, loading, reload: load, create, joinForum, closeForum };
+  return { forums, loading, fallo, reload: load, create, joinForum, closeForum };
 }
 
 /** Preferencias de push de foros de Tribu (activar + países de interés). */
@@ -289,6 +294,10 @@ export interface TribeMessage {
 
 export function useTribeMessages(forumId: string | null) {
   const [messages, setMessages] = useState<TribeMessage[]>([]);
+  // TRES ESTADOS, NO DOS: cargando, vacio y FALLO. Antes el error se miraba y
+  // se descartaba en la misma expresion, asi que un fallo de la consulta se
+  // pintaba como «no hay nada». (Auditoria 15 oct 2026, hallazgo A-12.)
+  const [fallo, setFallo] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const load = useCallback(async () => {
@@ -296,6 +305,7 @@ export function useTribeMessages(forumId: string | null) {
     setLoading(true);
     const { data, error } = await supabase.rpc('tribe_forum_messages', { p_forum: forumId });
     setMessages(error ? [] : ((data as TribeMessage[] | null) ?? []));
+        setFallo(!!error);
     setLoading(false);
   }, [forumId]);
 
@@ -311,7 +321,7 @@ export function useTribeMessages(forumId: string | null) {
     return !error;
   }, [forumId, load]);
 
-  return { messages, loading, reload: load, send };
+  return { messages, loading, fallo, reload: load, send };
 }
 
 export interface TribeInvite {
@@ -324,12 +334,17 @@ export interface TribeInvite {
 
 export function useTribeInvites() {
   const [invites, setInvites] = useState<TribeInvite[]>([]);
+  // TRES ESTADOS, NO DOS: cargando, vacio y FALLO. Antes el error se miraba y
+  // se descartaba en la misma expresion, asi que un fallo de la consulta se
+  // pintaba como «no hay nada». (Auditoria 15 oct 2026, hallazgo A-12.)
+  const [fallo, setFallo] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const load = useCallback(async () => {
     setLoading(true);
     const { data, error } = await supabase.rpc('tribe_my_invites');
     setInvites(error ? [] : ((data as TribeInvite[] | null) ?? []));
+        setFallo(!!error);
     setLoading(false);
   }, []);
 
@@ -346,5 +361,5 @@ export function useTribeInvites() {
     return !error;
   }, [load]);
 
-  return { invites, loading, reload: load, invite, respond };
+  return { invites, loading, fallo, reload: load, invite, respond };
 }

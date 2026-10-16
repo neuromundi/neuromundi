@@ -80,7 +80,9 @@
     "edit": "Bearbeiten",
     "errorGeneric": "Etwas ist schiefgelaufen. Bitte versuche es erneut.",
     "refresh": "Aktualisieren",
-    "remove": "Entfernen"
+    "remove": "Entfernen",
+    "loadFailed": "Konnte nicht geladen werden. Das heißt nicht, dass nichts da ist – bitte erneut versuchen.",
+    "retry": "Erneut versuchen"
   },
   "nav": {
     "directory": "Verzeichnis",
@@ -3866,7 +3868,8 @@
       "saveCaptions": "Texte speichern",
       "replaceImage": "Bild ersetzen",
       "saved": "Gespeichert",
-      "needImage": "Wähle ein Bild"
+      "needImage": "Wähle ein Bild",
+      "added": "Szene hinzugefügt"
     },
     "members": {
       "hint": "One row per account. Suspend, reactivate, waive the fee and extend validity here. Permanent deletion is deliberately absent: it destroys data that cannot be recovered and follows a separate path.",
@@ -4501,7 +4504,9 @@
     "servicesQualityDesc": "Kliniken und Dienstleister mit hervorragenden Bewertungen.",
     "productsQualityDesc": "Geschäfte mit hervorragend bewerteten Produkten.",
     "inclusiveSchoolDesc": "Schulen mit Inklusionsprogramm.",
-    "inclusiveCompanyDesc": "Unternehmen mit beruflicher Inklusion."
+    "inclusiveCompanyDesc": "Unternehmen mit beruflicher Inklusion.",
+    "desc": "Ihr Mitgliedsabzeichen, bereit zum Download für Website oder Profile.",
+    "download": "Abzeichen herunterladen"
   },
   "esp": {
     "miss": {
@@ -5403,7 +5408,9 @@
     "founder": "Gründungsmitglied",
     "neuro": "Neuro-affirmatives Profil",
     "lookupBtn": "Prüfen",
-    "ally": "Offizieller Neuromundi-Partner"
+    "ally": "Offizieller Neuromundi-Partner",
+    "noSePudo": "Derzeit nicht überprüfbar",
+    "noSePudoAyuda": "Das heißt NICHT, dass das Abzeichen ungültig ist. Bitte gleich erneut versuchen."
   },
   "registry": {
     "title": "Ein vergebenes Abzeichen prüfen",

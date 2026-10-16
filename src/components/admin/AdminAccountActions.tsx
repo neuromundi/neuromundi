@@ -8,7 +8,7 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AlertTriangle, PauseCircle, Trash2, RotateCcw, RefreshCw } from 'lucide-react';
-import { Button, SkeletonCard } from '@/components/ui';
+import { Button, SkeletonCard, AvisoDeFallo } from '@/components/ui';
 import { useAdminAccountActions, type AccountAction } from '@/hooks/useAdminAccountActions';
 import { formatDate } from '@/lib/utils';
 
@@ -45,7 +45,7 @@ function idLabel(a: AccountAction): string {
 
 export function AdminAccountActions() {
   const { t } = useTranslation();
-  const { items, loading, reload } = useAdminAccountActions();
+  const { items, loading, fallo, reload } = useAdminAccountActions();
 
   const stats = useMemo(() => {
     const suspends = items.filter((a) => a.action === 'suspend').length;
@@ -63,6 +63,10 @@ export function AdminAccountActions() {
   }, [items]);
 
   if (loading) return <div className="space-y-3"><SkeletonCard rows={0} /><SkeletonCard rows={0} /></div>;
+  // Un fallo de la consulta NO es una lista vacía: sobre listas vacías se
+  // toman decisiones. (Auditoría 15 oct 2026, hallazgo A-12.)
+  if (fallo) return <AvisoDeFallo onRetry={() => void reload()} />;
+
 
   return (
     <div className="space-y-5">

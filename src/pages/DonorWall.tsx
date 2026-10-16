@@ -12,7 +12,7 @@ import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Heart, Star, Award, Building2, User } from 'lucide-react';
-import { Button, SkeletonCard, EmptyState } from '@/components/ui';
+import { Button, SkeletonCard, EmptyState, AvisoDeFallo } from '@/components/ui';
 import { useDonorWall, type WallEntry } from '@/hooks/useDonorWall';
 import { cn } from '@/lib/utils';
 
@@ -56,7 +56,7 @@ function Card({ e, featured }: { e: WallEntry; featured: boolean }) {
 export function DonorWall() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { entries, loading } = useDonorWall();
+  const { entries, loading, fallo } = useDonorWall();
 
   const { featured, rest } = useMemo(
     () => ({
@@ -78,6 +78,8 @@ export function DonorWall() {
 
       {loading ? (
         <div className="mt-8"><SkeletonCard rows={4} /></div>
+      ) : fallo ? (
+        <div className="mt-8"><AvisoDeFallo /></div>
       ) : entries.length === 0 ? (
         <div className="mt-8">
           <EmptyState icon={<Heart className="h-6 w-6" />} title={t('wall.emptyTitle')} description={t('wall.empty')} />

@@ -4,6 +4,7 @@
  * parcial: escribir / evaluar / reseñar).
  */
 import { useCallback, useEffect, useState } from 'react';
+import { useAvisarResultado } from '@/hooks/useAvisarResultado';
 import { useTranslation } from 'react-i18next';
 import { Users, Check, X, RotateCcw, ShieldCheck, UserCog, Search, MessagesSquare, Trash2, ArrowLeft, Megaphone, Lock } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
@@ -18,6 +19,8 @@ interface MemberLookup { user_id: string; name: string; status: string; can_writ
 
 function ForumsArea() {
   const { t } = useTranslation();
+  // Nunca se tira el resultado de una escritura. (Hallazgo A-13.)
+  const avisar = useAvisarResultado();
   const toast = useToast();
   const [tab, setTab] = useState<(typeof STATUS_TABS)[number]>('pending');
   const [rows, setRows] = useState<AdminForum[]>([]);
@@ -39,11 +42,11 @@ function ForumsArea() {
             <p className="flex flex-wrap gap-x-2 text-xs text-muted">{f.theme && <span>{f.theme}</span>}{f.language && <span>{f.language}</span>}{f.country && <span>{f.country}</span>}<span>· {f.creator_name}</span></p>
             {f.description && <p className="mt-1 text-sm text-slate-600">{f.description}</p>}
             <div className="mt-2 flex flex-wrap gap-2">
-              {f.status !== 'approved' && <button type="button" onClick={() => void setStatus(f.id, 'approved')} className="inline-flex items-center gap-1 rounded-lg bg-brand-600 px-2.5 py-1.5 text-sm font-medium text-white hover:bg-brand-700"><Check className="h-4 w-4" /> {t('adm.tribe.approve')}</button>}
-              {f.status !== 'rejected' && f.status !== 'closed' && <button type="button" onClick={() => void setStatus(f.id, 'rejected')} className="inline-flex items-center gap-1 rounded-lg border border-slate-200 px-2.5 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50"><X className="h-4 w-4" /> {t('adm.tribe.reject')}</button>}
-              {f.status !== 'pending' && <button type="button" onClick={() => void setStatus(f.id, 'pending')} className="inline-flex items-center gap-1 rounded-lg border border-slate-200 px-2.5 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50"><RotateCcw className="h-4 w-4" /> {t('adm.tribe.reset')}</button>}
-              {f.status === 'approved' && <button type="button" onClick={() => void callMods(f.id)} className="inline-flex items-center gap-1 rounded-lg border border-brand-200 px-2.5 py-1.5 text-sm font-medium text-brand-700 hover:bg-brand-50"><Megaphone className="h-4 w-4" /> {t('adm.tribe.callMods')}</button>}
-              {f.status === 'approved' && <button type="button" onClick={() => void setStatus(f.id, 'closed')} className="inline-flex items-center gap-1 rounded-lg border border-red-200 px-2.5 py-1.5 text-sm font-medium text-evs-1 hover:bg-red-50"><Lock className="h-4 w-4" /> {t('adm.tribe.closeForum')}</button>}
+              {f.status !== 'approved' && <button type="button" onClick={() => void avisar(setStatus(f.id, 'approved'))} className="inline-flex items-center gap-1 rounded-lg bg-brand-600 px-2.5 py-1.5 text-sm font-medium text-white hover:bg-brand-700"><Check className="h-4 w-4" /> {t('adm.tribe.approve')}</button>}
+              {f.status !== 'rejected' && f.status !== 'closed' && <button type="button" onClick={() => void avisar(setStatus(f.id, 'rejected'))} className="inline-flex items-center gap-1 rounded-lg border border-slate-200 px-2.5 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50"><X className="h-4 w-4" /> {t('adm.tribe.reject')}</button>}
+              {f.status !== 'pending' && <button type="button" onClick={() => void avisar(setStatus(f.id, 'pending'))} className="inline-flex items-center gap-1 rounded-lg border border-slate-200 px-2.5 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50"><RotateCcw className="h-4 w-4" /> {t('adm.tribe.reset')}</button>}
+              {f.status === 'approved' && <button type="button" onClick={() => void avisar(callMods(f.id))} className="inline-flex items-center gap-1 rounded-lg border border-brand-200 px-2.5 py-1.5 text-sm font-medium text-brand-700 hover:bg-brand-50"><Megaphone className="h-4 w-4" /> {t('adm.tribe.callMods')}</button>}
+              {f.status === 'approved' && <button type="button" onClick={() => void avisar(setStatus(f.id, 'closed'))} className="inline-flex items-center gap-1 rounded-lg border border-red-200 px-2.5 py-1.5 text-sm font-medium text-evs-1 hover:bg-red-50"><Lock className="h-4 w-4" /> {t('adm.tribe.closeForum')}</button>}
             </div>
           </div>
         ))}</div>
@@ -56,6 +59,8 @@ function ForumsArea() {
 interface ForumModApp { id: string; forum_title: string; user_id: string; name: string; member_no: number | null; status: string }
 function ForumModsArea() {
   const { t } = useTranslation();
+  // Nunca se tira el resultado de una escritura. (Hallazgo A-13.)
+  const avisar = useAvisarResultado();
   const toast = useToast();
   const [tab, setTab] = useState<(typeof STATUS_TABS)[number]>('pending');
   const [rows, setRows] = useState<ForumModApp[]>([]);
@@ -75,8 +80,8 @@ function ForumModsArea() {
             <p className="font-semibold text-slate-900">{m.name} {m.member_no != null && <span className="font-mono text-xs text-brand-700">NM-{String(m.member_no).padStart(6, '0')}</span>}</p>
             <p className="text-xs text-muted">{t('adm.tribe.forumLabel')}: {m.forum_title}</p>
             <div className="mt-2 flex gap-2">
-              {m.status !== 'approved' && <button type="button" onClick={() => void setStatus(m.id, 'approved')} className="inline-flex items-center gap-1 rounded-lg bg-brand-600 px-2.5 py-1.5 text-sm font-medium text-white hover:bg-brand-700"><Check className="h-4 w-4" /> {t('adm.tribe.approve')}</button>}
-              {m.status !== 'rejected' && <button type="button" onClick={() => void setStatus(m.id, 'rejected')} className="inline-flex items-center gap-1 rounded-lg border border-slate-200 px-2.5 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50"><X className="h-4 w-4" /> {t('adm.tribe.reject')}</button>}
+              {m.status !== 'approved' && <button type="button" onClick={() => void avisar(setStatus(m.id, 'approved'))} className="inline-flex items-center gap-1 rounded-lg bg-brand-600 px-2.5 py-1.5 text-sm font-medium text-white hover:bg-brand-700"><Check className="h-4 w-4" /> {t('adm.tribe.approve')}</button>}
+              {m.status !== 'rejected' && <button type="button" onClick={() => void avisar(setStatus(m.id, 'rejected'))} className="inline-flex items-center gap-1 rounded-lg border border-slate-200 px-2.5 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50"><X className="h-4 w-4" /> {t('adm.tribe.reject')}</button>}
             </div>
           </div>
         ))}</div>
@@ -87,6 +92,8 @@ function ForumModsArea() {
 
 function ModeratorsArea() {
   const { t } = useTranslation();
+  // Nunca se tira el resultado de una escritura. (Hallazgo A-13.)
+  const avisar = useAvisarResultado();
   const toast = useToast();
   const [tab, setTab] = useState<(typeof STATUS_TABS)[number]>('pending');
   const [rows, setRows] = useState<AdminMod[]>([]);
@@ -106,8 +113,8 @@ function ModeratorsArea() {
             <p className="font-semibold text-slate-900">{m.name} {m.member_no != null && <span className="font-mono text-xs text-brand-700">NM-{String(m.member_no).padStart(6, '0')}</span>}</p>
             {m.justification && <p className="mt-1 text-sm text-slate-600">{m.justification}</p>}
             <div className="mt-2 flex gap-2">
-              {m.status !== 'approved' && <button type="button" onClick={() => void setStatus(m.user_id, 'approved')} className="inline-flex items-center gap-1 rounded-lg bg-brand-600 px-2.5 py-1.5 text-sm font-medium text-white hover:bg-brand-700"><Check className="h-4 w-4" /> {t('adm.tribe.approve')}</button>}
-              {m.status !== 'rejected' && <button type="button" onClick={() => void setStatus(m.user_id, 'rejected')} className="inline-flex items-center gap-1 rounded-lg border border-slate-200 px-2.5 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50"><X className="h-4 w-4" /> {t('adm.tribe.reject')}</button>}
+              {m.status !== 'approved' && <button type="button" onClick={() => void avisar(setStatus(m.user_id, 'approved'))} className="inline-flex items-center gap-1 rounded-lg bg-brand-600 px-2.5 py-1.5 text-sm font-medium text-white hover:bg-brand-700"><Check className="h-4 w-4" /> {t('adm.tribe.approve')}</button>}
+              {m.status !== 'rejected' && <button type="button" onClick={() => void avisar(setStatus(m.user_id, 'rejected'))} className="inline-flex items-center gap-1 rounded-lg border border-slate-200 px-2.5 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-50"><X className="h-4 w-4" /> {t('adm.tribe.reject')}</button>}
             </div>
           </div>
         ))}</div>
@@ -118,6 +125,8 @@ function ModeratorsArea() {
 
 function MembersArea() {
   const { t } = useTranslation();
+  // Nunca se tira el resultado de una escritura. (Hallazgo A-13.)
+  const avisar = useAvisarResultado();
   const toast = useToast();
   const [folio, setFolio] = useState('');
   const [member, setMember] = useState<MemberLookup | null>(null);
@@ -148,7 +157,7 @@ function MembersArea() {
           <Search className="pointer-events-none absolute left-3 rtl:left-auto rtl:right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" aria-hidden="true" />
           <input value={folio} onChange={(e) => setFolio(e.target.value)} placeholder="NM-000123" className="w-full rounded-xl border border-slate-200 py-2.5 pl-9 pr-3 rtl:pl-3 rtl:pr-9 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500" />
         </div>
-        <Button size="sm" onClick={() => void lookup()}>{t('adm.tribe.lookup')}</Button>
+        <Button size="sm" onClick={() => void avisar(lookup())}>{t('adm.tribe.lookup')}</Button>
       </div>
       {notFound && <p className="text-sm text-muted">{t('adm.tribe.memberNotFound')}</p>}
       {member && (
@@ -181,6 +190,8 @@ interface AdminMsg { id: string; author_id: string; author_name: string; body: s
 // Moderación de mensajes: elige un foro aprobado y revisa/elimina sus mensajes.
 function MessagesArea() {
   const { t } = useTranslation();
+  // Nunca se tira el resultado de una escritura. (Hallazgo A-13.)
+  const avisar = useAvisarResultado();
   const toast = useToast();
   const [forums, setForums] = useState<AdminForum[]>([]);
   const [loadingForums, setLoadingForums] = useState(true);
@@ -226,7 +237,7 @@ function MessagesArea() {
                 <p className="text-xs font-semibold text-slate-700">{m.author_name}</p>
                 <p className="mt-0.5 whitespace-pre-wrap text-sm text-slate-800">{m.body}</p>
               </div>
-              <button type="button" onClick={() => void del(m.id)} aria-label={t('adm.tribe.msgDelete')} className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-muted hover:bg-red-50 hover:text-evs-1"><Trash2 className="h-4 w-4" /></button>
+              <button type="button" onClick={() => void avisar(del(m.id))} aria-label={t('adm.tribe.msgDelete')} className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-muted hover:bg-red-50 hover:text-evs-1"><Trash2 className="h-4 w-4" /></button>
             </div>
           ))}</div>
         )}

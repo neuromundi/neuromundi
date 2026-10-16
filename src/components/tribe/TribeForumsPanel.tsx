@@ -12,14 +12,14 @@ import { Users, Bell, BellOff, Globe } from 'lucide-react';
 import { useTribeForums, useTribeForumPrefs } from '@/hooks/useTribe';
 import { useCountryLabel } from '@/lib/countryLabel';
 import { COUNTRIES } from '@/data/countries';
-import { Button, useToast } from '@/components/ui';
+import { Button, useToast, AvisoDeFallo } from '@/components/ui';
 
 export function TribeForumsPanel() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const toast = useToast();
   const countryLabel = useCountryLabel();
-  const { forums, loading } = useTribeForums({});
+  const { forums, loading, fallo } = useTribeForums({});
   const { prefs, save } = useTribeForumPrefs();
   const [showCountries, setShowCountries] = useState(false);
 
@@ -66,6 +66,8 @@ export function TribeForumsPanel() {
         <h3 className="mb-2 text-sm font-semibold text-slate-800">{t('tribe.currentForums')}</h3>
         {loading ? (
           <p className="text-sm text-muted">{t('tribe.loading')}</p>
+        ) : fallo ? (
+          <AvisoDeFallo />
         ) : forums.length === 0 ? (
           <p className="text-sm text-muted">{t('tribe.noForums')}</p>
         ) : (

@@ -80,7 +80,9 @@
     "edit": "Editar",
     "errorGeneric": "Algo deu errado. Tente de novo.",
     "refresh": "Atualizar",
-    "remove": "Remover"
+    "remove": "Remover",
+    "loadFailed": "Não foi possível carregar. Isso não significa que não haja nada: tente de novo.",
+    "retry": "Tentar de novo"
   },
   "nav": {
     "directory": "Diretório",
@@ -3866,7 +3868,8 @@
       "saveCaptions": "Salvar frases",
       "replaceImage": "Substituir imagem",
       "saved": "Salvo",
-      "needImage": "Selecione uma imagem"
+      "needImage": "Selecione uma imagem",
+      "added": "Cena adicionada"
     },
     "members": {
       "hint": "One row per account. Suspend, reactivate, waive the fee and extend validity here. Permanent deletion is deliberately absent: it destroys data that cannot be recovered and follows a separate path.",
@@ -4501,7 +4504,9 @@
     "servicesQualityDesc": "Clínicas e prestadores de serviços com excelente avaliação.",
     "productsQualityDesc": "Comércios com produtos de excelente avaliação.",
     "inclusiveSchoolDesc": "Escolas com programa de inclusão.",
-    "inclusiveCompanyDesc": "Empresas com inclusão no trabalho."
+    "inclusiveCompanyDesc": "Empresas com inclusão no trabalho.",
+    "desc": "Seu selo de membro, pronto para baixar e colocar no seu site ou redes.",
+    "download": "Baixar selo"
   },
   "esp": {
     "miss": {
@@ -5403,7 +5408,9 @@
     "founder": "Membro Fundador",
     "neuro": "Perfil neuroafirmativo",
     "lookupBtn": "Verificar",
-    "ally": "Aliado oficial da Neuromundi"
+    "ally": "Aliado oficial da Neuromundi",
+    "noSePudo": "Não foi possível verificar agora",
+    "noSePudoAyuda": "Isso NÃO significa que o selo não exista. Tente novamente em instantes."
   },
   "registry": {
     "title": "Verifique um distintivo concedido",

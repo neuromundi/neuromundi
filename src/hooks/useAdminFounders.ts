@@ -26,12 +26,17 @@ export interface FounderWallPatch {
 
 export function useAdminFounders() {
   const [rows, setRows] = useState<AdminFounder[]>([]);
+  // TRES ESTADOS, NO DOS: cargando, vacio y FALLO. Antes el error se miraba y
+  // se descartaba en la misma expresion, asi que un fallo de la consulta se
+  // pintaba como «no hay nada». (Auditoria 15 oct 2026, hallazgo A-12.)
+  const [fallo, setFallo] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const load = useCallback(async () => {
     setLoading(true);
     const { data, error } = await supabase.rpc('admin_founders', { p_country: null });
     setRows(error ? [] : ((data as AdminFounder[] | null) ?? []));
+        setFallo(!!error);
     setLoading(false);
   }, []);
 
@@ -63,5 +68,5 @@ export function useAdminFounders() {
     return true;
   }, []);
 
-  return { rows, loading, reload: load, setWall };
+  return { rows, loading, fallo, reload: load, setWall };
 }

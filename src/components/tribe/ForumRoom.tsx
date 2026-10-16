@@ -6,7 +6,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Send, UserPlus, ArrowLeft, Sparkles, ShieldCheck, Lock } from 'lucide-react';
-import { Button, useToast } from '@/components/ui';
+import { Button, useToast, AvisoDeFallo } from '@/components/ui';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/lib/supabase';
 import { useTribeMessages, useTribeInvites, useTribeModerator, type TribeForum } from '@/hooks/useTribe';
@@ -17,7 +17,7 @@ export function ForumRoom({ forum, canWrite, onBack, onCloseForum }: { forum: Tr
   const { t } = useTranslation();
   const toast = useToast();
   const { userId, isAdmin, isAdvisor } = useAuth();
-  const { messages, loading, send } = useTribeMessages(forum.id);
+  const { messages, loading, fallo, send } = useTribeMessages(forum.id);
   const { invite } = useTribeInvites();
   const { mod } = useTribeModerator();
   const [text, setText] = useState('');
@@ -104,6 +104,8 @@ export function ForumRoom({ forum, canWrite, onBack, onCloseForum }: { forum: Tr
       <div className="flex-1 space-y-3 overflow-y-auto p-4">
         {loading ? (
           <p className="text-center text-sm text-muted">{t('tribe.loading')}</p>
+        ) : fallo ? (
+          <AvisoDeFallo />
         ) : messages.length === 0 ? (
           <p className="py-8 text-center text-sm text-muted">{t('tribe.noMessages')}</p>
         ) : (

@@ -28,6 +28,10 @@ export interface FounderCountry {
 /** Fundadores publicados. `country` (nombre canónico ES) filtra por país; null = todos. */
 export function useFoundersWall(country?: string | null) {
   const [entries, setEntries] = useState<FounderEntry[]>([]);
+  // TRES ESTADOS, NO DOS: cargando, vacio y FALLO. Antes el error se miraba y
+  // se descartaba en la misma expresion, asi que un fallo de la consulta se
+  // pintaba como «no hay nada». (Auditoria 15 oct 2026, hallazgo A-12.)
+  const [fallo, setFallo] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -37,18 +41,23 @@ export function useFoundersWall(country?: string | null) {
       const { data, error } = await supabase.rpc('founders_wall', { p_country: country ?? null });
       if (alive) {
         setEntries(error ? [] : ((data as FounderEntry[] | null) ?? []));
+        setFallo(!!error);
         setLoading(false);
       }
     })();
     return () => { alive = false; };
   }, [country]);
 
-  return { entries, loading };
+  return { entries, loading, fallo };
 }
 
 /** Países con al menos un fundador publicado, para alimentar el selector. */
 export function useFoundersWallCountries() {
   const [countries, setCountries] = useState<FounderCountry[]>([]);
+  // TRES ESTADOS, NO DOS: cargando, vacio y FALLO. Antes el error se miraba y
+  // se descartaba en la misma expresion, asi que un fallo de la consulta se
+  // pintaba como «no hay nada». (Auditoria 15 oct 2026, hallazgo A-12.)
+  const [fallo, setFallo] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -57,11 +66,12 @@ export function useFoundersWallCountries() {
       const { data, error } = await supabase.rpc('founders_wall_countries');
       if (alive) {
         setCountries(error ? [] : ((data as FounderCountry[] | null) ?? []));
+        setFallo(!!error);
         setLoading(false);
       }
     })();
     return () => { alive = false; };
   }, []);
 
-  return { countries, loading };
+  return { countries, loading, fallo };
 }

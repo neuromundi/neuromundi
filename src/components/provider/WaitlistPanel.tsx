@@ -4,6 +4,7 @@
  * automático cuando una cita se rechaza o cancela lo dispara la base de datos.
  */
 import { useState } from 'react';
+import { useAvisarResultado } from '@/hooks/useAvisarResultado';
 import { useTranslation } from 'react-i18next';
 import { Users, UserPlus, BellRing, Check, X } from 'lucide-react';
 import { Button, useToast, SkeletonCard, EmptyState, HowTo } from '@/components/ui';
@@ -15,6 +16,8 @@ const inputCls =
 
 export function WaitlistPanel() {
   const { t } = useTranslation();
+  // Nunca se tira el resultado de una escritura. (Hallazgo A-13.)
+  const avisar = useAvisarResultado();
   const toast = useToast();
   const { rows, waiting, loading, addByFolio, setStatus, notifySlot } = useWaitlist();
   const [folio, setFolio] = useState('');
@@ -91,10 +94,10 @@ export function WaitlistPanel() {
               </div>
               {w.status === 'waiting' && (
                 <div className="flex shrink-0 gap-1">
-                  <Button size="sm" variant="secondary" onClick={() => void setStatus(w.id, 'assigned')} leadingIcon={<Check className="h-4 w-4" />}>
+                  <Button size="sm" variant="secondary" onClick={() => void avisar(setStatus(w.id, 'assigned'))} leadingIcon={<Check className="h-4 w-4" />}>
                     {t('wait.assign')}
                   </Button>
-                  <Button size="sm" variant="ghost" onClick={() => void setStatus(w.id, 'cancelled')} leadingIcon={<X className="h-4 w-4" />}>
+                  <Button size="sm" variant="ghost" onClick={() => void avisar(setStatus(w.id, 'cancelled'))} leadingIcon={<X className="h-4 w-4" />}>
                     {t('wait.remove')}
                   </Button>
                 </div>

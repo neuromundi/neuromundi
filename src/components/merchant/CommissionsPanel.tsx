@@ -14,7 +14,7 @@
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { HandCoins, Download, Check, AlertTriangle, Wallet } from 'lucide-react';
-import { Button, SkeletonCard, EmptyState, useToast } from '@/components/ui';
+import { Button, SkeletonCard, EmptyState, useToast, AvisoDeFallo } from '@/components/ui';
 import { useCommissions, type CommissionSide } from '@/hooks/useCommissions';
 import {
   summarize,
@@ -71,7 +71,7 @@ function RowLine({ r }: { r: CommissionRow }) {
 function Side({ side }: { side: CommissionSide }) {
   const { t, i18n } = useTranslation();
   const toast = useToast();
-  const { rows, loading, markPaid } = useCommissions(side);
+  const { rows, loading, fallo, reload, markPaid } = useCommissions(side);
   const [open, setOpen] = useState<string | null>(null);
   const [note, setNote] = useState('');
   const [busy, setBusy] = useState(false);
@@ -80,6 +80,10 @@ function Side({ side }: { side: CommissionSide }) {
   const groups = useMemo(() => groupByCounterpart(rows), [rows]);
 
   if (loading) return <SkeletonCard rows={3} />;
+  // Un fallo de la consulta NO es una lista vacía: sobre listas vacías se
+  // toman decisiones. (Auditoría 15 oct 2026, hallazgo A-12.)
+  if (fallo) return <AvisoDeFallo onRetry={() => void reload()} />;
+
 
   if (rows.length === 0) {
     return (

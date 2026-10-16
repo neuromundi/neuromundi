@@ -90,6 +90,15 @@ interface AuthState {
   session: Session | null;
   user: User | null;
   profile: Profile | null;
+  /**
+   * NO ES LO MISMO «no hay perfil» que «no pude leer el perfil».
+   * Si la lectura fallaba, el usuario quedaba autenticado con profile = null y
+   * la aplicación le quitaba el panel de administración o de prestador y su
+   * nombre, sin un solo mensaje: parecía pérdida de permisos. Ahora el fallo se
+   * guarda aquí para que la interfaz pueda decirlo y reintentar.
+   * (Auditoría del 15 oct 2026, hallazgo A-14.)
+   */
+  profileError: string | null;
   /** Inicializa el listener de sesión. Llamar una sola vez en el arranque. */
   initialize: () => () => void;
   signIn: (email: string, password: string) => Promise<Result<User>>;
@@ -123,7 +132,7 @@ interface AuthState {
   setProfile: (profile: Profile) => void;
 }
 
-async function fetchProfile(userId: string): Promise<Profile | null> {
+async function fetchProfile(userId: string): Promise<{ profile: Profile | null; error: string | null }> {
   const { data, error } = await supabase
     .from('profiles')
     .select('*')
@@ -131,9 +140,9 @@ async function fetchProfile(userId: string): Promise<Profile | null> {
     .single();
   if (error) {
     logger.error('No se pudo cargar el perfil:', error.message);
-    return null;
+    return { profile: null, error: error.message };
   }
-  return data;
+  return { profile: data, error: null };
 }
 
 export const useAuthStore = create<AuthState>((set, get) => ({
@@ -141,6 +150,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   session: null,
   user: null,
   profile: null,
+  profileError: null,
 
   initialize: () => {
     // Estado inicial desde sesión persistida. Si getSession o fetchProfile
@@ -151,23 +161,23 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       .then(async ({ data }) => {
         const session = data.session;
         if (session?.user) {
-          const profile = await fetchProfile(session.user.id);
-          set({ status: 'authenticated', session, user: session.user, profile });
+          const { profile, error } = await fetchProfile(session.user.id);
+          set({ status: 'authenticated', session, user: session.user, profile, profileError: error });
         } else {
-          set({ status: 'unauthenticated', session: null, user: null, profile: null });
+          set({ status: 'unauthenticated', session: null, user: null, profile: null, profileError: null });
         }
       })
       .catch(() => {
-        set({ status: 'unauthenticated', session: null, user: null, profile: null });
+        set({ status: 'unauthenticated', session: null, user: null, profile: null, profileError: null });
       });
 
     // Suscripción a cambios de sesión.
     const { data: sub } = supabase.auth.onAuthStateChange(async (_event, session) => {
       if (session?.user) {
-        const profile = await fetchProfile(session.user.id);
-        set({ status: 'authenticated', session, user: session.user, profile });
+        const { profile, error } = await fetchProfile(session.user.id);
+        set({ status: 'authenticated', session, user: session.user, profile, profileError: error });
       } else {
-        set({ status: 'unauthenticated', session: null, user: null, profile: null });
+        set({ status: 'unauthenticated', session: null, user: null, profile: null, profileError: null });
       }
     });
 
@@ -316,7 +326,16 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         }));
       if (rows.length > 0) {
         const { error: locErr } = await supabase.from('provider_locations').insert(rows);
-        if (locErr) logger.error('No se pudieron guardar las sucursales', locErr);
+        // ANTES SE PERDIAN EN SILENCIO. Esto solo escribia en la consola del
+        // navegador, la funcion seguia y la aplicacion confirmaba el alta: el
+        // prestador terminaba creyendo que habia dado de alta sus sucursales y
+        // no estaban, asi que no aparecia en el mapa ni en las busquedas por
+        // municipio, y nunca se le dijo nada. (Hallazgo A-14.)
+        if (locErr) {
+          logger.error('No se pudieron guardar las sucursales', locErr);
+          await get().refreshProfile();
+          return { ok: false, error: toMessage(locErr, 'El perfil se guardó, pero no pudimos guardar sus sucursales. Agréguelas desde Mi Perfil.') };
+        }
       }
     }
 
@@ -480,8 +499,13 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   refreshProfile: async () => {
     const user = get().user;
     if (!user) return;
-    const profile = await fetchProfile(user.id);
-    if (profile) set({ profile });
+    // Si la relectura falla, el almacen se quedaba con los valores ANTERIORES y
+    // la pantalla seguia mostrando lo viejo despues de un guardado correcto: la
+    // persona concluia que no se habia guardado y volvia a guardar. Ahora el
+    // fallo queda registrado. (Hallazgo A-14.)
+    const { profile, error } = await fetchProfile(user.id);
+    if (profile) set({ profile, profileError: null });
+    else set({ profileError: error });
   },
 
   setProfile: (profile) => set({ profile }),

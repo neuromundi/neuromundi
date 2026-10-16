@@ -5,6 +5,7 @@
  * panel (MemberBadgesCard).
  */
 import { useMemo, useRef, useState } from 'react';
+import { useAvisarResultado } from '@/hooks/useAvisarResultado';
 import { useTranslation } from 'react-i18next';
 import { Award, Upload, Eye, EyeOff, Trash2 } from 'lucide-react';
 import { Button, SkeletonCard, EmptyState, useToast, useConfirm } from '@/components/ui';
@@ -20,6 +21,8 @@ const inputCls = 'w-full rounded-lg border border-slate-200 px-2.5 py-2 text-sm 
 
 function UploadForm({ onUpload }: { onUpload: ReturnType<typeof useAdminMemberBadges>['upload'] }) {
   const { t } = useTranslation();
+  // Nunca se tira el resultado de una escritura. (Hallazgo A-13.)
+  const avisar = useAvisarResultado();
   const toast = useToast();
   const fileRef = useRef<HTMLInputElement>(null);
   const [memberType, setMemberType] = useState<string>('company');
@@ -66,7 +69,7 @@ function UploadForm({ onUpload }: { onUpload: ReturnType<typeof useAdminMemberBa
           <input ref={fileRef} type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" className={inputCls} onChange={(e) => setFile(e.target.files?.[0] ?? null)} />
         </div>
       </div>
-      <Button className="mt-3" size="sm" loading={busy} onClick={() => void submit()} leadingIcon={<Upload className="h-4 w-4" />}>{t('adm.badges.upload')}</Button>
+      <Button className="mt-3" size="sm" loading={busy} onClick={() => void avisar(submit())} leadingIcon={<Upload className="h-4 w-4" />}>{t('adm.badges.upload')}</Button>
     </div>
   );
 }

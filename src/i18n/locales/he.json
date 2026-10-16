@@ -80,7 +80,9 @@
     "edit": "ערוך",
     "errorGeneric": "משהו השתבש. נסה שוב.",
     "refresh": "רענן",
-    "remove": "הסרה"
+    "remove": "הסרה",
+    "loadFailed": "הטעינה נכשלה. אין זה אומר שאין כאן דבר — נסה שוב.",
+    "retry": "נסה שוב"
   },
   "followUs": {
     "title": "עקבו אחרינו",
@@ -3866,7 +3868,8 @@
       "saveCaptions": "שמור משפטים",
       "replaceImage": "החלף תמונה",
       "saved": "נשמר",
-      "needImage": "בחר תמונה"
+      "needImage": "בחר תמונה",
+      "added": "הסצנה נוספה"
     },
     "members": {
       "hint": "One row per account. Suspend, reactivate, waive the fee and extend validity here. Permanent deletion is deliberately absent: it destroys data that cannot be recovered and follows a separate path.",
@@ -4501,7 +4504,9 @@
     "servicesQualityDesc": "מרפאות ונותני שירות בדירוג מצוין.",
     "productsQualityDesc": "חנויות עם מוצרים בדירוג מצוין.",
     "inclusiveSchoolDesc": "בתי ספר עם תוכנית הכלה.",
-    "inclusiveCompanyDesc": "חברות עם הכלה תעסוקתית."
+    "inclusiveCompanyDesc": "חברות עם הכלה תעסוקתית.",
+    "desc": "תג החברות שלך, מוכן להורדה לאתר או לרשתות.",
+    "download": "הורדת התג"
   },
   "esp": {
     "miss": {
@@ -5403,7 +5408,9 @@
     "founder": "חבר מייסד",
     "neuro": "פרופיל נוירו-מאשר",
     "lookupBtn": "אמת",
-    "ally": "בעל ברית רשמי של Neuromundi"
+    "ally": "בעל ברית רשמי של Neuromundi",
+    "noSePudo": "לא ניתן לאמת כעת",
+    "noSePudoAyuda": "אין זה אומר שהתג אינו קיים. נסה שוב בעוד רגע."
   },
   "registry": {
     "title": "אימות תג שהוענק",

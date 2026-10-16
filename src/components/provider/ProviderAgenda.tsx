@@ -6,6 +6,7 @@
  *    paciente en espera; el paciente solo se entera DESPUÉS de su confirmación.
  */
 import { useEffect, useMemo, useState } from 'react';
+import { useAvisarResultado } from '@/hooks/useAvisarResultado';
 import { useTranslation } from 'react-i18next';
 import { Video, CalendarClock, Plus, Trash2, Palmtree } from 'lucide-react';
 import { Button, SkeletonCard, Modal, useToast, useConfirm, HowTo} from '@/components/ui';
@@ -30,6 +31,8 @@ const newRange = (): RangeDraft => ({ id: crypto.randomUUID(), start: '09:00', e
 
 export function ProviderAgenda() {
   const { t } = useTranslation();
+  // Nunca se tira el resultado de una escritura. (Hallazgo A-13.)
+  const avisar = useAvisarResultado();
   const toast = useToast();
   const confirmDialog = useConfirm();
   const { availability, appointments, waitlist, timeOff, loading, saveAvailability, addTimeOff, removeTimeOff, cancelAppointment, setVideoLink, assignFromWaitlist } =
@@ -180,7 +183,7 @@ export function ProviderAgenda() {
             </>
           )}
           <input className={`${input} min-w-[10rem] flex-1`} placeholder={t('agenda.off.reason')} value={offReason} onChange={(e) => setOffReason(e.target.value)} />
-          <Button size="sm" onClick={() => void onAddTimeOff()} leadingIcon={<Plus className="h-4 w-4" />}>{t('agenda.off.add')}</Button>
+          <Button size="sm" onClick={() => void avisar(onAddTimeOff())} leadingIcon={<Plus className="h-4 w-4" />}>{t('agenda.off.add')}</Button>
         </div>
 
         {timeOff.length > 0 && (
@@ -195,7 +198,7 @@ export function ProviderAgenda() {
                   </span>
                   {o.reason && <span className="ml-2 text-muted">{o.reason}</span>}
                 </span>
-                <button type="button" aria-label={t('common.delete')} className="text-evs-1 hover:opacity-80" onClick={() => void removeTimeOff(o.id)}>
+                <button type="button" aria-label={t('common.delete')} className="text-evs-1 hover:opacity-80" onClick={() => void avisar(removeTimeOff(o.id))}>
                   <Trash2 className="h-4 w-4" />
                 </button>
               </li>

@@ -21,12 +21,17 @@ const RPC: Record<CommissionSide, 'my_commissions_earned' | 'my_commissions_owed
 
 export function useCommissions(side: CommissionSide) {
   const [rows, setRows] = useState<CommissionRow[]>([]);
+  // TRES ESTADOS, NO DOS: cargando, vacio y FALLO. Antes el error se miraba y
+  // se descartaba en la misma expresion, asi que un fallo de la consulta se
+  // pintaba como «no hay nada». (Auditoria 15 oct 2026, hallazgo A-12.)
+  const [fallo, setFallo] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const load = useCallback(async () => {
     setLoading(true);
     const { data, error } = await supabase.rpc(RPC[side]);
     setRows(error ? [] : ((data as CommissionRow[] | null) ?? []));
+        setFallo(!!error);
     setLoading(false);
   }, [side]);
 
@@ -52,5 +57,5 @@ export function useCommissions(side: CommissionSide) {
     [load],
   );
 
-  return { rows, loading, reload: load, markPaid };
+  return { rows, loading, fallo, reload: load, markPaid };
 }

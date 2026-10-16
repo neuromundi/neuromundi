@@ -5,9 +5,10 @@
  * señal para promoverla a la taxonomía real (el alta se hace en su catálogo).
  */
 import { useState } from 'react';
+import { useAvisarResultado } from '@/hooks/useAvisarResultado';
 import { useTranslation } from 'react-i18next';
 import { Lightbulb, RefreshCw, Check, Eye, X, Rocket } from 'lucide-react';
-import { Button, SkeletonCard, useToast } from '@/components/ui';
+import { Button, SkeletonCard, useToast, AvisoDeFallo } from '@/components/ui';
 import { cn, formatDate } from '@/lib/utils';
 import { supabase } from '@/lib/supabase';
 import { useAdminCatalogSuggestions, type CatalogSuggestion } from '@/hooks/useCatalogSuggestions';
@@ -43,8 +44,10 @@ const STATUS_STYLE: Record<CatalogSuggestion['status'], string> = {
 
 export function AdminCatalogSuggestions() {
   const { t } = useTranslation();
+  // Nunca se tira el resultado de una escritura. (Hallazgo A-13.)
+  const avisar = useAvisarResultado();
   const toast = useToast();
-  const { items, loading, reload, setStatus } = useAdminCatalogSuggestions();
+  const { items, loading, fallo, reload, setStatus } = useAdminCatalogSuggestions();
   const [filter, setFilter] = useState<StatusFilter>('new');
 
   // "Promover": convierte la sugerencia en taxonomía real y la marca aceptada.
@@ -69,6 +72,10 @@ export function AdminCatalogSuggestions() {
   };
 
   if (loading) return <div className="space-y-3"><SkeletonCard rows={0} /><SkeletonCard rows={0} /></div>;
+  // Un fallo de la consulta NO es una lista vacía: sobre listas vacías se
+  // toman decisiones. (Auditoría 15 oct 2026, hallazgo A-12.)
+  if (fallo) return <AvisoDeFallo onRetry={() => void reload()} />;
+
 
   const shown = filter === 'all' ? items : items.filter((s) => s.status === filter);
   const kindLabel = (k: CatalogSuggestion['kind']) => t(`suggest.kind.${k}`);
@@ -92,7 +99,7 @@ export function AdminCatalogSuggestions() {
             </button>
           ))}
         </div>
-        <Button size="sm" variant="secondary" onClick={() => void reload()} leadingIcon={<RefreshCw className="h-4 w-4" />}>
+        <Button size="sm" variant="secondary" onClick={() => void avisar(reload())} leadingIcon={<RefreshCw className="h-4 w-4" />}>
           {t('common.refresh')}
         </Button>
       </div>
@@ -128,17 +135,17 @@ export function AdminCatalogSuggestions() {
                   </p>
                   <div className="mt-2 flex flex-wrap gap-2">
                     {s.status !== 'accepted' && (
-                      <Button size="sm" variant="primary" leadingIcon={<Rocket className="h-3.5 w-3.5" />} onClick={() => void promote(s)}>
+                      <Button size="sm" variant="primary" leadingIcon={<Rocket className="h-3.5 w-3.5" />} onClick={() => void avisar(promote(s))}>
                         {t('suggest.promote')}
                       </Button>
                     )}
-                    <Button size="sm" variant="secondary" leadingIcon={<Eye className="h-3.5 w-3.5" />} onClick={() => void setStatus(s.id, 'reviewed')}>
+                    <Button size="sm" variant="secondary" leadingIcon={<Eye className="h-3.5 w-3.5" />} onClick={() => void avisar(setStatus(s.id, 'reviewed'))}>
                       {t('suggest.status.reviewed')}
                     </Button>
-                    <Button size="sm" variant="secondary" leadingIcon={<Check className="h-3.5 w-3.5" />} onClick={() => void setStatus(s.id, 'accepted')}>
+                    <Button size="sm" variant="secondary" leadingIcon={<Check className="h-3.5 w-3.5" />} onClick={() => void avisar(setStatus(s.id, 'accepted'))}>
                       {t('suggest.status.accepted')}
                     </Button>
-                    <Button size="sm" variant="ghost" leadingIcon={<X className="h-3.5 w-3.5" />} onClick={() => void setStatus(s.id, 'dismissed')}>
+                    <Button size="sm" variant="ghost" leadingIcon={<X className="h-3.5 w-3.5" />} onClick={() => void avisar(setStatus(s.id, 'dismissed'))}>
                       {t('suggest.status.dismissed')}
                     </Button>
                   </div>

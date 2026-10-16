@@ -80,7 +80,9 @@
     "edit": "Editar",
     "errorGeneric": "Algo salió mal. Inténtalo de nuevo.",
     "refresh": "Actualizar",
-    "remove": "Quitar"
+    "remove": "Quitar",
+    "loadFailed": "No se pudo cargar. Esto no quiere decir que no haya nada: vuelva a intentarlo.",
+    "retry": "Reintentar"
   },
   "followUs": {
     "title": "Síguenos",
@@ -3866,7 +3868,8 @@
       "saveCaptions": "Guardar frases",
       "replaceImage": "Reemplazar imagen",
       "saved": "Guardado",
-      "needImage": "Selecciona una imagen"
+      "needImage": "Selecciona una imagen",
+      "added": "Escena agregada"
     },
     "members": {
       "hint": "Una fila por cuenta. Aquí se suspende, reactiva, exenta de cuota y prorroga la vigencia. La baja definitiva no está aquí a propósito: borra datos que no vuelven y se hace por un camino aparte.",
@@ -4501,7 +4504,9 @@
     "servicesQualityDesc": "Clínicas y prestadores de servicios con excelente calificación.",
     "productsQualityDesc": "Comercios con productos de excelente calificación.",
     "inclusiveSchoolDesc": "Escuelas con programa de inclusión.",
-    "inclusiveCompanyDesc": "Empresas con inclusión laboral."
+    "inclusiveCompanyDesc": "Empresas con inclusión laboral.",
+    "desc": "Su distintivo de miembro, listo para descargar y colocar en su sitio o en sus redes.",
+    "download": "Descargar distintivo"
   },
   "esp": {
     "miss": {
@@ -5403,7 +5408,9 @@
     "founder": "Miembro Fundador",
     "neuro": "Perfil neuroafirmativo",
     "lookupBtn": "Verificar",
-    "ally": "Aliado oficial de Neuromundi"
+    "ally": "Aliado oficial de Neuromundi",
+    "noSePudo": "No se pudo verificar en este momento",
+    "noSePudoAyuda": "Esto NO significa que el distintivo no exista. Vuelva a intentarlo en un momento."
   },
   "registry": {
     "title": "Verifica un distintivo otorgado",

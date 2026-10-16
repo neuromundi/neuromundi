@@ -6,6 +6,7 @@
  * especialistas (consumidores y prestadores no comerciales).
  */
 import { useMemo, useState } from 'react';
+import { useAvisarResultado } from '@/hooks/useAvisarResultado';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Users, Plus, Search, Globe, Sparkles, MailPlus, Check, X, HeartHandshake, ShieldCheck, Gauge, CalendarCheck, UserPlus, LogIn } from 'lucide-react';
@@ -36,6 +37,8 @@ interface CreateForumInput { title: string; description: string; theme: string; 
 
 function CreateForumForm({ onCreate, onCancel }: { onCreate: (i: CreateForumInput) => Promise<boolean>; onCancel: () => void }) {
   const { t, i18n } = useTranslation();
+  // Nunca se tira el resultado de una escritura. (Hallazgo A-13.)
+  const avisar = useAvisarResultado();
   const countryLabel = useCountryLabel();
   const toast = useToast();
   const { mod } = useTribeModerator();
@@ -121,7 +124,7 @@ function CreateForumForm({ onCreate, onCancel }: { onCreate: (i: CreateForumInpu
       )}
 
       <div className="mt-3 flex gap-2">
-        <Button size="sm" loading={busy} onClick={() => void submit()}>{t('tribe.createForum')}</Button>
+        <Button size="sm" loading={busy} onClick={() => void avisar(submit())}>{t('tribe.createForum')}</Button>
         <Button size="sm" variant="ghost" onClick={onCancel}>{t('tribe.cancel')}</Button>
       </div>
     </div>
@@ -139,6 +142,8 @@ const TRIBE_FEATURES = [
 
 export function TribuNeuromundi() {
   const { t, i18n } = useTranslation();
+  // Nunca se tira el resultado de una escritura. (Hallazgo A-13.)
+  const avisar = useAvisarResultado();
   const navigate = useNavigate();
   const countryLabel = useCountryLabel();
   const { isConsumer, isProvider, userId, isAuthenticated } = useAuth();
@@ -269,8 +274,8 @@ export function TribuNeuromundi() {
               <li key={iv.id} className="flex items-center justify-between gap-2 rounded-xl bg-white p-2.5">
                 <span className="min-w-0 text-sm text-slate-800"><span className="font-semibold">{iv.forum_title}</span> · {iv.inviter_name}</span>
                 <span className="flex shrink-0 gap-1">
-                  <button type="button" onClick={() => void respond(iv.id, true)} className="rounded-lg bg-brand-600 p-1.5 text-white hover:bg-brand-700"><Check className="h-4 w-4" /></button>
-                  <button type="button" onClick={() => void respond(iv.id, false)} className="rounded-lg border border-slate-200 p-1.5 text-slate-600 hover:bg-slate-50"><X className="h-4 w-4" /></button>
+                  <button type="button" onClick={() => void avisar(respond(iv.id, true))} className="rounded-lg bg-brand-600 p-1.5 text-white hover:bg-brand-700"><Check className="h-4 w-4" /></button>
+                  <button type="button" onClick={() => void avisar(respond(iv.id, false))} className="rounded-lg border border-slate-200 p-1.5 text-slate-600 hover:bg-slate-50"><X className="h-4 w-4" /></button>
                 </span>
               </li>
             ))}

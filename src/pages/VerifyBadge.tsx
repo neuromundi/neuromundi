@@ -6,7 +6,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { BadgeCheck, XCircle, Award, Sparkles, Building2 } from 'lucide-react';
+import { BadgeCheck, XCircle, Award, Sparkles, Building2, AlertTriangle } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 
 interface VerifyResult {
@@ -19,14 +19,25 @@ export function VerifyBadge() {
   const { folio } = useParams<{ folio: string }>();
   const [res, setRes] = useState<VerifyResult | null>(null);
   const [loading, setLoading] = useState(true);
+  // TERCER ESTADO. Esta pagina es publica y su encabezado dice que es la
+  // autoridad del distintivo. Al descartar el error de la consulta, un fallo de
+  // red o del servidor pintaba el panel rojo de "no encontrado": le decia a una
+  // familia que la credencial de un prestador legitimo no existe, de forma
+  // indistinguible de un fraude real. No se afirma "no encontrado" sin una
+  // respuesta correcta de la base. (Auditoria del 15 oct 2026, hallazgo C-10.)
+  const [fallo, setFallo] = useState(false);
 
   useEffect(() => {
     let alive = true;
     (async () => {
       setLoading(true);
-      const { data } = await supabase.rpc('verify_badge', { p_folio: folio ?? '' });
+      const { data, error } = await supabase.rpc('verify_badge', { p_folio: folio ?? '' });
       const row = Array.isArray(data) ? data[0] : data;
-      if (alive) { setRes((row as VerifyResult) ?? null); setLoading(false); }
+      if (alive) {
+        setFallo(!!error);
+        setRes(error ? null : ((row as VerifyResult) ?? null));
+        setLoading(false);
+      }
     })();
     return () => { alive = false; };
   }, [folio]);
@@ -39,6 +50,12 @@ export function VerifyBadge() {
 
       {loading ? (
         <p className="text-center text-muted">{t('verify.checking')}</p>
+      ) : fallo ? (
+        <div className="rounded-3xl border border-slate-200 bg-slate-50 p-6 text-center">
+          <AlertTriangle className="mx-auto h-12 w-12 text-slate-400" aria-hidden="true" />
+          <p className="mt-3 font-bold text-slate-800">{t('verify.noSePudo')}</p>
+          <p className="mt-1 text-sm text-muted">{t('verify.noSePudoAyuda')}</p>
+        </div>
       ) : !res?.found ? (
         <div className="rounded-3xl border border-red-200 bg-red-50 p-6 text-center">
           <XCircle className="mx-auto h-12 w-12 text-red-500" aria-hidden="true" />

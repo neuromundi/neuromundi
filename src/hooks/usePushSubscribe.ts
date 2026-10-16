@@ -52,7 +52,11 @@ export function usePushSubscribe() {
         applicationServerKey: urlBase64ToUint8Array(VAPID) as BufferSource,
       });
       const j = sub.toJSON();
-      await supabase.from('push_subscriptions').upsert(
+      // SI ESTO FALLA, EL INTERRUPTOR NO PUEDE QUEDAR ENCENDIDO. Antes no se
+      // revisaba el error: la suscripción no se guardaba, el usuario veía
+      // «activadas» y nunca le llegaba ni una notificación.
+      // (Auditoría del 15 oct 2026, hallazgo M-3.)
+      const { error } = await supabase.from('push_subscriptions').upsert(
         {
           user_id: userId,
           endpoint: sub.endpoint,
@@ -61,6 +65,7 @@ export function usePushSubscribe() {
         },
         { onConflict: 'endpoint' },
       );
+      if (error) { setState('idle'); return; }
       setState('granted');
     } catch {
       setState('idle');

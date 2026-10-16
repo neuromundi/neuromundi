@@ -80,7 +80,9 @@
     "edit": "編集",
     "errorGeneric": "問題が発生しました。もう一度お試しください。",
     "refresh": "更新",
-    "remove": "削除"
+    "remove": "削除",
+    "loadFailed": "読み込めませんでした。何もないという意味ではありません。もう一度お試しください。",
+    "retry": "再試行"
   },
   "nav": {
     "directory": "ディレクトリ",
@@ -3866,7 +3868,8 @@
       "saveCaptions": "フレーズを保存",
       "replaceImage": "画像を差し替え",
       "saved": "保存しました",
-      "needImage": "画像を選択してください"
+      "needImage": "画像を選択してください",
+      "added": "シーンを追加しました"
     },
     "members": {
       "hint": "One row per account. Suspend, reactivate, waive the fee and extend validity here. Permanent deletion is deliberately absent: it destroys data that cannot be recovered and follows a separate path.",
@@ -4501,7 +4504,9 @@
     "servicesQualityDesc": "評価が優れたクリニック・サービス提供者。",
     "productsQualityDesc": "評価が優れた商品を扱う店舗。",
     "inclusiveSchoolDesc": "インクルージョン・プログラムのある学校。",
-    "inclusiveCompanyDesc": "職場インクルージョンのある企業。"
+    "inclusiveCompanyDesc": "職場インクルージョンのある企業。",
+    "desc": "会員バッジです。ダウンロードしてサイトやSNSに掲載できます。",
+    "download": "バッジをダウンロード"
   },
   "esp": {
     "miss": {
@@ -5403,7 +5408,9 @@
     "founder": "創設メンバー",
     "neuro": "ニューロ・アファーミング・プロフィール",
     "lookupBtn": "確認",
-    "ally": "Neuromundi 公式アライ"
+    "ally": "Neuromundi 公式アライ",
+    "noSePudo": "ただいま確認できませんでした",
+    "noSePudoAyuda": "これは記章が存在しないという意味ではありません。少し後にもう一度お試しください。"
   },
   "registry": {
     "title": "付与されたバッジを確認",

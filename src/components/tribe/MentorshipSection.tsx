@@ -4,6 +4,7 @@
  * abrir el hilo asíncrono).
  */
 import { useState } from 'react';
+import { useAvisarResultado } from '@/hooks/useAvisarResultado';
 import { useTranslation } from 'react-i18next';
 import { HandHeart, Check, X, MessageSquare, UserPlus } from 'lucide-react';
 import { Button } from '@/components/ui';
@@ -14,6 +15,8 @@ import { MentorThread } from './MentorThread';
 
 export function MentorshipSection() {
   const { t } = useTranslation();
+  // Nunca se tira el resultado de una escritura. (Hallazgo A-13.)
+  const avisar = useAvisarResultado();
   const { section } = useSection();
   const { mentor, setActive, reload: reloadMentor } = useMyMentor();
   const [track, setTrack] = useState<MentorTrack | ''>('');
@@ -46,7 +49,7 @@ export function MentorshipSection() {
             </p>
             <span className="flex gap-2">
               <Button size="sm" variant="ghost" onClick={() => setBecoming(true)}>{t('tribe.mentor.edit')}</Button>
-              <Button size="sm" variant="ghost" onClick={() => void setActive(!mentor.is_active)}>{mentor.is_active ? t('tribe.mentor.pause') : t('tribe.mentor.resume')}</Button>
+              <Button size="sm" variant="ghost" onClick={() => void avisar(setActive(!mentor.is_active))}>{mentor.is_active ? t('tribe.mentor.pause') : t('tribe.mentor.resume')}</Button>
             </span>
           </div>
         )}
@@ -65,8 +68,8 @@ export function MentorshipSection() {
                 </div>
                 {ms.role === 'mentor' && ms.status === 'pending' ? (
                   <span className="flex shrink-0 gap-1">
-                    <button type="button" onClick={() => void respond(ms.id, true)} className="rounded-lg bg-brand-600 p-1.5 text-white hover:bg-brand-700"><Check className="h-4 w-4" /></button>
-                    <button type="button" onClick={() => void respond(ms.id, false)} className="rounded-lg border border-slate-200 p-1.5 text-slate-600 hover:bg-slate-50"><X className="h-4 w-4" /></button>
+                    <button type="button" onClick={() => void avisar(respond(ms.id, true))} className="rounded-lg bg-brand-600 p-1.5 text-white hover:bg-brand-700"><Check className="h-4 w-4" /></button>
+                    <button type="button" onClick={() => void avisar(respond(ms.id, false))} className="rounded-lg border border-slate-200 p-1.5 text-slate-600 hover:bg-slate-50"><X className="h-4 w-4" /></button>
                   </span>
                 ) : ms.status === 'active' ? (
                   <Button size="sm" variant="ghost" leadingIcon={<MessageSquare className="h-4 w-4" />} onClick={() => setOpen(ms)}>{t('tribe.mentor.openThread')}</Button>
@@ -103,7 +106,7 @@ export function MentorshipSection() {
                   ) : (
                     <div className="flex flex-wrap gap-2">
                       {m.tracks.map((tr) => (
-                        <Button key={tr} size="sm" variant="secondary" onClick={() => void request(m.user_id, tr)}>
+                        <Button key={tr} size="sm" variant="secondary" onClick={() => void avisar(request(m.user_id, tr))}>
                           {t('tribe.mentor.request', { track: t(`tribe.mentor.track.${tr}`) })}
                         </Button>
                       ))}

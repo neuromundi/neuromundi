@@ -4,6 +4,7 @@
  * Las vacantes activas salen públicas en /inclusion-laboral.
  */
 import { useMemo, useState } from 'react';
+import { useAvisarResultado } from '@/hooks/useAvisarResultado';
 import { useTranslation } from 'react-i18next';
 import { Plus, Pencil, Trash2, Eye, EyeOff, Save, X, Briefcase } from 'lucide-react';
 import { Button, SkeletonCard, EmptyState, useToast, useConfirm } from '@/components/ui';
@@ -24,6 +25,8 @@ const OPP_TYPES = ['employment', 'volunteering', 'social_service'] as const;
 
 function JobForm({ initial, onCancel, onSave }: { initial?: JobOpening; onCancel: () => void; onSave: (p: JobPatch) => Promise<boolean> }) {
   const { t } = useTranslation();
+  // Nunca se tira el resultado de una escritura. (Hallazgo A-13.)
+  const avisar = useAvisarResultado();
   const countryLabel = useCountryLabel();
   const toast = useToast();
   const [f, setF] = useState<JobPatch>(initial ? { ...initial } : { ...EMPTY });
@@ -67,7 +70,7 @@ function JobForm({ initial, onCancel, onSave }: { initial?: JobOpening; onCancel
         <div className="sm:col-span-2"><label className={labelCls}>{t('jobs.note')}</label><textarea rows={2} className={inputCls} value={f.note ?? ''} onChange={(e) => set('note', e.target.value)} /></div>
       </div>
       <div className="mt-3 flex gap-2">
-        <Button size="sm" loading={busy} onClick={() => void save()} leadingIcon={<Save className="h-4 w-4" />}>{t('jobs.save')}</Button>
+        <Button size="sm" loading={busy} onClick={() => void avisar(save())} leadingIcon={<Save className="h-4 w-4" />}>{t('jobs.save')}</Button>
         <Button size="sm" variant="ghost" onClick={onCancel} leadingIcon={<X className="h-4 w-4" />}>{t('jobs.cancel')}</Button>
       </div>
     </div>

@@ -80,7 +80,9 @@
     "edit": "Modifier",
     "errorGeneric": "Une erreur s'est produite. Réessaie.",
     "refresh": "Actualiser",
-    "remove": "Retirer"
+    "remove": "Retirer",
+    "loadFailed": "Chargement impossible. Cela ne veut pas dire qu’il n’y a rien : réessayez.",
+    "retry": "Réessayer"
   },
   "nav": {
     "directory": "Annuaire",
@@ -3866,7 +3868,8 @@
       "saveCaptions": "Enregistrer les phrases",
       "replaceImage": "Remplacer l'image",
       "saved": "Enregistré",
-      "needImage": "Sélectionnez une image"
+      "needImage": "Sélectionnez une image",
+      "added": "Scène ajoutée"
     },
     "members": {
       "hint": "One row per account. Suspend, reactivate, waive the fee and extend validity here. Permanent deletion is deliberately absent: it destroys data that cannot be recovered and follows a separate path.",
@@ -4501,7 +4504,9 @@
     "servicesQualityDesc": "Cliniques et prestataires de services très bien notés.",
     "productsQualityDesc": "Commerces aux produits très bien notés.",
     "inclusiveSchoolDesc": "Écoles avec un programme d'inclusion.",
-    "inclusiveCompanyDesc": "Entreprises avec inclusion professionnelle."
+    "inclusiveCompanyDesc": "Entreprises avec inclusion professionnelle.",
+    "desc": "Votre badge de membre, prêt à télécharger pour votre site ou vos réseaux.",
+    "download": "Télécharger le badge"
   },
   "esp": {
     "miss": {
@@ -5403,7 +5408,9 @@
     "founder": "Membre fondateur",
     "neuro": "Profil neuro-affirmatif",
     "lookupBtn": "Vérifier",
-    "ally": "Allié officiel de Neuromundi"
+    "ally": "Allié officiel de Neuromundi",
+    "noSePudo": "Vérification impossible pour le moment",
+    "noSePudoAyuda": "Cela ne signifie PAS que le label n’existe pas. Réessayez dans un instant."
   },
   "registry": {
     "title": "Vérifiez un badge attribué",

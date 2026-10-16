@@ -6,6 +6,7 @@
  * portada usa las 15 por defecto.
  */
 import { useState } from 'react';
+import { useAvisarResultado } from '@/hooks/useAvisarResultado';
 import { useTranslation } from 'react-i18next';
 import { ArrowUp, ArrowDown, Trash2, Plus, Eye, EyeOff, ImagePlus } from 'lucide-react';
 import { Button, useToast } from '@/components/ui';
@@ -19,6 +20,8 @@ const LANGS: [string, string][] = [
 
 export function AdminHeroCarousel() {
   const { t } = useTranslation();
+  // Nunca se tira el resultado de una escritura. (Hallazgo A-13.)
+  const avisar = useAvisarResultado();
   const toast = useToast();
   const { slides, loading, uploadImage, create, update, remove, move } = useAdminHeroSlides();
   const [drafts, setDrafts] = useState<Record<string, Record<string, string>>>({});
@@ -85,7 +88,7 @@ export function AdminHeroCarousel() {
             <span className="mb-1 block text-sm text-slate-700">{t('adm.hero.captionEs')}</span>
             <input value={newEs} onChange={(e) => setNewEs(e.target.value)} placeholder={t('adm.hero.captionOptional')} className="w-full rounded-xl border border-slate-200 p-2.5 text-sm" />
           </label>
-          <Button onClick={() => void addScene()} loading={busy} leadingIcon={<Plus className="h-4 w-4" />}>{t('adm.hero.add')}</Button>
+          <Button onClick={() => void avisar(addScene())} loading={busy} leadingIcon={<Plus className="h-4 w-4" />}>{t('adm.hero.add')}</Button>
         </div>
       </div>
 
@@ -103,10 +106,10 @@ export function AdminHeroCarousel() {
                   <div className="flex flex-wrap items-center gap-2">
                     <span className="text-xs font-semibold text-muted">#{idx + 1}</span>
                     <div className="ml-auto flex items-center gap-1">
-                      <button type="button" onClick={() => void move(s.id, -1)} disabled={idx === 0} aria-label={t('adm.hero.up')} className="rounded-lg border border-slate-200 p-1.5 disabled:opacity-40"><ArrowUp className="h-4 w-4" /></button>
-                      <button type="button" onClick={() => void move(s.id, 1)} disabled={idx === slides.length - 1} aria-label={t('adm.hero.down')} className="rounded-lg border border-slate-200 p-1.5 disabled:opacity-40"><ArrowDown className="h-4 w-4" /></button>
+                      <button type="button" onClick={() => void avisar(move(s.id, -1))} disabled={idx === 0} aria-label={t('adm.hero.up')} className="rounded-lg border border-slate-200 p-1.5 disabled:opacity-40"><ArrowUp className="h-4 w-4" /></button>
+                      <button type="button" onClick={() => void avisar(move(s.id, 1))} disabled={idx === slides.length - 1} aria-label={t('adm.hero.down')} className="rounded-lg border border-slate-200 p-1.5 disabled:opacity-40"><ArrowDown className="h-4 w-4" /></button>
                       <button type="button" onClick={() => void update(s.id, { is_active: !s.is_active })} aria-label={t(s.is_active ? 'adm.hero.hide' : 'adm.hero.show')} className="rounded-lg border border-slate-200 p-1.5">{s.is_active ? <Eye className="h-4 w-4 text-sage-600" /> : <EyeOff className="h-4 w-4 text-slate-400" />}</button>
-                      <button type="button" onClick={() => void del(s)} aria-label={t('adm.hero.delete')} className="rounded-lg border border-slate-200 p-1.5 text-evs-1"><Trash2 className="h-4 w-4" /></button>
+                      <button type="button" onClick={() => void avisar(del(s))} aria-label={t('adm.hero.delete')} className="rounded-lg border border-slate-200 p-1.5 text-evs-1"><Trash2 className="h-4 w-4" /></button>
                     </div>
                   </div>
 
@@ -128,7 +131,7 @@ export function AdminHeroCarousel() {
                   </details>
 
                   <div className="flex flex-wrap items-center gap-2 pt-1">
-                    <Button size="sm" onClick={() => void saveCaps(s)} loading={busy}>{t('adm.hero.saveCaptions')}</Button>
+                    <Button size="sm" onClick={() => void avisar(saveCaps(s))} loading={busy}>{t('adm.hero.saveCaptions')}</Button>
                     <label className="inline-flex cursor-pointer items-center gap-1.5 rounded-xl border border-slate-200 px-3 py-1.5 text-sm font-semibold text-slate-700 hover:bg-slate-50">
                       <ImagePlus className="h-4 w-4" /> {t('adm.hero.replaceImage')}
                       <input type="file" accept="image/*" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) void replaceImg(s, f); }} />

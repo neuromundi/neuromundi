@@ -80,7 +80,9 @@
     "edit": "تعديل",
     "errorGeneric": "حدث خطأ ما. حاول مرة أخرى.",
     "refresh": "تحديث",
-    "remove": "إزالة"
+    "remove": "إزالة",
+    "loadFailed": "تعذّر التحميل. هذا لا يعني عدم وجود شيء؛ حاول مرة أخرى.",
+    "retry": "إعادة المحاولة"
   },
   "followUs": {
     "title": "تابعنا",
@@ -3866,7 +3868,8 @@
       "saveCaptions": "حفظ العبارات",
       "replaceImage": "استبدال الصورة",
       "saved": "تم الحفظ",
-      "needImage": "اختر صورة"
+      "needImage": "اختر صورة",
+      "added": "تمت إضافة المشهد"
     },
     "members": {
       "hint": "One row per account. Suspend, reactivate, waive the fee and extend validity here. Permanent deletion is deliberately absent: it destroys data that cannot be recovered and follows a separate path.",
@@ -4501,7 +4504,9 @@
     "servicesQualityDesc": "عيادات ومقدّمو خدمات بتقييمات ممتازة.",
     "productsQualityDesc": "متاجر بمنتجات ذات تقييمات ممتازة.",
     "inclusiveSchoolDesc": "مدارس لديها برنامج دمج.",
-    "inclusiveCompanyDesc": "شركات تطبّق الدمج في العمل."
+    "inclusiveCompanyDesc": "شركات تطبّق الدمج في العمل.",
+    "desc": "شارة عضويتك جاهزة للتنزيل ووضعها على موقعك أو حساباتك.",
+    "download": "تنزيل الشارة"
   },
   "esp": {
     "miss": {
@@ -5403,7 +5408,9 @@
     "founder": "عضو مؤسّس",
     "neuro": "ملف داعم للتنوع العصبي",
     "lookupBtn": "تحقّق",
-    "ally": "حليف رسمي لـ Neuromundi"
+    "ally": "حليف رسمي لـ Neuromundi",
+    "noSePudo": "تعذّر التحقق في هذه اللحظة",
+    "noSePudoAyuda": "هذا لا يعني أن الشارة غير موجودة. أعد المحاولة بعد قليل."
   },
   "registry": {
     "title": "تحقّق من شارة ممنوحة",

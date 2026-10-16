@@ -77,6 +77,10 @@ export interface PublicJob {
 /** Oportunidades públicas (activas). `country` y `type` filtran; null = todos. */
 export function usePublicJobs(country?: string | null, type?: OpportunityType | null) {
   const [jobs, setJobs] = useState<PublicJob[]>([]);
+  // TRES ESTADOS, NO DOS: cargando, vacio y FALLO. Antes el error se miraba y
+  // se descartaba en la misma expresion, asi que un fallo de la consulta se
+  // pintaba como «no hay nada». (Auditoria 15 oct 2026, hallazgo A-12.)
+  const [fallo, setFallo] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -86,13 +90,14 @@ export function usePublicJobs(country?: string | null, type?: OpportunityType | 
       const { data, error } = await supabase.rpc('public_jobs', { p_country: country ?? null, p_type: type ?? null });
       if (alive) {
         setJobs(error ? [] : ((data as PublicJob[] | null) ?? []));
+        setFallo(!!error);
         setLoading(false);
       }
     })();
     return () => { alive = false; };
   }, [country, type]);
 
-  return { jobs, loading };
+  return { jobs, loading, fallo };
 }
 
 /** Países con al menos una vacante activa (para el selector). */
