@@ -1467,7 +1467,8 @@
     "grantAlly": "منح حليف Neuromundi",
     "badgeRevoke": "إلغاء الشارة",
     "secFichas": "Fichas",
-    "secComisiones": "Comisiones"
+    "secComisiones": "Comisiones",
+    "secExperto": "اسأل خبيرًا"
   },
   "reg": {
     "typePatient": "مريض",
@@ -2479,7 +2480,8 @@
       "submit": "إرسال السؤال",
       "sent": "تم إرسال السؤال! سنرد عبر البريد.",
       "error": "تعذّر الإرسال تلقائيًا. جارٍ فتح بريدك لإرساله.",
-      "emptyMsg": "اكتب سؤالك قبل الإرسال."
+      "emptyMsg": "اكتب سؤالك قبل الإرسال.",
+      "tooMany": "أسئلة كثيرة متتالية. حاول لاحقًا."
     },
     "mail": {
       "subject": "اسأل خبيرًا — Neuromundi"
@@ -2495,7 +2497,18 @@
       "s4Title": "نراسلك عبر البريد",
       "s4Body": "نُعلمك عندما تتوفر إجابة."
     },
-    "disclaimer": "لا تحل هذه الخدمة محل استشارة مع مختص صحي."
+    "disclaimer": "لا تحل هذه الخدمة محل استشارة مع مختص صحي.",
+    "admin": {
+      "pendiente": "قيد الانتظار",
+      "respondida": "تمت الإجابة",
+      "descartada": "مستبعدة",
+      "todas": "الكل",
+      "empty": "لا توجد أسئلة في هذا الصندوق.",
+      "anon": "مجهول",
+      "member": "عضو",
+      "markAnswered": "وضع علامة \"تمت الإجابة\"",
+      "discard": "استبعاد"
+    }
   },
   "create": {
     "title": "أنشئ حسابك",

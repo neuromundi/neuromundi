@@ -1382,6 +1382,29 @@ export interface Database {
       };
       /** Cuenta de cobro declarada por el propio referidor (migracion 0226). */
       /** Version vigente del reglamento. Fuente de verdad (migracion 0241). */
+      /** Alta de una pregunta al experto. Publica. (Migracion 0243.) */
+      registrar_pregunta_experto: {
+        Args: { p_pregunta: string; p_nombre?: string | null; p_correo?: string | null; p_pais?: string | null; p_categoria?: string | null };
+        Returns: { ok: boolean; id?: string; motivo?: string };
+      };
+      /** Bandeja de preguntas al experto. Solo administradores. */
+      admin_preguntas_experto: {
+        Args: { p_estado?: string };
+        Returns: {
+          id: string; nombre: string | null; correo: string | null; pais: string | null;
+          categoria: string | null; pregunta: string; estado: string;
+          nota_admin: string | null; created_at: string; resuelta_en: string | null;
+          es_miembro: boolean;
+        }[];
+      };
+      admin_resolver_pregunta_experto: {
+        Args: { p_id: string; p_estado: string; p_nota?: string | null };
+        Returns: { ok: boolean; motivo?: string };
+      };
+      admin_preguntas_experto_pendientes: {
+        Args: Record<string, never>;
+        Returns: number;
+      };
       reglamento_vigente: {
         Args: Record<string, never>;
         Returns: string;

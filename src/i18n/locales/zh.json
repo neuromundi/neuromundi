@@ -1430,7 +1430,8 @@
     "grantAlly": "授予 Neuromundi 伙伴",
     "badgeRevoke": "撤销徽章",
     "secFichas": "Fichas",
-    "secComisiones": "Comisiones"
+    "secComisiones": "Comisiones",
+    "secExperto": "向专家提问"
   },
   "reg": {
     "typePatient": "患者",
@@ -2442,7 +2443,8 @@
       "submit": "发送问题",
       "sent": "已发送！我们将通过邮件回复。",
       "error": "无法自动发送。正在打开你的邮箱。",
-      "emptyMsg": "发送前请填写你的问题。"
+      "emptyMsg": "发送前请填写你的问题。",
+      "tooMany": "短时间内提交的问题过多，请稍后再试。"
     },
     "mail": {
       "subject": "向专家提问 — Neuromundi"
@@ -2458,7 +2460,18 @@
       "s4Title": "邮件通知你",
       "s4Body": "有回复时我们会通知你。"
     },
-    "disclaimer": "本服务不替代与卫生专业人员的咨询。"
+    "disclaimer": "本服务不替代与卫生专业人员的咨询。",
+    "admin": {
+      "pendiente": "待处理",
+      "respondida": "已回复",
+      "descartada": "已忽略",
+      "todas": "全部",
+      "empty": "此收件箱中没有问题。",
+      "anon": "匿名",
+      "member": "会员",
+      "markAnswered": "标记为已回复",
+      "discard": "忽略"
+    }
   },
   "create": {
     "title": "创建账户",

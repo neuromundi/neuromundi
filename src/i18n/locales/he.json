@@ -1467,7 +1467,8 @@
     "grantAlly": "הענקת שותף Neuromundi",
     "badgeRevoke": "ביטול התג",
     "secFichas": "Fichas",
-    "secComisiones": "Comisiones"
+    "secComisiones": "Comisiones",
+    "secExperto": "שאלו מומחה"
   },
   "reg": {
     "typePatient": "מטופל/ת",
@@ -2479,7 +2480,8 @@
       "submit": "שלח שאלה",
       "sent": "השאלה נשלחה! נשיב באימייל.",
       "error": "לא ניתן היה לשלוח אוטומטית. פותח את האימייל שלך כדי לשלוח אותו.",
-      "emptyMsg": "כתוב את שאלתך לפני השליחה."
+      "emptyMsg": "כתוב את שאלתך לפני השליחה.",
+      "tooMany": "יותר מדי שאלות ברצף. נסו שוב מאוחר יותר."
     },
     "mail": {
       "subject": "שאל מומחה — Neuromundi"
@@ -2495,7 +2497,18 @@
       "s4Title": "אנו שולחים לך אימייל",
       "s4Body": "אנו מודיעים לך כשיש תשובה."
     },
-    "disclaimer": "שירות זה אינו מחליף התייעצות עם איש מקצוע בתחום הבריאות."
+    "disclaimer": "שירות זה אינו מחליף התייעצות עם איש מקצוע בתחום הבריאות.",
+    "admin": {
+      "pendiente": "ממתינות",
+      "respondida": "נענו",
+      "descartada": "הוסרו",
+      "todas": "הכול",
+      "empty": "אין שאלות בתיבה הזאת.",
+      "anon": "אנונימי",
+      "member": "חבר",
+      "markAnswered": "סימון כנענתה",
+      "discard": "הסרה"
+    }
   },
   "create": {
     "title": "צור את החשבון שלך",

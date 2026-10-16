@@ -55,7 +55,7 @@ function shell(title: string, bodyHtml: string, ctaText: string, ctaUrl: string)
   </div>`;
 }
 
-function welcomeHtml(row: { name: string; role: string; provider_type: string | null; opens_at: string | null; sector?: string | null }): { subject: string; html: string } {
+function welcomeHtml(row: { name: string; role: string; provider_type: string | null; opens_at: string | null; sector?: string | null; ya_abierto?: boolean }): { subject: string; html: string } {
   const opens = fmtDate(row.opens_at);
   const isConsumer = row.role === 'parent' || row.role === 'patient';
   // El sector manda sobre el provider_type. Un DIF estatal está clasificado
@@ -66,33 +66,49 @@ function welcomeHtml(row: { name: string; role: string; provider_type: string | 
     || row.sector === 'publico' || row.sector === 'social';
   let reward: string;
   if (isConsumer) {
-    reward = `<p>Tu membresía es <b>gratuita, nivel Fundador, de por vida</b>. Además participas en el programa de referidos y en el sorteo del día del lanzamiento.</p>`;
+    reward = `<p>Su membresía es <b>gratuita, nivel Fundador, de por vida</b>. Además participa en el programa de referidos y en el sorteo del día del lanzamiento.</p>`;
   } else if (isOrg) {
-    reward = `<p>Tu membresía es <b>siempre gratuita</b> y obtienes la <b>Insignia de Miembro Fundador</b> en tu perfil público, además del curso de bienvenida.</p>`;
+    reward = `<p>Su membresía es <b>siempre gratuita</b> y obtiene la <b>Insignia de Miembro Fundador</b> en su perfil público, además del curso de bienvenida.</p>`;
   } else {
-    reward = `<p>Como <b>Miembro Fundador</b> tienes hasta <b>50% de descuento</b> en tu membresía anual si pagas dentro de los primeros 15 días (25% del día 16 al 30), y tu <b>cuota queda congelada de por vida</b>.</p>`;
+    reward = `<p>Como <b>Miembro Fundador</b> tiene hasta <b>50% de descuento</b> en su membresía anual si paga dentro de los primeros 15 días (25% del día 16 al 30), y su <b>cuota queda congelada de por vida</b>.</p>`;
   }
+  // El directorio ya está abierto en todo el continente americano. Antes este
+  // correo anunciaba una apertura futura a TODO el mundo, porque tomaba el
+  // plazo de bloqueo de la campaña como si fuera la fecha de apertura.
+  // Ahora la base responde: ya_abierto, y opens_at sólo viene donde falta abrir.
+  const apertura = row.ya_abierto
+    ? `<p>El directorio <b>ya está abierto en su país</b>: su ficha puede publicarse en cuanto complete su perfil.</p>`
+    : (opens ? `<p>El directorio abre en su país el <b>${opens}</b>.</p>` : '');
   const html = shell(
-    `¡Bienvenido, ${row.name}!`,
-    `<p>Gracias por asegurar tu lugar como Miembro Fundador de Neuromundi.</p>${reward}${opens ? `<p>El directorio abre en tu país el <b>${opens}</b>.</p>` : ''}<p>Mientras tanto, conoce todos tus beneficios:</p>`,
+    `Le damos la bienvenida, ${row.name}`,
+    `<p>Gracias por asegurar su lugar como Miembro Fundador de Neuromundi.</p>${reward}${apertura}<p>Conozca todos sus beneficios:</p>`,
     'Ver mis beneficios',
     `${SITE}/beneficios`,
   );
-  return { subject: '¡Bienvenido a Neuromundi, Miembro Fundador!', html };
+  return { subject: 'Le damos la bienvenida a Neuromundi, Miembro Fundador', html };
 }
 
-function reminderHtml(row: { name: string; pct: number; opens_at: string | null }): { subject: string; html: string } {
+function reminderHtml(row: { name: string; pct: number; opens_at: string | null; ya_abierto?: boolean; fundador_hasta?: string | null }): { subject: string; html: string } {
   const opens = fmtDate(row.opens_at);
+  const limite = fmtDate(row.fundador_hasta ?? null);
   const pctLine = row.pct > 0
-    ? `<p>Tu descuento de Fundador vigente es del <b>${row.pct}%</b> sobre la membresía anual. Baja con el paso de los días, así que conviene pagar pronto.</p>`
-    : `<p>Completa tu pago para conservar tu estatus de Fundador y la <b>congelación vitalicia</b> de tu cuota.</p>`;
+    ? `<p>Su descuento de Fundador vigente es del <b>${row.pct}%</b> sobre la membresía anual. Baja con el paso de los días, así que conviene pagar pronto.</p>`
+    : `<p>Complete su pago para conservar su estatus de Fundador y la <b>congelación vitalicia</b> de su cuota.</p>`;
+  // El plazo real de quien debe pagar es el de la cuota de Fundador, no la
+  // apertura del directorio: en América el directorio ya está abierto y la
+  // frase vieja era falsa.
+  const plazo = limite
+    ? `<p>Su cuota de Fundador puede tomarse hasta el <b>${limite}</b>: complete su pago antes para no perder el descuento ni las recompensas.</p>`
+    : (!row.ya_abierto && opens
+        ? `<p>El directorio abre en su país el <b>${opens}</b>: complete su pago antes para no perder su pre-registro, descuento y recompensas.</p>`
+        : '');
   const html = shell(
-    `${row.name}, aún puedes asegurar tu lugar`,
-    `${pctLine}${opens ? `<p>El directorio abre en tu país el <b>${opens}</b>: completa tu pago antes para no perder tu pre-registro, descuento y recompensas.</p>` : ''}`,
+    `${row.name}, aún puede asegurar su lugar`,
+    `${pctLine}${plazo}`,
     'Completar mi pago',
     `${SITE}/panel`,
   );
-  return { subject: row.pct > 0 ? `Tu ${row.pct}% de descuento de Fundador te espera` : 'Asegura tu estatus de Fundador', html };
+  return { subject: row.pct > 0 ? `Su ${row.pct}% de descuento de Fundador le espera` : 'Asegure su estatus de Fundador', html };
 }
 
 Deno.serve(async (req: Request) => {
@@ -110,7 +126,7 @@ Deno.serve(async (req: Request) => {
 
   // Bienvenidas pendientes
   const { data: wq } = await admin.rpc('campaign_welcome_queue');
-  for (const row of (wq ?? []) as Array<{ user_id: string; email: string; name: string; role: string; provider_type: string | null; opens_at: string | null }>) {
+  for (const row of (wq ?? []) as Array<{ user_id: string; email: string; name: string; role: string; provider_type: string | null; opens_at: string | null; sector: string | null; ya_abierto: boolean }>) {
     try {
       const { subject, html } = welcomeHtml(row);
       if (await sendEmail(row.email, subject, html)) {
@@ -122,7 +138,7 @@ Deno.serve(async (req: Request) => {
 
   // Recordatorios de pago
   const { data: rq } = await admin.rpc('campaign_reminder_queue');
-  for (const row of (rq ?? []) as Array<{ user_id: string; email: string; name: string; pct: number; opens_at: string | null }>) {
+  for (const row of (rq ?? []) as Array<{ user_id: string; email: string; name: string; pct: number; opens_at: string | null; ya_abierto: boolean; fundador_hasta: string | null }>) {
     try {
       const { subject, html } = reminderHtml(row);
       if (await sendEmail(row.email, subject, html)) {

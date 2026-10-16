@@ -1467,7 +1467,8 @@
     "grantAlly": "Grant Neuromundi Ally",
     "badgeRevoke": "Revoke badge",
     "secFichas": "Listings",
-    "secComisiones": "Commissions"
+    "secComisiones": "Commissions",
+    "secExperto": "Ask an expert"
   },
   "reg": {
     "typePatient": "Patient",
@@ -2479,7 +2480,8 @@
       "submit": "Send question",
       "sent": "Question sent! We’ll reply by email.",
       "error": "Could not send automatically. Opening your email to send it.",
-      "emptyMsg": "Write your question before sending."
+      "emptyMsg": "Write your question before sending.",
+      "tooMany": "Too many questions in a row. Please try again later."
     },
     "mail": {
       "subject": "Ask an expert — Neuromundi"
@@ -2495,7 +2497,18 @@
       "s4Title": "We email you",
       "s4Body": "We let you know when there’s an answer."
     },
-    "disclaimer": "This service does not replace a consultation with a health professional."
+    "disclaimer": "This service does not replace a consultation with a health professional.",
+    "admin": {
+      "pendiente": "Pending",
+      "respondida": "Answered",
+      "descartada": "Discarded",
+      "todas": "All",
+      "empty": "There are no questions in this inbox.",
+      "anon": "Anonymous",
+      "member": "Member",
+      "markAnswered": "Mark as answered",
+      "discard": "Discard"
+    }
   },
   "create": {
     "title": "Create your account",

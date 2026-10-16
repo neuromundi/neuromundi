@@ -13,7 +13,6 @@ import { CountryFilter } from '@/components/common/CountryFilter';
 import { useCountry } from '@/stores/countryStore';
 import { supabase } from '@/lib/supabase';
 
-const EXPERT_EMAIL = 'admin@neuromundi.com';
 const input = 'w-full rounded-xl border border-slate-200 p-3 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500';
 
 export function AskExpert() {
@@ -31,18 +30,9 @@ export function AskExpert() {
 
   const notes = t('expert.form.notes', { returnObjects: true }) as string[];
 
-  const mailtoFallback = () => {
-    const subject = t('expert.mail.subject');
-    const body = [
-      `${t('expert.form.name')}: ${name || '—'}`,
-      `${t('expert.form.email')}: ${email || '—'}`,
-      `${t('expert.form.category')}: ${categories.find((c) => String(c.id) === categoryId)?.name ?? '—'}`,
-      `${t('directory.countryLabel')}: ${country || '—'}`,
-      '',
-      question.trim(),
-    ].join('\n');
-    window.location.href = `mailto:${EXPERT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  };
+  // Se retiró el respaldo por mailto: la pregunta ya queda guardada en
+  // expert_questions y el administrador la ve en su bandeja, así que mandar
+  // al usuario a su cliente de correo ya no aporta nada.
 
   const send = async () => {
     if (question.trim().length < 5) {
@@ -60,6 +50,26 @@ export function AskExpert() {
       '',
       question.trim(),
     ].join('\n');
+    // Primero se GUARDA la pregunta, y luego se manda el correo. Antes solo se
+    // mandaba el correo y la pregunta no quedaba en ninguna parte: sin bandeja
+    // para el administrador y sin seguimiento para quien pregunta.
+    // (Auditoría 15 oct 2026, hallazgo M-15.)
+    const { data: guardada, error: errGuardar } = await supabase.rpc('registrar_pregunta_experto', {
+      p_pregunta: question.trim(),
+      p_nombre: name || null,
+      p_correo: email || null,
+      p_pais: country || null,
+      p_categoria: catName,
+    });
+    const motivo = (guardada as { ok?: boolean; motivo?: string } | null)?.motivo;
+    if (errGuardar || motivo === 'demasiadas_preguntas') {
+      // No se finge que se recibió: si no quedó registrada, no hay bandeja que
+      // la recoja y nadie la va a responder.
+      toast.error(t(motivo === 'demasiadas_preguntas' ? 'expert.form.tooMany' : 'expert.form.error'));
+      setSending(false);
+      return;
+    }
+
     try {
       const { error } = await supabase.functions.invoke('send-support', {
         body: {
@@ -75,8 +85,10 @@ export function AskExpert() {
       toast.success(t('expert.form.sent'));
       setName(''); setEmail(''); setCategoryId(''); setQuestion('');
     } catch {
-      toast.error(t('expert.form.error'));
-      mailtoFallback();
+      // La pregunta ya está guardada y el administrador la verá en su bandeja;
+      // lo único que falló es el aviso por correo.
+      toast.success(t('expert.form.sent'));
+      setName(''); setEmail(''); setCategoryId(''); setQuestion('');
     } finally {
       setSending(false);
     }

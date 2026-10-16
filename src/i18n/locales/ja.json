@@ -1430,7 +1430,8 @@
     "grantAlly": "Neuromundi アライを付与",
     "badgeRevoke": "バッジを取り消す",
     "secFichas": "Fichas",
-    "secComisiones": "Comisiones"
+    "secComisiones": "Comisiones",
+    "secExperto": "専門家に質問"
   },
   "reg": {
     "typePatient": "患者",
@@ -2442,7 +2443,8 @@
       "submit": "質問を送信",
       "sent": "送信しました。メールで返信します。",
       "error": "自動送信できませんでした。メールを開きます。",
-      "emptyMsg": "送信前に質問を入力してください。"
+      "emptyMsg": "送信前に質問を入力してください。",
+      "tooMany": "短時間に質問が多すぎます。時間をおいてお試しください。"
     },
     "mail": {
       "subject": "専門家に質問 — Neuromundi"
@@ -2458,7 +2460,18 @@
       "s4Title": "メールでお知らせ",
       "s4Body": "回答があり次第お知らせします。"
     },
-    "disclaimer": "このサービスは医療専門家への相談に代わるものではありません。"
+    "disclaimer": "このサービスは医療専門家への相談に代わるものではありません。",
+    "admin": {
+      "pendiente": "未対応",
+      "respondida": "回答済み",
+      "descartada": "対象外",
+      "todas": "すべて",
+      "empty": "この受信箱に質問はありません。",
+      "anon": "匿名",
+      "member": "会員",
+      "markAnswered": "回答済みにする",
+      "discard": "対象外にする"
+    }
   },
   "create": {
     "title": "アカウントを作成",

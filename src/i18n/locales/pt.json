@@ -1430,7 +1430,8 @@
     "grantAlly": "Conceder Aliado Neuromundi",
     "badgeRevoke": "Revogar distintivo",
     "secFichas": "Fichas",
-    "secComisiones": "Comisiones"
+    "secComisiones": "Comisiones",
+    "secExperto": "Pergunte ao especialista"
   },
   "reg": {
     "typePatient": "Paciente",
@@ -2442,7 +2443,8 @@
       "submit": "Enviar pergunta",
       "sent": "Pergunta enviada! Responderemos por e-mail.",
       "error": "Não foi possível enviar automaticamente. Abrindo seu e-mail.",
-      "emptyMsg": "Escreva sua pergunta antes de enviar."
+      "emptyMsg": "Escreva sua pergunta antes de enviar.",
+      "tooMany": "Perguntas demais seguidas. Tente mais tarde."
     },
     "mail": {
       "subject": "Pergunte a um especialista — Neuromundi"
@@ -2458,7 +2460,18 @@
       "s4Title": "Avisamos por e-mail",
       "s4Body": "Informamos quando houver resposta."
     },
-    "disclaimer": "Este serviço não substitui uma consulta com um profissional de saúde."
+    "disclaimer": "Este serviço não substitui uma consulta com um profissional de saúde.",
+    "admin": {
+      "pendiente": "Pendentes",
+      "respondida": "Respondidas",
+      "descartada": "Descartadas",
+      "todas": "Todas",
+      "empty": "Não há perguntas nesta caixa.",
+      "anon": "Anônimo",
+      "member": "É membro",
+      "markAnswered": "Marcar como respondida",
+      "discard": "Descartar"
+    }
   },
   "create": {
     "title": "Crie sua conta",

@@ -1430,7 +1430,8 @@
     "grantAlly": "Assegna Alleato Neuromundi",
     "badgeRevoke": "Revoca distintivo",
     "secFichas": "Fichas",
-    "secComisiones": "Comisiones"
+    "secComisiones": "Comisiones",
+    "secExperto": "Chiedi a un esperto"
   },
   "reg": {
     "typePatient": "Paziente",
@@ -2442,7 +2443,8 @@
       "submit": "Invia domanda",
       "sent": "Domanda inviata! Ti risponderemo via email.",
       "error": "Invio automatico non riuscito. Apriamo la tua email.",
-      "emptyMsg": "Scrivi la tua domanda prima di inviare."
+      "emptyMsg": "Scrivi la tua domanda prima di inviare.",
+      "tooMany": "Troppe domande di seguito. Riprovi più tardi."
     },
     "mail": {
       "subject": "Chiedi a un esperto — Neuromundi"
@@ -2458,7 +2460,18 @@
       "s4Title": "Ti avvisiamo via email",
       "s4Body": "Ti informiamo quando c’è una risposta."
     },
-    "disclaimer": "Questo servizio non sostituisce una consulenza con un professionista sanitario."
+    "disclaimer": "Questo servizio non sostituisce una consulenza con un professionista sanitario.",
+    "admin": {
+      "pendiente": "In attesa",
+      "respondida": "Risposte",
+      "descartada": "Scartate",
+      "todas": "Tutte",
+      "empty": "Non ci sono domande in questa casella.",
+      "anon": "Anonimo",
+      "member": "È socio",
+      "markAnswered": "Segna come risposta",
+      "discard": "Scarta"
+    }
   },
   "create": {
     "title": "Crea il tuo account",
