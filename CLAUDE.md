@@ -129,8 +129,10 @@ PY
   `drop policy if exists` + `create policy`, `insert ... on conflict do nothing`,
   `add column if not exists`. Backfills solo tocan filas nulas.
 - Las aplica Claude por el conector de Supabase (`apply_migration`), y **verifica después en la
-  base** que quedaron aplicadas. Última en el repo: **0241** (16 oct 2026).
-- Desde el 16 oct 2026 las 241 migraciones del repositorio están registradas en
+  base** que quedaron aplicadas. Última en el repo: **0254** (16 oct 2026; 0252–0254
+  cierran los hallazgos N-1/N-2/N-3 de la auditoría de verificación: ocultar métricas
+  internas del badge, envolver auth.uid() en 7 políticas, e índices para 50 FK).
+- Desde el 16 oct 2026 las migraciones del repositorio están registradas en
   `supabase_migrations.schema_migrations` con la versión que el CLI deduce del nombre del archivo,
   para que un `supabase db push` limpio no reejecute la historia.
 - **Nunca** volver a ejecutar lo que vive en `supabase/migraciones aplicadas a mano/`: son
@@ -155,6 +157,24 @@ PY
   · `provider_search_text` está en la expresión por omisión de `profiles.search_tsv`: retirarla
     rompe toda escritura de perfil.
   Si se quiere limpiar, es una por una y con evidencia, nunca de un barrido.
+- **Lints del advisor ACEPTADOS a conciencia (auditoría 16 oct, N-4/N-5) — no churnear:**
+  · **11 vistas `SECURITY DEFINER`** (`directorio_publico`, `directorio_publico_seguro`,
+    `perfiles_basicos`, `public_provider_ratings/comments`, `public_product_ratings`,
+    `public_post_ratings`, `blog_feed`, `founder_counts`, `affiliate_earnings`,
+    `provider_badge_inputs`): son INTENCIONALES. Sus tablas base (profiles, surveys…) ya NO
+    dan lectura a `anon` (hallazgo C-1), así que la vista DEBE ser definer para servir lo
+    publicado al visitante. Convertirlas a `security_invoker` obligaría a reabrir lectura anon
+    en las tablas base = reintroducir C-1. Revisadas una por una: exponen solo datos
+    publicados o propios (ver 0252 para la única que filtraba de más). NO convertir.
+  · **`pg_net` en `public`**: moverla de esquema puede romper el push (`trg_notify_push` →
+    `net.http_post`). Supabase lo desaconseja. Se deja.
+  · **56 índices sin uso / 202 políticas permisivas múltiples**: no barrer (misma regla que
+    arriba); un índice sin uso en la ventana de medición puede servir a una consulta rara, y
+    consolidar RLS es un refactor con riesgo de romper el acceso. Revisar solo con evidencia.
+  · **13 tablas con RLS sin política**: correcto — se leen solo por RPC `SECURITY DEFINER`
+    (deny-by-default para el cliente).
+  · **`auth_leaked_password_protection` off**: solo plan Pro; mitigado con mínimo de 10
+    caracteres (letras+números).
 - Los nombres de archivo deben empezar por dígitos seguidos de guion bajo. El CLI ignora en
   silencio cualquier otro nombre (por eso `0206b`, `0207b`, `0210b` y `0210c` pasaron a prefijo
   numérico de cinco dígitos).
