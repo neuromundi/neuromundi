@@ -1627,7 +1627,8 @@
     "countryFeeHint": "Your country determines your fee and the currency you are charged in.",
     "fotoSubida": "Your photo is saved to your profile.",
     "fotoPendiente": "We saved your photo on this device: it will upload to your profile the first time you sign in.",
-    "fotoFallo": "We could not save your photo. You can upload it from your profile."
+    "fotoFallo": "We could not save your photo. You can upload it from your profile.",
+    "coordsPaste": "Paste here what you copied from Google Maps"
   },
   "loc": {
     "title": "My branches",
@@ -4990,7 +4991,8 @@
     "viewMap": "View on map",
     "lat": "Latitude",
     "lng": "Longitude",
-    "coordsHelp": "Optional: paste coordinates from Google Maps to appear with a pin on the directory map."
+    "coordsHelp": "Optional: paste coordinates from Google Maps to appear with a pin on the directory map.",
+    "coordsOk": "Map location ready."
   },
   "review": {
     "button": "Rate / review",

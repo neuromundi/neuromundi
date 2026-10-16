@@ -1627,7 +1627,8 @@
     "countryFeeHint": "De tu país dependen la cuota y la moneda en que se te cobra.",
     "fotoSubida": "Su foto quedó guardada en su perfil.",
     "fotoPendiente": "Guardamos su foto en este dispositivo: se subirá a su perfil en cuanto entre por primera vez.",
-    "fotoFallo": "No pudimos guardar su foto. Podrá subirla desde Mi Perfil."
+    "fotoFallo": "No pudimos guardar su foto. Podrá subirla desde Mi Perfil.",
+    "coordsPaste": "Pegue aquí lo que copió de Google Maps"
   },
   "loc": {
     "title": "Mis sucursales",
@@ -4990,7 +4991,8 @@
     "viewMap": "Ver en el mapa",
     "lat": "Latitud",
     "lng": "Longitud",
-    "coordsHelp": "Opcional: pega las coordenadas desde Google Maps para aparecer con pin en el mapa del directorio."
+    "coordsHelp": "Opcional: pega las coordenadas desde Google Maps para aparecer con pin en el mapa del directorio.",
+    "coordsOk": "Ubicación en el mapa lista."
   },
   "review": {
     "button": "Calificar / reseñar",

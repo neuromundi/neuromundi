@@ -1590,7 +1590,8 @@
     "countryFeeHint": "Ihr Land bestimmt den Beitrag und die Währung der Abrechnung.",
     "fotoSubida": "Ihr Foto ist im Profil gespeichert.",
     "fotoPendiente": "Wir haben Ihr Foto auf diesem Gerät gespeichert: Es wird bei Ihrer ersten Anmeldung hochgeladen.",
-    "fotoFallo": "Ihr Foto konnte nicht gespeichert werden. Sie können es im Profil hochladen."
+    "fotoFallo": "Ihr Foto konnte nicht gespeichert werden. Sie können es im Profil hochladen.",
+    "coordsPaste": "Fügen Sie hier ein, was Sie aus Google Maps kopiert haben"
   },
   "loc": {
     "title": "Meine Filialen",
@@ -4990,7 +4991,8 @@
     "viewMap": "Auf Karte ansehen",
     "lat": "Breitengrad",
     "lng": "Längengrad",
-    "coordsHelp": "Optional: Koordinaten aus Google Maps einfügen, um mit einem Pin auf der Verzeichniskarte zu erscheinen."
+    "coordsHelp": "Optional: Koordinaten aus Google Maps einfügen, um mit einem Pin auf der Verzeichniskarte zu erscheinen.",
+    "coordsOk": "Position auf der Karte bereit."
   },
   "review": {
     "button": "Bewerten",

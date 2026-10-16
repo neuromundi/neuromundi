@@ -9,6 +9,7 @@
  * también en specialties[] para que sea indexable en el buscador.
  */
 import { useState } from 'react';
+import { leerCoordenadas } from '@/lib/coordenadas';
 import { entregarFotoDeRegistro } from '@/lib/fotoPendiente';
 import { useAuthStore } from '@/stores/authStore';
 import { useTranslation } from 'react-i18next';
@@ -66,6 +67,28 @@ export function EsparcimientoRegister({ onSuccess, complete = false }: { onSucce
   const [mapUrl, setMapUrl] = useState('');
   const [lat, setLat] = useState('');
   const [lng, setLng] = useState('');
+
+  /**
+   * El enlace de Google Maps YA se pedía, y las coordenadas venían dentro. Se
+   * leen de ahí en vez de pedirle a la persona que las busque aparte.
+   * (M-17, ampliación pedida el 16 oct 2026.)
+   */
+  const cambiarMapUrl = (valor: string) => {
+    setMapUrl(valor);
+    const c = leerCoordenadas(valor);
+    if (c) { setLat(String(c.lat)); setLng(String(c.lng)); }
+  };
+
+  /**
+   * Google Maps entrega UNA cadena («19.4326, -99.1332»); el formulario pedía
+   * DOS números. Quien pegaba la cadena completa aquí dejaba la longitud vacía
+   * y se guardaba sin pin, sin decir nada. Ahora se reparte sola.
+   */
+  const pegarCoordenadas = (valor: string) => {
+    const c = leerCoordenadas(valor);
+    if (c) { setLat(String(c.lat)); setLng(String(c.lng)); return; }
+    setLat(valor);
+  };
   // Accesibilidad
   const [sensoryHours, setSensoryHours] = useState('');
   const [cognitive, setCognitive] = useState('');
@@ -261,12 +284,13 @@ export function EsparcimientoRegister({ onSuccess, complete = false }: { onSucce
             <div><label className={labelCls} htmlFor="esparc-f4">{t('esp.city')}</label><input id="esparc-f4" className={inputCls} value={city} onChange={(e) => setCity(e.target.value)} /></div>
           </div>
           <div><label className={labelCls} htmlFor="esparc-f5">{t('esp.address')}</label><input id="esparc-f5" className={inputCls} value={address} onChange={(e) => setAddress(e.target.value)} /></div>
-          <div><label className={labelCls} htmlFor="esparc-f6">{t('esp.mapUrl')}</label><input id="esparc-f6" className={inputCls} value={mapUrl} onChange={(e) => setMapUrl(e.target.value)} placeholder="https://maps.google.com/…" /><p className="mt-1 text-xs text-muted">{t('esp.mapUrlHelp')}</p></div>
+          <div><label className={labelCls} htmlFor="esparc-f6">{t('esp.mapUrl')}</label><input id="esparc-f6" className={inputCls} value={mapUrl} onChange={(e) => cambiarMapUrl(e.target.value)} placeholder="https://maps.google.com/…" /><p className="mt-1 text-xs text-muted">{t('esp.mapUrlHelp')}</p></div>
           <div className="grid gap-3 sm:grid-cols-2">
-            <div><label className={labelCls} htmlFor="esparc-f7">{t('esp.lat')}</label><input id="esparc-f7" className={inputCls} inputMode="decimal" value={lat} onChange={(e) => setLat(e.target.value)} placeholder="19.4326" /></div>
+            <div><label className={labelCls} htmlFor="esparc-f7">{t('esp.lat')}</label><input id="esparc-f7" className={inputCls} inputMode="decimal" value={lat} onChange={(e) => pegarCoordenadas(e.target.value)} placeholder="19.4326" /></div>
             <div><label className={labelCls} htmlFor="esparc-f8">{t('esp.lng')}</label><input id="esparc-f8" className={inputCls} inputMode="decimal" value={lng} onChange={(e) => setLng(e.target.value)} placeholder="-99.1332" /></div>
           </div>
           <p className="text-xs text-muted">{t('esp.coordsHelp')}</p>
+          {leerCoordenadas(`${lat},${lng}`) && <p className="text-xs font-semibold text-sage-700">{t('esp.coordsOk')}</p>}
         </section>
 
         {/* 3. Accesibilidad sensorial y cognitiva */}

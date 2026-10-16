@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
+import { leerCoordenadas } from '@/lib/coordenadas';
 import { MapPin, Plus, Pencil, Trash2 } from 'lucide-react';
 import { z } from 'zod';
 import { Button, Modal, SkeletonCard, useToast } from '@/components/ui';
@@ -43,6 +44,7 @@ export function ProviderLocations({ providerId }: { providerId: string }) {
     register,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<LocationFormValues>({
     resolver: zodResolver(locationFormSchema),
@@ -165,6 +167,22 @@ export function ProviderLocations({ providerId }: { providerId: string }) {
           </div>
           <fieldset>
             <legend className="mb-1 text-sm font-medium text-muted">{t('reg.coords')}</legend>
+            {/* Google Maps entrega UNA cadena o un enlace; estos campos piden DOS
+                números. Quien pegaba la cadena completa dejaba el segundo vacío y
+                la sucursal se guardaba sin pin. Este campo la reparte.
+                (M-17, ampliación pedida el 16 oct 2026.) */}
+            <input
+              className={`${inputCls} mb-2`}
+              placeholder={t('reg.coordsPaste')}
+              aria-label={t('reg.coordsPaste')}
+              onChange={(e) => {
+                const c = leerCoordenadas(e.target.value);
+                if (!c) return;
+                setValue('latitude', c.lat, { shouldDirty: true });
+                setValue('longitude', c.lng, { shouldDirty: true });
+                e.target.value = '';
+              }}
+            />
             <div className="grid grid-cols-2 gap-3">
               <input
                 className={inputCls}

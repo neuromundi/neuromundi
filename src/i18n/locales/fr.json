@@ -1590,7 +1590,8 @@
     "countryFeeHint": "Votre pays détermine votre cotisation et la devise de facturation.",
     "fotoSubida": "Votre photo est enregistrée sur votre profil.",
     "fotoPendiente": "Nous avons gardé votre photo sur cet appareil : elle sera envoyée à votre profil à votre première connexion.",
-    "fotoFallo": "Nous n’avons pas pu enregistrer votre photo. Vous pourrez l’ajouter depuis votre profil."
+    "fotoFallo": "Nous n’avons pas pu enregistrer votre photo. Vous pourrez l’ajouter depuis votre profil.",
+    "coordsPaste": "Collez ici ce que vous avez copié depuis Google Maps"
   },
   "loc": {
     "title": "Mes succursales",
@@ -4990,7 +4991,8 @@
     "viewMap": "Voir sur la carte",
     "lat": "Latitude",
     "lng": "Longitude",
-    "coordsHelp": "Facultatif : collez les coordonnées depuis Google Maps pour apparaître avec un repère sur la carte de l'annuaire."
+    "coordsHelp": "Facultatif : collez les coordonnées depuis Google Maps pour apparaître avec un repère sur la carte de l'annuaire.",
+    "coordsOk": "Position sur la carte prête."
   },
   "review": {
     "button": "Noter / évaluer",

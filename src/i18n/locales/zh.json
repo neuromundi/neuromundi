@@ -1590,7 +1590,8 @@
     "countryFeeHint": "您的国家决定会费金额和结算货币。",
     "fotoSubida": "您的照片已保存到个人资料。",
     "fotoPendiente": "我们已将照片保存在此设备，首次登录时会上传到您的个人资料。",
-    "fotoFallo": "未能保存您的照片，您可以在个人资料中上传。"
+    "fotoFallo": "未能保存您的照片，您可以在个人资料中上传。",
+    "coordsPaste": "请在此粘贴您从 Google 地图复制的内容"
   },
   "loc": {
     "title": "我的门店",
@@ -4990,7 +4991,8 @@
     "viewMap": "在地图上查看",
     "lat": "纬度",
     "lng": "经度",
-    "coordsHelp": "可选：从 Google 地图粘贴坐标，即可在目录地图上以图钉显示。"
+    "coordsHelp": "可选：从 Google 地图粘贴坐标，即可在目录地图上以图钉显示。",
+    "coordsOk": "地图位置已就绪。"
   },
   "review": {
     "button": "评价",

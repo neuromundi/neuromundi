@@ -1590,7 +1590,8 @@
     "countryFeeHint": "Do seu país dependem a cota e a moeda em que você é cobrado.",
     "fotoSubida": "Sua foto ficou salva no seu perfil.",
     "fotoPendiente": "Guardamos sua foto neste dispositivo: será enviada ao seu perfil no primeiro acesso.",
-    "fotoFallo": "Não conseguimos salvar sua foto. Você poderá enviá-la no seu perfil."
+    "fotoFallo": "Não conseguimos salvar sua foto. Você poderá enviá-la no seu perfil.",
+    "coordsPaste": "Cole aqui o que copiou do Google Maps"
   },
   "loc": {
     "title": "Minhas filiais",
@@ -4990,7 +4991,8 @@
     "viewMap": "Ver no mapa",
     "lat": "Latitude",
     "lng": "Longitude",
-    "coordsHelp": "Opcional: cole as coordenadas do Google Maps para aparecer com um pino no mapa do diretório."
+    "coordsHelp": "Opcional: cole as coordenadas do Google Maps para aparecer com um pino no mapa do diretório.",
+    "coordsOk": "Localização no mapa pronta."
   },
   "review": {
     "button": "Avaliar",
