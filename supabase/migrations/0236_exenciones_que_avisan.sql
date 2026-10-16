@@ -1,0 +1,25 @@
+-- 0236 · Las exenciones dejan de ser un trámite mudo, y topes a dos puertas.
+-- (Auditoría del 15 oct 2026, hallazgos A-18 y A-20.)
+--
+-- A-18: pedir una exención no avisaba a nadie —la solicitud esperaba a que
+-- alguien recordara abrir el panel— y resolverla tampoco avisaba al
+-- solicitante, ni al aprobar ni al rechazar, mientras su plazo de pago seguía
+-- corriendo. El rechazo sólo se veía si volvía a entrar a la tarjeta. Ahora
+-- solicitar_exencion avisa al administrador, admin_exencion_resolver notifica
+-- al solicitante en los dos sentidos, y una tarea diaria avisa 21 días antes
+-- de que venza una exención anual: sin ella, al vencer la ficha se retiraba del
+-- directorio sin que nadie le hubiera dicho nada.
+--
+-- A-20: la tabla de analítica aceptaba escrituras anónimas sin tope de tamaño
+-- (dos políticas permisivas se combinaban con O lógico y la laxa ganaba, el
+-- mismo patrón que dejaba pública la tabla de fundadores), y los seis cubos de
+-- almacenamiento no tenían límite de tamaño ni de tipo de archivo.
+--
+-- Verificado: avatars/badges/hero a 5 MB y sólo imágenes; reports/secure/
+-- verification a 25 MB; una sola política de inserción en analytics_events.
+
+-- NOTA DE PROCEDENCIA: el SQL ejecutado quedó registrado íntegro en
+-- supabase_migrations.schema_migrations el 15 de octubre de 2026. Este archivo
+-- resume el porqué; para reconstruir la base desde cero hay que volcar esa
+-- entrada aquí. Es la misma deuda que el hallazgo A-4 del informe y está
+-- pendiente de saldar en bloque para las 34 migraciones que la tienen.

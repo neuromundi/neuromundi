@@ -1,0 +1,25 @@
+-- 0238 · Las renovaciones de terapia dejan de no existir.
+-- (Auditoría del 15 oct 2026, hallazgo A-11.)
+--
+-- La terapia es una suscripción mensual con transferencia a la cuenta Connect
+-- del prestador. El registro en public.payments sólo se creaba en el checkout y
+-- se marcaba pagado en checkout.session.completed. Las renovaciones del mes 2
+-- en adelante llegan como invoice.paid, y ese caso busca al pagador por el
+-- stripe_customer_id del PERFIL — pero la sesión de terapia no pasa `customer`,
+-- así que Stripe crea un cliente distinto que no está en ningún perfil.
+-- Resultado: once cobros al año sin un solo registro en la plataforma. El
+-- prestador no tenía constancia y el paciente no los veía.
+--
+-- Además public.payments no tenía NINGUNA restricción única, así que una
+-- reentrega del evento habría duplicado la fila.
+--
+-- Se añade stripe_invoice_id con índice único parcial,
+-- registrar_renovacion_terapia (idempotente, sólo service_role) y mis_pagos()
+-- pasa a incluir consultas y terapias: antes unía cuotas, donativos y
+-- comisiones, y dejaba fuera justo lo que un paciente paga mes a mes.
+
+-- NOTA DE PROCEDENCIA: el SQL ejecutado quedó registrado íntegro en
+-- supabase_migrations.schema_migrations el 15 de octubre de 2026. Este archivo
+-- resume el porqué; para reconstruir la base desde cero hay que volcar esa
+-- entrada aquí. Es la misma deuda que el hallazgo A-4 del informe y está
+-- pendiente de saldar en bloque para las 34 migraciones que la tienen.

@@ -1421,6 +1421,8 @@ export interface Database {
           primera_en_vencer: string | null;
         }[];
       };
+      /** Vigencia de las invitaciones; incluye cuantas vencen pronto (0232). */
+      renovar_invitaciones_por_vencer: { Args: Record<string, never>; Returns: number };
       /** Estado de la membresia propia, para la pantalla de baja (migracion 0234). */
       mi_membresia: {
         Args: Record<string, never>;

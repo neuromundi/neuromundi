@@ -7,7 +7,7 @@
  */
 import { NavLink, Outlet, useNavigate, Link, useLocation } from 'react-router-dom';
 import { useFotoPendiente } from '@/hooks/useFotoPendiente';
-import { Compass, LayoutDashboard, Settings, LogIn, LogOut, ShieldCheck, MessageCircleQuestion, School, GraduationCap, Grid3x3, X, BookOpenCheck, BookOpen, ShieldAlert, CalendarDays, ShoppingBag, MessageSquare, MessageCircle, Heart, Lightbulb, Award, Briefcase, Users, BadgeCheck } from 'lucide-react';
+import { Compass, LayoutDashboard, Settings, LogIn, LogOut, ShieldCheck, MessageCircleQuestion, School, GraduationCap, Grid3x3, X, BookOpenCheck, BookOpen, ShieldAlert, CalendarDays, ShoppingBag, MessageSquare, MessageCircle, Heart, Lightbulb, Award, Briefcase, Users, BadgeCheck, ClipboardList } from 'lucide-react';
 import { Suspense, lazy, useEffect, useState, type ComponentType } from 'react';
 import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -533,6 +533,16 @@ export function AppLayout() {
                   { to: '/red', label: t('nav.red'), icon: <BadgeCheck className="h-4 w-4" /> },
                   { to: '/fundadores', label: t('nav.founders'), icon: <Award className="h-4 w-4" /> },
                   { to: '/donantes', label: t('nav.donors'), icon: <Heart className="h-4 w-4" /> },
+                  // La encuesta se promete a TODOS los perfiles en el correo de
+                  // invitación («participación prioritaria en la 1.ª Encuesta
+                  // sobre la Situación Neurológica Mundial») y no tenía puerta:
+                  // su única entrada era un cartel que exige sesión y alta
+                  // completa, aunque la encuesta es pública y anónima por
+                  // diseño. (Auditoría del 15 oct 2026, hallazgo A-8.)
+                  { to: '/encuesta', label: t('nav.survey'), icon: <ClipboardList className="h-4 w-4" /> },
+                  // El curso de bienvenida y la búsqueda transversal existían y
+                  // no estaban enlazados desde ninguna parte. (Hallazgo M-6.)
+                  { to: '/curso-bienvenida', label: t('nav.welcomeCourse'), icon: <GraduationCap className="h-4 w-4" /> },
                   { to: '/proteccion-datos', label: t('nav.dataProtection'), icon: <ShieldCheck className="h-4 w-4" /> },
                   { to: '/pregunta-al-experto', label: t('nav.askExpert'), icon: <MessageCircleQuestion className="h-4 w-4" /> },
                 ]}
@@ -652,6 +662,8 @@ export function AppLayout() {
         <Link to="/fundadores" className="hover:text-brand-700">{t('nav.founders')}</Link>
         <span className="mx-2">·</span>
         <Link to="/donantes" className="hover:text-brand-700">{t('nav.donors')}</Link>
+        <span className="mx-2">·</span>
+        <Link to="/encuesta" className="hover:text-brand-700">{t('nav.survey')}</Link>
         <span className="mx-2">·</span>
         <Link to="/verificados" className="hover:text-brand-700">{t('registry.title')}</Link>
         <span className="mx-2">·</span>

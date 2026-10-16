@@ -72,9 +72,42 @@ Deno.serve(async (req: Request) => {
   const amount = Number(body.amount);
   const currency = String(body.currency ?? '').toUpperCase();
 
+  // Los campos libres acaban en la base y en el muro: se acotan.
+  const demasiadoLargo = ['email', 'contactName', 'orgName', 'publishAs', 'shipRecipient',
+    'shipAddress', 'shipCity', 'shipPostal', 'shipCountry', 'note']
+    .some((k) => typeof body[k] === 'string' && (body[k] as string).length > 300);
+  if (demasiadoLargo) return json(400, { error: 'Alguno de los datos es demasiado largo.' });
+
   const admin = createClient(url, Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '', {
     auth: { persistSession: false },
   });
+
+  // CONTROL DE TASA. Esta es la única función de borde abierta sin candado:
+  // se llama sin ninguna credencial y, antes de crear la sesión de Stripe,
+  // inserta una fila en `donations` con nombre, correo y domicilio tal como
+  // vienen del cliente. Sin tope, un bucle llena la tabla de donativos con
+  // datos inventados y crea sesiones de Checkout sin límite.
+  //
+  // Sus dos hermanas abiertas SÍ se protegen —send-support limita a 5 envíos
+  // por IP cada 10 minutos y reclamar-ficha a 10 por hora, las dos sobre
+  // support_throttle—; aquí no se había usado.
+  // (Auditoría del 15 oct 2026, hallazgo A-20.)
+  const ip = (req.headers.get('x-forwarded-for') ?? '').split(',')[0].trim() || 'unknown';
+  try {
+    const desde = new Date(Date.now() - 10 * 60 * 1000).toISOString();
+    const { count } = await admin
+      .from('support_throttle')
+      .select('id', { count: 'exact', head: true })
+      .eq('ip', `donativo:${ip}`)
+      .gte('created_at', desde);
+    if ((count ?? 0) >= 8) {
+      return json(429, { error: 'Demasiados intentos. Espere unos minutos y vuelva a intentarlo.' });
+    }
+    await admin.from('support_throttle').insert({ ip: `donativo:${ip}` });
+  } catch (e) {
+    // Si el control de tasa falla, no se bloquea un donativo legítimo.
+    console.error('throttle donativo', e);
+  }
 
   // Importes REALES desde la base (el admin los edita). Si la moneda no está
   // activa ahí, se rechaza; si la tabla no respondiera, se usa el respaldo.

@@ -1,0 +1,29 @@
+-- 0235 · Una invitación por buzón, no por ficha.
+-- (Auditoría del 15 oct 2026, hallazgos M-9 y M-10.)
+--
+-- Medido: cuatro correos aparecían en ocho fichas. Tres pares son la misma
+-- organización duplicada con nombres distintos (Úpale, CAI, CCYET) y el cuarto
+-- son dos sedes de Teletón que comparten un buzón corporativo. El índice único
+-- que existe es por FICHA, no por correo, así que la campaña mandaría dos
+-- correos al mismo destinatario con dos enlaces distintos.
+--
+-- No se fusionan ni se borran fichas: eso exige decidir cuál nombre es el bueno
+-- y es irreversible. Se deduplica EN LA COLA, que es donde causa el daño.
+--
+-- Y la baja ("retirar mi ficha") pasa a aplicarse al TITULAR del dato, no al
+-- registro: en protección de datos la oposición es de la persona, no de la
+-- fila. Antes, quien pedía que lo retiraran podía recibir una segunda
+-- invitación desde su ficha gemela.
+--
+-- El cuerpo completo de las dos funciones se aplicó con apply_migration el
+-- 15 oct 2026; aquí queda la referencia. También se retiraron las dos colas
+-- de la versión anterior, que devolvían la cola SIN PAÍS (un script viejo
+-- habría mandado cuotas mexicanas a Argentina) y que nadie llamaba.
+--
+-- Verificado tras aplicar: 365 invitaciones en cola, 365 buzones distintos.
+
+-- NOTA DE PROCEDENCIA: el SQL ejecutado quedó registrado íntegro en
+-- supabase_migrations.schema_migrations el 15 de octubre de 2026. Este archivo
+-- resume el porqué; para reconstruir la base desde cero hay que volcar esa
+-- entrada aquí. Es la misma deuda que el hallazgo A-4 del informe y está
+-- pendiente de saldar en bloque para las 34 migraciones que la tienen.

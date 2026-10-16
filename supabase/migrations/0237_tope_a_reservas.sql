@@ -1,0 +1,19 @@
+-- 0237 · Tope a las solicitudes de reserva.
+-- (Auditoría del 15 oct 2026, hallazgo A-20.)
+--
+-- request_booking se puede llamar sin cuenta con la llave pública, y el número
+-- de miembro del prestador es público. Cada llamada insertaba una solicitud Y
+-- una notificación, y la notificación dispara correo y aviso al teléfono: un
+-- bucle inundaba la bandeja y el teléfono de cualquier prestador. Las dos
+-- funciones de borde hermanas (send-support, reclamar-ficha) sí tienen control
+-- de tasa; a ésta se le olvidó.
+--
+-- No hay dirección IP disponible dentro de SQL, así que el tope es POR
+-- PRESTADOR —20 por hora—, que es donde está el daño: su bandeja. Se añaden
+-- además topes de longitud a los tres campos libres, que acaban en un correo.
+
+-- NOTA DE PROCEDENCIA: el SQL ejecutado quedó registrado íntegro en
+-- supabase_migrations.schema_migrations el 15 de octubre de 2026. Este archivo
+-- resume el porqué; para reconstruir la base desde cero hay que volcar esa
+-- entrada aquí. Es la misma deuda que el hallazgo A-4 del informe y está
+-- pendiente de saldar en bloque para las 34 migraciones que la tienen.

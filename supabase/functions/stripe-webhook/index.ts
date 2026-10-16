@@ -508,6 +508,50 @@ Deno.serve(async (req: Request) => {
         const inv = event.data.object as Stripe.Invoice;
         const customerId = typeof inv.customer === 'string' ? inv.customer : inv.customer?.id;
 
+        // ── RENOVACIONES DE TERAPIA ──────────────────────────────────────────
+        //
+        // La terapia es una suscripcion MENSUAL con transferencia a la cuenta
+        // Connect del prestador. El registro en `payments` solo se creaba en el
+        // checkout y se marcaba pagado en checkout.session.completed. De la
+        // segunda mensualidad en adelante llega por aqui, y lo que sigue busca
+        // al pagador por el stripe_customer_id del PERFIL — pero la sesion de
+        // terapia no pasa `customer`, asi que Stripe crea un cliente distinto
+        // que no esta en ningun perfil. Resultado: once cobros al ano sin UN
+        // SOLO registro en la plataforma. El prestador no tenia constancia y el
+        // paciente no los veia. (Auditoria del 15 oct 2026, hallazgo A-11.)
+        //
+        // Los datos vienen de la metadata que el checkout graba en
+        // subscription_data, no del cliente de Stripe.
+        {
+          const metaFactura = (inv as unknown as {
+            parent?: { subscription_details?: { metadata?: Record<string, string> } | null } | null;
+            subscription_details?: { metadata?: Record<string, string> } | null;
+          });
+          const metaSub = metaFactura.parent?.subscription_details?.metadata
+            ?? metaFactura.subscription_details?.metadata
+            ?? (inv.lines?.data?.[0]?.metadata as Record<string, string> | undefined)
+            ?? {};
+          const esTerapia = metaSub.kind === 'therapy';
+          if (esTerapia && inv.billing_reason !== 'subscription_create') {
+            const subTerapia = (inv as unknown as { subscription?: string | { id?: string } | null }).subscription;
+            try {
+              await admin.rpc('registrar_renovacion_terapia', {
+                p_provider: metaSub.provider_id ?? null,
+                p_payer: metaSub.payer_id ?? metaSub.user_id ?? null,
+                p_amount_cents: inv.amount_paid ?? 0,
+                p_currency: inv.currency ?? 'mxn',
+                p_invoice: inv.id,
+                p_subscription: typeof subTerapia === 'string' ? subTerapia : (subTerapia?.id ?? null),
+              });
+            } catch (e) {
+              console.error('registrar_renovacion_terapia', e);
+            }
+            // Una factura de terapia NO es una cuota de membresia: no debe
+            // seguir por la ruta de abajo, que extenderia la vigencia.
+            break;
+          }
+        }
+
         // SOLO LAS FACTURAS DE LA MEMBRESÍA. Antes se activaba la membresía con
         // CUALQUIER factura del cliente, sin comprobar que viniera de su
         // suscripción de membresía.
