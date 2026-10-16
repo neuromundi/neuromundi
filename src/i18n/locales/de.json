@@ -1223,7 +1223,15 @@
   "legal": {
     "lastUpdated": "Zuletzt aktualisiert",
     "disclaimer": "Dies ist ein Vorlagendokument zu Beispielzwecken. Vor der Veröffentlichung von qualifizierter Rechtsberatung für deine Rechtsordnung prüfen und anpassen lassen.",
-    "bodyNote": "Der folgende Inhalt ist als Basis auf Spanisch; ersetze ihn durch deinen endgültigen Rechtstext."
+    "bodyNote": "Der folgende Inhalt ist als Basis auf Spanisch; ersetze ihn durch deinen endgültigen Rechtstext.",
+    "reaccept": {
+      "title": "Regelwerk aktualisiert",
+      "body": "Wir haben das Regelwerk der Plattform aktualisiert. Bitte lesen und akzeptieren Sie es, um Ihr Konto weiter zu nutzen.",
+      "read": "Regelwerk lesen",
+      "accept": "Ich akzeptiere",
+      "saving": "Wird gespeichert…",
+      "failed": "Ihre Zustimmung konnte nicht gespeichert werden. Bitte versuchen Sie es erneut."
+    }
   },
   "intro": {
     "skip": "Intro überspringen",

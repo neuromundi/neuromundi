@@ -60,6 +60,7 @@ const CampaignWelcomePopup = lazyOptional(() => import('@/components/campaign/Ca
 const MembershipSuccessNotice = lazyOptional(() => import('@/components/membership/MembershipSuccessNotice').then((m) => ({ default: m.MembershipSuccessNotice })));
 const SoftSignupBanner = lazyOptional(() => import('@/components/onboarding/SoftSignupBanner').then((m) => ({ default: m.SoftSignupBanner })));
 const SurveyInviteBanner = lazyOptional(() => import('@/components/survey/SurveyInviteBanner').then((m) => ({ default: m.SurveyInviteBanner })));
+const ReglamentoActualizado = lazyOptional(() => import('@/components/legal/ReglamentoActualizado').then((m) => ({ default: m.ReglamentoActualizado })));
 const ReportModal = lazyOptional(() => import('@/components/report/ReportModal').then((m) => ({ default: m.ReportModal })));
 const MembershipReminderPopup = lazyOptional(() => import('@/components/membership/MembershipReminderPopup').then((m) => ({ default: m.MembershipReminderPopup })));
 const AccountInactiveModal = lazy(() => import('@/components/membership/AccountInactiveModal').then((m) => ({ default: m.AccountInactiveModal })));
@@ -478,6 +479,9 @@ export function AppLayout() {
         {/* Invitación a la Encuesta Internacional: solo con sesión + perfil completo,
             una vez por sesión; se apaga al responderla (ver SurveyInviteBanner). */}
         {deferUi && <SurveyInviteBanner onRespond={() => navigate('/encuesta')} />}
+        {/* Re-aceptacion del reglamento cuando cambia la version vigente
+            (auditoria 15 oct 2026, M-18). No bloquea la navegacion. */}
+        {deferUi && <ReglamentoActualizado />}
       </Suspense>
       <header className="sticky top-0 z-30 border-b border-slate-100 bg-[#eefbfa]/95 backdrop-blur">
         <div className="mx-auto max-w-6xl px-4 py-2">

@@ -1381,6 +1381,16 @@ export interface Database {
         }[];
       };
       /** Cuenta de cobro declarada por el propio referidor (migracion 0226). */
+      /** Version vigente del reglamento. Fuente de verdad (migracion 0241). */
+      reglamento_vigente: {
+        Args: Record<string, never>;
+        Returns: string;
+      };
+      /** Registra la aceptacion del reglamento vigente. No recibe la version. */
+      aceptar_reglamento: {
+        Args: Record<string, never>;
+        Returns: { ok: boolean; version?: string; motivo?: string };
+      };
       mi_cuenta_de_cobro: {
         Args: Record<string, never>;
         Returns: {

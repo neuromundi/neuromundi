@@ -1260,7 +1260,15 @@
   "legal": {
     "lastUpdated": "Last updated",
     "disclaimer": "This is a template document for example purposes. Before publishing, review and adapt it with qualified legal counsel for your jurisdiction.",
-    "bodyNote": "The content below is provided in Spanish as a base; replace it with your final legal text."
+    "bodyNote": "The content below is provided in Spanish as a base; replace it with your final legal text.",
+    "reaccept": {
+      "title": "Terms updated",
+      "body": "We have updated the platform rules. Please read and accept them to keep using your account.",
+      "read": "Read the rules",
+      "accept": "I accept",
+      "saving": "Saving…",
+      "failed": "We could not record your acceptance. Please try again."
+    }
   },
   "intro": {
     "skip": "Skip intro",

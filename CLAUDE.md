@@ -128,9 +128,16 @@ PY
 - **Deben ser idempotentes**: `create table if not exists`, `create or replace function`,
   `drop policy if exists` + `create policy`, `insert ... on conflict do nothing`,
   `add column if not exists`. Backfills solo tocan filas nulas.
-- El usuario las aplica **a mano en el SQL Editor de Supabase**, en orden (no hay CLI de
-  migraciones en su flujo). Última en el repo: **0089** (0089 ya aplicada en producción vía el
-  conector Supabase; `create-membership-checkout` v29 desplegada).
+- Las aplica Claude por el conector de Supabase (`apply_migration`), y **verifica después en la
+  base** que quedaron aplicadas. Última en el repo: **0241** (16 oct 2026).
+- Desde el 16 oct 2026 las 241 migraciones del repositorio están registradas en
+  `supabase_migrations.schema_migrations` con la versión que el CLI deduce del nombre del archivo,
+  para que un `supabase db push` limpio no reejecute la historia.
+- **Nunca** volver a ejecutar lo que vive en `supabase/migraciones aplicadas a mano/`: son
+  migraciones de datos de un solo uso y `0097b` BORRA fichas del directorio.
+- Los nombres de archivo deben empezar por dígitos seguidos de guion bajo. El CLI ignora en
+  silencio cualquier otro nombre (por eso `0206b`, `0207b`, `0210b` y `0210c` pasaron a prefijo
+  numérico de cinco dígitos).
 - Para verificar qué está aplicado en producción: `db/verificar_produccion.sql` (histórico hasta
   0022), `db/verificar_produccion_0077_0088.sql` (tramo reciente; las RPC que solo cambian de firma
   se comprueban por nº de argumentos) y `db/verificar_cron.sql` (cron esperados + activos).
@@ -155,6 +162,8 @@ PY
   un tipo nuevo, clasifícalo en AMBOS** o caerá en "otras". UI en `Ajustes`.
 
 ### 4. Administrador
+- Roles válidos en `profiles.role`: **cuatro** — `'admin'`, `'provider'`, `'parent'` y
+  `'patient'`. (La guía decía tres hasta el 16 oct 2026.)
 - Es admin quien tenga `profiles.role = 'admin'` (lo valida `is_admin()`). Se asigna por
   SQL, no hay UI. Panel en `/panel` (Dashboard renderiza `AdminDashboard` si role=admin).
 - Secciones admin: metrics, messages, moderation, products, store, renewals, reports,

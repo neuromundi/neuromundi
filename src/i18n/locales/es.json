@@ -1260,7 +1260,15 @@
   "legal": {
     "lastUpdated": "Última actualización",
     "disclaimer": "Este es un documento de plantilla con fines de ejemplo. Antes de publicarlo, revísalo y adáptalo con asesoría legal calificada para tu jurisdicción.",
-    "bodyNote": "El contenido siguiente está en español como base; sustitúyelo por tu texto legal definitivo."
+    "bodyNote": "El contenido siguiente está en español como base; sustitúyelo por tu texto legal definitivo.",
+    "reaccept": {
+      "title": "Reglamento actualizado",
+      "body": "Actualizamos el reglamento de la plataforma. Le pedimos leerlo y aceptarlo para seguir usando su cuenta.",
+      "read": "Leer el reglamento",
+      "accept": "Acepto",
+      "saving": "Guardando…",
+      "failed": "No se pudo registrar su aceptación. Vuelva a intentarlo."
+    }
   },
   "intro": {
     "skip": "Saltar intro",

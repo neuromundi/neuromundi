@@ -1223,7 +1223,15 @@
   "legal": {
     "lastUpdated": "Dernière mise à jour",
     "disclaimer": "Ceci est un modèle de document à titre d'exemple. Avant publication, faites-le réviser et adapter par un conseil juridique qualifié pour votre juridiction.",
-    "bodyNote": "Le contenu ci-dessous est fourni en espagnol comme base ; remplacez-le par votre texte juridique définitif."
+    "bodyNote": "Le contenu ci-dessous est fourni en espagnol comme base ; remplacez-le par votre texte juridique définitif.",
+    "reaccept": {
+      "title": "Règlement mis à jour",
+      "body": "Nous avons mis à jour le règlement de la plateforme. Merci de le lire et de l'accepter pour continuer à utiliser votre compte.",
+      "read": "Lire le règlement",
+      "accept": "J'accepte",
+      "saving": "Enregistrement…",
+      "failed": "Votre acceptation n'a pas pu être enregistrée. Veuillez réessayer."
+    }
   },
   "intro": {
     "skip": "Passer l'intro",
