@@ -2059,6 +2059,30 @@
       "reservas_en_rafaga": {
         "title": "Many booking requests to the same provider",
         "body": "A provider received more than 20 booking requests in one hour. This may be abuse of the public form."
+      },
+      "exencion_aprobada": {
+        "title": "Your fee exemption was approved",
+        "body": "You will not be asked for a membership fee."
+      },
+      "exencion_aprobada_hasta": {
+        "title": "Your fee exemption was approved",
+        "body": "You will not be asked for a fee until {{fecha}}. We will let you know before that date."
+      },
+      "exencion_rechazada": {
+        "title": "Your exemption request was not granted",
+        "body": "Review your file in the panel and submit it again if appropriate."
+      },
+      "exencion_rechazada_motivo": {
+        "title": "Your exemption request was not granted",
+        "body": "{{motivo}}"
+      },
+      "exencion_por_vencer": {
+        "title": "Your fee exemption is about to expire",
+        "body": "It expires on {{fecha}}. Renew your file so that your listing stays published."
+      },
+      "founder_request_approved": {
+        "title": "Your Founding Member fee was approved",
+        "body": "We have reserved the Founding Member fee for you. You can now take it at the founder price."
       }
     }
   },

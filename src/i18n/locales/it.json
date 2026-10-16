@@ -2022,6 +2022,30 @@
       "reservas_en_rafaga": {
         "title": "Molte richieste di prenotazione allo stesso erogatore",
         "body": "Un erogatore ha ricevuto più di 20 richieste in un’ora. Può essere un abuso del modulo pubblico."
+      },
+      "exencion_aprobada": {
+        "title": "La sua esenzione dalla quota è stata approvata",
+        "body": "Non le verrà chiesta la quota associativa."
+      },
+      "exencion_aprobada_hasta": {
+        "title": "La sua esenzione dalla quota è stata approvata",
+        "body": "Non le verrà chiesta la quota fino al {{fecha}}. La avviseremo prima di quella data."
+      },
+      "exencion_rechazada": {
+        "title": "La sua richiesta di esenzione non è stata accolta",
+        "body": "Verifichi il suo fascicolo nel pannello e lo invii di nuovo se del caso."
+      },
+      "exencion_rechazada_motivo": {
+        "title": "La sua richiesta di esenzione non è stata accolta",
+        "body": "{{motivo}}"
+      },
+      "exencion_por_vencer": {
+        "title": "La sua esenzione dalla quota sta per scadere",
+        "body": "Scade il {{fecha}}. Rinnovi il fascicolo affinché la sua scheda resti pubblicata."
+      },
+      "founder_request_approved": {
+        "title": "La sua quota di Socio Fondatore è stata autorizzata",
+        "body": "Le abbiamo riservato la quota di Socio Fondatore. Può sottoscriverla al prezzo fondatore."
       }
     }
   },

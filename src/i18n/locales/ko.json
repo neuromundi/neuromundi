@@ -2059,6 +2059,30 @@
       "reservas_en_rafaga": {
         "title": "같은 제공자에게 예약 요청이 몰리고 있습니다",
         "body": "한 제공자가 한 시간 동안 20건이 넘는 예약 요청을 받았습니다. 공개 양식 악용일 수 있습니다."
+      },
+      "exencion_aprobada": {
+        "title": "회비 면제가 승인되었습니다",
+        "body": "회비를 청구하지 않습니다."
+      },
+      "exencion_aprobada_hasta": {
+        "title": "회비 면제가 승인되었습니다",
+        "body": "{{fecha}}까지 회비를 청구하지 않습니다. 그 전에 안내드리겠습니다."
+      },
+      "exencion_rechazada": {
+        "title": "면제 신청이 승인되지 않았습니다",
+        "body": "패널에서 서류를 확인하시고 필요하면 다시 제출해 주세요."
+      },
+      "exencion_rechazada_motivo": {
+        "title": "면제 신청이 승인되지 않았습니다",
+        "body": "{{motivo}}"
+      },
+      "exencion_por_vencer": {
+        "title": "회비 면제가 곧 만료됩니다",
+        "body": "{{fecha}}에 만료됩니다. 등록이 계속 게시되도록 서류를 갱신해 주세요."
+      },
+      "founder_request_approved": {
+        "title": "창립 회원 회비가 승인되었습니다",
+        "body": "창립 회원 회비를 예약해 두었습니다. 이제 창립가로 신청하실 수 있습니다."
       }
     }
   },

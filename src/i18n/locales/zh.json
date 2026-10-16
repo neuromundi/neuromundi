@@ -2022,6 +2022,30 @@
       "reservas_en_rafaga": {
         "title": "同一位服务提供者收到大量预约请求",
         "body": "一位服务提供者在一小时内收到超过 20 条预约请求，可能是公开表单被滥用。"
+      },
+      "exencion_aprobada": {
+        "title": "您的会费减免已通过",
+        "body": "不会向您收取会费。"
+      },
+      "exencion_aprobada_hasta": {
+        "title": "您的会费减免已通过",
+        "body": "在 {{fecha}} 之前不会向您收取会费。我们会在该日期之前通知您。"
+      },
+      "exencion_rechazada": {
+        "title": "您的减免申请未获通过",
+        "body": "请在面板中检查您的材料，如适用可重新提交。"
+      },
+      "exencion_rechazada_motivo": {
+        "title": "您的减免申请未获通过",
+        "body": "{{motivo}}"
+      },
+      "exencion_por_vencer": {
+        "title": "您的会费减免即将到期",
+        "body": "将于 {{fecha}} 到期。请更新材料，以便您的条目保持发布状态。"
+      },
+      "founder_request_approved": {
+        "title": "您的创始会员会费已获批准",
+        "body": "我们已为您保留创始会员会费。现在可以按创始价订购。"
       }
     }
   },

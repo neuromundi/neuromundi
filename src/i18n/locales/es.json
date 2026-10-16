@@ -2059,6 +2059,30 @@
       "reservas_en_rafaga": {
         "title": "Muchas solicitudes de reserva a un mismo prestador",
         "body": "Un prestador recibió más de 20 solicitudes de reserva en una hora. Puede ser abuso del formulario público."
+      },
+      "exencion_aprobada": {
+        "title": "Su exención de cuota fue aprobada",
+        "body": "No se le pedirá cuota de membresía."
+      },
+      "exencion_aprobada_hasta": {
+        "title": "Su exención de cuota fue aprobada",
+        "body": "No se le pedirá cuota hasta el {{fecha}}. Le avisaremos antes de esa fecha."
+      },
+      "exencion_rechazada": {
+        "title": "Su solicitud de exención no procedió",
+        "body": "Revise su expediente en el panel y vuelva a enviarlo si procede."
+      },
+      "exencion_rechazada_motivo": {
+        "title": "Su solicitud de exención no procedió",
+        "body": "{{motivo}}"
+      },
+      "exencion_por_vencer": {
+        "title": "Su exención de cuota está por vencer",
+        "body": "Vence el {{fecha}}. Renueve su expediente para que su ficha siga publicada."
+      },
+      "founder_request_approved": {
+        "title": "Su cuota de Miembro Fundador fue autorizada",
+        "body": "Le reservamos la cuota de Miembro Fundador. Ya puede contratarla al precio de fundador."
       }
     }
   },

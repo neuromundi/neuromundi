@@ -2022,6 +2022,30 @@
       "reservas_en_rafaga": {
         "title": "Beaucoup de demandes de rendez-vous pour un même prestataire",
         "body": "Un prestataire a reçu plus de 20 demandes en une heure. Cela peut être un abus du formulaire public."
+      },
+      "exencion_aprobada": {
+        "title": "Votre exonération de cotisation a été accordée",
+        "body": "Aucune cotisation ne vous sera demandée."
+      },
+      "exencion_aprobada_hasta": {
+        "title": "Votre exonération de cotisation a été accordée",
+        "body": "Aucune cotisation ne vous sera demandée jusqu’au {{fecha}}. Nous vous préviendrons avant cette date."
+      },
+      "exencion_rechazada": {
+        "title": "Votre demande d’exonération n’a pas abouti",
+        "body": "Vérifiez votre dossier dans le panneau et renvoyez-le si nécessaire."
+      },
+      "exencion_rechazada_motivo": {
+        "title": "Votre demande d’exonération n’a pas abouti",
+        "body": "{{motivo}}"
+      },
+      "exencion_por_vencer": {
+        "title": "Votre exonération de cotisation va expirer",
+        "body": "Elle expire le {{fecha}}. Renouvelez votre dossier pour que votre fiche reste publiée."
+      },
+      "founder_request_approved": {
+        "title": "Votre cotisation de Membre Fondateur a été accordée",
+        "body": "Nous vous avons réservé la cotisation de Membre Fondateur. Vous pouvez la souscrire au prix fondateur."
       }
     }
   },

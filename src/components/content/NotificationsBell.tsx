@@ -99,12 +99,17 @@ export function NotificationsBell() {
                 // "Su perfil dejó de aparecer en el directorio". Ahora se
                 // traduce por clave de tipo, y el texto de la fila queda sólo
                 // como último recurso. (Auditoría 15 oct 2026, hallazgo M-7.)
+                // Los huecos del aviso (fecha, motivo, nombre) viajan en `data`,
+                // no dentro del texto: así la frase se traduce y el dato se
+                // conserva. El texto de la fila queda de último recurso.
+                // (Auditoría 15 oct 2026, hallazgo M-7; migración 0246.)
+                const huecos = (n.data ?? {}) as Record<string, unknown>;
                 const apptTitle = isAppt
                   ? t(`notif.appt.${apptSuffix}.title`)
-                  : t(`notif.tipo.${n.type}.title`, { defaultValue: n.title });
+                  : t(`notif.tipo.${n.type}.title`, { defaultValue: n.title, ...huecos });
                 const apptBody = isAppt
                   ? t(`notif.appt.${apptSuffix}.body`, { name: ad.specialist_name || ad.recipient_name || '', title: ad.title || '', reason: ad.reason || '' })
-                  : t(`notif.tipo.${n.type}.body`, { defaultValue: n.body });
+                  : t(`notif.tipo.${n.type}.body`, { defaultValue: n.body, ...huecos });
                 const forumTitle = isForumNew ? t('notif.forumNew.title') : isForumPending ? t('notif.forumPending.title') : isForumApproved ? t('notif.forumApproved.title') : isForumModCall ? t('notif.forumModCall.title') : t('notif.forumModApproved.title');
                 const forumBody = isForumNew ? t('notif.forumNew.body', { title: fd.title || '' }) : isForumPending ? t('notif.forumPending.body') : isForumApproved ? t('notif.forumApproved.body', { title: fd.title || '' }) : isForumModCall ? t('notif.forumModCall.body', { title: fd.title || '' }) : t('notif.forumModApproved.body');
                 const rowTitle = isGrace ? graceTitle : isInviteOpen ? t('notif.inviteOpened.title') : isForum ? forumTitle : isTopicJob ? t('notif.topicJob.title') : isTopicVenue ? t('notif.topicVenue.title') : isBooking ? t('notif.booking.title') : isDM ? t('notif.dm.title') : isWaitSlot ? t('notif.waitlist.title') : isWaitJoin ? t('notif.waitlist.join') : n.type === 'referral_reward' ? t('notif.referral.reward') : isReferral ? t('notif.referral.title') : isCommission ? t('notif.commission.title') : isDirMatch ? t('notif.dirMatch.title') : apptTitle;

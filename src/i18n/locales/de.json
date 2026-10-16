@@ -2022,6 +2022,30 @@
       "reservas_en_rafaga": {
         "title": "Viele Buchungsanfragen an dieselbe Fachkraft",
         "body": "Eine Fachkraft hat in einer Stunde mehr als 20 Buchungsanfragen erhalten. Das kann Missbrauch des öffentlichen Formulars sein."
+      },
+      "exencion_aprobada": {
+        "title": "Ihre Beitragsbefreiung wurde bewilligt",
+        "body": "Es wird kein Mitgliedsbeitrag von Ihnen verlangt."
+      },
+      "exencion_aprobada_hasta": {
+        "title": "Ihre Beitragsbefreiung wurde bewilligt",
+        "body": "Bis zum {{fecha}} wird kein Beitrag verlangt. Wir melden uns vor diesem Datum."
+      },
+      "exencion_rechazada": {
+        "title": "Ihr Antrag auf Befreiung war nicht erfolgreich",
+        "body": "Prüfen Sie Ihre Unterlagen im Panel und reichen Sie sie bei Bedarf erneut ein."
+      },
+      "exencion_rechazada_motivo": {
+        "title": "Ihr Antrag auf Befreiung war nicht erfolgreich",
+        "body": "{{motivo}}"
+      },
+      "exencion_por_vencer": {
+        "title": "Ihre Beitragsbefreiung läuft bald ab",
+        "body": "Sie endet am {{fecha}}. Erneuern Sie Ihre Unterlagen, damit Ihr Eintrag veröffentlicht bleibt."
+      },
+      "founder_request_approved": {
+        "title": "Ihr Gründungsmitglieds-Beitrag wurde bewilligt",
+        "body": "Wir haben Ihnen den Gründungsmitglieds-Beitrag reserviert. Sie können ihn jetzt zum Gründerpreis abschließen."
       }
     }
   },

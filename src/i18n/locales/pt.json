@@ -2022,6 +2022,30 @@
       "reservas_en_rafaga": {
         "title": "Muitas solicitações de reserva ao mesmo prestador",
         "body": "Um prestador recebeu mais de 20 solicitações de reserva em uma hora. Pode ser abuso do formulário público."
+      },
+      "exencion_aprobada": {
+        "title": "Sua isenção de taxa foi aprovada",
+        "body": "Não lhe será cobrada a taxa de associação."
+      },
+      "exencion_aprobada_hasta": {
+        "title": "Sua isenção de taxa foi aprovada",
+        "body": "Não lhe será cobrada taxa até {{fecha}}. Avisaremos antes dessa data."
+      },
+      "exencion_rechazada": {
+        "title": "Seu pedido de isenção não foi aceito",
+        "body": "Revise seu processo no painel e envie novamente, se for o caso."
+      },
+      "exencion_rechazada_motivo": {
+        "title": "Seu pedido de isenção não foi aceito",
+        "body": "{{motivo}}"
+      },
+      "exencion_por_vencer": {
+        "title": "Sua isenção de taxa está prestes a vencer",
+        "body": "Vence em {{fecha}}. Renove seu processo para que seu perfil continue publicado."
+      },
+      "founder_request_approved": {
+        "title": "Sua taxa de Membro Fundador foi autorizada",
+        "body": "Reservamos para você a taxa de Membro Fundador. Já pode contratá-la pelo preço de fundador."
       }
     }
   },
