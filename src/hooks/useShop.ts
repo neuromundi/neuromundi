@@ -36,6 +36,7 @@ export function useStore() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let vivo = true;
     (async () => {
       const { data } = await supabase
         .from('products')
@@ -46,6 +47,8 @@ export function useStore() {
         .order('created_at', { ascending: false })
         .limit(60);
       const list = data ?? [];
+      // (Auditoría 15 oct 2026, hallazgo M-4.)
+      if (!vivo) return;
       setProducts(list);
       setLoading(false);
 
@@ -61,6 +64,7 @@ export function useStore() {
         for (const r of (rt ?? []) as unknown as { product_id: string; avg_rating: number; review_count: number }[]) {
           rmap[r.product_id] = { avg: Number(r.avg_rating) || 0, count: Number(r.review_count) || 0 };
         }
+        if (!vivo) return;
         setRatings(rmap);
         // Confianza del vendedor (solo perfiles publicados son legibles por RLS).
         const { data: vs } = await supabase
@@ -71,9 +75,11 @@ export function useStore() {
         for (const v of vs ?? []) {
           smap[v.id] = { verified: !!v.is_verified, memberNo: v.member_no ?? null, country: v.country ?? null };
         }
+        if (!vivo) return;
         setSellers(smap);
       }
     })();
+    return () => { vivo = false; };
   }, []);
 
   const buy = useCallback(async (productId: string): Promise<Result<string>> => {

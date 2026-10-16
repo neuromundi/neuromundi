@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { School, MapPin, ArrowRight, Search } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
-import { SkeletonCard } from '@/components/ui';
+import { SkeletonCard, AvisoDeFallo } from '@/components/ui';
 import type { PerfilPublico } from '@/types/app';
 import { providerOtherText } from '@/lib/utils';
 import { useCountry } from '@/stores/countryStore';
@@ -18,11 +18,13 @@ export function SchoolInclusion() {
   const { t } = useTranslation();
   const [schools, setSchools] = useState<PerfilPublico[]>([]);
   const [loading, setLoading] = useState(true);
+  const [fallo, setFallo] = useState(false);
   const [q, setQ] = useState('');
   const { country } = useCountry();
 
   useEffect(() => {
     setLoading(true);
+    let vivo = true;
     (async () => {
       // Segmentación por país en el servidor (no traemos escuelas de otros países).
       // Incluye ESCUELAS (provider_type='school') y también a los prestadores que
@@ -36,10 +38,15 @@ export function SchoolInclusion() {
         .eq('is_published', true)
         .or('provider_type.eq.school,intervention_areas.cs.{educacion_inclusiva}');
       if (country) query = query.eq('country', country);
-      const { data } = await query;
-      setSchools((data as PerfilPublico[]) ?? []);
+      const { data, error } = await query;
+      if (!vivo) return;
+      // Un fallo NO es "no hay escuelas inclusivas en tu país": eso se le
+      // estaba diciendo a una familia. (Hallazgos M-4 y A-12.)
+      setFallo(!!error);
+      setSchools(error ? [] : ((data as PerfilPublico[]) ?? []));
       setLoading(false);
     })();
+    return () => { vivo = false; };
   }, [country]);
 
   const term = q.trim().toLowerCase();
@@ -82,6 +89,8 @@ export function SchoolInclusion() {
 
       {loading ? (
         <SkeletonCard rows={3} />
+      ) : fallo ? (
+        <AvisoDeFallo />
       ) : filtered.length === 0 ? (
         <p className="text-sm text-muted">{t('school.empty')}</p>
       ) : (

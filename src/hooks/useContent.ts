@@ -77,13 +77,17 @@ export function useContentFeed() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let vivo = true;
     (async () => {
       const { data } = await supabase.from('content_posts').select('*').eq('is_published', true).order('created_at', { ascending: false }).limit(30);
       const posts = data ?? [];
       const map = await ratingsFor(posts.map((p) => p.id));
+      // (Auditoría 15 oct 2026, hallazgo M-4.)
+      if (!vivo) return;
       setItems(posts.map((p) => ({ ...p, rating: map[p.id] ?? null })));
       setLoading(false);
     })();
+    return () => { vivo = false; };
   }, []);
 
   return { items, loading };

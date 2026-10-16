@@ -53,12 +53,18 @@ export function useBlogRecommendations(limit = 6) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let vivo = true;
+      // Bandera de cancelación: al cambiar la dependencia, la respuesta
+      // más lenta de la consulta anterior puede llegar DESPUÉS y pintarse
+      // encima de la nueva. (Auditoría 15 oct 2026, hallazgo M-4.)
     (async () => {
       setLoading(true);
       const { data } = await supabase.rpc('recommend_blog', { p_limit: limit });
+      if (!vivo) return;
       setPosts((data as BlogPost[]) ?? []);
       setLoading(false);
     })();
+    return () => { vivo = false; };
   }, [limit, userId]);
 
   return { posts, loading };
@@ -70,6 +76,7 @@ export function useAuthorPosts(authorId: string) {
 
   useEffect(() => {
     if (!authorId) return;
+    let vivo = true;
     (async () => {
       setLoading(true);
       const { data } = await supabase
@@ -78,9 +85,11 @@ export function useAuthorPosts(authorId: string) {
         .eq('author_id', authorId)
         .order('created_at', { ascending: false })
         .limit(60);
+      if (!vivo) return;
       setPosts((data as BlogPost[]) ?? []);
       setLoading(false);
     })();
+    return () => { vivo = false; };
   }, [authorId]);
 
   const author = posts[0] ?? null;

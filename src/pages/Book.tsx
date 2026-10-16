@@ -31,12 +31,15 @@ export function Book() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    let vivo = true;
     (async () => {
       if (!memberNo) { setNotFound(true); return; }
       const { data } = await supabase.rpc('booking_provider_name', { p_member_no: memberNo });
+      if (!vivo) return;
       if (data) setProviderName(data as unknown as string);
       else setNotFound(true);
     })();
+    return () => { vivo = false; };
   }, [memberNo]);
 
   const valid = name.trim().length >= 2 && contact.trim().length >= 3;

@@ -10,7 +10,7 @@
  * así que sigue siendo un camino aparte y deliberado, no un botón más en una
  * tabla donde se hacen diez cosas rutinarias.
  */
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { supabase } from '@/lib/supabase';
 
 export type EstadoFiltro = 'todos' | 'activo' | 'pendiente' | 'exento' | 'suspendido' | 'vencido';
@@ -67,7 +67,15 @@ export function useAdminMembers() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Sólo manda la ÚLTIMA petición. La búsqueda dispara una consulta por cada
+  // pausa al teclear, y la RPC recorre perfiles y directorio: una respuesta
+  // lenta de un filtro anterior podía pintarse encima de la nueva, y el
+  // administrador veía una lista que no correspondía a lo que había pedido.
+  // (Auditoría 15 oct 2026, hallazgo M-4.)
+  const peticion = useRef(0);
+
   const load = useCallback(async () => {
+    const mia = ++peticion.current;
     setLoading(true);
     setError(null);
     const { data, error: e } = await (supabase as unknown as Rpc)
@@ -83,6 +91,7 @@ export function useAdminMembers() {
         p_reclamado: triestado(reclamado),
         p_pagado: triestado(pagado),
       });
+    if (mia !== peticion.current) return;
     if (e) { setError(e.message); setItems([]); } else { setItems((data as AdminMember[] | null) ?? []); }
     setLoading(false);
   }, [estado, q, pais, seccion, fundador, tipo, publicado, reclamado, pagado]);
@@ -102,11 +111,14 @@ export function useAdminMembers() {
   }, [load]);
 
   useEffect(() => {
+    let vivo = true;
     void (async () => {
       const { data } = await (supabase as unknown as Rpc).rpc('admin_members_facetas');
+      if (!vivo) return;
       const f = Array.isArray(data) ? (data[0] as Facetas | undefined) : (data as Facetas | null);
       if (f) setFacetas({ paises: f.paises ?? [], tipos: f.tipos ?? [] });
     })();
+    return () => { vivo = false; };
   }, []);
 
   return {

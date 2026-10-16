@@ -135,6 +135,16 @@ PY
   para que un `supabase db push` limpio no reejecute la historia.
 - **Nunca** volver a ejecutar lo que vive en `supabase/migraciones aplicadas a mano/`: son
   migraciones de datos de un solo uso y `0097b` BORRA fichas del directorio.
+- **NO barrer funciones "huérfanas" de la base.** Medido el 16 oct 2026: un rastreo que cruza
+  el catálogo contra `rpc('nombre')` en el repositorio devuelve 29 candidatas, y al menos siete
+  son FALSOS POSITIVOS que romperían producción:
+  · `admin_member_suspend`, `admin_member_reactivate`, `admin_member_extend`,
+    `admin_member_set_exempt` y `admin_member_set_expiry` se llaman con el nombre en una
+    VARIABLE (`accion('admin_member_suspend', …)` en `useAdminMembers`), así que ningún grep
+    literal las ve.
+  · `provider_search_text` está en la expresión por omisión de `profiles.search_tsv`: retirarla
+    rompe toda escritura de perfil.
+  Si se quiere limpiar, es una por una y con evidencia, nunca de un barrido.
 - Los nombres de archivo deben empezar por dígitos seguidos de guion bajo. El CLI ignora en
   silencio cualquier otro nombre (por eso `0206b`, `0207b`, `0210b` y `0210c` pasaron a prefijo
   numérico de cinco dígitos).
