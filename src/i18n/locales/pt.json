@@ -6155,5 +6155,41 @@
     "bajaHecha": "Pronto. Você não será cobrado novamente.",
     "bajaFallo": "Não foi possível cancelar. Tente de novo ou escreva para admin@neuromundi.com.",
     "yaDeBaja": "Sua associação está cancelada. Continua ativa até {{fecha}} e não será renovada."
+  },
+  "contacto": {
+    "tab": "Contato",
+    "boton": "Solicitar contato",
+    "yaEnviada": "Solicitação enviada",
+    "titulo": "Solicitar contato",
+    "ayuda": "Conte brevemente quem é você e do que precisa. O prestador decide se abre a conversa.",
+    "etiqueta": "Sua apresentação",
+    "ejemplo": "Sou mãe de um menino de 6 anos com TEA e procuro fonoaudiologia na região…",
+    "enviar": "Enviar solicitação",
+    "enviada": "Sua solicitação foi enviada.",
+    "contador": "{{n}} de {{max}} caracteres",
+    "aceptar": "Aceitar",
+    "declinar": "Recusar",
+    "aceptada": "Solicitação aceita. Já podem se escrever.",
+    "puedeEscribir": "Você já pode escrever em Mensagens.",
+    "estado": {
+      "pendiente": "Pendente",
+      "aceptada": "Aceita",
+      "rechazada": "Recusada"
+    },
+    "bandeja": {
+      "total": "{{n}} solicitações",
+      "vacia": "Não há solicitações de contato.",
+      "anon": "Alguém"
+    },
+    "err": {
+      "corto": "Escreva pelo menos dez caracteres.",
+      "largo": "A mensagem é longa demais.",
+      "noAplica": "Esta via é para famílias e pacientes.",
+      "noEncontrado": "Não encontramos esse prestador.",
+      "demasiadasHoy": "Você atingiu o limite de solicitações de hoje.",
+      "demasiadasVivas": "Você tem solicitações demais sem resposta.",
+      "yaPendiente": "Você já tem uma solicitação pendente com este prestador.",
+      "yaResuelta": "Essa solicitação já havia sido resolvida."
+    }
   }
 }

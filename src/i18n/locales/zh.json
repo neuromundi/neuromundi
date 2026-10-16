@@ -6155,5 +6155,41 @@
     "bajaHecha": "已完成，不会再扣费。",
     "bajaFallo": "取消失败，请重试或联系 admin@neuromundi.com。",
     "yaDeBaja": "已取消。有效期至 {{fecha}}，不会续费。"
+  },
+  "contacto": {
+    "tab": "联系",
+    "boton": "申请联系",
+    "yaEnviada": "申请已发送",
+    "titulo": "申请联系",
+    "ayuda": "请简要说明您是谁以及需要什么。由服务提供者决定是否开启对话。",
+    "etiqueta": "您的自我介绍",
+    "ejemplo": "我是一位 6 岁自闭症孩子的母亲，正在附近寻找言语治疗……",
+    "enviar": "发送申请",
+    "enviada": "您的申请已发送。",
+    "contador": "{{n}} / {{max}} 字",
+    "aceptar": "接受",
+    "declinar": "婉拒",
+    "aceptada": "申请已接受，双方可以互发消息了。",
+    "puedeEscribir": "现在可以在\"消息\"中给对方留言。",
+    "estado": {
+      "pendiente": "待处理",
+      "aceptada": "已接受",
+      "rechazada": "已婉拒"
+    },
+    "bandeja": {
+      "total": "{{n}} 条申请",
+      "vacia": "暂无联系申请。",
+      "anon": "某位用户"
+    },
+    "err": {
+      "corto": "请至少写十个字符。",
+      "largo": "消息过长。",
+      "noAplica": "此通道面向家庭和患者。",
+      "noEncontrado": "未找到该服务提供者。",
+      "demasiadasHoy": "您已达到今日申请上限。",
+      "demasiadasVivas": "您有太多尚未答复的申请。",
+      "yaPendiente": "您对这位服务提供者已有一条待处理申请。",
+      "yaResuelta": "该申请已处理过。"
+    }
   }
 }

@@ -6155,5 +6155,41 @@
     "bajaHecha": "Listo. No se le volverá a cobrar.",
     "bajaFallo": "No se pudo dar de baja. Inténtelo de nuevo o escriba a admin@neuromundi.com.",
     "yaDeBaja": "Su membresía está dada de baja. Sigue activa hasta el {{fecha}} y no se renovará."
+  },
+  "contacto": {
+    "tab": "Contacto",
+    "boton": "Solicitar contacto",
+    "yaEnviada": "Solicitud enviada",
+    "titulo": "Solicitar contacto",
+    "ayuda": "Cuénteles brevemente quién es usted y qué necesita. El prestador decide si abre la conversación.",
+    "etiqueta": "Su presentación",
+    "ejemplo": "Soy madre de un niño de 6 años con TEA y busco terapia de lenguaje en la zona…",
+    "enviar": "Enviar solicitud",
+    "enviada": "Su solicitud fue enviada.",
+    "contador": "{{n}} de {{max}} caracteres",
+    "aceptar": "Aceptar",
+    "declinar": "Declinar",
+    "aceptada": "Solicitud aceptada. Ya pueden escribirse.",
+    "puedeEscribir": "Ya puede escribirle desde Mensajes.",
+    "estado": {
+      "pendiente": "Pendiente",
+      "aceptada": "Aceptada",
+      "rechazada": "Declinada"
+    },
+    "bandeja": {
+      "total": "{{n}} solicitudes",
+      "vacia": "No hay solicitudes de contacto.",
+      "anon": "Alguien"
+    },
+    "err": {
+      "corto": "Escriba al menos diez caracteres.",
+      "largo": "El mensaje es demasiado largo.",
+      "noAplica": "Esta vía es para familias y pacientes.",
+      "noEncontrado": "No encontramos ese prestador.",
+      "demasiadasHoy": "Llegó al límite de solicitudes por hoy.",
+      "demasiadasVivas": "Tiene demasiadas solicitudes sin responder.",
+      "yaPendiente": "Ya tiene una solicitud pendiente con este prestador.",
+      "yaResuelta": "Esa solicitud ya estaba resuelta."
+    }
   }
 }

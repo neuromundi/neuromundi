@@ -6155,5 +6155,41 @@
     "bajaHecha": "完了しました。今後の請求はありません。",
     "bajaFallo": "解約できませんでした。もう一度お試しいただくか admin@neuromundi.com までご連絡ください。",
     "yaDeBaja": "解約済みです。{{fecha}} まで有効で、更新されません。"
+  },
+  "contacto": {
+    "tab": "連絡",
+    "boton": "連絡を申し込む",
+    "yaEnviada": "申し込み済み",
+    "titulo": "連絡を申し込む",
+    "ayuda": "ご自身のことと必要な支援を簡単にお書きください。会話を始めるかどうかは提供者が決めます。",
+    "etiqueta": "自己紹介",
+    "ejemplo": "自閉症のある6歳の子の母です。近くで言語療法を探しています…",
+    "enviar": "申し込みを送る",
+    "enviada": "申し込みを送りました。",
+    "contador": "{{max}} 文字中 {{n}} 文字",
+    "aceptar": "承諾する",
+    "declinar": "お断りする",
+    "aceptada": "申し込みが承諾されました。やり取りできます。",
+    "puedeEscribir": "「メッセージ」からご連絡いただけます。",
+    "estado": {
+      "pendiente": "未対応",
+      "aceptada": "承諾",
+      "rechazada": "辞退"
+    },
+    "bandeja": {
+      "total": "{{n}} 件の申し込み",
+      "vacia": "連絡の申し込みはありません。",
+      "anon": "どなたか"
+    },
+    "err": {
+      "corto": "十文字以上でお書きください。",
+      "largo": "本文が長すぎます。",
+      "noAplica": "この窓口はご家族と当事者の方向けです。",
+      "noEncontrado": "その提供者が見つかりません。",
+      "demasiadasHoy": "本日の申し込み上限に達しました。",
+      "demasiadasVivas": "未回答の申し込みが多すぎます。",
+      "yaPendiente": "この提供者への申し込みがすでに未対応で残っています。",
+      "yaResuelta": "その申し込みは対応済みです。"
+    }
   }
 }

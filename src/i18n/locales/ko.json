@@ -6155,5 +6155,41 @@
     "bajaHecha": "완료했습니다. 다시 청구되지 않습니다.",
     "bajaFallo": "해지하지 못했습니다. 다시 시도하거나 admin@neuromundi.com 으로 문의해 주세요.",
     "yaDeBaja": "해지되었습니다. {{fecha}}까지 유지되며 갱신되지 않습니다."
+  },
+  "contacto": {
+    "tab": "연락",
+    "boton": "연락 요청",
+    "yaEnviada": "요청을 보냈습니다",
+    "titulo": "연락 요청",
+    "ayuda": "어떤 분이고 무엇이 필요한지 간단히 적어 주세요. 대화를 열지는 제공자가 정합니다.",
+    "etiqueta": "소개",
+    "ejemplo": "자폐가 있는 6세 아이의 엄마이고, 근처에서 언어치료를 찾고 있습니다…",
+    "enviar": "요청 보내기",
+    "enviada": "요청을 보냈습니다.",
+    "contador": "{{max}}자 중 {{n}}자",
+    "aceptar": "수락",
+    "declinar": "거절",
+    "aceptada": "요청이 수락되었습니다. 이제 서로 메시지를 보낼 수 있습니다.",
+    "puedeEscribir": "이제 메시지에서 연락하실 수 있습니다.",
+    "estado": {
+      "pendiente": "대기 중",
+      "aceptada": "수락됨",
+      "rechazada": "거절됨"
+    },
+    "bandeja": {
+      "total": "요청 {{n}}건",
+      "vacia": "연락 요청이 없습니다.",
+      "anon": "어떤 분"
+    },
+    "err": {
+      "corto": "열 자 이상 적어 주세요.",
+      "largo": "메시지가 너무 깁니다.",
+      "noAplica": "이 통로는 가족과 당사자를 위한 것입니다.",
+      "noEncontrado": "해당 제공자를 찾지 못했습니다.",
+      "demasiadasHoy": "오늘의 요청 한도에 도달했습니다.",
+      "demasiadasVivas": "답변받지 못한 요청이 너무 많습니다.",
+      "yaPendiente": "이 제공자에게 보낸 대기 중인 요청이 이미 있습니다.",
+      "yaResuelta": "이미 처리된 요청입니다."
+    }
   }
 }

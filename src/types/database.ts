@@ -1144,6 +1144,82 @@ export type Database = {
           },
         ]
       }
+      contact_requests: {
+        Row: {
+          consumer_id: string
+          created_at: string
+          estado: string
+          id: string
+          mensaje: string
+          nota_respuesta: string | null
+          provider_id: string
+          resuelta_en: string | null
+        }
+        Insert: {
+          consumer_id: string
+          created_at?: string
+          estado?: string
+          id?: string
+          mensaje: string
+          nota_respuesta?: string | null
+          provider_id: string
+          resuelta_en?: string | null
+        }
+        Update: {
+          consumer_id?: string
+          created_at?: string
+          estado?: string
+          id?: string
+          mensaje?: string
+          nota_respuesta?: string | null
+          provider_id?: string
+          resuelta_en?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "contact_requests_consumer_id_fkey"
+            columns: ["consumer_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "contact_requests_consumer_id_fkey"
+            columns: ["consumer_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "contact_requests_consumer_id_fkey"
+            columns: ["consumer_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+          {
+            foreignKeyName: "contact_requests_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "contact_requests_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "contact_requests_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
       contactados_campana_20260908: {
         Row: {
           asunto: string
@@ -8513,6 +8589,20 @@ export type Database = {
           tipo: string
         }[]
       }
+      mis_solicitudes_de_contacto: {
+        Args: { p_estado?: string | null }
+        Returns: {
+          created_at: string
+          estado: string
+          id: string
+          mensaje: string
+          nota_respuesta: string
+          otro_member_no: number
+          otro_nombre: string
+          resuelta_en: string
+          soy: string
+        }[]
+      }
       my_badge_inputs: {
         Args: never
         Returns: {
@@ -8844,6 +8934,10 @@ export type Database = {
         Args: { p_survey_id: string | null; p_text: string | null }
         Returns: Json
       }
+      responder_solicitud_contacto: {
+        Args: { p_aceptar: boolean | null; p_id: string | null; p_nota?: string | null }
+        Returns: Json
+      }
       revertir_pago_de_membresia: {
         Args: { p_stripe_ref: string | null }
         Returns: boolean
@@ -8913,6 +9007,10 @@ export type Database = {
       solicitar_baja_ficha: {
         Args: { p_motivo?: string | null; p_token: string | null }
         Returns: boolean
+      }
+      solicitar_contacto: {
+        Args: { p_mensaje: string | null; p_provider_member_no: number | null }
+        Returns: Json
       }
       solicitar_cuota_fundador: { Args: { p_nota?: string }; Returns: Json }
       solicitar_exencion: {

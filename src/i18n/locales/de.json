@@ -6155,5 +6155,41 @@
     "bajaHecha": "Erledigt. Es wird nichts mehr abgebucht.",
     "bajaFallo": "Kündigung fehlgeschlagen. Bitte erneut versuchen oder an admin@neuromundi.com schreiben.",
     "yaDeBaja": "Ihre Mitgliedschaft ist gekündigt. Sie läuft bis {{fecha}} und verlängert sich nicht."
+  },
+  "contacto": {
+    "tab": "Kontakt",
+    "boton": "Kontakt anfragen",
+    "yaEnviada": "Anfrage gesendet",
+    "titulo": "Kontakt anfragen",
+    "ayuda": "Sagen Sie kurz, wer Sie sind und was Sie brauchen. Die Fachkraft entscheidet, ob das Gespräch geöffnet wird.",
+    "etiqueta": "Ihre Vorstellung",
+    "ejemplo": "Ich bin Mutter eines 6-jährigen Jungen mit Autismus und suche Logopädie in der Nähe…",
+    "enviar": "Anfrage senden",
+    "enviada": "Ihre Anfrage wurde gesendet.",
+    "contador": "{{n}} von {{max}} Zeichen",
+    "aceptar": "Annehmen",
+    "declinar": "Ablehnen",
+    "aceptada": "Anfrage angenommen. Sie können einander schreiben.",
+    "puedeEscribir": "Sie können jetzt über Nachrichten schreiben.",
+    "estado": {
+      "pendiente": "Offen",
+      "aceptada": "Angenommen",
+      "rechazada": "Abgelehnt"
+    },
+    "bandeja": {
+      "total": "{{n}} Anfragen",
+      "vacia": "Es gibt keine Kontaktanfragen.",
+      "anon": "Jemand"
+    },
+    "err": {
+      "corto": "Bitte schreiben Sie mindestens zehn Zeichen.",
+      "largo": "Die Nachricht ist zu lang.",
+      "noAplica": "Dieser Weg ist für Familien und Patientinnen und Patienten.",
+      "noEncontrado": "Diese Fachkraft wurde nicht gefunden.",
+      "demasiadasHoy": "Sie haben das Tageslimit für Anfragen erreicht.",
+      "demasiadasVivas": "Sie haben zu viele unbeantwortete Anfragen.",
+      "yaPendiente": "Sie haben bereits eine offene Anfrage bei dieser Fachkraft.",
+      "yaResuelta": "Diese Anfrage war bereits bearbeitet."
+    }
   }
 }

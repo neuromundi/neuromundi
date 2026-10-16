@@ -6155,5 +6155,41 @@
     "bajaHecha": "Fatto. Non ti verrà più addebitato nulla.",
     "bajaFallo": "Non è stato possibile disdire. Riprova o scrivi a admin@neuromundi.com.",
     "yaDeBaja": "La tua iscrizione è disdetta. Resta attiva fino al {{fecha}} e non si rinnoverà."
+  },
+  "contacto": {
+    "tab": "Contatto",
+    "boton": "Richiedere contatto",
+    "yaEnviada": "Richiesta inviata",
+    "titulo": "Richiedere contatto",
+    "ayuda": "Racconti brevemente chi è e di cosa ha bisogno. Il professionista decide se aprire la conversazione.",
+    "etiqueta": "La sua presentazione",
+    "ejemplo": "Sono madre di un bambino di 6 anni con autismo e cerco logopedia in zona…",
+    "enviar": "Invia richiesta",
+    "enviada": "La sua richiesta è stata inviata.",
+    "contador": "{{n}} di {{max}} caratteri",
+    "aceptar": "Accetta",
+    "declinar": "Rifiuta",
+    "aceptada": "Richiesta accettata. Ora potete scrivervi.",
+    "puedeEscribir": "Ora può scrivere da Messaggi.",
+    "estado": {
+      "pendiente": "In attesa",
+      "aceptada": "Accettata",
+      "rechazada": "Rifiutata"
+    },
+    "bandeja": {
+      "total": "{{n}} richieste",
+      "vacia": "Non ci sono richieste di contatto.",
+      "anon": "Qualcuno"
+    },
+    "err": {
+      "corto": "Scriva almeno dieci caratteri.",
+      "largo": "Il messaggio è troppo lungo.",
+      "noAplica": "Questa via è per famiglie e pazienti.",
+      "noEncontrado": "Non abbiamo trovato quel professionista.",
+      "demasiadasHoy": "Ha raggiunto il limite di richieste per oggi.",
+      "demasiadasVivas": "Ha troppe richieste senza risposta.",
+      "yaPendiente": "Ha già una richiesta in attesa con questo professionista.",
+      "yaResuelta": "Quella richiesta era già stata risolta."
+    }
   }
 }

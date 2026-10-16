@@ -6155,5 +6155,41 @@
     "bajaHecha": "Done. You will not be charged again.",
     "bajaFallo": "We could not cancel. Please try again or write to admin@neuromundi.com.",
     "yaDeBaja": "Your membership is cancelled. It stays active through {{fecha}} and will not renew."
+  },
+  "contacto": {
+    "tab": "Contact",
+    "boton": "Request contact",
+    "yaEnviada": "Request sent",
+    "titulo": "Request contact",
+    "ayuda": "Briefly tell them who you are and what you need. The provider decides whether to open the conversation.",
+    "etiqueta": "Your introduction",
+    "ejemplo": "I am the mother of a 6-year-old with autism and I am looking for speech therapy nearby…",
+    "enviar": "Send request",
+    "enviada": "Your request has been sent.",
+    "contador": "{{n}} of {{max}} characters",
+    "aceptar": "Accept",
+    "declinar": "Decline",
+    "aceptada": "Request accepted. You can now message each other.",
+    "puedeEscribir": "You can now write from Messages.",
+    "estado": {
+      "pendiente": "Pending",
+      "aceptada": "Accepted",
+      "rechazada": "Declined"
+    },
+    "bandeja": {
+      "total": "{{n}} requests",
+      "vacia": "There are no contact requests.",
+      "anon": "Someone"
+    },
+    "err": {
+      "corto": "Please write at least ten characters.",
+      "largo": "The message is too long.",
+      "noAplica": "This route is for families and patients.",
+      "noEncontrado": "We could not find that provider.",
+      "demasiadasHoy": "You've reached today's request limit.",
+      "demasiadasVivas": "You have too many unanswered requests.",
+      "yaPendiente": "You already have a pending request with this provider.",
+      "yaResuelta": "That request was already resolved."
+    }
   }
 }

@@ -6,3 +6,4 @@ export { MapView } from './MapView';
 export type { MapViewProps } from './MapView';
 export { ConnectButton } from './ConnectButton';
 export { SaveToListButton } from './SaveToListButton';
+export { SolicitarContactoButton } from './SolicitarContactoButton';

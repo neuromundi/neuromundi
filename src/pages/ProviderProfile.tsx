@@ -22,6 +22,7 @@ import { badgeArt } from '@/data/badgeArt';
 import { qualityBadge } from '@/lib/qualityBadge';
 import { Button, EVSBadge, SkeletonCard, DistintivoBadge, FounderBadge } from '@/components/ui';
 import { ConnectButton, SaveToListButton } from '@/components/directory';
+import { SolicitarContactoButton } from '@/components/directory/SolicitarContactoButton';
 import { BookAppointment } from '@/components/booking/BookAppointment';
 import { useProviderProfile } from '@/hooks/useProviderProfile';
 import { useProviderBadge } from '@/hooks/useProviderBadge';
@@ -274,6 +275,11 @@ export function ProviderProfile() {
               (is_consumer abarca parent y patient) y solo esta pantalla lo
               excluia. Auditoria 15 oct 2026, hallazgo M-16. */}
           {isConsumer && <SaveToListButton providerId={id} />}
+          {/* La familia pide contacto; el prestador acepta o no. Antes no había
+              forma de escribirle a alguien del directorio. */}
+          {isConsumer && userId !== id && profile.member_no != null && (
+            <SolicitarContactoButton memberNo={profile.member_no} />
+          )}
           {isConsumer && profile.provider_type === 'school'
             ? <BookAppointment providerId={id} label={t('school.tour')} />
             : isConsumer && <BookAppointment providerId={id} />}

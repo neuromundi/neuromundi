@@ -6155,5 +6155,41 @@
     "bajaHecha": "C’est fait. Vous ne serez plus débité.",
     "bajaFallo": "Résiliation impossible. Réessayez ou écrivez à admin@neuromundi.com.",
     "yaDeBaja": "Votre adhésion est résiliée. Elle reste active jusqu’au {{fecha}} et ne sera pas renouvelée."
+  },
+  "contacto": {
+    "tab": "Contact",
+    "boton": "Demander un contact",
+    "yaEnviada": "Demande envoyée",
+    "titulo": "Demander un contact",
+    "ayuda": "Présentez-vous brièvement et dites ce dont vous avez besoin. Le prestataire décide d’ouvrir la conversation.",
+    "etiqueta": "Votre présentation",
+    "ejemplo": "Je suis la mère d’un garçon de 6 ans autiste et je cherche de l’orthophonie près de chez moi…",
+    "enviar": "Envoyer la demande",
+    "enviada": "Votre demande a été envoyée.",
+    "contador": "{{n}} sur {{max}} caractères",
+    "aceptar": "Accepter",
+    "declinar": "Refuser",
+    "aceptada": "Demande acceptée. Vous pouvez vous écrire.",
+    "puedeEscribir": "Vous pouvez maintenant écrire depuis Messages.",
+    "estado": {
+      "pendiente": "En attente",
+      "aceptada": "Acceptée",
+      "rechazada": "Refusée"
+    },
+    "bandeja": {
+      "total": "{{n}} demandes",
+      "vacia": "Aucune demande de contact.",
+      "anon": "Quelqu’un"
+    },
+    "err": {
+      "corto": "Écrivez au moins dix caractères.",
+      "largo": "Le message est trop long.",
+      "noAplica": "Cette voie est réservée aux familles et aux patients.",
+      "noEncontrado": "Prestataire introuvable.",
+      "demasiadasHoy": "Vous avez atteint la limite de demandes pour aujourd’hui.",
+      "demasiadasVivas": "Vous avez trop de demandes sans réponse.",
+      "yaPendiente": "Vous avez déjà une demande en attente avec ce prestataire.",
+      "yaResuelta": "Cette demande était déjà traitée."
+    }
   }
 }

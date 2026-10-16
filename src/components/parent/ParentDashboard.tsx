@@ -7,7 +7,7 @@
  * las procesa en cola, una por una.
  */
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { QrCode, Tag, History, Package, ListChecks, CalendarClock, FolderHeart, Store, Gift, Receipt } from 'lucide-react';
+import { QrCode, Tag, History, Package, ListChecks, CalendarClock, FolderHeart, Store, Gift, Receipt, MessageSquarePlus } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Tabs, SkeletonCard } from '@/components/ui';
 import { useAuth } from '@/hooks/useAuth';
@@ -22,6 +22,7 @@ import { ParentPrescriptions } from './ParentPrescriptions';
 import { MyAppointments } from '@/components/booking/MyAppointments';
 import { FamilyClinicalPanel } from '@/components/clinical/FamilyClinicalPanel';
 import { ParentLists } from './ParentLists';
+import { SolicitudesDeContacto } from '@/components/provider/SolicitudesDeContacto';
 import { ProductManager } from '@/components/merchant/ProductManager';
 import { FounderBadge } from '@/components/ui';
 import { useFounderStatus } from '@/hooks/useFounder';
@@ -227,6 +228,12 @@ export function ParentDashboard() {
             label: t('lists.tab'),
             icon: <ListChecks className="h-4 w-4" aria-hidden="true" />,
             content: <ParentLists />,
+          },
+          {
+            id: 'contacto',
+            label: t('contacto.tab'),
+            icon: <MessageSquarePlus className="h-4 w-4" aria-hidden="true" />,
+            content: <SolicitudesDeContacto />,
           },
           {
             id: 'store',
