@@ -55,7 +55,7 @@ function shell(title: string, bodyHtml: string, ctaText: string, ctaUrl: string)
   </div>`;
 }
 
-function welcomeHtml(row: { name: string; role: string; provider_type: string | null; opens_at: string | null; sector?: string | null; ya_abierto?: boolean }): { subject: string; html: string } {
+function welcomeHtml(row: { name: string; role: string; provider_type: string | null; opens_at: string | null; sector?: string | null; ya_abierto?: boolean; fundador_hasta?: string | null }): { subject: string; html: string } {
   const opens = fmtDate(row.opens_at);
   const isConsumer = row.role === 'parent' || row.role === 'patient';
   // El sector manda sobre el provider_type. Un DIF estatal está clasificado
@@ -70,8 +70,23 @@ function welcomeHtml(row: { name: string; role: string; provider_type: string | 
   } else if (isOrg) {
     reward = `<p>Su membresía es <b>siempre gratuita</b> y obtiene la <b>Insignia de Miembro Fundador</b> en su perfil público, además del curso de bienvenida.</p>`;
   } else {
-    reward = `<p>Como <b>Miembro Fundador</b> tiene hasta <b>50% de descuento</b> en su membresía anual si paga dentro de los primeros 15 días (25% del día 16 al 30), y su <b>cuota queda congelada de por vida</b>.</p>`;
+    // El escalon de "15 dias al 50% y del 16 al 30 al 25%" no existia en
+    // ninguna parte: la tabla de etapas (founder_discount) esta vacia y el
+    // precio de fundador es un precio propio, no un porcentaje que decae. Lo
+    // que SI es cierto y esta medido: la cuota de fundador es la mitad de la
+    // ordinaria en todas las categorias, y el plazo real es la fecha limite
+    // de fundador del pais mas el cupo. (Decision de Enyoria, 16 oct 2026.)
+    reward = `<p>Como <b>Miembro Fundador</b> su membresía anual cuesta la <b>mitad</b> que la ordinaria, y esa <b>cuota queda congelada de por vida</b>.</p>`;
   }
+
+  // El plazo y el cupo solo aplican a quien paga: las familias y los
+  // organismos exentos no tienen nada que tomar antes de una fecha.
+  const limite = fmtDate(row.fundador_hasta ?? null);
+  const plazoFundador = (!isConsumer && !isOrg)
+    ? (limite
+        ? `<p>La cuota de Fundador puede tomarse hasta el <b>${limite}</b>, y los lugares son limitados.</p>`
+        : `<p>Los lugares de Miembro Fundador son limitados.</p>`)
+    : '';
   // El directorio ya está abierto en todo el continente americano. Antes este
   // correo anunciaba una apertura futura a TODO el mundo, porque tomaba el
   // plazo de bloqueo de la campaña como si fuera la fecha de apertura.
@@ -81,7 +96,7 @@ function welcomeHtml(row: { name: string; role: string; provider_type: string | 
     : (opens ? `<p>El directorio abre en su país el <b>${opens}</b>.</p>` : '');
   const html = shell(
     `Le damos la bienvenida, ${row.name}`,
-    `<p>Gracias por asegurar su lugar como Miembro Fundador de Neuromundi.</p>${reward}${apertura}<p>Conozca todos sus beneficios:</p>`,
+    `<p>Gracias por asegurar su lugar como Miembro Fundador de Neuromundi.</p>${reward}${plazoFundador}${apertura}<p>Conozca todos sus beneficios:</p>`,
     'Ver mis beneficios',
     `${SITE}/beneficios`,
   );
@@ -126,7 +141,7 @@ Deno.serve(async (req: Request) => {
 
   // Bienvenidas pendientes
   const { data: wq } = await admin.rpc('campaign_welcome_queue');
-  for (const row of (wq ?? []) as Array<{ user_id: string; email: string; name: string; role: string; provider_type: string | null; opens_at: string | null; sector: string | null; ya_abierto: boolean }>) {
+  for (const row of (wq ?? []) as Array<{ user_id: string; email: string; name: string; role: string; provider_type: string | null; opens_at: string | null; sector: string | null; ya_abierto: boolean; fundador_hasta: string | null }>) {
     try {
       const { subject, html } = welcomeHtml(row);
       if (await sendEmail(row.email, subject, html)) {
