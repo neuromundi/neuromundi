@@ -30,9 +30,10 @@ export const NOTIF_CATEGORIES: NotifCategory[] = [
 export function notifCategory(type: string): NotifCategory {
   if (type.startsWith('appt_') || type === 'booking_request' || type === 'waitlist_slot'
     || type === 'reservas_en_rafaga') return 'citas';
-  if (type === 'direct_message' || type === 'admin_message' || type === 'account_costo'
-    || type === 'pregunta_experto') return 'mensajes';
+  if (type.startsWith('contacto_') || type === 'direct_message' || type === 'admin_message'
+    || type === 'account_costo' || type === 'pregunta_experto') return 'mensajes';
   if (
+    type.startsWith('evento_') ||
     type === 'post_achievement' ||
     type === 'badge' ||
     type === 'waitlist_join' ||
@@ -59,9 +60,11 @@ export function notifCategory(type: string): NotifCategory {
     type === 'donation_thanks' ||
     type === 'membership_paid' ||
     type === 'pago_terapia' ||
-    type === 'exencion_solicitada' ||
-    type === 'exencion_resuelta' ||
-    type === 'exencion_por_vencer' ||
+    // Prefijo, no lista: la 0246 partió los avisos de exención en cuatro tipos
+    // más (aprobada, aprobada_hasta, rechazada, rechazada_motivo) y con la
+    // lista cerrada caían en 'otras' aquí mientras la base los daba por
+    // transacciones. Medido el 16 oct 2026.
+    type.startsWith('exencion_') ||
     type === 'founder_request' ||
     type === 'founder_request_approved' ||
     type === 'fundador_resolicita' ||
@@ -99,6 +102,11 @@ export function notifDestino(type: string, data?: unknown): string | null {
   if (type === 'directory_grace' || type === 'suspension_reminder' || type === 'account_costo') return '/panel';
   if (type === 'stock_agotado') return '/panel';
   if (type === 'pregunta_experto' || type === 'reservas_en_rafaga' || type === 'invitaciones_renovadas') return '/panel';
+  if (type.startsWith('contacto_')) return '/panel';
+  // El evento aprobado ya está en la página pública; lo demás se atiende desde
+  // el panel (el prestador en su pestaña de eventos, usted en su bandeja).
+  if (type === 'evento_aprobado') return '/eventos';
+  if (type.startsWith('evento_')) return '/panel';
   if (type === 'directory_match') return '/directorio';
   if (type === 'topic_job') return '/inclusion-laboral';
   if (type === 'topic_venue') return '/directorio';

@@ -2354,7 +2354,11 @@ export type Database = {
           id: string
           is_online: boolean
           is_published: boolean
+          nota_admin: string | null
           online_url: string | null
+          revisada_en: string | null
+          revisada_por: string | null
+          revision: string
           starts_at: string
           title: string
           updated_at: string
@@ -2372,7 +2376,11 @@ export type Database = {
           id?: string
           is_online?: boolean
           is_published?: boolean
+          nota_admin?: string | null
           online_url?: string | null
+          revisada_en?: string | null
+          revisada_por?: string | null
+          revision?: string
           starts_at: string
           title: string
           updated_at?: string
@@ -2390,13 +2398,39 @@ export type Database = {
           id?: string
           is_online?: boolean
           is_published?: boolean
+          nota_admin?: string | null
           online_url?: string | null
+          revisada_en?: string | null
+          revisada_por?: string | null
+          revision?: string
           starts_at?: string
           title?: string
           updated_at?: string
           venue?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "events_revisada_por_fkey"
+            columns: ["revisada_por"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "events_revisada_por_fkey"
+            columns: ["revisada_por"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "events_revisada_por_fkey"
+            columns: ["revisada_por"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
       }
       expert_questions: {
         Row: {
@@ -7582,6 +7616,32 @@ export type Database = {
           token: string
         }[]
       }
+      admin_eventos_en_revision: {
+        Args: { p_estado?: string | null }
+        Returns: {
+          category: string
+          city: string
+          country: string
+          cover_url: string
+          created_at: string
+          description: string
+          ends_at: string
+          id: string
+          is_online: boolean
+          is_published: boolean
+          member_no: number
+          nota_admin: string
+          online_url: string
+          prestador: string
+          prestador_id: string
+          revisada_en: string
+          revision: string
+          starts_at: string
+          title: string
+          venue: string
+        }[]
+      }
+      admin_eventos_pendientes: { Args: never; Returns: number }
       admin_exencion_resolver: {
         Args: {
           p_aprobar: boolean | null
@@ -7970,6 +8030,10 @@ export type Database = {
       }
       admin_resolver_solicitud_fundador: {
         Args: { p_conceder: boolean | null; p_nota?: string | null; p_user: string | null }
+        Returns: Json
+      }
+      admin_revisar_evento: {
+        Args: { p_decision: string | null; p_id: string | null; p_nota?: string | null }
         Returns: Json
       }
       admin_send_message: {
@@ -8736,6 +8800,22 @@ export type Database = {
       perfil_completo: { Args: { p_id: string }; Returns: boolean }
       prescription_mark_ordered: { Args: { p_id: string }; Returns: undefined }
       prescription_mark_viewed: { Args: { p_id: string }; Returns: undefined }
+      proponer_evento: {
+        Args: {
+          p_category?: string | null
+          p_city?: string | null
+          p_country?: string | null
+          p_cover_url?: string | null
+          p_description?: string | null
+          p_ends_at?: string | null
+          p_is_online?: boolean | null
+          p_online_url?: string | null
+          p_starts_at: string | null
+          p_title: string | null
+          p_venue?: string | null
+        }
+        Returns: Json
+      }
       provider_metrics: {
         Args: never
         Returns: {

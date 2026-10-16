@@ -25,6 +25,8 @@ export interface EventItem {
   ends_at: string | null;
   cover_url: string | null;
   is_published: boolean;
+  revision?: string | null;
+  nota_admin?: string | null;
 }
 
 export interface EventInput {
@@ -68,8 +70,12 @@ export function useEvents() {
       .gte('starts_at', since)
       .order('starts_at', { ascending: true })
       .limit(300);
-    // El admin ve también los no publicados (RLS lo permite); el público, no.
-    if (!isAdmin) q = q.eq('is_published', true);
+    // El admin ve también los no publicados y los pendientes (RLS lo permite).
+    // Para todos los demás la página sólo muestra lo aprobado y publicado: desde
+    // la migración 0249 un prestador puede leer sus propias propuestas, y sin
+    // este filtro vería su evento pendiente en la página pública como si ya
+    // estuviera anunciado.
+    if (!isAdmin) q = q.eq('is_published', true).eq('revision', 'aprobado');
     const { data } = await q;
     setEvents((data ?? []) as unknown as EventItem[]);
     setLoading(false);

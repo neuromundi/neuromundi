@@ -1431,7 +1431,8 @@
     "badgeRevoke": "Abzeichen entziehen",
     "secFichas": "Fichas",
     "secComisiones": "Comisiones",
-    "secExperto": "Expertin oder Experten fragen"
+    "secExperto": "Expertin oder Experten fragen",
+    "secEventos": "Veranstaltungen"
   },
   "reg": {
     "typePatient": "Patient",
@@ -2047,6 +2048,34 @@
       "founder_request_approved": {
         "title": "Ihr Gründungsmitglieds-Beitrag wurde bewilligt",
         "body": "Wir haben Ihnen den Gründungsmitglieds-Beitrag reserviert. Sie können ihn jetzt zum Gründerpreis abschließen."
+      },
+      "contacto_solicitado": {
+        "title": "Jemand möchte Sie kontaktieren",
+        "body": "Sie haben eine Kontaktanfrage erhalten. Sie können sie in Ihrem Bereich annehmen oder ablehnen."
+      },
+      "contacto_aceptado": {
+        "title": "Sie können jetzt schreiben",
+        "body": "Ihre Kontaktanfrage wurde angenommen."
+      },
+      "contacto_rechazado": {
+        "title": "Ihre Kontaktanfrage wurde nicht angenommen",
+        "body": "Sie können im Verzeichnis nach anderen Möglichkeiten suchen."
+      },
+      "evento_propuesto": {
+        "title": "Ein Anbieter hat eine Veranstaltung vorgeschlagen",
+        "body": "{{titulo}} wartet auf Ihre Prüfung."
+      },
+      "evento_aprobado": {
+        "title": "Ihre Veranstaltung ist veröffentlicht",
+        "body": "{{titulo}} erscheint auf der Veranstaltungsseite."
+      },
+      "evento_rechazado": {
+        "title": "Ihre Veranstaltung wurde nicht veröffentlicht",
+        "body": "{{titulo}} wurde nicht veröffentlicht."
+      },
+      "evento_rechazado_motivo": {
+        "title": "Ihre Veranstaltung wurde nicht veröffentlicht",
+        "body": "{{titulo}} wurde nicht veröffentlicht. Grund: {{motivo}}"
       }
     }
   },
@@ -3665,7 +3694,53 @@
     "fStarts": "Beginn",
     "fEnds": "Ende (optional)",
     "fDescription": "Beschreibung",
-    "fPublished": "Veröffentlicht (öffentlich sichtbar)"
+    "fPublished": "Veröffentlicht (öffentlich sichtbar)",
+    "mine": {
+      "tab": "Meine Veranstaltungen",
+      "aviso": "Schlagen Sie Ihre Veranstaltung vor; die Verwaltung prüft sie vor der Veröffentlichung. Solange sie offen ist, können Sie sie ändern oder zurückziehen.",
+      "proponer": "Veranstaltung vorschlagen",
+      "enviar": "Zur Prüfung senden",
+      "enviada": "Ihre Veranstaltung wird geprüft.",
+      "pendientes": "{{n}} in Prüfung",
+      "vacia": "Sie haben noch keine Veranstaltung vorgeschlagen.",
+      "retirar": "Zurückziehen",
+      "retirada": "Vorschlag zurückgezogen.",
+      "categoria": "Kategorie"
+    },
+    "rev": {
+      "pendiente": "In Prüfung",
+      "aprobado": "Veröffentlicht",
+      "rechazado": "Nicht veröffentlicht"
+    },
+    "admin": {
+      "pendiente": "In Prüfung",
+      "aprobado": "Veröffentlicht",
+      "rechazado": "Nicht veröffentlicht",
+      "todas": "Alle",
+      "empty": "Keine vorgeschlagenen Veranstaltungen in diesem Zustand.",
+      "anon": "Anbieter ohne Namen",
+      "socio": "Mitglied {{n}}",
+      "aprobar": "Genehmigen und veröffentlichen",
+      "rechazar": "Nicht veröffentlichen",
+      "hecho": "Veranstaltung veröffentlicht.",
+      "notaPlaceholder": "Hinweis für den Anbieter (optional). Er wird ihn lesen."
+    },
+    "err": {
+      "sinSesion": "Melden Sie sich an, um eine Veranstaltung vorzuschlagen.",
+      "soloPrestadores": "Nur Anbieter können Veranstaltungen vorschlagen.",
+      "tituloCorto": "Der Titel ist zu kurz.",
+      "largo": "Eines der Felder ist länger als erlaubt.",
+      "sinFecha": "Geben Sie Datum und Uhrzeit des Beginns an.",
+      "fechaPasada": "Der Beginn liegt in der Vergangenheit.",
+      "fechaLejana": "Der Beginn liegt zu weit in der Zukunft.",
+      "finAntes": "Das Ende kann nicht vor dem Beginn liegen.",
+      "faltaEnlace": "Eine Online-Veranstaltung braucht ihren Link.",
+      "enlaceNoValido": "Der Link muss mit http:// oder https:// beginnen.",
+      "faltaLugar": "Geben Sie mindestens Land und Stadt an.",
+      "portadaNoValida": "Das Titelbild muss ein http:// oder https:// Link sein.",
+      "yaPendientes": "Sie haben bereits drei Vorschläge in Prüfung. Warten Sie die Antwort ab.",
+      "topeMensual": "Sie haben das Monatslimit für Vorschläge erreicht."
+    }
   },
   "calendar": {
     "title": "Mein Kalender",

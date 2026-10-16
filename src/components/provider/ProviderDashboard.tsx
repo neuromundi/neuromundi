@@ -16,7 +16,7 @@ import {
   PolarRadiusAxis,
   ResponsiveContainer,
 } from 'recharts';
-import { Tag, ScanLine, History, Star, Plus, Pencil, Trash2, Play, Pause, Download, Stethoscope, Boxes, Users, CalendarClock, BarChart3, CreditCard, FileText, FolderHeart, Link2, GraduationCap, Store, Gift, Megaphone, Briefcase, Lock, Receipt, MessageSquarePlus } from 'lucide-react';
+import { Tag, ScanLine, History, Star, Plus, Pencil, Trash2, Play, Pause, Download, Stethoscope, Boxes, Users, CalendarClock, BarChart3, CreditCard, FileText, FolderHeart, Link2, GraduationCap, Store, Gift, Megaphone, Briefcase, Lock, Receipt, MessageSquarePlus, CalendarPlus } from 'lucide-react';
 import {
   Tabs,
   Modal,
@@ -55,6 +55,7 @@ import { PrescriptionBuilder } from './PrescriptionBuilder';
 import { NetworkPanel } from './NetworkPanel';
 import { TribeForumsPanel } from '@/components/tribe/TribeForumsPanel';
 import { SolicitudesDeContacto } from './SolicitudesDeContacto';
+import { EventosPropios } from './EventosPropios';
 import { BookingWidgetPanel } from './BookingWidgetPanel';
 import { WaitlistPanel } from './WaitlistPanel';
 import { CampaignsPanel } from './CampaignsPanel';
@@ -607,6 +608,12 @@ export function ProviderDashboard() {
       label: t('contacto.tab'),
       icon: <MessageSquarePlus className="h-4 w-4" aria-hidden="true" />,
       content: <SolicitudesDeContacto />,
+    },
+    {
+      id: 'eventos',
+      label: t('events.mine.tab'),
+      icon: <CalendarPlus className="h-4 w-4" aria-hidden="true" />,
+      content: <EventosPropios />,
     },
     {
       id: 'widget',

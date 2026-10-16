@@ -30,6 +30,7 @@ import { AdminTribe } from './AdminTribe';
 import { AdminAccountActions } from './AdminAccountActions';
 import { AdminImprovements } from './AdminImprovements';
 import { AdminPreguntasExperto } from './AdminPreguntasExperto';
+import { AdminEventos } from './AdminEventos';
 import { AdminCatalogSuggestions } from './AdminCatalogSuggestions';
 import { AdminAdvisors } from './AdminAdvisors';
 import { AdminCampaign } from './AdminCampaign';
@@ -228,12 +229,12 @@ function ProviderList({ filter }: { filter: AdminFilter }) {
   );
 }
 
-type AdminSection = 'metrics' | 'members' | 'exemptions' | 'messages' | 'moderation' | 'products' | 'store' | 'renewals' | 'referrals' | 'fees' | 'donations' | 'founders' | 'badges' | 'carousel' | 'tribe' | 'accounts' | 'advisors' | 'campaign' | 'survey' | 'improve' | 'experto' | 'suggestions' | 'invitations' | 'fichas' | 'comisiones' | 'reports' | 'other';
+type AdminSection = 'metrics' | 'members' | 'exemptions' | 'messages' | 'moderation' | 'products' | 'store' | 'renewals' | 'referrals' | 'fees' | 'donations' | 'founders' | 'badges' | 'carousel' | 'tribe' | 'accounts' | 'advisors' | 'campaign' | 'survey' | 'improve' | 'experto' | 'eventos' | 'suggestions' | 'invitations' | 'fichas' | 'comisiones' | 'reports' | 'other';
 
 // Secciones que puede ver un ASESOR (explorador + moderador de Tribu): SOLO la
 // moderación de Tribu. Las demás (incluidas métricas) son de administrador.
 const ADVISOR_SECTIONS: AdminSection[] = ['tribe'];
-const ALL_SECTIONS: AdminSection[] = ['metrics', 'members', 'exemptions', 'messages', 'moderation', 'products', 'store', 'renewals', 'referrals', 'fees', 'donations', 'founders', 'badges', 'carousel', 'tribe', 'accounts', 'advisors', 'campaign', 'survey', 'improve', 'experto', 'suggestions', 'invitations', 'fichas', 'comisiones', 'reports', 'other'];
+const ALL_SECTIONS: AdminSection[] = ['metrics', 'members', 'exemptions', 'messages', 'moderation', 'products', 'store', 'renewals', 'referrals', 'fees', 'donations', 'founders', 'badges', 'carousel', 'tribe', 'accounts', 'advisors', 'campaign', 'survey', 'improve', 'experto', 'eventos', 'suggestions', 'invitations', 'fichas', 'comisiones', 'reports', 'other'];
 
 export function AdminDashboard({ advisor = false }: { advisor?: boolean } = {}) {
   const { t } = useTranslation();
@@ -272,7 +273,7 @@ export function AdminDashboard({ advisor = false }: { advisor?: boolean } = {}) 
               section === s ? 'bg-white text-slate-900 shadow-sm' : 'text-muted',
             )}
           >
-            {t(s === 'metrics' ? 'admin.secMetrics' : s === 'members' ? 'admin.secMembers' : s === 'exemptions' ? 'admin.secExemptions' : s === 'messages' ? 'admin.secMessages' : s === 'moderation' ? 'admin.secModeration' : s === 'products' ? 'admin.secProducts' : s === 'store' ? 'admin.secStore' : s === 'renewals' ? 'admin.secRenewals' : s === 'referrals' ? 'admin.secReferrals' : s === 'fees' ? 'admin.secFees' : s === 'donations' ? 'admin.secDonations' : s === 'founders' ? 'admin.secFounders' : s === 'badges' ? 'admin.secBadges' : s === 'carousel' ? 'admin.secCarousel' : s === 'tribe' ? 'admin.secTribe' : s === 'accounts' ? 'admin.secAccounts' : s === 'advisors' ? 'admin.secAdvisors' : s === 'campaign' ? 'admin.secCampaign' : s === 'survey' ? 'admin.secSurvey' : s === 'improve' ? 'admin.secImprove' : s === 'experto' ? 'admin.secExperto' : s === 'suggestions' ? 'admin.secSuggestions' : s === 'invitations' ? 'admin.secInvitations' : s === 'fichas' ? 'admin.secFichas' : s === 'comisiones' ? 'admin.secComisiones' : s === 'reports' ? 'admin.secReports' : 'admin.secOther')}
+            {t(s === 'metrics' ? 'admin.secMetrics' : s === 'members' ? 'admin.secMembers' : s === 'exemptions' ? 'admin.secExemptions' : s === 'messages' ? 'admin.secMessages' : s === 'moderation' ? 'admin.secModeration' : s === 'products' ? 'admin.secProducts' : s === 'store' ? 'admin.secStore' : s === 'renewals' ? 'admin.secRenewals' : s === 'referrals' ? 'admin.secReferrals' : s === 'fees' ? 'admin.secFees' : s === 'donations' ? 'admin.secDonations' : s === 'founders' ? 'admin.secFounders' : s === 'badges' ? 'admin.secBadges' : s === 'carousel' ? 'admin.secCarousel' : s === 'tribe' ? 'admin.secTribe' : s === 'accounts' ? 'admin.secAccounts' : s === 'advisors' ? 'admin.secAdvisors' : s === 'campaign' ? 'admin.secCampaign' : s === 'survey' ? 'admin.secSurvey' : s === 'improve' ? 'admin.secImprove' : s === 'experto' ? 'admin.secExperto' : s === 'eventos' ? 'admin.secEventos' : s === 'suggestions' ? 'admin.secSuggestions' : s === 'invitations' ? 'admin.secInvitations' : s === 'fichas' ? 'admin.secFichas' : s === 'comisiones' ? 'admin.secComisiones' : s === 'reports' ? 'admin.secReports' : 'admin.secOther')}
           </button>
         ))}
       </div>
@@ -344,6 +345,8 @@ export function AdminDashboard({ advisor = false }: { advisor?: boolean } = {}) 
         <AdminImprovements />
       ) : section === 'experto' ? (
         <AdminPreguntasExperto />
+      ) : section === 'eventos' ? (
+        <AdminEventos />
       ) : section === 'suggestions' ? (
         <AdminCatalogSuggestions />
       ) : section === 'invitations' ? (

@@ -1431,7 +1431,8 @@
     "badgeRevoke": "Revoca distintivo",
     "secFichas": "Fichas",
     "secComisiones": "Comisiones",
-    "secExperto": "Chiedi a un esperto"
+    "secExperto": "Chiedi a un esperto",
+    "secEventos": "Eventi"
   },
   "reg": {
     "typePatient": "Paziente",
@@ -2047,6 +2048,34 @@
       "founder_request_approved": {
         "title": "La sua quota di Socio Fondatore è stata autorizzata",
         "body": "Le abbiamo riservato la quota di Socio Fondatore. Può sottoscriverla al prezzo fondatore."
+      },
+      "contacto_solicitado": {
+        "title": "Qualcuno vuole contattarla",
+        "body": "Ha ricevuto una richiesta di contatto. Può accettarla o rifiutarla dal suo pannello."
+      },
+      "contacto_aceptado": {
+        "title": "Ora può scrivere",
+        "body": "La sua richiesta di contatto è stata accettata."
+      },
+      "contacto_rechazado": {
+        "title": "La sua richiesta di contatto non è stata accettata",
+        "body": "Può cercare altre opzioni nella directory."
+      },
+      "evento_propuesto": {
+        "title": "Un fornitore ha proposto un evento",
+        "body": "{{titulo}} attende la sua revisione."
+      },
+      "evento_aprobado": {
+        "title": "Il suo evento è pubblicato",
+        "body": "{{titulo}} appare nella pagina degli eventi."
+      },
+      "evento_rechazado": {
+        "title": "Il suo evento non è stato pubblicato",
+        "body": "{{titulo}} non è stato pubblicato."
+      },
+      "evento_rechazado_motivo": {
+        "title": "Il suo evento non è stato pubblicato",
+        "body": "{{titulo}} non è stato pubblicato. Motivo: {{motivo}}"
       }
     }
   },
@@ -3665,7 +3694,53 @@
     "fStarts": "Inizio",
     "fEnds": "Fine (facoltativo)",
     "fDescription": "Descrizione",
-    "fPublished": "Pubblicato (visibile al pubblico)"
+    "fPublished": "Pubblicato (visibile al pubblico)",
+    "mine": {
+      "tab": "I miei eventi",
+      "aviso": "Proponga il suo evento: l'amministratore lo esamina prima di pubblicarlo. Finché è in attesa può correggerlo o ritirarlo.",
+      "proponer": "Proponi un evento",
+      "enviar": "Invia per la revisione",
+      "enviada": "Il suo evento è in revisione.",
+      "pendientes": "{{n}} in revisione",
+      "vacia": "Non ha ancora proposto nessun evento.",
+      "retirar": "Ritira",
+      "retirada": "Proposta ritirata.",
+      "categoria": "Categoria"
+    },
+    "rev": {
+      "pendiente": "In revisione",
+      "aprobado": "Pubblicato",
+      "rechazado": "Non pubblicato"
+    },
+    "admin": {
+      "pendiente": "In revisione",
+      "aprobado": "Pubblicati",
+      "rechazado": "Non pubblicati",
+      "todas": "Tutti",
+      "empty": "Nessun evento proposto in questo stato.",
+      "anon": "Fornitore senza nome",
+      "socio": "socio {{n}}",
+      "aprobar": "Approva e pubblica",
+      "rechazar": "Non pubblicare",
+      "hecho": "Evento pubblicato.",
+      "notaPlaceholder": "Nota per il fornitore (facoltativa). La leggerà."
+    },
+    "err": {
+      "sinSesion": "Acceda per proporre un evento.",
+      "soloPrestadores": "Solo i fornitori possono proporre eventi.",
+      "tituloCorto": "Il titolo è troppo corto.",
+      "largo": "Uno dei campi supera la lunghezza consentita.",
+      "sinFecha": "Indichi la data e l’ora di inizio.",
+      "fechaPasada": "La data di inizio è già passata.",
+      "fechaLejana": "La data di inizio è troppo lontana.",
+      "finAntes": "La fine non può precedere l’inizio.",
+      "faltaEnlace": "Un evento online ha bisogno del suo link.",
+      "enlaceNoValido": "Il link deve iniziare con http:// o https://",
+      "faltaLugar": "Indichi almeno il paese e la città.",
+      "portadaNoValida": "La copertina deve essere un link http:// o https://",
+      "yaPendientes": "Ha già tre proposte in revisione. Attenda la risposta.",
+      "topeMensual": "Ha raggiunto il limite di proposte del mese."
+    }
   },
   "calendar": {
     "title": "Il mio calendario",

@@ -1431,7 +1431,8 @@
     "badgeRevoke": "バッジを取り消す",
     "secFichas": "Fichas",
     "secComisiones": "Comisiones",
-    "secExperto": "専門家に質問"
+    "secExperto": "専門家に質問",
+    "secEventos": "イベント"
   },
   "reg": {
     "typePatient": "患者",
@@ -2047,6 +2048,34 @@
       "founder_request_approved": {
         "title": "ファウンダー会員の会費が承認されました",
         "body": "ファウンダー会員の会費をお取り置きしました。ファウンダー価格でお申し込みいただけます。"
+      },
+      "contacto_solicitado": {
+        "title": "連絡の希望が届きました",
+        "body": "連絡リクエストが届きました。パネルで承認または辞退できます。"
+      },
+      "contacto_aceptado": {
+        "title": "メッセージを送れます",
+        "body": "連絡リクエストが承認されました。"
+      },
+      "contacto_rechazado": {
+        "title": "連絡リクエストは承認されませんでした",
+        "body": "ディレクトリで他の選択肢を探せます。"
+      },
+      "evento_propuesto": {
+        "title": "事業者がイベントを申請しました",
+        "body": "{{titulo}} が確認を待っています。"
+      },
+      "evento_aprobado": {
+        "title": "イベントを公開しました",
+        "body": "{{titulo}} がイベントページに表示されます。"
+      },
+      "evento_rechazado": {
+        "title": "イベントは公開されませんでした",
+        "body": "{{titulo}} は公開されませんでした。"
+      },
+      "evento_rechazado_motivo": {
+        "title": "イベントは公開されませんでした",
+        "body": "{{titulo}} は公開されませんでした。理由: {{motivo}}"
       }
     }
   },
@@ -3665,7 +3694,53 @@
     "fStarts": "開始",
     "fEnds": "終了（任意）",
     "fDescription": "説明",
-    "fPublished": "公開（一般に表示）"
+    "fPublished": "公開（一般に表示）",
+    "mine": {
+      "tab": "マイイベント",
+      "aviso": "イベントを申請すると、管理者が確認してから公開します。審査中は修正や取り下げができます。",
+      "proponer": "イベントを申請",
+      "enviar": "審査に送る",
+      "enviada": "イベントを審査中です。",
+      "pendientes": "審査中 {{n}} 件",
+      "vacia": "まだイベントを申請していません。",
+      "retirar": "取り下げる",
+      "retirada": "申請を取り下げました。",
+      "categoria": "カテゴリー"
+    },
+    "rev": {
+      "pendiente": "審査中",
+      "aprobado": "公開済み",
+      "rechazado": "非公開"
+    },
+    "admin": {
+      "pendiente": "審査中",
+      "aprobado": "公開済み",
+      "rechazado": "非公開",
+      "todas": "すべて",
+      "empty": "この状態の申請はありません。",
+      "anon": "名称未設定の事業者",
+      "socio": "会員 {{n}}",
+      "aprobar": "承認して公開",
+      "rechazar": "公開しない",
+      "hecho": "イベントを公開しました。",
+      "notaPlaceholder": "事業者へのメモ（任意）。相手が読みます。"
+    },
+    "err": {
+      "sinSesion": "イベントを申請するにはログインしてください。",
+      "soloPrestadores": "イベントを申請できるのは事業者のみです。",
+      "tituloCorto": "タイトルが短すぎます。",
+      "largo": "いずれかの項目が長すぎます。",
+      "sinFecha": "開始日時を入力してください。",
+      "fechaPasada": "開始日時がすでに過ぎています。",
+      "fechaLejana": "開始日時が遠すぎます。",
+      "finAntes": "終了は開始より前にできません。",
+      "faltaEnlace": "オンラインイベントにはリンクが必要です。",
+      "enlaceNoValido": "リンクは http:// または https:// で始めてください。",
+      "faltaLugar": "少なくとも国と都市を入力してください。",
+      "portadaNoValida": "カバー画像は http:// または https:// のリンクにしてください。",
+      "yaPendientes": "審査中の申請が3件あります。回答をお待ちください。",
+      "topeMensual": "今月の申請上限に達しました。"
+    }
   },
   "calendar": {
     "title": "マイカレンダー",

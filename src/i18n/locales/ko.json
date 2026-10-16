@@ -1468,7 +1468,8 @@
     "badgeRevoke": "배지 취소",
     "secFichas": "Fichas",
     "secComisiones": "Comisiones",
-    "secExperto": "전문가에게 질문"
+    "secExperto": "전문가에게 질문",
+    "secEventos": "행사"
   },
   "reg": {
     "typePatient": "환자",
@@ -2084,6 +2085,34 @@
       "founder_request_approved": {
         "title": "창립 회원 회비가 승인되었습니다",
         "body": "창립 회원 회비를 예약해 두었습니다. 이제 창립가로 신청하실 수 있습니다."
+      },
+      "contacto_solicitado": {
+        "title": "연락을 원하는 사람이 있습니다",
+        "body": "연락 요청이 도착했습니다. 패널에서 수락하거나 거절할 수 있습니다."
+      },
+      "contacto_aceptado": {
+        "title": "이제 메시지를 보낼 수 있습니다",
+        "body": "연락 요청이 수락되었습니다."
+      },
+      "contacto_rechazado": {
+        "title": "연락 요청이 수락되지 않았습니다",
+        "body": "디렉터리에서 다른 선택지를 찾아볼 수 있습니다."
+      },
+      "evento_propuesto": {
+        "title": "제공자가 행사를 제안했습니다",
+        "body": "{{titulo}}이(가) 검토를 기다리고 있습니다."
+      },
+      "evento_aprobado": {
+        "title": "행사가 공개되었습니다",
+        "body": "{{titulo}}이(가) 행사 페이지에 표시됩니다."
+      },
+      "evento_rechazado": {
+        "title": "행사가 공개되지 않았습니다",
+        "body": "{{titulo}}은(는) 공개되지 않았습니다."
+      },
+      "evento_rechazado_motivo": {
+        "title": "행사가 공개되지 않았습니다",
+        "body": "{{titulo}}은(는) 공개되지 않았습니다. 사유: {{motivo}}"
       }
     }
   },
@@ -3665,7 +3694,53 @@
     "fStarts": "시작",
     "fEnds": "종료 (선택)",
     "fDescription": "설명",
-    "fPublished": "게시됨 (공개 표시)"
+    "fPublished": "게시됨 (공개 표시)",
+    "mine": {
+      "tab": "내 행사",
+      "aviso": "행사를 제안하면 관리자가 검토한 뒤 공개합니다. 검토 중에는 수정하거나 철회할 수 있습니다.",
+      "proponer": "행사 제안",
+      "enviar": "검토 요청",
+      "enviada": "행사가 검토 중입니다.",
+      "pendientes": "검토 중 {{n}}건",
+      "vacia": "아직 제안한 행사가 없습니다.",
+      "retirar": "철회",
+      "retirada": "제안을 철회했습니다.",
+      "categoria": "분류"
+    },
+    "rev": {
+      "pendiente": "검토 중",
+      "aprobado": "공개됨",
+      "rechazado": "비공개"
+    },
+    "admin": {
+      "pendiente": "검토 중",
+      "aprobado": "공개됨",
+      "rechazado": "비공개",
+      "todas": "전체",
+      "empty": "이 상태의 제안이 없습니다.",
+      "anon": "이름 없는 제공자",
+      "socio": "회원 {{n}}",
+      "aprobar": "승인하고 공개",
+      "rechazar": "공개하지 않음",
+      "hecho": "행사를 공개했습니다.",
+      "notaPlaceholder": "제공자에게 남길 메모(선택). 상대가 읽습니다."
+    },
+    "err": {
+      "sinSesion": "행사를 제안하려면 로그인하세요.",
+      "soloPrestadores": "제공자만 행사를 제안할 수 있습니다.",
+      "tituloCorto": "제목이 너무 짧습니다.",
+      "largo": "입력한 항목 중 하나가 허용 길이를 넘었습니다.",
+      "sinFecha": "시작 날짜와 시간을 입력하세요.",
+      "fechaPasada": "시작 시간이 이미 지났습니다.",
+      "fechaLejana": "시작 날짜가 너무 멉니다.",
+      "finAntes": "종료는 시작보다 앞설 수 없습니다.",
+      "faltaEnlace": "온라인 행사에는 링크가 필요합니다.",
+      "enlaceNoValido": "링크는 http:// 또는 https:// 로 시작해야 합니다.",
+      "faltaLugar": "최소한 국가와 도시를 입력하세요.",
+      "portadaNoValida": "표지는 http:// 또는 https:// 링크여야 합니다.",
+      "yaPendientes": "검토 중인 제안이 이미 세 건입니다. 답변을 기다려 주세요.",
+      "topeMensual": "이번 달 제안 한도에 도달했습니다."
+    }
   },
   "calendar": {
     "title": "내 캘린더",

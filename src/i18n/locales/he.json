@@ -1468,7 +1468,8 @@
     "badgeRevoke": "ביטול התג",
     "secFichas": "Fichas",
     "secComisiones": "Comisiones",
-    "secExperto": "שאלו מומחה"
+    "secExperto": "שאלו מומחה",
+    "secEventos": "אירועים"
   },
   "reg": {
     "typePatient": "מטופל/ת",
@@ -2084,6 +2085,34 @@
       "founder_request_approved": {
         "title": "דמי החבר המייסד אושרו",
         "body": "שמרנו עבורכם את דמי החבר המייסד. אפשר לרכוש אותם במחיר המייסדים."
+      },
+      "contacto_solicitado": {
+        "title": "מישהו רוצה ליצור איתכם קשר",
+        "body": "קיבלתם בקשת יצירת קשר. אפשר לאשר או לדחות אותה בלוח שלכם."
+      },
+      "contacto_aceptado": {
+        "title": "אפשר לכתוב עכשיו",
+        "body": "בקשת יצירת הקשר שלכם אושרה."
+      },
+      "contacto_rechazado": {
+        "title": "בקשת יצירת הקשר שלכם לא אושרה",
+        "body": "אפשר לחפש אפשרויות אחרות במדריך."
+      },
+      "evento_propuesto": {
+        "title": "ספק הציע אירוע",
+        "body": "{{titulo}} ממתין לבדיקה שלכם."
+      },
+      "evento_aprobado": {
+        "title": "האירוע שלכם פורסם",
+        "body": "{{titulo}} מופיע בעמוד האירועים."
+      },
+      "evento_rechazado": {
+        "title": "האירוע שלכם לא פורסם",
+        "body": "{{titulo}} לא פורסם."
+      },
+      "evento_rechazado_motivo": {
+        "title": "האירוע שלכם לא פורסם",
+        "body": "{{titulo}} לא פורסם. הסיבה: {{motivo}}"
       }
     }
   },
@@ -3665,7 +3694,53 @@
     "fStarts": "מתחיל",
     "fEnds": "מסתיים (אופציונלי)",
     "fDescription": "תיאור",
-    "fPublished": "פורסם (גלוי לציבור)"
+    "fPublished": "פורסם (גלוי לציבור)",
+    "mine": {
+      "tab": "האירועים שלי",
+      "aviso": "הציעו את האירוע שלכם והמנהל בודק אותו לפני הפרסום. כל עוד הוא ממתין אפשר לתקן או להסיר אותו.",
+      "proponer": "הצעת אירוע",
+      "enviar": "שליחה לבדיקה",
+      "enviada": "האירוע שלכם נמצא בבדיקה.",
+      "pendientes": "{{n}} בבדיקה",
+      "vacia": "עדיין לא הצעתם אף אירוע.",
+      "retirar": "הסרה",
+      "retirada": "ההצעה הוסרה.",
+      "categoria": "קטגוריה"
+    },
+    "rev": {
+      "pendiente": "בבדיקה",
+      "aprobado": "פורסם",
+      "rechazado": "לא פורסם"
+    },
+    "admin": {
+      "pendiente": "בבדיקה",
+      "aprobado": "פורסמו",
+      "rechazado": "לא פורסמו",
+      "todas": "הכול",
+      "empty": "אין אירועים מוצעים במצב הזה.",
+      "anon": "ספק ללא שם",
+      "socio": "חבר {{n}}",
+      "aprobar": "אישור ופרסום",
+      "rechazar": "לא לפרסם",
+      "hecho": "האירוע פורסם.",
+      "notaPlaceholder": "הערה לספק (לא חובה). הוא יקרא אותה."
+    },
+    "err": {
+      "sinSesion": "התחברו כדי להציע אירוע.",
+      "soloPrestadores": "רק ספקים יכולים להציע אירועים.",
+      "tituloCorto": "הכותרת קצרה מדי.",
+      "largo": "אחד השדות ארוך מהמותר.",
+      "sinFecha": "ציינו את תאריך ושעת ההתחלה.",
+      "fechaPasada": "תאריך ההתחלה כבר עבר.",
+      "fechaLejana": "תאריך ההתחלה רחוק מדי.",
+      "finAntes": "הסיום לא יכול להיות לפני ההתחלה.",
+      "faltaEnlace": "אירוע מקוון זקוק לקישור שלו.",
+      "enlaceNoValido": "הקישור חייב להתחיל ב-http:// או https://",
+      "faltaLugar": "ציינו לפחות מדינה ועיר.",
+      "portadaNoValida": "תמונת השער חייבת להיות קישור http:// או https://",
+      "yaPendientes": "יש לכם כבר שלוש הצעות בבדיקה. המתינו לתשובה.",
+      "topeMensual": "הגעתם למגבלת ההצעות של החודש."
+    }
   },
   "calendar": {
     "title": "היומן שלי",

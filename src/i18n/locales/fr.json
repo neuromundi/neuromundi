@@ -1431,7 +1431,8 @@
     "badgeRevoke": "Révoquer le badge",
     "secFichas": "Fichas",
     "secComisiones": "Comisiones",
-    "secExperto": "Demander à un expert"
+    "secExperto": "Demander à un expert",
+    "secEventos": "Événements"
   },
   "reg": {
     "typePatient": "Patient",
@@ -2047,6 +2048,34 @@
       "founder_request_approved": {
         "title": "Votre cotisation de Membre Fondateur a été accordée",
         "body": "Nous vous avons réservé la cotisation de Membre Fondateur. Vous pouvez la souscrire au prix fondateur."
+      },
+      "contacto_solicitado": {
+        "title": "Quelqu’un souhaite vous contacter",
+        "body": "Vous avez reçu une demande de contact. Vous pouvez l’accepter ou la refuser dans votre tableau de bord."
+      },
+      "contacto_aceptado": {
+        "title": "Vous pouvez maintenant écrire",
+        "body": "Votre demande de contact a été acceptée."
+      },
+      "contacto_rechazado": {
+        "title": "Votre demande de contact n’a pas été acceptée",
+        "body": "Vous pouvez chercher d’autres options dans l’annuaire."
+      },
+      "evento_propuesto": {
+        "title": "Un prestataire a proposé un événement",
+        "body": "{{titulo}} attend votre examen."
+      },
+      "evento_aprobado": {
+        "title": "Votre événement est publié",
+        "body": "{{titulo}} figure sur la page des événements."
+      },
+      "evento_rechazado": {
+        "title": "Votre événement n’a pas été publié",
+        "body": "{{titulo}} n’a pas été publié."
+      },
+      "evento_rechazado_motivo": {
+        "title": "Votre événement n’a pas été publié",
+        "body": "{{titulo}} n’a pas été publié. Motif : {{motivo}}"
       }
     }
   },
@@ -3665,7 +3694,53 @@
     "fStarts": "Début",
     "fEnds": "Fin (facultatif)",
     "fDescription": "Description",
-    "fPublished": "Publié (visible par le public)"
+    "fPublished": "Publié (visible par le public)",
+    "mine": {
+      "tab": "Mes événements",
+      "aviso": "Proposez votre événement ; l'administrateur l'examine avant publication. Tant qu'il est en attente, vous pouvez le corriger ou le retirer.",
+      "proponer": "Proposer un événement",
+      "enviar": "Envoyer pour examen",
+      "enviada": "Votre événement est en cours d’examen.",
+      "pendientes": "{{n}} en cours d’examen",
+      "vacia": "Vous n’avez encore proposé aucun événement.",
+      "retirar": "Retirer",
+      "retirada": "Proposition retirée.",
+      "categoria": "Catégorie"
+    },
+    "rev": {
+      "pendiente": "En cours d’examen",
+      "aprobado": "Publié",
+      "rechazado": "Non publié"
+    },
+    "admin": {
+      "pendiente": "En cours d’examen",
+      "aprobado": "Publiés",
+      "rechazado": "Non publiés",
+      "todas": "Tous",
+      "empty": "Aucun événement proposé dans cet état.",
+      "anon": "Prestataire sans nom",
+      "socio": "membre {{n}}",
+      "aprobar": "Approuver et publier",
+      "rechazar": "Ne pas publier",
+      "hecho": "Événement publié.",
+      "notaPlaceholder": "Note pour le prestataire (facultatif). Il la lira."
+    },
+    "err": {
+      "sinSesion": "Connectez-vous pour proposer un événement.",
+      "soloPrestadores": "Seuls les prestataires peuvent proposer des événements.",
+      "tituloCorto": "Le titre est trop court.",
+      "largo": "Un des champs dépasse la longueur autorisée.",
+      "sinFecha": "Indiquez la date et l’heure de début.",
+      "fechaPasada": "La date de début est déjà passée.",
+      "fechaLejana": "La date de début est trop éloignée.",
+      "finAntes": "La fin ne peut pas précéder le début.",
+      "faltaEnlace": "Un événement en ligne a besoin de son lien.",
+      "enlaceNoValido": "Le lien doit commencer par http:// ou https://",
+      "faltaLugar": "Indiquez au moins le pays et la ville.",
+      "portadaNoValida": "La couverture doit être un lien http:// ou https://",
+      "yaPendientes": "Vous avez déjà trois propositions en cours d’examen. Attendez la réponse.",
+      "topeMensual": "Vous avez atteint la limite de propositions du mois."
+    }
   },
   "calendar": {
     "title": "Mon calendrier",

@@ -1468,7 +1468,8 @@
     "badgeRevoke": "Revoke badge",
     "secFichas": "Listings",
     "secComisiones": "Commissions",
-    "secExperto": "Ask an expert"
+    "secExperto": "Ask an expert",
+    "secEventos": "Events"
   },
   "reg": {
     "typePatient": "Patient",
@@ -2084,6 +2085,34 @@
       "founder_request_approved": {
         "title": "Your Founding Member fee was approved",
         "body": "We have reserved the Founding Member fee for you. You can now take it at the founder price."
+      },
+      "contacto_solicitado": {
+        "title": "Someone wants to contact you",
+        "body": "You received a contact request. You can accept or decline it in your dashboard."
+      },
+      "contacto_aceptado": {
+        "title": "You can write to them now",
+        "body": "Your contact request was accepted."
+      },
+      "contacto_rechazado": {
+        "title": "Your contact request was not accepted",
+        "body": "You can look for other options in the directory."
+      },
+      "evento_propuesto": {
+        "title": "A provider proposed an event",
+        "body": "{{titulo}} is waiting for your review."
+      },
+      "evento_aprobado": {
+        "title": "Your event is published",
+        "body": "{{titulo}} is now on the events page."
+      },
+      "evento_rechazado": {
+        "title": "Your event was not published",
+        "body": "{{titulo}} was not published."
+      },
+      "evento_rechazado_motivo": {
+        "title": "Your event was not published",
+        "body": "{{titulo}} was not published. Reason: {{motivo}}"
       }
     }
   },
@@ -3665,7 +3694,53 @@
     "fStarts": "Starts",
     "fEnds": "Ends (optional)",
     "fDescription": "Description",
-    "fPublished": "Published (visible to public)"
+    "fPublished": "Published (visible to public)",
+    "mine": {
+      "tab": "My events",
+      "aviso": "Propose your event and an administrator reviews it before it is published. While it is pending you can correct it or withdraw it.",
+      "proponer": "Propose an event",
+      "enviar": "Send for review",
+      "enviada": "Your event is now under review.",
+      "pendientes": "{{n}} under review",
+      "vacia": "You have not proposed any event yet.",
+      "retirar": "Withdraw",
+      "retirada": "Proposal withdrawn.",
+      "categoria": "Category"
+    },
+    "rev": {
+      "pendiente": "Under review",
+      "aprobado": "Published",
+      "rechazado": "Not published"
+    },
+    "admin": {
+      "pendiente": "Under review",
+      "aprobado": "Published",
+      "rechazado": "Not published",
+      "todas": "All",
+      "empty": "No proposed events in this state.",
+      "anon": "Provider without a name",
+      "socio": "member {{n}}",
+      "aprobar": "Approve and publish",
+      "rechazar": "Do not publish",
+      "hecho": "Event published.",
+      "notaPlaceholder": "Note for the provider (optional). They will read it."
+    },
+    "err": {
+      "sinSesion": "Sign in to propose an event.",
+      "soloPrestadores": "Only providers can propose events.",
+      "tituloCorto": "The title is too short.",
+      "largo": "One of the fields is longer than allowed.",
+      "sinFecha": "Enter the start date and time.",
+      "fechaPasada": "The start date has already passed.",
+      "fechaLejana": "The start date is too far away.",
+      "finAntes": "The end cannot be earlier than the start.",
+      "faltaEnlace": "An online event needs its link.",
+      "enlaceNoValido": "The link must start with http:// or https://",
+      "faltaLugar": "Enter at least the country and the city.",
+      "portadaNoValida": "The cover must be an http:// or https:// link.",
+      "yaPendientes": "You already have three proposals under review. Wait for the answer.",
+      "topeMensual": "You reached this month’s limit of proposals."
+    }
   },
   "calendar": {
     "title": "My calendar",

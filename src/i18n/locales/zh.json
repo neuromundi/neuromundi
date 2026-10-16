@@ -1431,7 +1431,8 @@
     "badgeRevoke": "撤销徽章",
     "secFichas": "Fichas",
     "secComisiones": "Comisiones",
-    "secExperto": "向专家提问"
+    "secExperto": "向专家提问",
+    "secEventos": "活动"
   },
   "reg": {
     "typePatient": "患者",
@@ -2047,6 +2048,34 @@
       "founder_request_approved": {
         "title": "您的创始会员会费已获批准",
         "body": "我们已为您保留创始会员会费。现在可以按创始价订购。"
+      },
+      "contacto_solicitado": {
+        "title": "有人想联系您",
+        "body": "您收到一条联系请求，可在面板中接受或谢绝。"
+      },
+      "contacto_aceptado": {
+        "title": "现在可以发消息了",
+        "body": "您的联系请求已被接受。"
+      },
+      "contacto_rechazado": {
+        "title": "您的联系请求未被接受",
+        "body": "您可以在目录中寻找其他选择。"
+      },
+      "evento_propuesto": {
+        "title": "有服务方提交了活动",
+        "body": "{{titulo}} 等待您的审核。"
+      },
+      "evento_aprobado": {
+        "title": "您的活动已公开",
+        "body": "{{titulo}} 已出现在活动页面。"
+      },
+      "evento_rechazado": {
+        "title": "您的活动未被公开",
+        "body": "{{titulo}} 未被公开。"
+      },
+      "evento_rechazado_motivo": {
+        "title": "您的活动未被公开",
+        "body": "{{titulo}} 未被公开。原因：{{motivo}}"
       }
     }
   },
@@ -3665,7 +3694,53 @@
     "fStarts": "开始",
     "fEnds": "结束（可选）",
     "fDescription": "描述",
-    "fPublished": "已发布（公开可见）"
+    "fPublished": "已发布（公开可见）",
+    "mine": {
+      "tab": "我的活动",
+      "aviso": "提交活动后由管理员审核再公开。审核期间可以修改或撤回。",
+      "proponer": "提交活动",
+      "enviar": "送审",
+      "enviada": "您的活动已进入审核。",
+      "pendientes": "审核中 {{n}} 个",
+      "vacia": "您还没有提交过活动。",
+      "retirar": "撤回",
+      "retirada": "已撤回提交。",
+      "categoria": "类别"
+    },
+    "rev": {
+      "pendiente": "审核中",
+      "aprobado": "已公开",
+      "rechazado": "未公开"
+    },
+    "admin": {
+      "pendiente": "审核中",
+      "aprobado": "已公开",
+      "rechazado": "未公开",
+      "todas": "全部",
+      "empty": "此状态下没有提交的活动。",
+      "anon": "未填名称的服务方",
+      "socio": "会员 {{n}}",
+      "aprobar": "通过并公开",
+      "rechazar": "不予公开",
+      "hecho": "活动已公开。",
+      "notaPlaceholder": "给服务方的说明（可选）。对方会看到。"
+    },
+    "err": {
+      "sinSesion": "请登录后再提交活动。",
+      "soloPrestadores": "只有服务方可以提交活动。",
+      "tituloCorto": "标题太短。",
+      "largo": "有字段超过了允许的长度。",
+      "sinFecha": "请填写开始日期和时间。",
+      "fechaPasada": "开始时间已经过去。",
+      "fechaLejana": "开始日期太远。",
+      "finAntes": "结束时间不能早于开始时间。",
+      "faltaEnlace": "线上活动需要填写链接。",
+      "enlaceNoValido": "链接必须以 http:// 或 https:// 开头。",
+      "faltaLugar": "至少填写国家和城市。",
+      "portadaNoValida": "封面必须是 http:// 或 https:// 链接。",
+      "yaPendientes": "您已有三个提交在审核中，请等待答复。",
+      "topeMensual": "已达到本月提交上限。"
+    }
   },
   "calendar": {
     "title": "我的日历",

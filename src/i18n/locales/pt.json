@@ -1431,7 +1431,8 @@
     "badgeRevoke": "Revogar distintivo",
     "secFichas": "Fichas",
     "secComisiones": "Comisiones",
-    "secExperto": "Pergunte ao especialista"
+    "secExperto": "Pergunte ao especialista",
+    "secEventos": "Eventos"
   },
   "reg": {
     "typePatient": "Paciente",
@@ -2047,6 +2048,34 @@
       "founder_request_approved": {
         "title": "Sua taxa de Membro Fundador foi autorizada",
         "body": "Reservamos para você a taxa de Membro Fundador. Já pode contratá-la pelo preço de fundador."
+      },
+      "contacto_solicitado": {
+        "title": "Alguém quer entrar em contato",
+        "body": "Você recebeu uma solicitação de contato. Pode aceitar ou recusar no seu painel."
+      },
+      "contacto_aceptado": {
+        "title": "Já pode escrever",
+        "body": "Sua solicitação de contato foi aceita."
+      },
+      "contacto_rechazado": {
+        "title": "Sua solicitação de contato não foi aceita",
+        "body": "Você pode procurar outras opções no diretório."
+      },
+      "evento_propuesto": {
+        "title": "Um prestador propôs um evento",
+        "body": "{{titulo}} aguarda a sua revisão."
+      },
+      "evento_aprobado": {
+        "title": "Seu evento já está publicado",
+        "body": "{{titulo}} aparece na página de eventos."
+      },
+      "evento_rechazado": {
+        "title": "Seu evento não foi publicado",
+        "body": "{{titulo}} não foi publicado."
+      },
+      "evento_rechazado_motivo": {
+        "title": "Seu evento não foi publicado",
+        "body": "{{titulo}} não foi publicado. Motivo: {{motivo}}"
       }
     }
   },
@@ -3665,7 +3694,53 @@
     "fStarts": "Início",
     "fEnds": "Fim (opcional)",
     "fDescription": "Descrição",
-    "fPublished": "Publicado (visível ao público)"
+    "fPublished": "Publicado (visível ao público)",
+    "mine": {
+      "tab": "Meus eventos",
+      "aviso": "Proponha o seu evento e o administrador o revisa antes de publicar. Enquanto estiver pendente você pode corrigi-lo ou retirá-lo.",
+      "proponer": "Propor evento",
+      "enviar": "Enviar para revisão",
+      "enviada": "Seu evento está em revisão.",
+      "pendientes": "{{n}} em revisão",
+      "vacia": "Você ainda não propôs nenhum evento.",
+      "retirar": "Retirar",
+      "retirada": "Proposta retirada.",
+      "categoria": "Categoria"
+    },
+    "rev": {
+      "pendiente": "Em revisão",
+      "aprobado": "Publicado",
+      "rechazado": "Não publicado"
+    },
+    "admin": {
+      "pendiente": "Em revisão",
+      "aprobado": "Publicados",
+      "rechazado": "Não publicados",
+      "todas": "Todos",
+      "empty": "Não há eventos propostos neste estado.",
+      "anon": "Prestador sem nome",
+      "socio": "sócio {{n}}",
+      "aprobar": "Aprovar e publicar",
+      "rechazar": "Não publicar",
+      "hecho": "Evento publicado.",
+      "notaPlaceholder": "Nota para o prestador (opcional). Ele vai ler."
+    },
+    "err": {
+      "sinSesion": "Entre na sua conta para propor um evento.",
+      "soloPrestadores": "Somente prestadores podem propor eventos.",
+      "tituloCorto": "O título é muito curto.",
+      "largo": "Algum dos campos excede o tamanho permitido.",
+      "sinFecha": "Informe a data e a hora de início.",
+      "fechaPasada": "A data de início já passou.",
+      "fechaLejana": "A data de início está muito distante.",
+      "finAntes": "O fim não pode ser anterior ao início.",
+      "faltaEnlace": "Um evento on-line precisa do seu link.",
+      "enlaceNoValido": "O link deve começar com http:// ou https://",
+      "faltaLugar": "Informe pelo menos o país e a cidade.",
+      "portadaNoValida": "A capa deve ser um link http:// ou https://",
+      "yaPendientes": "Você já tem três propostas em revisão. Aguarde a resposta.",
+      "topeMensual": "Você atingiu o limite de propostas do mês."
+    }
   },
   "calendar": {
     "title": "Meu calendário",
