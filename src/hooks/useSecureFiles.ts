@@ -81,7 +81,15 @@ export function useSecureFiles(patientId: string) {
 
       const keyRows = enc.wrapped.map((w) => ({ file_id: row.id, recipient_id: w.recipientId, wrapped_key: w.wrappedKeyB64 }));
       const { error: kerr } = await supabase.from('secure_file_keys').insert(keyRows);
-      if (kerr) return { ok: false, error: toMessage(kerr) };
+      if (kerr) {
+        // Sin llaves el archivo es ilegible PARA SIEMPRE, y sin embargo
+        // aparecía en la lista como si estuviera bien. Se deshacen el registro
+        // y el archivo, igual que el caso simétrico un paso antes, que sí
+        // estaba resuelto. (Auditoría 15 oct 2026, hallazgo M-2.)
+        await supabase.from('secure_files').delete().eq('id', row.id);
+        await supabase.storage.from('secure').remove([path]);
+        return { ok: false, error: toMessage(kerr) };
+      }
 
       await load();
       return { ok: true, data: true };
@@ -93,12 +101,17 @@ export function useSecureFiles(patientId: string) {
   const download = useCallback(
     async (f: SecureFile): Promise<Result<true>> => {
       if (!userId) return { ok: false, error: 'Sin sesión' };
-      const { data: keyRow } = await supabase
+      const { data: keyRow, error: keyErr } = await supabase
         .from('secure_file_keys')
         .select('wrapped_key')
         .eq('file_id', f.id)
         .eq('recipient_id', userId)
         .maybeSingle();
+      // "No tienes llave" era una afirmación sobre sus permisos, y se daba
+      // también cuando la consulta FALLABA: indistinguible de un problema de
+      // autorización real. Ahora se distingue no poder consultarla de no
+      // tenerla. (Auditoría 15 oct 2026, hallazgo M-2.)
+      if (keyErr) return { ok: false, error: toMessage(keyErr, 'No se pudo consultar tu llave. Vuelve a intentarlo.') };
       if (!keyRow) return { ok: false, error: 'No tienes llave para este archivo.' };
 
       const dl = await supabase.storage.from('secure').download(f.storage_path);
