@@ -40,7 +40,7 @@ export function EmpresaPlazoAviso() {
     let vivo = true;
     (async () => {
       const { data } = await supabase.rpc('empresa_estado', { p_id: userId });
-      if (vivo) setE((data as Estado) ?? null);
+      if (vivo) setE((data as unknown as Estado) ?? null);
     })();
     return () => { vivo = false; };
   }, [userId]);

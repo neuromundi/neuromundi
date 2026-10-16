@@ -73,7 +73,7 @@ export function useStore() {
           .in('id', vendorIds);
         const smap: Record<string, SellerTrust> = {};
         for (const v of vs ?? []) {
-          smap[v.id] = { verified: !!v.is_verified, memberNo: v.member_no ?? null, country: v.country ?? null };
+          if (v.id) smap[v.id] = { verified: !!v.is_verified, memberNo: v.member_no ?? null, country: v.country ?? null };
         }
         if (!vivo) return;
         setSellers(smap);

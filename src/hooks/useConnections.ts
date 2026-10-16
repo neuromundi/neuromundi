@@ -31,16 +31,17 @@ export interface UseConnectionsValue {
 }
 
 function summaryOf(row: {
-  id: string;
-  full_name: string;
+  // La vista entrega estas columnas nulables: pierde los NOT NULL de la tabla.
+  id: string | null;
+  full_name: string | null;
   business_name: string | null;
   city: string | null;
   avatar_url: string | null;
   provider_type: ProviderSummary['provider_type'];
 }): ProviderSummary {
   return {
-    id: row.id,
-    name: row.business_name ?? row.full_name,
+    id: row.id ?? '',
+    name: row.business_name ?? row.full_name ?? '',
     city: row.city,
     avatar_url: row.avatar_url,
     provider_type: row.provider_type,
@@ -77,7 +78,7 @@ export function useConnections(): UseConnectionsValue {
           .select('id, full_name, business_name, city, avatar_url, provider_type')
           .in('id', otherIds);
         const map: Record<string, ProviderSummary> = {};
-        for (const p of profs ?? []) map[p.id] = summaryOf(p);
+        for (const p of profs ?? []) { if (p.id) map[p.id] = summaryOf({ ...p, provider_type: p.provider_type as ProviderSummary['provider_type'] }); }
         setProfiles(map);
       } else {
         setProfiles({});

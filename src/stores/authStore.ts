@@ -11,7 +11,7 @@ import { supabase } from '@/lib/supabase';
 import i18n from '@/i18n';
 import { logger, toMessage } from '@/lib/utils';
 import type { Profile, Result, UserRole } from '@/types/app';
-import type { TablesUpdate } from '@/types/database';
+import type { TablesUpdate, Json } from '@/types/database';
 
 export type AuthStatus = 'loading' | 'authenticated' | 'unauthenticated';
 
@@ -387,7 +387,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       intervention_areas: input.interventionAreas ?? undefined,
       sections: input.sections ?? undefined,
       neuro_conditions: input.neuroConditions ?? undefined,
-      provider_details: input.providerDetails ?? undefined,
+      provider_details: (input.providerDetails ?? undefined) as Json | undefined,
       product_categories: input.productCategories ?? undefined,
       products_offered: input.productsOffered ?? undefined,
       sales_channels: input.salesChannels ?? undefined,

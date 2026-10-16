@@ -60,16 +60,26 @@ export type PrescriptionInsert = TablesInsert<'prescriptions'>;
  * membresía, el compilador lo detiene aquí — antes se habría pedido en vano y
  * habría llegado vacío en tiempo de ejecución.
  */
+// Desde el 16 oct 2026 los tipos se generan desde la base, y entonces esto
+// deja de ser una resta sobre `profiles` y pasa a ser LA FILA DE LA VISTA, que
+// es lo que de verdad llega. La resta anterior describía bien qué columnas NO
+// vienen, pero mentía en la nulabilidad: una vista pierde los NOT NULL, así
+// que casi todas sus columnas pueden venir nulas y el código suponía que no.
+//
+// Se conservan tipados estrechos `id`, `role` y `provider_type` porque la
+// pantalla ramifica sobre ellos: la vista sólo expone perfiles publicados, que
+// siempre tienen identificador y tipo.
+type FilaDirectorio = Views<'directorio_publico_seguro'>;
 export type PerfilPublico = Omit<
-  Profile,
-  'qr_token' | 'birth_date' | 'gender' | 'condition'
-  | 'membership_status' | 'membership_due_at' | 'membership_paid_until' | 'membership_period'
-  | 'stripe_customer_id' | 'stripe_subscription_id' | 'stripe_connect_id' | 'stripe_charges_enabled'
-  | 'promo_code_used' | 'rfc' | 'public_key'
-  | 'referred_by' | 'referred_at' | 'referral_credit_pct'
-  | 'suspended_at' | 'suspend_until' | 'pre_suspend_published' | 'winback_until'
-  | 'rules_version_accepted' | 'rules_accepted_at'
-> & { perfil_activo?: boolean };
+  FilaDirectorio,
+  'id' | 'role' | 'provider_type' | 'perfil_activo' | 'verificada'
+> & {
+  id: string;
+  role: UserRole | null;
+  provider_type: ProviderType | null;
+  perfil_activo?: boolean | null;
+  verificada?: boolean | null;
+};
 
 /** Proveedor enriquecido con su EVS y categorías, listo para el directorio. */
 export interface ProviderWithRating extends PerfilPublico {

@@ -44,7 +44,7 @@ const STATUS_BADGE: Record<TransactionStatus, { key: string; cls: string }> = {
 function DiscountCard({ discount }: { discount: ParentDiscount }) {
   const { t } = useTranslation();
   const { transaction, offerTitle, discountText, providerName, providerAvatar } = discount;
-  const badge = STATUS_BADGE[transaction.status];
+  const badge = STATUS_BADGE[transaction.status as TransactionStatus];
   return (
     <article className="flex items-center gap-3 rounded-2xl border border-slate-100 bg-white p-4 shadow-sm">
       {providerAvatar ? (

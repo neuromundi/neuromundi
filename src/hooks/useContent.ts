@@ -20,7 +20,8 @@ async function ratingsFor(ids: string[]): Promise<Record<string, PostRating>> {
   if (ids.length === 0) return {};
   const { data } = await supabase.from('public_post_ratings').select('*').in('post_id', ids);
   const map: Record<string, PostRating> = {};
-  for (const r of data ?? []) map[r.post_id] = { avg_stars: Number(r.avg_stars), rating_count: r.rating_count };
+  // post_id puede venir nulo en la vista; sin identificador no hay a qué asociarlo.
+  for (const r of data ?? []) { if (r.post_id) map[r.post_id] = { avg_stars: Number(r.avg_stars), rating_count: Number(r.rating_count ?? 0) }; }
   return map;
 }
 

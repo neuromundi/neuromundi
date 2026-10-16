@@ -28,6 +28,7 @@ import { profileSchema, type ProfileFormValues } from '@/lib/schemas';
 import { ACCESSIBILITY_FEATURES } from '@/data/specialistCatalog';
 import { useCatLabel } from '@/lib/catLabel';
 import type { ProfileUpdate } from '@/hooks/useProfile';
+import type { ProviderType } from '@/types/app';
 
 const inputCls =
   'w-full rounded-xl border border-slate-200 p-3 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500';
@@ -172,7 +173,7 @@ export function Settings() {
           services_offered: profile.services_offered ?? '',
           year_started: profile.year_started != null ? String(profile.year_started) : '',
           certified_staff: profile.certified_staff ?? false,
-          provider_type: profile.provider_type,
+          provider_type: profile.provider_type as ProviderType | null,
           is_published: profile.is_published,
           // Directorio
           profession: profile.profession ?? '',

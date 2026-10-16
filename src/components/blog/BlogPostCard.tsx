@@ -37,7 +37,7 @@ export function BlogPostCard({
         {p.excerpt && <p className="mt-1 line-clamp-3 text-sm text-muted">{p.excerpt}</p>}
         <div className="mt-auto flex items-center gap-3 pt-3 text-xs text-muted">
           {showAuthor && author ? <span className="truncate">{author}</span> : null}
-          {p.avg_stars >= 3 && (
+          {(p.avg_stars ?? 0) >= 3 && (
             <span className="inline-flex items-center gap-1"><Star className="h-3.5 w-3.5 fill-warm-400 text-warm-400" /> {p.avg_stars}</span>
           )}
           <span className="inline-flex items-center gap-1"><Eye className="h-3.5 w-3.5" /> {p.views_count}</span>

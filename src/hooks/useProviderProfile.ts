@@ -8,7 +8,7 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
 import { toMessage } from '@/lib/utils';
-import type { Category, ProviderSummary, PerfilPublico } from '@/types/app';
+import type { Category, ProviderSummary, PerfilPublico, ProviderType } from '@/types/app';
 
 export interface UseProviderProfileValue {
   profile: PerfilPublico | null;
@@ -47,7 +47,7 @@ export function useProviderProfile(id: string | null): UseProviderProfileValue {
           .maybeSingle();
         if (pErr) throw pErr;
         if (cancelled) return;
-        setProfile(prof ?? null);
+        setProfile((prof ?? null) as unknown as PerfilPublico | null);
 
         if (prof) {
           const { data: pc } = await supabase
@@ -77,13 +77,15 @@ export function useProviderProfile(id: string | null): UseProviderProfileValue {
               .eq('is_published', true);
             if (!cancelled) {
               setNetwork(
-                (profs ?? []).map((p) => ({
-                  id: p.id,
-                  name: p.business_name ?? p.full_name,
-                  city: p.city,
-                  avatar_url: p.avatar_url,
-                  provider_type: p.provider_type,
-                })),
+                (profs ?? [])
+                  .filter((p) => p.id)
+                  .map((p) => ({
+                    id: p.id as string,
+                    name: p.business_name ?? p.full_name ?? '',
+                    city: p.city,
+                    avatar_url: p.avatar_url,
+                    provider_type: p.provider_type as ProviderType | null,
+                  })),
               );
             }
           }

@@ -12,7 +12,7 @@ type BadgeInputRow = Views<'provider_badge_inputs'>;
 
 export function inputsFromRow(r: BadgeInputRow): BadgeInputs {
   return {
-    documentalVerified: r.documental_verified,
+    documentalVerified: !!r.documental_verified,
     avgQuality: r.avg_quality,
     avgHumanTreatment: r.avg_human_treatment,
     avgProfessionalism: r.avg_professionalism,

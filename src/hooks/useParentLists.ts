@@ -67,12 +67,13 @@ export function useParentLists(): UseParentListsValue {
             .select('id, full_name, business_name, city, avatar_url, provider_type')
             .in('id', providerIds);
           for (const p of profs ?? []) {
+            if (!p.id) continue;
             summaries[p.id] = {
               id: p.id,
-              name: p.business_name ?? p.full_name,
+              name: p.business_name ?? p.full_name ?? '',
               city: p.city,
               avatar_url: p.avatar_url,
-              provider_type: p.provider_type,
+              provider_type: p.provider_type as ProviderSummary['provider_type'],
             };
           }
         }

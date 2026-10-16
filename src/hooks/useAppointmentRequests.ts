@@ -76,7 +76,7 @@ export function useAppointmentRequests() {
         .from('perfiles_basicos')
         .select('id, business_name, full_name')
         .in('id', otherIds);
-      for (const p of profs ?? []) names[p.id] = p.business_name || p.full_name || '';
+      for (const p of profs ?? []) { if (p.id) names[p.id] = p.business_name || p.full_name || ''; }
     }
     setRows(
       list.map((r) => ({

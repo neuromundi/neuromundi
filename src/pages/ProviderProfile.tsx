@@ -39,6 +39,7 @@ import { useProviderReview } from '@/hooks/useProviderReview';
 import { trackProfileEvent } from '@/hooks/useProviderMetrics';
 import { discountLabel } from '@/lib/utils';
 import { DIMENSION_LABEL_KEY } from '@/types/app';
+import type { DiscountType } from '@/types/app';
 
 // Mini-mapa de un pin: se carga aparte para no meter Leaflet en el bundle inicial.
 const ProviderMiniMap = lazy(() =>
@@ -529,7 +530,7 @@ export function ProviderProfile() {
           )}
 
           {/* Reseñas de familias (públicas). */}
-          <ProviderReviews providerId={id} providerName={name} />
+          <ProviderReviews providerId={id} providerName={name ?? ''} />
 
           <section>
             <h2 className="mb-2 font-semibold text-slate-900">{t('profile.activeOffers')}</h2>
@@ -540,7 +541,7 @@ export function ProviderProfile() {
                 {activeOffers.map((o) => (
                   <li key={o.id} className="rounded-xl border border-slate-100 bg-white p-3">
                     <p className="font-semibold text-slate-900">{o.title}</p>
-                    <p className="text-sm text-warm-700">{discountLabel(t, o.discount_type, o.discount_value)}</p>
+                    <p className="text-sm text-warm-700">{discountLabel(t, o.discount_type as DiscountType, o.discount_value)}</p>
                     {o.description && <p className="mt-1 text-sm text-muted">{o.description}</p>}
                   </li>
                 ))}

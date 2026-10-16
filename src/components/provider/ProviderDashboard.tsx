@@ -66,7 +66,7 @@ import { RecommendPanel } from '@/components/referral/RecommendPanel';
 import { MisPagos } from '@/components/payments/MisPagos';
 import { defaultOfferValues, type OfferFormValues } from '@/lib/schemas';
 import { formatDate, formatDateTime, exportToCsv } from '@/lib/utils';
-import type { Offer, OfferStatus, OfferInsert, ProviderType, TransactionStatus } from '@/types/app';
+import type { Offer, OfferStatus, OfferInsert, ProviderType, TransactionStatus, DiscountType } from '@/types/app';
 import { DIMENSION_LABEL_KEY } from '@/types/app';
 import { PublicationSteps } from './PublicationSteps';
 import { PerfilPublicadoCard } from './PerfilPublicadoCard';
@@ -99,13 +99,14 @@ function offerToFormValues(offer: Offer): OfferFormValues {
   return {
     title: offer.title,
     description: offer.description ?? '',
-    discount_type: offer.discount_type,
+    // La base guarda texto; el formulario ramifica sobre la unión.
+    discount_type: offer.discount_type as DiscountType,
     discount_value: offer.discount_value,
     terms: offer.terms ?? '',
     valid_from: toLocal(offer.valid_from),
     valid_until: toLocal(offer.valid_until),
     max_redemptions: offer.max_redemptions,
-    status: offer.status === 'expired' ? 'paused' : offer.status,
+    status: (offer.status === 'expired' ? 'paused' : offer.status) as 'draft' | 'active' | 'paused',
   };
 }
 
@@ -189,7 +190,7 @@ function OffersTab({ providerId }: { providerId: string }) {
       ) : (
         <ul className="space-y-3">
           {offers.map((offer) => {
-            const chip = OFFER_CHIP[offer.status];
+            const chip = OFFER_CHIP[offer.status as OfferStatus];
             const isActive = offer.status === 'active';
             return (
               <li
@@ -299,7 +300,7 @@ function HistoryTab({ providerId, offers }: { providerId: string; offers: Offer[
       transactions.map((tx) => [
         formatDateTime(tx.created_at),
         offerTitle.get(tx.offer_id) ?? '—',
-        t(TX_CHIP[tx.status].key),
+        t(TX_CHIP[tx.status as TransactionStatus].key),
       ]),
     );
   };
@@ -372,8 +373,8 @@ function HistoryTab({ providerId, offers }: { providerId: string; offers: Offer[
                     <td className="p-3 text-slate-700">{formatDate(tx.created_at)}</td>
                     <td className="p-3 text-slate-700">{offerTitle.get(tx.offer_id) ?? '—'}</td>
                     <td className="p-3">
-                      <span className={`rounded-full px-2 py-0.5 text-xs font-semibold ${TX_CHIP[tx.status].cls}`}>
-                        {t(TX_CHIP[tx.status].key)}
+                      <span className={`rounded-full px-2 py-0.5 text-xs font-semibold ${TX_CHIP[tx.status as TransactionStatus].cls}`}>
+                        {t(TX_CHIP[tx.status as TransactionStatus].key)}
                       </span>
                     </td>
                   </tr>

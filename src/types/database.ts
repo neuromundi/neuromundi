@@ -1,2392 +1,9434 @@
-/**
- * Tipos de la base de datos Neuromundi.
- *
- * Equivalente a lo que produce `supabase gen types typescript`, escrito a mano
- * para reflejar exactamente el esquema de la PARTE 1. Cuando el proyecto esté
- * conectado, puede regenerarse con:
- *
- *   supabase gen types typescript --project-id <id> --schema public > database.ts
- *
- * Mientras tanto, este archivo mantiene el tipado estricto del cliente.
- */
-
 export type Json =
   | string
   | number
   | boolean
   | null
   | { [key: string]: Json | undefined }
-  | Json[];
+  | Json[]
 
-// ── Enums del esquema ────────────────────────────────────────────────────────
+export type Database = {
+  // Allows to automatically instantiate createClient with right options
+  // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
+  __InternalSupabase: {
+    PostgrestVersion: "14.5"
+  }
+  public: {
+    Tables: {
+      account_actions: {
+        Row: {
+          action: string
+          created_at: string
+          email: string | null
+          id: string
+          is_paid: boolean
+          member_no: number | null
+          reason: string | null
+          reason_detail: string | null
+          role: string | null
+          user_id: string | null
+        }
+        Insert: {
+          action: string
+          created_at?: string
+          email?: string | null
+          id?: string
+          is_paid?: boolean
+          member_no?: number | null
+          reason?: string | null
+          reason_detail?: string | null
+          role?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          action?: string
+          created_at?: string
+          email?: string | null
+          id?: string
+          is_paid?: boolean
+          member_no?: number | null
+          reason?: string | null
+          reason_detail?: string | null
+          role?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      admin_messages: {
+        Row: {
+          audience: string
+          body: string
+          created_at: string
+          id: string
+          recipient_count: number
+          recipient_id: string | null
+          sender_id: string | null
+          title: string | null
+        }
+        Insert: {
+          audience: string
+          body: string
+          created_at?: string
+          id?: string
+          recipient_count?: number
+          recipient_id?: string | null
+          sender_id?: string | null
+          title?: string | null
+        }
+        Update: {
+          audience?: string
+          body?: string
+          created_at?: string
+          id?: string
+          recipient_count?: number
+          recipient_id?: string | null
+          sender_id?: string | null
+          title?: string | null
+        }
+        Relationships: []
+      }
+      affiliate_codes: {
+        Row: {
+          code: string
+          commission_pct: number
+          created_at: string
+          id: string
+          is_active: boolean
+          provider_id: string
+        }
+        Insert: {
+          code: string
+          commission_pct?: number
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          provider_id: string
+        }
+        Update: {
+          code?: string
+          commission_pct?: number
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          provider_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "affiliate_codes_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: true
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "affiliate_codes_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "affiliate_codes_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: true
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      affiliate_commissions: {
+        Row: {
+          affiliate_id: string
+          amount_cents: number
+          created_at: string
+          currency: string
+          id: string
+          order_id: string
+          paid_at: string | null
+          paid_note: string | null
+          product_name: string | null
+          refund_after_payment: boolean
+          reversed_at: string | null
+          status: string
+          vendor_id: string
+        }
+        Insert: {
+          affiliate_id: string
+          amount_cents: number
+          created_at?: string
+          currency: string
+          id?: string
+          order_id: string
+          paid_at?: string | null
+          paid_note?: string | null
+          product_name?: string | null
+          refund_after_payment?: boolean
+          reversed_at?: string | null
+          status?: string
+          vendor_id: string
+        }
+        Update: {
+          affiliate_id?: string
+          amount_cents?: number
+          created_at?: string
+          currency?: string
+          id?: string
+          order_id?: string
+          paid_at?: string | null
+          paid_note?: string | null
+          product_name?: string | null
+          refund_after_payment?: boolean
+          reversed_at?: string | null
+          status?: string
+          vendor_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "affiliate_commissions_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "affiliate_commissions_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "affiliate_commissions_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+          {
+            foreignKeyName: "affiliate_commissions_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: true
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "affiliate_commissions_vendor_id_fkey"
+            columns: ["vendor_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "affiliate_commissions_vendor_id_fkey"
+            columns: ["vendor_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "affiliate_commissions_vendor_id_fkey"
+            columns: ["vendor_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      alliance_credits: {
+        Row: {
+          alliance_id: string
+          amount_value: number | null
+          created_at: string
+          currency: string | null
+          id: string
+          source_user_id: string
+          status: string
+        }
+        Insert: {
+          alliance_id: string
+          amount_value?: number | null
+          created_at?: string
+          currency?: string | null
+          id?: string
+          source_user_id: string
+          status?: string
+        }
+        Update: {
+          alliance_id?: string
+          amount_value?: number | null
+          created_at?: string
+          currency?: string | null
+          id?: string
+          source_user_id?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "alliance_credits_alliance_id_fkey"
+            columns: ["alliance_id"]
+            isOneToOne: false
+            referencedRelation: "alliance_partners"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "alliance_credits_source_user_id_fkey"
+            columns: ["source_user_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "alliance_credits_source_user_id_fkey"
+            columns: ["source_user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "alliance_credits_source_user_id_fkey"
+            columns: ["source_user_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      alliance_partners: {
+        Row: {
+          contact: string | null
+          country: string | null
+          created_at: string
+          id: string
+          is_active: boolean
+          name: string
+          promo_code: string | null
+          tier: string
+        }
+        Insert: {
+          contact?: string | null
+          country?: string | null
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          name: string
+          promo_code?: string | null
+          tier?: string
+        }
+        Update: {
+          contact?: string | null
+          country?: string | null
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          name?: string
+          promo_code?: string | null
+          tier?: string
+        }
+        Relationships: []
+      }
+      allies: {
+        Row: {
+          countries: string[] | null
+          created_at: string
+          id: string
+          is_active: boolean
+          logo_url: string
+          name: string
+          sort_order: number
+          website: string | null
+        }
+        Insert: {
+          countries?: string[] | null
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          logo_url: string
+          name: string
+          sort_order?: number
+          website?: string | null
+        }
+        Update: {
+          countries?: string[] | null
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          logo_url?: string
+          name?: string
+          sort_order?: number
+          website?: string | null
+        }
+        Relationships: []
+      }
+      analytics_events: {
+        Row: {
+          created_at: string
+          event: string
+          id: number
+          props: Json
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          event: string
+          id?: never
+          props?: Json
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          event?: string
+          id?: never
+          props?: Json
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      appointment_reminders: {
+        Row: {
+          appointment_id: string
+          channel: string
+          created_at: string
+          id: string
+          offset_hours: number
+          send_at: string
+          status: string
+        }
+        Insert: {
+          appointment_id: string
+          channel: string
+          created_at?: string
+          id?: string
+          offset_hours: number
+          send_at: string
+          status?: string
+        }
+        Update: {
+          appointment_id?: string
+          channel?: string
+          created_at?: string
+          id?: string
+          offset_hours?: number
+          send_at?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "appointment_reminders_appointment_id_fkey"
+            columns: ["appointment_id"]
+            isOneToOne: false
+            referencedRelation: "appointments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      appointment_requests: {
+        Row: {
+          calendar_entry_id: string | null
+          charge_currency: string | null
+          charge_percent: number
+          charge_total: number | null
+          created_at: string
+          email_reminded_at: string | null
+          ends_at: string | null
+          id: string
+          location: string | null
+          mode: string
+          note: string | null
+          online_url: string | null
+          payment_status: string
+          recipient_id: string
+          rejection_reason: string | null
+          reminded_at: string | null
+          responded_at: string | null
+          specialist_id: string
+          starts_at: string
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          calendar_entry_id?: string | null
+          charge_currency?: string | null
+          charge_percent?: number
+          charge_total?: number | null
+          created_at?: string
+          email_reminded_at?: string | null
+          ends_at?: string | null
+          id?: string
+          location?: string | null
+          mode?: string
+          note?: string | null
+          online_url?: string | null
+          payment_status?: string
+          recipient_id: string
+          rejection_reason?: string | null
+          reminded_at?: string | null
+          responded_at?: string | null
+          specialist_id: string
+          starts_at: string
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          calendar_entry_id?: string | null
+          charge_currency?: string | null
+          charge_percent?: number
+          charge_total?: number | null
+          created_at?: string
+          email_reminded_at?: string | null
+          ends_at?: string | null
+          id?: string
+          location?: string | null
+          mode?: string
+          note?: string | null
+          online_url?: string | null
+          payment_status?: string
+          recipient_id?: string
+          rejection_reason?: string | null
+          reminded_at?: string | null
+          responded_at?: string | null
+          specialist_id?: string
+          starts_at?: string
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "appointment_requests_calendar_entry_id_fkey"
+            columns: ["calendar_entry_id"]
+            isOneToOne: false
+            referencedRelation: "calendar_entries"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      appointments: {
+        Row: {
+          created_at: string
+          ends_at: string
+          id: string
+          note: string | null
+          patient_id: string
+          provider_id: string
+          source: string
+          starts_at: string
+          status: string
+          video_link: string | null
+        }
+        Insert: {
+          created_at?: string
+          ends_at: string
+          id?: string
+          note?: string | null
+          patient_id: string
+          provider_id: string
+          source?: string
+          starts_at: string
+          status?: string
+          video_link?: string | null
+        }
+        Update: {
+          created_at?: string
+          ends_at?: string
+          id?: string
+          note?: string | null
+          patient_id?: string
+          provider_id?: string
+          source?: string
+          starts_at?: string
+          status?: string
+          video_link?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "appointments_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointments_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointments_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+          {
+            foreignKeyName: "appointments_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointments_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointments_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      booking_requests: {
+        Row: {
+          contact: string
+          created_at: string
+          id: string
+          name: string
+          note: string | null
+          preferred: string | null
+          provider_id: string
+          status: string
+        }
+        Insert: {
+          contact: string
+          created_at?: string
+          id?: string
+          name: string
+          note?: string | null
+          preferred?: string | null
+          provider_id: string
+          status?: string
+        }
+        Update: {
+          contact?: string
+          created_at?: string
+          id?: string
+          name?: string
+          note?: string | null
+          preferred?: string | null
+          provider_id?: string
+          status?: string
+        }
+        Relationships: []
+      }
+      calendar_entries: {
+        Row: {
+          color: string | null
+          created_at: string
+          description: string | null
+          ends_at: string | null
+          id: string
+          kind: string
+          location: string | null
+          online_url: string | null
+          source_event_id: string | null
+          starts_at: string
+          title: string
+          user_id: string
+        }
+        Insert: {
+          color?: string | null
+          created_at?: string
+          description?: string | null
+          ends_at?: string | null
+          id?: string
+          kind?: string
+          location?: string | null
+          online_url?: string | null
+          source_event_id?: string | null
+          starts_at: string
+          title: string
+          user_id: string
+        }
+        Update: {
+          color?: string | null
+          created_at?: string
+          description?: string | null
+          ends_at?: string | null
+          id?: string
+          kind?: string
+          location?: string | null
+          online_url?: string | null
+          source_event_id?: string | null
+          starts_at?: string
+          title?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "calendar_entries_source_event_id_fkey"
+            columns: ["source_event_id"]
+            isOneToOne: false
+            referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      campaign_config: {
+        Row: {
+          active: boolean
+          active_markets: Json
+          block_days_by_country: Json
+          community_url: string | null
+          default_block_days: number
+          directory_open: boolean
+          founder_caps_by_country: Json
+          founder_deadline_by_country: Json
+          founder_discount: Json
+          id: number
+          paises_directorio_abierto: string[]
+          popup_active: boolean
+          popup_continents: Json
+          start_at: string | null
+          updated_at: string
+          verificacion_deadline: string
+          whatsapp_url: string | null
+        }
+        Insert: {
+          active?: boolean
+          active_markets?: Json
+          block_days_by_country?: Json
+          community_url?: string | null
+          default_block_days?: number
+          directory_open?: boolean
+          founder_caps_by_country?: Json
+          founder_deadline_by_country?: Json
+          founder_discount?: Json
+          id?: number
+          paises_directorio_abierto?: string[]
+          popup_active?: boolean
+          popup_continents?: Json
+          start_at?: string | null
+          updated_at?: string
+          verificacion_deadline?: string
+          whatsapp_url?: string | null
+        }
+        Update: {
+          active?: boolean
+          active_markets?: Json
+          block_days_by_country?: Json
+          community_url?: string | null
+          default_block_days?: number
+          directory_open?: boolean
+          founder_caps_by_country?: Json
+          founder_deadline_by_country?: Json
+          founder_discount?: Json
+          id?: number
+          paises_directorio_abierto?: string[]
+          popup_active?: boolean
+          popup_continents?: Json
+          start_at?: string | null
+          updated_at?: string
+          verificacion_deadline?: string
+          whatsapp_url?: string | null
+        }
+        Relationships: []
+      }
+      campaign_emails: {
+        Row: {
+          created_at: string
+          last_reminder_at: string | null
+          reminders_sent: number
+          user_id: string
+          welcome_sent_at: string | null
+        }
+        Insert: {
+          created_at?: string
+          last_reminder_at?: string | null
+          reminders_sent?: number
+          user_id: string
+          welcome_sent_at?: string | null
+        }
+        Update: {
+          created_at?: string
+          last_reminder_at?: string | null
+          reminders_sent?: number
+          user_id?: string
+          welcome_sent_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "campaign_emails_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "campaign_emails_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "campaign_emails_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      campaigns: {
+        Row: {
+          audience: string
+          body: string
+          channels: string[]
+          created_at: string
+          id: string
+          owner_id: string
+          sent_count: number
+          status: string
+          title: string
+        }
+        Insert: {
+          audience?: string
+          body: string
+          channels?: string[]
+          created_at?: string
+          id?: string
+          owner_id: string
+          sent_count?: number
+          status?: string
+          title: string
+        }
+        Update: {
+          audience?: string
+          body?: string
+          channels?: string[]
+          created_at?: string
+          id?: string
+          owner_id?: string
+          sent_count?: number
+          status?: string
+          title?: string
+        }
+        Relationships: []
+      }
+      catalog_suggestions: {
+        Row: {
+          country: string | null
+          created_at: string
+          email: string | null
+          id: string
+          kind: string
+          name: string
+          note: string | null
+          page: string | null
+          section: string | null
+          status: string
+          user_id: string | null
+        }
+        Insert: {
+          country?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          kind: string
+          name: string
+          note?: string | null
+          page?: string | null
+          section?: string | null
+          status?: string
+          user_id?: string | null
+        }
+        Update: {
+          country?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          kind?: string
+          name?: string
+          note?: string | null
+          page?: string | null
+          section?: string | null
+          status?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "catalog_suggestions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "catalog_suggestions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "catalog_suggestions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      categories: {
+        Row: {
+          color_hex: string | null
+          created_at: string
+          icon_name: string | null
+          id: number
+          name: string
+          slug: string
+          sort_order: number
+        }
+        Insert: {
+          color_hex?: string | null
+          created_at?: string
+          icon_name?: string | null
+          id?: number
+          name: string
+          slug: string
+          sort_order?: number
+        }
+        Update: {
+          color_hex?: string | null
+          created_at?: string
+          icon_name?: string | null
+          id?: number
+          name?: string
+          slug?: string
+          sort_order?: number
+        }
+        Relationships: []
+      }
+      clinical_consents: {
+        Row: {
+          granted_at: string
+          id: string
+          patient_id: string
+          provider_id: string
+          revoked_at: string | null
+          status: string
+        }
+        Insert: {
+          granted_at?: string
+          id?: string
+          patient_id: string
+          provider_id: string
+          revoked_at?: string | null
+          status?: string
+        }
+        Update: {
+          granted_at?: string
+          id?: string
+          patient_id?: string
+          provider_id?: string
+          revoked_at?: string | null
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clinical_consents_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_consents_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_consents_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+          {
+            foreignKeyName: "clinical_consents_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_consents_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_consents_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      clinical_entries: {
+        Row: {
+          author_id: string
+          body: string | null
+          created_at: string
+          id: string
+          kind: string
+          patient_id: string
+          period: string | null
+          title: string
+        }
+        Insert: {
+          author_id: string
+          body?: string | null
+          created_at?: string
+          id?: string
+          kind?: string
+          patient_id: string
+          period?: string | null
+          title: string
+        }
+        Update: {
+          author_id?: string
+          body?: string | null
+          created_at?: string
+          id?: string
+          kind?: string
+          patient_id?: string
+          period?: string | null
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clinical_entries_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_entries_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_entries_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+          {
+            foreignKeyName: "clinical_entries_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_entries_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_entries_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      clinical_messages: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          patient_id: string
+          provider_id: string
+          sender_id: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          id?: string
+          patient_id: string
+          provider_id: string
+          sender_id: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          patient_id?: string
+          provider_id?: string
+          sender_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clinical_messages_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_messages_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_messages_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+          {
+            foreignKeyName: "clinical_messages_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_messages_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_messages_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+          {
+            foreignKeyName: "clinical_messages_sender_id_fkey"
+            columns: ["sender_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_messages_sender_id_fkey"
+            columns: ["sender_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "clinical_messages_sender_id_fkey"
+            columns: ["sender_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      contactados_campana_20260908: {
+        Row: {
+          asunto: string
+          correo: string
+          enviado_el: string
+          nota: string | null
+        }
+        Insert: {
+          asunto?: string
+          correo: string
+          enviado_el?: string
+          nota?: string | null
+        }
+        Update: {
+          asunto?: string
+          correo?: string
+          enviado_el?: string
+          nota?: string | null
+        }
+        Relationships: []
+      }
+      content_comments: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          post_id: string
+          user_id: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          id?: string
+          post_id: string
+          user_id: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          post_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "content_comments_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "blog_feed"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "content_comments_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "content_posts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "content_comments_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "content_comments_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "content_comments_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      content_posts: {
+        Row: {
+          author_id: string
+          body: string | null
+          cover_url: string | null
+          created_at: string
+          excerpt: string | null
+          external_url: string | null
+          id: string
+          is_published: boolean
+          keywords: string[]
+          title: string
+          topic: string | null
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          author_id: string
+          body?: string | null
+          cover_url?: string | null
+          created_at?: string
+          excerpt?: string | null
+          external_url?: string | null
+          id?: string
+          is_published?: boolean
+          keywords?: string[]
+          title: string
+          topic?: string | null
+          type?: string
+          updated_at?: string
+        }
+        Update: {
+          author_id?: string
+          body?: string | null
+          cover_url?: string | null
+          created_at?: string
+          excerpt?: string | null
+          external_url?: string | null
+          id?: string
+          is_published?: boolean
+          keywords?: string[]
+          title?: string
+          topic?: string | null
+          type?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "content_posts_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "content_posts_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "content_posts_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      content_ratings: {
+        Row: {
+          created_at: string
+          id: string
+          post_id: string
+          stars: number
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          post_id: string
+          stars: number
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          post_id?: string
+          stars?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "content_ratings_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "blog_feed"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "content_ratings_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "content_posts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "content_ratings_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "content_ratings_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "content_ratings_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      content_views: {
+        Row: {
+          post_id: string
+          user_id: string
+          viewed_at: string
+        }
+        Insert: {
+          post_id: string
+          user_id: string
+          viewed_at?: string
+        }
+        Update: {
+          post_id?: string
+          user_id?: string
+          viewed_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "content_views_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "blog_feed"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "content_views_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "content_posts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "content_views_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "content_views_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "content_views_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      country_discounts: {
+        Row: {
+          country_label: string
+          is_active: boolean
+          note: string | null
+          pct: number
+          updated_at: string
+        }
+        Insert: {
+          country_label: string
+          is_active?: boolean
+          note?: string | null
+          pct: number
+          updated_at?: string
+        }
+        Update: {
+          country_label?: string
+          is_active?: boolean
+          note?: string | null
+          pct?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      country_pricing: {
+        Row: {
+          country_label: string
+          currency: string
+          fx_per_usd: number
+          is_active: boolean
+          updated_at: string
+          zero_decimal: boolean
+        }
+        Insert: {
+          country_label: string
+          currency: string
+          fx_per_usd: number
+          is_active?: boolean
+          updated_at?: string
+          zero_decimal?: boolean
+        }
+        Update: {
+          country_label?: string
+          currency?: string
+          fx_per_usd?: number
+          is_active?: boolean
+          updated_at?: string
+          zero_decimal?: boolean
+        }
+        Relationships: []
+      }
+      course_enrollments: {
+        Row: {
+          course_id: string
+          enrolled_at: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          course_id: string
+          enrolled_at?: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          course_id?: string
+          enrolled_at?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "course_enrollments_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "course_enrollments_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses_public"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "course_enrollments_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "course_enrollments_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "course_enrollments_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      course_lessons: {
+        Row: {
+          content: string | null
+          duration_min: number | null
+          id: string
+          module_id: string
+          position: number
+          title: string
+          video_url: string | null
+        }
+        Insert: {
+          content?: string | null
+          duration_min?: number | null
+          id?: string
+          module_id: string
+          position?: number
+          title: string
+          video_url?: string | null
+        }
+        Update: {
+          content?: string | null
+          duration_min?: number | null
+          id?: string
+          module_id?: string
+          position?: number
+          title?: string
+          video_url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "course_lessons_module_id_fkey"
+            columns: ["module_id"]
+            isOneToOne: false
+            referencedRelation: "course_modules"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      course_modules: {
+        Row: {
+          course_id: string
+          id: string
+          position: number
+          title: string
+        }
+        Insert: {
+          course_id: string
+          id?: string
+          position?: number
+          title: string
+        }
+        Update: {
+          course_id?: string
+          id?: string
+          position?: number
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "course_modules_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "course_modules_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses_public"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      courses: {
+        Row: {
+          audience: string | null
+          author_id: string
+          country: string | null
+          cover_url: string | null
+          created_at: string
+          description: string | null
+          id: string
+          is_published: boolean
+          level: string | null
+          title: string
+        }
+        Insert: {
+          audience?: string | null
+          author_id: string
+          country?: string | null
+          cover_url?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_published?: boolean
+          level?: string | null
+          title: string
+        }
+        Update: {
+          audience?: string | null
+          author_id?: string
+          country?: string | null
+          cover_url?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_published?: boolean
+          level?: string | null
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "courses_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "courses_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "courses_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      directorio: {
+        Row: {
+          actualizada_en: string
+          ambito: string | null
+          baja_motivo: string | null
+          baja_solicitada: boolean
+          busqueda: unknown
+          ciudad: string | null
+          clase_scian: string | null
+          clasificacion_auto: boolean
+          clee: string | null
+          colonia: string | null
+          contactabilidad: number
+          correo: string | null
+          correo_rebotado: boolean
+          correo_rebotado_el: string | null
+          cp: string | null
+          creada_en: string
+          direccion: string | null
+          especializacion: string | null
+          estado: string | null
+          estado_revision: string
+          fecha_verificacion: string | null
+          fuente: string
+          fuente_url: string | null
+          id: string
+          intervention_areas: string[]
+          invitada_en: string | null
+          lat: number | null
+          lng: number | null
+          neuro_conditions: string[]
+          nombre: string
+          notas: string | null
+          pais: string
+          product_categories: string[]
+          profession: string | null
+          provider_type: string
+          provider_types: string[] | null
+          publicacion_forzada: boolean
+          publicacion_forzada_en: string | null
+          publicacion_forzada_nota: string | null
+          publicacion_forzada_por: string | null
+          reclamada_en: string | null
+          reclamada_por: string | null
+          seccion_auto: boolean
+          sections: string[]
+          sector: string | null
+          sitio_web: string | null
+          specialties: string[]
+          telefono: string | null
+          verificada_manual: boolean
+        }
+        Insert: {
+          actualizada_en?: string
+          ambito?: string | null
+          baja_motivo?: string | null
+          baja_solicitada?: boolean
+          busqueda?: unknown
+          ciudad?: string | null
+          clase_scian?: string | null
+          clasificacion_auto?: boolean
+          clee?: string | null
+          colonia?: string | null
+          contactabilidad?: number
+          correo?: string | null
+          correo_rebotado?: boolean
+          correo_rebotado_el?: string | null
+          cp?: string | null
+          creada_en?: string
+          direccion?: string | null
+          especializacion?: string | null
+          estado?: string | null
+          estado_revision?: string
+          fecha_verificacion?: string | null
+          fuente?: string
+          fuente_url?: string | null
+          id?: string
+          intervention_areas?: string[]
+          invitada_en?: string | null
+          lat?: number | null
+          lng?: number | null
+          neuro_conditions?: string[]
+          nombre: string
+          notas?: string | null
+          pais?: string
+          product_categories?: string[]
+          profession?: string | null
+          provider_type: string
+          provider_types?: string[] | null
+          publicacion_forzada?: boolean
+          publicacion_forzada_en?: string | null
+          publicacion_forzada_nota?: string | null
+          publicacion_forzada_por?: string | null
+          reclamada_en?: string | null
+          reclamada_por?: string | null
+          seccion_auto?: boolean
+          sections?: string[]
+          sector?: string | null
+          sitio_web?: string | null
+          specialties?: string[]
+          telefono?: string | null
+          verificada_manual?: boolean
+        }
+        Update: {
+          actualizada_en?: string
+          ambito?: string | null
+          baja_motivo?: string | null
+          baja_solicitada?: boolean
+          busqueda?: unknown
+          ciudad?: string | null
+          clase_scian?: string | null
+          clasificacion_auto?: boolean
+          clee?: string | null
+          colonia?: string | null
+          contactabilidad?: number
+          correo?: string | null
+          correo_rebotado?: boolean
+          correo_rebotado_el?: string | null
+          cp?: string | null
+          creada_en?: string
+          direccion?: string | null
+          especializacion?: string | null
+          estado?: string | null
+          estado_revision?: string
+          fecha_verificacion?: string | null
+          fuente?: string
+          fuente_url?: string | null
+          id?: string
+          intervention_areas?: string[]
+          invitada_en?: string | null
+          lat?: number | null
+          lng?: number | null
+          neuro_conditions?: string[]
+          nombre?: string
+          notas?: string | null
+          pais?: string
+          product_categories?: string[]
+          profession?: string | null
+          provider_type?: string
+          provider_types?: string[] | null
+          publicacion_forzada?: boolean
+          publicacion_forzada_en?: string | null
+          publicacion_forzada_nota?: string | null
+          publicacion_forzada_por?: string | null
+          reclamada_en?: string | null
+          reclamada_por?: string | null
+          seccion_auto?: boolean
+          sections?: string[]
+          sector?: string | null
+          sitio_web?: string | null
+          specialties?: string[]
+          telefono?: string | null
+          verificada_manual?: boolean
+        }
+        Relationships: [
+          {
+            foreignKeyName: "directorio_publicacion_forzada_por_fkey"
+            columns: ["publicacion_forzada_por"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "directorio_publicacion_forzada_por_fkey"
+            columns: ["publicacion_forzada_por"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "directorio_publicacion_forzada_por_fkey"
+            columns: ["publicacion_forzada_por"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+          {
+            foreignKeyName: "directorio_reclamada_por_fkey"
+            columns: ["reclamada_por"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "directorio_reclamada_por_fkey"
+            columns: ["reclamada_por"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "directorio_reclamada_por_fkey"
+            columns: ["reclamada_por"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      directorio_invitaciones: {
+        Row: {
+          abierta_en: string | null
+          abierta_ultima_en: string | null
+          aperturas: number
+          baja_en: string | null
+          cancelada_en: string | null
+          cancelada_motivo: string | null
+          correo: string
+          creada_en: string
+          directorio_id: string
+          enviada_en: string | null
+          expira_en: string
+          id: string
+          token: string
+          usada_en: string | null
+        }
+        Insert: {
+          abierta_en?: string | null
+          abierta_ultima_en?: string | null
+          aperturas?: number
+          baja_en?: string | null
+          cancelada_en?: string | null
+          cancelada_motivo?: string | null
+          correo: string
+          creada_en?: string
+          directorio_id: string
+          enviada_en?: string | null
+          expira_en?: string
+          id?: string
+          token?: string
+          usada_en?: string | null
+        }
+        Update: {
+          abierta_en?: string | null
+          abierta_ultima_en?: string | null
+          aperturas?: number
+          baja_en?: string | null
+          cancelada_en?: string | null
+          cancelada_motivo?: string | null
+          correo?: string
+          creada_en?: string
+          directorio_id?: string
+          enviada_en?: string | null
+          expira_en?: string
+          id?: string
+          token?: string
+          usada_en?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "directorio_invitaciones_directorio_id_fkey"
+            columns: ["directorio_id"]
+            isOneToOne: false
+            referencedRelation: "directorio"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "directorio_invitaciones_directorio_id_fkey"
+            columns: ["directorio_id"]
+            isOneToOne: false
+            referencedRelation: "revision_campana_20260908"
+            referencedColumns: ["ficha_id"]
+          },
+        ]
+      }
+      directorio_plan_invitacion: {
+        Row: {
+          carril: string | null
+          creada_en: string
+          ficha_id: string
+          motivo: string | null
+          orden: number
+          score: number
+          tanda: number
+        }
+        Insert: {
+          carril?: string | null
+          creada_en?: string
+          ficha_id: string
+          motivo?: string | null
+          orden: number
+          score: number
+          tanda: number
+        }
+        Update: {
+          carril?: string | null
+          creada_en?: string
+          ficha_id?: string
+          motivo?: string | null
+          orden?: number
+          score?: number
+          tanda?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "directorio_plan_invitacion_ficha_id_fkey"
+            columns: ["ficha_id"]
+            isOneToOne: true
+            referencedRelation: "directorio"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "directorio_plan_invitacion_ficha_id_fkey"
+            columns: ["ficha_id"]
+            isOneToOne: true
+            referencedRelation: "revision_campana_20260908"
+            referencedColumns: ["ficha_id"]
+          },
+        ]
+      }
+      directorio_reglas_clasificacion: {
+        Row: {
+          clave: string
+          destino: string
+          id: number
+          patron: string
+          prioridad: number
+        }
+        Insert: {
+          clave: string
+          destino: string
+          id?: number
+          patron: string
+          prioridad?: number
+        }
+        Update: {
+          clave?: string
+          destino?: string
+          id?: number
+          patron?: string
+          prioridad?: number
+        }
+        Relationships: []
+      }
+      directory_grace_notices: {
+        Row: {
+          sent_at: string
+          stage: string
+          user_id: string
+        }
+        Insert: {
+          sent_at?: string
+          stage: string
+          user_id: string
+        }
+        Update: {
+          sent_at?: string
+          stage?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      discount_transactions: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          expires_at: string
+          id: string
+          offer_id: string
+          parent_id: string
+          provider_id: string
+          scanned_at: string | null
+          scanned_by: string | null
+          status: string
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          expires_at?: string
+          id?: string
+          offer_id: string
+          parent_id: string
+          provider_id: string
+          scanned_at?: string | null
+          scanned_by?: string | null
+          status?: string
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          expires_at?: string
+          id?: string
+          offer_id?: string
+          parent_id?: string
+          provider_id?: string
+          scanned_at?: string | null
+          scanned_by?: string | null
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "discount_transactions_offer_id_fkey"
+            columns: ["offer_id"]
+            isOneToOne: false
+            referencedRelation: "offers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "discount_transactions_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "discount_transactions_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "discount_transactions_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+          {
+            foreignKeyName: "discount_transactions_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "discount_transactions_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "discount_transactions_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+          {
+            foreignKeyName: "discount_transactions_scanned_by_fkey"
+            columns: ["scanned_by"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "discount_transactions_scanned_by_fkey"
+            columns: ["scanned_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "discount_transactions_scanned_by_fkey"
+            columns: ["scanned_by"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      donation_tiers: {
+        Row: {
+          ally_amount: number
+          ambassador_amount: number
+          currency: string
+          driver_amount: number
+          is_active: boolean
+          seed_amount: number
+          symbol: string
+          updated_at: string
+          zero_decimal: boolean
+        }
+        Insert: {
+          ally_amount: number
+          ambassador_amount: number
+          currency: string
+          driver_amount: number
+          is_active?: boolean
+          seed_amount: number
+          symbol?: string
+          updated_at?: string
+          zero_decimal?: boolean
+        }
+        Update: {
+          ally_amount?: number
+          ambassador_amount?: number
+          currency?: string
+          driver_amount?: number
+          is_active?: boolean
+          seed_amount?: number
+          symbol?: string
+          updated_at?: string
+          zero_decimal?: boolean
+        }
+        Relationships: []
+      }
+      donations: {
+        Row: {
+          amount_cents: number
+          contact_name: string
+          created_at: string
+          currency: string
+          donor_user_id: string | null
+          email: string
+          grant_badge: boolean
+          grant_course: boolean
+          id: string
+          is_company: boolean
+          level: string
+          org_name: string | null
+          paid_at: string | null
+          publish_as: string | null
+          publish_consent: boolean
+          ship_address: string | null
+          ship_city: string | null
+          ship_country: string | null
+          ship_postal: string | null
+          ship_recipient: string | null
+          ship_use_registered: boolean
+          status: string
+          stripe_session_id: string | null
+          waive_physical: boolean
+          wall_featured: boolean
+          wall_logo_url: string | null
+          wall_note: string | null
+          wall_published: boolean
+        }
+        Insert: {
+          amount_cents: number
+          contact_name: string
+          created_at?: string
+          currency: string
+          donor_user_id?: string | null
+          email: string
+          grant_badge?: boolean
+          grant_course?: boolean
+          id?: string
+          is_company?: boolean
+          level: string
+          org_name?: string | null
+          paid_at?: string | null
+          publish_as?: string | null
+          publish_consent?: boolean
+          ship_address?: string | null
+          ship_city?: string | null
+          ship_country?: string | null
+          ship_postal?: string | null
+          ship_recipient?: string | null
+          ship_use_registered?: boolean
+          status?: string
+          stripe_session_id?: string | null
+          waive_physical?: boolean
+          wall_featured?: boolean
+          wall_logo_url?: string | null
+          wall_note?: string | null
+          wall_published?: boolean
+        }
+        Update: {
+          amount_cents?: number
+          contact_name?: string
+          created_at?: string
+          currency?: string
+          donor_user_id?: string | null
+          email?: string
+          grant_badge?: boolean
+          grant_course?: boolean
+          id?: string
+          is_company?: boolean
+          level?: string
+          org_name?: string | null
+          paid_at?: string | null
+          publish_as?: string | null
+          publish_consent?: boolean
+          ship_address?: string | null
+          ship_city?: string | null
+          ship_country?: string | null
+          ship_postal?: string | null
+          ship_recipient?: string | null
+          ship_use_registered?: boolean
+          status?: string
+          stripe_session_id?: string | null
+          waive_physical?: boolean
+          wall_featured?: boolean
+          wall_logo_url?: string | null
+          wall_note?: string | null
+          wall_published?: boolean
+        }
+        Relationships: [
+          {
+            foreignKeyName: "donations_donor_user_id_fkey"
+            columns: ["donor_user_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "donations_donor_user_id_fkey"
+            columns: ["donor_user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "donations_donor_user_id_fkey"
+            columns: ["donor_user_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      events: {
+        Row: {
+          category: string | null
+          city: string | null
+          country: string | null
+          cover_url: string | null
+          created_at: string
+          created_by: string | null
+          description: string | null
+          ends_at: string | null
+          id: string
+          is_online: boolean
+          is_published: boolean
+          online_url: string | null
+          starts_at: string
+          title: string
+          updated_at: string
+          venue: string | null
+        }
+        Insert: {
+          category?: string | null
+          city?: string | null
+          country?: string | null
+          cover_url?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          ends_at?: string | null
+          id?: string
+          is_online?: boolean
+          is_published?: boolean
+          online_url?: string | null
+          starts_at: string
+          title: string
+          updated_at?: string
+          venue?: string | null
+        }
+        Update: {
+          category?: string | null
+          city?: string | null
+          country?: string | null
+          cover_url?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          ends_at?: string | null
+          id?: string
+          is_online?: boolean
+          is_published?: boolean
+          online_url?: string | null
+          starts_at?: string
+          title?: string
+          updated_at?: string
+          venue?: string | null
+        }
+        Relationships: []
+      }
+      expert_questions: {
+        Row: {
+          categoria: string | null
+          correo: string | null
+          created_at: string
+          estado: string
+          id: string
+          nombre: string | null
+          nota_admin: string | null
+          pais: string | null
+          pregunta: string
+          resuelta_en: string | null
+          resuelta_por: string | null
+          user_id: string | null
+        }
+        Insert: {
+          categoria?: string | null
+          correo?: string | null
+          created_at?: string
+          estado?: string
+          id?: string
+          nombre?: string | null
+          nota_admin?: string | null
+          pais?: string | null
+          pregunta: string
+          resuelta_en?: string | null
+          resuelta_por?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          categoria?: string | null
+          correo?: string | null
+          created_at?: string
+          estado?: string
+          id?: string
+          nombre?: string | null
+          nota_admin?: string | null
+          pais?: string | null
+          pregunta?: string
+          resuelta_en?: string | null
+          resuelta_por?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "expert_questions_resuelta_por_fkey"
+            columns: ["resuelta_por"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "expert_questions_resuelta_por_fkey"
+            columns: ["resuelta_por"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "expert_questions_resuelta_por_fkey"
+            columns: ["resuelta_por"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+          {
+            foreignKeyName: "expert_questions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "expert_questions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "expert_questions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      founder_members: {
+        Row: {
+          country: string | null
+          created_at: string
+          grace_until: string | null
+          kind: string
+          user_id: string
+          wall_featured: boolean
+          wall_order: number
+          wall_published: boolean
+        }
+        Insert: {
+          country?: string | null
+          created_at?: string
+          grace_until?: string | null
+          kind: string
+          user_id: string
+          wall_featured?: boolean
+          wall_order?: number
+          wall_published?: boolean
+        }
+        Update: {
+          country?: string | null
+          created_at?: string
+          grace_until?: string | null
+          kind?: string
+          user_id?: string
+          wall_featured?: boolean
+          wall_order?: number
+          wall_published?: boolean
+        }
+        Relationships: []
+      }
+      founder_requests: {
+        Row: {
+          country: string | null
+          kind: string | null
+          nota_admin: string | null
+          nota_usuario: string | null
+          resuelta_en: string | null
+          resuelta_por: string | null
+          solicitada_en: string
+          status: string
+          user_id: string
+        }
+        Insert: {
+          country?: string | null
+          kind?: string | null
+          nota_admin?: string | null
+          nota_usuario?: string | null
+          resuelta_en?: string | null
+          resuelta_por?: string | null
+          solicitada_en?: string
+          status?: string
+          user_id: string
+        }
+        Update: {
+          country?: string | null
+          kind?: string | null
+          nota_admin?: string | null
+          nota_usuario?: string | null
+          resuelta_en?: string | null
+          resuelta_por?: string | null
+          solicitada_en?: string
+          status?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "founder_requests_resuelta_por_fkey"
+            columns: ["resuelta_por"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "founder_requests_resuelta_por_fkey"
+            columns: ["resuelta_por"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "founder_requests_resuelta_por_fkey"
+            columns: ["resuelta_por"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+          {
+            foreignKeyName: "founder_requests_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "founder_requests_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "founder_requests_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      hero_slides: {
+        Row: {
+          captions: Json
+          created_at: string
+          id: string
+          image_url: string
+          is_active: boolean
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          captions?: Json
+          created_at?: string
+          id?: string
+          image_url: string
+          is_active?: boolean
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          captions?: Json
+          created_at?: string
+          id?: string
+          image_url?: string
+          is_active?: boolean
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      home_tasks: {
+        Row: {
+          completed: boolean
+          completed_at: string | null
+          created_at: string
+          detail: string | null
+          due_date: string | null
+          id: string
+          patient_id: string
+          provider_id: string
+          title: string
+        }
+        Insert: {
+          completed?: boolean
+          completed_at?: string | null
+          created_at?: string
+          detail?: string | null
+          due_date?: string | null
+          id?: string
+          patient_id: string
+          provider_id: string
+          title: string
+        }
+        Update: {
+          completed?: boolean
+          completed_at?: string | null
+          created_at?: string
+          detail?: string | null
+          due_date?: string | null
+          id?: string
+          patient_id?: string
+          provider_id?: string
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "home_tasks_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "home_tasks_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "home_tasks_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+          {
+            foreignKeyName: "home_tasks_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "home_tasks_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "home_tasks_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      improvement_suggestions: {
+        Row: {
+          created_at: string
+          email: string | null
+          id: string
+          message: string
+          page: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          message: string
+          page?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          message?: string
+          page?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "improvement_suggestions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "improvement_suggestions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "improvement_suggestions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      job_openings: {
+        Row: {
+          apply_email: string | null
+          apply_url: string | null
+          city: string | null
+          company_id: string
+          country: string | null
+          created_at: string
+          education: string | null
+          experience: string | null
+          id: string
+          is_active: boolean
+          note: string | null
+          opportunity_type: string
+          positions: number | null
+          salary_text: string | null
+          skills: string | null
+          title: string | null
+          updated_at: string
+        }
+        Insert: {
+          apply_email?: string | null
+          apply_url?: string | null
+          city?: string | null
+          company_id: string
+          country?: string | null
+          created_at?: string
+          education?: string | null
+          experience?: string | null
+          id?: string
+          is_active?: boolean
+          note?: string | null
+          opportunity_type?: string
+          positions?: number | null
+          salary_text?: string | null
+          skills?: string | null
+          title?: string | null
+          updated_at?: string
+        }
+        Update: {
+          apply_email?: string | null
+          apply_url?: string | null
+          city?: string | null
+          company_id?: string
+          country?: string | null
+          created_at?: string
+          education?: string | null
+          experience?: string | null
+          id?: string
+          is_active?: boolean
+          note?: string | null
+          opportunity_type?: string
+          positions?: number | null
+          salary_text?: string | null
+          skills?: string | null
+          title?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "job_openings_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "job_openings_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "job_openings_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      launch_waitlist: {
+        Row: {
+          country: string | null
+          created_at: string
+          email: string
+          id: string
+        }
+        Insert: {
+          country?: string | null
+          created_at?: string
+          email: string
+          id?: string
+        }
+        Update: {
+          country?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+        }
+        Relationships: []
+      }
+      lesson_completions: {
+        Row: {
+          completed_at: string
+          lesson_id: string
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string
+          lesson_id: string
+          user_id: string
+        }
+        Update: {
+          completed_at?: string
+          lesson_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lesson_completions_lesson_id_fkey"
+            columns: ["lesson_id"]
+            isOneToOne: false
+            referencedRelation: "course_lessons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lesson_completions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lesson_completions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lesson_completions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      member_badges: {
+        Row: {
+          badge_key: string
+          id: string
+          is_active: boolean
+          member_type: string
+          public_url: string | null
+          storage_path: string | null
+          title: string | null
+          updated_at: string
+        }
+        Insert: {
+          badge_key: string
+          id?: string
+          is_active?: boolean
+          member_type: string
+          public_url?: string | null
+          storage_path?: string | null
+          title?: string | null
+          updated_at?: string
+        }
+        Update: {
+          badge_key?: string
+          id?: string
+          is_active?: boolean
+          member_type?: string
+          public_url?: string | null
+          storage_path?: string | null
+          title?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      membership_commission_config: {
+        Row: {
+          activo: boolean
+          actualizado_en: string
+          comision_pct: number
+          exige_referidor_activo: boolean
+          id: number
+          pago_minimo_cents: number
+          recurrente: boolean
+        }
+        Insert: {
+          activo?: boolean
+          actualizado_en?: string
+          comision_pct?: number
+          exige_referidor_activo?: boolean
+          id?: number
+          pago_minimo_cents?: number
+          recurrente?: boolean
+        }
+        Update: {
+          activo?: boolean
+          actualizado_en?: string
+          comision_pct?: number
+          exige_referidor_activo?: boolean
+          id?: number
+          pago_minimo_cents?: number
+          recurrente?: boolean
+        }
+        Relationships: []
+      }
+      membership_commissions: {
+        Row: {
+          amount_cents: number
+          base_cents: number
+          comision_pct: number
+          creada_en: string
+          currency: string
+          es_primer_pago: boolean
+          id: string
+          pagada_en: string | null
+          pagada_nota: string | null
+          referred_id: string
+          referrer_id: string
+          revertida_en: string | null
+          status: string
+          stripe_ref: string
+        }
+        Insert: {
+          amount_cents: number
+          base_cents: number
+          comision_pct: number
+          creada_en?: string
+          currency: string
+          es_primer_pago?: boolean
+          id?: string
+          pagada_en?: string | null
+          pagada_nota?: string | null
+          referred_id: string
+          referrer_id: string
+          revertida_en?: string | null
+          status?: string
+          stripe_ref: string
+        }
+        Update: {
+          amount_cents?: number
+          base_cents?: number
+          comision_pct?: number
+          creada_en?: string
+          currency?: string
+          es_primer_pago?: boolean
+          id?: string
+          pagada_en?: string | null
+          pagada_nota?: string | null
+          referred_id?: string
+          referrer_id?: string
+          revertida_en?: string | null
+          status?: string
+          stripe_ref?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "membership_commissions_referred_id_fkey"
+            columns: ["referred_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "membership_commissions_referred_id_fkey"
+            columns: ["referred_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "membership_commissions_referred_id_fkey"
+            columns: ["referred_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+          {
+            foreignKeyName: "membership_commissions_referrer_id_fkey"
+            columns: ["referrer_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "membership_commissions_referrer_id_fkey"
+            columns: ["referrer_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "membership_commissions_referrer_id_fkey"
+            columns: ["referrer_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      membership_fees: {
+        Row: {
+          affiliate_type: string
+          base_usd: number
+          is_active: boolean
+          updated_at: string
+        }
+        Insert: {
+          affiliate_type: string
+          base_usd: number
+          is_active?: boolean
+          updated_at?: string
+        }
+        Update: {
+          affiliate_type?: string
+          base_usd?: number
+          is_active?: boolean
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      membership_payments: {
+        Row: {
+          amount_cents: number
+          concepto: string
+          creada_en: string
+          currency: string
+          id: string
+          member_class: string | null
+          paid_at: string
+          paid_until: string | null
+          period: string | null
+          refunded_en: string | null
+          status: string
+          stripe_ref: string
+          user_id: string
+        }
+        Insert: {
+          amount_cents: number
+          concepto?: string
+          creada_en?: string
+          currency: string
+          id?: string
+          member_class?: string | null
+          paid_at?: string
+          paid_until?: string | null
+          period?: string | null
+          refunded_en?: string | null
+          status?: string
+          stripe_ref: string
+          user_id: string
+        }
+        Update: {
+          amount_cents?: number
+          concepto?: string
+          creada_en?: string
+          currency?: string
+          id?: string
+          member_class?: string | null
+          paid_at?: string
+          paid_until?: string | null
+          period?: string | null
+          refunded_en?: string | null
+          status?: string
+          stripe_ref?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "membership_payments_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "membership_payments_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "membership_payments_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      membership_prices: {
+        Row: {
+          affiliate_type: string
+          amount: number
+          annual_amount: number | null
+          annual_list_amount: number | null
+          country_label: string
+          currency: string
+          gratuita: boolean
+          is_active: boolean
+          member_class: string
+          monthly_amount: number | null
+          updated_at: string
+          zero_decimal: boolean
+        }
+        Insert: {
+          affiliate_type: string
+          amount: number
+          annual_amount?: number | null
+          annual_list_amount?: number | null
+          country_label: string
+          currency: string
+          gratuita?: boolean
+          is_active?: boolean
+          member_class?: string
+          monthly_amount?: number | null
+          updated_at?: string
+          zero_decimal?: boolean
+        }
+        Update: {
+          affiliate_type?: string
+          amount?: number
+          annual_amount?: number | null
+          annual_list_amount?: number | null
+          country_label?: string
+          currency?: string
+          gratuita?: boolean
+          is_active?: boolean
+          member_class?: string
+          monthly_amount?: number | null
+          updated_at?: string
+          zero_decimal?: boolean
+        }
+        Relationships: []
+      }
+      message_templates: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          owner_id: string
+          sort_order: number
+          title: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          id?: string
+          owner_id: string
+          sort_order?: number
+          title: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          owner_id?: string
+          sort_order?: number
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "message_templates_owner_id_fkey"
+            columns: ["owner_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "message_templates_owner_id_fkey"
+            columns: ["owner_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "message_templates_owner_id_fkey"
+            columns: ["owner_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      messages: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          read_at: string | null
+          recipient_id: string
+          sender_id: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          id?: string
+          read_at?: string | null
+          recipient_id: string
+          sender_id: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          read_at?: string | null
+          recipient_id?: string
+          sender_id?: string
+        }
+        Relationships: []
+      }
+      notification_prefs: {
+        Row: {
+          muted_categories: string[]
+          push_enabled: boolean
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          muted_categories?: string[]
+          push_enabled?: boolean
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          muted_categories?: string[]
+          push_enabled?: boolean
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notification_prefs_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "notification_prefs_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "notification_prefs_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      notifications: {
+        Row: {
+          body: string | null
+          created_at: string
+          data: Json
+          id: string
+          is_read: boolean
+          title: string
+          type: string
+          user_id: string
+        }
+        Insert: {
+          body?: string | null
+          created_at?: string
+          data?: Json
+          id?: string
+          is_read?: boolean
+          title: string
+          type: string
+          user_id: string
+        }
+        Update: {
+          body?: string | null
+          created_at?: string
+          data?: Json
+          id?: string
+          is_read?: boolean
+          title?: string
+          type?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notifications_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "notifications_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "notifications_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      offers: {
+        Row: {
+          created_at: string
+          description: string | null
+          discount_type: string
+          discount_value: number | null
+          id: string
+          max_redemptions: number | null
+          provider_id: string
+          redemptions_count: number
+          status: string
+          terms: string | null
+          title: string
+          updated_at: string
+          valid_from: string | null
+          valid_until: string | null
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          discount_type?: string
+          discount_value?: number | null
+          id?: string
+          max_redemptions?: number | null
+          provider_id: string
+          redemptions_count?: number
+          status?: string
+          terms?: string | null
+          title: string
+          updated_at?: string
+          valid_from?: string | null
+          valid_until?: string | null
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          discount_type?: string
+          discount_value?: number | null
+          id?: string
+          max_redemptions?: number | null
+          provider_id?: string
+          redemptions_count?: number
+          status?: string
+          terms?: string | null
+          title?: string
+          updated_at?: string
+          valid_from?: string | null
+          valid_until?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "offers_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "offers_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "offers_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      orders: {
+        Row: {
+          affiliate_id: string | null
+          amount_cents: number
+          buyer_id: string | null
+          buyer_name: string | null
+          commission_cents: number
+          created_at: string
+          currency: string
+          id: string
+          paid_at: string | null
+          product_id: string | null
+          product_name: string
+          status: string
+          stripe_session_id: string | null
+          vendor_id: string
+        }
+        Insert: {
+          affiliate_id?: string | null
+          amount_cents: number
+          buyer_id?: string | null
+          buyer_name?: string | null
+          commission_cents?: number
+          created_at?: string
+          currency: string
+          id?: string
+          paid_at?: string | null
+          product_id?: string | null
+          product_name: string
+          status?: string
+          stripe_session_id?: string | null
+          vendor_id: string
+        }
+        Update: {
+          affiliate_id?: string | null
+          amount_cents?: number
+          buyer_id?: string | null
+          buyer_name?: string | null
+          commission_cents?: number
+          created_at?: string
+          currency?: string
+          id?: string
+          paid_at?: string | null
+          product_id?: string | null
+          product_name?: string
+          status?: string
+          stripe_session_id?: string | null
+          vendor_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "orders_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "orders_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "orders_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+          {
+            foreignKeyName: "orders_buyer_id_fkey"
+            columns: ["buyer_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "orders_buyer_id_fkey"
+            columns: ["buyer_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "orders_buyer_id_fkey"
+            columns: ["buyer_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+          {
+            foreignKeyName: "orders_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "orders_vendor_id_fkey"
+            columns: ["vendor_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "orders_vendor_id_fkey"
+            columns: ["vendor_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "orders_vendor_id_fkey"
+            columns: ["vendor_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      parent_list_items: {
+        Row: {
+          created_at: string
+          id: string
+          list_id: string
+          note: string | null
+          provider_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          list_id: string
+          note?: string | null
+          provider_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          list_id?: string
+          note?: string | null
+          provider_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "parent_list_items_list_id_fkey"
+            columns: ["list_id"]
+            isOneToOne: false
+            referencedRelation: "parent_lists"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "parent_list_items_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "parent_list_items_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "parent_list_items_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      parent_lists: {
+        Row: {
+          created_at: string
+          id: string
+          is_public: boolean
+          owner_id: string
+          share_token: string
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_public?: boolean
+          owner_id: string
+          share_token?: string
+          title?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_public?: boolean
+          owner_id?: string
+          share_token?: string
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "parent_lists_owner_id_fkey"
+            columns: ["owner_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "parent_lists_owner_id_fkey"
+            columns: ["owner_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "parent_lists_owner_id_fkey"
+            columns: ["owner_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      payments: {
+        Row: {
+          amount_cents: number
+          appointment_id: string | null
+          created_at: string
+          currency: string
+          id: string
+          kind: string
+          paid_at: string | null
+          payer_id: string | null
+          payer_name: string | null
+          payer_rfc: string | null
+          provider_id: string
+          status: string
+          stripe_invoice_id: string | null
+          stripe_payment_intent: string | null
+          stripe_session_id: string | null
+          stripe_subscription_id: string | null
+        }
+        Insert: {
+          amount_cents: number
+          appointment_id?: string | null
+          created_at?: string
+          currency: string
+          id?: string
+          kind?: string
+          paid_at?: string | null
+          payer_id?: string | null
+          payer_name?: string | null
+          payer_rfc?: string | null
+          provider_id: string
+          status?: string
+          stripe_invoice_id?: string | null
+          stripe_payment_intent?: string | null
+          stripe_session_id?: string | null
+          stripe_subscription_id?: string | null
+        }
+        Update: {
+          amount_cents?: number
+          appointment_id?: string | null
+          created_at?: string
+          currency?: string
+          id?: string
+          kind?: string
+          paid_at?: string | null
+          payer_id?: string | null
+          payer_name?: string | null
+          payer_rfc?: string | null
+          provider_id?: string
+          status?: string
+          stripe_invoice_id?: string | null
+          stripe_payment_intent?: string | null
+          stripe_session_id?: string | null
+          stripe_subscription_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payments_appointment_id_fkey"
+            columns: ["appointment_id"]
+            isOneToOne: false
+            referencedRelation: "appointments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payments_payer_id_fkey"
+            columns: ["payer_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payments_payer_id_fkey"
+            columns: ["payer_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payments_payer_id_fkey"
+            columns: ["payer_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+          {
+            foreignKeyName: "payments_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payments_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payments_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      payout_accounts: {
+        Row: {
+          actualizado_en: string
+          contacto: string | null
+          contacto_tipo: string | null
+          metodo: string
+          moneda: string | null
+          notas: string | null
+          pais: string | null
+          titular: string | null
+          user_id: string
+        }
+        Insert: {
+          actualizado_en?: string
+          contacto?: string | null
+          contacto_tipo?: string | null
+          metodo: string
+          moneda?: string | null
+          notas?: string | null
+          pais?: string | null
+          titular?: string | null
+          user_id: string
+        }
+        Update: {
+          actualizado_en?: string
+          contacto?: string | null
+          contacto_tipo?: string | null
+          metodo?: string
+          moneda?: string | null
+          notas?: string | null
+          pais?: string | null
+          titular?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payout_accounts_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payout_accounts_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payout_accounts_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      prescription_items: {
+        Row: {
+          created_at: string
+          id: string
+          note: string | null
+          prescription_id: string
+          product_id: string
+          quantity: number
+          unit_price_snapshot: number | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          note?: string | null
+          prescription_id: string
+          product_id: string
+          quantity?: number
+          unit_price_snapshot?: number | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          note?: string | null
+          prescription_id?: string
+          product_id?: string
+          quantity?: number
+          unit_price_snapshot?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "prescription_items_prescription_id_fkey"
+            columns: ["prescription_id"]
+            isOneToOne: false
+            referencedRelation: "prescriptions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "prescription_items_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      prescriptions: {
+        Row: {
+          created_at: string
+          id: string
+          note: string | null
+          ordered_at: string | null
+          parent_id: string
+          sent_at: string | null
+          status: Database["public"]["Enums"]["prescription_status"]
+          therapist_id: string
+          title: string
+          updated_at: string
+          viewed_at: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          note?: string | null
+          ordered_at?: string | null
+          parent_id: string
+          sent_at?: string | null
+          status?: Database["public"]["Enums"]["prescription_status"]
+          therapist_id: string
+          title?: string
+          updated_at?: string
+          viewed_at?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          note?: string | null
+          ordered_at?: string | null
+          parent_id?: string
+          sent_at?: string | null
+          status?: Database["public"]["Enums"]["prescription_status"]
+          therapist_id?: string
+          title?: string
+          updated_at?: string
+          viewed_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "prescriptions_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "prescriptions_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "prescriptions_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+          {
+            foreignKeyName: "prescriptions_therapist_id_fkey"
+            columns: ["therapist_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "prescriptions_therapist_id_fkey"
+            columns: ["therapist_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "prescriptions_therapist_id_fkey"
+            columns: ["therapist_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      product_reviews: {
+        Row: {
+          comment: string | null
+          created_at: string
+          id: string
+          product_id: string
+          rating: number
+          reviewer_id: string
+          updated_at: string
+        }
+        Insert: {
+          comment?: string | null
+          created_at?: string
+          id?: string
+          product_id: string
+          rating: number
+          reviewer_id: string
+          updated_at?: string
+        }
+        Update: {
+          comment?: string | null
+          created_at?: string
+          id?: string
+          product_id?: string
+          rating?: number
+          reviewer_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "product_reviews_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      products: {
+        Row: {
+          category_id: number | null
+          created_at: string
+          currency: string
+          description: string | null
+          id: string
+          image_url: string | null
+          is_active: boolean
+          is_featured: boolean
+          name: string
+          price: number | null
+          purchase_url: string | null
+          review_note: string | null
+          reviewed_at: string | null
+          status: string
+          stock: number | null
+          store_category: string | null
+          store_category_other: string | null
+          store_subcategory: string | null
+          updated_at: string
+          vendor_id: string
+        }
+        Insert: {
+          category_id?: number | null
+          created_at?: string
+          currency?: string
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          is_active?: boolean
+          is_featured?: boolean
+          name: string
+          price?: number | null
+          purchase_url?: string | null
+          review_note?: string | null
+          reviewed_at?: string | null
+          status?: string
+          stock?: number | null
+          store_category?: string | null
+          store_category_other?: string | null
+          store_subcategory?: string | null
+          updated_at?: string
+          vendor_id: string
+        }
+        Update: {
+          category_id?: number | null
+          created_at?: string
+          currency?: string
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          is_active?: boolean
+          is_featured?: boolean
+          name?: string
+          price?: number | null
+          purchase_url?: string | null
+          review_note?: string | null
+          reviewed_at?: string | null
+          status?: string
+          stock?: number | null
+          store_category?: string | null
+          store_category_other?: string | null
+          store_subcategory?: string | null
+          updated_at?: string
+          vendor_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "products_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "products_vendor_id_fkey"
+            columns: ["vendor_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "products_vendor_id_fkey"
+            columns: ["vendor_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "products_vendor_id_fkey"
+            columns: ["vendor_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      profile_events: {
+        Row: {
+          created_at: string
+          day: string
+          id: string
+          kind: string
+          provider_id: string
+          viewer_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          day?: string
+          id?: string
+          kind: string
+          provider_id: string
+          viewer_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          day?: string
+          id?: string
+          kind?: string
+          provider_id?: string
+          viewer_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "profile_events_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "profile_events_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "profile_events_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+          {
+            foreignKeyName: "profile_events_viewer_id_fkey"
+            columns: ["viewer_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "profile_events_viewer_id_fkey"
+            columns: ["viewer_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "profile_events_viewer_id_fkey"
+            columns: ["viewer_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          accepts_neuromundi_id: boolean
+          accepts_payments: boolean
+          account_type: string | null
+          address: string | null
+          age_ranges: string[] | null
+          avatar_url: string | null
+          badge_level: string | null
+          bio: string | null
+          birth_date: string | null
+          booking_url: string | null
+          business_name: string | null
+          cedula_profesional: string | null
+          certified_staff: boolean | null
+          city: string | null
+          comms_opt_in: boolean | null
+          condition: string | null
+          consultation_amount: number | null
+          consultation_currency: string | null
+          country: string | null
+          created_at: string
+          dial_code: string | null
+          empresa_limitada: boolean
+          empresa_plazo_desde: string | null
+          exencion_aprobada_en: string | null
+          exencion_aprobada_por: string | null
+          exencion_documento: string | null
+          exencion_folio: string | null
+          exencion_rechazo: string | null
+          exencion_solicitada_en: string | null
+          exencion_tipo: string | null
+          exencion_vigente_hasta: string | null
+          facebook: string | null
+          fiscal_country: string | null
+          fiscal_cp: string | null
+          fiscal_direccion: string | null
+          fiscal_email: string | null
+          fiscal_razon_social: string | null
+          fiscal_regimen: string | null
+          fiscal_tax_id: string | null
+          fiscal_uso_cfdi: string | null
+          full_name: string
+          fundador_autorizado: boolean
+          fundador_autorizado_en: string | null
+          fundador_autorizado_por: string | null
+          gender: string | null
+          id: string
+          instagram: string | null
+          interests: string[] | null
+          intervention_areas: string[] | null
+          is_advisor: boolean
+          is_company: boolean
+          is_inclusive_company: boolean
+          is_inclusive_school: boolean
+          is_institutional_ally: boolean
+          is_internal: boolean
+          is_medical_override: boolean | null
+          is_published: boolean
+          is_verified: boolean
+          latitude: number | null
+          life_stage: string | null
+          linkedin: string | null
+          longitude: number | null
+          member_no: number | null
+          membership_cancelada_en: string | null
+          membership_due_at: string | null
+          membership_paid_until: string | null
+          membership_period: string | null
+          membership_status: string
+          modalities: string[] | null
+          municipality: string | null
+          neuro_conditions: string[]
+          neuroaffirming: boolean
+          org_doc_kind: string | null
+          org_doc_note: string | null
+          org_doc_reviewed_at: string | null
+          org_doc_status: string | null
+          org_doc_submitted_at: string | null
+          org_doc_url: string | null
+          phone: string | null
+          pre_suspend_published: boolean | null
+          price_range: string | null
+          product_categories: string[] | null
+          products_offered: string[] | null
+          profession: string | null
+          promo_code_used: string | null
+          provider_details: Json | null
+          provider_type: string | null
+          public_key: string | null
+          qr_token: string
+          referral_credit_pct: number
+          referred_at: string | null
+          referred_by: number | null
+          rfc: string | null
+          role: string
+          rules_accepted_at: string | null
+          rules_version_accepted: string | null
+          sales_channels: string[] | null
+          school_grades: string[]
+          search_tsv: unknown
+          sections: string[]
+          sector: string | null
+          services_offered: string | null
+          shipping_coverage: string[] | null
+          specialties: string[] | null
+          state: string | null
+          stripe_charges_enabled: boolean
+          stripe_connect_id: string | null
+          stripe_customer_id: string | null
+          stripe_subscription_id: string | null
+          suspend_until: string | null
+          suspended_at: string | null
+          tiktok: string | null
+          title_prefix: string | null
+          updated_at: string
+          wants_founder: boolean
+          website: string | null
+          website_url: string | null
+          whatsapp: string | null
+          winback_until: string | null
+          year_started: number | null
+        }
+        Insert: {
+          accepts_neuromundi_id?: boolean
+          accepts_payments?: boolean
+          account_type?: string | null
+          address?: string | null
+          age_ranges?: string[] | null
+          avatar_url?: string | null
+          badge_level?: string | null
+          bio?: string | null
+          birth_date?: string | null
+          booking_url?: string | null
+          business_name?: string | null
+          cedula_profesional?: string | null
+          certified_staff?: boolean | null
+          city?: string | null
+          comms_opt_in?: boolean | null
+          condition?: string | null
+          consultation_amount?: number | null
+          consultation_currency?: string | null
+          country?: string | null
+          created_at?: string
+          dial_code?: string | null
+          empresa_limitada?: boolean
+          empresa_plazo_desde?: string | null
+          exencion_aprobada_en?: string | null
+          exencion_aprobada_por?: string | null
+          exencion_documento?: string | null
+          exencion_folio?: string | null
+          exencion_rechazo?: string | null
+          exencion_solicitada_en?: string | null
+          exencion_tipo?: string | null
+          exencion_vigente_hasta?: string | null
+          facebook?: string | null
+          fiscal_country?: string | null
+          fiscal_cp?: string | null
+          fiscal_direccion?: string | null
+          fiscal_email?: string | null
+          fiscal_razon_social?: string | null
+          fiscal_regimen?: string | null
+          fiscal_tax_id?: string | null
+          fiscal_uso_cfdi?: string | null
+          full_name?: string
+          fundador_autorizado?: boolean
+          fundador_autorizado_en?: string | null
+          fundador_autorizado_por?: string | null
+          gender?: string | null
+          id: string
+          instagram?: string | null
+          interests?: string[] | null
+          intervention_areas?: string[] | null
+          is_advisor?: boolean
+          is_company?: boolean
+          is_inclusive_company?: boolean
+          is_inclusive_school?: boolean
+          is_institutional_ally?: boolean
+          is_internal?: boolean
+          is_medical_override?: boolean | null
+          is_published?: boolean
+          is_verified?: boolean
+          latitude?: number | null
+          life_stage?: string | null
+          linkedin?: string | null
+          longitude?: number | null
+          member_no?: number | null
+          membership_cancelada_en?: string | null
+          membership_due_at?: string | null
+          membership_paid_until?: string | null
+          membership_period?: string | null
+          membership_status?: string
+          modalities?: string[] | null
+          municipality?: string | null
+          neuro_conditions?: string[]
+          neuroaffirming?: boolean
+          org_doc_kind?: string | null
+          org_doc_note?: string | null
+          org_doc_reviewed_at?: string | null
+          org_doc_status?: string | null
+          org_doc_submitted_at?: string | null
+          org_doc_url?: string | null
+          phone?: string | null
+          pre_suspend_published?: boolean | null
+          price_range?: string | null
+          product_categories?: string[] | null
+          products_offered?: string[] | null
+          profession?: string | null
+          promo_code_used?: string | null
+          provider_details?: Json | null
+          provider_type?: string | null
+          public_key?: string | null
+          qr_token?: string
+          referral_credit_pct?: number
+          referred_at?: string | null
+          referred_by?: number | null
+          rfc?: string | null
+          role?: string
+          rules_accepted_at?: string | null
+          rules_version_accepted?: string | null
+          sales_channels?: string[] | null
+          school_grades?: string[]
+          search_tsv?: unknown
+          sections?: string[]
+          sector?: string | null
+          services_offered?: string | null
+          shipping_coverage?: string[] | null
+          specialties?: string[] | null
+          state?: string | null
+          stripe_charges_enabled?: boolean
+          stripe_connect_id?: string | null
+          stripe_customer_id?: string | null
+          stripe_subscription_id?: string | null
+          suspend_until?: string | null
+          suspended_at?: string | null
+          tiktok?: string | null
+          title_prefix?: string | null
+          updated_at?: string
+          wants_founder?: boolean
+          website?: string | null
+          website_url?: string | null
+          whatsapp?: string | null
+          winback_until?: string | null
+          year_started?: number | null
+        }
+        Update: {
+          accepts_neuromundi_id?: boolean
+          accepts_payments?: boolean
+          account_type?: string | null
+          address?: string | null
+          age_ranges?: string[] | null
+          avatar_url?: string | null
+          badge_level?: string | null
+          bio?: string | null
+          birth_date?: string | null
+          booking_url?: string | null
+          business_name?: string | null
+          cedula_profesional?: string | null
+          certified_staff?: boolean | null
+          city?: string | null
+          comms_opt_in?: boolean | null
+          condition?: string | null
+          consultation_amount?: number | null
+          consultation_currency?: string | null
+          country?: string | null
+          created_at?: string
+          dial_code?: string | null
+          empresa_limitada?: boolean
+          empresa_plazo_desde?: string | null
+          exencion_aprobada_en?: string | null
+          exencion_aprobada_por?: string | null
+          exencion_documento?: string | null
+          exencion_folio?: string | null
+          exencion_rechazo?: string | null
+          exencion_solicitada_en?: string | null
+          exencion_tipo?: string | null
+          exencion_vigente_hasta?: string | null
+          facebook?: string | null
+          fiscal_country?: string | null
+          fiscal_cp?: string | null
+          fiscal_direccion?: string | null
+          fiscal_email?: string | null
+          fiscal_razon_social?: string | null
+          fiscal_regimen?: string | null
+          fiscal_tax_id?: string | null
+          fiscal_uso_cfdi?: string | null
+          full_name?: string
+          fundador_autorizado?: boolean
+          fundador_autorizado_en?: string | null
+          fundador_autorizado_por?: string | null
+          gender?: string | null
+          id?: string
+          instagram?: string | null
+          interests?: string[] | null
+          intervention_areas?: string[] | null
+          is_advisor?: boolean
+          is_company?: boolean
+          is_inclusive_company?: boolean
+          is_inclusive_school?: boolean
+          is_institutional_ally?: boolean
+          is_internal?: boolean
+          is_medical_override?: boolean | null
+          is_published?: boolean
+          is_verified?: boolean
+          latitude?: number | null
+          life_stage?: string | null
+          linkedin?: string | null
+          longitude?: number | null
+          member_no?: number | null
+          membership_cancelada_en?: string | null
+          membership_due_at?: string | null
+          membership_paid_until?: string | null
+          membership_period?: string | null
+          membership_status?: string
+          modalities?: string[] | null
+          municipality?: string | null
+          neuro_conditions?: string[]
+          neuroaffirming?: boolean
+          org_doc_kind?: string | null
+          org_doc_note?: string | null
+          org_doc_reviewed_at?: string | null
+          org_doc_status?: string | null
+          org_doc_submitted_at?: string | null
+          org_doc_url?: string | null
+          phone?: string | null
+          pre_suspend_published?: boolean | null
+          price_range?: string | null
+          product_categories?: string[] | null
+          products_offered?: string[] | null
+          profession?: string | null
+          promo_code_used?: string | null
+          provider_details?: Json | null
+          provider_type?: string | null
+          public_key?: string | null
+          qr_token?: string
+          referral_credit_pct?: number
+          referred_at?: string | null
+          referred_by?: number | null
+          rfc?: string | null
+          role?: string
+          rules_accepted_at?: string | null
+          rules_version_accepted?: string | null
+          sales_channels?: string[] | null
+          school_grades?: string[]
+          search_tsv?: unknown
+          sections?: string[]
+          sector?: string | null
+          services_offered?: string | null
+          shipping_coverage?: string[] | null
+          specialties?: string[] | null
+          state?: string | null
+          stripe_charges_enabled?: boolean
+          stripe_connect_id?: string | null
+          stripe_customer_id?: string | null
+          stripe_subscription_id?: string | null
+          suspend_until?: string | null
+          suspended_at?: string | null
+          tiktok?: string | null
+          title_prefix?: string | null
+          updated_at?: string
+          wants_founder?: boolean
+          website?: string | null
+          website_url?: string | null
+          whatsapp?: string | null
+          winback_until?: string | null
+          year_started?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "profiles_fundador_autorizado_por_fkey"
+            columns: ["fundador_autorizado_por"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "profiles_fundador_autorizado_por_fkey"
+            columns: ["fundador_autorizado_por"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "profiles_fundador_autorizado_por_fkey"
+            columns: ["fundador_autorizado_por"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      promo_codes: {
+        Row: {
+          amount_currency: string | null
+          amount_off: number | null
+          benefit: string
+          bound_email: string | null
+          code: string
+          created_at: string
+          expires_at: string | null
+          is_active: boolean
+          kind: string
+          max_uses: number | null
+          note: string | null
+          percent_off: number | null
+          scope: string
+          used_count: number
+        }
+        Insert: {
+          amount_currency?: string | null
+          amount_off?: number | null
+          benefit?: string
+          bound_email?: string | null
+          code: string
+          created_at?: string
+          expires_at?: string | null
+          is_active?: boolean
+          kind?: string
+          max_uses?: number | null
+          note?: string | null
+          percent_off?: number | null
+          scope?: string
+          used_count?: number
+        }
+        Update: {
+          amount_currency?: string | null
+          amount_off?: number | null
+          benefit?: string
+          bound_email?: string | null
+          code?: string
+          created_at?: string
+          expires_at?: string | null
+          is_active?: boolean
+          kind?: string
+          max_uses?: number | null
+          note?: string | null
+          percent_off?: number | null
+          scope?: string
+          used_count?: number
+        }
+        Relationships: []
+      }
+      promo_redemptions: {
+        Row: {
+          code: string
+          id: string
+          redeemed_at: string
+          user_id: string
+        }
+        Insert: {
+          code: string
+          id?: string
+          redeemed_at?: string
+          user_id: string
+        }
+        Update: {
+          code?: string
+          id?: string
+          redeemed_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "promo_redemptions_code_fkey"
+            columns: ["code"]
+            isOneToOne: false
+            referencedRelation: "promo_codes"
+            referencedColumns: ["code"]
+          },
+          {
+            foreignKeyName: "promo_redemptions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "promo_redemptions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "promo_redemptions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      provider_availability: {
+        Row: {
+          end_time: string
+          id: string
+          is_active: boolean
+          provider_id: string
+          slot_minutes: number
+          start_time: string
+          weekday: number
+        }
+        Insert: {
+          end_time: string
+          id?: string
+          is_active?: boolean
+          provider_id: string
+          slot_minutes?: number
+          start_time: string
+          weekday: number
+        }
+        Update: {
+          end_time?: string
+          id?: string
+          is_active?: boolean
+          provider_id?: string
+          slot_minutes?: number
+          start_time?: string
+          weekday?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "provider_availability_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "provider_availability_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "provider_availability_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      provider_categories: {
+        Row: {
+          category_id: number
+          provider_id: string
+        }
+        Insert: {
+          category_id: number
+          provider_id: string
+        }
+        Update: {
+          category_id?: number
+          provider_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "provider_categories_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "provider_categories_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "provider_categories_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "provider_categories_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      provider_connections: {
+        Row: {
+          addressee_id: string
+          created_at: string
+          id: string
+          requester_id: string
+          responded_at: string | null
+          status: string
+        }
+        Insert: {
+          addressee_id: string
+          created_at?: string
+          id?: string
+          requester_id: string
+          responded_at?: string | null
+          status?: string
+        }
+        Update: {
+          addressee_id?: string
+          created_at?: string
+          id?: string
+          requester_id?: string
+          responded_at?: string | null
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "provider_connections_addressee_id_fkey"
+            columns: ["addressee_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "provider_connections_addressee_id_fkey"
+            columns: ["addressee_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "provider_connections_addressee_id_fkey"
+            columns: ["addressee_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+          {
+            foreignKeyName: "provider_connections_requester_id_fkey"
+            columns: ["requester_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "provider_connections_requester_id_fkey"
+            columns: ["requester_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "provider_connections_requester_id_fkey"
+            columns: ["requester_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      provider_locations: {
+        Row: {
+          address: string
+          country: string | null
+          created_at: string
+          hours: string | null
+          id: string
+          label: string | null
+          latitude: number | null
+          longitude: number | null
+          municipality: string | null
+          phone: string | null
+          provider_id: string
+          sort_order: number
+          state: string | null
+        }
+        Insert: {
+          address: string
+          country?: string | null
+          created_at?: string
+          hours?: string | null
+          id?: string
+          label?: string | null
+          latitude?: number | null
+          longitude?: number | null
+          municipality?: string | null
+          phone?: string | null
+          provider_id: string
+          sort_order?: number
+          state?: string | null
+        }
+        Update: {
+          address?: string
+          country?: string | null
+          created_at?: string
+          hours?: string | null
+          id?: string
+          label?: string | null
+          latitude?: number | null
+          longitude?: number | null
+          municipality?: string | null
+          phone?: string | null
+          provider_id?: string
+          sort_order?: number
+          state?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "provider_locations_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "provider_locations_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "provider_locations_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      provider_time_off: {
+        Row: {
+          all_day: boolean
+          created_at: string
+          ends_at: string
+          id: string
+          provider_id: string
+          reason: string | null
+          starts_at: string
+        }
+        Insert: {
+          all_day?: boolean
+          created_at?: string
+          ends_at: string
+          id?: string
+          provider_id: string
+          reason?: string | null
+          starts_at: string
+        }
+        Update: {
+          all_day?: boolean
+          created_at?: string
+          ends_at?: string
+          id?: string
+          provider_id?: string
+          reason?: string | null
+          starts_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "provider_time_off_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "provider_time_off_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "provider_time_off_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      push_subscriptions: {
+        Row: {
+          auth: string
+          created_at: string
+          endpoint: string
+          id: string
+          p256dh: string
+          user_id: string
+        }
+        Insert: {
+          auth: string
+          created_at?: string
+          endpoint: string
+          id?: string
+          p256dh: string
+          user_id: string
+        }
+        Update: {
+          auth?: string
+          created_at?: string
+          endpoint?: string
+          id?: string
+          p256dh?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      raffle_tickets: {
+        Row: {
+          created_at: string
+          id: string
+          ref_id: string | null
+          source: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          ref_id?: string | null
+          source?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          ref_id?: string | null
+          source?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "raffle_tickets_ref_id_fkey"
+            columns: ["ref_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "raffle_tickets_ref_id_fkey"
+            columns: ["ref_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "raffle_tickets_ref_id_fkey"
+            columns: ["ref_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+          {
+            foreignKeyName: "raffle_tickets_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "raffle_tickets_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "raffle_tickets_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      raffle_winners: {
+        Row: {
+          batch: string | null
+          drawn_at: string
+          id: string
+          role_filter: string | null
+          user_id: string
+        }
+        Insert: {
+          batch?: string | null
+          drawn_at?: string
+          id?: string
+          role_filter?: string | null
+          user_id: string
+        }
+        Update: {
+          batch?: string | null
+          drawn_at?: string
+          id?: string
+          role_filter?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "raffle_winners_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "raffle_winners_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "raffle_winners_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      referral_config: {
+        Row: {
+          discount_pct: number
+          id: number
+          referrer_max_pct: number
+          referrer_step_pct: number
+          validity_days: number
+        }
+        Insert: {
+          discount_pct?: number
+          id?: number
+          referrer_max_pct?: number
+          referrer_step_pct?: number
+          validity_days?: number
+        }
+        Update: {
+          discount_pct?: number
+          id?: number
+          referrer_max_pct?: number
+          referrer_step_pct?: number
+          validity_days?: number
+        }
+        Relationships: []
+      }
+      referrals: {
+        Row: {
+          created_at: string
+          id: string
+          is_paying_type: boolean
+          referred_id: string
+          referred_role: string | null
+          referrer_id: string
+          referrer_member_no: number | null
+          referrer_role: string | null
+          reward_counted_at: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_paying_type?: boolean
+          referred_id: string
+          referred_role?: string | null
+          referrer_id: string
+          referrer_member_no?: number | null
+          referrer_role?: string | null
+          reward_counted_at?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_paying_type?: boolean
+          referred_id?: string
+          referred_role?: string | null
+          referrer_id?: string
+          referrer_member_no?: number | null
+          referrer_role?: string | null
+          reward_counted_at?: string | null
+        }
+        Relationships: []
+      }
+      renewal_notices: {
+        Row: {
+          enviado_en: string
+          etapa: string
+          periodo: string
+          user_id: string
+        }
+        Insert: {
+          enviado_en?: string
+          etapa: string
+          periodo: string
+          user_id: string
+        }
+        Update: {
+          enviado_en?: string
+          etapa?: string
+          periodo?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "renewal_notices_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "renewal_notices_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "renewal_notices_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      reports: {
+        Row: {
+          admin_note: string | null
+          attachments: string[]
+          category: string
+          category_other: string | null
+          created_at: string
+          description: string
+          id: string
+          is_member: boolean
+          reported_member_no: number | null
+          reporter_email: string | null
+          reporter_id: string | null
+          reporter_name: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          admin_note?: string | null
+          attachments?: string[]
+          category: string
+          category_other?: string | null
+          created_at?: string
+          description: string
+          id?: string
+          is_member?: boolean
+          reported_member_no?: number | null
+          reporter_email?: string | null
+          reporter_id?: string | null
+          reporter_name?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          admin_note?: string | null
+          attachments?: string[]
+          category?: string
+          category_other?: string | null
+          created_at?: string
+          description?: string
+          id?: string
+          is_member?: boolean
+          reported_member_no?: number | null
+          reporter_email?: string | null
+          reporter_id?: string | null
+          reporter_name?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      respaldo_bitacora: {
+        Row: {
+          eliminada_en: string
+          filas: number | null
+          resumen: string | null
+          tabla: string
+        }
+        Insert: {
+          eliminada_en?: string
+          filas?: number | null
+          resumen?: string | null
+          tabla: string
+        }
+        Update: {
+          eliminada_en?: string
+          filas?: number | null
+          resumen?: string | null
+          tabla?: string
+        }
+        Relationships: []
+      }
+      satisfaction_surveys: {
+        Row: {
+          accessibility_score: number
+          comments: string | null
+          created_at: string
+          facilities_score: number | null
+          flexibility_crisis_score: number
+          human_treatment_score: number
+          id: string
+          is_anonymous: boolean
+          offer_compliance_score: number
+          parent_id: string
+          price_value_score: number
+          professionalism_score: number | null
+          provider_id: string
+          provider_response: string | null
+          provider_response_at: string | null
+          quality_score: number
+          sensory_adaptation_score: number
+          transaction_id: string | null
+        }
+        Insert: {
+          accessibility_score: number
+          comments?: string | null
+          created_at?: string
+          facilities_score?: number | null
+          flexibility_crisis_score: number
+          human_treatment_score: number
+          id?: string
+          is_anonymous?: boolean
+          offer_compliance_score: number
+          parent_id: string
+          price_value_score: number
+          professionalism_score?: number | null
+          provider_id: string
+          provider_response?: string | null
+          provider_response_at?: string | null
+          quality_score: number
+          sensory_adaptation_score: number
+          transaction_id?: string | null
+        }
+        Update: {
+          accessibility_score?: number
+          comments?: string | null
+          created_at?: string
+          facilities_score?: number | null
+          flexibility_crisis_score?: number
+          human_treatment_score?: number
+          id?: string
+          is_anonymous?: boolean
+          offer_compliance_score?: number
+          parent_id?: string
+          price_value_score?: number
+          professionalism_score?: number | null
+          provider_id?: string
+          provider_response?: string | null
+          provider_response_at?: string | null
+          quality_score?: number
+          sensory_adaptation_score?: number
+          transaction_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "satisfaction_surveys_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "satisfaction_surveys_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "satisfaction_surveys_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+          {
+            foreignKeyName: "satisfaction_surveys_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "satisfaction_surveys_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "satisfaction_surveys_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+          {
+            foreignKeyName: "satisfaction_surveys_transaction_id_fkey"
+            columns: ["transaction_id"]
+            isOneToOne: true
+            referencedRelation: "discount_transactions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      search_alerts: {
+        Row: {
+          category_id: number | null
+          city: string | null
+          country: string | null
+          created_at: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          category_id?: number | null
+          city?: string | null
+          country?: string | null
+          created_at?: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          category_id?: number | null
+          city?: string | null
+          country?: string | null
+          created_at?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "search_alerts_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "search_alerts_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "search_alerts_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "search_alerts_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      secure_file_keys: {
+        Row: {
+          file_id: string
+          recipient_id: string
+          wrapped_key: string
+        }
+        Insert: {
+          file_id: string
+          recipient_id: string
+          wrapped_key: string
+        }
+        Update: {
+          file_id?: string
+          recipient_id?: string
+          wrapped_key?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "secure_file_keys_file_id_fkey"
+            columns: ["file_id"]
+            isOneToOne: false
+            referencedRelation: "secure_files"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "secure_file_keys_recipient_id_fkey"
+            columns: ["recipient_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "secure_file_keys_recipient_id_fkey"
+            columns: ["recipient_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "secure_file_keys_recipient_id_fkey"
+            columns: ["recipient_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      secure_files: {
+        Row: {
+          created_at: string
+          expires_at: string | null
+          filename: string
+          id: string
+          iv: string
+          mime: string | null
+          owner_id: string
+          patient_id: string
+          storage_path: string
+        }
+        Insert: {
+          created_at?: string
+          expires_at?: string | null
+          filename: string
+          id?: string
+          iv: string
+          mime?: string | null
+          owner_id: string
+          patient_id: string
+          storage_path: string
+        }
+        Update: {
+          created_at?: string
+          expires_at?: string | null
+          filename?: string
+          id?: string
+          iv?: string
+          mime?: string | null
+          owner_id?: string
+          patient_id?: string
+          storage_path?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "secure_files_owner_id_fkey"
+            columns: ["owner_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "secure_files_owner_id_fkey"
+            columns: ["owner_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "secure_files_owner_id_fkey"
+            columns: ["owner_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+          {
+            foreignKeyName: "secure_files_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "secure_files_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "secure_files_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      specialists: {
+        Row: {
+          avatar_url: string | null
+          city: string | null
+          created_at: string
+          full_name: string | null
+          id: string
+          module_type: string
+          specialty: string | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          city?: string | null
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          module_type: string
+          specialty?: string | null
+        }
+        Update: {
+          avatar_url?: string | null
+          city?: string | null
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          module_type?: string
+          specialty?: string | null
+        }
+        Relationships: []
+      }
+      support_throttle: {
+        Row: {
+          created_at: string
+          id: number
+          ip: string
+        }
+        Insert: {
+          created_at?: string
+          id?: never
+          ip: string
+        }
+        Update: {
+          created_at?: string
+          id?: never
+          ip?: string
+        }
+        Relationships: []
+      }
+      survey_responses: {
+        Row: {
+          answers: Json
+          consent: boolean
+          country: string | null
+          created_at: string
+          id: string
+          lang: string | null
+          role: string | null
+          sections: string[]
+          source: string | null
+          user_id: string | null
+        }
+        Insert: {
+          answers?: Json
+          consent?: boolean
+          country?: string | null
+          created_at?: string
+          id?: string
+          lang?: string | null
+          role?: string | null
+          sections?: string[]
+          source?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          answers?: Json
+          consent?: boolean
+          country?: string | null
+          created_at?: string
+          id?: string
+          lang?: string | null
+          role?: string | null
+          sections?: string[]
+          source?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      topic_subscriptions: {
+        Row: {
+          scope_city: string | null
+          scope_country: string | null
+          topics: string[]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          scope_city?: string | null
+          scope_country?: string | null
+          topics?: string[]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          scope_city?: string | null
+          scope_country?: string | null
+          topics?: string[]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "topic_subscriptions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "topic_subscriptions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "topic_subscriptions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      tribe_event_rsvps: {
+        Row: {
+          event_id: string
+          joined_at: string
+          user_id: string
+        }
+        Insert: {
+          event_id: string
+          joined_at?: string
+          user_id: string
+        }
+        Update: {
+          event_id?: string
+          joined_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tribe_event_rsvps_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "tribe_events"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tribe_event_rsvps_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tribe_event_rsvps_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tribe_event_rsvps_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      tribe_event_sensory: {
+        Row: {
+          comfort: number | null
+          created_at: string
+          event_id: string
+          id: string
+          noise_level: number | null
+          notes: string | null
+          quiet_room_used: boolean | null
+          reviewer_id: string
+        }
+        Insert: {
+          comfort?: number | null
+          created_at?: string
+          event_id: string
+          id?: string
+          noise_level?: number | null
+          notes?: string | null
+          quiet_room_used?: boolean | null
+          reviewer_id: string
+        }
+        Update: {
+          comfort?: number | null
+          created_at?: string
+          event_id?: string
+          id?: string
+          noise_level?: number | null
+          notes?: string | null
+          quiet_room_used?: boolean | null
+          reviewer_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tribe_event_sensory_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "tribe_events"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tribe_event_sensory_reviewer_id_fkey"
+            columns: ["reviewer_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tribe_event_sensory_reviewer_id_fkey"
+            columns: ["reviewer_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tribe_event_sensory_reviewer_id_fkey"
+            columns: ["reviewer_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      tribe_events: {
+        Row: {
+          city: string | null
+          country: string | null
+          created_at: string
+          creator_id: string
+          description: string
+          id: string
+          is_online: boolean
+          location: string | null
+          noise: string
+          quiet_room: boolean
+          section: string | null
+          sensory_tips: string | null
+          starts_at: string
+          status: string
+          title: string
+        }
+        Insert: {
+          city?: string | null
+          country?: string | null
+          created_at?: string
+          creator_id: string
+          description: string
+          id?: string
+          is_online?: boolean
+          location?: string | null
+          noise: string
+          quiet_room?: boolean
+          section?: string | null
+          sensory_tips?: string | null
+          starts_at: string
+          status?: string
+          title: string
+        }
+        Update: {
+          city?: string | null
+          country?: string | null
+          created_at?: string
+          creator_id?: string
+          description?: string
+          id?: string
+          is_online?: boolean
+          location?: string | null
+          noise?: string
+          quiet_room?: boolean
+          section?: string | null
+          sensory_tips?: string | null
+          starts_at?: string
+          status?: string
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tribe_events_creator_id_fkey"
+            columns: ["creator_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tribe_events_creator_id_fkey"
+            columns: ["creator_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tribe_events_creator_id_fkey"
+            columns: ["creator_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      tribe_forum_invites: {
+        Row: {
+          created_at: string
+          forum_id: string
+          id: string
+          invitee_id: string
+          inviter_id: string
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          forum_id: string
+          id?: string
+          invitee_id: string
+          inviter_id: string
+          status?: string
+        }
+        Update: {
+          created_at?: string
+          forum_id?: string
+          id?: string
+          invitee_id?: string
+          inviter_id?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tribe_forum_invites_forum_id_fkey"
+            columns: ["forum_id"]
+            isOneToOne: false
+            referencedRelation: "tribe_forums"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tribe_forum_invites_invitee_id_fkey"
+            columns: ["invitee_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tribe_forum_invites_invitee_id_fkey"
+            columns: ["invitee_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tribe_forum_invites_invitee_id_fkey"
+            columns: ["invitee_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+          {
+            foreignKeyName: "tribe_forum_invites_inviter_id_fkey"
+            columns: ["inviter_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tribe_forum_invites_inviter_id_fkey"
+            columns: ["inviter_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tribe_forum_invites_inviter_id_fkey"
+            columns: ["inviter_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      tribe_forum_members: {
+        Row: {
+          forum_id: string
+          joined_at: string
+          user_id: string
+        }
+        Insert: {
+          forum_id: string
+          joined_at?: string
+          user_id: string
+        }
+        Update: {
+          forum_id?: string
+          joined_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tribe_forum_members_forum_id_fkey"
+            columns: ["forum_id"]
+            isOneToOne: false
+            referencedRelation: "tribe_forums"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tribe_forum_members_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tribe_forum_members_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tribe_forum_members_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      tribe_forum_moderators: {
+        Row: {
+          created_at: string
+          forum_id: string
+          id: string
+          status: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          forum_id: string
+          id?: string
+          status?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          forum_id?: string
+          id?: string
+          status?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tribe_forum_moderators_forum_id_fkey"
+            columns: ["forum_id"]
+            isOneToOne: false
+            referencedRelation: "tribe_forums"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tribe_forum_moderators_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tribe_forum_moderators_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tribe_forum_moderators_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      tribe_forum_prefs: {
+        Row: {
+          countries: string[] | null
+          push_enabled: boolean
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          countries?: string[] | null
+          push_enabled?: boolean
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          countries?: string[] | null
+          push_enabled?: boolean
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tribe_forum_prefs_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tribe_forum_prefs_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tribe_forum_prefs_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      tribe_forums: {
+        Row: {
+          city: string | null
+          country: string | null
+          created_at: string
+          creator_id: string
+          description: string | null
+          id: string
+          language: string | null
+          notify_countries: string[] | null
+          section: string | null
+          status: string
+          theme: string | null
+          title: string
+        }
+        Insert: {
+          city?: string | null
+          country?: string | null
+          created_at?: string
+          creator_id: string
+          description?: string | null
+          id?: string
+          language?: string | null
+          notify_countries?: string[] | null
+          section?: string | null
+          status?: string
+          theme?: string | null
+          title: string
+        }
+        Update: {
+          city?: string | null
+          country?: string | null
+          created_at?: string
+          creator_id?: string
+          description?: string | null
+          id?: string
+          language?: string | null
+          notify_countries?: string[] | null
+          section?: string | null
+          status?: string
+          theme?: string | null
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tribe_forums_creator_id_fkey"
+            columns: ["creator_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tribe_forums_creator_id_fkey"
+            columns: ["creator_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tribe_forums_creator_id_fkey"
+            columns: ["creator_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      tribe_gratitude: {
+        Row: {
+          badge_key: string
+          created_at: string
+          forum_id: string | null
+          giver_id: string
+          id: string
+          is_anonymous: boolean
+          points: number
+          receiver_id: string
+        }
+        Insert: {
+          badge_key: string
+          created_at?: string
+          forum_id?: string | null
+          giver_id: string
+          id?: string
+          is_anonymous?: boolean
+          points?: number
+          receiver_id: string
+        }
+        Update: {
+          badge_key?: string
+          created_at?: string
+          forum_id?: string | null
+          giver_id?: string
+          id?: string
+          is_anonymous?: boolean
+          points?: number
+          receiver_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tribe_gratitude_forum_id_fkey"
+            columns: ["forum_id"]
+            isOneToOne: false
+            referencedRelation: "tribe_forums"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tribe_gratitude_giver_id_fkey"
+            columns: ["giver_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tribe_gratitude_giver_id_fkey"
+            columns: ["giver_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tribe_gratitude_giver_id_fkey"
+            columns: ["giver_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+          {
+            foreignKeyName: "tribe_gratitude_receiver_id_fkey"
+            columns: ["receiver_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tribe_gratitude_receiver_id_fkey"
+            columns: ["receiver_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tribe_gratitude_receiver_id_fkey"
+            columns: ["receiver_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      tribe_members: {
+        Row: {
+          can_evaluate: boolean
+          can_review: boolean
+          can_write: boolean
+          created_at: string
+          energy: string
+          points: number
+          rules_accepted_at: string | null
+          show_city: boolean
+          show_country: boolean
+          show_diagnosis: boolean
+          show_interests: boolean
+          silent_mode: boolean
+          status: string
+          user_id: string
+        }
+        Insert: {
+          can_evaluate?: boolean
+          can_review?: boolean
+          can_write?: boolean
+          created_at?: string
+          energy?: string
+          points?: number
+          rules_accepted_at?: string | null
+          show_city?: boolean
+          show_country?: boolean
+          show_diagnosis?: boolean
+          show_interests?: boolean
+          silent_mode?: boolean
+          status?: string
+          user_id: string
+        }
+        Update: {
+          can_evaluate?: boolean
+          can_review?: boolean
+          can_write?: boolean
+          created_at?: string
+          energy?: string
+          points?: number
+          rules_accepted_at?: string | null
+          show_city?: boolean
+          show_country?: boolean
+          show_diagnosis?: boolean
+          show_interests?: boolean
+          silent_mode?: boolean
+          status?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tribe_members_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tribe_members_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tribe_members_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      tribe_mentor_messages: {
+        Row: {
+          author_id: string
+          body: string
+          created_at: string
+          id: string
+          mentorship_id: string
+        }
+        Insert: {
+          author_id: string
+          body: string
+          created_at?: string
+          id?: string
+          mentorship_id: string
+        }
+        Update: {
+          author_id?: string
+          body?: string
+          created_at?: string
+          id?: string
+          mentorship_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tribe_mentor_messages_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tribe_mentor_messages_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tribe_mentor_messages_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+          {
+            foreignKeyName: "tribe_mentor_messages_mentorship_id_fkey"
+            columns: ["mentorship_id"]
+            isOneToOne: false
+            referencedRelation: "tribe_mentorships"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tribe_mentors: {
+        Row: {
+          bio: string | null
+          created_at: string
+          is_active: boolean
+          section: string | null
+          tracks: string[]
+          user_id: string
+        }
+        Insert: {
+          bio?: string | null
+          created_at?: string
+          is_active?: boolean
+          section?: string | null
+          tracks?: string[]
+          user_id: string
+        }
+        Update: {
+          bio?: string | null
+          created_at?: string
+          is_active?: boolean
+          section?: string | null
+          tracks?: string[]
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tribe_mentors_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tribe_mentors_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tribe_mentors_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      tribe_mentorships: {
+        Row: {
+          created_at: string
+          id: string
+          mentee_id: string
+          mentor_id: string
+          status: string
+          track: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          mentee_id: string
+          mentor_id: string
+          status?: string
+          track: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          mentee_id?: string
+          mentor_id?: string
+          status?: string
+          track?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tribe_mentorships_mentee_id_fkey"
+            columns: ["mentee_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tribe_mentorships_mentee_id_fkey"
+            columns: ["mentee_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tribe_mentorships_mentee_id_fkey"
+            columns: ["mentee_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+          {
+            foreignKeyName: "tribe_mentorships_mentor_id_fkey"
+            columns: ["mentor_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tribe_mentorships_mentor_id_fkey"
+            columns: ["mentor_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tribe_mentorships_mentor_id_fkey"
+            columns: ["mentor_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      tribe_messages: {
+        Row: {
+          author_id: string
+          body: string
+          created_at: string
+          forum_id: string
+          id: string
+        }
+        Insert: {
+          author_id: string
+          body: string
+          created_at?: string
+          forum_id: string
+          id?: string
+        }
+        Update: {
+          author_id?: string
+          body?: string
+          created_at?: string
+          forum_id?: string
+          id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tribe_messages_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tribe_messages_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tribe_messages_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+          {
+            foreignKeyName: "tribe_messages_forum_id_fkey"
+            columns: ["forum_id"]
+            isOneToOne: false
+            referencedRelation: "tribe_forums"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tribe_mod_ratings: {
+        Row: {
+          availability: number
+          comment: string | null
+          cordiality: number
+          created_at: string
+          empathy: number
+          id: string
+          inclusive_language: number
+          is_anonymous: boolean
+          knowledge: number
+          moderator_id: string
+          rater_id: string
+        }
+        Insert: {
+          availability: number
+          comment?: string | null
+          cordiality: number
+          created_at?: string
+          empathy: number
+          id?: string
+          inclusive_language: number
+          is_anonymous?: boolean
+          knowledge: number
+          moderator_id: string
+          rater_id: string
+        }
+        Update: {
+          availability?: number
+          comment?: string | null
+          cordiality?: number
+          created_at?: string
+          empathy?: number
+          id?: string
+          inclusive_language?: number
+          is_anonymous?: boolean
+          knowledge?: number
+          moderator_id?: string
+          rater_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tribe_mod_ratings_moderator_id_fkey"
+            columns: ["moderator_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tribe_mod_ratings_moderator_id_fkey"
+            columns: ["moderator_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tribe_mod_ratings_moderator_id_fkey"
+            columns: ["moderator_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+          {
+            foreignKeyName: "tribe_mod_ratings_rater_id_fkey"
+            columns: ["rater_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tribe_mod_ratings_rater_id_fkey"
+            columns: ["rater_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tribe_mod_ratings_rater_id_fkey"
+            columns: ["rater_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      tribe_moderators: {
+        Row: {
+          created_at: string
+          ethics_accepted_at: string | null
+          justification: string | null
+          points: number
+          status: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          ethics_accepted_at?: string | null
+          justification?: string | null
+          points?: number
+          status?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          ethics_accepted_at?: string | null
+          justification?: string | null
+          points?: number
+          status?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tribe_moderators_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tribe_moderators_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tribe_moderators_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      user_agreements: {
+        Row: {
+          accepted_at: string
+          doc_version: string
+          id: string
+          user_id: string
+          user_type: string
+        }
+        Insert: {
+          accepted_at?: string
+          doc_version: string
+          id?: string
+          user_id: string
+          user_type: string
+        }
+        Update: {
+          accepted_at?: string
+          doc_version?: string
+          id?: string
+          user_id?: string
+          user_type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_agreements_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_agreements_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_agreements_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      user_progress: {
+        Row: {
+          module_id: string
+          read_at: string
+          user_id: string
+        }
+        Insert: {
+          module_id: string
+          read_at?: string
+          user_id: string
+        }
+        Update: {
+          module_id?: string
+          read_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      waitlist: {
+        Row: {
+          created_at: string
+          id: string
+          note: string | null
+          patient_id: string
+          provider_id: string
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          note?: string | null
+          patient_id: string
+          provider_id: string
+          status?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          note?: string | null
+          patient_id?: string
+          provider_id?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "waitlist_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "waitlist_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "waitlist_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+          {
+            foreignKeyName: "waitlist_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "waitlist_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "waitlist_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+    }
+    Views: {
+      affiliate_earnings: {
+        Row: {
+          affiliate_id: string | null
+          commission_cents_total: number | null
+          currency: string | null
+          sales: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "orders_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "orders_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "orders_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      blog_feed: {
+        Row: {
+          author_avatar: string | null
+          author_business: string | null
+          author_id: string | null
+          author_name: string | null
+          avg_stars: number | null
+          body: string | null
+          cover_url: string | null
+          created_at: string | null
+          excerpt: string | null
+          external_url: string | null
+          id: string | null
+          keywords: string[] | null
+          ratings_count: number | null
+          title: string | null
+          topic: string | null
+          type: string | null
+          updated_at: string | null
+          views_count: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "content_posts_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "content_posts_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "content_posts_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      courses_public: {
+        Row: {
+          audience: string | null
+          author_id: string | null
+          country: string | null
+          cover_url: string | null
+          created_at: string | null
+          description: string | null
+          effective_country: string | null
+          id: string | null
+          is_published: boolean | null
+          level: string | null
+          title: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "courses_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "courses_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "courses_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      directorio_publico: {
+        Row: {
+          accepts_neuromundi_id: boolean | null
+          accepts_payments: boolean | null
+          account_type: string | null
+          address: string | null
+          age_ranges: string[] | null
+          avatar_url: string | null
+          badge_level: string | null
+          bio: string | null
+          booking_url: string | null
+          business_name: string | null
+          cedula_profesional: string | null
+          certified_staff: boolean | null
+          city: string | null
+          clee: string | null
+          comms_opt_in: boolean | null
+          consultation_amount: number | null
+          consultation_currency: string | null
+          country: string | null
+          created_at: string | null
+          dial_code: string | null
+          facebook: string | null
+          full_name: string | null
+          id: string | null
+          instagram: string | null
+          interests: string[] | null
+          intervention_areas: string[] | null
+          is_advisor: boolean | null
+          is_company: boolean | null
+          is_inclusive_company: boolean | null
+          is_inclusive_school: boolean | null
+          is_institutional_ally: boolean | null
+          is_medical_override: boolean | null
+          is_published: boolean | null
+          is_verified: boolean | null
+          latitude: number | null
+          life_stage: string | null
+          linkedin: string | null
+          longitude: number | null
+          member_no: number | null
+          membership_status: string | null
+          modalities: string[] | null
+          municipality: string | null
+          neuro_conditions: string[] | null
+          neuroaffirming: boolean | null
+          origen: string | null
+          phone: string | null
+          price_range: string | null
+          product_categories: string[] | null
+          products_offered: string[] | null
+          profession: string | null
+          provider_details: Json | null
+          provider_type: string | null
+          provider_types: string[] | null
+          reclamable: boolean | null
+          role: string | null
+          sales_channels: string[] | null
+          school_grades: string[] | null
+          search_tsv: unknown
+          sections: string[] | null
+          services_offered: string | null
+          shipping_coverage: string[] | null
+          specialties: string[] | null
+          state: string | null
+          tiktok: string | null
+          title_prefix: string | null
+          updated_at: string | null
+          verificada: boolean | null
+          wants_founder: boolean | null
+          website: string | null
+          website_url: string | null
+          whatsapp: string | null
+          year_started: number | null
+        }
+        Relationships: []
+      }
+      directorio_publico_seguro: {
+        Row: {
+          accepts_neuromundi_id: boolean | null
+          accepts_payments: boolean | null
+          account_type: string | null
+          address: string | null
+          age_ranges: string[] | null
+          avatar_url: string | null
+          badge_level: string | null
+          bio: string | null
+          booking_url: string | null
+          business_name: string | null
+          cedula_profesional: string | null
+          certified_staff: boolean | null
+          city: string | null
+          clee: string | null
+          comms_opt_in: boolean | null
+          consultation_amount: number | null
+          consultation_currency: string | null
+          country: string | null
+          created_at: string | null
+          dial_code: string | null
+          facebook: string | null
+          full_name: string | null
+          id: string | null
+          instagram: string | null
+          interests: string[] | null
+          intervention_areas: string[] | null
+          is_advisor: boolean | null
+          is_company: boolean | null
+          is_inclusive_company: boolean | null
+          is_inclusive_school: boolean | null
+          is_institutional_ally: boolean | null
+          is_medical_override: boolean | null
+          is_published: boolean | null
+          is_verified: boolean | null
+          latitude: number | null
+          life_stage: string | null
+          linkedin: string | null
+          longitude: number | null
+          member_no: number | null
+          modalities: string[] | null
+          municipality: string | null
+          neuro_conditions: string[] | null
+          neuroaffirming: boolean | null
+          origen: string | null
+          perfil_activo: boolean | null
+          phone: string | null
+          price_range: string | null
+          product_categories: string[] | null
+          products_offered: string[] | null
+          profession: string | null
+          provider_details: Json | null
+          provider_type: string | null
+          provider_types: string[] | null
+          reclamable: boolean | null
+          role: string | null
+          sales_channels: string[] | null
+          school_grades: string[] | null
+          search_tsv: unknown
+          sections: string[] | null
+          services_offered: string | null
+          shipping_coverage: string[] | null
+          specialties: string[] | null
+          state: string | null
+          tiktok: string | null
+          title_prefix: string | null
+          updated_at: string | null
+          verificada: boolean | null
+          wants_founder: boolean | null
+          website: string | null
+          website_url: string | null
+          whatsapp: string | null
+          year_started: number | null
+        }
+        Relationships: []
+      }
+      founder_counts: {
+        Row: {
+          capacity: number | null
+          country: string | null
+          kind: string | null
+          used: number | null
+        }
+        Relationships: []
+      }
+      perfiles_basicos: {
+        Row: {
+          avatar_url: string | null
+          business_name: string | null
+          city: string | null
+          country: string | null
+          full_name: string | null
+          id: string | null
+          is_published: boolean | null
+          is_verified: boolean | null
+          member_no: number | null
+          provider_type: string | null
+          public_key: string | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          business_name?: string | null
+          city?: string | null
+          country?: string | null
+          full_name?: string | null
+          id?: string | null
+          is_published?: boolean | null
+          is_verified?: boolean | null
+          member_no?: number | null
+          provider_type?: string | null
+          public_key?: string | null
+        }
+        Update: {
+          avatar_url?: string | null
+          business_name?: string | null
+          city?: string | null
+          country?: string | null
+          full_name?: string | null
+          id?: string | null
+          is_published?: boolean | null
+          is_verified?: boolean | null
+          member_no?: number | null
+          provider_type?: string | null
+          public_key?: string | null
+        }
+        Relationships: []
+      }
+      provider_badge_inputs: {
+        Row: {
+          avg_human_treatment: number | null
+          avg_professionalism: number | null
+          avg_quality: number | null
+          content_count: number | null
+          discount_pct: number | null
+          documental_verified: boolean | null
+          evs_score: number | null
+          provider_id: string | null
+          response_rate_pct: number | null
+          retention_pct: number | null
+          total_reviews: number | null
+        }
+        Relationships: []
+      }
+      public_post_ratings: {
+        Row: {
+          avg_stars: number | null
+          post_id: string | null
+          rating_count: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "content_ratings_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "blog_feed"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "content_ratings_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "content_posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      public_product_ratings: {
+        Row: {
+          avg_rating: number | null
+          product_id: string | null
+          review_count: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "product_reviews_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      public_provider_comments: {
+        Row: {
+          comments: string | null
+          created_at: string | null
+          id: string | null
+          overall: number | null
+          provider_id: string | null
+          provider_response: string | null
+          provider_response_at: string | null
+        }
+        Insert: {
+          comments?: string | null
+          created_at?: string | null
+          id?: string | null
+          overall?: never
+          provider_id?: string | null
+          provider_response?: string | null
+          provider_response_at?: string | null
+        }
+        Update: {
+          comments?: string | null
+          created_at?: string | null
+          id?: string | null
+          overall?: never
+          provider_id?: string | null
+          provider_response?: string | null
+          provider_response_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "satisfaction_surveys_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "satisfaction_surveys_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "satisfaction_surveys_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      public_provider_ratings: {
+        Row: {
+          avg_accessibility: number | null
+          avg_facilities: number | null
+          avg_flexibility_crisis: number | null
+          avg_human_treatment: number | null
+          avg_offer_compliance: number | null
+          avg_price_value: number | null
+          avg_professionalism: number | null
+          avg_quality: number | null
+          avg_sensory_adaptation: number | null
+          business_name: string | null
+          city: string | null
+          evs_score: number | null
+          provider_id: string | null
+          provider_type: string | null
+          total_reviews: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "satisfaction_surveys_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "satisfaction_surveys_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "satisfaction_surveys_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
+      }
+      revision_campana_20260908: {
+        Row: {
+          ciudad: string | null
+          correo: string | null
+          entrega: string | null
+          estado: string | null
+          ficha_id: string | null
+          grupo: string | null
+          nombre: string | null
+          provider_type: string | null
+          sector: string | null
+          sitio_web: string | null
+          telefono: string | null
+          variante_recibida: string | null
+        }
+        Relationships: []
+      }
+    }
+    Functions: {
+      aceptar_reglamento: { Args: never; Returns: Json }
+      admin_account_actions: {
+        Args: never
+        Returns: {
+          action: string
+          created_at: string
+          email: string
+          id: string
+          is_paid: boolean
+          member_no: number
+          reason: string
+          reason_detail: string
+          role: string
+          user_id: string
+        }[]
+      }
+      admin_alliance_redeem: {
+        Args: { p_alliance_id: string | null }
+        Returns: number
+      }
+      admin_alliance_summary: {
+        Args: never
+        Returns: {
+          affiliates: number
+          alliance_id: string
+          country: string
+          credits_accrued: number
+          credits_value: number
+          name: string
+          promo_code: string
+          tier: string
+        }[]
+      }
+      admin_alta_correo_ficha: {
+        Args: {
+          p_correo: string | null
+          p_ficha: string | null
+          p_nota?: string | null
+          p_tanda?: number | null
+        }
+        Returns: Json
+      }
+      admin_badge_inputs: {
+        Args: never
+        Returns: {
+          avg_human_treatment: number
+          avg_professionalism: number
+          avg_quality: number
+          content_count: number
+          discount_pct: number
+          documental_verified: boolean
+          evs_score: number
+          provider_id: string
+          response_rate_pct: number
+          retention_pct: number
+          total_reviews: number
+        }[]
+      }
+      admin_borrar_ficha_de_prueba: { Args: { p_id: string }; Returns: Json }
+      admin_campaign_set: {
+        Args: {
+          p_active: boolean | null
+          p_days_by_country: Json | null
+          p_default_days: number | null
+          p_founder_discount: Json | null
+          p_popup_active: boolean | null
+          p_popup_continents: Json | null
+          p_start_at: string | null
+        }
+        Returns: undefined
+      }
+      admin_catalog_suggestions: {
+        Args: never
+        Returns: {
+          country: string
+          created_at: string
+          email: string
+          id: string
+          kind: string
+          name: string
+          note: string
+          page: string
+          section: string
+          status: string
+          user_id: string
+        }[]
+      }
+      admin_clear_membership_price: {
+        Args: { p_class: string | null; p_country: string | null; p_type: string | null }
+        Returns: Json
+      }
+      admin_comisiones_detalle: {
+        Args: { p_referrer: string | null }
+        Returns: {
+          amount_cents: number
+          base_cents: number
+          comision_pct: number
+          creada_en: string
+          currency: string
+          es_primer_pago: boolean
+          id: string
+          pagada_en: string
+          pagada_nota: string
+          referido: string
+          status: string
+        }[]
+      }
+      admin_comisiones_membresia: {
+        Args: { p_estado?: string | null }
+        Returns: {
+          alcanza_umbral: boolean
+          comisiones: number
+          correo: string
+          cuenta_contacto: string
+          cuenta_de_cobro: boolean
+          cuenta_titular: string
+          currency: string
+          metodo_cobro: string
+          monto_cents: number
+          primera: string
+          referidor: string
+          referidor_vigente: boolean
+          referidos: number
+          referrer_id: string
+          ultima: string
+          umbral_cents: number
+        }[]
+      }
+      admin_commissions: {
+        Args: never
+        Returns: {
+          affiliate_id: string
+          affiliate_member_no: number
+          affiliate_name: string
+          amount_cents: number
+          created_at: string
+          currency: string
+          id: string
+          paid_at: string
+          product_name: string
+          refund_after_payment: boolean
+          status: string
+          vendor_id: string
+          vendor_member_no: number
+          vendor_name: string
+        }[]
+      }
+      admin_configured_countries: {
+        Args: never
+        Returns: {
+          country_label: string
+          types: number
+        }[]
+      }
+      admin_country_discounts: {
+        Args: never
+        Returns: {
+          country_label: string
+          is_active: boolean
+          note: string
+          pct: number
+          updated_at: string
+        }[]
+      }
+      admin_country_prices: {
+        Args: { p_country: string | null }
+        Returns: {
+          affiliate_type: string
+          annual_amount: number
+          annual_list_amount: number
+          currency: string
+          is_override: boolean
+          member_class: string
+          monthly_amount: number
+          zero_decimal: boolean
+        }[]
+      }
+      admin_create_category: {
+        Args: { p_name: string | null; p_slug: string | null }
+        Returns: undefined
+      }
+      admin_cuenta_de_cobro: {
+        Args: { p_user: string | null }
+        Returns: {
+          actualizado_en: string
+          contacto: string | null
+          contacto_tipo: string | null
+          metodo: string
+          moneda: string | null
+          notas: string | null
+          pais: string | null
+          titular: string | null
+          user_id: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "payout_accounts"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      admin_directorio_invitaciones: {
+        Args: never
+        Returns: {
+          abierta_en: string
+          abierta_ultima_en: string
+          aperturas: number
+          baja_en: string
+          cancelada_en: string
+          ciudad: string
+          correo: string
+          creada_en: string
+          enviada_en: string
+          estado_geo: string
+          expira_en: string
+          id: string
+          nombre: string
+          provider_type: string
+          rebotado: boolean
+          usada_en: string
+        }[]
+      }
+      admin_directorio_resumen: { Args: never; Returns: Json }
+      admin_donation_stats: {
+        Args: never
+        Returns: {
+          currency: string
+          paid_cents: number
+          paid_count: number
+          physical_pending: number
+          wall_published: number
+        }[]
+      }
+      admin_donations: {
+        Args: { p_status?: string | null }
+        Returns: {
+          amount_cents: number
+          contact_name: string
+          created_at: string
+          currency: string
+          email: string
+          id: string
+          is_company: boolean
+          level: string
+          org_name: string
+          paid_at: string
+          publish_as: string
+          publish_consent: boolean
+          ship_address: string
+          ship_city: string
+          ship_country: string
+          ship_postal: string
+          ship_recipient: string
+          ship_use_registered: boolean
+          status: string
+          waive_physical: boolean
+          wall_featured: boolean
+          wall_logo_url: string
+          wall_note: string
+          wall_published: boolean
+        }[]
+      }
+      admin_enviar_invitacion: {
+        Args: {
+          p_correo: string | null
+          p_cortesia?: boolean | null
+          p_fundador?: boolean | null
+          p_nombre: string | null
+          p_provider_type?: string | null
+          p_send?: boolean | null
+        }
+        Returns: {
+          enviado: boolean
+          ficha_id: string
+          promo: string
+          token: string
+        }[]
+      }
+      admin_exencion_resolver: {
+        Args: {
+          p_aprobar: boolean | null
+          p_meses?: number | null
+          p_nota?: string | null
+          p_user: string | null
+        }
+        Returns: boolean
+      }
+      admin_exenciones: {
+        Args: { p_estado?: string | null }
+        Returns: {
+          aprobada_en: string
+          dias: number
+          documento: string
+          email: string
+          estado: string
+          folio: string
+          id: string
+          nombre: string
+          provider_type: string
+          rechazo: string
+          sector: string
+          solicitada_en: string
+          tipo: string
+          vigente_hasta: string
+        }[]
+      }
+      admin_export_membership_prices: {
+        Args: never
+        Returns: {
+          affiliate_type: string
+          annual_amount: number
+          annual_list_amount: number
+          country_label: string
+          currency: string
+          member_class: string
+          monthly_amount: number
+          zero_decimal: boolean
+        }[]
+      }
+      admin_fichas_retiradas: {
+        Args: { p_buscar?: string | null; p_limit?: number | null }
+        Returns: {
+          ciudad: string
+          correo: string
+          estado: string
+          ficha_id: string
+          nombre: string
+          pais: string
+          provider_type: string
+          publicacion_forzada: boolean
+          publicacion_forzada_en: string
+          publicacion_forzada_nota: string
+          reclamada_por: string
+          sector: string
+          sitio_web: string
+          telefono: string
+        }[]
+      }
+      admin_fichas_sin_correo: {
+        Args: { p_buscar?: string | null; p_limit?: number | null }
+        Returns: {
+          ciudad: string
+          especializacion: string
+          estado: string
+          ficha_id: string
+          nombre: string
+          pais: string
+          provider_type: string
+          sector: string
+          sitio_web: string
+          telefono: string
+        }[]
+      }
+      admin_forum_moderators: {
+        Args: { p_forum?: string | null; p_status?: string | null }
+        Returns: {
+          created_at: string
+          forum_id: string
+          forum_title: string
+          id: string
+          member_no: number
+          name: string
+          status: string
+          user_id: string
+        }[]
+      }
+      admin_founders: {
+        Args: { p_country?: string | null }
+        Returns: {
+          country: string
+          display_name: string
+          kind: string
+          member_no: number
+          user_id: string
+          wall_featured: boolean
+          wall_order: number
+          wall_published: boolean
+        }[]
+      }
+      admin_import_membership_prices: {
+        Args: { p_replace?: boolean | null; p_rows: Json | null }
+        Returns: Json
+      }
+      admin_improvement_suggestions: {
+        Args: never
+        Returns: {
+          created_at: string
+          email: string
+          id: string
+          message: string
+          page: string
+          user_id: string
+        }[]
+      }
+      admin_invitaciones_vigencia: {
+        Args: never
+        Returns: {
+          enviadas: number
+          primera_en_vencer: string
+          sin_enviar: number
+          vencen_en_15_dias: number
+          vencidas: number
+          vivas: number
+        }[]
+      }
+      admin_liquidar_comisiones: {
+        Args: {
+          p_currency?: string | null
+          p_forzar?: boolean | null
+          p_nota?: string | null
+          p_referrer: string | null
+        }
+        Returns: number
+      }
+      admin_list_advisors: {
+        Args: never
+        Returns: {
+          email: string
+          member_no: number
+          name: string
+          user_id: string
+        }[]
+      }
+      admin_log_account_action: {
+        Args: { p_action: string | null; p_nota: string | null; p_user: string | null }
+        Returns: undefined
+      }
+      admin_member_extend: {
+        Args: { p_dias: number | null; p_nota?: string | null; p_user: string | null }
+        Returns: string
+      }
+      admin_member_reactivate: {
+        Args: { p_nota?: string | null; p_user: string | null }
+        Returns: boolean
+      }
+      admin_member_set_exempt: {
+        Args: { p_nota?: string | null; p_user: string | null; p_value: boolean | null }
+        Returns: string
+      }
+      admin_member_set_expiry: {
+        Args: { p_fecha: string | null; p_nota?: string | null; p_user: string | null }
+        Returns: string
+      }
+      admin_member_suspend: {
+        Args: { p_meses?: number | null; p_nota?: string | null; p_user: string | null }
+        Returns: string
+      }
+      admin_members: {
+        Args: {
+          p_estado?: string | null
+          p_fundador?: boolean | null
+          p_limit?: number | null
+          p_pagado?: boolean | null
+          p_pais?: string | null
+          p_publicado?: boolean | null
+          p_q?: string | null
+          p_reclamado?: boolean | null
+          p_seccion?: string | null
+          p_tipo?: string | null
+        }
+        Returns: {
+          affiliate_type: string
+          business_name: string
+          country: string
+          created_at: string
+          email: string
+          es_fundador: boolean
+          ficha_id: string
+          ficha_verificada: boolean
+          full_name: string
+          ha_pagado: boolean
+          id: string
+          is_published: boolean
+          member_no: number
+          membership_due_at: string
+          membership_paid_until: string
+          membership_period: string
+          membership_status: string
+          provider_type: string
+          role: string
+          sections: string[]
+          suspend_until: string
+          suspended_at: string
+        }[]
+      }
+      admin_members_facetas: {
+        Args: never
+        Returns: {
+          paises: string[]
+          tipos: string[]
+        }[]
+      }
+      admin_membership_prices: {
+        Args: never
+        Returns: {
+          affiliate_type: string
+          amount: number
+          country_label: string
+          currency: string
+          is_override: boolean
+          zero_decimal: boolean
+        }[]
+      }
+      admin_membership_renewals: {
+        Args: never
+        Returns: {
+          country: string
+          days_until: number
+          due_at: string
+          id: string
+          is_founder: boolean
+          member_no: number
+          membership_status: string
+          name: string
+          paid_until: string
+          provider_type: string
+        }[]
+      }
+      admin_metrics: { Args: never; Returns: Json }
+      admin_other_values: {
+        Args: { p_country?: string | null }
+        Returns: {
+          category_id: number
+          country: string
+          kind: string
+          label: string
+          provider_ids: string[]
+          uses: number
+        }[]
+      }
+      admin_pending_org_docs: {
+        Args: never
+        Returns: {
+          id: string
+          member_no: string
+          nombre: string
+          org_doc_kind: string
+          org_doc_submitted_at: string
+          org_doc_url: string
+          provider_type: string
+        }[]
+      }
+      admin_preguntas_experto: {
+        Args: { p_estado?: string | null }
+        Returns: {
+          categoria: string
+          correo: string
+          created_at: string
+          es_miembro: boolean
+          estado: string
+          id: string
+          nombre: string
+          nota_admin: string
+          pais: string
+          pregunta: string
+          resuelta_en: string
+        }[]
+      }
+      admin_preguntas_experto_pendientes: { Args: never; Returns: number }
+      admin_promote_other_to_category: {
+        Args: {
+          p_country?: string | null
+          p_kind?: string | null
+          p_label: string | null
+          p_link?: boolean | null
+        }
+        Returns: number
+      }
+      admin_raffle_draw: {
+        Args: { p_batch?: string | null; p_count: number | null; p_role?: string | null }
+        Returns: {
+          email: string
+          member_no: number
+          name: string
+          tickets: number
+          user_id: string
+        }[]
+      }
+      admin_raffle_entries: {
+        Args: never
+        Returns: {
+          email: string
+          member_no: number
+          name: string
+          role: string
+          tickets: number
+          user_id: string
+        }[]
+      }
+      admin_raffle_winners: {
+        Args: never
+        Returns: {
+          batch: string
+          drawn_at: string
+          email: string
+          member_no: number
+          name: string
+          user_id: string
+        }[]
+      }
+      admin_referral_config: {
+        Args: never
+        Returns: {
+          discount_pct: number
+          referrer_max_pct: number
+          referrer_step_pct: number
+          validity_days: number
+        }[]
+      }
+      admin_referrals: {
+        Args: never
+        Returns: {
+          id: string
+          is_paying_type: boolean
+          link_still_valid: boolean
+          referred_has_paid: boolean
+          referred_id: string
+          referred_member_no: number
+          referred_name: string
+          referred_paid_until: string
+          referred_role: string
+          referrer_id: string
+          referrer_member_no: number
+          referrer_name: string
+          referrer_role: string
+          reward_counted: boolean
+          reward_due: boolean
+          reward_manual: boolean
+          used_at: string
+        }[]
+      }
+      admin_reports: {
+        Args: never
+        Returns: {
+          admin_note: string | null
+          attachments: string[]
+          category: string
+          category_other: string | null
+          created_at: string
+          description: string
+          id: string
+          is_member: boolean
+          reported_member_no: number | null
+          reporter_email: string | null
+          reporter_id: string | null
+          reporter_name: string | null
+          status: string
+          updated_at: string
+        }[]
+        SetofOptions: {
+          from: "*"
+          to: "reports"
+          isOneToOne: false
+          isSetofReturn: true
+        }
+      }
+      admin_republicar_ficha: {
+        Args: { p_ficha: string | null; p_nota?: string | null; p_republicar?: boolean | null }
+        Returns: boolean
+      }
+      admin_resolver_pregunta_experto: {
+        Args: { p_estado: string | null; p_id: string | null; p_nota?: string | null }
+        Returns: Json
+      }
+      admin_resolver_solicitud_fundador: {
+        Args: { p_conceder: boolean | null; p_nota?: string | null; p_user: string | null }
+        Returns: Json
+      }
+      admin_send_message: {
+        Args: {
+          p_audience: string | null
+          p_body: string | null
+          p_recipient_member_no?: number | null
+          p_title: string | null
+        }
+        Returns: Json
+      }
+      admin_set_active_markets: {
+        Args: { p_markets: string[] | null }
+        Returns: undefined
+      }
+      admin_set_advisor:
+        | { Args: { p_member_no: number; p_on: boolean }; Returns: undefined }
+        | { Args: { p_on: boolean; p_user: string }; Returns: undefined }
+      admin_set_alliance_partner: {
+        Args: { p_country?: string | null; p_name: string | null; p_promo_code: string | null }
+        Returns: string
+      }
+      admin_set_campaign_community: {
+        Args: { p_url: string | null }
+        Returns: undefined
+      }
+      admin_set_catalog_suggestion_status: {
+        Args: { p_id: string | null; p_status: string | null }
+        Returns: undefined
+      }
+      admin_set_country_discount: {
+        Args: {
+          p_active?: boolean | null
+          p_country: string | null
+          p_note?: string | null
+          p_pct: number | null
+        }
+        Returns: undefined
+      }
+      admin_set_donation_wall: {
+        Args: {
+          p_featured?: boolean | null
+          p_id: string | null
+          p_logo_url?: string | null
+          p_note?: string | null
+          p_publish_as?: string | null
+          p_published: boolean | null
+        }
+        Returns: Json
+      }
+      admin_set_ficha_verificada: {
+        Args: { p_id: string | null; p_value: boolean | null }
+        Returns: boolean
+      }
+      admin_set_forum_moderator: {
+        Args: { p_id: string | null; p_status: string | null }
+        Returns: undefined
+      }
+      admin_set_forum_status: {
+        Args: { p_forum: string | null; p_status: string | null }
+        Returns: undefined
+      }
+      admin_set_founder_cap: {
+        Args: { p_cap: number | null; p_country: string | null; p_kind: string | null }
+        Returns: undefined
+      }
+      admin_set_founder_wall: {
+        Args: {
+          p_featured: boolean | null
+          p_order: number | null
+          p_published: boolean | null
+          p_user: string | null
+        }
+        Returns: undefined
+      }
+      admin_set_membership_price: {
+        Args: {
+          p_annual: number | null
+          p_annual_list: number | null
+          p_class: string | null
+          p_country: string | null
+          p_currency: string | null
+          p_monthly: number | null
+          p_type: string | null
+          p_zero_decimal?: boolean | null
+        }
+        Returns: Json
+      }
+      admin_set_moderator_status: {
+        Args: { p_status: string | null; p_user: string | null }
+        Returns: undefined
+      }
+      admin_set_neuroaffirming: {
+        Args: { p_id: string | null; p_value: boolean | null }
+        Returns: undefined
+      }
+      admin_set_org_doc: {
+        Args: { p_approve: boolean | null; p_note?: string | null; p_user: string | null }
+        Returns: boolean
+      }
+      admin_set_profile_flag: {
+        Args: { p_flag: string | null; p_id: string | null; p_value: boolean | null }
+        Returns: undefined
+      }
+      admin_set_published: {
+        Args: { p_id: string | null; p_value: boolean | null }
+        Returns: undefined
+      }
+      admin_set_referral_config: {
+        Args: {
+          p_discount_pct: number | null
+          p_referrer_max_pct: number | null
+          p_referrer_step_pct: number | null
+          p_validity_days: number | null
+        }
+        Returns: Json
+      }
+      admin_set_tribe_member: {
+        Args: {
+          p_can_evaluate: boolean | null
+          p_can_review: boolean | null
+          p_can_write: boolean | null
+          p_status: string | null
+          p_user: string | null
+        }
+        Returns: undefined
+      }
+      admin_set_verificacion_deadline: {
+        Args: { p_fecha: string | null }
+        Returns: string
+      }
+      admin_set_verified: {
+        Args: { p_id: string | null; p_value: boolean | null }
+        Returns: undefined
+      }
+      admin_set_whatsapp_url: { Args: { p_url: string }; Returns: undefined }
+      admin_solicitudes_fundador: {
+        Args: { p_status?: string | null }
+        Returns: {
+          affiliate_type: string
+          correo: string
+          cupo: number
+          kind: string
+          nombre: string
+          nota_admin: string
+          nota_usuario: string
+          pais: string
+          solicitada_en: string
+          status: string
+          usados: number
+          user_id: string
+        }[]
+      }
+      admin_tribe_forums: {
+        Args: { p_status?: string | null }
+        Returns: {
+          city: string
+          country: string
+          created_at: string
+          creator_name: string
+          description: string
+          id: string
+          language: string
+          status: string
+          theme: string
+          title: string
+        }[]
+      }
+      admin_tribe_member_lookup: {
+        Args: { p_member_no: number | null }
+        Returns: {
+          can_evaluate: boolean
+          can_review: boolean
+          can_write: boolean
+          name: string
+          status: string
+          user_id: string
+        }[]
+      }
+      admin_tribe_moderators: {
+        Args: { p_status?: string | null }
+        Returns: {
+          created_at: string
+          justification: string
+          member_no: number
+          name: string
+          points: number
+          status: string
+          user_id: string
+        }[]
+      }
+      affiliate_type_for: { Args: { p_user: string }; Returns: string }
+      aplicar_plazos_empresa: { Args: never; Returns: Json }
+      avisar_exenciones_por_vencer: { Args: never; Returns: number }
+      badge_rank: { Args: { lvl: string }; Returns: number }
+      booking_provider_name: { Args: { p_member_no: number }; Returns: string }
+      campaign_email_sent: {
+        Args: { p_kind: string | null; p_user: string | null }
+        Returns: undefined
+      }
+      campaign_recipients: {
+        Args: { p_campaign_id: string | null }
+        Returns: {
+          full_name: string
+          phone: string
+          user_id: string
+        }[]
+      }
+      campaign_reminder_queue: {
+        Args: never
+        Returns: {
+          country: string
+          email: string
+          fundador_hasta: string
+          name: string
+          opens_at: string
+          pct: number
+          user_id: string
+          ya_abierto: boolean
+        }[]
+      }
+      campaign_status: { Args: never; Returns: Json }
+      campaign_welcome_queue: {
+        Args: never
+        Returns: {
+          country: string
+          email: string
+          name: string
+          opens_at: string
+          provider_type: string
+          role: string
+          sector: string
+          user_id: string
+          ya_abierto: boolean
+        }[]
+      }
+      can_review_provider: { Args: { p_provider: string }; Returns: boolean }
+      cancel_my_account: {
+        Args: { p_detail?: string | null; p_reason: string | null }
+        Returns: Json
+      }
+      claim_founder_slot: {
+        Args: { p_country: string | null; p_kind: string | null }
+        Returns: boolean
+      }
+      claim_free_founder_seat: { Args: never; Returns: boolean }
+      clasificar_directorio: { Args: { p_forzar?: boolean }; Returns: number }
+      complete_onboarding: {
+        Args: {
+          p_country: string | null
+          p_full_name: string | null
+          p_municipality: string | null
+          p_provider_type: string | null
+          p_role: string | null
+          p_rules_version: string | null
+          p_school_grades?: string[] | null
+          p_state: string | null
+        }
+        Returns: boolean
+      }
+      compute_provider_level: { Args: { p_id: string }; Returns: string }
+      consume_referral_credit: { Args: { p_user: string }; Returns: undefined }
+      country_discount_pct: { Args: { p_country: string }; Returns: number }
+      course_visible: { Args: { p_course: string }; Returns: boolean }
+      cumple_requisitos: { Args: { p_id: string }; Returns: boolean }
+      cuota_cubierta: { Args: { p_id: string }; Returns: boolean }
+      daily_billing_report: {
+        Args: { p_date: string | null }
+        Returns: {
+          amount: number
+          currency: string
+          kind: string
+          paid_at: string
+          payer_name: string
+          payer_rfc: string
+        }[]
+      }
+      decrement_stock: { Args: { p_product_id: string }; Returns: undefined }
+      derivar_secciones_directorio: {
+        Args: { p_forzar?: boolean | null }
+        Returns: number
+      }
+      devengar_comision_membresia: {
+        Args: {
+          p_base_cents: number | null
+          p_currency: string | null
+          p_primer_pago?: boolean | null
+          p_referred: string | null
+          p_stripe_ref: string | null
+        }
+        Returns: Json
+      }
+      directorio_abierto_en: { Args: { p_pais: string }; Returns: boolean }
+      directorio_abre_en: { Args: { p_pais: string }; Returns: string }
+      directorio_invitacion_enviada: {
+        Args: { p_token: string | null }
+        Returns: boolean
+      }
+      directorio_invitacion_rebote: {
+        Args: { p_motivo?: string | null; p_token: string | null }
+        Returns: boolean
+      }
+      directorio_invitaciones_cola_tanda_v2: {
+        Args: { p_limit?: number | null; p_tanda: number | null }
+        Returns: {
+          affiliate_type: string
+          ciudad: string
+          correo: string
+          correo_personal: boolean
+          estado: string
+          moneda: string
+          nombre: string
+          orden: number
+          pais: string
+          precio_configurado: boolean
+          precio_fundador: number
+          precio_ordinario: number
+          provider_type: string
+          sector: string
+          token: string
+          ya_contactado_8sep: boolean
+        }[]
+      }
+      directorio_invitaciones_cola_v2: {
+        Args: { p_limit?: number | null }
+        Returns: {
+          ciudad: string
+          correo: string
+          correo_personal: boolean
+          estado: string
+          nombre: string
+          pais: string
+          provider_type: string
+          sector: string
+          token: string
+          ya_contactado_8sep: boolean
+        }[]
+      }
+      donor_provider_ids: {
+        Args: never
+        Returns: {
+          id: string
+        }[]
+      }
+      donor_wall: {
+        Args: never
+        Returns: {
+          display_name: string
+          featured: boolean
+          is_company: boolean
+          level: string
+          logo_url: string
+          note: string
+          since: string
+        }[]
+      }
+      emit_all_due_appointment_reminders: { Args: never; Returns: number }
+      emit_directory_grace_reminders: { Args: never; Returns: number }
+      emit_due_appointment_reminders: { Args: never; Returns: number }
+      emit_suspension_reminders: { Args: never; Returns: number }
+      empresa_con_oferta: { Args: { p_id: string }; Returns: boolean }
+      empresa_estado: { Args: { p_id: string }; Returns: Json }
+      estado_exencion: { Args: { p_id: string }; Returns: Json }
+      estado_publicacion: { Args: { p_id: string }; Returns: Json }
+      exento_de_cuota: {
+        Args: { p_provider_type: string | null; p_sector: string | null }
+        Returns: boolean
+      }
+      expire_membership_grace: { Args: never; Returns: undefined }
+      expire_stale_transactions: { Args: never; Returns: undefined }
+      ficha_affiliate_type: {
+        Args: { p_profession: string | null; p_provider_type: string | null }
+        Returns: string
+      }
+      ficha_contacto_visible: {
+        Args: { p_reclamada_por: string | null }
+        Returns: boolean
+      }
+      ficha_exenta: { Args: { p_id: string }; Returns: boolean }
+      ficha_pais_por_token: { Args: { p_token: string }; Returns: string }
+      ficha_por_token: {
+        Args: { p_token: string | null }
+        Returns: {
+          ciudad: string
+          correo: string
+          direccion: string
+          especializacion: string
+          estado: string
+          ficha_id: string
+          fuente: string
+          fuente_url: string
+          nombre: string
+          provider_type: string
+          sector: string
+          sitio_web: string
+          telefono: string
+        }[]
+      }
+      ficha_visible: { Args: { p_reclamada_por: string }; Returns: boolean }
+      founder_cap_for: {
+        Args: { p_country: string | null; p_kind: string | null }
+        Returns: number
+      }
+      founder_capacity: { Args: { p_kind: string }; Returns: number }
+      founder_count: { Args: never; Returns: number }
+      founder_cupo_usado: {
+        Args: { p_country: string | null; p_kind: string | null }
+        Returns: number
+      }
+      founder_disponible: {
+        Args: { p_country: string | null; p_type: string | null }
+        Returns: boolean
+      }
+      founder_eligible: { Args: { p_id: string }; Returns: boolean }
+      founder_kind_for: { Args: { p_id: string }; Returns: string }
+      founder_kind_para_tipo: { Args: { p_type: string }; Returns: string }
+      founder_provider_ids: {
+        Args: never
+        Returns: {
+          id: string
+        }[]
+      }
+      founders_wall: {
+        Args: { p_country?: string | null }
+        Returns: {
+          country: string
+          display_name: string
+          featured: boolean
+          is_company: boolean
+          kind: string
+          member_no: number
+        }[]
+      }
+      founders_wall_countries: {
+        Args: never
+        Returns: {
+          country: string
+          n: number
+        }[]
+      }
+      get_membership_quote: {
+        Args: { p_country: string | null; p_type: string | null }
+        Returns: {
+          amount: number
+          base_usd: number
+          currency: string
+        }[]
+      }
+      get_shared_list: { Args: { p_token: string }; Returns: Json }
+      grant_founder_seat: { Args: { p_id: string }; Returns: boolean }
+      grant_referral_credit: {
+        Args: { p_referred: string | null }
+        Returns: {
+          credit_pct: number
+          referrer_id: string
+          subscription_id: string
+        }[]
+      }
+      guardar_cuenta_de_cobro: {
+        Args: {
+          p_contacto?: string | null
+          p_contacto_tipo?: string | null
+          p_metodo: string | null
+          p_moneda?: string | null
+          p_notas?: string | null
+          p_pais?: string | null
+          p_titular?: string | null
+        }
+        Returns: {
+          actualizado_en: string
+          contacto: string | null
+          contacto_tipo: string | null
+          metodo: string
+          moneda: string | null
+          notas: string | null
+          pais: string | null
+          titular: string | null
+          user_id: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "payout_accounts"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      has_clinical_access: {
+        Args: { p_patient: string | null; p_viewer: string | null }
+        Returns: boolean
+      }
+      is_admin: { Args: never; Returns: boolean }
+      is_admin_or_advisor: { Args: never; Returns: boolean }
+      is_advisor: { Args: never; Returns: boolean }
+      is_consumer: { Args: { p_id: string }; Returns: boolean }
+      is_donor: { Args: { p_id: string }; Returns: boolean }
+      is_founder: { Args: { p_id: string }; Returns: boolean }
+      is_medical_profession: {
+        Args: { p_profession: string | null }
+        Returns: boolean
+      }
+      is_member_active: { Args: { p_id: string }; Returns: boolean }
+      is_parent: { Args: { p_id: string }; Returns: boolean }
+      is_provider: { Args: { p_id: string }; Returns: boolean }
+      is_tribe_active: { Args: { p_uid?: string }; Returns: boolean }
+      is_tribe_moderator: { Args: { p_uid?: string }; Returns: boolean }
+      join_launch_waitlist: {
+        Args: { p_country?: string | null; p_email: string | null }
+        Returns: undefined
+      }
+      limpiar_baja_de_membresia: { Args: { p_user: string }; Returns: boolean }
+      marcar_aviso_renovacion: {
+        Args: { p_etapa: string | null; p_periodo: string | null; p_user: string | null }
+        Returns: boolean
+      }
+      marcar_baja_de_membresia: { Args: { p_user: string }; Returns: boolean }
+      marcar_ficha_reclamada: {
+        Args: { p_perfil: string | null; p_token: string | null }
+        Returns: boolean
+      }
+      marcar_invitacion_abierta: {
+        Args: { p_token: string | null }
+        Returns: undefined
+      }
+      mark_commissions_paid: {
+        Args: { p_ids: string[] | null; p_note?: string | null }
+        Returns: Json
+      }
+      membership_discount: {
+        Args: { p_user: string | null }
+        Returns: {
+          referral_pct: number
+          referrer_pct: number
+          total_pct: number
+        }[]
+      }
+      membership_price_for: {
+        Args: {
+          p_class?: string | null
+          p_country: string | null
+          p_period?: string | null
+          p_type: string | null
+        }
+        Returns: {
+          amount: number
+          annual_amount: number
+          annual_list_amount: number
+          currency: string
+          is_override: boolean
+          list_amount: number
+          monthly_amount: number
+          zero_decimal: boolean
+        }[]
+      }
+      membership_promo: {
+        Args: { p_user: string | null }
+        Returns: {
+          amount_currency: string
+          amount_off: number
+          benefit: string
+          percent_off: number
+        }[]
+      }
+      message_threads: {
+        Args: never
+        Returns: {
+          last_at: string
+          last_body: string
+          other_avatar: string
+          other_id: string
+          other_member_no: number
+          other_name: string
+          unread: number
+        }[]
+      }
+      mi_cuenta_de_cobro: {
+        Args: never
+        Returns: {
+          actualizado_en: string
+          contacto: string | null
+          contacto_tipo: string | null
+          metodo: string
+          moneda: string | null
+          notas: string | null
+          pais: string | null
+          titular: string | null
+          user_id: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "payout_accounts"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      mi_membresia: {
+        Args: never
+        Returns: {
+          baja_solicitada_en: string
+          estado: string
+          exencion_vigente_hasta: string
+          exenta: boolean
+          periodicidad: string
+          tiene_suscripcion: boolean
+          vigente_hasta: string
+        }[]
+      }
+      mi_solicitud_fundador: { Args: never; Returns: Json }
+      mis_pagos: {
+        Args: never
+        Returns: {
+          concepto: string
+          currency: string
+          estado: string
+          fecha: string
+          monto_cents: number
+          referencia: string
+          tipo: string
+        }[]
+      }
+      my_badge_inputs: {
+        Args: never
+        Returns: {
+          avg_human_treatment: number
+          avg_professionalism: number
+          avg_quality: number
+          content_count: number
+          discount_pct: number
+          documental_verified: boolean
+          evs_score: number
+          provider_id: string
+          response_rate_pct: number
+          retention_pct: number
+          total_reviews: number
+        }[]
+      }
+      my_commissions_earned: {
+        Args: never
+        Returns: {
+          amount_cents: number
+          counterpart_id: string
+          counterpart_member_no: number
+          counterpart_name: string
+          created_at: string
+          currency: string
+          id: string
+          order_id: string
+          paid_at: string
+          paid_note: string
+          product_name: string
+          refund_after_payment: boolean
+          status: string
+        }[]
+      }
+      my_commissions_owed: {
+        Args: never
+        Returns: {
+          amount_cents: number
+          counterpart_id: string
+          counterpart_member_no: number
+          counterpart_name: string
+          created_at: string
+          currency: string
+          id: string
+          order_id: string
+          paid_at: string
+          paid_note: string
+          product_name: string
+          refund_after_payment: boolean
+          status: string
+        }[]
+      }
+      my_membership_discount: {
+        Args: never
+        Returns: {
+          referral_pct: number
+          referrer_pct: number
+          total_pct: number
+        }[]
+      }
+      my_membership_monthly_ordinary: {
+        Args: never
+        Returns: {
+          currency: string
+          monthly_amount: number
+        }[]
+      }
+      my_membership_options: {
+        Args: never
+        Returns: {
+          affiliate_type: string
+          annual_amount: number
+          annual_list_amount: number
+          currency: string
+          is_founder: boolean
+          member_class: string
+          monthly_amount: number
+          zero_decimal: boolean
+        }[]
+      }
+      my_membership_promo: {
+        Args: never
+        Returns: {
+          amount_currency: string
+          amount_off: number
+          benefit: string
+          percent_off: number
+        }[]
+      }
+      my_raffle_tickets: { Args: never; Returns: number }
+      my_referral_count: { Args: never; Returns: number }
+      my_referral_summary: {
+        Args: never
+        Returns: {
+          accrued_pct: number
+          max_pct: number
+          paying_uses: number
+          rewarded_uses: number
+          step_pct: number
+          total_uses: number
+          validity_days: number
+        }[]
+      }
+      my_waitlist: {
+        Args: never
+        Returns: {
+          created_at: string
+          id: string
+          note: string
+          patient_id: string
+          patient_member_no: number
+          patient_name: string
+          status: string
+        }[]
+      }
+      nm_compare_price: {
+        Args: { p_country: string | null }
+        Returns: {
+          currency: string
+          max_month: number
+          min_month: number
+        }[]
+      }
+      normalize_country: { Args: { p: string }; Returns: string }
+      notif_category: { Args: { p_type: string }; Returns: string }
+      notify_admins: {
+        Args: { p_body: string | null; p_data?: Json | null; p_title: string | null; p_type: string | null }
+        Returns: undefined
+      }
+      owns_course: { Args: { p_course: string }; Returns: boolean }
+      perfil_completo: { Args: { p_id: string }; Returns: boolean }
+      prescription_mark_ordered: { Args: { p_id: string }; Returns: undefined }
+      prescription_mark_viewed: { Args: { p_id: string }; Returns: undefined }
+      provider_metrics: {
+        Args: never
+        Returns: {
+          contacts_30d: number
+          contacts_total: number
+          views_30d: number
+          views_total: number
+        }[]
+      }
+      provider_search_text: {
+        Args: {
+          bio: string | null
+          business: string | null
+          full_name: string | null
+          pd: Json | null
+          profession: string | null
+        }
+        Returns: string
+      }
+      public_jobs: {
+        Args: { p_country?: string | null; p_type?: string | null }
+        Returns: {
+          apply_email: string
+          apply_url: string
+          city: string
+          company_id: string
+          company_name: string
+          country: string
+          created_at: string
+          education: string
+          experience: string
+          id: string
+          note: string
+          opportunity_type: string
+          positions: number
+          salary_text: string
+          skills: string
+          title: string
+        }[]
+      }
+      public_jobs_countries: {
+        Args: never
+        Returns: {
+          country: string
+          n: number
+        }[]
+      }
+      publicar_por_pago: { Args: { p_id: string }; Returns: boolean }
+      publicar_si_procede: { Args: { p_id: string }; Returns: boolean }
+      puede_publicar: { Args: { p_id: string }; Returns: boolean }
+      purge_expired_suspensions: { Args: never; Returns: number }
+      purge_lapsed_founders: { Args: never; Returns: number }
+      reactivate_my_account: { Args: never; Returns: undefined }
+      recommend_blog: {
+        Args: { p_limit?: number | null }
+        Returns: {
+          author_avatar: string | null
+          author_business: string | null
+          author_id: string | null
+          author_name: string | null
+          avg_stars: number | null
+          body: string | null
+          cover_url: string | null
+          created_at: string | null
+          excerpt: string | null
+          external_url: string | null
+          id: string | null
+          keywords: string[] | null
+          ratings_count: number | null
+          title: string | null
+          topic: string | null
+          type: string | null
+          updated_at: string | null
+          views_count: number | null
+        }[]
+        SetofOptions: {
+          from: "*"
+          to: "blog_feed"
+          isOneToOne: false
+          isSetofReturn: true
+        }
+      }
+      record_alliance_credit: {
+        Args: {
+          p_amount?: number | null
+          p_code: string | null
+          p_currency?: string | null
+          p_user_id: string | null
+        }
+        Returns: undefined
+      }
+      redeem_promo_code: { Args: { p_code: string }; Returns: Json }
+      refresh_all_badges: { Args: never; Returns: number }
+      refresh_provider_badge: { Args: { p_id: string }; Returns: string }
+      registrar_pago_de_membresia: {
+        Args: {
+          p_amount_cents: number | null
+          p_concepto?: string | null
+          p_currency: string | null
+          p_member_class?: string | null
+          p_paid_until?: string | null
+          p_period?: string | null
+          p_stripe_ref: string | null
+          p_user: string | null
+        }
+        Returns: boolean
+      }
+      registrar_pregunta_experto: {
+        Args: {
+          p_categoria?: string | null
+          p_correo?: string | null
+          p_nombre?: string | null
+          p_pais?: string | null
+          p_pregunta: string | null
+        }
+        Returns: Json
+      }
+      registrar_renovacion_terapia: {
+        Args: {
+          p_amount_cents: number | null
+          p_currency: string | null
+          p_invoice: string | null
+          p_payer: string | null
+          p_provider: string | null
+          p_subscription?: string | null
+        }
+        Returns: boolean
+      }
+      registration_quote: {
+        Args: { p_country: string | null; p_type: string | null }
+        Returns: Json
+      }
+      reglamento_vigente: { Args: never; Returns: string }
+      renovaciones_por_avisar: {
+        Args: { p_dias?: number | null }
+        Returns: {
+          correo: string
+          currency: string
+          etapa: string
+          monto_cents: number
+          nombre: string
+          periodo: string
+          renueva_el: string
+          user_id: string
+        }[]
+      }
+      renovar_invitaciones_por_vencer: { Args: never; Returns: number }
+      request_appointment: {
+        Args: {
+          p_charge_currency?: string | null
+          p_charge_percent?: number | null
+          p_charge_total?: number | null
+          p_ends?: string | null
+          p_location?: string | null
+          p_mode?: string | null
+          p_note?: string | null
+          p_online_url?: string | null
+          p_recipient_member_no: number | null
+          p_starts: string | null
+          p_title: string | null
+        }
+        Returns: Json
+      }
+      request_booking: {
+        Args: {
+          p_contact: string | null
+          p_name: string | null
+          p_note?: string | null
+          p_preferred?: string | null
+          p_provider_member_no: number | null
+        }
+        Returns: Json
+      }
+      resolve_affiliate: {
+        Args: { p_code: string | null }
+        Returns: {
+          commission_pct: number
+          provider_id: string
+        }[]
+      }
+      resolve_parent_by_qr: {
+        Args: { p_id: string | null; p_token: string | null }
+        Returns: {
+          full_name: string
+          id: string
+          member_no: number
+          role: string
+          suspended: boolean
+        }[]
+      }
+      respond_appointment: {
+        Args: { p_accept: boolean | null; p_reason?: string | null; p_request: string | null }
+        Returns: Json
+      }
+      respond_review: {
+        Args: { p_survey_id: string | null; p_text: string | null }
+        Returns: Json
+      }
+      revertir_pago_de_membresia: {
+        Args: { p_stripe_ref: string | null }
+        Returns: boolean
+      }
+      revertir_ultimo_pago_de_membresia: {
+        Args: { p_user: string | null }
+        Returns: boolean
+      }
+      search_all: {
+        Args: { q: string | null }
+        Returns: {
+          id: string
+          kind: string
+          subtitle: string
+          title: string
+          url: string
+        }[]
+      }
+      search_contacts: {
+        Args: { p_query: string | null }
+        Returns: {
+          avatar_url: string
+          business_name: string
+          country: string
+          full_name: string
+          member_no: number
+          role: string
+        }[]
+      }
+      search_members: {
+        Args: { p_query: string | null }
+        Returns: {
+          avatar_url: string
+          business_name: string
+          full_name: string
+          member_no: number
+          role: string
+        }[]
+      }
+      search_patients: {
+        Args: { p_query: string | null }
+        Returns: {
+          avatar_url: string
+          full_name: string
+          member_no: number
+          relation: string
+        }[]
+      }
+      secure_file_key_for_me: { Args: { p_file: string }; Returns: boolean }
+      secure_file_owned_by_me: { Args: { p_file: string }; Returns: boolean }
+      send_message: {
+        Args: { p_body: string | null; p_recipient_member_no: number | null }
+        Returns: Json
+      }
+      set_founder_optout: { Args: { p_optout: boolean }; Returns: boolean }
+      set_membership_active: {
+        Args: {
+          p_customer: string | null
+          p_paid_until: string | null
+          p_subscription: string | null
+          p_user: string | null
+        }
+        Returns: undefined
+      }
+      set_referrer: { Args: { p_member_no: number }; Returns: Json }
+      sin_acentos: { Args: { p_texto: string }; Returns: string }
+      solicitar_baja_ficha: {
+        Args: { p_motivo?: string | null; p_token: string | null }
+        Returns: boolean
+      }
+      solicitar_cuota_fundador: { Args: { p_nota?: string }; Returns: Json }
+      solicitar_exencion: {
+        Args: { p_documento: string | null; p_folio: string | null; p_tipo: string | null }
+        Returns: boolean
+      }
+      submit_catalog_suggestion: {
+        Args: {
+          p_country?: string | null
+          p_email?: string | null
+          p_kind: string | null
+          p_name: string | null
+          p_note?: string | null
+          p_page?: string | null
+          p_section?: string | null
+        }
+        Returns: undefined
+      }
+      submit_improvement: {
+        Args: { p_email?: string | null; p_message: string | null; p_page?: string | null }
+        Returns: undefined
+      }
+      submit_org_document: {
+        Args: { p_kind: string | null; p_url: string | null }
+        Returns: boolean
+      }
+      submit_provider_review: {
+        Args: {
+          p_accessibility: number | null
+          p_anonymous?: boolean | null
+          p_comment?: string | null
+          p_facilities?: number | null
+          p_flexibility: number | null
+          p_human: number | null
+          p_offer: number | null
+          p_price: number | null
+          p_professionalism?: number | null
+          p_provider: string | null
+          p_quality: number | null
+          p_sensory: number | null
+        }
+        Returns: undefined
+      }
+      survey_results: { Args: never; Returns: Json }
+      suspend_my_account: { Args: never; Returns: string }
+      track_profile_event: {
+        Args: { p_kind: string | null; p_provider_id: string | null }
+        Returns: undefined
+      }
+      tribe_am_i_forum_moderator: {
+        Args: { p_forum: string | null }
+        Returns: boolean
+      }
+      tribe_apply_forum_moderator: {
+        Args: { p_forum: string | null }
+        Returns: undefined
+      }
+      tribe_apply_moderator: {
+        Args: { p_accept: boolean | null; p_justification: string | null }
+        Returns: undefined
+      }
+      tribe_badge_points: { Args: { p_badge: string }; Returns: number }
+      tribe_become_mentor: {
+        Args: { p_bio: string | null; p_section?: string | null; p_tracks: string[] | null }
+        Returns: undefined
+      }
+      tribe_cancel_event: { Args: { p_event: string }; Returns: undefined }
+      tribe_close_forum: { Args: { p_forum: string }; Returns: undefined }
+      tribe_create_event: {
+        Args: {
+          p_city: string | null
+          p_country: string | null
+          p_description: string | null
+          p_is_online: boolean | null
+          p_location: string | null
+          p_noise: string | null
+          p_quiet_room: boolean | null
+          p_section?: string | null
+          p_sensory_tips: string | null
+          p_starts_at: string | null
+          p_title: string | null
+        }
+        Returns: string
+      }
+      tribe_create_forum: {
+        Args: {
+          p_apply_moderator?: boolean | null
+          p_city: string | null
+          p_country: string | null
+          p_description: string | null
+          p_language: string | null
+          p_notify_countries: string[] | null
+          p_section?: string | null
+          p_theme: string | null
+          p_title: string | null
+        }
+        Returns: string
+      }
+      tribe_delete_message: { Args: { p_msg: string }; Returns: undefined }
+      tribe_event_rsvp: {
+        Args: { p_event: string | null; p_going: boolean | null }
+        Returns: undefined
+      }
+      tribe_event_sensory_report: {
+        Args: {
+          p_comfort: number | null
+          p_event: string | null
+          p_noise: number | null
+          p_notes: string | null
+          p_quiet_used: boolean | null
+        }
+        Returns: undefined
+      }
+      tribe_events_list: {
+        Args: { p_country?: string | null; p_section?: string | null }
+        Returns: {
+          city: string
+          country: string
+          creator_name: string
+          description: string
+          going: number
+          i_going: boolean
+          i_reported: boolean
+          id: string
+          is_online: boolean
+          is_past: boolean
+          location: string
+          noise: string
+          quiet_room: boolean
+          section: string
+          sensory_tips: string
+          starts_at: string
+          title: string
+        }[]
+      }
+      tribe_forum_call_moderators: {
+        Args: { p_forum: string | null }
+        Returns: undefined
+      }
+      tribe_forum_messages: {
+        Args: { p_forum: string | null }
+        Returns: {
+          author_energy: string
+          author_id: string
+          author_is_mod: boolean
+          author_name: string
+          body: string
+          created_at: string
+          id: string
+        }[]
+      }
+      tribe_forum_prefs_get: {
+        Args: never
+        Returns: {
+          countries: string[]
+          push_enabled: boolean
+        }[]
+      }
+      tribe_forum_prefs_set: {
+        Args: { p_countries: string[] | null; p_push: boolean | null }
+        Returns: undefined
+      }
+      tribe_forums_list: {
+        Args: {
+          p_country?: string | null
+          p_language?: string | null
+          p_query?: string | null
+          p_section?: string | null
+          p_theme?: string | null
+        }
+        Returns: {
+          city: string
+          country: string
+          created_at: string
+          description: string
+          i_member: boolean
+          id: string
+          language: string
+          members: number
+          section: string
+          theme: string
+          title: string
+        }[]
+      }
+      tribe_give_gratitude: {
+        Args: {
+          p_anonymous?: boolean | null
+          p_badge: string | null
+          p_forum?: string | null
+          p_receiver: string | null
+        }
+        Returns: number
+      }
+      tribe_impact: {
+        Args: { p_user: string | null }
+        Returns: {
+          badge_key: string
+          n: number
+          points: number
+          silent: boolean
+        }[]
+      }
+      tribe_invite: {
+        Args: { p_forum: string | null; p_member_no: number | null }
+        Returns: undefined
+      }
+      tribe_mentor_messages_list: {
+        Args: { p_mentorship: string | null }
+        Returns: {
+          author_id: string
+          author_name: string
+          body: string
+          created_at: string
+          id: string
+        }[]
+      }
+      tribe_mentors_list: {
+        Args: { p_section?: string | null; p_track?: string | null }
+        Returns: {
+          bio: string
+          my_status: string
+          name: string
+          section: string
+          tracks: string[]
+          user_id: string
+        }[]
+      }
+      tribe_moderator_profile: {
+        Args: { p_moderator: string | null }
+        Returns: {
+          availability: number
+          cordiality: number
+          empathy: number
+          inclusive_language: number
+          knowledge: number
+          n_ratings: number
+          points: number
+        }[]
+      }
+      tribe_moderators_list: {
+        Args: never
+        Returns: {
+          avg_rating: number
+          i_rated: boolean
+          n_ratings: number
+          name: string
+          points: number
+          user_id: string
+        }[]
+      }
+      tribe_my_invites: {
+        Args: never
+        Returns: {
+          created_at: string
+          forum_id: string
+          forum_title: string
+          id: string
+          inviter_name: string
+        }[]
+      }
+      tribe_my_mentor: {
+        Args: never
+        Returns: {
+          bio: string
+          is_active: boolean
+          section: string
+          tracks: string[]
+        }[]
+      }
+      tribe_my_mentorships: {
+        Args: never
+        Returns: {
+          counterpart_name: string
+          created_at: string
+          id: string
+          role: string
+          status: string
+          track: string
+        }[]
+      }
+      tribe_my_moderator: {
+        Args: never
+        Returns: {
+          justification: string
+          points: number
+          status: string
+        }[]
+      }
+      tribe_rate_moderator: {
+        Args: {
+          p_anonymous?: boolean | null
+          p_availability: number | null
+          p_comment?: string | null
+          p_cordiality: number | null
+          p_empathy: number | null
+          p_inclusive: number | null
+          p_knowledge: number | null
+          p_moderator: string | null
+        }
+        Returns: undefined
+      }
+      tribe_request_mentor: {
+        Args: { p_mentor: string | null; p_track: string | null }
+        Returns: undefined
+      }
+      tribe_respond_invite: {
+        Args: { p_accept: boolean | null; p_invite: string | null }
+        Returns: undefined
+      }
+      tribe_respond_mentorship: {
+        Args: { p_accept: boolean | null; p_id: string | null }
+        Returns: undefined
+      }
+      tribe_set_mentor_active: {
+        Args: { p_active: boolean | null }
+        Returns: undefined
+      }
+      tribe_set_silent: { Args: { p_silent: boolean }; Returns: undefined }
+      tribe_tokens_left: { Args: never; Returns: number }
+      type_badge_providers: {
+        Args: never
+        Returns: {
+          id: string
+          is_inclusive_company: boolean
+          is_inclusive_school: boolean
+          is_institutional_ally: boolean
+        }[]
+      }
+      umbral_liquidacion_cents: {
+        Args: { p_currency: string | null }
+        Returns: number
+      }
+      verificacion_deadline: { Args: never; Returns: string }
+      verify_ally: {
+        Args: { p_id: string | null }
+        Returns: {
+          countries: string[]
+          found: boolean
+          name: string
+          vigente: boolean
+          website: string
+        }[]
+      }
+      verify_badge: {
+        Args: { p_folio: string | null }
+        Returns: {
+          country: string
+          found: boolean
+          is_company: boolean
+          is_founder: boolean
+          kind: string
+          member_no: number
+          name: string
+          neuroaffirming: boolean
+          vigente: boolean
+        }[]
+      }
+      waitlist_add: {
+        Args: { p_note?: string | null; p_patient_member_no: number | null }
+        Returns: Json
+      }
+      waitlist_join: {
+        Args: { p_note?: string | null; p_provider_member_no: number | null }
+        Returns: Json
+      }
+      waitlist_notify_slot: { Args: { p_message?: string }; Returns: Json }
+      waitlist_set_status: {
+        Args: { p_id: string | null; p_status: string | null }
+        Returns: Json
+      }
+    }
+    Enums: {
+      prescription_status: "draft" | "sent" | "viewed" | "ordered" | "archived"
+    }
+    CompositeTypes: {
+      [_ in never]: never
+    }
+  }
+}
+
+type DatabaseWithoutInternals = Omit<Database, "__InternalSupabase">
+
+type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, "public">]
+
+export type Tables<
+  DefaultSchemaTableNameOrOptions extends
+    | keyof (DefaultSchema["Tables"] & DefaultSchema["Views"])
+    | { schema: keyof DatabaseWithoutInternals },
+  TableName extends (DefaultSchemaTableNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals
+  }
+    ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
+        DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
+    : never) = never,
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
+      DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])[TableName] extends {
+      Row: infer R
+    }
+    ? R
+    : never
+  : DefaultSchemaTableNameOrOptions extends keyof (DefaultSchema["Tables"] &
+        DefaultSchema["Views"])
+    ? (DefaultSchema["Tables"] &
+        DefaultSchema["Views"])[DefaultSchemaTableNameOrOptions] extends {
+        Row: infer R
+      }
+      ? R
+      : never
+    : never
+
+export type TablesInsert<
+  DefaultSchemaTableNameOrOptions extends
+    | keyof DefaultSchema["Tables"]
+    | { schema: keyof DatabaseWithoutInternals },
+  TableName extends (DefaultSchemaTableNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals
+  }
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
+    : never) = never,
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+      Insert: infer I
+    }
+    ? I
+    : never
+  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
+    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
+        Insert: infer I
+      }
+      ? I
+      : never
+    : never
+
+export type TablesUpdate<
+  DefaultSchemaTableNameOrOptions extends
+    | keyof DefaultSchema["Tables"]
+    | { schema: keyof DatabaseWithoutInternals },
+  TableName extends (DefaultSchemaTableNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals
+  }
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
+    : never) = never,
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+      Update: infer U
+    }
+    ? U
+    : never
+  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
+    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
+        Update: infer U
+      }
+      ? U
+      : never
+    : never
+
+export type Enums<
+  DefaultSchemaEnumNameOrOptions extends
+    | keyof DefaultSchema["Enums"]
+    | { schema: keyof DatabaseWithoutInternals },
+  EnumName extends (DefaultSchemaEnumNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals
+  }
+    ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
+    : never) = never,
+> = DefaultSchemaEnumNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"][EnumName]
+  : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema["Enums"]
+    ? DefaultSchema["Enums"][DefaultSchemaEnumNameOrOptions]
+    : never
+
+export type CompositeTypes<
+  PublicCompositeTypeNameOrOptions extends
+    | keyof DefaultSchema["CompositeTypes"]
+    | { schema: keyof DatabaseWithoutInternals },
+  CompositeTypeName extends (PublicCompositeTypeNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals
+  }
+    ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
+    : never) = never,
+> = PublicCompositeTypeNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
+  : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema["CompositeTypes"]
+    ? DefaultSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
+    : never
+
+export const Constants = {
+  public: {
+    Enums: {
+      prescription_status: ["draft", "sent", "viewed", "ordered", "archived"],
+    },
+  },
+} as const
+
+// ── Añadido por scripts/arreglar-tipos.mjs ─────────────────────────────────
+// El generador no emite estas uniones ni el ayudante Views<>, y el proyecto
+// las importa desde aquí desde antes de que los tipos se generaran.
 export type UserRole = 'patient' | 'parent' | 'provider' | 'admin';
-export type ProviderType = 'service_provider' | 'merchant' | 'school' | 'clinic' | 'wellness' | 'tourism' | 'legal' | 'ngo' | 'caregiver' | 'company';
+export type ProviderType =
+  | 'service_provider' | 'merchant' | 'school' | 'clinic' | 'wellness'
+  | 'tourism' | 'legal' | 'ngo' | 'caregiver' | 'company';
 export type TransactionStatus = 'pending' | 'completed' | 'expired' | 'disputed';
 export type OfferStatus = 'active' | 'paused' | 'expired' | 'draft';
 export type DiscountType = 'percentage' | 'fixed' | 'freebie';
 export type PrescriptionStatus = 'draft' | 'sent' | 'viewed' | 'ordered' | 'archived';
 
-export interface Database {
-  public: {
-    Tables: {
-      calendar_entries: {
-        Row: { id: string; user_id: string; title: string; description: string | null; starts_at: string; ends_at: string | null; location: string | null; online_url: string | null; kind: string; source_event_id: string | null; color: string | null; created_at: string };
-        Insert: { id?: string; user_id: string; title: string; description?: string | null; starts_at: string; ends_at?: string | null; location?: string | null; online_url?: string | null; kind?: string; source_event_id?: string | null; color?: string | null; created_at?: string };
-        Update: { id?: string; user_id?: string; title?: string; description?: string | null; starts_at?: string; ends_at?: string | null; location?: string | null; online_url?: string | null; kind?: string; source_event_id?: string | null; color?: string | null; created_at?: string };
-        Relationships: [];
-      };
-      events: {
-        Row: { id: string; title: string; description: string | null; category: string | null; is_online: boolean; online_url: string | null; country: string | null; city: string | null; venue: string | null; starts_at: string; ends_at: string | null; cover_url: string | null; created_by: string | null; is_published: boolean; created_at: string; updated_at: string };
-        Insert: { id?: string; title: string; description?: string | null; category?: string | null; is_online?: boolean; online_url?: string | null; country?: string | null; city?: string | null; venue?: string | null; starts_at: string; ends_at?: string | null; cover_url?: string | null; created_by?: string | null; is_published?: boolean; created_at?: string; updated_at?: string };
-        Update: { id?: string; title?: string; description?: string | null; category?: string | null; is_online?: boolean; online_url?: string | null; country?: string | null; city?: string | null; venue?: string | null; starts_at?: string; ends_at?: string | null; cover_url?: string | null; created_by?: string | null; is_published?: boolean; created_at?: string; updated_at?: string };
-        Relationships: [];
-      };
-      product_reviews: {
-        Row: { id: string; product_id: string; reviewer_id: string; rating: number; comment: string | null; created_at: string; updated_at: string };
-        Insert: { id?: string; product_id: string; reviewer_id: string; rating: number; comment?: string | null; created_at?: string; updated_at?: string };
-        Update: { id?: string; product_id?: string; reviewer_id?: string; rating?: number; comment?: string | null; created_at?: string; updated_at?: string };
-        Relationships: [];
-      };
-      booking_requests: {
-        Row: { id: string; provider_id: string; name: string; contact: string; preferred: string | null; note: string | null; status: string; created_at: string };
-        Insert: { id?: string; provider_id: string; name: string; contact: string; preferred?: string | null; note?: string | null; status?: string; created_at?: string };
-        Update: { id?: string; provider_id?: string; name?: string; contact?: string; preferred?: string | null; note?: string | null; status?: string; created_at?: string };
-        Relationships: [];
-      };
-      appointment_requests: {
-        Row: { id: string; specialist_id: string; recipient_id: string; title: string; starts_at: string; ends_at: string | null; location: string | null; online_url: string | null; note: string | null; status: string; rejection_reason: string | null; calendar_entry_id: string | null; reminded_at: string | null; responded_at: string | null; created_at: string; updated_at: string; mode: string; charge_total: number | null; charge_percent: number; charge_currency: string | null; payment_status: string; email_reminded_at: string | null };
-        Insert: { id?: string; specialist_id: string; recipient_id: string; title: string; starts_at: string; ends_at?: string | null; location?: string | null; online_url?: string | null; note?: string | null; status?: string; rejection_reason?: string | null; calendar_entry_id?: string | null; reminded_at?: string | null; responded_at?: string | null; created_at?: string; updated_at?: string; mode?: string; charge_total?: number | null; charge_percent?: number; charge_currency?: string | null; payment_status?: string; email_reminded_at?: string | null };
-        Update: { id?: string; specialist_id?: string; recipient_id?: string; title?: string; starts_at?: string; ends_at?: string | null; location?: string | null; online_url?: string | null; note?: string | null; status?: string; rejection_reason?: string | null; calendar_entry_id?: string | null; reminded_at?: string | null; responded_at?: string | null; created_at?: string; updated_at?: string; mode?: string; charge_total?: number | null; charge_percent?: number; charge_currency?: string | null; payment_status?: string; email_reminded_at?: string | null };
-        Relationships: [];
-      };
-      admin_messages: {
-        Row: { id: string; sender_id: string | null; title: string | null; body: string; audience: string; recipient_id: string | null; recipient_count: number; created_at: string };
-        Insert: { id?: string; sender_id?: string | null; title?: string | null; body: string; audience: string; recipient_id?: string | null; recipient_count?: number; created_at?: string };
-        Update: { id?: string; sender_id?: string | null; title?: string | null; body?: string; audience?: string; recipient_id?: string | null; recipient_count?: number; created_at?: string };
-        Relationships: [];
-      };
-      profiles: {
-        Row: {
-          id: string;
-          role: UserRole;
-          full_name: string;
-          avatar_url: string | null;
-          phone: string | null;
-          bio: string | null;
-          qr_token: string;
-          provider_type: ProviderType | null;
-          business_name: string | null;
-          website_url: string | null;
-          address: string | null;
-          city: string | null;
-          country: string | null;
-          is_verified: boolean;
-          is_published: boolean;
-          is_advisor: boolean;
-          neuroaffirming: boolean;
-          is_inclusive_school: boolean;
-          is_inclusive_company: boolean;
-          is_institutional_ally: boolean;
-          accepts_neuromundi_id: boolean;
-          latitude: number | null;
-          longitude: number | null;
-          birth_date: string | null;
-          gender: string | null;
-          condition: string | null;
-          state: string | null;
-          municipality: string | null;
-          is_company: boolean;
-          services_offered: string | null;
-          membership_status: string;
-          membership_due_at: string | null;
-          membership_paid_until: string | null;
-          stripe_customer_id: string | null;
-          stripe_subscription_id: string | null;
-          promo_code_used: string | null;
-          dial_code: string | null;
-          website: string | null;
-          instagram: string | null;
-          tiktok: string | null;
-          facebook: string | null;
-          cedula_profesional: string | null;
-          rules_version_accepted: string | null;
-          rules_accepted_at: string | null;
-          stripe_connect_id: string | null;
-          stripe_charges_enabled: boolean;
-          accepts_payments: boolean;
-          consultation_amount: number | null;
-          consultation_currency: string | null;
-          rfc: string | null;
-          public_key: string | null;
-          fiscal_razon_social: string | null;
-          fiscal_regimen: string | null;
-          fiscal_uso_cfdi: string | null;
-          fiscal_cp: string | null;
-          fiscal_direccion: string | null;
-          fiscal_email: string | null;
-          fiscal_tax_id: string | null;
-          fiscal_country: string | null;
-          school_grades: string[];
-          account_type: string | null;
-          life_stage: string | null;
-          interests: string[] | null;
-          comms_opt_in: boolean | null;
-          title_prefix: string | null;
-          profession: string | null;
-          whatsapp: string | null;
-          booking_url: string | null;
-          linkedin: string | null;
-          specialties: string[] | null;
-          modalities: string[] | null;
-          age_ranges: string[] | null;
-          intervention_areas: string[] | null;
-          sections: string[];
-          neuro_conditions: string[];
-          year_started: number | null;
-          certified_staff: boolean | null;
-          product_categories: string[] | null;
-          products_offered: string[] | null;
-          sales_channels: string[] | null;
-          shipping_coverage: string[] | null;
-          price_range: string | null;
-          provider_details: Record<string, unknown> | null;
-          member_no: number | null;
-          referred_by: number | null;
-          referred_at: string | null;
-          referral_credit_pct: number;
-          wants_founder: boolean;
-          suspended_at: string | null;
-          suspend_until: string | null;
-          pre_suspend_published: boolean | null;
-          winback_until: string | null;
-          org_doc_url: string | null;
-          org_doc_kind: string | null;
-          org_doc_status: string | null;
-          org_doc_note: string | null;
-          org_doc_submitted_at: string | null;
-          org_doc_reviewed_at: string | null;
-          created_at: string;
-          updated_at: string;
-        };
-        Insert: {
-          id: string;
-          role?: UserRole;
-          full_name: string;
-          avatar_url?: string | null;
-          phone?: string | null;
-          bio?: string | null;
-          qr_token?: string;
-          provider_type?: ProviderType | null;
-          business_name?: string | null;
-          website_url?: string | null;
-          address?: string | null;
-          city?: string | null;
-          country?: string | null;
-          is_verified?: boolean;
-          is_published?: boolean;
-          neuroaffirming?: boolean;
-          is_inclusive_school?: boolean;
-          is_inclusive_company?: boolean;
-          is_institutional_ally?: boolean;
-          accepts_neuromundi_id?: boolean;
-          latitude?: number | null;
-          longitude?: number | null;
-          birth_date?: string | null;
-          gender?: string | null;
-          condition?: string | null;
-          state?: string | null;
-          municipality?: string | null;
-          is_company?: boolean;
-          services_offered?: string | null;
-          membership_status?: string;
-          membership_due_at?: string | null;
-          membership_paid_until?: string | null;
-          stripe_customer_id?: string | null;
-          stripe_subscription_id?: string | null;
-          promo_code_used?: string | null;
-          dial_code?: string | null;
-          website?: string | null;
-          instagram?: string | null;
-          tiktok?: string | null;
-          facebook?: string | null;
-          cedula_profesional?: string | null;
-          rules_version_accepted?: string | null;
-          rules_accepted_at?: string | null;
-          stripe_connect_id?: string | null;
-          stripe_charges_enabled?: boolean;
-          accepts_payments?: boolean;
-          consultation_amount?: number | null;
-          consultation_currency?: string | null;
-          rfc?: string | null;
-          public_key?: string | null;
-          fiscal_razon_social?: string | null;
-          fiscal_regimen?: string | null;
-          fiscal_uso_cfdi?: string | null;
-          fiscal_cp?: string | null;
-          fiscal_direccion?: string | null;
-          fiscal_email?: string | null;
-          fiscal_tax_id?: string | null;
-          fiscal_country?: string | null;
-          school_grades?: string[];
-          account_type?: string | null;
-          life_stage?: string | null;
-          interests?: string[] | null;
-          comms_opt_in?: boolean | null;
-          title_prefix?: string | null;
-          profession?: string | null;
-          whatsapp?: string | null;
-          booking_url?: string | null;
-          linkedin?: string | null;
-          specialties?: string[] | null;
-          modalities?: string[] | null;
-          age_ranges?: string[] | null;
-          intervention_areas?: string[] | null;
-          sections?: string[];
-          neuro_conditions?: string[];
-          year_started?: number | null;
-          certified_staff?: boolean | null;
-          product_categories?: string[] | null;
-          products_offered?: string[] | null;
-          sales_channels?: string[] | null;
-          shipping_coverage?: string[] | null;
-          price_range?: string | null;
-          provider_details?: Record<string, unknown> | null;
-          member_no?: number | null;
-          referred_by?: number | null;
-          referred_at?: string | null;
-          referral_credit_pct?: number;
-          wants_founder?: boolean;
-          created_at?: string;
-          updated_at?: string;
-        };
-        Update: Partial<Database['public']['Tables']['profiles']['Insert']>;
-        Relationships: [];
-      };
-
-      categories: {
-        Row: {
-          id: number;
-          slug: string;
-          name: string;
-          icon_name: string | null;
-          color_hex: string | null;
-          sort_order: number;
-          created_at: string;
-        };
-        Insert: {
-          id?: number;
-          slug: string;
-          name: string;
-          icon_name?: string | null;
-          color_hex?: string | null;
-          sort_order?: number;
-          created_at?: string;
-        };
-        Update: Partial<Database['public']['Tables']['categories']['Insert']>;
-        Relationships: [];
-      };
-
-      provider_categories: {
-        Row: {
-          provider_id: string;
-          category_id: number;
-        };
-        Insert: {
-          provider_id: string;
-          category_id: number;
-        };
-        Update: Partial<Database['public']['Tables']['provider_categories']['Insert']>;
-        Relationships: [
-          {
-            foreignKeyName: 'provider_categories_provider_id_fkey';
-            columns: ['provider_id'];
-            referencedRelation: 'profiles';
-            referencedColumns: ['id'];
-          },
-          {
-            foreignKeyName: 'provider_categories_category_id_fkey';
-            columns: ['category_id'];
-            referencedRelation: 'categories';
-            referencedColumns: ['id'];
-          },
-        ];
-      };
-
-      offers: {
-        Row: {
-          id: string;
-          provider_id: string;
-          title: string;
-          description: string | null;
-          discount_type: DiscountType;
-          discount_value: number | null;
-          terms: string | null;
-          valid_from: string | null;
-          valid_until: string | null;
-          max_redemptions: number | null;
-          redemptions_count: number;
-          status: OfferStatus;
-          created_at: string;
-          updated_at: string;
-        };
-        Insert: {
-          id?: string;
-          provider_id: string;
-          title: string;
-          description?: string | null;
-          discount_type: DiscountType;
-          discount_value?: number | null;
-          terms?: string | null;
-          valid_from?: string | null;
-          valid_until?: string | null;
-          max_redemptions?: number | null;
-          redemptions_count?: number;
-          status?: OfferStatus;
-          created_at?: string;
-          updated_at?: string;
-        };
-        Update: Partial<Database['public']['Tables']['offers']['Insert']>;
-        Relationships: [
-          {
-            foreignKeyName: 'offers_provider_id_fkey';
-            columns: ['provider_id'];
-            referencedRelation: 'profiles';
-            referencedColumns: ['id'];
-          },
-        ];
-      };
-
-      discount_transactions: {
-        Row: {
-          id: string;
-          offer_id: string;
-          provider_id: string;
-          parent_id: string;
-          status: TransactionStatus;
-          scanned_by: string | null;
-          scanned_at: string | null;
-          completed_at: string | null;
-          expires_at: string;
-          created_at: string;
-        };
-        Insert: {
-          id?: string;
-          offer_id: string;
-          provider_id: string;
-          parent_id: string;
-          status?: TransactionStatus;
-          scanned_by?: string | null;
-          scanned_at?: string | null;
-          completed_at?: string | null;
-          expires_at?: string;
-          created_at?: string;
-        };
-        Update: Partial<Database['public']['Tables']['discount_transactions']['Insert']>;
-        Relationships: [
-          {
-            foreignKeyName: 'discount_transactions_offer_id_fkey';
-            columns: ['offer_id'];
-            referencedRelation: 'offers';
-            referencedColumns: ['id'];
-          },
-          {
-            foreignKeyName: 'discount_transactions_parent_id_fkey';
-            columns: ['parent_id'];
-            referencedRelation: 'profiles';
-            referencedColumns: ['id'];
-          },
-        ];
-      };
-
-      satisfaction_surveys: {
-        Row: {
-          id: string;
-          transaction_id: string;
-          parent_id: string;
-          provider_id: string;
-          quality_score: number;
-          human_treatment_score: number;
-          accessibility_score: number;
-          price_value_score: number;
-          offer_compliance_score: number;
-          sensory_adaptation_score: number;
-          flexibility_crisis_score: number;
-          facilities_score: number | null;
-          professionalism_score: number | null;
-          comments: string | null;
-          is_anonymous: boolean;
-          created_at: string;
-        };
-        Insert: {
-          id?: string;
-          transaction_id: string;
-          parent_id: string;
-          provider_id: string;
-          quality_score: number;
-          human_treatment_score: number;
-          accessibility_score: number;
-          price_value_score: number;
-          offer_compliance_score: number;
-          sensory_adaptation_score: number;
-          flexibility_crisis_score: number;
-          facilities_score?: number | null;
-          professionalism_score?: number | null;
-          comments?: string | null;
-          is_anonymous?: boolean;
-          created_at?: string;
-        };
-        // Las encuestas son inmutables: no se exponen updates en la app.
-        Update: never;
-        Relationships: [
-          {
-            foreignKeyName: 'satisfaction_surveys_transaction_id_fkey';
-            columns: ['transaction_id'];
-            referencedRelation: 'discount_transactions';
-            referencedColumns: ['id'];
-          },
-        ];
-      };
-
-      products: {
-        Row: {
-          id: string;
-          vendor_id: string;
-          category_id: number | null;
-          name: string;
-          description: string | null;
-          price: number | null;
-          currency: string;
-          image_url: string | null;
-          purchase_url: string | null;
-          store_category: string | null;
-          store_subcategory: string | null;
-          store_category_other: string | null;
-          stock: number | null;
-          is_featured: boolean;
-          is_active: boolean;
-          status: string;
-          review_note: string | null;
-          reviewed_at: string | null;
-          created_at: string;
-          updated_at: string;
-        };
-        Insert: {
-          id?: string;
-          vendor_id: string;
-          category_id?: number | null;
-          name: string;
-          description?: string | null;
-          price?: number | null;
-          currency?: string;
-          image_url?: string | null;
-          purchase_url?: string | null;
-          store_category?: string | null;
-          store_subcategory?: string | null;
-          store_category_other?: string | null;
-          stock?: number | null;
-          is_featured?: boolean;
-          is_active?: boolean;
-          status?: string;
-          review_note?: string | null;
-          reviewed_at?: string | null;
-          created_at?: string;
-          updated_at?: string;
-        };
-        Update: Partial<Database['public']['Tables']['products']['Insert']>;
-        Relationships: [
-          {
-            foreignKeyName: 'products_vendor_id_fkey';
-            columns: ['vendor_id'];
-            referencedRelation: 'profiles';
-            referencedColumns: ['id'];
-          },
-        ];
-      };
-
-      prescriptions: {
-        Row: {
-          id: string;
-          therapist_id: string;
-          parent_id: string;
-          title: string;
-          note: string | null;
-          status: PrescriptionStatus;
-          sent_at: string | null;
-          viewed_at: string | null;
-          ordered_at: string | null;
-          created_at: string;
-          updated_at: string;
-        };
-        Insert: {
-          id?: string;
-          therapist_id: string;
-          parent_id: string;
-          title?: string;
-          note?: string | null;
-          status?: PrescriptionStatus;
-          sent_at?: string | null;
-          viewed_at?: string | null;
-          ordered_at?: string | null;
-          created_at?: string;
-          updated_at?: string;
-        };
-        Update: Partial<Database['public']['Tables']['prescriptions']['Insert']>;
-        Relationships: [
-          {
-            foreignKeyName: 'prescriptions_therapist_id_fkey';
-            columns: ['therapist_id'];
-            referencedRelation: 'profiles';
-            referencedColumns: ['id'];
-          },
-        ];
-      };
-
-      prescription_items: {
-        Row: {
-          id: string;
-          prescription_id: string;
-          product_id: string;
-          quantity: number;
-          note: string | null;
-          unit_price_snapshot: number | null;
-          created_at: string;
-        };
-        Insert: {
-          id?: string;
-          prescription_id: string;
-          product_id: string;
-          quantity?: number;
-          note?: string | null;
-          unit_price_snapshot?: number | null;
-          created_at?: string;
-        };
-        Update: Partial<Database['public']['Tables']['prescription_items']['Insert']>;
-        Relationships: [
-          {
-            foreignKeyName: 'prescription_items_prescription_id_fkey';
-            columns: ['prescription_id'];
-            referencedRelation: 'prescriptions';
-            referencedColumns: ['id'];
-          },
-          {
-            foreignKeyName: 'prescription_items_product_id_fkey';
-            columns: ['product_id'];
-            referencedRelation: 'products';
-            referencedColumns: ['id'];
-          },
-        ];
-      };
-      provider_connections: {
-        Row: {
-          id: string;
-          requester_id: string;
-          addressee_id: string;
-          status: 'pending' | 'accepted';
-          created_at: string;
-          responded_at: string | null;
-        };
-        Insert: {
-          id?: string;
-          requester_id: string;
-          addressee_id: string;
-          status?: 'pending' | 'accepted';
-          created_at?: string;
-          responded_at?: string | null;
-        };
-        Update: Partial<Database['public']['Tables']['provider_connections']['Insert']>;
-        Relationships: [];
-      };
-      parent_lists: {
-        Row: {
-          id: string;
-          owner_id: string;
-          title: string;
-          is_public: boolean;
-          share_token: string;
-          created_at: string;
-        };
-        Insert: {
-          id?: string;
-          owner_id: string;
-          title?: string;
-          is_public?: boolean;
-          share_token?: string;
-          created_at?: string;
-        };
-        Update: Partial<Database['public']['Tables']['parent_lists']['Insert']>;
-        Relationships: [];
-      };
-      parent_list_items: {
-        Row: {
-          id: string;
-          list_id: string;
-          provider_id: string;
-          note: string | null;
-          created_at: string;
-        };
-        Insert: {
-          id?: string;
-          list_id: string;
-          provider_id: string;
-          note?: string | null;
-          created_at?: string;
-        };
-        Update: Partial<Database['public']['Tables']['parent_list_items']['Insert']>;
-        Relationships: [];
-      };
-
-      provider_locations: {
-        Row: {
-          id: string;
-          provider_id: string;
-          label: string | null;
-          address: string;
-          country: string | null;
-          state: string | null;
-          municipality: string | null;
-          latitude: number | null;
-          longitude: number | null;
-          phone: string | null;
-          hours: string | null;
-          sort_order: number;
-          created_at: string;
-        };
-        Insert: {
-          id?: string;
-          provider_id: string;
-          label?: string | null;
-          address: string;
-          country?: string | null;
-          state?: string | null;
-          municipality?: string | null;
-          latitude?: number | null;
-          longitude?: number | null;
-          phone?: string | null;
-          hours?: string | null;
-          sort_order?: number;
-          created_at?: string;
-        };
-        Update: Partial<Database['public']['Tables']['provider_locations']['Insert']>;
-        Relationships: [];
-      };
-
-      membership_fees: {
-        Row: { affiliate_type: string; base_usd: number; is_active: boolean; updated_at: string };
-        Insert: { affiliate_type: string; base_usd: number; is_active?: boolean; updated_at?: string };
-        Update: Partial<Database['public']['Tables']['membership_fees']['Insert']>;
-        Relationships: [];
-      };
-
-      country_pricing: {
-        Row: {
-          country_label: string;
-          currency: string;
-          fx_per_usd: number;
-          zero_decimal: boolean;
-          is_active: boolean;
-          updated_at: string;
-        };
-        Insert: {
-          country_label: string;
-          currency: string;
-          fx_per_usd: number;
-          zero_decimal?: boolean;
-          is_active?: boolean;
-          updated_at?: string;
-        };
-        Update: Partial<Database['public']['Tables']['country_pricing']['Insert']>;
-        Relationships: [];
-      };
-
-      promo_codes: {
-        Row: {
-          code: string;
-          kind: string;
-          scope: string;
-          benefit: string;
-          percent_off: number | null;
-          amount_off: number | null;
-          amount_currency: string | null;
-          bound_email: string | null;
-          max_uses: number | null;
-          used_count: number;
-          expires_at: string | null;
-          is_active: boolean;
-          note: string | null;
-          created_at: string;
-        };
-        Insert: {
-          code: string;
-          kind?: string;
-          scope?: string;
-          benefit?: string;
-          percent_off?: number | null;
-          amount_off?: number | null;
-          amount_currency?: string | null;
-          bound_email?: string | null;
-          max_uses?: number | null;
-          used_count?: number;
-          expires_at?: string | null;
-          is_active?: boolean;
-          note?: string | null;
-          created_at?: string;
-        };
-        Update: Partial<Database['public']['Tables']['promo_codes']['Insert']>;
-        Relationships: [];
-      };
-
-      promo_redemptions: {
-        Row: { id: string; code: string; user_id: string; redeemed_at: string };
-        Insert: { id?: string; code: string; user_id: string; redeemed_at?: string };
-        Update: Partial<Database['public']['Tables']['promo_redemptions']['Insert']>;
-        Relationships: [];
-      };
-
-      provider_availability: {
-        Row: {
-          id: string;
-          provider_id: string;
-          weekday: number;
-          start_time: string;
-          end_time: string;
-          slot_minutes: number;
-          is_active: boolean;
-        };
-        Insert: {
-          id?: string;
-          provider_id: string;
-          weekday: number;
-          start_time: string;
-          end_time: string;
-          slot_minutes?: number;
-          is_active?: boolean;
-        };
-        Update: Partial<Database['public']['Tables']['provider_availability']['Insert']>;
-        Relationships: [];
-      };
-
-      appointments: {
-        Row: {
-          id: string;
-          provider_id: string;
-          patient_id: string;
-          starts_at: string;
-          ends_at: string;
-          status: string;
-          video_link: string | null;
-          note: string | null;
-          source: string;
-          created_at: string;
-        };
-        Insert: {
-          id?: string;
-          provider_id: string;
-          patient_id: string;
-          starts_at: string;
-          ends_at: string;
-          status?: string;
-          video_link?: string | null;
-          note?: string | null;
-          source?: string;
-          created_at?: string;
-        };
-        Update: Partial<Database['public']['Tables']['appointments']['Insert']>;
-        Relationships: [];
-      };
-
-      waitlist: {
-        Row: {
-          id: string;
-          provider_id: string;
-          patient_id: string;
-          note: string | null;
-          status: string;
-          created_at: string;
-        };
-        Insert: {
-          id?: string;
-          provider_id: string;
-          patient_id: string;
-          note?: string | null;
-          status?: string;
-          created_at?: string;
-        };
-        Update: Partial<Database['public']['Tables']['waitlist']['Insert']>;
-        Relationships: [];
-      };
-
-      appointment_reminders: {
-        Row: {
-          id: string;
-          appointment_id: string;
-          channel: string;
-          offset_hours: number;
-          send_at: string;
-          status: string;
-          created_at: string;
-        };
-        Insert: {
-          id?: string;
-          appointment_id: string;
-          channel: string;
-          offset_hours: number;
-          send_at: string;
-          status?: string;
-          created_at?: string;
-        };
-        Update: Partial<Database['public']['Tables']['appointment_reminders']['Insert']>;
-        Relationships: [];
-      };
-
-      payments: {
-        Row: {
-          id: string;
-          provider_id: string;
-          payer_id: string | null;
-          appointment_id: string | null;
-          kind: string;
-          amount_cents: number;
-          currency: string;
-          status: string;
-          payer_name: string | null;
-          payer_rfc: string | null;
-          stripe_session_id: string | null;
-          stripe_payment_intent: string | null;
-          stripe_subscription_id: string | null;
-          created_at: string;
-          paid_at: string | null;
-        };
-        Insert: {
-          id?: string;
-          provider_id: string;
-          payer_id?: string | null;
-          appointment_id?: string | null;
-          kind?: string;
-          amount_cents: number;
-          currency: string;
-          status?: string;
-          payer_name?: string | null;
-          payer_rfc?: string | null;
-          stripe_session_id?: string | null;
-          stripe_payment_intent?: string | null;
-          stripe_subscription_id?: string | null;
-          created_at?: string;
-          paid_at?: string | null;
-        };
-        Update: Partial<Database['public']['Tables']['payments']['Insert']>;
-        Relationships: [];
-      };
-
-      content_posts: {
-        Row: { id: string; author_id: string; type: string; title: string; body: string | null; external_url: string | null; keywords: string[]; topic: string | null; cover_url: string | null; excerpt: string | null; is_published: boolean; created_at: string; updated_at: string };
-        Insert: { id?: string; author_id: string; type?: string; title: string; body?: string | null; external_url?: string | null; keywords?: string[]; topic?: string | null; cover_url?: string | null; excerpt?: string | null; is_published?: boolean; created_at?: string; updated_at?: string };
-        Update: Partial<Database['public']['Tables']['content_posts']['Insert']>;
-        Relationships: [];
-      };
-
-      content_ratings: {
-        Row: { id: string; post_id: string; user_id: string; stars: number; created_at: string };
-        Insert: { id?: string; post_id: string; user_id: string; stars: number; created_at?: string };
-        Update: Partial<Database['public']['Tables']['content_ratings']['Insert']>;
-        Relationships: [];
-      };
-
-      content_comments: {
-        Row: { id: string; post_id: string; user_id: string; body: string; created_at: string };
-        Insert: { id?: string; post_id: string; user_id: string; body: string; created_at?: string };
-        Update: Partial<Database['public']['Tables']['content_comments']['Insert']>;
-        Relationships: [];
-      };
-
-      content_views: {
-        Row: { post_id: string; user_id: string; viewed_at: string };
-        Insert: { post_id: string; user_id: string; viewed_at?: string };
-        Update: Partial<Database['public']['Tables']['content_views']['Insert']>;
-        Relationships: [];
-      };
-      reports: {
-        Row: { id: string; reporter_id: string | null; reported_member_no: number | null; category: string; category_other: string | null; description: string; attachments: string[]; status: string; admin_note: string | null; reporter_email: string | null; reporter_name: string | null; is_member: boolean; created_at: string; updated_at: string };
-        Insert: { id?: string; reporter_id?: string | null; reported_member_no?: number | null; category: string; category_other?: string | null; description: string; attachments?: string[]; status?: string; admin_note?: string | null; reporter_email?: string | null; reporter_name?: string | null; is_member?: boolean; created_at?: string; updated_at?: string };
-        Update: Partial<Database['public']['Tables']['reports']['Insert']>;
-        Relationships: [];
-      };
-      founder_members: {
-        Row: { user_id: string; kind: string; country: string | null; created_at: string; grace_until: string | null; wall_published: boolean; wall_featured: boolean; wall_order: number };
-        Insert: { user_id: string; kind: string; country?: string | null; created_at?: string; grace_until?: string | null; wall_published?: boolean; wall_featured?: boolean; wall_order?: number };
-        Update: Partial<Database['public']['Tables']['founder_members']['Insert']>;
-        Relationships: [];
-      };
-
-      job_openings: {
-        Row: { id: string; company_id: string; opportunity_type: string; positions: number | null; title: string | null; experience: string | null; education: string | null; salary_text: string | null; country: string | null; city: string | null; skills: string | null; apply_email: string | null; apply_url: string | null; note: string | null; is_active: boolean; created_at: string; updated_at: string };
-        Insert: { id?: string; company_id: string; opportunity_type?: string; positions?: number | null; title?: string | null; experience?: string | null; education?: string | null; salary_text?: string | null; country?: string | null; city?: string | null; skills?: string | null; apply_email?: string | null; apply_url?: string | null; note?: string | null; is_active?: boolean; created_at?: string; updated_at?: string };
-        Update: Partial<Database['public']['Tables']['job_openings']['Insert']>;
-        Relationships: [];
-      };
-
-      member_badges: {
-        Row: { id: string; member_type: string; badge_key: string; title: string | null; storage_path: string | null; public_url: string | null; is_active: boolean; updated_at: string };
-        Insert: { id?: string; member_type: string; badge_key: string; title?: string | null; storage_path?: string | null; public_url?: string | null; is_active?: boolean; updated_at?: string };
-        Update: Partial<Database['public']['Tables']['member_badges']['Insert']>;
-        Relationships: [];
-      };
-
-      hero_slides: {
-        Row: { id: string; image_url: string; captions: Record<string, string>; sort_order: number; is_active: boolean; created_at: string; updated_at: string };
-        Insert: { id?: string; image_url: string; captions?: Record<string, string>; sort_order?: number; is_active?: boolean; created_at?: string; updated_at?: string };
-        Update: Partial<Database['public']['Tables']['hero_slides']['Insert']>;
-        Relationships: [];
-      };
-
-      catalog_suggestions: {
-        Row: { id: string; user_id: string | null; email: string | null; kind: string; section: string | null; name: string; note: string | null; country: string | null; page: string | null; status: string; created_at: string };
-        Insert: { id?: string; user_id?: string | null; email?: string | null; kind: string; section?: string | null; name: string; note?: string | null; country?: string | null; page?: string | null; status?: string; created_at?: string };
-        Update: Partial<Database['public']['Tables']['catalog_suggestions']['Insert']>;
-        Relationships: [];
-      };
-
-      topic_subscriptions: {
-        Row: { user_id: string; topics: string[]; scope_country: string | null; scope_city: string | null; updated_at: string };
-        Insert: { user_id: string; topics?: string[]; scope_country?: string | null; scope_city?: string | null; updated_at?: string };
-        Update: Partial<Database['public']['Tables']['topic_subscriptions']['Insert']>;
-        Relationships: [];
-      };
-
-      tribe_members: {
-        Row: { user_id: string; status: string; energy: string; show_country: boolean; show_city: boolean; show_interests: boolean; show_diagnosis: boolean; rules_accepted_at: string | null; created_at: string; points: number; silent_mode: boolean; can_write: boolean; can_evaluate: boolean; can_review: boolean };
-        Insert: { user_id: string; status?: string; energy?: string; show_country?: boolean; show_city?: boolean; show_interests?: boolean; show_diagnosis?: boolean; rules_accepted_at?: string | null; created_at?: string; points?: number; silent_mode?: boolean; can_write?: boolean; can_evaluate?: boolean; can_review?: boolean };
-        Update: Partial<Database['public']['Tables']['tribe_members']['Insert']>;
-        Relationships: [];
-      };
-
-      tribe_gratitude: {
-        Row: { id: string; giver_id: string; receiver_id: string; badge_key: string; points: number; forum_id: string | null; is_anonymous: boolean; created_at: string };
-        Insert: { id?: string; giver_id: string; receiver_id: string; badge_key: string; points?: number; forum_id?: string | null; is_anonymous?: boolean; created_at?: string };
-        Update: Partial<Database['public']['Tables']['tribe_gratitude']['Insert']>;
-        Relationships: [];
-      };
-
-      tribe_moderators: {
-        Row: { user_id: string; status: string; justification: string | null; ethics_accepted_at: string | null; points: number; created_at: string };
-        Insert: { user_id: string; status?: string; justification?: string | null; ethics_accepted_at?: string | null; points?: number; created_at?: string };
-        Update: Partial<Database['public']['Tables']['tribe_moderators']['Insert']>;
-        Relationships: [];
-      };
-
-      tribe_mod_ratings: {
-        Row: { id: string; moderator_id: string; rater_id: string; empathy: number; inclusive_language: number; cordiality: number; knowledge: number; availability: number; comment: string | null; is_anonymous: boolean; created_at: string };
-        Insert: { id?: string; moderator_id: string; rater_id: string; empathy: number; inclusive_language: number; cordiality: number; knowledge: number; availability: number; comment?: string | null; is_anonymous?: boolean; created_at?: string };
-        Update: Partial<Database['public']['Tables']['tribe_mod_ratings']['Insert']>;
-        Relationships: [];
-      };
-
-      tribe_mentors: {
-        Row: { user_id: string; tracks: string[]; bio: string | null; is_active: boolean; created_at: string };
-        Insert: { user_id: string; tracks?: string[]; bio?: string | null; is_active?: boolean; created_at?: string };
-        Update: Partial<Database['public']['Tables']['tribe_mentors']['Insert']>;
-        Relationships: [];
-      };
-
-      tribe_mentorships: {
-        Row: { id: string; mentor_id: string; mentee_id: string; track: string; status: string; created_at: string };
-        Insert: { id?: string; mentor_id: string; mentee_id: string; track: string; status?: string; created_at?: string };
-        Update: Partial<Database['public']['Tables']['tribe_mentorships']['Insert']>;
-        Relationships: [];
-      };
-
-      tribe_mentor_messages: {
-        Row: { id: string; mentorship_id: string; author_id: string; body: string; created_at: string };
-        Insert: { id?: string; mentorship_id: string; author_id: string; body: string; created_at?: string };
-        Update: Partial<Database['public']['Tables']['tribe_mentor_messages']['Insert']>;
-        Relationships: [];
-      };
-
-      tribe_events: {
-        Row: { id: string; creator_id: string; title: string; description: string; starts_at: string; location: string | null; is_online: boolean; city: string | null; country: string | null; noise: string; quiet_room: boolean; sensory_tips: string | null; status: string; created_at: string };
-        Insert: { id?: string; creator_id: string; title: string; description: string; starts_at: string; location?: string | null; is_online?: boolean; city?: string | null; country?: string | null; noise: string; quiet_room?: boolean; sensory_tips?: string | null; status?: string; created_at?: string };
-        Update: Partial<Database['public']['Tables']['tribe_events']['Insert']>;
-        Relationships: [];
-      };
-
-      tribe_event_rsvps: {
-        Row: { event_id: string; user_id: string; joined_at: string };
-        Insert: { event_id: string; user_id: string; joined_at?: string };
-        Update: Partial<Database['public']['Tables']['tribe_event_rsvps']['Insert']>;
-        Relationships: [];
-      };
-
-      tribe_event_sensory: {
-        Row: { id: string; event_id: string; reviewer_id: string; noise_level: number | null; quiet_room_used: boolean | null; comfort: number | null; notes: string | null; created_at: string };
-        Insert: { id?: string; event_id: string; reviewer_id: string; noise_level?: number | null; quiet_room_used?: boolean | null; comfort?: number | null; notes?: string | null; created_at?: string };
-        Update: Partial<Database['public']['Tables']['tribe_event_sensory']['Insert']>;
-        Relationships: [];
-      };
-
-      tribe_forums: {
-        Row: { id: string; creator_id: string; title: string; description: string | null; theme: string | null; country: string | null; city: string | null; language: string | null; status: string; notify_countries: string[] | null; created_at: string };
-        Insert: { id?: string; creator_id: string; title: string; description?: string | null; theme?: string | null; country?: string | null; city?: string | null; language?: string | null; status?: string; notify_countries?: string[] | null; created_at?: string };
-        Update: Partial<Database['public']['Tables']['tribe_forums']['Insert']>;
-        Relationships: [];
-      };
-
-      tribe_forum_prefs: {
-        Row: { user_id: string; push_enabled: boolean; countries: string[] | null; updated_at: string };
-        Insert: { user_id: string; push_enabled?: boolean; countries?: string[] | null; updated_at?: string };
-        Update: Partial<Database['public']['Tables']['tribe_forum_prefs']['Insert']>;
-        Relationships: [];
-      };
-
-      tribe_forum_moderators: {
-        Row: { id: string; forum_id: string; user_id: string; status: string; created_at: string };
-        Insert: { id?: string; forum_id: string; user_id: string; status?: string; created_at?: string };
-        Update: Partial<Database['public']['Tables']['tribe_forum_moderators']['Insert']>;
-        Relationships: [];
-      };
-
-      tribe_forum_members: {
-        Row: { forum_id: string; user_id: string; joined_at: string };
-        Insert: { forum_id: string; user_id: string; joined_at?: string };
-        Update: Partial<Database['public']['Tables']['tribe_forum_members']['Insert']>;
-        Relationships: [];
-      };
-
-      tribe_forum_invites: {
-        Row: { id: string; forum_id: string; inviter_id: string; invitee_id: string; status: string; created_at: string };
-        Insert: { id?: string; forum_id: string; inviter_id: string; invitee_id: string; status?: string; created_at?: string };
-        Update: Partial<Database['public']['Tables']['tribe_forum_invites']['Insert']>;
-        Relationships: [];
-      };
-
-      tribe_messages: {
-        Row: { id: string; forum_id: string; author_id: string; body: string; created_at: string };
-        Insert: { id?: string; forum_id: string; author_id: string; body: string; created_at?: string };
-        Update: Partial<Database['public']['Tables']['tribe_messages']['Insert']>;
-        Relationships: [];
-      };
-
-      notifications: {
-        Row: { id: string; user_id: string; type: string; title: string; body: string | null; data: Record<string, unknown>; is_read: boolean; created_at: string };
-        Insert: { id?: string; user_id: string; type: string; title: string; body?: string | null; data?: Record<string, unknown>; is_read?: boolean; created_at?: string };
-        Update: Partial<Database['public']['Tables']['notifications']['Insert']>;
-        Relationships: [];
-      };
-
-      clinical_consents: {
-        Row: { id: string; patient_id: string; provider_id: string; status: string; granted_at: string; revoked_at: string | null };
-        Insert: { id?: string; patient_id: string; provider_id: string; status?: string; granted_at?: string; revoked_at?: string | null };
-        Update: Partial<Database['public']['Tables']['clinical_consents']['Insert']>;
-        Relationships: [];
-      };
-
-      clinical_entries: {
-        Row: { id: string; patient_id: string; author_id: string; kind: string; title: string; body: string | null; period: string | null; created_at: string };
-        Insert: { id?: string; patient_id: string; author_id: string; kind?: string; title: string; body?: string | null; period?: string | null; created_at?: string };
-        Update: Partial<Database['public']['Tables']['clinical_entries']['Insert']>;
-        Relationships: [];
-      };
-
-      home_tasks: {
-        Row: { id: string; patient_id: string; provider_id: string; title: string; detail: string | null; due_date: string | null; completed: boolean; completed_at: string | null; created_at: string };
-        Insert: { id?: string; patient_id: string; provider_id: string; title: string; detail?: string | null; due_date?: string | null; completed?: boolean; completed_at?: string | null; created_at?: string };
-        Update: Partial<Database['public']['Tables']['home_tasks']['Insert']>;
-        Relationships: [];
-      };
-
-      clinical_messages: {
-        Row: { id: string; patient_id: string; provider_id: string; sender_id: string; body: string; created_at: string };
-        Insert: { id?: string; patient_id: string; provider_id: string; sender_id: string; body: string; created_at?: string };
-        Update: Partial<Database['public']['Tables']['clinical_messages']['Insert']>;
-        Relationships: [];
-      };
-
-      secure_files: {
-        Row: { id: string; owner_id: string; patient_id: string; filename: string; mime: string | null; storage_path: string; iv: string; expires_at: string | null; created_at: string };
-        Insert: { id?: string; owner_id: string; patient_id: string; filename: string; mime?: string | null; storage_path: string; iv: string; expires_at?: string | null; created_at?: string };
-        Update: Partial<Database['public']['Tables']['secure_files']['Insert']>;
-        Relationships: [];
-      };
-
-      secure_file_keys: {
-        Row: { file_id: string; recipient_id: string; wrapped_key: string };
-        Insert: { file_id: string; recipient_id: string; wrapped_key: string };
-        Update: Partial<Database['public']['Tables']['secure_file_keys']['Insert']>;
-        Relationships: [];
-      };
-
-      affiliate_codes: {
-        Row: { id: string; provider_id: string; code: string; commission_pct: number; is_active: boolean; created_at: string };
-        Insert: { id?: string; provider_id: string; code: string; commission_pct?: number; is_active?: boolean; created_at?: string };
-        Update: Partial<Database['public']['Tables']['affiliate_codes']['Insert']>;
-        Relationships: [];
-      };
-
-      orders: {
-        Row: { id: string; product_id: string | null; buyer_id: string | null; vendor_id: string; affiliate_id: string | null; product_name: string; amount_cents: number; currency: string; commission_cents: number; status: string; buyer_name: string | null; stripe_session_id: string | null; created_at: string; paid_at: string | null };
-        Insert: { id?: string; product_id?: string | null; buyer_id?: string | null; vendor_id: string; affiliate_id?: string | null; product_name: string; amount_cents: number; currency: string; commission_cents?: number; status?: string; buyer_name?: string | null; stripe_session_id?: string | null; created_at?: string; paid_at?: string | null };
-        Update: Partial<Database['public']['Tables']['orders']['Insert']>;
-        Relationships: [];
-      };
-
-      allies: {
-        Row: { id: string; name: string; logo_url: string; website: string | null; sort_order: number; is_active: boolean; countries: string[] | null; created_at: string };
-        Insert: { id?: string; name: string; logo_url: string; website?: string | null; sort_order?: number; is_active?: boolean; countries?: string[] | null; created_at?: string };
-        Update: Partial<Database['public']['Tables']['allies']['Insert']>;
-        Relationships: [];
-      };
-
-      donation_tiers: {
-        Row: { currency: string; symbol: string; zero_decimal: boolean; seed_amount: number; ally_amount: number; driver_amount: number; ambassador_amount: number; is_active: boolean; updated_at: string };
-        Insert: { currency: string; symbol?: string; zero_decimal?: boolean; seed_amount: number; ally_amount: number; driver_amount: number; ambassador_amount: number; is_active?: boolean; updated_at?: string };
-        Update: Partial<Database['public']['Tables']['donation_tiers']['Insert']>;
-        Relationships: [];
-      };
-
-      message_templates: {
-        Row: { id: string; owner_id: string; title: string; body: string; sort_order: number; created_at: string };
-        Insert: { id?: string; owner_id: string; title: string; body: string; sort_order?: number; created_at?: string };
-        Update: Partial<Database['public']['Tables']['message_templates']['Insert']>;
-        Relationships: [];
-      };
-
-      provider_time_off: {
-        Row: { id: string; provider_id: string; starts_at: string; ends_at: string; all_day: boolean; reason: string | null; created_at: string };
-        Insert: { id?: string; provider_id: string; starts_at: string; ends_at: string; all_day?: boolean; reason?: string | null; created_at?: string };
-        Update: Partial<Database['public']['Tables']['provider_time_off']['Insert']>;
-        Relationships: [];
-      };
-
-      search_alerts: {
-        Row: { id: string; user_id: string; country: string | null; category_id: number | null; city: string | null; created_at: string };
-        Insert: { id?: string; user_id: string; country?: string | null; category_id?: number | null; city?: string | null; created_at?: string };
-        Update: Partial<Database['public']['Tables']['search_alerts']['Insert']>;
-        Relationships: [];
-      };
-
-      notification_prefs: {
-        Row: { user_id: string; push_enabled: boolean; muted_categories: string[]; updated_at: string };
-        Insert: { user_id: string; push_enabled?: boolean; muted_categories?: string[]; updated_at?: string };
-        Update: Partial<Database['public']['Tables']['notification_prefs']['Insert']>;
-        Relationships: [];
-      };
-
-      courses: {
-        Row: { id: string; author_id: string; title: string; description: string | null; cover_url: string | null; level: string | null; audience: string | null; country: string | null; is_published: boolean; created_at: string };
-        Insert: { id?: string; author_id: string; title: string; description?: string | null; cover_url?: string | null; level?: string | null; audience?: string | null; country?: string | null; is_published?: boolean; created_at?: string };
-        Update: Partial<Database['public']['Tables']['courses']['Insert']>;
-        Relationships: [];
-      };
-
-      course_modules: {
-        Row: { id: string; course_id: string; title: string; position: number };
-        Insert: { id?: string; course_id: string; title: string; position?: number };
-        Update: Partial<Database['public']['Tables']['course_modules']['Insert']>;
-        Relationships: [];
-      };
-
-      course_lessons: {
-        Row: { id: string; module_id: string; title: string; content: string | null; video_url: string | null; position: number; duration_min: number | null };
-        Insert: { id?: string; module_id: string; title: string; content?: string | null; video_url?: string | null; position?: number; duration_min?: number | null };
-        Update: Partial<Database['public']['Tables']['course_lessons']['Insert']>;
-        Relationships: [];
-      };
-
-      course_enrollments: {
-        Row: { id: string; course_id: string; user_id: string; enrolled_at: string };
-        Insert: { id?: string; course_id: string; user_id: string; enrolled_at?: string };
-        Update: Partial<Database['public']['Tables']['course_enrollments']['Insert']>;
-        Relationships: [];
-      };
-
-      lesson_completions: {
-        Row: { user_id: string; lesson_id: string; completed_at: string };
-        Insert: { user_id: string; lesson_id: string; completed_at?: string };
-        Update: Partial<Database['public']['Tables']['lesson_completions']['Insert']>;
-        Relationships: [];
-      };
-
-      messages: {
-        Row: { id: string; sender_id: string; recipient_id: string; body: string; read_at: string | null; created_at: string };
-        Insert: { id?: string; sender_id: string; recipient_id: string; body: string; read_at?: string | null; created_at?: string };
-        Update: Partial<Database['public']['Tables']['messages']['Insert']>;
-        Relationships: [];
-      };
-
-      campaigns: {
-        Row: { id: string; owner_id: string; title: string; body: string; channels: string[]; audience: string; status: string; sent_count: number; created_at: string };
-        Insert: { id?: string; owner_id: string; title: string; body: string; channels?: string[]; audience?: string; status?: string; sent_count?: number; created_at?: string };
-        Update: Partial<Database['public']['Tables']['campaigns']['Insert']>;
-        Relationships: [];
-      };
-
-      push_subscriptions: {
-        Row: { id: string; user_id: string; endpoint: string; p256dh: string; auth: string; created_at: string };
-        Insert: { id?: string; user_id: string; endpoint: string; p256dh: string; auth: string; created_at?: string };
-        Update: Partial<Database['public']['Tables']['push_subscriptions']['Insert']>;
-        Relationships: [];
-      };
-    };
-
-    Views: {
-      public_provider_comments: {
-        Row: { id: string | null; provider_id: string | null; comments: string | null; created_at: string | null; overall: number | null; provider_response: string | null; provider_response_at: string | null };
-        Relationships: [];
-      };
-      public_product_ratings: {
-        Row: { product_id: string | null; avg_rating: number | null; review_count: number | null };
-        Relationships: [];
-      };
-      provider_badge_inputs: {
-        Row: { provider_id: string; documental_verified: boolean; avg_quality: number | null; avg_human_treatment: number | null; avg_professionalism: number | null; evs_score: number | null; total_reviews: number; discount_pct: number; content_count: number; response_rate_pct: number; retention_pct: number };
-        Relationships: [];
-      };
-      courses_public: {
-        Row: { id: string; author_id: string; title: string; description: string | null; cover_url: string | null; level: string | null; audience: string | null; country: string | null; is_published: boolean; created_at: string; effective_country: string | null };
-        Relationships: [];
-      };
-      blog_feed: {
-        Row: { id: string; author_id: string; type: string; title: string; excerpt: string | null; body: string | null; external_url: string | null; cover_url: string | null; topic: string | null; keywords: string[]; created_at: string; updated_at: string; author_name: string | null; author_business: string | null; author_avatar: string | null; avg_stars: number; ratings_count: number; views_count: number };
-        Relationships: [];
-      };
-      affiliate_earnings: {
-        Row: { affiliate_id: string; sales: number; commission_cents_total: number; currency: string };
-        Relationships: [];
-      };
-      public_post_ratings: {
-        Row: { post_id: string; avg_stars: number; rating_count: number };
-        Relationships: [];
-      };
-      public_provider_ratings: {
-        Row: {
-          provider_id: string | null;
-          business_name: string | null;
-          provider_type: ProviderType | null;
-          city: string | null;
-          total_reviews: number | null;
-          avg_quality: number | null;
-          avg_human_treatment: number | null;
-          avg_accessibility: number | null;
-          avg_price_value: number | null;
-          avg_offer_compliance: number | null;
-          avg_sensory_adaptation: number | null;
-          avg_flexibility_crisis: number | null;
-          avg_facilities: number | null;
-          avg_professionalism: number | null;
-          evs_score: number | null;
-        };
-        Relationships: [];
-      };
-      /**
-       * Catálogo público del buscador: une los perfiles de proveedores con
-       * cuenta y las fichas del directorio que todavía no tienen dueño.
-       * Expone las mismas columnas que profiles, más tres:
-       *   origen      'perfil' | 'ficha'
-       *   clee        llave del DENUE cuando la ficha viene de ahí
-       *   reclamable  true si nadie la ha reclamado todavía
-       */
-      directorio_publico: {
-        Row: Database['public']['Tables']['profiles']['Row'] & {
-          origen: 'perfil' | 'ficha';
-          clee: string | null;
-          reclamable: boolean;
-        };
-        Relationships: [];
-      };
-      /**
-       * Vista pública SEGURA (migración 0220). Misma forma que
-       * directorio_publico pero sin las 30 columnas privadas —Stripe, datos
-       * fiscales, RFC, nacimiento, género, salud, estado de membresía,
-       * suspensiones—. Es la única que leen anon y authenticated; la vista
-       * completa quedó reservada al rol de servicio.
-       *
-       * perfiles_basicos — identidad minima de un perfil para mostrarlo junto a
-       * otro usuario (migracion 0229). Reproduce la visibilidad de filas que
-       * tenia la tabla, con 11 columnas en vez de 119. Sustituye a leer
-       * public.profiles desde el cliente para perfiles ajenos: anon ya no tiene
-       * SELECT sobre la tabla y authenticated solo ve su propia fila.
-       */
-      perfiles_basicos: {
-        Row: Pick<
-          Database['public']['Tables']['profiles']['Row'],
-          'id' | 'full_name' | 'business_name' | 'avatar_url' | 'city' | 'country'
-          | 'provider_type' | 'is_verified' | 'member_no' | 'is_published' | 'public_key'
-        >;
-        Relationships: [];
-      };
-      directorio_publico_seguro: {
-        Row: Omit<
-          Database['public']['Tables']['profiles']['Row'],
-          'qr_token' | 'birth_date' | 'gender' | 'condition' | 'membership_status'
-          | 'membership_due_at' | 'membership_paid_until' | 'membership_period'
-          | 'stripe_customer_id' | 'stripe_subscription_id' | 'stripe_connect_id'
-          | 'stripe_charges_enabled' | 'promo_code_used' | 'rfc' | 'public_key'
-          | 'referred_by' | 'referred_at' | 'referral_credit_pct'
-          | 'suspended_at' | 'suspend_until' | 'pre_suspend_published' | 'winback_until'
-          | 'rules_version_accepted' | 'rules_accepted_at'
-        > & {
-          origen: 'perfil' | 'ficha';
-          clee: string | null;
-          reclamable: boolean;
-          perfil_activo: boolean;
-        };
-        Relationships: [];
-      };
-    };
-
-    Functions: {
-      /** Datos de la ficha que corresponde a un token de invitación vigente. */
-      ficha_por_token: {
-        Args: { p_token: string };
-        Returns: {
-          ficha_id: string;
-          nombre: string;
-          provider_type: string;
-          estado: string | null;
-          ciudad: string | null;
-          direccion: string | null;
-          telefono: string | null;
-          correo: string;
-          sitio_web: string | null;
-          especializacion: string | null;
-          fuente: string;
-          fuente_url: string | null;
-        }[];
-      };
-      /** Baja de la ficha a petición de su dueño. No requiere cuenta. */
-      solicitar_baja_ficha: {
-        Args: { p_token: string; p_motivo: string | null };
-        Returns: boolean;
-      };
-      /** Registra la apertura del enlace de invitación (1ª/última/contador + aviso admin). */
-      marcar_invitacion_abierta: {
-        Args: { p_token: string };
-        Returns: undefined;
-      };
-      /** Crea/reutiliza una invitación individual y opcionalmente la envía. Devuelve el token. */
-      admin_enviar_invitacion: {
-        Args: { p_correo: string; p_nombre: string | null; p_provider_type?: string; p_fundador?: boolean; p_cortesia?: boolean; p_send?: boolean };
-        Returns: { token: string; ficha_id: string; enviado: boolean; promo: string | null }[];
-      };
-      /** Comisiones por referido agrupadas por referidor (migraciones 0210c y 0226). */
-      admin_comisiones_membresia: {
-        Args: { p_estado?: string | null };
-        Returns: {
-          referrer_id: string; referidor: string | null; correo: string | null;
-          referidor_vigente: boolean; cuenta_de_cobro: boolean;
-          metodo_cobro: string | null; cuenta_titular: string | null;
-          cuenta_contacto: string | null;
-          comisiones: number; referidos: number;
-          monto_cents: number; currency: string | null;
-          umbral_cents: number | null; alcanza_umbral: boolean | null;
-          primera: string | null; ultima: string | null;
-        }[];
-      };
-      /** Cuenta de cobro declarada por el propio referidor (migracion 0226). */
-      /** Version vigente del reglamento. Fuente de verdad (migracion 0241). */
-      /** Alta de una pregunta al experto. Publica. (Migracion 0243.) */
-      registrar_pregunta_experto: {
-        Args: { p_pregunta: string; p_nombre?: string | null; p_correo?: string | null; p_pais?: string | null; p_categoria?: string | null };
-        Returns: { ok: boolean; id?: string; motivo?: string };
-      };
-      /** Bandeja de preguntas al experto. Solo administradores. */
-      admin_preguntas_experto: {
-        Args: { p_estado?: string };
-        Returns: {
-          id: string; nombre: string | null; correo: string | null; pais: string | null;
-          categoria: string | null; pregunta: string; estado: string;
-          nota_admin: string | null; created_at: string; resuelta_en: string | null;
-          es_miembro: boolean;
-        }[];
-      };
-      admin_resolver_pregunta_experto: {
-        Args: { p_id: string; p_estado: string; p_nota?: string | null };
-        Returns: { ok: boolean; motivo?: string };
-      };
-      admin_preguntas_experto_pendientes: {
-        Args: Record<string, never>;
-        Returns: number;
-      };
-      reglamento_vigente: {
-        Args: Record<string, never>;
-        Returns: string;
-      };
-      /** Registra la aceptacion del reglamento vigente. No recibe la version. */
-      aceptar_reglamento: {
-        Args: Record<string, never>;
-        Returns: { ok: boolean; version?: string; motivo?: string };
-      };
-      mi_cuenta_de_cobro: {
-        Args: Record<string, never>;
-        Returns: {
-          user_id: string; metodo: string; titular: string | null;
-          pais: string | null; moneda: string | null; contacto: string | null;
-          contacto_tipo: string | null; notas: string | null;
-          actualizado_en: string;
-        } | null;
-      };
-      /** Alta o actualizacion de la cuenta de cobro propia (migracion 0226). */
-      guardar_cuenta_de_cobro: {
-        Args: {
-          p_metodo: string; p_titular?: string | null; p_pais?: string | null;
-          p_moneda?: string | null; p_contacto?: string | null;
-          p_contacto_tipo?: string | null; p_notas?: string | null;
-        };
-        Returns: {
-          user_id: string; metodo: string; titular: string | null;
-          pais: string | null; moneda: string | null; contacto: string | null;
-          contacto_tipo: string | null; notas: string | null;
-          actualizado_en: string;
-        };
-      };
-      /** Liquidacion de comisiones por moneda, con minimo de 25 USD (migracion 0233). */
-      admin_liquidar_comisiones: {
-        Args: {
-          p_referrer: string; p_nota?: string | null;
-          p_currency?: string | null; p_forzar?: boolean;
-        };
-        Returns: number;
-      };
-      /** Vigencia de las invitaciones del directorio para el panel (migracion 0232). */
-      admin_invitaciones_vigencia: {
-        Args: Record<string, never>;
-        Returns: {
-          vivas: number; sin_enviar: number; enviadas: number;
-          vencidas: number; vencen_en_15_dias: number;
-          primera_en_vencer: string | null;
-        }[];
-      };
-      /** Vigencia de las invitaciones; incluye cuantas vencen pronto (0232). */
-      renovar_invitaciones_por_vencer: { Args: Record<string, never>; Returns: number };
-      /** Estado de la membresia propia, para la pantalla de baja (migracion 0234). */
-      mi_membresia: {
-        Args: Record<string, never>;
-        Returns: {
-          estado: string | null; vigente_hasta: string | null;
-          periodicidad: string | null; tiene_suscripcion: boolean;
-          baja_solicitada_en: string | null; exenta: boolean;
-          exencion_vigente_hasta: string | null;
-        }[];
-      };
-      /** Cuotas, donativos y comisiones de la persona que consulta (migracion 0228). */
-      mis_pagos: {
-        Args: Record<string, never>;
-        Returns: {
-          tipo: string; concepto: string | null; monto_cents: number;
-          currency: string | null; fecha: string | null;
-          estado: string | null; referencia: string | null;
-        }[];
-      };
-      /** Minimo acumulado para liquidar, en centavos; null si no hay tipo de cambio (0226). */
-      umbral_liquidacion_cents: {
-        Args: { p_currency: string | null };
-        Returns: number | null;
-      };
-      /** Detalle de las comisiones de un referidor (migracion 0210c). */
-      admin_comisiones_detalle: {
-        Args: { p_referrer: string };
-        Returns: {
-          id: string; referido: string | null; es_primer_pago: boolean;
-          base_cents: number; comision_pct: number; amount_cents: number; currency: string;
-          status: string; creada_en: string; pagada_en: string | null; pagada_nota: string | null;
-        }[];
-      };
-      /** Fichas publicadas sin correo, con telefono primero (migracion 0207b). */
-      admin_fichas_sin_correo: {
-        Args: { p_limit?: number; p_buscar?: string | null };
-        Returns: {
-          ficha_id: string;
-          nombre: string | null;
-          provider_type: string | null;
-          sector: string | null;
-          estado: string | null;
-          ciudad: string | null;
-          pais: string | null;
-          telefono: string | null;
-          sitio_web: string | null;
-          especializacion: string | null;
-        }[];
-      };
-      /** Captura un correo conseguido por telefono y mete la ficha a una tanda (migracion 0207). */
-      admin_alta_correo_ficha: {
-        Args: { p_ficha: string; p_correo: string; p_tanda?: number; p_nota?: string | null };
-        Returns: {
-          ok: boolean; ficha: string; nombre: string | null; correo: string;
-          tanda: number; orden: number; token: string; expira_en: string;
-        };
-      };
-      /** Fichas que se retirarian del directorio al vencer el plazo (migracion 0206). */
-      admin_fichas_retiradas: {
-        Args: { p_limit?: number; p_buscar?: string | null };
-        Returns: {
-          ficha_id: string;
-          nombre: string | null;
-          provider_type: string | null;
-          sector: string | null;
-          estado: string | null;
-          ciudad: string | null;
-          pais: string | null;
-          correo: string | null;
-          sitio_web: string | null;
-          telefono: string | null;
-          reclamada_por: string | null;
-          publicacion_forzada: boolean;
-          publicacion_forzada_en: string | null;
-          publicacion_forzada_nota: string | null;
-        }[];
-      };
-      /** Marca o desmarca una ficha para seguir publicada pese a no estar confirmada. */
-      admin_republicar_ficha: {
-        Args: { p_ficha: string; p_republicar?: boolean; p_nota?: string | null };
-        Returns: boolean;
-      };
-      /** Agregados del directorio para el panel admin (migracion 0205): fichas por
-       *  estado, bajas por motivo, invitaciones vencidas sin reclamar y tasas.
-       *  Devuelve null si quien llama no es admin ni asesor. */
-      admin_directorio_resumen: {
-        Args: Record<string, never>;
-        Returns: {
-          fichas: {
-            total: number; publicadas: number; borrador: number; dadas_de_baja: number;
-            reclamadas: number; correo_rebotado: number; sin_correo: number;
-          };
-          retiro_proyectado: { fecha: string | null; sobreviven: number; se_retirarian: number };
-          bajas_por_motivo: { motivo: string; fichas: number }[];
-          invitaciones: {
-            total: number; nunca_enviadas: number; enviadas: number; abiertas: number;
-            reclamadas: number; baja: number; canceladas: number;
-            vencidas_sin_reclamar: number; vencen_en_30_dias: number; vivas: number;
-          };
-          tasas: { enviadas: number; apertura: number | null; reclamo: number | null; rechazo: number | null };
-          generado_en: string;
-        } | null;
-      };
-      /** Listado de invitaciones del directorio para el admin (estado + rastreo de apertura). */
-      admin_directorio_invitaciones: {
-        Args: Record<string, never>;
-        Returns: {
-          id: string;
-          nombre: string | null;
-          correo: string | null;
-          provider_type: string | null;
-          estado_geo: string | null;
-          ciudad: string | null;
-          creada_en: string | null;
-          enviada_en: string | null;
-          abierta_en: string | null;
-          abierta_ultima_en: string | null;
-          aperturas: number;
-          usada_en: string | null;
-          baja_en: string | null;
-          cancelada_en: string | null;
-          rebotado: boolean;
-          expira_en: string | null;
-        }[];
-      };
-      expire_stale_transactions: {
-        Args: Record<string, never>;
-        Returns: undefined;
-      };
-      admin_metrics: {
-        Args: Record<string, never>;
-        Returns: Json;
-      };
-      admin_send_message: {
-        Args: { p_title: string | null; p_body: string; p_audience: string; p_recipient_member_no: number | null };
-        Returns: Json;
-      };
-      request_appointment: {
-        Args: {
-          p_recipient_member_no: number;
-          p_title: string;
-          p_starts: string;
-          p_ends: string | null;
-          p_location: string | null;
-          p_online_url: string | null;
-          p_note: string | null;
-          p_mode: string;
-          p_charge_total: number | null;
-          p_charge_percent: number;
-          p_charge_currency: string | null;
-        };
-        Returns: Json;
-      };
-      respond_appointment: {
-        Args: { p_request: string; p_accept: boolean; p_reason: string | null };
-        Returns: Json;
-      };
-      search_patients: {
-        Args: { p_query: string };
-        Returns: Json;
-      };
-      booking_provider_name: {
-        Args: { p_member_no: number };
-        Returns: string;
-      };
-      request_booking: {
-        Args: { p_provider_member_no: number; p_name: string; p_contact: string; p_preferred: string | null; p_note: string | null };
-        Returns: Json;
-      };
-      emit_due_appointment_reminders: {
-        Args: Record<string, never>;
-        Returns: undefined;
-      };
-      resolve_parent_by_qr: {
-        Args: { p_id: string; p_token: string };
-        Returns: { id: string; full_name: string; role: string; member_no: number | null; suspended: boolean }[];
-      };
-      prescription_mark_viewed: {
-        Args: { p_id: string };
-        Returns: undefined;
-      };
-      prescription_mark_ordered: {
-        Args: { p_id: string };
-        Returns: undefined;
-      };
-      is_admin: {
-        Args: Record<string, never>;
-        Returns: boolean;
-      };
-      send_message: {
-        Args: { p_recipient_member_no: number; p_body: string };
-        Returns: Json;
-      };
-      my_waitlist: {
-        Args: Record<string, never>;
-        Returns: { id: string; patient_id: string; patient_name: string | null; patient_member_no: number | null; note: string | null; status: string; created_at: string }[];
-      };
-      waitlist_add: {
-        Args: { p_patient_member_no: number; p_note?: string };
-        Returns: Json;
-      };
-      waitlist_join: {
-        Args: { p_provider_member_no: number; p_note?: string };
-        Returns: Json;
-      };
-      waitlist_set_status: {
-        Args: { p_id: string; p_status: string };
-        Returns: Json;
-      };
-      waitlist_notify_slot: {
-        Args: { p_message?: string };
-        Returns: Json;
-      };
-      campaign_recipients: {
-        Args: { p_campaign_id: string };
-        Returns: { user_id: string; full_name: string | null; phone: string | null }[];
-      };
-      message_threads: {
-        Args: Record<string, never>;
-        Returns: { other_id: string; other_name: string | null; other_member_no: number | null; other_avatar: string | null; last_body: string | null; last_at: string; unread: number }[];
-      };
-      refresh_all_badges: {
-        Args: Record<string, never>;
-        Returns: number;
-      };
-      recommend_blog: {
-        Args: { p_limit?: number };
-        Returns: Database['public']['Views']['blog_feed']['Row'][];
-      };
-      my_membership_options: {
-        Args: Record<string, never>;
-        Returns: { affiliate_type: string; member_class: 'founder' | 'ordinary'; currency: string; monthly_amount: number | null; annual_amount: number | null; annual_list_amount: number | null; zero_decimal: boolean; is_founder: boolean }[];
-      };
-      /**
-       * Cuota MENSUAL ordinaria: la que cobra Stripe si se elige pago por mes.
-       * my_membership_options devuelve la fila en clase fundador, cuyo
-       * monthly_amount no se cobra nunca (el descuento de fundador solo rige
-       * en el anual).
-       */
-      /** Solicitud de cuota de fundador fuera de cupo o plazo (migración 0218). */
-      solicitar_cuota_fundador: {
-        Args: { p_nota?: string | null };
-        Returns: { ok: boolean; motivo?: string; country?: string; kind?: string };
-      };
-      mi_solicitud_fundador: {
-        Args: Record<string, never>;
-        Returns: { status: string; solicitada_en?: string; resuelta_en?: string | null; nota_admin?: string | null };
-      };
-      admin_solicitudes_fundador: {
-        Args: { p_status?: string };
-        Returns: { user_id: string; nombre: string | null; correo: string | null; pais: string | null; kind: string | null; affiliate_type: string | null; nota_usuario: string | null; status: string; solicitada_en: string; nota_admin: string | null; usados: number | null; cupo: number | null }[];
-      };
-      admin_resolver_solicitud_fundador: {
-        Args: { p_user: string; p_conceder: boolean; p_nota?: string | null };
-        Returns: { ok: boolean; concedida?: boolean; motivo?: string };
-      };
-      /** Lugares de fundador ya tomados (migración 0222). */
-      /** Estado del plazo de oferta de una empresa exenta (migración 0223). */
-      empresa_estado: {
-        Args: { p_id: string };
-        Returns: { aplica: boolean; con_oferta?: boolean; dias?: number; etapa?: string; dias_para_directorio?: number; dias_para_limite?: number };
-      };
-      empresa_con_oferta: {
-        Args: { p_id: string };
-        Returns: boolean;
-      };
-      founder_cupo_usado: {
-        Args: { p_country: string; p_kind: string };
-        Returns: number;
-      };
-      my_membership_monthly_ordinary: {
-        Args: Record<string, never>;
-        Returns: { currency: string; monthly_amount: number | null }[];
-      };
-      affiliate_type_for: {
-        Args: { p_user: string };
-        Returns: string;
-      };
-      is_medical_profession: {
-        Args: { p_profession: string };
-        Returns: boolean | null;
-      };
-      membership_price_for: {
-        Args: { p_type: string; p_country: string; p_class?: string; p_period?: string };
-        Returns: { currency: string; amount: number; list_amount: number | null; monthly_amount: number | null; annual_amount: number | null; annual_list_amount: number | null; zero_decimal: boolean; is_override: boolean }[];
-      };
-      admin_membership_prices: {
-        Args: Record<string, never>;
-        Returns: { affiliate_type: string; country_label: string; currency: string; amount: number; zero_decimal: boolean; is_override: boolean }[];
-      };
-      admin_export_membership_prices: {
-        Args: Record<string, never>;
-        Returns: { country_label: string; affiliate_type: string; member_class: string; currency: string; monthly_amount: number | null; annual_amount: number | null; annual_list_amount: number | null; zero_decimal: boolean }[];
-      };
-      admin_import_membership_prices: {
-        Args: { p_rows: Json; p_replace?: boolean };
-        Returns: Json;
-      };
-      normalize_country: {
-        Args: { p: string };
-        Returns: string;
-      };
-      // ── Libro de comisiones de afiliados (migración 0043) ────────────────
-      my_commissions_earned: {
-        Args: Record<string, never>;
-        Returns: { id: string; order_id: string; counterpart_id: string; counterpart_name: string | null; counterpart_member_no: number | null; product_name: string | null; amount_cents: number; currency: string; status: string; refund_after_payment: boolean; paid_at: string | null; paid_note: string | null; created_at: string }[];
-      };
-      my_commissions_owed: {
-        Args: Record<string, never>;
-        Returns: { id: string; order_id: string; counterpart_id: string; counterpart_name: string | null; counterpart_member_no: number | null; product_name: string | null; amount_cents: number; currency: string; status: string; refund_after_payment: boolean; paid_at: string | null; paid_note: string | null; created_at: string }[];
-      };
-      mark_commissions_paid: {
-        Args: { p_ids: string[]; p_note?: string | null };
-        Returns: Json;
-      };
-      admin_commissions: {
-        Args: Record<string, never>;
-        Returns: { id: string; vendor_id: string; vendor_name: string | null; vendor_member_no: number | null; affiliate_id: string; affiliate_name: string | null; affiliate_member_no: number | null; product_name: string | null; amount_cents: number; currency: string; status: string; refund_after_payment: boolean; paid_at: string | null; created_at: string }[];
-      };
-      // ── Donaciones (migraciones 0045 / 0046) ─────────────────────────────
-      donor_wall: {
-        Args: Record<string, never>;
-        Returns: { display_name: string; level: string; is_company: boolean; featured: boolean; note: string | null; logo_url: string | null; since: string | null }[];
-      };
-      founders_wall: {
-        Args: { p_country?: string | null };
-        Returns: { display_name: string; member_no: number | null; kind: string; country: string | null; featured: boolean; is_company: boolean }[];
-      };
-      founders_wall_countries: {
-        Args: Record<string, never>;
-        Returns: { country: string; n: number }[];
-      };
-      public_jobs: {
-        Args: { p_country?: string | null; p_type?: string | null };
-        Returns: { id: string; company_name: string; company_id: string; opportunity_type: string; positions: number | null; title: string | null; experience: string | null; education: string | null; salary_text: string | null; country: string | null; city: string | null; skills: string | null; apply_email: string | null; apply_url: string | null; note: string | null; created_at: string }[];
-      };
-      public_jobs_countries: {
-        Args: Record<string, never>;
-        Returns: { country: string; n: number }[];
-      };
-      is_tribe_active: {
-        Args: { p_uid?: string };
-        Returns: boolean;
-      };
-      tribe_forums_list: {
-        Args: { p_query?: string | null; p_country?: string | null; p_language?: string | null; p_theme?: string | null; p_section?: string | null };
-        Returns: { id: string; title: string; description: string | null; theme: string | null; country: string | null; city: string | null; language: string | null; section: string | null; members: number; i_member: boolean; created_at: string }[];
-      };
-      tribe_forum_messages: {
-        Args: { p_forum: string };
-        Returns: { id: string; author_id: string; author_name: string; author_energy: string; author_is_mod: boolean; body: string; created_at: string }[];
-      };
-      tribe_create_forum: {
-        Args: { p_title: string; p_description: string; p_theme: string; p_country: string; p_city: string; p_language: string; p_notify_countries: string[] | null; p_apply_moderator?: boolean; p_section?: string | null };
-        Returns: string;
-      };
-      tribe_close_forum: {
-        Args: { p_forum: string };
-        Returns: undefined;
-      };
-      tribe_am_i_forum_moderator: {
-        Args: { p_forum: string };
-        Returns: boolean;
-      };
-      tribe_apply_forum_moderator: {
-        Args: { p_forum: string };
-        Returns: undefined;
-      };
-      tribe_forum_call_moderators: {
-        Args: { p_forum: string };
-        Returns: undefined;
-      };
-      tribe_forum_prefs_get: {
-        Args: Record<string, never>;
-        Returns: { push_enabled: boolean; countries: string[] | null }[];
-      };
-      tribe_forum_prefs_set: {
-        Args: { p_push: boolean; p_countries: string[] | null };
-        Returns: undefined;
-      };
-      admin_forum_moderators: {
-        Args: { p_forum?: string | null; p_status?: string | null };
-        Returns: { id: string; forum_id: string; forum_title: string; user_id: string; name: string; member_no: number | null; status: string; created_at: string }[];
-      };
-      admin_set_forum_moderator: {
-        Args: { p_id: string; p_status: string };
-        Returns: undefined;
-      };
-      is_tribe_moderator: {
-        Args: { p_uid?: string };
-        Returns: boolean;
-      };
-      tribe_apply_moderator: {
-        Args: { p_justification: string; p_accept: boolean };
-        Returns: undefined;
-      };
-      tribe_my_moderator: {
-        Args: Record<string, never>;
-        Returns: { status: string; points: number; justification: string | null }[];
-      };
-      tribe_moderators_list: {
-        Args: Record<string, never>;
-        Returns: { user_id: string; name: string; points: number; avg_rating: number; n_ratings: number; i_rated: boolean }[];
-      };
-      tribe_moderator_profile: {
-        Args: { p_moderator: string };
-        Returns: { points: number; n_ratings: number; empathy: number; inclusive_language: number; cordiality: number; knowledge: number; availability: number }[];
-      };
-      tribe_rate_moderator: {
-        Args: { p_moderator: string; p_empathy: number; p_inclusive: number; p_cordiality: number; p_knowledge: number; p_availability: number; p_comment?: string | null; p_anonymous?: boolean };
-        Returns: undefined;
-      };
-      admin_tribe_moderators: {
-        Args: { p_status?: string | null };
-        Returns: { user_id: string; name: string; member_no: number | null; status: string; points: number; justification: string | null; created_at: string }[];
-      };
-      admin_set_moderator_status: {
-        Args: { p_user: string; p_status: string };
-        Returns: undefined;
-      };
-      admin_set_tribe_member: {
-        Args: { p_user: string; p_status?: string | null; p_can_write?: boolean | null; p_can_evaluate?: boolean | null; p_can_review?: boolean | null };
-        Returns: undefined;
-      };
-      admin_tribe_member_lookup: {
-        Args: { p_member_no: number };
-        Returns: { user_id: string; name: string; status: string; can_write: boolean; can_evaluate: boolean; can_review: boolean }[];
-      };
-      admin_set_advisor: {
-        Args: { p_member_no: number; p_on: boolean };
-        Returns: undefined;
-      };
-      campaign_status: {
-        Args: Record<string, never>;
-        Returns: {
-          active: boolean;
-          start_at: string | null;
-          default_block_days: number;
-          block_days_by_country: Record<string, number>;
-          popup_active: boolean;
-          popup_continents: Record<string, boolean>;
-          founder_discount: { days: number; pct: number }[];
-          community_url: string | null;
-        } | null;
-      };
-      admin_campaign_set: {
-        Args: {
-          p_active: boolean;
-          p_start_at: string | null;
-          p_default_days: number;
-          p_days_by_country: Record<string, number>;
-          p_popup_active: boolean;
-          p_popup_continents: Record<string, boolean>;
-          p_founder_discount: { days: number; pct: number }[];
-        };
-        Returns: undefined;
-      };
-      my_raffle_tickets: {
-        Args: Record<string, never>;
-        Returns: number;
-      };
-      admin_raffle_entries: {
-        Args: Record<string, never>;
-        Returns: { user_id: string; name: string; member_no: number | null; email: string; role: string; tickets: number }[];
-      };
-      admin_set_campaign_community: {
-        Args: { p_url: string };
-        Returns: undefined;
-      };
-      admin_set_whatsapp_url: {
-        Args: { p_url: string };
-        Returns: undefined;
-      };
-      admin_set_active_markets: {
-        Args: { p_markets: string[] };
-        Returns: undefined;
-      };
-      country_discount_pct: {
-        Args: { p_country: string };
-        Returns: number;
-      };
-      founder_provider_ids: {
-        Args: Record<string, never>;
-        Returns: { id: string }[];
-      };
-      donor_provider_ids: {
-        Args: Record<string, never>;
-        Returns: { id: string }[];
-      };
-      founder_count: {
-        Args: Record<string, never>;
-        Returns: number;
-      };
-      founder_cap_for: {
-        Args: { p_country: string; p_kind: string };
-        Returns: number;
-      };
-      nm_compare_price: {
-        Args: { p_country: string };
-        Returns: { currency: string; min_month: number; max_month: number }[];
-      };
-      verify_badge: {
-        Args: { p_folio: string };
-        Returns: { found: boolean; member_no: number | null; name: string | null; kind: string | null; country: string | null; vigente: boolean; is_founder: boolean; neuroaffirming: boolean; is_company: boolean }[];
-      };
-      verify_ally: {
-        Args: { p_id: string };
-        Returns: { found: boolean; name: string | null; website: string | null; countries: string[] | null; vigente: boolean }[];
-      };
-      join_launch_waitlist: {
-        Args: { p_email: string; p_country?: string };
-        Returns: undefined;
-      };
-      admin_country_discounts: {
-        Args: Record<string, never>;
-        Returns: { country_label: string; pct: number; is_active: boolean; note: string | null; updated_at: string }[];
-      };
-      admin_set_country_discount: {
-        Args: { p_country: string; p_pct: number | null; p_active?: boolean; p_note?: string | null };
-        Returns: undefined;
-      };
-      admin_raffle_draw: {
-        Args: { p_count: number; p_role?: string | null; p_batch?: string | null };
-        Returns: { user_id: string; name: string; member_no: number | null; email: string; tickets: number }[];
-      };
-      admin_raffle_winners: {
-        Args: Record<string, never>;
-        Returns: { user_id: string; name: string; member_no: number | null; email: string; batch: string | null; drawn_at: string }[];
-      };
-      admin_list_advisors: {
-        Args: Record<string, never>;
-        Returns: { user_id: string; name: string; email: string; member_no: number | null }[];
-      };
-      tribe_delete_message: {
-        Args: { p_msg: string };
-        Returns: undefined;
-      };
-      tribe_become_mentor: {
-        Args: { p_tracks: string[]; p_bio: string | null; p_section?: string | null };
-        Returns: undefined;
-      };
-      tribe_set_mentor_active: {
-        Args: { p_active: boolean };
-        Returns: undefined;
-      };
-      tribe_my_mentor: {
-        Args: Record<string, never>;
-        Returns: { tracks: string[]; bio: string | null; is_active: boolean; section: string | null }[];
-      };
-      tribe_mentors_list: {
-        Args: { p_track?: string | null; p_section?: string | null };
-        Returns: { user_id: string; name: string; tracks: string[]; bio: string | null; section: string | null; my_status: string | null }[];
-      };
-      tribe_request_mentor: {
-        Args: { p_mentor: string; p_track: string };
-        Returns: undefined;
-      };
-      tribe_respond_mentorship: {
-        Args: { p_id: string; p_accept: boolean };
-        Returns: undefined;
-      };
-      tribe_my_mentorships: {
-        Args: Record<string, never>;
-        Returns: { id: string; role: string; counterpart_name: string; track: string; status: string; created_at: string }[];
-      };
-      tribe_mentor_messages_list: {
-        Args: { p_mentorship: string };
-        Returns: { id: string; author_id: string; author_name: string; body: string; created_at: string }[];
-      };
-      tribe_create_event: {
-        Args: { p_title: string; p_description: string; p_starts_at: string; p_location?: string | null; p_is_online?: boolean; p_city?: string | null; p_country?: string | null; p_noise: string; p_quiet_room?: boolean; p_sensory_tips?: string | null; p_section?: string | null };
-        Returns: string;
-      };
-      tribe_cancel_event: {
-        Args: { p_event: string };
-        Returns: undefined;
-      };
-      tribe_event_rsvp: {
-        Args: { p_event: string; p_going: boolean };
-        Returns: undefined;
-      };
-      tribe_event_sensory_report: {
-        Args: { p_event: string; p_noise: number; p_quiet_used: boolean; p_comfort: number; p_notes?: string | null };
-        Returns: undefined;
-      };
-      tribe_events_list: {
-        Args: { p_country?: string | null; p_section?: string | null };
-        Returns: { id: string; title: string; description: string; starts_at: string; location: string | null; is_online: boolean; city: string | null; country: string | null; noise: string; quiet_room: boolean; sensory_tips: string | null; section: string | null; creator_name: string; going: number; i_going: boolean; i_reported: boolean; is_past: boolean }[];
-      };
-      tribe_invite: {
-        Args: { p_forum: string; p_member_no: number };
-        Returns: undefined;
-      };
-      tribe_my_invites: {
-        Args: Record<string, never>;
-        Returns: { id: string; forum_id: string; forum_title: string; inviter_name: string; created_at: string }[];
-      };
-      tribe_respond_invite: {
-        Args: { p_invite: string; p_accept: boolean };
-        Returns: undefined;
-      };
-      admin_tribe_forums: {
-        Args: { p_status?: string | null };
-        Returns: { id: string; title: string; description: string | null; theme: string | null; country: string | null; city: string | null; language: string | null; creator_name: string; status: string; created_at: string }[];
-      };
-      admin_set_forum_status: {
-        Args: { p_forum: string; p_status: string };
-        Returns: undefined;
-      };
-      tribe_tokens_left: {
-        Args: Record<string, never>;
-        Returns: number;
-      };
-      tribe_give_gratitude: {
-        Args: { p_receiver: string; p_badge: string; p_forum?: string | null; p_anonymous?: boolean };
-        Returns: number;
-      };
-      tribe_set_silent: {
-        Args: { p_silent: boolean };
-        Returns: undefined;
-      };
-      tribe_impact: {
-        Args: { p_user: string };
-        Returns: { badge_key: string; n: number; points: number; silent: boolean }[];
-      };
-      admin_founders: {
-        Args: { p_country?: string | null };
-        Returns: { user_id: string; display_name: string; member_no: number | null; kind: string; country: string | null; wall_published: boolean; wall_featured: boolean; wall_order: number }[];
-      };
-      admin_set_founder_wall: {
-        Args: { p_user: string; p_published?: boolean | null; p_featured?: boolean | null; p_order?: number | null };
-        Returns: undefined;
-      };
-      admin_donation_stats: {
-        Args: Record<string, never>;
-        Returns: { currency: string; paid_count: number; paid_cents: number; wall_published: number; physical_pending: number }[];
-      };
-      admin_donations: {
-        Args: { p_status?: string | null };
-        Returns: { id: string; created_at: string; paid_at: string | null; status: string; level: string; amount_cents: number; currency: string; is_company: boolean; contact_name: string; org_name: string | null; email: string; publish_consent: boolean; publish_as: string | null; wall_published: boolean; wall_featured: boolean; wall_note: string | null; wall_logo_url: string | null; waive_physical: boolean; ship_use_registered: boolean; ship_recipient: string | null; ship_address: string | null; ship_city: string | null; ship_postal: string | null; ship_country: string | null }[];
-      };
-      admin_set_donation_wall: {
-        Args: { p_id: string; p_published: boolean; p_featured?: boolean; p_publish_as?: string | null; p_note?: string | null; p_logo_url?: string | null };
-        Returns: Json;
-      };
-      search_members: {
-        Args: { p_query: string };
-        Returns: { member_no: number; full_name: string; business_name: string | null; avatar_url: string | null; role: string }[];
-      };
-      respond_review: {
-        Args: { p_survey_id: string; p_text: string };
-        Returns: Json;
-      };
-      can_review_provider: {
-        Args: { p_provider: string };
-        Returns: boolean;
-      };
-      submit_provider_review: {
-        Args: { p_provider: string; p_quality: number; p_human: number; p_accessibility: number; p_price: number; p_offer: number; p_sensory: number; p_flexibility: number; p_facilities?: number | null; p_professionalism?: number | null; p_comment?: string | null; p_anonymous?: boolean };
-        Returns: undefined;
-      };
-      track_profile_event: {
-        Args: { p_provider_id: string; p_kind: string };
-        Returns: undefined;
-      };
-      provider_metrics: {
-        Args: Record<string, never>;
-        Returns: { views_total: number; views_30d: number; contacts_total: number; contacts_30d: number }[];
-      };
-      suspend_my_account: {
-        Args: Record<string, never>;
-        Returns: string | null;
-      };
-      reactivate_my_account: {
-        Args: Record<string, never>;
-        Returns: undefined;
-      };
-      cancel_my_account: {
-        Args: { p_reason: string; p_detail?: string | null };
-        Returns: Json;
-      };
-      admin_account_actions: {
-        Args: Record<string, never>;
-        Returns: { id: string; user_id: string | null; email: string | null; member_no: number | null; role: string | null; action: string; reason: string | null; reason_detail: string | null; is_paid: boolean; created_at: string }[];
-      };
-      submit_improvement: {
-        Args: { p_message: string; p_email?: string | null; p_page?: string | null };
-        Returns: undefined;
-      };
-      admin_improvement_suggestions: {
-        Args: Record<string, never>;
-        Returns: { id: string; user_id: string | null; email: string | null; message: string; page: string | null; created_at: string }[];
-      };
-      submit_catalog_suggestion: {
-        Args: { p_kind: string; p_name: string; p_note?: string | null; p_section?: string | null; p_country?: string | null; p_email?: string | null; p_page?: string | null };
-        Returns: undefined;
-      };
-      admin_catalog_suggestions: {
-        Args: Record<string, never>;
-        Returns: { id: string; user_id: string | null; email: string | null; kind: string; section: string | null; name: string; note: string | null; country: string | null; page: string | null; status: string; created_at: string }[];
-      };
-      admin_set_catalog_suggestion_status: {
-        Args: { p_id: string; p_status: string };
-        Returns: undefined;
-      };
-      admin_create_category: {
-        Args: { p_slug: string; p_name: string };
-        Returns: undefined;
-      };
-      search_contacts: {
-        Args: { p_query: string };
-        Returns: { member_no: number; full_name: string; business_name: string | null; avatar_url: string | null; role: string; country: string | null }[];
-      };
-      admin_country_prices: {
-        Args: { p_country: string };
-        Returns: { affiliate_type: string; member_class: string; currency: string; monthly_amount: number | null; annual_amount: number | null; annual_list_amount: number | null; zero_decimal: boolean; is_override: boolean }[];
-      };
-      admin_configured_countries: {
-        Args: Record<string, never>;
-        Returns: { country_label: string; types: number }[];
-      };
-      admin_set_membership_price: {
-        Args: { p_type: string; p_country: string; p_class: string; p_currency: string; p_monthly: number; p_annual: number; p_annual_list: number; p_zero_decimal?: boolean };
-        Returns: Json;
-      };
-      admin_clear_membership_price: {
-        Args: { p_type: string; p_country: string; p_class: string };
-        Returns: Json;
-      };
-      admin_referral_config: {
-        Args: Record<string, never>;
-        Returns: { discount_pct: number; validity_days: number; referrer_step_pct: number; referrer_max_pct: number }[];
-      };
-      admin_set_referral_config: {
-        Args: { p_discount_pct: number; p_validity_days: number; p_referrer_step_pct: number; p_referrer_max_pct: number };
-        Returns: Json;
-      };
-      grant_referral_credit: {
-        Args: { p_referred: string };
-        Returns: { referrer_id: string; credit_pct: number; subscription_id: string | null }[];
-      };
-      consume_referral_credit: {
-        Args: { p_user: string };
-        Returns: undefined;
-      };
-      my_referral_summary: {
-        Args: Record<string, never>;
-        Returns: { total_uses: number; paying_uses: number; rewarded_uses: number; accrued_pct: number; max_pct: number; step_pct: number; validity_days: number }[];
-      };
-      my_membership_discount: {
-        Args: Record<string, never>;
-        Returns: { referral_pct: number; referrer_pct: number; total_pct: number }[];
-      };
-      my_membership_promo: {
-        Args: Record<string, never>;
-        Returns: { benefit: string; percent_off: number; amount_off: number; amount_currency: string }[];
-      };
-      membership_discount: {
-        Args: { p_user: string };
-        Returns: { referral_pct: number; referrer_pct: number; total_pct: number }[];
-      };
-      admin_referrals: {
-        Args: Record<string, never>;
-        Returns: { id: string; used_at: string; referrer_id: string; referrer_name: string | null; referrer_member_no: number | null; referred_id: string; referred_name: string | null; referred_member_no: number | null; referred_role: string | null; is_paying_type: boolean; referred_has_paid: boolean; referred_paid_until: string | null; link_still_valid: boolean; reward_due: boolean; reward_manual: boolean; reward_counted: boolean; referrer_role: string | null }[];
-      };
-      set_referrer: {
-        Args: { p_member_no: number };
-        Returns: Json;
-      };
-      my_referral_count: {
-        Args: Record<string, never>;
-        Returns: number;
-      };
-      set_founder_optout: {
-        Args: { p_optout: boolean };
-        Returns: boolean;
-      };
-      admin_membership_renewals: {
-        Args: Record<string, never>;
-        Returns: { id: string; member_no: number | null; name: string; provider_type: string | null; country: string | null; membership_status: string; paid_until: string | null; due_at: string | null; is_founder: boolean; days_until: number | null }[];
-      };
-      admin_reports: {
-        Args: Record<string, never>;
-        Returns: Database['public']['Tables']['reports']['Row'][];
-      };
-      claim_founder_slot: {
-        Args: { p_kind: string; p_country: string | null };
-        Returns: boolean;
-      };
-      claim_free_founder_seat: {
-        Args: Record<string, never>;
-        Returns: boolean;
-      };
-      submit_org_document: {
-        Args: { p_url: string; p_kind: string };
-        Returns: boolean;
-      };
-      admin_set_org_doc: {
-        Args: { p_user: string; p_approve: boolean; p_note?: string | null };
-        Returns: boolean;
-      };
-      admin_pending_org_docs: {
-        Args: Record<string, never>;
-        Returns: { id: string; nombre: string | null; provider_type: string | null; member_no: string | null; org_doc_kind: string | null; org_doc_url: string | null; org_doc_submitted_at: string | null }[];
-      };
-      is_founder: {
-        Args: { p_id: string };
-        Returns: boolean;
-      };
-      is_donor: {
-        Args: { p_id: string };
-        Returns: boolean;
-      };
-      admin_badge_inputs: {
-        Args: Record<string, never>;
-        Returns: { provider_id: string; documental_verified: boolean; avg_quality: number | null; avg_human_treatment: number | null; avg_professionalism: number | null; evs_score: number | null; total_reviews: number; discount_pct: number; content_count: number; response_rate_pct: number; retention_pct: number }[];
-      };
-      my_badge_inputs: {
-        Args: Record<string, never>;
-        Returns: { provider_id: string; documental_verified: boolean; avg_quality: number | null; avg_human_treatment: number | null; avg_professionalism: number | null; evs_score: number | null; total_reviews: number; discount_pct: number; content_count: number; response_rate_pct: number; retention_pct: number }[];
-      };
-      admin_other_values: {
-        Args: { p_country?: string | null };
-        Returns: { country: string | null; kind: string; label: string; uses: number; provider_ids: string[]; category_id: number | null }[];
-      };
-      admin_promote_other_to_category: {
-        Args: { p_label: string; p_country?: string | null; p_kind?: string | null; p_link?: boolean };
-        Returns: number;
-      };
-      admin_set_verified: {
-        Args: { p_id: string; p_value: boolean };
-        Returns: undefined;
-      };
-      admin_set_published: {
-        Args: { p_id: string; p_value: boolean };
-        Returns: undefined;
-      };
-      admin_set_profile_flag: {
-        Args: { p_id: string; p_flag: string; p_value: boolean };
-        Returns: undefined;
-      };
-      type_badge_providers: {
-        Args: Record<string, never>;
-        Returns: { id: string; is_inclusive_school: boolean; is_inclusive_company: boolean; is_institutional_ally: boolean }[];
-      };
-      admin_set_neuroaffirming: {
-        Args: { p_id: string; p_value: boolean };
-        Returns: undefined;
-      };
-      is_provider: {
-        Args: { p_id: string };
-        Returns: boolean;
-      };
-      is_parent: {
-        Args: { p_id: string };
-        Returns: boolean;
-      };
-      is_consumer: {
-        Args: { p_id: string };
-        Returns: boolean;
-      };
-      is_member_active: {
-        Args: { p_id: string };
-        Returns: boolean;
-      };
-      redeem_promo_code: {
-        Args: { p_code: string };
-        Returns: { ok: boolean; error?: string };
-      };
-      get_membership_quote: {
-        Args: { p_type: string; p_country: string };
-        Returns: { currency: string; amount: number; base_usd: number }[];
-      };
-      daily_billing_report: {
-        Args: { p_date: string };
-        Returns: { payer_name: string; payer_rfc: string; amount: number; currency: string; kind: string; paid_at: string }[];
-      };
-      search_all: {
-        Args: { q: string };
-        Returns: { kind: string; id: string; title: string; subtitle: string; url: string }[];
-      };
-      has_clinical_access: {
-        Args: { p_patient: string; p_viewer: string };
-        Returns: boolean;
-      };
-      resolve_affiliate: {
-        Args: { p_code: string };
-        Returns: { provider_id: string; commission_pct: number }[];
-      };
-      owns_course: { Args: { p_course: string }; Returns: boolean };
-      course_visible: { Args: { p_course: string }; Returns: boolean };
-      complete_onboarding: {
-        Args: {
-          p_role: string;
-          p_provider_type: string;
-          p_full_name: string;
-          p_country: string;
-          p_state: string;
-          p_municipality: string;
-          p_rules_version: string;
-        };
-        Returns: boolean;
-      };
-      get_shared_list: {
-        Args: { p_token: string };
-        Returns: Json;
-      };
-    };
-
-    Enums: {
-      user_role: UserRole;
-      provider_type: ProviderType;
-      transaction_status: TransactionStatus;
-      offer_status: OfferStatus;
-      prescription_status: PrescriptionStatus;
-    };
-
-    CompositeTypes: Record<string, never>;
-  };
-}
-
-// ── Helpers de acceso a tipos de tabla ───────────────────────────────────────
-type PublicSchema = Database['public'];
-
-export type Tables<T extends keyof PublicSchema['Tables']> =
-  PublicSchema['Tables'][T]['Row'];
-
-export type TablesInsert<T extends keyof PublicSchema['Tables']> =
-  PublicSchema['Tables'][T]['Insert'];
-export type TablesUpdate<T extends keyof PublicSchema['Tables']> =
-  PublicSchema['Tables'][T]['Update'];
-
-export type Views<T extends keyof PublicSchema['Views']> =
-  PublicSchema['Views'][T]['Row'];
+export type Views<T extends keyof Database['public']['Views']> =
+  Database['public']['Views'][T]['Row'];

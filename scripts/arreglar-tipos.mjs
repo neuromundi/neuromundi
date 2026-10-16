@@ -30,21 +30,49 @@ let texto = crudo.toString('utf8').replace(/\r\n/g, '\n');
 
 // ── 2. TODO argumento de una función SQL acepta null ───────────────────────
 // En Postgres cualquier parámetro admite NULL; el generador no lo refleja en
-// NINGUNO, ni en los opcionales. El código pasa null a propósito —`p_buscar:
-// q.trim() || null` significa "sin filtro"— y el tipo generado lo rechazaba.
-// Son errores de compilación que no corresponden a errores reales.
+// ninguno. El código pasa null a propósito —`p_buscar: q.trim() || null`
+// significa "sin filtro"— y el tipo generado lo rechazaba.
+//
+// Se trabaja LÍNEA A LÍNEA, no con expresiones regulares sobre todo el bloque:
+// el generador escribe los Args de dos formas (una sola línea con `;`, o varias
+// líneas) y un barrido con llaves se descuadra en cuanto un tipo lleva llaves.
 let tocados = 0;
-texto = texto.replace(/Args:\s*\{([^}]*)\}/g, (todo, cuerpo) => {
-  const nuevo = cuerpo.replace(
-    /(\n\s*)([a-z_][a-z0-9_]*)(\??):\s*([A-Za-z<>[\]{}| ]+?)(?=\n)/g,
-    (linea, sangria, nombre, opcional, tipo) => {
-      if (/\|\s*null/.test(tipo)) return linea;
-      tocados += 1;
-      return `${sangria}${nombre}${opcional}: ${tipo.trim()} | null`;
-    },
-  );
-  return `Args: {${nuevo}}`;
-});
+
+/** Añade `| null` a un `nombre: tipo` suelto. Devuelve el texto tal cual si no lo es. */
+function anotar(parte) {
+  const m = parte.match(/^(\s*)([a-z_][a-z0-9_]*)(\??):\s*(.+?)(\s*)$/i);
+  if (!m) return parte;
+  const [, sangria, nombre, opcional, tipo, cola] = m;
+  if (/\|\s*null/.test(tipo) || tipo === 'never') return parte;
+  tocados += 1;
+  return `${sangria}${nombre}${opcional}: ${tipo} | null${cola}`;
+}
+
+const lineas = texto.split('\n');
+let dentro = false;      // dentro de un bloque Args de varias líneas
+let sangriaBloque = '';
+for (let i = 0; i < lineas.length; i++) {
+  const linea = lineas[i];
+
+  if (dentro) {
+    if (/^\s*\}/.test(linea)) { dentro = false; continue; }
+    lineas[i] = anotar(linea);
+    continue;
+  }
+
+  // Args en una sola línea: Args: { a: string; b?: number }
+  const unaLinea = linea.match(/^(\s*)Args:\s*\{(.*)\}\s*$/);
+  if (unaLinea) {
+    const [, sangria, cuerpo] = unaLinea;
+    lineas[i] = `${sangria}Args: {${cuerpo.split(';').map(anotar).join(';')}}`;
+    continue;
+  }
+
+  // Args que abre bloque: Args: {
+  const abre = linea.match(/^(\s*)Args:\s*\{\s*$/);
+  if (abre) { dentro = true; sangriaBloque = abre[1]; continue; }
+}
+texto = lineas.join('\n');
 console.log(`· argumentos que ahora aceptan null: ${tocados}`);
 
 // ── 3. Alias que el generador no emite ─────────────────────────────────────

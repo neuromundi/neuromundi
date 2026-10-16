@@ -15,6 +15,7 @@ import type {
   Result,
   SurveyInsert,
   Transaction,
+  DiscountType,
 } from '@/types/app';
 
 export interface SurveyContext {
@@ -71,10 +72,11 @@ export function useSurvey(): UseSurveyValue {
           transaction,
           providerName:
             provider?.business_name ?? provider?.full_name ?? 'el proveedor',
-          providerType: provider?.provider_type ?? null,
+          // La base guarda texto; la encuesta ramifica sobre la unión.
+          providerType: (provider?.provider_type ?? null) as ProviderType | null,
           offerTitle: offer?.title ?? null,
           discountText: offer
-            ? formatDiscount(offer.discount_type, offer.discount_value)
+            ? formatDiscount(offer.discount_type as DiscountType, offer.discount_value)
             : null,
         },
       };

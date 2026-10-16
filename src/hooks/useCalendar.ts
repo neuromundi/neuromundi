@@ -89,7 +89,7 @@ export function useCalendar() {
         .from('perfiles_basicos')
         .select('id, business_name, full_name')
         .in('id', provIds);
-      for (const p of profs ?? []) names[p.id] = p.business_name || p.full_name || '';
+      for (const p of profs ?? []) { if (p.id) names[p.id] = p.business_name || p.full_name || ''; }
     }
     setAppts(
       apptRows.map((a) => ({

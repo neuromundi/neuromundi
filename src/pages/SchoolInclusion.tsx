@@ -52,7 +52,7 @@ export function SchoolInclusion() {
   const term = q.trim().toLowerCase();
   const filtered = term
     ? schools.filter((s) =>
-        `${s.business_name ?? ''} ${s.full_name ?? ''} ${s.municipality ?? ''} ${s.state ?? ''} ${providerOtherText(s.provider_details)}`
+        `${s.business_name ?? ''} ${s.full_name ?? ''} ${s.municipality ?? ''} ${s.state ?? ''} ${providerOtherText(s.provider_details as Record<string, unknown> | null)}`
           .toLowerCase()
           .includes(term),
       )

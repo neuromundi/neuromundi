@@ -12,7 +12,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
 import { formatDiscount, toMessage } from '@/lib/utils';
-import type { Transaction } from '@/types/app';
+import type { Transaction, DiscountType } from '@/types/app';
 
 export interface ParentDiscount {
   transaction: Transaction;
@@ -80,7 +80,7 @@ export function useParentDiscounts(parentId: string | null): UseParentDiscountsV
             transaction,
             offerTitle: offer?.title ?? null,
             discountText: offer
-              ? formatDiscount(offer.discount_type, offer.discount_value)
+              ? formatDiscount(offer.discount_type as DiscountType, offer.discount_value)
               : null,
             providerName: provider?.business_name ?? provider?.full_name ?? null,
             providerAvatar: provider?.avatar_url ?? null,

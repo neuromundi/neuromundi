@@ -71,7 +71,7 @@ export function MembershipModal({ open, onClose }: { open: boolean; onClose: () 
 
   const pedirFundador = async () => {
     setPidiendo(true);
-    const { data, error } = await supabase.rpc('solicitar_cuota_fundador', { p_nota: null });
+    const { data, error } = await supabase.rpc('solicitar_cuota_fundador', {});
     setPidiendo(false);
     const r = data as { ok?: boolean; motivo?: string } | null;
     if (error || !r?.ok) { toast.error(t('solFund.pedirError')); return; }

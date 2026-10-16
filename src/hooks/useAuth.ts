@@ -46,7 +46,8 @@ export function useAuth(): UseAuthValue {
   const signOut = useAuthStore((s) => s.signOut);
   const refreshProfile = useAuthStore((s) => s.refreshProfile);
 
-  const role = profile?.role ?? null;
+  // La base guarda texto libre; la aplicación ramifica sobre la unión.
+  const role = (profile?.role ?? null) as UserRole | null;
 
   return {
     status,
@@ -55,7 +56,9 @@ export function useAuth(): UseAuthValue {
     userId: user?.id ?? null,
     email: user?.email ?? null,
     role,
-    providerType: profile?.provider_type ?? null,
+    // La columna es texto libre en la base; la aplicación ramifica sobre la
+    // unión. El estrechamiento se declara aquí, en un solo sitio.
+    providerType: (profile?.provider_type ?? null) as ProviderType | null,
     isProvider: role === 'provider',
     isParent: role === 'parent',
     isPatient: role === 'patient',

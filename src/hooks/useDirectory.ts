@@ -98,7 +98,10 @@ export function useDirectory(filters: DirectoryFilters): UseDirectoryValue {
       const { data: profiles, error: pErr } = await query;
       if (pErr) throw pErr;
 
-      const list: PerfilPublico[] = profiles ?? [];
+      // La vista pierde los NOT NULL de la tabla, así que sus columnas llegan
+      // nulables. `id`, `role` y `provider_type` sí vienen siempre: la vista
+      // sólo expone perfiles publicados y fichas publicadas.
+      const list = (profiles ?? []) as unknown as PerfilPublico[];
       const ids = list.map((p) => p.id);
       if (ids.length === 0) {
         setProviders([]);
@@ -123,7 +126,7 @@ export function useDirectory(filters: DirectoryFilters): UseDirectoryValue {
       );
 
       const badgeMap = new Map<string, BadgeResult>(
-        (badgeRes.data ?? []).map((r) => [r.provider_id, computeBadge(inputsFromRow(r))]),
+        (badgeRes.data ?? []).filter((r) => r.provider_id).map((r) => [r.provider_id as string, computeBadge(inputsFromRow(r))]),
       );
 
       const ratingMap = new Map<string, ProviderRating>(
@@ -152,7 +155,7 @@ export function useDirectory(filters: DirectoryFilters): UseDirectoryValue {
           is_inclusive_school: typeBadgeMap.get(p.id)?.is_inclusive_school ?? false,
           is_inclusive_company: typeBadgeMap.get(p.id)?.is_inclusive_company ?? false,
           is_institutional_ally: typeBadgeMap.get(p.id)?.is_institutional_ally ?? false,
-        })),
+        })) as ProviderWithRating[],
       );
     } catch (e) {
       setError(toMessage(e, 'No se pudo cargar el directorio.'));
@@ -186,7 +189,7 @@ export function useDirectory(filters: DirectoryFilters): UseDirectoryValue {
           // describe a 669 fichas no era buscable y solo se encontraban por nombre.
           p.services_offered ?? '',
           labelsOf(p.neuro_conditions),
-          providerOtherText(p.provider_details),
+          providerOtherText(p.provider_details as Record<string, unknown> | null),
         ].join(' ').toLowerCase();
         if (!haystack.includes(q)) return false;
       }

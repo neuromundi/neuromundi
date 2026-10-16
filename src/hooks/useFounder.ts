@@ -137,7 +137,7 @@ export function useFounderAutoClaim() {
     // "Cancelar y cerrar sesión" igual recibiría el distintivo y la felicitación.
     if (needsOnboarding) return;
     // Descarta admins y roles que no participan en el programa.
-    if (!founderKindFor(role, profile.provider_type ?? null)) return;
+    if (!founderKindFor(role, (profile.provider_type ?? null) as ProviderType | null)) return;
 
     // Opción de NO ser Fundador: persiste la baja en el servidor y no reclama.
     if (getFounderOptoutFlag() || profile.wants_founder === false) {
@@ -197,7 +197,7 @@ export function useFounderProgress() {
   const [progress, setProgress] = useState<import('@/lib/founderRequirements').FounderProgress | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const kind = founderKindFor(role, profile?.provider_type ?? null);
+  const kind = founderKindFor(role, (profile?.provider_type ?? null) as ProviderType | null);
 
   const load = useCallback(async () => {
     if (!userId || !profile || !kind) { setLoading(false); return; }
