@@ -293,10 +293,17 @@ function beneficios(r: Row, fundador = true): string {
       '🆓&nbsp; Membresía <b>gratuita</b> mientras mantenga publicada al menos una oferta.',
     ];
   } else if (pt === 'ngo') {
+    // Lista ampliada el 17 oct 2026: la version anterior nombraba tres cosas de
+    // las muchas que una organizacion de la sociedad civil puede hacer ya en la
+    // plataforma. Cada vinieta de abajo esta comprobada contra las pestanas que
+    // recibe de verdad un perfil 'ngo' en ProviderDashboard.
     items = [
-      '🆓&nbsp; Membresía <b>gratuita</b> para organizaciones de la sociedad civil.',
-      '🤝&nbsp; Publicar <b>oportunidades</b> (voluntariado, servicio social) y difundir su labor.',
-      '👪&nbsp; Aparecer ante <b>familias</b> que buscan apoyo en su región.',
+      '🆓&nbsp; Membresía <b>gratuita, siempre</b>, para organizaciones de la sociedad civil.',
+      '👪&nbsp; Aparecer ante las <b>familias</b> que buscan apoyo en su región, con su ficha completa: teléfono, sitio, dirección y servicios.',
+      '💬&nbsp; Recibir <b>solicitudes de contacto</b> de familias y pacientes, y decidir usted cuáles acepta.',
+      '📅&nbsp; <b>Agenda y reservas en línea</b> para sus consultas, terapias o asesorías, presenciales o en video, con un formulario que puede poner en su propio sitio.',
+      '🤝&nbsp; Publicar <b>oportunidades</b>: voluntariado, servicio social y empleo inclusivo.',
+      '📣&nbsp; Anunciar sus <b>jornadas, talleres y campañas</b> en la sección de Eventos.',
     ];
   } else if (pt === 'school' || pt === 'clinic') {
     items = [
@@ -330,6 +337,7 @@ function beneficios(r: Row, fundador = true): string {
   return `<ul style="margin:8px 0 0;padding:0;list-style:none;color:#334155;font-size:14px;line-height:1.5">${li}
     <li style="margin:6px 0">🧰&nbsp; <b>Incrementar su visibilidad, sus contactos y sus ingresos:</b> ofrecer todos sus servicios y productos en la plataforma, publicar sus productos en la <b>Tienda</b> con enlaces a su tienda oficial, sus cursos y talleres en <b>Academy</b>, sus actividades en <b>Eventos</b> y sus artículos en el <b>Blog</b>.</li>
     <li style="margin:6px 0">⭐&nbsp; <b>Reseñas y distintivos:</b> acumular reseñas de la comunidad y obtener los distintivos que acreditan su calidad y su compromiso.</li>
+    <li style="margin:6px 0">🤝&nbsp; <b>Muro de Aliados:</b> proponer a su organización, con su logotipo, para la sección de Aliados de Neuromundi. Revisamos cada propuesta antes de publicarla.</li>
     <li style="margin:6px 0">🎓&nbsp; <b>Formación e instrumentos:</b> acceso gratuito a cursos, talleres y eventos exclusivos para miembros Neuromundi.</li>
     ${founderLi}
     <li style="margin:6px 0">📋&nbsp; <b>Liderazgo en el sector:</b> participación prioritaria en la 1.ª Encuesta sobre la Situación Neurológica Mundial.</li>
