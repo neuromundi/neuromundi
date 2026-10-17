@@ -8261,6 +8261,7 @@ export type Database = {
         Returns: {
           country: string
           email: string
+          fundador_hasta: string
           name: string
           opens_at: string
           provider_type: string
