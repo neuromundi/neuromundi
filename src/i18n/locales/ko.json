@@ -1469,7 +1469,8 @@
     "secFichas": "Fichas",
     "secComisiones": "Comisiones",
     "secExperto": "전문가에게 질문",
-    "secEventos": "행사"
+    "secEventos": "행사",
+    "secAliados": "파트너"
   },
   "reg": {
     "typePatient": "환자",
@@ -2113,6 +2114,22 @@
       "evento_rechazado_motivo": {
         "title": "행사가 공개되지 않았습니다",
         "body": "{{titulo}}은(는) 공개되지 않았습니다. 사유: {{motivo}}"
+      },
+      "aliado_propuesto": {
+        "title": "파트너 등재 제안이 도착했습니다",
+        "body": "{{nombre}}이(가) 파트너 월 등재를 제안했습니다."
+      },
+      "aliado_aprobado": {
+        "title": "귀 단체가 파트너로 공개되었습니다",
+        "body": "{{nombre}}이(가) 파트너 월에 공개되었습니다."
+      },
+      "aliado_rechazado": {
+        "title": "파트너 등재가 수락되지 않았습니다",
+        "body": "{{nombre}}은(는) 파트너 월에 공개되지 않았습니다."
+      },
+      "aliado_rechazado_motivo": {
+        "title": "파트너 등재가 수락되지 않았습니다",
+        "body": "{{nombre}}은(는) 공개되지 않았습니다. 사유: {{motivo}}"
       }
     }
   },
@@ -6265,6 +6282,51 @@
       "demasiadasVivas": "답변받지 못한 요청이 너무 많습니다.",
       "yaPendiente": "이 제공자에게 보낸 대기 중인 요청이 이미 있습니다.",
       "yaResuelta": "이미 처리된 요청입니다."
+    }
+  },
+  "aliados": {
+    "titulo": "파트너 월",
+    "ayuda": "로고와 함께 귀 단체를 Neuromundi 파트너 섹션에 제안할 수 있습니다. 모든 제안은 공개 전에 검토합니다.",
+    "proponer": "우리 단체 제안",
+    "enviar": "제안 보내기",
+    "enviada": "제안이 검토 중입니다.",
+    "enRevision": "{{nombre}} 검토 중입니다.",
+    "publicada": "{{nombre}}이(가) 파트너 월에 표시됩니다.",
+    "noProcedio": "제안이 수락되지 않았습니다.",
+    "fNombre": "단체명",
+    "fSitio": "웹사이트",
+    "fLogo": "로고 링크",
+    "logoAyuda": "로고 이미지 주소를 붙여넣으세요. 지금 없다면 나중에 보내도 됩니다. 로고가 없으면 공개할 수 없습니다.",
+    "estado": {
+      "propuesto": "검토 중",
+      "aprobado": "공개됨",
+      "rechazado": "비공개"
+    },
+    "admin": {
+      "propuesto": "검토 중",
+      "aprobado": "공개됨",
+      "rechazado": "비공개",
+      "todas": "전체",
+      "empty": "이 상태의 제안이 없습니다.",
+      "anon": "이름 없음",
+      "aprobar": "승인하고 공개",
+      "rechazar": "공개하지 않음",
+      "hecho": "파트너를 공개했습니다.",
+      "notaPlaceholder": "단체에 남길 메모(선택). 상대가 읽습니다.",
+      "logoPlaceholder": "로고 링크",
+      "guardarLogo": "로고 저장",
+      "logoGuardado": "로고를 저장했습니다.",
+      "faltaLogo": "로고가 없습니다. 로고 없이는 공개할 수 없습니다."
+    },
+    "err": {
+      "sinSesion": "단체를 제안하려면 로그인하세요.",
+      "sinFicha": "먼저 디렉터리 등록 정보를 인증하세요.",
+      "nombreCorto": "이름이 너무 짧습니다.",
+      "largo": "입력한 항목 중 하나가 허용 길이를 넘었습니다.",
+      "sitioNoValido": "웹사이트는 http:// 또는 https:// 로 시작해야 합니다.",
+      "logoNoValido": "로고 링크는 http:// 또는 https:// 로 시작해야 합니다.",
+      "muchosPaises": "국가가 너무 많습니다.",
+      "yaTiene": "이미 검토 중인 제안이 있습니다."
     }
   }
 }

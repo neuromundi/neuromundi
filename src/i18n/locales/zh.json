@@ -1432,7 +1432,8 @@
     "secFichas": "Fichas",
     "secComisiones": "Comisiones",
     "secExperto": "向专家提问",
-    "secEventos": "活动"
+    "secEventos": "活动",
+    "secAliados": "伙伴"
   },
   "reg": {
     "typePatient": "患者",
@@ -2076,6 +2077,22 @@
       "evento_rechazado_motivo": {
         "title": "您的活动未被公开",
         "body": "{{titulo}} 未被公开。原因：{{motivo}}"
+      },
+      "aliado_propuesto": {
+        "title": "有机构申请成为伙伴",
+        "body": "{{nombre}} 申请进入伙伴墙。"
+      },
+      "aliado_aprobado": {
+        "title": "贵机构已作为伙伴公开",
+        "body": "{{nombre}} 已公开在伙伴墙。"
+      },
+      "aliado_rechazado": {
+        "title": "贵机构的伙伴申请未被接受",
+        "body": "{{nombre}} 未在伙伴墙公开。"
+      },
+      "aliado_rechazado_motivo": {
+        "title": "贵机构的伙伴申请未被接受",
+        "body": "{{nombre}} 未被公开。原因：{{motivo}}"
       }
     }
   },
@@ -6265,6 +6282,51 @@
       "demasiadasVivas": "您有太多尚未答复的申请。",
       "yaPendiente": "您对这位服务提供者已有一条待处理申请。",
       "yaResuelta": "该申请已处理过。"
+    }
+  },
+  "aliados": {
+    "titulo": "伙伴墙",
+    "ayuda": "可以带上标志，把贵机构提交到 Neuromundi 的伙伴专区。每份提交都会先经过审核再公开。",
+    "proponer": "提交本机构",
+    "enviar": "发送提交",
+    "enviada": "您的提交已进入审核。",
+    "enRevision": "{{nombre}} 正在审核。",
+    "publicada": "{{nombre}} 已出现在伙伴墙。",
+    "noProcedio": "您的提交未被接受。",
+    "fNombre": "机构名称",
+    "fSitio": "网站",
+    "fLogo": "标志链接",
+    "logoAyuda": "请粘贴标志图片的网址。若现在没有，可以稍后再发：没有标志无法公开。",
+    "estado": {
+      "propuesto": "审核中",
+      "aprobado": "已公开",
+      "rechazado": "未公开"
+    },
+    "admin": {
+      "propuesto": "审核中",
+      "aprobado": "已公开",
+      "rechazado": "未公开",
+      "todas": "全部",
+      "empty": "此状态下没有提交。",
+      "anon": "未填名称",
+      "aprobar": "通过并公开",
+      "rechazar": "不予公开",
+      "hecho": "伙伴已公开。",
+      "notaPlaceholder": "给机构的说明（可选）。对方会看到。",
+      "logoPlaceholder": "标志链接",
+      "guardarLogo": "保存标志",
+      "logoGuardado": "标志已保存。",
+      "faltaLogo": "缺少标志：没有标志无法公开。"
+    },
+    "err": {
+      "sinSesion": "请登录后再提交本机构。",
+      "sinFicha": "请先认领您在目录中的条目。",
+      "nombreCorto": "名称太短。",
+      "largo": "有字段超过了允许的长度。",
+      "sitioNoValido": "网站必须以 http:// 或 https:// 开头。",
+      "logoNoValido": "标志链接必须以 http:// 或 https:// 开头。",
+      "muchosPaises": "国家数量过多。",
+      "yaTiene": "您已有一份提交在审核中。"
     }
   }
 }

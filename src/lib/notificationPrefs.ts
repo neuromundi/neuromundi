@@ -34,6 +34,7 @@ export function notifCategory(type: string): NotifCategory {
     || type === 'account_costo' || type === 'pregunta_experto') return 'mensajes';
   if (
     type.startsWith('evento_') ||
+    type.startsWith('aliado_') ||
     type === 'post_achievement' ||
     type === 'badge' ||
     type === 'waitlist_join' ||
@@ -107,6 +108,9 @@ export function notifDestino(type: string, data?: unknown): string | null {
   // el panel (el prestador en su pestaña de eventos, usted en su bandeja).
   if (type === 'evento_aprobado') return '/eventos';
   if (type.startsWith('evento_')) return '/panel';
+  // El aliado aprobado ya está en el muro público; lo demás se atiende en el panel.
+  if (type === 'aliado_aprobado') return '/aliados';
+  if (type.startsWith('aliado_')) return '/panel';
   if (type === 'directory_match') return '/directorio';
   if (type === 'topic_job') return '/inclusion-laboral';
   if (type === 'topic_venue') return '/directorio';

@@ -72,6 +72,7 @@ import type { Offer, OfferStatus, OfferInsert, ProviderType, TransactionStatus, 
 import { DIMENSION_LABEL_KEY } from '@/types/app';
 import { PublicationSteps } from './PublicationSteps';
 import { PerfilPublicadoCard } from './PerfilPublicadoCard';
+import { MuroDeAliadosCard } from './MuroDeAliadosCard';
 import { ExemptionCard } from './ExemptionCard';
 import { OrgVerificationCard } from './OrgVerificationCard';
 import { LockedFeature } from './LockedFeature';
@@ -817,6 +818,11 @@ export function ProviderDashboard() {
           y antes no quedaba nada en su lugar. Esta tarjeta confirma el hecho y
           lleva a verlo, y a los muros, que no tenían ningún enlace. */}
       <PerfilPublicadoCard userId={userId} />
+      {/* Muro de Aliados: sólo tiene sentido para quien reclamó una ficha, y
+          la base es quien lo comprueba (proponer_aliado exige ficha
+          reclamada). La tarjeta se muestra a las organizaciones, que son las
+          que el muro reúne. (Migración 0255.) */}
+      {(providerType === 'ngo' || providerType === 'company') && <MuroDeAliadosCard />}
       {/* Expediente de exención. SOLO a quien puede tener derecho a ella:
           organizaciones civiles, empresas y entidades del sector público o
           social. Antes se mostraba a TODOS los prestadores, de modo que una

@@ -1432,7 +1432,8 @@
     "secFichas": "Fichas",
     "secComisiones": "Comisiones",
     "secExperto": "専門家に質問",
-    "secEventos": "イベント"
+    "secEventos": "イベント",
+    "secAliados": "パートナー"
   },
   "reg": {
     "typePatient": "患者",
@@ -2076,6 +2077,22 @@
       "evento_rechazado_motivo": {
         "title": "イベントは公開されませんでした",
         "body": "{{titulo}} は公開されませんでした。理由: {{motivo}}"
+      },
+      "aliado_propuesto": {
+        "title": "パートナー掲載の申請が届きました",
+        "body": "{{nombre}} がパートナー一覧への掲載を申請しました。"
+      },
+      "aliado_aprobado": {
+        "title": "貴団体がパートナーとして掲載されました",
+        "body": "{{nombre}} がパートナー一覧に掲載されています。"
+      },
+      "aliado_rechazado": {
+        "title": "パートナー掲載は承認されませんでした",
+        "body": "{{nombre}} は掲載されませんでした。"
+      },
+      "aliado_rechazado_motivo": {
+        "title": "パートナー掲載は承認されませんでした",
+        "body": "{{nombre}} は掲載されませんでした。理由: {{motivo}}"
       }
     }
   },
@@ -6265,6 +6282,51 @@
       "demasiadasVivas": "未回答の申し込みが多すぎます。",
       "yaPendiente": "この提供者への申し込みがすでに未対応で残っています。",
       "yaResuelta": "その申し込みは対応済みです。"
+    }
+  },
+  "aliados": {
+    "titulo": "パートナー一覧",
+    "ayuda": "ロゴとともに、貴団体をNeuromundiのパートナー欄へ申請できます。公開前にすべて確認します。",
+    "proponer": "自団体を申請",
+    "enviar": "申請を送る",
+    "enviada": "申請を審査中です。",
+    "enRevision": "{{nombre}} を審査中です。",
+    "publicada": "{{nombre}} はパートナー一覧に掲載されています。",
+    "noProcedio": "申請は承認されませんでした。",
+    "fNombre": "団体名",
+    "fSitio": "ウェブサイト",
+    "fLogo": "ロゴのリンク",
+    "logoAyuda": "ロゴ画像のアドレスを貼り付けてください。手元になければ後からでも構いませんが、ロゴがないと掲載できません。",
+    "estado": {
+      "propuesto": "審査中",
+      "aprobado": "掲載済み",
+      "rechazado": "非掲載"
+    },
+    "admin": {
+      "propuesto": "審査中",
+      "aprobado": "掲載済み",
+      "rechazado": "非掲載",
+      "todas": "すべて",
+      "empty": "この状態の申請はありません。",
+      "anon": "名称未設定",
+      "aprobar": "承認して掲載",
+      "rechazar": "掲載しない",
+      "hecho": "パートナーを掲載しました。",
+      "notaPlaceholder": "団体へのメモ（任意）。相手が読みます。",
+      "logoPlaceholder": "ロゴのリンク",
+      "guardarLogo": "ロゴを保存",
+      "logoGuardado": "ロゴを保存しました。",
+      "faltaLogo": "ロゴがありません。ロゴなしでは掲載できません。"
+    },
+    "err": {
+      "sinSesion": "団体を申請するにはログインしてください。",
+      "sinFicha": "先にディレクトリの掲載情報を取得してください。",
+      "nombreCorto": "名称が短すぎます。",
+      "largo": "いずれかの項目が長すぎます。",
+      "sitioNoValido": "ウェブサイトは http:// または https:// で始めてください。",
+      "logoNoValido": "ロゴのリンクは http:// または https:// で始めてください。",
+      "muchosPaises": "国の数が多すぎます。",
+      "yaTiene": "すでに審査中の申請があります。"
     }
   }
 }

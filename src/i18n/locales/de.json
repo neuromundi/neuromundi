@@ -1432,7 +1432,8 @@
     "secFichas": "Fichas",
     "secComisiones": "Comisiones",
     "secExperto": "Expertin oder Experten fragen",
-    "secEventos": "Veranstaltungen"
+    "secEventos": "Veranstaltungen",
+    "secAliados": "Partner"
   },
   "reg": {
     "typePatient": "Patient",
@@ -2076,6 +2077,22 @@
       "evento_rechazado_motivo": {
         "title": "Ihre Veranstaltung wurde nicht veröffentlicht",
         "body": "{{titulo}} wurde nicht veröffentlicht. Grund: {{motivo}}"
+      },
+      "aliado_propuesto": {
+        "title": "Eine Organisation möchte als Partner erscheinen",
+        "body": "{{nombre}} hat die Aufnahme in die Partnerwand vorgeschlagen."
+      },
+      "aliado_aprobado": {
+        "title": "Ihre Organisation erscheint als Partner",
+        "body": "{{nombre}} ist auf der Partnerwand veröffentlicht."
+      },
+      "aliado_rechazado": {
+        "title": "Ihre Aufnahme als Partner wurde nicht angenommen",
+        "body": "{{nombre}} wurde nicht auf der Partnerwand veröffentlicht."
+      },
+      "aliado_rechazado_motivo": {
+        "title": "Ihre Aufnahme als Partner wurde nicht angenommen",
+        "body": "{{nombre}} wurde nicht veröffentlicht. Grund: {{motivo}}"
       }
     }
   },
@@ -6265,6 +6282,51 @@
       "demasiadasVivas": "Sie haben zu viele unbeantwortete Anfragen.",
       "yaPendiente": "Sie haben bereits eine offene Anfrage bei dieser Fachkraft.",
       "yaResuelta": "Diese Anfrage war bereits bearbeitet."
+    }
+  },
+  "aliados": {
+    "titulo": "Partnerwand",
+    "ayuda": "Schlagen Sie Ihre Organisation für den Partnerbereich von Neuromundi vor, mit Ihrem Logo. Wir prüfen jeden Vorschlag vor der Veröffentlichung.",
+    "proponer": "Meine Organisation vorschlagen",
+    "enviar": "Vorschlag senden",
+    "enviada": "Ihr Vorschlag wird geprüft.",
+    "enRevision": "{{nombre}} wird geprüft.",
+    "publicada": "{{nombre}} erscheint auf der Partnerwand.",
+    "noProcedio": "Ihr Vorschlag wurde nicht angenommen.",
+    "fNombre": "Name der Organisation",
+    "fSitio": "Website",
+    "fLogo": "Link zu Ihrem Logo",
+    "logoAyuda": "Fügen Sie die Adresse eines Bildes Ihres Logos ein. Falls Sie es nicht zur Hand haben, können Sie es später senden: ohne Logo können wir nicht veröffentlichen.",
+    "estado": {
+      "propuesto": "In Prüfung",
+      "aprobado": "Veröffentlicht",
+      "rechazado": "Nicht veröffentlicht"
+    },
+    "admin": {
+      "propuesto": "In Prüfung",
+      "aprobado": "Veröffentlicht",
+      "rechazado": "Nicht veröffentlicht",
+      "todas": "Alle",
+      "empty": "Keine Vorschläge in diesem Zustand.",
+      "anon": "Ohne Namen",
+      "aprobar": "Genehmigen und veröffentlichen",
+      "rechazar": "Nicht veröffentlichen",
+      "hecho": "Partner veröffentlicht.",
+      "notaPlaceholder": "Hinweis für die Organisation (optional). Sie wird ihn lesen.",
+      "logoPlaceholder": "Logo-Link",
+      "guardarLogo": "Logo speichern",
+      "logoGuardado": "Logo gespeichert.",
+      "faltaLogo": "Das Logo fehlt: ohne Logo kann die Wand sie nicht veröffentlichen."
+    },
+    "err": {
+      "sinSesion": "Melden Sie sich an, um Ihre Organisation vorzuschlagen.",
+      "sinFicha": "Beanspruchen Sie zuerst Ihren Verzeichniseintrag.",
+      "nombreCorto": "Der Name ist zu kurz.",
+      "largo": "Eines der Felder ist länger als erlaubt.",
+      "sitioNoValido": "Die Website muss mit http:// oder https:// beginnen.",
+      "logoNoValido": "Der Logo-Link muss mit http:// oder https:// beginnen.",
+      "muchosPaises": "Zu viele Länder.",
+      "yaTiene": "Sie haben bereits einen Vorschlag in Prüfung."
     }
   }
 }

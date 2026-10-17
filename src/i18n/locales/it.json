@@ -1432,7 +1432,8 @@
     "secFichas": "Fichas",
     "secComisiones": "Comisiones",
     "secExperto": "Chiedi a un esperto",
-    "secEventos": "Eventi"
+    "secEventos": "Eventi",
+    "secAliados": "Alleati"
   },
   "reg": {
     "typePatient": "Paziente",
@@ -2076,6 +2077,22 @@
       "evento_rechazado_motivo": {
         "title": "Il suo evento non è stato pubblicato",
         "body": "{{titulo}} non è stato pubblicato. Motivo: {{motivo}}"
+      },
+      "aliado_propuesto": {
+        "title": "Un’organizzazione chiede di comparire come alleata",
+        "body": "{{nombre}} ha proposto il suo inserimento nel muro degli alleati."
+      },
+      "aliado_aprobado": {
+        "title": "La sua organizzazione compare come alleata",
+        "body": "{{nombre}} è pubblicata nel muro degli alleati."
+      },
+      "aliado_rechazado": {
+        "title": "Il suo inserimento come alleata non è andato a buon fine",
+        "body": "{{nombre}} non è stata pubblicata nel muro degli alleati."
+      },
+      "aliado_rechazado_motivo": {
+        "title": "Il suo inserimento come alleata non è andato a buon fine",
+        "body": "{{nombre}} non è stata pubblicata. Motivo: {{motivo}}"
       }
     }
   },
@@ -6265,6 +6282,51 @@
       "demasiadasVivas": "Ha troppe richieste senza risposta.",
       "yaPendiente": "Ha già una richiesta in attesa con questo professionista.",
       "yaResuelta": "Quella richiesta era già stata risolta."
+    }
+  },
+  "aliados": {
+    "titulo": "Muro degli Alleati",
+    "ayuda": "Proponga la sua organizzazione per la sezione Alleati di Neuromundi, con il suo logo. Esaminiamo ogni proposta prima di pubblicarla.",
+    "proponer": "Proponi la mia organizzazione",
+    "enviar": "Invia la proposta",
+    "enviada": "La sua proposta è in revisione.",
+    "enRevision": "{{nombre}} è in revisione.",
+    "publicada": "{{nombre}} compare nel muro degli Alleati.",
+    "noProcedio": "La sua proposta non è stata accolta.",
+    "fNombre": "Nome dell’organizzazione",
+    "fSitio": "Sito web",
+    "fLogo": "Link del suo logo",
+    "logoAyuda": "Incolli l’indirizzo di un’immagine del suo logo. Se non ce l’ha a portata di mano può inviarlo dopo: senza logo non possiamo pubblicare.",
+    "estado": {
+      "propuesto": "In revisione",
+      "aprobado": "Pubblicata",
+      "rechazado": "Non pubblicata"
+    },
+    "admin": {
+      "propuesto": "In revisione",
+      "aprobado": "Pubblicate",
+      "rechazado": "Non pubblicate",
+      "todas": "Tutte",
+      "empty": "Nessuna proposta in questo stato.",
+      "anon": "Senza nome",
+      "aprobar": "Approva e pubblica",
+      "rechazar": "Non pubblicare",
+      "hecho": "Alleato pubblicato.",
+      "notaPlaceholder": "Nota per l’organizzazione (facoltativa). La leggerà.",
+      "logoPlaceholder": "Link del logo",
+      "guardarLogo": "Salva il logo",
+      "logoGuardado": "Logo salvato.",
+      "faltaLogo": "Manca il logo: il muro non può pubblicarla senza."
+    },
+    "err": {
+      "sinSesion": "Acceda per proporre la sua organizzazione.",
+      "sinFicha": "Prima rivendichi la sua scheda nella directory.",
+      "nombreCorto": "Il nome è troppo corto.",
+      "largo": "Uno dei campi supera la lunghezza consentita.",
+      "sitioNoValido": "Il sito deve iniziare con http:// o https://",
+      "logoNoValido": "Il link del logo deve iniziare con http:// o https://",
+      "muchosPaises": "Troppi paesi.",
+      "yaTiene": "Ha già una proposta in revisione."
     }
   }
 }

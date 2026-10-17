@@ -1469,7 +1469,8 @@
     "secFichas": "Fichas",
     "secComisiones": "Comisiones",
     "secExperto": "שאלו מומחה",
-    "secEventos": "אירועים"
+    "secEventos": "אירועים",
+    "secAliados": "שותפים"
   },
   "reg": {
     "typePatient": "מטופל/ת",
@@ -2113,6 +2114,22 @@
       "evento_rechazado_motivo": {
         "title": "האירוע שלכם לא פורסם",
         "body": "{{titulo}} לא פורסם. הסיבה: {{motivo}}"
+      },
+      "aliado_propuesto": {
+        "title": "ארגון מבקש להופיע כשותף",
+        "body": "{{nombre}} הציע להצטרף לקיר השותפים."
+      },
+      "aliado_aprobado": {
+        "title": "הארגון שלכם מופיע כשותף",
+        "body": "{{nombre}} מפורסם בקיר השותפים."
+      },
+      "aliado_rechazado": {
+        "title": "ההצטרפות שלכם כשותף לא התקבלה",
+        "body": "{{nombre}} לא פורסם בקיר השותפים."
+      },
+      "aliado_rechazado_motivo": {
+        "title": "ההצטרפות שלכם כשותף לא התקבלה",
+        "body": "{{nombre}} לא פורסם. הסיבה: {{motivo}}"
       }
     }
   },
@@ -6265,6 +6282,51 @@
       "demasiadasVivas": "יש לכם יותר מדי בקשות ללא מענה.",
       "yaPendiente": "כבר יש לכם בקשה ממתינה אצל נותן השירות הזה.",
       "yaResuelta": "הבקשה הזאת כבר טופלה."
+    }
+  },
+  "aliados": {
+    "titulo": "קיר השותפים",
+    "ayuda": "הציעו את הארגון שלכם לקטע השותפים של נוירומונדי, עם הלוגו. אנחנו בודקים כל הצעה לפני הפרסום.",
+    "proponer": "הצעת הארגון שלי",
+    "enviar": "שליחת ההצעה",
+    "enviada": "ההצעה שלכם בבדיקה.",
+    "enRevision": "{{nombre}} בבדיקה.",
+    "publicada": "{{nombre}} מופיע בקיר השותפים.",
+    "noProcedio": "ההצעה שלכם לא התקבלה.",
+    "fNombre": "שם הארגון",
+    "fSitio": "אתר אינטרנט",
+    "fLogo": "קישור ללוגו שלכם",
+    "logoAyuda": "הדביקו כתובת של תמונת הלוגו. אם אין לכם אותה כרגע אפשר לשלוח אחר כך: בלי לוגו אי אפשר לפרסם.",
+    "estado": {
+      "propuesto": "בבדיקה",
+      "aprobado": "פורסם",
+      "rechazado": "לא פורסם"
+    },
+    "admin": {
+      "propuesto": "בבדיקה",
+      "aprobado": "פורסמו",
+      "rechazado": "לא פורסמו",
+      "todas": "הכול",
+      "empty": "אין הצעות במצב הזה.",
+      "anon": "ללא שם",
+      "aprobar": "אישור ופרסום",
+      "rechazar": "לא לפרסם",
+      "hecho": "השותף פורסם.",
+      "notaPlaceholder": "הערה לארגון (לא חובה). הם יקראו אותה.",
+      "logoPlaceholder": "קישור ללוגו",
+      "guardarLogo": "שמירת הלוגו",
+      "logoGuardado": "הלוגו נשמר.",
+      "faltaLogo": "חסר לוגו: בלעדיו הקיר לא יכול לפרסם."
+    },
+    "err": {
+      "sinSesion": "התחברו כדי להציע את הארגון שלכם.",
+      "sinFicha": "תחילה אשרו את הכרטיס שלכם במדריך.",
+      "nombreCorto": "השם קצר מדי.",
+      "largo": "אחד השדות ארוך מהמותר.",
+      "sitioNoValido": "האתר חייב להתחיל ב-http:// או https://",
+      "logoNoValido": "קישור הלוגו חייב להתחיל ב-http:// או https://",
+      "muchosPaises": "יותר מדי מדינות.",
+      "yaTiene": "יש לכם כבר הצעה בבדיקה."
     }
   }
 }

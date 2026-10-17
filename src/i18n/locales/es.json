@@ -1469,7 +1469,8 @@
     "secFichas": "Fichas",
     "secComisiones": "Comisiones",
     "secExperto": "Pregunta al experto",
-    "secEventos": "Eventos"
+    "secEventos": "Eventos",
+    "secAliados": "Aliados"
   },
   "reg": {
     "typePatient": "Paciente",
@@ -2113,6 +2114,22 @@
       "evento_rechazado_motivo": {
         "title": "Su evento no fue publicado",
         "body": "{{titulo}} no fue publicado. Motivo: {{motivo}}"
+      },
+      "aliado_propuesto": {
+        "title": "Una organización pide aparecer como aliada",
+        "body": "{{nombre}} propuso su alta en el muro de aliados."
+      },
+      "aliado_aprobado": {
+        "title": "Su organización ya aparece como aliada",
+        "body": "{{nombre}} está publicada en el muro de aliados."
+      },
+      "aliado_rechazado": {
+        "title": "Su alta como aliada no procedió",
+        "body": "{{nombre}} no fue publicada en el muro de aliados."
+      },
+      "aliado_rechazado_motivo": {
+        "title": "Su alta como aliada no procedió",
+        "body": "{{nombre}} no fue publicada. Motivo: {{motivo}}"
       }
     }
   },
@@ -6265,6 +6282,51 @@
       "demasiadasVivas": "Tiene demasiadas solicitudes sin responder.",
       "yaPendiente": "Ya tiene una solicitud pendiente con este prestador.",
       "yaResuelta": "Esa solicitud ya estaba resuelta."
+    }
+  },
+  "aliados": {
+    "titulo": "Muro de Aliados",
+    "ayuda": "Proponga a su organización para la sección de Aliados de Neuromundi, con su logotipo. Revisamos cada propuesta antes de publicarla.",
+    "proponer": "Proponer mi organización",
+    "enviar": "Enviar propuesta",
+    "enviada": "Su propuesta quedó en revisión.",
+    "enRevision": "{{nombre}} está en revisión.",
+    "publicada": "{{nombre}} ya aparece en el muro de Aliados.",
+    "noProcedio": "Su propuesta no procedió.",
+    "fNombre": "Nombre de la organización",
+    "fSitio": "Sitio web",
+    "fLogo": "Enlace de su logotipo",
+    "logoAyuda": "Pegue la dirección de una imagen de su logotipo. Si no la tiene a la mano, puede enviarla después: sin logotipo no podemos publicarla.",
+    "estado": {
+      "propuesto": "En revisión",
+      "aprobado": "Publicada",
+      "rechazado": "No publicada"
+    },
+    "admin": {
+      "propuesto": "En revisión",
+      "aprobado": "Publicadas",
+      "rechazado": "No publicadas",
+      "todas": "Todas",
+      "empty": "No hay propuestas en este estado.",
+      "anon": "Sin nombre",
+      "aprobar": "Aprobar y publicar",
+      "rechazar": "No publicar",
+      "hecho": "Aliado publicado.",
+      "notaPlaceholder": "Nota para la organización (opcional). La va a leer.",
+      "logoPlaceholder": "Enlace del logotipo",
+      "guardarLogo": "Guardar logotipo",
+      "logoGuardado": "Logotipo guardado.",
+      "faltaLogo": "Falta el logotipo: el muro no puede publicarla sin él."
+    },
+    "err": {
+      "sinSesion": "Inicie sesión para proponer su organización.",
+      "sinFicha": "Primero reclame su ficha del directorio.",
+      "nombreCorto": "El nombre es demasiado corto.",
+      "largo": "Alguno de los campos excede el largo permitido.",
+      "sitioNoValido": "El sitio debe empezar con http:// o https://",
+      "logoNoValido": "El enlace del logotipo debe empezar con http:// o https://",
+      "muchosPaises": "Demasiados países.",
+      "yaTiene": "Ya tiene una propuesta en revisión."
     }
   }
 }

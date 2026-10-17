@@ -1432,7 +1432,8 @@
     "secFichas": "Fichas",
     "secComisiones": "Comisiones",
     "secExperto": "Demander à un expert",
-    "secEventos": "Événements"
+    "secEventos": "Événements",
+    "secAliados": "Alliés"
   },
   "reg": {
     "typePatient": "Patient",
@@ -2076,6 +2077,22 @@
       "evento_rechazado_motivo": {
         "title": "Votre événement n’a pas été publié",
         "body": "{{titulo}} n’a pas été publié. Motif : {{motivo}}"
+      },
+      "aliado_propuesto": {
+        "title": "Une organisation demande à figurer comme alliée",
+        "body": "{{nombre}} a proposé son inscription au mur des alliés."
+      },
+      "aliado_aprobado": {
+        "title": "Votre organisation figure comme alliée",
+        "body": "{{nombre}} est publiée sur le mur des alliés."
+      },
+      "aliado_rechazado": {
+        "title": "Votre inscription comme alliée n’a pas abouti",
+        "body": "{{nombre}} n’a pas été publiée sur le mur des alliés."
+      },
+      "aliado_rechazado_motivo": {
+        "title": "Votre inscription comme alliée n’a pas abouti",
+        "body": "{{nombre}} n’a pas été publiée. Motif : {{motivo}}"
       }
     }
   },
@@ -6265,6 +6282,51 @@
       "demasiadasVivas": "Vous avez trop de demandes sans réponse.",
       "yaPendiente": "Vous avez déjà une demande en attente avec ce prestataire.",
       "yaResuelta": "Cette demande était déjà traitée."
+    }
+  },
+  "aliados": {
+    "titulo": "Mur des Alliés",
+    "ayuda": "Proposez votre organisation pour la section Alliés de Neuromundi, avec votre logo. Nous examinons chaque proposition avant de la publier.",
+    "proponer": "Proposer mon organisation",
+    "enviar": "Envoyer la proposition",
+    "enviada": "Votre proposition est en cours d’examen.",
+    "enRevision": "{{nombre}} est en cours d’examen.",
+    "publicada": "{{nombre}} figure sur le mur des Alliés.",
+    "noProcedio": "Votre proposition n’a pas été retenue.",
+    "fNombre": "Nom de l’organisation",
+    "fSitio": "Site web",
+    "fLogo": "Lien de votre logo",
+    "logoAyuda": "Collez l’adresse d’une image de votre logo. Si vous ne l’avez pas sous la main, vous pourrez l’envoyer plus tard : sans logo nous ne pouvons pas publier.",
+    "estado": {
+      "propuesto": "En cours d’examen",
+      "aprobado": "Publiée",
+      "rechazado": "Non publiée"
+    },
+    "admin": {
+      "propuesto": "En cours d’examen",
+      "aprobado": "Publiées",
+      "rechazado": "Non publiées",
+      "todas": "Toutes",
+      "empty": "Aucune proposition dans cet état.",
+      "anon": "Sans nom",
+      "aprobar": "Approuver et publier",
+      "rechazar": "Ne pas publier",
+      "hecho": "Allié publié.",
+      "notaPlaceholder": "Note pour l’organisation (facultatif). Elle la lira.",
+      "logoPlaceholder": "Lien du logo",
+      "guardarLogo": "Enregistrer le logo",
+      "logoGuardado": "Logo enregistré.",
+      "faltaLogo": "Le logo manque : le mur ne peut pas la publier sans lui."
+    },
+    "err": {
+      "sinSesion": "Connectez-vous pour proposer votre organisation.",
+      "sinFicha": "Revendiquez d’abord votre fiche dans l’annuaire.",
+      "nombreCorto": "Le nom est trop court.",
+      "largo": "Un des champs dépasse la longueur autorisée.",
+      "sitioNoValido": "Le site doit commencer par http:// ou https://",
+      "logoNoValido": "Le lien du logo doit commencer par http:// ou https://",
+      "muchosPaises": "Trop de pays.",
+      "yaTiene": "Vous avez déjà une proposition en cours d’examen."
     }
   }
 }

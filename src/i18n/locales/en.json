@@ -1469,7 +1469,8 @@
     "secFichas": "Listings",
     "secComisiones": "Commissions",
     "secExperto": "Ask an expert",
-    "secEventos": "Events"
+    "secEventos": "Events",
+    "secAliados": "Allies"
   },
   "reg": {
     "typePatient": "Patient",
@@ -2113,6 +2114,22 @@
       "evento_rechazado_motivo": {
         "title": "Your event was not published",
         "body": "{{titulo}} was not published. Reason: {{motivo}}"
+      },
+      "aliado_propuesto": {
+        "title": "An organization asks to appear as an ally",
+        "body": "{{nombre}} proposed joining the allies wall."
+      },
+      "aliado_aprobado": {
+        "title": "Your organization appears as an ally",
+        "body": "{{nombre}} is published on the allies wall."
+      },
+      "aliado_rechazado": {
+        "title": "Your ally listing was not accepted",
+        "body": "{{nombre}} was not published on the allies wall."
+      },
+      "aliado_rechazado_motivo": {
+        "title": "Your ally listing was not accepted",
+        "body": "{{nombre}} was not published. Reason: {{motivo}}"
       }
     }
   },
@@ -6265,6 +6282,51 @@
       "demasiadasVivas": "You have too many unanswered requests.",
       "yaPendiente": "You already have a pending request with this provider.",
       "yaResuelta": "That request was already resolved."
+    }
+  },
+  "aliados": {
+    "titulo": "Allies wall",
+    "ayuda": "Propose your organization for the Neuromundi Allies section, with its logo. We review every proposal before publishing it.",
+    "proponer": "Propose my organization",
+    "enviar": "Send proposal",
+    "enviada": "Your proposal is now under review.",
+    "enRevision": "{{nombre}} is under review.",
+    "publicada": "{{nombre}} is on the Allies wall.",
+    "noProcedio": "Your proposal was not accepted.",
+    "fNombre": "Organization name",
+    "fSitio": "Website",
+    "fLogo": "Link to your logo",
+    "logoAyuda": "Paste the address of an image of your logo. If you do not have it at hand you can send it later: we cannot publish without a logo.",
+    "estado": {
+      "propuesto": "Under review",
+      "aprobado": "Published",
+      "rechazado": "Not published"
+    },
+    "admin": {
+      "propuesto": "Under review",
+      "aprobado": "Published",
+      "rechazado": "Not published",
+      "todas": "All",
+      "empty": "No proposals in this state.",
+      "anon": "No name",
+      "aprobar": "Approve and publish",
+      "rechazar": "Do not publish",
+      "hecho": "Ally published.",
+      "notaPlaceholder": "Note for the organization (optional). They will read it.",
+      "logoPlaceholder": "Logo link",
+      "guardarLogo": "Save logo",
+      "logoGuardado": "Logo saved.",
+      "faltaLogo": "The logo is missing: the wall cannot publish it without one."
+    },
+    "err": {
+      "sinSesion": "Sign in to propose your organization.",
+      "sinFicha": "First claim your directory listing.",
+      "nombreCorto": "The name is too short.",
+      "largo": "One of the fields is longer than allowed.",
+      "sitioNoValido": "The website must start with http:// or https://",
+      "logoNoValido": "The logo link must start with http:// or https://",
+      "muchosPaises": "Too many countries.",
+      "yaTiene": "You already have a proposal under review."
     }
   }
 }

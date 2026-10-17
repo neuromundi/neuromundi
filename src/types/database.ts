@@ -329,34 +329,112 @@ export type Database = {
         Row: {
           countries: string[] | null
           created_at: string
+          directorio_id: string | null
+          estado: string
           id: string
           is_active: boolean
-          logo_url: string
+          logo_url: string | null
           name: string
+          nota_admin: string | null
+          propuesta_en: string | null
+          propuesta_por: string | null
+          resuelta_en: string | null
+          resuelta_por: string | null
           sort_order: number
           website: string | null
         }
         Insert: {
           countries?: string[] | null
           created_at?: string
+          directorio_id?: string | null
+          estado?: string
           id?: string
           is_active?: boolean
-          logo_url: string
+          logo_url?: string | null
           name: string
+          nota_admin?: string | null
+          propuesta_en?: string | null
+          propuesta_por?: string | null
+          resuelta_en?: string | null
+          resuelta_por?: string | null
           sort_order?: number
           website?: string | null
         }
         Update: {
           countries?: string[] | null
           created_at?: string
+          directorio_id?: string | null
+          estado?: string
           id?: string
           is_active?: boolean
-          logo_url?: string
+          logo_url?: string | null
           name?: string
+          nota_admin?: string | null
+          propuesta_en?: string | null
+          propuesta_por?: string | null
+          resuelta_en?: string | null
+          resuelta_por?: string | null
           sort_order?: number
           website?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "allies_directorio_id_fkey"
+            columns: ["directorio_id"]
+            isOneToOne: false
+            referencedRelation: "directorio"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "allies_directorio_id_fkey"
+            columns: ["directorio_id"]
+            isOneToOne: false
+            referencedRelation: "revision_campana_20260908"
+            referencedColumns: ["ficha_id"]
+          },
+          {
+            foreignKeyName: "allies_propuesta_por_fkey"
+            columns: ["propuesta_por"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "allies_propuesta_por_fkey"
+            columns: ["propuesta_por"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "allies_propuesta_por_fkey"
+            columns: ["propuesta_por"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+          {
+            foreignKeyName: "allies_resuelta_por_fkey"
+            columns: ["resuelta_por"]
+            isOneToOne: false
+            referencedRelation: "perfiles_basicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "allies_resuelta_por_fkey"
+            columns: ["resuelta_por"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "allies_resuelta_por_fkey"
+            columns: ["resuelta_por"]
+            isOneToOne: false
+            referencedRelation: "provider_badge_inputs"
+            referencedColumns: ["provider_id"]
+          },
+        ]
       }
       analytics_events: {
         Row: {
@@ -7354,6 +7432,24 @@ export type Database = {
           user_id: string
         }[]
       }
+      admin_aliados_pendientes: { Args: never; Returns: number }
+      admin_aliados_propuestos: {
+        Args: { p_estado?: string | null }
+        Returns: {
+          countries: string[]
+          estado: string
+          ficha: string
+          id: string
+          is_active: boolean
+          logo_url: string
+          name: string
+          nota_admin: string
+          proponente: string
+          proponente_id: string
+          propuesta_en: string
+          website: string
+        }[]
+      }
       admin_alliance_redeem: {
         Args: { p_alliance_id: string | null }
         Returns: number
@@ -8024,6 +8120,10 @@ export type Database = {
         Args: { p_ficha: string | null; p_nota?: string | null; p_republicar?: boolean | null }
         Returns: boolean
       }
+      admin_resolver_aliado: {
+        Args: { p_decision: string | null; p_id: string | null; p_nota?: string | null }
+        Returns: Json
+      }
       admin_resolver_pregunta_experto: {
         Args: { p_estado: string | null; p_id: string | null; p_nota?: string | null }
         Returns: Json
@@ -8641,6 +8741,20 @@ export type Database = {
           vigente_hasta: string
         }[]
       }
+      mi_propuesta_de_aliado: {
+        Args: never
+        Returns: {
+          countries: string[]
+          estado: string
+          id: string
+          is_active: boolean
+          logo_url: string
+          name: string
+          nota_admin: string
+          propuesta_en: string
+          website: string
+        }[]
+      }
       mi_solicitud_fundador: { Args: never; Returns: Json }
       mis_pagos: {
         Args: never
@@ -8801,6 +8915,15 @@ export type Database = {
       perfil_completo: { Args: { p_id: string }; Returns: boolean }
       prescription_mark_ordered: { Args: { p_id: string }; Returns: undefined }
       prescription_mark_viewed: { Args: { p_id: string }; Returns: undefined }
+      proponer_aliado: {
+        Args: {
+          p_countries?: string[] | null
+          p_logo_url?: string | null
+          p_name: string | null
+          p_website?: string | null
+        }
+        Returns: Json
+      }
       proponer_evento: {
         Args: {
           p_category?: string | null
