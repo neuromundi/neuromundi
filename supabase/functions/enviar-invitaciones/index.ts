@@ -97,10 +97,10 @@ const MXN = (n: number) => '$' + n.toLocaleString('es-MX', { maximumFractionDigi
 // el correo prefiere callar antes que inventar una fecha.
 // ---------------------------------------------------------------------------
 const TZ = 'America/Mexico_City';
-const fechaLarga = (d: Date) =>
-  new Intl.DateTimeFormat('es-MX', { timeZone: TZ, day: 'numeric', month: 'long', year: 'numeric' }).format(d);
-const diaYMes = (d: Date) =>
-  new Intl.DateTimeFormat('es-MX', { timeZone: TZ, day: 'numeric', month: 'long' }).format(d);
+const fechaLarga = (d: Date, pt = false) =>
+  new Intl.DateTimeFormat(pt ? 'pt-PT' : 'es-MX', { timeZone: TZ, day: 'numeric', month: 'long', year: 'numeric' }).format(d);
+const diaYMes = (d: Date, pt = false) =>
+  new Intl.DateTimeFormat(pt ? 'pt-PT' : 'es-MX', { timeZone: TZ, day: 'numeric', month: 'long' }).format(d);
 
 let RELOJES: { verif: Date | null; fundadorPorPais: Record<string, string> } =
   { verif: null, fundadorPorPais: {} };
@@ -131,17 +131,32 @@ const ultimoDiaConfirmar = (): Date | null =>
 function bloquePrecio(r: Row): string {
   if (!r.precio_configurado || !r.precio_fundador || !r.precio_ordinario) return '';
   const cur = r.moneda || 'MXN';
+  const pt = esPT(r);
   const fd = fundadorDe(r);
-  return `<div style="margin:18px 0;padding:14px 16px;border:1px solid #bae6fd;background:#f0f9ff;border-radius:12px">
-    <p style="margin:0 0 6px;font-weight:800;font-size:15px;color:#0c4a6e">Su cuota, sin rodeos</p>
-    <p style="margin:0;font-size:14px;line-height:1.6;color:#334155">
-      La membresía anual para su tipo de perfil es de <b>${MXN(Number(r.precio_ordinario))} ${cur}</b>.
+  const titulo = pt ? 'A sua quota, sem rodeios' : 'Su cuota, sin rodeos';
+  const cuerpo = pt
+    ? `A adesão anual para o seu tipo de perfil é de <b>${MXN(Number(r.precio_ordinario))} ${cur}</b>.
+      Se a activar <b>${fd ? `antes de ${fechaLarga(fd, true)}` : 'durante a campanha de fundadores'}</b> fica como Membro Fundador e paga
+      <b style="color:#0369a1">${MXN(Number(r.precio_fundador))} ${cur} por ano</b>, metade, e esse preço é respeitado nas renovações.
+      <br><br>A tarifa de fundador é <b>anual</b>; o pagamento mensal existe, mas com a quota normal.<br><br>Reclamar a ficha não cobra nada e o pagamento é um passo posterior: a decisão é sua.`
+    : `La membresía anual para su tipo de perfil es de <b>${MXN(Number(r.precio_ordinario))} ${cur}</b>.
       Si la activa <b>${fd ? `antes del ${fechaLarga(fd)}` : 'durante la campaña de fundadores'}</b> queda como Miembro Fundador y paga
       <b style="color:#0369a1">${MXN(Number(r.precio_fundador))} ${cur} al año</b>, la mitad, y ese precio se le respeta en las renovaciones.
-      <br><br>La tarifa de fundador es <b>anual</b>; el pago mensual existe, pero a cuota ordinaria.<br><br>Reclamar la ficha no cobra nada y el pago es un paso posterior: usted decide si lo da.
-    </p>
+      <br><br>La tarifa de fundador es <b>anual</b>; el pago mensual existe, pero a cuota ordinaria.<br><br>Reclamar la ficha no cobra nada y el pago es un paso posterior: usted decide si lo da.`;
+  return `<div style="margin:18px 0;padding:14px 16px;border:1px solid #bae6fd;background:#f0f9ff;border-radius:12px">
+    <p style="margin:0 0 6px;font-weight:800;font-size:15px;color:#0c4a6e">${titulo}</p>
+    <p style="margin:0;font-size:14px;line-height:1.6;color:#334155">${cuerpo}</p>
   </div>`;
 }
+
+// IDIOMA DEL CORREO (17 oct 2026). Portugal y Brasil reciben portugués; el
+// resto, español. No hay un tercer idioma porque no hay mas paises invitados:
+// el dia que los haya, esto crece aqui y en ningun otro sitio.
+//
+// Se eligio por PAIS y no por el idioma del navegador porque el destinatario
+// todavia no es usuario: no hay sesion ni preferencia que consultar, solo la
+// ficha del directorio.
+const esPT = (r: Row) => r.pais === 'Portugal' || r.pais === 'Brasil';
 
 // Quién no paga cuota. Se define arriba porque bloqueFechas la usa.
 const esFree = (r: Row) =>
@@ -172,6 +187,7 @@ const esFree = (r: Row) =>
 // día hábil y en hora de Ciudad de México.
 function bloqueFechas(r: Row): string {
   const cur = r.moneda || 'MXN';
+  const pt = esPT(r);
   const hayPrecio = r.precio_configurado && r.precio_fundador && r.precio_ordinario;
   const exento = esFree(r);
   const fd = fundadorDe(r);
@@ -181,20 +197,39 @@ function bloqueFechas(r: Row): string {
   // Si falta cualquiera de las dos fechas en la base, esta frase no se escribe:
   // mas vale un correo sin plazo que un correo con un plazo inventado.
   const lineaPlazo = (confirmar && corte)
-    ? `<b>${fechaLarga(confirmar)}</b> — último día para confirmar su ficha. A partir del
-       ${diaYMes(corte)}, las fichas que no se hayan confirmado se retiran del directorio.`
+    ? (pt
+        ? `<b>${fechaLarga(confirmar, true)}</b> — último dia para confirmar a sua ficha. A partir de
+       ${diaYMes(corte, true)}, as fichas que não tiverem sido confirmadas são retiradas do directório.`
+        : `<b>${fechaLarga(confirmar)}</b> — último día para confirmar su ficha. A partir del
+       ${diaYMes(corte)}, las fichas que no se hayan confirmado se retiran del directorio.`)
     : '';
 
   const lineaPago = (hayPrecio && !exento && fd)
-    ? `<p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#334155">
+    ? (pt
+        ? `<p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#334155">
+         <b>${fechaLarga(fd, true)}</b> — último dia para ficar como Membro Fundador e pagar
+         <b style="color:#0369a1">${MXN(Number(r.precio_fundador))} ${cur}</b> por ano em vez de
+         <b>${MXN(Number(r.precio_ordinario))} ${cur}</b>. Depois dessa data aplica-se a quota normal.
+       </p>`
+        : `<p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#334155">
          <b>${fechaLarga(fd)}</b> — último día para quedar como Miembro Fundador y pagar
          <b style="color:#0369a1">${MXN(Number(r.precio_fundador))} ${cur}</b> al año en lugar de
          <b>${MXN(Number(r.precio_ordinario))} ${cur}</b>. Después de esa fecha aplica la cuota ordinaria.
-       </p>`
+       </p>`)
     : '';
 
   const cuerpo = exento
-    ? `<p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#334155">
+    ? (pt
+      ? `<p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#334155">
+         ${lineaPlazo}
+         <b>A sua organização está isenta de quota</b>: mantém o telefone, o email, o site
+         e a localização sem pagar nada.
+       </p>
+       <p style="margin:0;font-size:14px;line-height:1.6;color:#334155">
+         Só precisamos que confirme a ficha. É gratuito, demora um minuto e dá-lhe o
+         controlo dos seus dados. Se não a confirmar, retiramo-la do directório nessa data.
+       </p>`
+      : `<p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#334155">
          ${lineaPlazo}
          <b>Su organización está exenta de cuota</b>: conserva su teléfono, su correo, su sitio
          web y su ubicación sin pagar nada.
@@ -202,8 +237,23 @@ function bloqueFechas(r: Row): string {
        <p style="margin:0;font-size:14px;line-height:1.6;color:#334155">
          Lo único que necesitamos es que confirme la ficha. Es gratuito, toma un minuto y le da el
          control de sus datos. Si no la confirma, la retiramos del directorio en esa fecha.
+       </p>`)
+    : (pt
+      ? `${lineaPago}<p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#334155">
+         ${lineaPlazo}
+       </p>
+       <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#334155">
+         <b>Confirmar a sua ficha é gratuito</b> e não o obriga a nada nesse momento: serve para tomar
+         posse do seu perfil, corrigir os seus dados e decidir o que é publicado. As fichas confirmadas
+         aparecem acima das que não o estão nos resultados de pesquisa.
+       </p>
+       <p style="margin:0;font-size:14px;line-height:1.6;color:#334155">
+         Para que a sua ficha continue publicada depois de <b>${corte ? fechaLarga(corte, true) : ''}</b> basta
+         que complete o seu perfil e cubra a quota correspondente. Se algum dos requisitos não for
+         cumprido, retiramos a sua ficha do directório. Respeitamos sempre a sua decisão
+         se não desejar fazer parte da Neuromundi.
        </p>`
-    : `${lineaPago}<p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#334155">
+      : `${lineaPago}<p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#334155">
          ${lineaPlazo}
        </p>
        <p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#334155">
@@ -216,13 +266,13 @@ function bloqueFechas(r: Row): string {
          requiere que complete su perfil y cubra la cuota correspondiente. Si no se cumple con alguno
          de los requisitos retiramos su ficha del directorio. En todo momento respetamos su decisión
          si no desea formar parte de Neuromundi.
-       </p>`;
+       </p>`);
 
   if (!lineaPlazo && !lineaPago) return '';
 
-  const titulo = exento
-    ? 'Una fecha que conviene tener presente'
-    : (lineaPago && lineaPlazo ? 'Dos fechas, y son independientes' : 'Una fecha que conviene tener presente');
+  const titulo = pt
+    ? (exento || !(lineaPago && lineaPlazo) ? 'Uma data a ter presente' : 'Duas datas, e são independentes')
+    : (exento || !(lineaPago && lineaPlazo) ? 'Una fecha que conviene tener presente' : 'Dos fechas, y son independientes');
 
   return `<div style="margin:18px 0;padding:14px 16px;border:1px solid #e2e8f0;border-radius:12px">
     <p style="margin:0 0 8px;font-weight:800;font-size:15px;color:#0f172a">${titulo}</p>
@@ -236,18 +286,21 @@ function segmentOf(r: Row): 'nuevos' | 'ya_publico_social' | 'ya_privado' {
 }
 
 // Pie legal (LFPDPPP): origen del dato + aviso de privacidad + ARCO + baja.
-function footerLegal(): string {
-  return `<p style="color:#64748b;font-size:12px;margin-top:18px;line-height:1.5">
-    Recibe este correo porque se consultaron fuentes abiertas en internet y su organización figura en el directorio público de Neuromundi.
+function footerLegal(pt = false): string {
+  const texto = pt
+    ? `Recebe este email porque foram consultadas fontes abertas na internet e a sua organização consta do directório público da Neuromundi.
+    Tratamos os seus dados de acordo com a nossa <a href="${SITE}/privacy" style="color:#0369a1">Política de Privacidade</a>. Pode exercer os seus direitos de acesso, rectificação, apagamento, limitação ou oposição, ou pedir que retiremos a sua ficha através da ligação acima, ou respondendo a este email.
+    <br><br>Neuromundi · comunidade global de neurodesenvolvimento, neurodivergência e doenças neurológicas.`
+    : `Recibe este correo porque se consultaron fuentes abiertas en internet y su organización figura en el directorio público de Neuromundi.
     Tratamos sus datos conforme a nuestro <a href="${SITE}/privacy" style="color:#0369a1">Aviso de Privacidad</a>. Puede ejercer sus derechos de acceso, rectificación, cancelación, supresión u oposición, o pedir que retiremos su ficha usando el enlace de arriba, o respondiendo a este correo.
-    <br><br>Neuromundi · comunidad global de neurodesarrollo, neurodivergencia y afecciones neurológicas.
-  </p>`;
+    <br><br>Neuromundi · comunidad global de neurodesarrollo, neurodivergencia y afecciones neurológicas.`;
+  return `<p style="color:#64748b;font-size:12px;margin-top:18px;line-height:1.5">${texto}</p>`;
 }
 
 // Firma institucional. Va en TEXTO a proposito: Outlook bloquea imagenes por
 // defecto y una firma hecha de imagen deja al destinatario sin nombre ni
 // telefono. El logo es pequeno y lleva alt, asi que si no carga no estorba.
-function firmaOficial(): string {
+function firmaOficial(pt = false): string {
   return `<table role="presentation" cellpadding="0" cellspacing="0" style="margin:18px 0 0">
     <tr>
       <td style="padding-right:14px;vertical-align:middle">
@@ -256,7 +309,7 @@ function firmaOficial(): string {
       </td>
       <td style="vertical-align:middle;border-left:2px solid #e2e8f0;padding-left:14px;font-size:13px;line-height:1.5;color:#334155">
         <b style="font-size:15px;color:#0f172a">Mtra. Nelly Montoya</b><br>
-        CEO &amp; Fundadora &middot; Neuromundi<br>
+        ${pt ? 'CEO &amp; Fundadora &middot; Neuromundi' : 'CEO &amp; Fundadora &middot; Neuromundi'}<br>
         <a href="mailto:admin@neuromundi.com" style="color:#0369a1;text-decoration:none">admin@neuromundi.com</a>
         &middot; (442) 271 4419<br>
         <a href="${SITE}" style="color:#0369a1;text-decoration:none"><b>www.neuromundi.com</b></a>
@@ -265,15 +318,15 @@ function firmaOficial(): string {
   </table>`;
 }
 
-function shell(title: string, bodyHtml: string, ctaText: string, ctaUrl: string): string {
+function shell(title: string, bodyHtml: string, ctaText: string, ctaUrl: string, pt = false): string {
   return `<div style="font-family:Arial,Helvetica,sans-serif;max-width:560px;margin:0 auto;color:#0f172a">
     <div style="background:linear-gradient(90deg,#0ea5e9,#0369a1);color:#fff;padding:16px 20px;border-radius:14px 14px 0 0;font-weight:800;letter-spacing:.04em">NEUROMUNDI</div>
     <div style="border:1px solid #e2e8f0;border-top:0;border-radius:0 0 14px 14px;padding:22px 20px">
       <h1 style="font-size:20px;margin:0 0 12px">${title}</h1>
       ${bodyHtml}
       <p style="margin:22px 0 8px"><a href="${ctaUrl}" style="display:inline-block;background:#0ea5e9;color:#fff;text-decoration:none;font-weight:700;padding:12px 20px;border-radius:12px">${ctaText}</a></p>
-      ${firmaOficial()}
-      ${footerLegal()}
+      ${firmaOficial(pt)}
+      ${footerLegal(pt)}
     </div>
   </div>`;
 }
@@ -282,6 +335,7 @@ function shell(title: string, bodyHtml: string, ctaText: string, ctaUrl: string)
 // Mejor práctica: relevancia por rol > lista exhaustiva; el detalle completo vive
 // en la landing. Todos cierran con curso+kit gratis. Devuelve un <ul> con estilo.
 function beneficios(r: Row, fundador = true): string {
+  if (esPT(r)) return beneficiosPT(r, fundador);
   const pt = r.provider_type ?? '';
   // Cada viñeta lleva UN emoji relevante (calidez + escaneabilidad sin exceso;
   // glifos muy soportados para minimizar problemas de render en Outlook).
@@ -344,32 +398,111 @@ function beneficios(r: Row, fundador = true): string {
   </ul>`;
 }
 
+// Version portuguesa de la lista de beneficios. Se mantiene aparte y no
+// mezclada con condicionales dentro de cada vinieta: asi se lee de corrido y se
+// corrige sin riesgo de romper la version española.
+function beneficiosPT(r: Row, fundador = true): string {
+  const tp = r.provider_type ?? '';
+  let items: string[];
+  if (tp === 'company') {
+    items = [
+      '🏷️&nbsp; Publicar <b>vagas e oportunidades inclusivas</b> e chegar a talento neurodivergente.',
+      '🏅&nbsp; Obter o <b>distintivo de Empresa Inclusiva</b>, descarregável para o seu site e as suas redes.',
+      '🆓&nbsp; Adesão <b>gratuita</b> enquanto mantiver publicada pelo menos uma oferta.',
+    ];
+  } else if (tp === 'ngo') {
+    items = [
+      '🆓&nbsp; Adesão <b>gratuita, sempre</b>, para organizações da sociedade civil.',
+      '👪&nbsp; Aparecer perante as <b>famílias</b> que procuram apoio na sua região, com a ficha completa: telefone, site, morada e serviços.',
+      '💬&nbsp; Receber <b>pedidos de contacto</b> de famílias e utentes, e decidir quais aceita.',
+      '📅&nbsp; <b>Agenda e marcações online</b> para as suas consultas, terapias ou apoios, presenciais ou por vídeo, com um formulário que pode colocar no seu próprio site.',
+      '🤝&nbsp; Publicar <b>oportunidades</b>: voluntariado, estágios e emprego inclusivo.',
+      '📣&nbsp; Anunciar as suas <b>jornadas, oficinas e campanhas</b> na secção de Eventos.',
+    ];
+  } else if (tp === 'school' || tp === 'clinic') {
+    items = [
+      '📅&nbsp; <b>Agenda e marcações online:</b> receber marcações directas, presenciais ou por vídeo, a partir do seu perfil.',
+      '💬&nbsp; <b>Canal directo de contacto:</b> mensagens imediatas com utentes, famílias, potenciais clientes e outros membros da plataforma que procuram criar contactos e redes de colaboração.',
+    ];
+  } else if (tp === 'merchant') {
+    items = [
+      '🛍️&nbsp; Vender os seus produtos na <b>Loja</b> e receber directamente — a Neuromundi <b>não retém comissão</b>.',
+      '🔎&nbsp; Aparecer perante famílias que procuram produtos neuroafirmativos.',
+      '⭐&nbsp; Receber <b>avaliações</b> que dão confiança a novos clientes.',
+    ];
+  } else if (tp === 'tourism') {
+    items = [
+      '🌿&nbsp; Apresentar-se como <b>espaço de baixo impacto sensorial</b>, com os seus horários amigáveis.',
+      '🔎&nbsp; Aparecer perante famílias que procuram lugares de lazer inclusivos.',
+      '⭐&nbsp; Receber <b>avaliações</b> da comunidade.',
+    ];
+  } else {
+    items = [
+      '📅&nbsp; <b>Agenda e marcações online:</b> receber marcações directas, presenciais ou por vídeo, integradas no seu calendário.',
+      '💬&nbsp; <b>Canal directo de contacto:</b> mensagens imediatas com utentes, famílias, potenciais clientes e outros membros da plataforma.',
+      '📈&nbsp; <b>Métricas de impacto:</b> visualizações, cliques e pedidos de contacto do seu perfil.',
+    ];
+  }
+  const li = items.map((t) => `<li style="margin:6px 0">${t}</li>`).join('');
+  const founderLi = fundador
+    ? '<li style="margin:6px 0">🏆&nbsp; <b>Distintivo «Fundador Neuromundi»:</b> selo de prestígio para o seu perfil, o seu site e as suas redes sociais.</li>'
+    : '';
+  return `<ul style="margin:8px 0 0;padding:0;list-style:none;color:#334155;font-size:14px;line-height:1.5">${li}
+    <li style="margin:6px 0">🧰&nbsp; <b>Aumentar a sua visibilidade, os seus contactos e as suas receitas:</b> oferecer todos os seus serviços e produtos na plataforma, publicar os seus produtos na <b>Loja</b> com ligação à sua loja oficial, os seus cursos e oficinas na <b>Academy</b>, as suas actividades em <b>Eventos</b> e os seus artigos no <b>Blog</b>.</li>
+    <li style="margin:6px 0">⭐&nbsp; <b>Avaliações e distintivos:</b> acumular avaliações da comunidade e obter os distintivos que atestam a sua qualidade e o seu compromisso.</li>
+    <li style="margin:6px 0">🤝&nbsp; <b>Mural de Aliados:</b> propor a sua organização, com o seu logótipo, para a secção de Aliados da Neuromundi. Revemos cada proposta antes de a publicar.</li>
+    <li style="margin:6px 0">🎓&nbsp; <b>Formação e instrumentos:</b> acesso gratuito a cursos, oficinas e eventos exclusivos para membros Neuromundi.</li>
+    ${founderLi}
+    <li style="margin:6px 0">📋&nbsp; <b>Liderança no sector:</b> participação prioritária no 1.º Inquérito sobre a Situação Neurológica Mundial.</li>
+  </ul>`;
+}
+
 // Tabla comparativa (versión CORREO, región México): HTML de tablas + estilos en
 // línea + palomitas/taches de texto (Gmail/Outlook no soportan flex/grid ni SVG).
 function tablaComparativa(r?: Row): string {
+  const pt = r ? esPT(r) : false;
   const yes = '<td align="center" style="padding:9px 4px;color:#16a34a;font-weight:bold;border-bottom:1px solid #f1f5f9">✓</td>';
   const yesNm = '<td align="center" style="padding:9px 4px;background:#eff9ff;color:#16a34a;font-weight:bold;border-bottom:1px solid #f1f5f9">✓</td>';
   const no = '<td align="center" style="padding:9px 4px;color:#cbd5e1;font-weight:bold;border-bottom:1px solid #f1f5f9">✗</td>';
   const feat = (t: string) => `<td style="padding:9px 6px;border-bottom:1px solid #f1f5f9">${t}</td>`;
   // filas: [label, nm, doctoralia, topdoctors, doctoreslat]
+  const etiquetas = pt
+    ? ['Especializada em neurodivergência, neurodesenvolvimento e doenças neurológicas',
+       'Gratuita para famílias e utentes',
+       'Agenda de marcações online (presencial ou vídeo)',
+       'Avaliações de prestadores',
+       'Selo e avaliações neuroafirmativas',
+       'Comunidade de apoio entre pares',
+       'Kit de ferramentas e curso gratuitos',
+       'Inclusão laboral e escolar',
+       'Loja especializada']
+    : ['Especializada en neurodivergencia, neurodesarrollo y afecciones neurológicas',
+       'Gratis para familias y pacientes',
+       'Agenda de citas en línea (presencial o video)',
+       'Reseñas de prestadores',
+       'Sello y reseñas neuroafirmativas',
+       'Comunidad de apoyo entre pares',
+       'Kit de herramientas y curso gratuitos',
+       'Inclusión laboral y escolar',
+       'Tienda especializada'];
   const rows: [string, boolean, boolean, boolean, boolean][] = [
-    ['Especializada en neurodivergencia, neurodesarrollo y afecciones neurológicas', true, false, false, false],
-    ['Gratis para familias y pacientes', true, true, true, true],
-    ['Agenda de citas en línea (presencial o video)', true, true, true, true],
-    ['Reseñas de prestadores', true, true, true, true],
-    ['Sello y reseñas neuroafirmativas', true, false, false, false],
-    ['Comunidad de apoyo entre pares', true, false, false, false],
-    ['Kit de herramientas y curso gratuitos', true, false, false, false],
-    ['Inclusión laboral y escolar', true, false, false, false],
-    ['Tienda especializada', true, false, false, false],
+    [etiquetas[0], true, false, false, false],
+    [etiquetas[1], true, true, true, true],
+    [etiquetas[2], true, true, true, true],
+    [etiquetas[3], true, true, true, true],
+    [etiquetas[4], true, false, false, false],
+    [etiquetas[5], true, false, false, false],
+    [etiquetas[6], true, false, false, false],
+    [etiquetas[7], true, false, false, false],
+    [etiquetas[8], true, false, false, false],
   ];
   const body = rows.map(([label, nm, d, td2, dl]) =>
     `<tr>${feat(label)}${nm ? yesNm : no}${d ? yes : no}${td2 ? yes : no}${dl ? yes : no}</tr>`).join('');
   return `
-    <p style="margin:22px 0 8px;font-weight:800;font-size:16px">Cómo se compara Neuromundi</p>
+    <p style="margin:22px 0 8px;font-weight:800;font-size:16px">${pt ? 'Como se compara a Neuromundi' : 'Cómo se compara Neuromundi'}</p>
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;font-size:12px;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden">
       <tr>
-        <td style="padding:8px 6px;background:#f8fafc;color:#64748b;font-weight:bold;text-transform:uppercase;font-size:10px;border-bottom:1px solid #e2e8f0">Característica</td>
+        <td style="padding:8px 6px;background:#f8fafc;color:#64748b;font-weight:bold;text-transform:uppercase;font-size:10px;border-bottom:1px solid #e2e8f0">${pt ? 'Característica' : 'Característica'}</td>
         <td align="center" style="padding:8px 4px;background:#0369a1;color:#fff;font-weight:bold;border-bottom:1px solid #e2e8f0">Neuromundi</td>
         <td align="center" style="padding:8px 4px;background:#f1f5f9;font-weight:bold;border-bottom:1px solid #e2e8f0">Doctoralia</td>
         <td align="center" style="padding:8px 4px;background:#f1f5f9;font-weight:bold;border-bottom:1px solid #e2e8f0">Top Doctors</td>
@@ -377,7 +510,7 @@ function tablaComparativa(r?: Row): string {
       </tr>
       ${body}
       <tr>
-        <td style="padding:9px 6px;background:#f8fafc;font-weight:800;border-top:2px solid #e2e8f0">Precio<br><span style="font-weight:400;color:#64748b;font-size:10px">Cuota del prestador · pacientes siempre gratis</span></td>
+        <td style="padding:9px 6px;background:#f8fafc;font-weight:800;border-top:2px solid #e2e8f0">${pt ? 'Preço' : 'Precio'}<br><span style="font-weight:400;color:#64748b;font-size:10px">${pt ? 'Quota do prestador · utentes sempre grátis' : 'Cuota del prestador · pacientes siempre gratis'}</span></td>
         <td align="center" style="padding:9px 4px;background:#e0f2fe;color:#0369a1;font-weight:800;border-top:2px solid #e2e8f0">${
           r?.precio_configurado && r?.precio_fundador
             ? `${MXN(Math.round(Number(r.precio_fundador) / 12))}<br><span style="font-weight:500;color:#64748b;font-size:10px">${r.moneda || 'MXN'}/mes equivalente · ${MXN(Number(r.precio_fundador))} al año</span>`
@@ -388,7 +521,7 @@ function tablaComparativa(r?: Row): string {
         <td align="center" style="padding:9px 4px;background:#f8fafc;font-weight:800;border-top:2px solid #e2e8f0">No público</td>
       </tr>
     </table>
-    <p style="color:#94a3b8;font-size:10px;margin:6px 2px 0;line-height:1.4">Comparativa con información pública de cada plataforma a septiembre de 2026. Las plataformas mencionadas son marcas de sus respectivos titulares; se citan solo con fines comparativos e informativos.</p>`;
+    <p style="color:#94a3b8;font-size:10px;margin:6px 2px 0;line-height:1.4">${pt ? 'Comparação com informação pública de cada plataforma em Setembro de 2026. As plataformas mencionadas são marcas dos respectivos titulares; são citadas apenas para fins comparativos e informativos.' : 'Comparativa con información pública de cada plataforma a septiembre de 2026. Las plataformas mencionadas son marcas de sus respectivos titulares; se citan solo con fines comparativos e informativos.'}</p>`;
 }
 
 function buildEmail(r: Row, fundador = true, promo: string | null = null): { subject: string; html: string } {
@@ -400,7 +533,7 @@ function buildEmail(r: Row, fundador = true, promo: string | null = null): { sub
   // Bloque de cortesía: si viene un código exento, se anuncia arriba del cuerpo.
   const promoBlock = promo
     ? `<p style="margin:0 0 14px;font-size:15px;line-height:1.6;color:#065f46;background:#ecfdf5;border:1px solid #a7f3d0;border-radius:12px;padding:12px 14px">
-        🎁 <b>Invitación de cortesía:</b> su membresía es <b>sin costo</b>. Al registrarse, ingrese este código en el paso de membresía:
+        ${esPT(r) ? '🎁 <b>Convite de cortesia:</b> a sua adesão é <b>sem custo</b>. Ao registar-se, introduza este código no passo da adesão:' : '🎁 <b>Invitación de cortesía:</b> su membresía es <b>sin costo</b>. Al registrarse, ingrese este código en el paso de membresía:'}
         <br><span style="display:inline-block;margin-top:6px;font-size:18px;font-weight:800;letter-spacing:.04em;color:#047857">${esc(promo)}</span>
       </p>`
     : '';
@@ -451,16 +584,26 @@ function buildEmail(r: Row, fundador = true, promo: string | null = null): { sub
   const corte = RELOJES.verif;
   const hayTarifa = r.precio_configurado && r.precio_fundador && r.precio_ordinario && !esFree(r);
   const cur = r.moneda || 'MXN';
+  const pt = esPT(r);
 
   const parrafoOferta = hayTarifa
-    ? `<p>Y para motivarle aún más a formar parte de Neuromundi, le ofrecemos ingresar como
+    ? (pt
+    ? `<p>E para o motivar ainda mais a fazer parte da Neuromundi, oferecemos-lhe a entrada como
+         <b>Membro Fundador</b>. Queremos que faça parte da base fundadora da plataforma,
+         com estas condições vitalícias:</p>
+       <p style="margin:12px 0;padding:14px 16px;border:1px solid #bae6fd;background:#f0f9ff;border-radius:12px;font-size:15px;line-height:1.6;color:#0c4a6e">
+         <u>Desconto vitalício</u><sup>*</sup> de <b>50%</b> como Membro Fundador: apenas
+         <b style="color:#0369a1">${MXN(Number(r.precio_fundador))} ${cur} por ano</b>,
+         em vez do preço normal de <b>${MXN(Number(r.precio_ordinario))} ${cur}</b>.
+       </p>`
+    : `<p>Y para motivarle aún más a formar parte de Neuromundi, le ofrecemos ingresar como
          <b>Miembro Fundador</b>. Queremos que forme parte de la base fundadora de la plataforma,
          con estas condiciones de por vida:</p>
        <p style="margin:12px 0;padding:14px 16px;border:1px solid #bae6fd;background:#f0f9ff;border-radius:12px;font-size:15px;line-height:1.6;color:#0c4a6e">
          <u>Descuento vitalicio</u><sup>*</sup> del <b>50%</b> como Miembro Fundador: Sólo
          <b style="color:#0369a1">${MXN(Number(r.precio_fundador))} ${cur} al año</b>,
          en lugar del precio ordinario de <b>${MXN(Number(r.precio_ordinario))} ${cur}</b>.
-       </p>`
+       </p>`)
     : '';
 
   // Las organizaciones exentas NO reciben parrafoOferta (no tienen tarifa), y sin
@@ -476,41 +619,82 @@ function buildEmail(r: Row, fundador = true, promo: string | null = null): { sub
   // enganado. A las organizaciones civiles y a los organismos publicos NO les
   // aplica ese plazo, asi que conservan su parrafo sin cambios.
   const parrafoExento = (esFree(r) && !hayTarifa)
-    ? (r.provider_type === 'company'
-        ? `<p>Su membresía en Neuromundi es gratuita mientras mantenga publicada al menos una
-             oferta de empleo, voluntariado o servicio social. No hay cuota de inscripción ni
-             cuota anual, ni ahora ni después.</p>`
-        : `<p>En virtud del carácter público y social de su organización, su membresía en
-             Neuromundi es gratuita en forma vitalicia. No hay cuota de inscripción ni cuota anual.
-             Completar su perfil no le cuesta nada, ni ahora ni después.</p>`)
+    ? (pt
+        ? (r.provider_type === 'company'
+            ? `<p>A sua adesão à Neuromundi é gratuita enquanto mantiver publicada pelo menos uma
+                 oferta de emprego, voluntariado ou estágio. Não há quota de inscrição nem
+                 quota anual, nem agora nem depois.</p>`
+            : `<p>Em virtude do carácter público e social da sua organização, a sua adesão à
+                 Neuromundi é gratuita de forma vitalícia. Não há quota de inscrição nem quota anual.
+                 Completar o seu perfil não lhe custa nada, nem agora nem depois.</p>`)
+        : (r.provider_type === 'company'
+            ? `<p>Su membresía en Neuromundi es gratuita mientras mantenga publicada al menos una
+                 oferta de empleo, voluntariado o servicio social. No hay cuota de inscripción ni
+                 cuota anual, ni ahora ni después.</p>`
+            : `<p>En virtud del carácter público y social de su organización, su membresía en
+                 Neuromundi es gratuita en forma vitalicia. No hay cuota de inscripción ni cuota anual.
+                 Completar su perfil no le cuesta nada, ni ahora ni después.</p>`))
     : '';
 
-  const parrafoPlazo = fd
-    ? `<p>Para hacer efectivo este beneficio le agradeceremos ingresar mediante el siguiente enlace
-         y completar su perfil <b>antes del ${fechaLarga(fd)}</b>.</p>`
-    : `<p>Para hacer efectivo este beneficio le agradeceremos ingresar mediante el siguiente enlace
-         y completar su perfil.</p>`;
+  const parrafoPlazo = pt
+    ? (fd
+        ? `<p>Para tornar efectivo este benefício, agradecemos que entre através da ligação seguinte
+             e complete o seu perfil <b>antes de ${fechaLarga(fd, true)}</b>.</p>`
+        : `<p>Para tornar efectivo este benefício, agradecemos que entre através da ligação seguinte
+             e complete o seu perfil.</p>`)
+    : (fd
+        ? `<p>Para hacer efectivo este beneficio le agradeceremos ingresar mediante el siguiente enlace
+             y completar su perfil <b>antes del ${fechaLarga(fd)}</b>.</p>`
+        : `<p>Para hacer efectivo este beneficio le agradeceremos ingresar mediante el siguiente enlace
+             y completar su perfil.</p>`);
 
-  const parrafoCierre = `<p>Esperamos nos favorezca aceptando esta invitación y nos permita recibirle
-       en la comunidad Neuromundi.</p>
-     <p>Si por el contrario usted no desea aceptarla y prefiere retirar su ficha del directorio,
-       puede hacerlo desde ese mismo enlace.</p>`
-    + (corte
-      ? `<p>Para que su ficha siga publicada después del <b>${fechaLarga(corte)}</b> sólo se
-           requiere que ${hayTarifa ? 'complete su perfil y cubra la cuota correspondiente'
-             : 'complete su perfil'}. Si no se cumple con ${hayTarifa ? 'alguno de los requisitos'
-             : 'ese requisito'} retiramos su ficha del directorio. En todo momento respetamos su
-           decisión si no desea formar parte de Neuromundi.</p>`
-      : '');
+  const parrafoCierre = pt
+    ? (`<p>Esperamos que nos favoreça aceitando este convite e que nos permita recebê-lo
+         na comunidade Neuromundi.</p>
+       <p>Se, pelo contrário, não desejar aceitá-lo e preferir retirar a sua ficha do directório,
+         pode fazê-lo a partir dessa mesma ligação.</p>`
+      + (corte
+        ? `<p>Para que a sua ficha continue publicada depois de <b>${fechaLarga(corte, true)}</b> basta
+             que ${hayTarifa ? 'complete o seu perfil e cubra a quota correspondente'
+               : 'complete o seu perfil'}. Se ${hayTarifa ? 'algum dos requisitos não for cumprido'
+               : 'esse requisito não for cumprido'}, retiramos a sua ficha do directório. Respeitamos
+             sempre a sua decisão se não desejar fazer parte da Neuromundi.</p>`
+        : ''))
+    : (`<p>Esperamos nos favorezca aceptando esta invitación y nos permita recibirle
+         en la comunidad Neuromundi.</p>
+       <p>Si por el contrario usted no desea aceptarla y prefiere retirar su ficha del directorio,
+         puede hacerlo desde ese mismo enlace.</p>`
+      + (corte
+        ? `<p>Para que su ficha siga publicada después del <b>${fechaLarga(corte)}</b> sólo se
+             requiere que ${hayTarifa ? 'complete su perfil y cubra la cuota correspondiente'
+               : 'complete su perfil'}. Si no se cumple con ${hayTarifa ? 'alguno de los requisitos'
+               : 'ese requisito'} retiramos su ficha del directorio. En todo momento respetamos su
+             decisión si no desea formar parte de Neuromundi.</p>`
+        : ''));
 
   const notaInflacion = hayTarifa
-    ? `<p style="color:#64748b;font-size:12px;line-height:1.5;margin-top:16px">
-         <sup>*</sup> La cuota anual sólo se actualizará en la misma proporción que el incremento
-         anual inflacionario correspondiente a su país.
-       </p>`
+    ? (pt
+      ? `<p style="color:#64748b;font-size:12px;line-height:1.5;margin-top:16px">
+           <sup>*</sup> A quota anual só será actualizada na mesma proporção do aumento
+           anual da inflação correspondente ao seu país.
+         </p>`
+      : `<p style="color:#64748b;font-size:12px;line-height:1.5;margin-top:16px">
+           <sup>*</sup> La cuota anual sólo se actualizará en la misma proporción que el incremento
+           anual inflacionario correspondiente a su país.
+         </p>`)
     : '';
 
-  const cuerpo = `<p>Hola, <b>${nombre}</b>:</p>
+  const intro = pt
+    ? `<p>Olá, <b>${nombre}</b>:</p>
+    <p>A <b>Neuromundi</b> é mais do que um directório: é a primeira comunidade a nível global que liga
+      utentes, famílias, especialistas, fornecedores, prestadores de serviços, clínicas, escolas,
+      empresas e organizações da sociedade civil em torno do <b>neurodesenvolvimento, da
+      neurodivergência e das doenças neurológicas</b>.</p>
+    <p>Analisámos o seu perfil e consideramos que seria um excelente membro da Neuromundi, pelo que
+      acrescentámos o seu perfil ao nosso directório público.</p>
+    <p>A sua informação básica já está visível para quem procure perfis como o seu no directório.</p>
+    <p>Ao reclamar e activar o seu perfil completo, terá acesso livre e ilimitado a:</p>`
+    : `<p>Hola, <b>${nombre}</b>:</p>
     <p><b>Neuromundi</b> es más que un directorio: es la primera comunidad a nivel global que enlaza a
       pacientes, familias, especialistas, proveedores, prestadores de servicios, clínicas, escuelas,
       empresas y organizaciones de la sociedad civil en torno a <b>neurodesarrollo, neurodivergencias
@@ -518,7 +702,9 @@ function buildEmail(r: Row, fundador = true, promo: string | null = null): { sub
     <p>Hemos analizado su perfil y consideramos que sería un excelente miembro de Neuromundi, por lo
       que hemos agregado su perfil a nuestro directorio público.</p>
     <p>Su información básica ya es visible para quien busque perfiles como el suyo en el directorio.</p>
-    <p>Al reclamar y activar su perfil completo, usted tendrá acceso libre e ilimitado a:</p>
+    <p>Al reclamar y activar su perfil completo, usted tendrá acceso libre e ilimitado a:</p>`;
+
+  const cuerpo = `${intro}
     ${beneficios(r)}
     ${parrafoOferta}
     ${parrafoExento}
@@ -531,10 +717,18 @@ function buildEmail(r: Row, fundador = true, promo: string | null = null): { sub
   // organizacion exenta no se le puede pedir que "asegure su cuota": o no abre
   // el correo creyendo que le van a cobrar, o lo abre y se siente enganada.
   return {
-    subject: esFree(r)
-      ? `${rawNombre}: su perfil en Neuromundi, sin costo para su organización`
-      : `${rawNombre}: active su perfil y asegure su cuota de Miembro Fundador`,
-    html: shell('Le damos la bienvenida a Neuromundi', promoBlock + cuerpo, 'Activar o retirar mi ficha', claim),
+    subject: pt
+      ? (esFree(r)
+          ? `${rawNombre}: o seu perfil na Neuromundi, sem custo para a sua organização`
+          : `${rawNombre}: active o seu perfil e garanta a sua quota de Membro Fundador`)
+      : (esFree(r)
+          ? `${rawNombre}: su perfil en Neuromundi, sin costo para su organización`
+          : `${rawNombre}: active su perfil y asegure su cuota de Miembro Fundador`),
+    html: shell(
+      pt ? 'Damos-lhe as boas-vindas à Neuromundi' : 'Le damos la bienvenida a Neuromundi',
+      promoBlock + cuerpo,
+      pt ? 'Activar ou retirar a minha ficha' : 'Activar o retirar mi ficha',
+      claim, pt),
   };
 }
 
