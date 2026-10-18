@@ -4939,9 +4939,18 @@
     "kind": {
       "families": "家庭",
       "professionals": "专业人士",
-      "providers": "商家"
+      "providers": "商家",
+      "companies": "企业",
+      "ngos": "机构"
     },
-    "visit": "在目录中查看 {{name}} 的条目"
+    "visit": "在目录中查看 {{name}} 的条目",
+    "section": {
+      "professionals": "创始专业人士",
+      "providers": "创始商家",
+      "companies": "创始企业",
+      "ngos": "创始机构",
+      "families": "创始家庭"
+    }
   },
   "foundersPage": {
     "badge": "创始计划",

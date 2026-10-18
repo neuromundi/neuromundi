@@ -4939,9 +4939,18 @@
     "kind": {
       "families": "家族",
       "professionals": "専門家",
-      "providers": "事業者"
+      "providers": "事業者",
+      "companies": "企業",
+      "ngos": "団体"
     },
-    "visit": "ディレクトリで{{name}}の掲載情報を見る"
+    "visit": "ディレクトリで{{name}}の掲載情報を見る",
+    "section": {
+      "professionals": "創設メンバーの専門職",
+      "providers": "創設メンバーの店舗",
+      "companies": "創設メンバーの企業",
+      "ngos": "創設メンバーの団体",
+      "families": "創設メンバーのご家族"
+    }
   },
   "foundersPage": {
     "badge": "創設メンバープログラム",

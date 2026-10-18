@@ -4939,9 +4939,18 @@
     "kind": {
       "families": "Family",
       "professionals": "Professional",
-      "providers": "Business"
+      "providers": "Business",
+      "companies": "Company",
+      "ngos": "Organization"
     },
-    "visit": "View {{name}}'s listing in the directory"
+    "visit": "View {{name}}'s listing in the directory",
+    "section": {
+      "professionals": "Founding Professionals",
+      "providers": "Founding Merchants",
+      "companies": "Founding Companies",
+      "ngos": "Founding Organizations",
+      "families": "Founding Families"
+    }
   },
   "foundersPage": {
     "badge": "Founder Program",

@@ -4939,9 +4939,18 @@
     "kind": {
       "families": "Famille",
       "professionals": "Professionnel",
-      "providers": "Commerce"
+      "providers": "Commerce",
+      "companies": "Entreprise",
+      "ngos": "Organisation"
     },
-    "visit": "Voir la fiche de {{name}} dans le répertoire"
+    "visit": "Voir la fiche de {{name}} dans le répertoire",
+    "section": {
+      "professionals": "Professionnels fondateurs",
+      "providers": "Commerces fondateurs",
+      "companies": "Entreprises fondatrices",
+      "ngos": "Organisations fondatrices",
+      "families": "Familles fondatrices"
+    }
   },
   "foundersPage": {
     "badge": "Programme Fondateur",

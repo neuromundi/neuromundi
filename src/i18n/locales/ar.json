@@ -4939,9 +4939,18 @@
     "kind": {
       "families": "عائلة",
       "professionals": "مختص",
-      "providers": "نشاط تجاري"
+      "providers": "نشاط تجاري",
+      "companies": "شركة",
+      "ngos": "منظمة"
     },
-    "visit": "عرض بطاقة {{name}} في الدليل"
+    "visit": "عرض بطاقة {{name}} في الدليل",
+    "section": {
+      "professionals": "المهنيون المؤسِّسون",
+      "providers": "المتاجر المؤسِّسة",
+      "companies": "الشركات المؤسِّسة",
+      "ngos": "المنظمات المؤسِّسة",
+      "families": "العائلات المؤسِّسة"
+    }
   },
   "foundersPage": {
     "badge": "برنامج المؤسِّسين",

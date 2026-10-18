@@ -4939,9 +4939,18 @@
     "kind": {
       "families": "Familie",
       "professionals": "Fachkraft",
-      "providers": "Unternehmen"
+      "providers": "Unternehmen",
+      "companies": "Unternehmen",
+      "ngos": "Organisation"
     },
-    "visit": "Eintrag von {{name}} im Verzeichnis ansehen"
+    "visit": "Eintrag von {{name}} im Verzeichnis ansehen",
+    "section": {
+      "professionals": "Gründende Fachkräfte",
+      "providers": "Gründende Geschäfte",
+      "companies": "Gründende Unternehmen",
+      "ngos": "Gründende Organisationen",
+      "families": "Gründende Familien"
+    }
   },
   "foundersPage": {
     "badge": "Gründerprogramm",

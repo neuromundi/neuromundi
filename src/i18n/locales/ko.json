@@ -4939,9 +4939,18 @@
     "kind": {
       "families": "가족",
       "professionals": "전문가",
-      "providers": "상점"
+      "providers": "상점",
+      "companies": "기업",
+      "ngos": "단체"
     },
-    "visit": "디렉터리에서 {{name}}의 등록 정보 보기"
+    "visit": "디렉터리에서 {{name}}의 등록 정보 보기",
+    "section": {
+      "professionals": "창립 전문가",
+      "providers": "창립 상점",
+      "companies": "창립 기업",
+      "ngos": "창립 단체",
+      "families": "창립 가족"
+    }
   },
   "foundersPage": {
     "badge": "창립 멤버 프로그램",

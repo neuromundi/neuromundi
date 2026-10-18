@@ -9,7 +9,15 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
 
-export type FounderKindWall = 'families' | 'professionals' | 'providers';
+// Los cinco tipos que admite la restriccion de `founder_members` en la base.
+// Estaban tres: una empresa o una organizacion fundadora se habria quedado
+// sin etiqueta de tipo en el muro.
+export type FounderKindWall =
+  | 'families'
+  | 'professionals'
+  | 'providers'
+  | 'companies'
+  | 'ngos';
 
 export interface FounderEntry {
   display_name: string;

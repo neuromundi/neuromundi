@@ -4939,9 +4939,18 @@
     "kind": {
       "families": "משפחה",
       "professionals": "איש מקצוע",
-      "providers": "עסק"
+      "providers": "עסק",
+      "companies": "חברה",
+      "ngos": "ארגון"
     },
-    "visit": "צפייה בכרטיס של {{name}} במדריך"
+    "visit": "צפייה בכרטיס של {{name}} במדריך",
+    "section": {
+      "professionals": "אנשי מקצוע מייסדים",
+      "providers": "עסקים מייסדים",
+      "companies": "חברות מייסדות",
+      "ngos": "ארגונים מייסדים",
+      "families": "משפחות מייסדות"
+    }
   },
   "foundersPage": {
     "badge": "תוכנית המייסדים",
