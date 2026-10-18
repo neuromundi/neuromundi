@@ -81,3 +81,12 @@ Destinatarios *
 ESPECIFICACION *
 Fichas *
 Informe para *
+
+# Claves y credenciales sueltas en la raiz: nunca deben viajar al repositorio.
+# La clave publica del captcha vive como secreto de GitHub y la privada
+# solo en Supabase. Un archivo de texto con la secreta en la raiz es un
+# commit distraido de distancia de quedar publicado para siempre.
+claves*.txt
+*claves*.txt
+cloudflare-*.txt
+*secret*.txt
