@@ -59,7 +59,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Traer el código
-        uses: actions/checkout@v5
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
         with:
           fetch-depth: 2 # hacen falta dos commits para saber qué cambió
 
@@ -133,7 +133,7 @@ jobs:
 
       - name: Preparar el cliente de Supabase
         if: steps.cuales.outputs.lista != ''
-        uses: supabase/setup-cli@v1
+        uses: supabase/setup-cli@1dedf2c611547ede7232d26866dd3c56ab903bbb # v1.7.3
         with:
           version: latest
 
