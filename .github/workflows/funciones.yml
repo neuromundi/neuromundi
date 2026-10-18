@@ -133,9 +133,14 @@ jobs:
 
       - name: Preparar el cliente de Supabase
         if: steps.cuales.outputs.lista != ''
-        uses: supabase/setup-cli@1dedf2c611547ede7232d26866dd3c56ab903bbb # v1.7.3
+        # v3 no trae tiempo de ejecucion propio: son pasos de consola. Por eso
+        # desaparece el aviso de Node 20, que GitHub retiro de sus maquinas el
+        # 23 de septiembre de 2026 y hoy solo sobrevive por un parche temporal.
+        uses: supabase/setup-cli@45a513f8c64c0bc8e0e3dfe572b5c95be85f6359 # v3.0.1
         with:
-          version: latest
+          # Fijada a proposito. Con "latest" la herramienta que despliega puede
+          # cambiar sola de un dia para otro sin que nadie lo decida.
+          version: 2.121.0
 
       - name: Desplegar
         if: steps.cuales.outputs.lista != ''
