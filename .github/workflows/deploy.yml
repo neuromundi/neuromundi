@@ -18,6 +18,8 @@
 #   VITE_SUPABASE_URL        https://sboagswcehuxwfjdbhdn.supabase.co
 #   VITE_SUPABASE_ANON_KEY   la anon key del proyecto Supabase
 #   VITE_CARTO_KEY           la API key de CARTO Basemaps
+#   VITE_TURNSTILE_SITE_KEY  la clave PUBLICA de Cloudflare Turnstile (opcional:
+#                            sin ella la aplicacion no pide captcha y funciona igual)
 #   FTP_SERVER               host FTP de Hostinger (p. ej. ftp.neuromundi.com)
 #   FTP_USERNAME             usuario FTP
 #   FTP_PASSWORD             contraseña FTP
@@ -67,6 +69,7 @@ jobs:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
           VITE_CARTO_KEY: ${{ secrets.VITE_CARTO_KEY }}
+          VITE_TURNSTILE_SITE_KEY: ${{ secrets.VITE_TURNSTILE_SITE_KEY }}
         run: npm run build:prerender
 
       # Red de seguridad: si el .htaccess no llegó a dist/, las rutas del sitio

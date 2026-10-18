@@ -14,6 +14,7 @@ import { useTranslation } from 'react-i18next';
 import { Button, useToast, PasswordInput} from '@/components/ui';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/lib/supabase';
+import { tokenCaptcha } from '@/lib/captcha';
 import { loginSchema, type LoginValues } from '@/lib/schemas';
 
 const inputCls =
@@ -48,7 +49,11 @@ export function LoginForm({ onSuccess }: { onSuccess?: () => void }) {
     const email = getValues('email');
     if (!email) { toast.error(t('auth.enterEmailFirst')); return; }
     setResending(true);
-    const { error } = await supabase.auth.resend({ type: 'signup', email });
+    const { error } = await supabase.auth.resend({
+      type: 'signup',
+      email,
+      options: { captchaToken: await tokenCaptcha() },
+    });
     setResending(false);
     if (error) toast.error(error.message);
     else toast.success(t('auth.confirmResent'));
@@ -64,6 +69,7 @@ export function LoginForm({ onSuccess }: { onSuccess?: () => void }) {
     const lang = (i18n.language || 'es').slice(0, 2);
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: `${window.location.origin}/ajustes?recovery=1&lang=${lang}`,
+      captchaToken: await tokenCaptcha(),
     });
     setResetting(false);
     if (error) toast.error(error.message);

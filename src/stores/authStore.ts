@@ -8,6 +8,7 @@ import { create } from 'zustand';
 import type { Session, User } from '@supabase/supabase-js';
 import { dejarSucursalesPendientes } from '@/lib/sucursalesPendientes';
 import { supabase } from '@/lib/supabase';
+import { tokenCaptcha } from '@/lib/captcha';
 import i18n from '@/i18n';
 import { logger, toMessage } from '@/lib/utils';
 import type { Profile, Result, UserRole } from '@/types/app';
@@ -187,7 +188,12 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   },
 
   signIn: async (email, password) => {
-    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    const captchaToken = await tokenCaptcha();
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+      options: { captchaToken },
+    });
     if (error) return { ok: false, error: toMessage(error) };
     return { ok: true, data: data.user };
   },
@@ -299,10 +305,11 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     // Grados escolares como arreglo JSON real (el trigger lo lee como array).
     if (schoolGrades && schoolGrades.length > 0) meta.school_grades = schoolGrades;
 
+    const captchaToken = await tokenCaptcha();
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
-      options: { data: meta },
+      options: { data: meta, captchaToken },
     });
     if (error) return { ok: false, error: toMessage(error) };
 
