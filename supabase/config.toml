@@ -1,0 +1,92 @@
+# ============================================================================
+# Configuración de las Edge Functions para el cliente de Supabase.
+# ----------------------------------------------------------------------------
+# Para qué sirve este archivo:
+#
+# Cuando una función se despliega con el cliente de Supabase, si no se le dice
+# nada, el cliente asume que la función exige un token de sesión válido
+# (verify_jwt = true). Doce de las veintiuna funciones de Neuromundi NO lo
+# exigen, porque las llama el cron, Stripe o el propio sistema de correo, que
+# no tienen sesión de usuario. Desplegarlas sin este archivo las dejaría
+# rechazando todas sus llamadas con un 401, y el síntoma aparecería horas
+# después, cuando el cron fallara en silencio.
+#
+# Por eso aquí están TODAS declaradas, incluso las que sí piden token: así el
+# archivo documenta el estado real y no depende de cuál sea el valor por
+# omisión del cliente en el futuro.
+#
+# Los valores de abajo se tomaron midiendo el estado en vivo del proyecto el
+# 17 de octubre de 2026, no de memoria. Si alguna función cambia de régimen,
+# se cambia aquí y el despliegue automático la corrige.
+# ============================================================================
+
+project_id = "neuromundi"
+
+# ---------------------------------------------------------------------------
+# Sin token de sesión: las llama el cron, Stripe o el sistema de correo.
+# ---------------------------------------------------------------------------
+[functions.avisar-renovacion]
+verify_jwt = false
+
+[functions.campaign-emails]
+verify_jwt = false
+
+[functions.create-donation-checkout]
+verify_jwt = false
+
+[functions.enviar-invitaciones]
+verify_jwt = false
+
+[functions.notify-admin-invite-open]
+verify_jwt = false
+
+[functions.notify-admin-signup]
+verify_jwt = false
+
+[functions.purge-expired-files]
+verify_jwt = false
+
+[functions.reclamar-ficha]
+verify_jwt = false
+
+[functions.send-auth-email]
+verify_jwt = false
+
+[functions.send-push]
+verify_jwt = false
+
+[functions.send-reminders]
+verify_jwt = false
+
+[functions.stripe-webhook]
+verify_jwt = false
+
+# ---------------------------------------------------------------------------
+# Con token de sesión: las llama una persona desde la aplicación.
+# ---------------------------------------------------------------------------
+[functions.cancelar-membresia]
+verify_jwt = true
+
+[functions.connect-onboarding]
+verify_jwt = true
+
+[functions.create-consultation-checkout]
+verify_jwt = true
+
+[functions.create-membership-checkout]
+verify_jwt = true
+
+[functions.create-product-checkout]
+verify_jwt = true
+
+[functions.delete-account]
+verify_jwt = true
+
+[functions.send-campaign]
+verify_jwt = true
+
+[functions.send-product-rejection]
+verify_jwt = true
+
+[functions.send-support]
+verify_jwt = true

@@ -1,0 +1,156 @@
+# ============================================================================
+# Despliegue automático de las Edge Functions de Supabase.
+# ----------------------------------------------------------------------------
+# Qué resuelve:
+#  · Hasta ahora, el despliegue automático subía SOLO el sitio a Hostinger.
+#    Las funciones había que desplegarlas a mano, una por una, y cuando se
+#    olvidaba quedaba una base ya migrada hablando con una función vieja.
+#    Ese desfase es invisible: no falla nada hasta que falla en producción.
+#  · Ahora un push a main despliega las funciones que cambiaron en ese push,
+#    y sólo esas. No se tocan las demás.
+#
+# Secret que hay que configurar UNA VEZ en:
+#   GitHub → Settings → Secrets and variables → Actions → New repository secret
+#
+#   SUPABASE_ACCESS_TOKEN   se genera en https://supabase.com/dashboard/account/tokens
+#
+# Es una credencial real con permiso sobre el proyecto: va como Secret y
+# GitHub la oculta incluso en los registros de ejecución. El identificador del
+# proyecto NO es secreto (ya viaja en la URL pública del sitio), así que está
+# escrito aquí a la vista.
+#
+# El régimen de token de cada función (verify_jwt) NO se decide aquí: se lee de
+# supabase/config.toml. Si ese archivo cambia, este despliegue NO toca nada por
+# su cuenta: avisa y se detiene. La razón es que desplegar las veintiuna de golpe
+# sobreescribiría con lo que haya en el repositorio cualquier función que alguien
+# hubiera desplegado a mano sin dejarla aquí, y ese estropicio es silencioso.
+# Un cambio de régimen es raro y merece decidirse a mano, función por función.
+#
+# Para desplegar a mano: pestaña Actions → "Desplegar funciones" → Run
+# workflow, y escribir el nombre de una función, o "todas".
+# ============================================================================
+
+name: Desplegar funciones
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'supabase/functions/**'
+      - 'supabase/config.toml'
+      - '.github/workflows/funciones.yml'
+  workflow_dispatch:
+    inputs:
+      funcion:
+        description: 'Nombre de una función, o "todas"'
+        required: true
+        default: todas
+
+# Dos despliegues a la vez pueden dejar una función a medio subir.
+concurrency:
+  group: funciones-produccion
+  cancel-in-progress: false
+
+env:
+  PROYECTO: sboagswcehuxwfjdbhdn
+
+jobs:
+  desplegar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Traer el código
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 2 # hacen falta dos commits para saber qué cambió
+
+      - name: Comprobar que el token está configurado
+        env:
+          TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+        run: |
+          if [ -z "$TOKEN" ]; then
+            echo "Falta el Secret SUPABASE_ACCESS_TOKEN."
+            echo "Se configura en Settings -> Secrets and variables -> Actions."
+            exit 1
+          fi
+
+      - name: Decidir qué funciones desplegar
+        id: cuales
+        env:
+          # La entrada se pasa por variable de entorno, nunca interpolada
+          # dentro del script: así un nombre con caracteres raros no se puede
+          # ejecutar como orden.
+          PEDIDA: ${{ inputs.funcion }}
+          EVENTO: ${{ github.event_name }}
+        run: |
+          set -euo pipefail
+          cd supabase/functions
+          TODAS=$(ls -d */ | tr -d '/' | sort)
+          cd - >/dev/null
+
+          if [ "$EVENTO" = "workflow_dispatch" ]; then
+            if [ "$PEDIDA" = "todas" ]; then
+              LISTA="$TODAS"
+            elif [ -d "supabase/functions/$PEDIDA" ]; then
+              LISTA="$PEDIDA"
+            else
+              echo "No existe la función '$PEDIDA'. Las que hay:"
+              echo "$TODAS"
+              exit 1
+            fi
+          else
+            CAMBIOS=$(git diff --name-only HEAD^ HEAD || true)
+            LISTA=$(echo "$CAMBIOS" \
+              | sed -n 's#^supabase/functions/\([^/]*\)/.*#\1#p' \
+              | sort -u)
+            if echo "$CAMBIOS" | grep -q '^supabase/config.toml$'; then
+              echo "AVISO: cambió supabase/config.toml."
+              echo "El régimen de token de alguna función pudo cambiar. Este"
+              echo "despliegue NO va a tocar las que no cambiaron de código:"
+              echo "despliegue a mano las que hagan falta desde la pestaña"
+              echo "Actions, para no sobreescribir nada sin querer."
+            fi
+          fi
+
+          if [ -z "$LISTA" ]; then
+            echo "Ninguna función cambió en este push. No hay nada que desplegar."
+          else
+            echo "Se van a desplegar:"
+            echo "$LISTA"
+          fi
+          {
+            echo 'lista<<FIN'
+            echo "$LISTA"
+            echo 'FIN'
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Preparar el cliente de Supabase
+        if: steps.cuales.outputs.lista != ''
+        uses: supabase/setup-cli@v1
+        with:
+          version: latest
+
+      - name: Desplegar
+        if: steps.cuales.outputs.lista != ''
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          LISTA: ${{ steps.cuales.outputs.lista }}
+        run: |
+          set -euo pipefail
+          FALLIDAS=""
+          while read -r F; do
+            [ -z "$F" ] && continue
+            echo "::group::$F"
+            if supabase functions deploy "$F" --project-ref "$PROYECTO"; then
+              echo "$F desplegada."
+            else
+              echo "$F FALLÓ."
+              FALLIDAS="$FALLIDAS $F"
+            fi
+            echo "::endgroup::"
+          done <<< "$LISTA"
+
+          if [ -n "$FALLIDAS" ]; then
+            echo "Fallaron:$FALLIDAS"
+            exit 1
+          fi
+          echo "Todas las funciones pedidas quedaron desplegadas."
