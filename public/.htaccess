@@ -147,7 +147,12 @@
   # Desactiva APIs potentes que la app NO usa en su propio origen (la geo se hace
   # por IP, no por la API del navegador; las videoconsultas abren meet.jit.si en
   # navegación, no en iframe, así que cámara/micrófono no se usan en este origen).
-  Header always set Permissions-Policy "geolocation=(), camera=(), microphone=(), browsing-topics=()"
+  # geolocation=(self): el propio sitio SI puede pedir la ubicacion; cualquier
+  # otro origen incrustado, no. Antes decia geolocation=(), que la prohibe a
+  # TODOS incluido el propio sitio: "Buscar cerca de mi" aparecia en pantalla
+  # pero el navegador lo bloqueaba antes de preguntarle nada al usuario.
+  # Comprobado en produccion el 18 oct 2026: allowsFeature("geolocation") daba false.
+  Header always set Permissions-Policy "geolocation=(self), camera=(), microphone=(), browsing-topics=()"
 
   # CSP: orígenes acotados a lo que la app realmente carga. object-src 'none',
   # base-uri y frame-ancestors 'self' son la protección anti-XSS/clickjacking.
@@ -155,5 +160,5 @@
   # index.html (precarga del héroe, arranque de gtag) y el onload de la hoja de
   # fuentes. Si algo se bloqueara, cambia temporalmente el nombre de esta cabecera
   # a `Content-Security-Policy-Report-Only` para diagnosticar sin romper.
-  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob: https:; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://ipwho.is https://www.google-analytics.com https://www.googletagmanager.com; media-src 'self' blob: https:; worker-src 'self' blob:; manifest-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob: https:; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self' https://challenges.cloudflare.com https://*.supabase.co wss://*.supabase.co https://ipwho.is https://www.google-analytics.com https://www.googletagmanager.com; media-src 'self' blob: https:; worker-src 'self' blob:; manifest-src 'self'; frame-src 'self' https://challenges.cloudflare.com; object-src 'none'; base-uri 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
 </IfModule>
