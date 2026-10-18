@@ -294,6 +294,9 @@ export function MapView({
                   </p>
                   {pin.label && <p className="text-sm font-medium text-slate-700">{pin.label}</p>}
                   {pin.provider.city && <p className="text-sm text-slate-500">{pin.provider.city}</p>}
+                  {pin.provider.ubicacion_aproximada === true && (
+                    <p className="text-xs text-amber-700">{t('map.approxPin')}</p>
+                  )}
                   {pin.provider.perfil_activo !== false && (
                     <p className="mt-1 text-sm">
                       {t('card.evs')}:{' '}

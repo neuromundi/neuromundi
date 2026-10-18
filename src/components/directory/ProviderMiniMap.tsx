@@ -30,7 +30,7 @@ const PIN = L.divIcon({
   iconAnchor: [15, 38],
 });
 
-export function ProviderMiniMap({ lat, lng }: { lat: number; lng: number }) {
+export function ProviderMiniMap({ lat, lng, aproximada = false }: { lat: number; lng: number; aproximada?: boolean }) {
   const { t } = useTranslation();
   return (
     // `relative z-0 isolate`: Leaflet crea panes/controles con z-index hasta 1000,
@@ -43,7 +43,7 @@ export function ProviderMiniMap({ lat, lng }: { lat: number; lng: number }) {
     >
       <MapContainer
         center={[lat, lng]}
-        zoom={15}
+        zoom={aproximada ? 11 : 15}
         scrollWheelZoom={false}
         style={{ height: '100%', width: '100%' }}
       >

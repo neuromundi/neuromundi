@@ -438,7 +438,8 @@
     "viewProfile": "Ver perfil",
     "noPins": "Ainda sem pontos no mapa",
     "noPinsHint": "Os perfis desta busca ainda não publicaram o endereço. Assim que seus titulares o adicionarem, aparecerão aqui.",
-    "noPinsLocate": "Compartilhar minha localização"
+    "noPinsLocate": "Compartilhar minha localização",
+    "approxPin": "Localização aproximada (cidade)"
   },
   "profile": {
     "notFound": "Não encontramos este fornecedor.",
@@ -462,7 +463,8 @@
     "location": "Localização",
     "servesAreas": "Atende:",
     "agendarSinCuenta": "Quer entrar em contato? Pode pedir uma consulta sem criar conta.",
-    "agendar": "Pedir consulta"
+    "agendar": "Pedir consulta",
+    "approxLocation": "Localização aproximada: o mapa mostra a cidade, não o endereço exato. O titular ainda não o publicou."
   },
   "dim": {
     "quality": "Qualidade",

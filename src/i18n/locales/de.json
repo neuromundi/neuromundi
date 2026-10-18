@@ -438,7 +438,8 @@
     "viewProfile": "Profil ansehen",
     "noPins": "Noch keine Punkte auf der Karte",
     "noPinsHint": "Die Einträge dieser Suche haben ihre Adresse noch nicht veröffentlicht. Sobald die Inhaber sie hinzufügen, erscheinen sie hier.",
-    "noPinsLocate": "Meinen Standort teilen"
+    "noPinsLocate": "Meinen Standort teilen",
+    "approxPin": "Ungefährer Standort (Stadt)"
   },
   "profile": {
     "notFound": "Wir konnten diesen Anbieter nicht finden.",
@@ -462,7 +463,8 @@
     "location": "Standort",
     "servesAreas": "Betreut:",
     "agendarSinCuenta": "Möchten Sie Kontakt aufnehmen? Sie können einen Termin ohne Konto anfragen.",
-    "agendar": "Termin anfragen"
+    "agendar": "Termin anfragen",
+    "approxLocation": "Ungefährer Standort: Die Karte zeigt die Stadt, nicht die genaue Adresse. Der Inhaber hat sie noch nicht veröffentlicht."
   },
   "dim": {
     "quality": "Qualität",

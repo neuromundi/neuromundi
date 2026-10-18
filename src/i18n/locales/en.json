@@ -475,7 +475,8 @@
     "viewProfile": "View profile",
     "noPins": "No points on the map yet",
     "noPinsHint": "The listings in this search haven't published their address yet. As soon as their owners add it, they'll show up here.",
-    "noPinsLocate": "Share my location"
+    "noPinsLocate": "Share my location",
+    "approxPin": "Approximate location (city)"
   },
   "profile": {
     "notFound": "We couldn't find this provider.",
@@ -499,7 +500,8 @@
     "location": "Location",
     "servesAreas": "Serves:",
     "agendarSinCuenta": "Want to get in touch? You can request an appointment without creating an account.",
-    "agendar": "Request an appointment"
+    "agendar": "Request an appointment",
+    "approxLocation": "Approximate location: the map shows the city, not the exact address. Its owner hasn't published it yet."
   },
   "dim": {
     "quality": "Quality",

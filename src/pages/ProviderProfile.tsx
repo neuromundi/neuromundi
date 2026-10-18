@@ -12,7 +12,7 @@ import {
   PolarRadiusAxis,
   ResponsiveContainer,
 } from 'recharts';
-import { ArrowLeft, MapPin, ShieldCheck, Tag, Users, Sparkles, Waves, LifeBuoy, Heart, Star, BadgeCheck, Clock, Phone, Globe, Navigation, CalendarDays, UserCheck, MessageCircle } from 'lucide-react';
+import { ArrowLeft, MapPin, ShieldCheck, Tag, Users, Sparkles, Waves, LifeBuoy, Heart, Star, BadgeCheck, Clock, Phone, Globe, Navigation, CalendarDays, UserCheck, MessageCircle, Info } from 'lucide-react';
 import { safeHttpUrl } from '@/lib/safeUrl';
 import { useTranslation } from 'react-i18next';
 import { useCatLabel } from '@/lib/catLabel';
@@ -119,12 +119,24 @@ export function ProviderProfile() {
   // "Cómo llegar": deep-links de navegación cuando hay coordenadas. Si no hay
   // lat/lng pero sí dirección, se cae a una búsqueda por texto en Google Maps.
   const hasCoords = profile.latitude != null && profile.longitude != null;
-  const mapsHref = hasCoords
+
+  // Ubicacion APROXIMADA: la coordenada es el centro de la ciudad, no el
+  // domicilio, porque el titular de la ficha nunca lo publico. En ese caso NO
+  // se ofrece navegacion: mandar a alguien a conducir hasta un punto que nadie
+  // dio seria peor que no poner mapa. Si ademas hubiera una direccion escrita,
+  // esa si sirve, y se cae a la busqueda por texto.
+  const ubicacionAproximada = profile.ubicacion_aproximada === true;
+  const coordsNavegables = hasCoords && !ubicacionAproximada;
+
+  const busquedaPorTexto = profile.address
+    ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent([profile.address, profile.city, profile.state].filter(Boolean).join(', '))}`
+    : null;
+  const mapsHref = coordsNavegables
     ? `https://www.google.com/maps/dir/?api=1&destination=${profile.latitude},${profile.longitude}`
-    : profile.address
-      ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent([profile.address, profile.city, profile.state].filter(Boolean).join(', '))}`
-      : null;
-  const wazeHref = hasCoords ? `https://waze.com/ul?ll=${profile.latitude},${profile.longitude}&navigate=yes` : null;
+    : busquedaPorTexto;
+  const wazeHref = coordsNavegables
+    ? `https://waze.com/ul?ll=${profile.latitude},${profile.longitude}&navigate=yes`
+    : null;
 
   if (locked) {
     return (
@@ -179,8 +191,18 @@ export function ProviderProfile() {
           {profile.address && <p className="text-sm text-slate-600">{profile.address}</p>}
           {hasCoords && (
             <Suspense fallback={<div className="h-56 w-full animate-pulse rounded-2xl bg-slate-100" />}>
-              <ProviderMiniMap lat={profile.latitude as number} lng={profile.longitude as number} />
+              <ProviderMiniMap
+                lat={profile.latitude as number}
+                lng={profile.longitude as number}
+                aproximada={ubicacionAproximada}
+              />
             </Suspense>
+          )}
+          {ubicacionAproximada && (
+            <p className="flex items-start gap-1.5 rounded-xl bg-amber-50 px-3 py-2 text-xs text-amber-900">
+              <Info className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+              {t('profile.approxLocation')}
+            </p>
           )}
           {mapsHref && (
             <div className="flex flex-wrap items-center gap-2">

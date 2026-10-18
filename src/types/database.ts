@@ -1856,6 +1856,7 @@ export type Database = {
           sitio_web: string | null
           specialties: string[]
           telefono: string | null
+          ubicacion_aproximada: boolean
           verificada_manual: boolean
         }
         Insert: {
@@ -1907,6 +1908,7 @@ export type Database = {
           sitio_web?: string | null
           specialties?: string[]
           telefono?: string | null
+          ubicacion_aproximada?: boolean | null
           verificada_manual?: boolean
         }
         Update: {
@@ -1958,6 +1960,7 @@ export type Database = {
           sitio_web?: string | null
           specialties?: string[]
           telefono?: string | null
+          ubicacion_aproximada?: boolean | null
           verificada_manual?: boolean
         }
         Relationships: [
@@ -7110,6 +7113,7 @@ export type Database = {
           state: string | null
           tiktok: string | null
           title_prefix: string | null
+          ubicacion_aproximada: boolean | null
           updated_at: string | null
           verificada: boolean | null
           wants_founder: boolean | null
@@ -7187,6 +7191,7 @@ export type Database = {
           state: string | null
           tiktok: string | null
           title_prefix: string | null
+          ubicacion_aproximada: boolean | null
           updated_at: string | null
           verificada: boolean | null
           wants_founder: boolean | null

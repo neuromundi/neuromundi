@@ -438,7 +438,8 @@
     "viewProfile": "查看资料",
     "noPins": "地图上还没有标记",
     "noPinsHint": "此搜索结果中的条目尚未公开地址。所有者添加后，将显示在这里。",
-    "noPinsLocate": "分享我的位置"
+    "noPinsLocate": "分享我的位置",
+    "approxPin": "大致位置（城市）"
   },
   "profile": {
     "notFound": "未找到该服务商。",
@@ -462,7 +463,8 @@
     "location": "位置",
     "servesAreas": "服务领域：",
     "agendarSinCuenta": "想要联系？无需注册账号即可预约。",
-    "agendar": "预约"
+    "agendar": "预约",
+    "approxLocation": "大致位置：地图显示的是城市，而非确切地址。所有者尚未公开地址。"
   },
   "dim": {
     "quality": "质量",
