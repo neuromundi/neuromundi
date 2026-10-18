@@ -11,6 +11,11 @@ neuromundi-dist-v3-mapa/
 *.tsbuildinfo
 *.timestamp-*.mjs
 .vite/
+# Apuntes del cliente de Supabase sobre ESTA computadora (version del
+# cliente, de postgres, del almacenamiento, url del pooler). Se reescriben
+# solos cada vez que se corre un comando, asi que versionarlos solo produce
+# cambios fantasma. No contienen contrasenas, pero tampoco sirven a nadie mas.
+supabase/.temp/
 
 # ── Entorno / secretos (NO versionar) ─────────────────────────
 .env
