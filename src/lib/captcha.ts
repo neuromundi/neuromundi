@@ -15,9 +15,13 @@
  * servidor exigiría un comprobante que el navegador todavía no sabe enviar y
  * se caerían todas las altas y todas las entradas.
  *
- * Se usa Cloudflare Turnstile en modo invisible: en la inmensa mayoría de los
- * casos la persona no ve ni hace nada. (Supabase también admite hCaptcha; si se
- * cambiara de proveedor, sólo hay que reescribir este archivo.)
+ * Se usa Cloudflare Turnstile. El widget se crea en el panel de Cloudflare en
+ * modo «Managed» y aquí se pinta con `appearance: 'interaction-only'`: sólo se
+ * hace visible si de verdad hace falta que la persona toque algo, que en la
+ * inmensa mayoría de las visitas no ocurre. (`size: 'invisible'` NO existe:
+ * los tamaños válidos son normal, flexible y compact, y «Invisible» es un modo
+ * del panel, no un tamaño. Supabase también admite hCaptcha; si se cambiara de
+ * proveedor, sólo hay que reescribir este archivo.)
  */
 
 const SITE_KEY = (import.meta.env.VITE_TURNSTILE_SITE_KEY as string | undefined)?.trim();
@@ -70,8 +74,18 @@ export async function tokenCaptcha(): Promise<string | undefined> {
     const api = window.turnstile;
     if (!api) return undefined;
 
+    // La caja NO puede estar oculta. Con `interaction-only` el widget no pinta
+    // nada mientras no haga falta, pero si Cloudflare decide que esta visita
+    // debe resolver algo, tiene que poder verse: escondida, la persona no
+    // vería el reto, se agotarían los 15 segundos y se quedaría sin entrar.
+    // Por eso va flotando al pie, centrada y sin fondo: mientras no haya reto
+    // es un recuadro vacío de cero altura que nadie percibe.
     const caja = document.createElement('div');
-    caja.style.display = 'none';
+    caja.style.position = 'fixed';
+    caja.style.left = '50%';
+    caja.style.bottom = '24px';
+    caja.style.transform = 'translateX(-50%)';
+    caja.style.zIndex = '9999';
     document.body.appendChild(caja);
 
     const token = await new Promise<string | undefined>((resolve) => {
@@ -82,13 +96,17 @@ export async function tokenCaptcha(): Promise<string | undefined> {
         resolve(v);
       };
 
-      // Red lenta o verificador caído: no se deja al usuario esperando.
+      // Red lenta o verificador caído: no se deja al usuario esperando. El
+      // reloj sólo cubre la espera automática; si aparece un reto de verdad se
+      // cancela (ver `before-interactive-callback`), porque resolverlo a mano
+      // tarda más de 15 segundos y sería absurdo rendirse justo entonces.
       const reloj = window.setTimeout(() => terminar(undefined), 15000);
 
       try {
         api.render(caja, {
           sitekey: SITE_KEY,
-          size: 'invisible',
+          appearance: 'interaction-only',
+          'before-interactive-callback': () => window.clearTimeout(reloj),
           callback: (t: string) => {
             window.clearTimeout(reloj);
             terminar(t);
