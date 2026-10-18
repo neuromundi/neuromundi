@@ -73,6 +73,10 @@ interface Row {
   orden?: number; affiliate_type?: string | null; moneda?: string | null;
   precio_fundador?: number | null; precio_ordinario?: number | null;
   precio_configurado?: boolean | null;
+  // 0261: plazo de fundador sellado para ESTA invitacion al momento del envio.
+  // Lo llena el bucle de envio con sellar_plazo_invitacion(); en la simulacion
+  // viene vacio y el correo cae a la fecha del pais.
+  fundador_hasta?: string | null;
 }
 
 // Precio exacto del destinatario, no un rango. Sale de registration_quote, la
@@ -119,8 +123,13 @@ async function cargarRelojes(): Promise<void> {
   };
 }
 
-// Fecha de fundador que le toca a ESTE destinatario, por su pais.
+// Fecha de fundador que le toca a ESTE destinatario.
+// 0261: manda el plazo sellado en su propia invitacion, que se cuenta desde el
+// dia del envio. Solo cuando no hay invitacion sellada (simulacion, o un alta
+// que no vino del directorio) se cae a la fecha fija del pais, que ademas es el
+// tope duro que sellar_plazo_invitacion() nunca rebasa.
 function fundadorDe(r: Row): Date | null {
+  if (r.fundador_hasta) return new Date(r.fundador_hasta);
   const m = RELOJES.fundadorPorPais;
   const iso = m[r.pais || 'México'] ?? m['México'] ?? null;
   return iso ? new Date(iso) : null;
@@ -830,6 +839,13 @@ Deno.serve(async (req: Request) => {
   let enviados = 0, fallidos = 0;
   for (const r of lote) {
     try {
+      // 0261: se sella el plazo ANTES de armar el correo, para que la fecha que
+      // se imprime sea exactamente la que quedo guardada en la base. Si el
+      // sellado falla no se inventa nada: fundadorDe() cae a la fecha del pais.
+      try {
+        const { data: hasta } = await admin.rpc('sellar_plazo_invitacion', { p_token: r.token });
+        if (hasta) r.fundador_hasta = hasta as unknown as string;
+      } catch { /* sin sellado, el correo usa la fecha del pais */ }
       const { subject, html } = buildEmail(r, fundador, body.promo ?? null);
       if (await sendEmail(r.correo, subject, html, `inv-${r.token}`, `${SITE}/reclamar/${r.token}`)) {
         await admin.rpc('directorio_invitacion_enviada', { p_token: r.token });
