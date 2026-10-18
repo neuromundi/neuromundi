@@ -204,6 +204,14 @@ export function toMessage(error: unknown, fallback = 'Algo no salió bien.'): st
   // contraseña SIEMPRE en inglés (texto fijo). Lo mostramos en el idioma del
   // usuario si llega a colarse pese a la validación de cliente.
   if (raw) {
+    // Verificador anti-robots. Si el navegador no logró el comprobante —red que
+    // bloquea a Cloudflare, una extensión, o la página vieja que el service
+    // worker todavía tiene guardada con la política de contenido anterior— el
+    // servidor contesta "captcha protection: request disallowed", que a una
+    // persona no le dice absolutamente nada. Se le explica qué hacer.
+    if (/captcha/i.test(raw)) {
+      return i18next.t('auth.captchaFailed');
+    }
     if (/password should contain/i.test(raw) || /weak[_ ]?password/i.test(raw)) {
       return i18next.t('reg.miss.passwordWeak');
     }

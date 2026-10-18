@@ -277,7 +277,8 @@
     "enterEmailFirst": "先にメールアドレスを入力してください。",
     "confirmEmail": "メールアドレスの確認",
     "showPassword": "パスワードを表示",
-    "hidePassword": "パスワードを隠す"
+    "hidePassword": "パスワードを隠す",
+    "captchaFailed": "人であることを確認できませんでした。ページを再読み込みしてもう一度お試しください。再発する場合は、ブラウザのブロック機能を無効にするか、別のネットワークからお試しください。"
   },
   "settings": {
     "title": "設定",

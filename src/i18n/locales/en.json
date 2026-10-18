@@ -314,7 +314,8 @@
     "enterEmailFirst": "Enter your email first.",
     "confirmEmail": "Confirm email",
     "showPassword": "Show password",
-    "hidePassword": "Hide password"
+    "hidePassword": "Hide password",
+    "captchaFailed": "We couldn't verify that you're a person. Reload the page and try again. If it happens again, turn off your browser's blockers or try from another network."
   },
   "settings": {
     "title": "Settings",

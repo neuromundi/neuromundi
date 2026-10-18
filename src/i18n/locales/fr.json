@@ -277,7 +277,8 @@
     "enterEmailFirst": "Saisissez d’abord votre e-mail.",
     "confirmEmail": "Confirmer l’e-mail",
     "showPassword": "Afficher le mot de passe",
-    "hidePassword": "Masquer le mot de passe"
+    "hidePassword": "Masquer le mot de passe",
+    "captchaFailed": "Nous n'avons pas pu vérifier que vous êtes une personne. Rechargez la page et réessayez. Si cela se reproduit, désactivez les bloqueurs de votre navigateur ou essayez depuis un autre réseau."
   },
   "settings": {
     "title": "Paramètres",

@@ -277,7 +277,8 @@
     "enterEmailFirst": "Inserisci prima la tua e-mail.",
     "confirmEmail": "Conferma l’e-mail",
     "showPassword": "Mostra password",
-    "hidePassword": "Nascondi password"
+    "hidePassword": "Nascondi password",
+    "captchaFailed": "Non siamo riusciti a verificare che sei una persona. Ricarica la pagina e riprova. Se succede di nuovo, disattiva i blocchi del browser o prova da un'altra rete."
   },
   "settings": {
     "title": "Impostazioni",

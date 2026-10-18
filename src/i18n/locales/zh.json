@@ -277,7 +277,8 @@
     "enterEmailFirst": "请先输入你的邮箱。",
     "confirmEmail": "确认邮箱",
     "showPassword": "显示密码",
-    "hidePassword": "隐藏密码"
+    "hidePassword": "隐藏密码",
+    "captchaFailed": "我们无法确认您是真人。请重新加载页面后再试。如果仍然如此，请关闭浏览器的拦截插件，或改用其他网络。"
   },
   "settings": {
     "title": "设置",

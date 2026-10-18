@@ -314,7 +314,8 @@
     "enterEmailFirst": "הזן קודם את האימייל שלך.",
     "confirmEmail": "אימות אימייל",
     "showPassword": "הצג סיסמה",
-    "hidePassword": "הסתר סיסמה"
+    "hidePassword": "הסתר סיסמה",
+    "captchaFailed": "לא הצלחנו לאמת שאתה אדם. רענן את הדף ונסה שוב. אם זה חוזר, כבה את חוסמי הדפדפן או נסה מרשת אחרת."
   },
   "settings": {
     "title": "הגדרות",

@@ -314,7 +314,8 @@
     "enterEmailFirst": "먼저 이메일을 입력하세요.",
     "confirmEmail": "이메일 확인",
     "showPassword": "비밀번호 표시",
-    "hidePassword": "비밀번호 숨기기"
+    "hidePassword": "비밀번호 숨기기",
+    "captchaFailed": "사람인지 확인하지 못했습니다. 페이지를 새로고침한 뒤 다시 시도해 주세요. 계속 발생하면 브라우저의 차단 기능을 끄거나 다른 네트워크에서 시도해 주세요."
   },
   "settings": {
     "title": "설정",
