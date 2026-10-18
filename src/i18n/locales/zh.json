@@ -3771,7 +3771,8 @@
     "timeTbc": " · 时间待定",
     "fZone": "活动所在时区",
     "fZoneReader": "按阅读者所在时间显示",
-    "fTimeTbc": "时间尚未确定"
+    "fTimeTbc": "时间尚未确定",
+    "fCover": "封面图片（链接或路径）"
   },
   "calendar": {
     "title": "我的日历",

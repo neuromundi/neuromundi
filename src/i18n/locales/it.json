@@ -3771,7 +3771,8 @@
     "timeTbc": " · orario da confermare",
     "fZone": "Fuso orario dell'evento",
     "fZoneReader": "Mostrare nell'ora di chi legge",
-    "fTimeTbc": "L'orario non è ancora confermato"
+    "fTimeTbc": "L'orario non è ancora confermato",
+    "fCover": "Copertina (link o percorso)"
   },
   "calendar": {
     "title": "Il mio calendario",

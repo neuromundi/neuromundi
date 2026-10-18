@@ -3771,7 +3771,8 @@
     "timeTbc": " · hora por confirmar",
     "fZone": "Zona horaria del evento",
     "fZoneReader": "Mostrar en la hora de quien lo lea",
-    "fTimeTbc": "La hora todavía no está confirmada"
+    "fTimeTbc": "La hora todavía no está confirmada",
+    "fCover": "Portada (enlace o ruta de la imagen)"
   },
   "calendar": {
     "title": "Mi calendario",

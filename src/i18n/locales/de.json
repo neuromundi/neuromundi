@@ -3771,7 +3771,8 @@
     "timeTbc": " · Uhrzeit noch offen",
     "fZone": "Zeitzone der Veranstaltung",
     "fZoneReader": "In der Zeit der Lesenden anzeigen",
-    "fTimeTbc": "Die Uhrzeit steht noch nicht fest"
+    "fTimeTbc": "Die Uhrzeit steht noch nicht fest",
+    "fCover": "Titelbild (Link oder Pfad)"
   },
   "calendar": {
     "title": "Mein Kalender",

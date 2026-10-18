@@ -3771,7 +3771,8 @@
     "timeTbc": " · 시간 미정",
     "fZone": "행사 표준시",
     "fZoneReader": "읽는 사람의 시간으로 표시",
-    "fTimeTbc": "시간이 아직 확정되지 않았습니다"
+    "fTimeTbc": "시간이 아직 확정되지 않았습니다",
+    "fCover": "커버 이미지(링크 또는 경로)"
   },
   "calendar": {
     "title": "내 캘린더",

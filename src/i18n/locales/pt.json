@@ -3771,7 +3771,8 @@
     "timeTbc": " · hora a confirmar",
     "fZone": "Fuso horário do evento",
     "fZoneReader": "Mostrar na hora de quem lê",
-    "fTimeTbc": "A hora ainda não está confirmada"
+    "fTimeTbc": "A hora ainda não está confirmada",
+    "fCover": "Capa (link ou caminho da imagem)"
   },
   "calendar": {
     "title": "Meu calendário",

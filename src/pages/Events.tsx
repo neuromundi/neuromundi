@@ -69,7 +69,23 @@ export function Events() {
     const saved = savedEventIds.has(ev.id);
     const cal = eventToCalendarEvent(ev);
     return (
-      <article className="flex flex-col rounded-2xl border border-slate-100 bg-white p-4 shadow-sm">
+      <article className="flex flex-col overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm">
+        {ev.cover_url ? (
+          <img
+            loading="lazy"
+            decoding="async"
+            src={ev.cover_url}
+            alt=""
+            width={480}
+            height={270}
+            className="h-36 w-full bg-brand-50 object-cover"
+          />
+        ) : (
+          <div className="flex h-36 w-full items-center justify-center bg-gradient-to-br from-brand-50 to-slate-100 text-brand-300">
+            <CalendarDays className="h-10 w-10" aria-hidden="true" />
+          </div>
+        )}
+        <div className="flex flex-1 flex-col p-4">
         <div className="flex items-center gap-2 text-sm font-semibold text-brand-700">
           <CalendarDays className="h-4 w-4" aria-hidden="true" /> {fmt(ev)}
           {zonaQueConvieneDecir(ev.timezone, ev.hora_confirmada !== false, ev.country) && (
@@ -136,6 +152,7 @@ export function Events() {
               <Button size="sm" variant="ghost" onClick={() => onDelete(ev)} leadingIcon={<Trash2 className="h-4 w-4" />}>{t('common.delete')}</Button>
             </div>
           )}
+        </div>
         </div>
       </article>
     );
@@ -225,6 +242,7 @@ function EventForm({
   const [isOnline, setIsOnline] = useState(initial?.is_online ?? false);
   const [onlineUrl, setOnlineUrl] = useState(initial?.online_url ?? '');
   const [infoUrl, setInfoUrl] = useState(initial?.info_url ?? '');
+  const [coverUrl, setCoverUrl] = useState(initial?.cover_url ?? '');
   const [ctry, setCtry] = useState(initial?.country ?? '');
   const [city, setCity] = useState(initial?.city ?? '');
   const [venue, setVenue] = useState(initial?.venue ?? '');
@@ -260,6 +278,7 @@ function EventForm({
       is_online: isOnline,
       online_url: isOnline ? (onlineUrl.trim() || null) : null,
       info_url: infoUrl.trim() || null,
+      cover_url: coverUrl.trim() || null,
       country: isOnline ? null : (ctry || null),
       city: isOnline ? null : (city.trim() || null),
       venue: isOnline ? null : (venue.trim() || null),
@@ -296,6 +315,7 @@ function EventForm({
           </>
         )}
         <input className={inputCls} placeholder={t('events.fInfoUrl')} value={infoUrl} onChange={(e) => setInfoUrl(e.target.value)} />
+        <input className={inputCls} placeholder={t('events.fCover')} value={coverUrl} onChange={(e) => setCoverUrl(e.target.value)} />
         <select className={inputCls} value={zona} onChange={(e) => setZona(e.target.value)}>
           <option value="">{t('events.fZoneReader')}</option>
           {ZONAS_HORARIAS.map((z) => <option key={z.value} value={z.value}>{z.label}</option>)}

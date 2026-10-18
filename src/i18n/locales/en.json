@@ -3771,7 +3771,8 @@
     "timeTbc": " · time to be confirmed",
     "fZone": "Event time zone",
     "fZoneReader": "Show in the reader's own time",
-    "fTimeTbc": "The time is not confirmed yet"
+    "fTimeTbc": "The time is not confirmed yet",
+    "fCover": "Cover image (link or path)"
   },
   "calendar": {
     "title": "My calendar",
