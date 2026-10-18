@@ -435,7 +435,10 @@
     "locate": "Centralizar na minha localização",
     "aria": "Mapa de fornecedores. A lista abaixo é a alternativa textual.",
     "new": "Novo",
-    "viewProfile": "Ver perfil"
+    "viewProfile": "Ver perfil",
+    "noPins": "Ainda sem pontos no mapa",
+    "noPinsHint": "Os perfis desta busca ainda não publicaram o endereço. Assim que seus titulares o adicionarem, aparecerão aqui.",
+    "noPinsLocate": "Compartilhar minha localização"
   },
   "profile": {
     "notFound": "Não encontramos este fornecedor.",

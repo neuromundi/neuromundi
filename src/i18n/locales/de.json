@@ -435,7 +435,10 @@
     "locate": "Auf meinen Standort zentrieren",
     "aria": "Anbieterkarte. Die Liste darunter ist die Textalternative.",
     "new": "Neu",
-    "viewProfile": "Profil ansehen"
+    "viewProfile": "Profil ansehen",
+    "noPins": "Noch keine Punkte auf der Karte",
+    "noPinsHint": "Die Einträge dieser Suche haben ihre Adresse noch nicht veröffentlicht. Sobald die Inhaber sie hinzufügen, erscheinen sie hier.",
+    "noPinsLocate": "Meinen Standort teilen"
   },
   "profile": {
     "notFound": "Wir konnten diesen Anbieter nicht finden.",

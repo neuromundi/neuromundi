@@ -13,7 +13,7 @@ import { useEffect, useMemo, useRef } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Circle, useMap } from 'react-leaflet';
 import MarkerClusterGroup from 'react-leaflet-cluster';
 import L from 'leaflet';
-import { LocateFixed } from 'lucide-react';
+import { LocateFixed, MapPinOff } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { evsColor, DEFAULT_CENTER } from '@/lib/utils';
 import type { ProviderWithRating, ProviderLocation } from '@/types/app';
@@ -208,6 +208,43 @@ export function MapView({
   }, [pins]);
 
   const initialCenter = center ?? DEFAULT_CENTER;
+
+  // Sin un solo pin que dibujar, el mapa se quedaba en su centro por omision
+  // (Ciudad de Mexico) y el visitante de Espana, Portugal o Brasil veia un mapa
+  // de Norteamerica sin marcas: parece una plataforma rota, no un dato que
+  // falta. En ese caso no se monta el mapa; se explica por que esta vacio y se
+  // ofrece compartir la ubicacion, que si sirve en cuanto haya coordenadas.
+  if (pins.length === 0) {
+    return (
+      <div
+        role="note"
+        aria-label={t('map.aria')}
+        className="flex h-full w-full flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-6 text-center"
+      >
+        <MapPinOff className="h-8 w-8 text-slate-400" aria-hidden="true" />
+        <p className="text-sm font-semibold text-slate-700">{t('map.noPins')}</p>
+        <p className="max-w-xs text-sm text-slate-500">{t('map.noPinsHint')}</p>
+        {onLocate && 'geolocation' in navigator && (
+          <button
+            type="button"
+            onClick={() =>
+              navigator.geolocation.getCurrentPosition(
+                (pos) => onLocate({ lat: pos.coords.latitude, lng: pos.coords.longitude }),
+                () => {
+                  /* permiso denegado: no se insiste */
+                },
+                { enableHighAccuracy: true, timeout: 12000, maximumAge: 60000 },
+              )
+            }
+            className="mt-1 inline-flex items-center gap-2 rounded-full bg-brand-700 px-4 py-2 text-sm font-semibold text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+          >
+            <LocateFixed className="h-4 w-4" aria-hidden="true" />
+            {t('map.noPinsLocate')}
+          </button>
+        )}
+      </div>
+    );
+  }
 
   return (
     // `z-0 isolate`: aísla el z-index interno de Leaflet (hasta 1000) para que

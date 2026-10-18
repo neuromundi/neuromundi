@@ -435,7 +435,10 @@
     "locate": "定位到我的位置",
     "aria": "服务商地图。下方列表为文字替代。",
     "new": "新",
-    "viewProfile": "查看资料"
+    "viewProfile": "查看资料",
+    "noPins": "地图上还没有标记",
+    "noPinsHint": "此搜索结果中的条目尚未公开地址。所有者添加后，将显示在这里。",
+    "noPinsLocate": "分享我的位置"
   },
   "profile": {
     "notFound": "未找到该服务商。",

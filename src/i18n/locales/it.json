@@ -435,7 +435,10 @@
     "locate": "Centra sulla mia posizione",
     "aria": "Mappa dei fornitori. L'elenco qui sotto è l'alternativa testuale.",
     "new": "Nuovo",
-    "viewProfile": "Vedi profilo"
+    "viewProfile": "Vedi profilo",
+    "noPins": "Ancora nessun punto sulla mappa",
+    "noPinsHint": "Le schede di questa ricerca non hanno ancora pubblicato il loro indirizzo. Appena i titolari lo aggiungeranno, compariranno qui.",
+    "noPinsLocate": "Condividi la mia posizione"
   },
   "profile": {
     "notFound": "Non abbiamo trovato questo fornitore.",

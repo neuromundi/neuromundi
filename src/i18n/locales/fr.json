@@ -435,7 +435,10 @@
     "locate": "Centrer sur ma position",
     "aria": "Carte des prestataires. La liste ci-dessous est l'alternative textuelle.",
     "new": "Nouveau",
-    "viewProfile": "Voir le profil"
+    "viewProfile": "Voir le profil",
+    "noPins": "Pas encore de points sur la carte",
+    "noPinsHint": "Les fiches de cette recherche n'ont pas encore publié leur adresse. Dès que leurs titulaires l'ajouteront, elles apparaîtront ici.",
+    "noPinsLocate": "Partager ma position"
   },
   "profile": {
     "notFound": "Nous n'avons pas trouvé ce prestataire.",

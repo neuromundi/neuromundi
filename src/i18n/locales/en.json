@@ -472,7 +472,10 @@
     "locate": "Center on my location",
     "aria": "Provider map. The list below is the text alternative.",
     "new": "New",
-    "viewProfile": "View profile"
+    "viewProfile": "View profile",
+    "noPins": "No points on the map yet",
+    "noPinsHint": "The listings in this search haven't published their address yet. As soon as their owners add it, they'll show up here.",
+    "noPinsLocate": "Share my location"
   },
   "profile": {
     "notFound": "We couldn't find this provider.",

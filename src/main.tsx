@@ -83,7 +83,53 @@ if (!isReactSnap && 'serviceWorker' in navigator) {
 // sin el fallback SEO marcado con data-nm-shell), hidratamos en lugar de
 // re-renderizar: así el LCP ya está pintado en el HTML y React solo lo "adopta".
 const rootEl = document.getElementById('root')!;
-const prerendered = rootEl.hasChildNodes() && !rootEl.querySelector('[data-nm-shell]');
+/**
+ * El HTML prerenderizado por react-snap es UNO solo: la portada, capturada en
+ * espanol y sin sesion. El service worker, en cambio, responde CUALQUIER
+ * navegacion con ese mismo index.html (NavigationRoute -> index.html). Resultado
+ * medido el 17 de octubre de 2026: al entrar a /directorio, /eventos o
+ * /tienda con el service worker activo, React hidrataba la portada contra el
+ * arbol de otra ruta y la consola soltaba errores 418/425/423 en cada carga;
+ * React descartaba el HTML servido y repintaba la pagina entera, que es
+ * justo lo contrario de lo que el prerender buscaba.
+ *
+ * Solo se hidrata cuando el HTML recibido PUEDE coincidir con lo que el cliente
+ * va a pintar. Son tres condiciones, todas comprobables antes de montar:
+ *   1. la ruta es la portada, que es lo unico prerenderizado;
+ *   2. el idioma a usar es el espanol, que es el idioma del snapshot;
+ *   3. no hay sesion guardada, porque el snapshot trae el encabezado de
+ *      visitante (Entrar) y no el de alguien con sesion (Panel, Mi Perfil).
+ * En cualquier otro caso se monta con createRoot: mismo resultado visible, sin
+ * el trabajo de descartar el HTML y sin errores en consola.
+ */
+function hayDiccionarioEnEspanol(): boolean {
+  try {
+    const guardado = window.localStorage.getItem('neuro.lang');
+    if (guardado) return guardado === 'es';
+  } catch {
+    /* almacenamiento bloqueado: se decide por el idioma del navegador */
+  }
+  return (navigator.language || 'en').toLowerCase().split('-')[0] === 'es';
+}
+
+function haySesionGuardada(): boolean {
+  try {
+    for (let i = 0; i < window.localStorage.length; i += 1) {
+      const k = window.localStorage.key(i);
+      if (k && k.startsWith('sb-') && k.endsWith('-auth-token')) return true;
+    }
+  } catch {
+    /* almacenamiento bloqueado: se asume que no hay sesion */
+  }
+  return false;
+}
+
+const hayHtmlDeLaPortada = rootEl.hasChildNodes() && !rootEl.querySelector('[data-nm-shell]');
+const prerendered =
+  hayHtmlDeLaPortada &&
+  window.location.pathname === '/' &&
+  hayDiccionarioEnEspanol() &&
+  !haySesionGuardada();
 
 void initI18n().then(() => {
   const tree = (
