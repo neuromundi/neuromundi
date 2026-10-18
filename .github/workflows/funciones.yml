@@ -88,6 +88,14 @@ jobs:
           cd - >/dev/null
 
           if [ "$EVENTO" = "workflow_dispatch" ]; then
+            # El nombre se valida contra un patron antes de usarlo como ruta,
+            # para que nadie pueda escribir algo como "../otra-cosa" y hacer que
+            # el cliente despliegue desde fuera de la carpeta de funciones.
+            if [ "$PEDIDA" != "todas" ] && ! printf '%s' "$PEDIDA" | grep -qE '^[a-z0-9][a-z0-9-]{0,62}$'; then
+              echo "Nombre de funcion no valido: solo minusculas, numeros y guiones."
+              exit 1
+            fi
+
             if [ "$PEDIDA" = "todas" ]; then
               LISTA="$TODAS"
             elif [ -d "supabase/functions/$PEDIDA" ]; then
