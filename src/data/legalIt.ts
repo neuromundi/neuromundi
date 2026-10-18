@@ -4,7 +4,7 @@
 import type { LegalBundle } from './legalContent';
 
 export const legalIt: LegalBundle = {
-  "updated": "17 giugno 2026",
+  "updated": "18 ottobre 2026",
   "terms": {
     "intro": [
       "I presenti Termini e Condizioni (« Termini ») regolano l’accesso e l’uso della piattaforma Neuromundi (la « Piattaforma »), gestita da Neuromundi o dai suoi rappresentanti a norma di legge, con sede a Querétaro, Messico, e contatto a admin@neuromundi.com. Creando un account o utilizzando la Piattaforma, accetti integralmente questi Termini."
@@ -20,7 +20,8 @@ export const legalIt: LegalBundle = {
         "h": "2. Descrizione del servizio",
         "p": [
           "Neuromundi è una directory specializzata in neurosviluppo, neurodivergenza e patologie neurologiche che collega persone, genitori o tutori e pazienti con fornitori di servizi e di prodotti inclusivi. La Piattaforma facilita la scoperta, l’applicazione di sconti tramite codici QR, la valutazione delle esperienze e la raccomandazione di prodotti.",
-          "Neuromundi agisce come intermediario. Gli acquisti, gli incarichi di servizio e la loro erogazione avvengono direttamente tra l’utente e il fornitore; la Piattaforma non è parte di tali rapporti né elabora pagamenti per essi."
+          "Neuromundi agisce come intermediario. Gli acquisti, gli incarichi di servizio e la loro erogazione avvengono direttamente tra l’utente e il fornitore; la Piattaforma non è parte di tali rapporti né elabora pagamenti per essi.",
+          "La directory include schede di prestatori elaborate a partire da fonti di accesso pubblico non ancora rivendicate dal titolare. Finché non vengono rivendicate, le loro informazioni provengono da tali fonti e la posizione mostrata può essere approssimativa, a livello di città, quando il titolare non ha pubblicato un indirizzo."
         ]
       },
       {
@@ -121,7 +122,8 @@ export const legalIt: LegalBundle = {
           "Dati sanitari / di neurodivergenza: il tipo di neurodivergenza, neurosviluppo o patologia neurologica (propria o del figlio/a). Vedi la sezione 3.",
           "Posizione: Paese, stato/provincia, comune e, per i fornitori, indirizzi e coordinate delle sedi.",
           "Attività sulla Piattaforma: offerte, riscatti, valutazioni, commenti, prescrizioni ed elenchi.",
-          "Dati tecnici: quelli necessari per il funzionamento della sessione e la sicurezza dell’account."
+          "Dati tecnici: quelli necessari per il funzionamento della sessione e la sicurezza dell’account.",
+          "Al momento dell'accesso o della registrazione, il tuo indirizzo IP e alcuni segnali tecnici del tuo browser sono inviati al nostro verificatore anti-robot al solo fine di distinguere una persona da un programma automatizzato. Se usi «Cerca vicino a me», il browser ti chiederà il permesso di condividere la tua posizione; tale posizione è usata solo sul tuo dispositivo per ordinare i risultati e non viene conservata."
         ]
       },
       {
@@ -156,42 +158,52 @@ export const legalIt: LegalBundle = {
         ],
         "li": [
           "Fornitori affiliati: al riscatto di uno sconto o interagendo con loro, condividono le informazioni minime necessarie per tale interazione.",
-          "Responsabili del trattamento: servizi di infrastruttura che gestiscono la Piattaforma (ad esempio, il fornitore di database e autenticazione), soggetti a obblighi di riservatezza.",
+          "Responsabili del trattamento: Supabase (banca dati, autenticazione e archiviazione), Resend (invio di posta elettronica), Stripe (elaborazione dei pagamenti), Cloudflare (verifica anti-robot in accesso), Google Analytics (misurazione d'uso) e CARTO insieme a OpenStreetMap (mappe), con obblighi di riservatezza.",
+          "Trasferimenti internazionali: questi servizi operano server al di fuori dell'Unione europea e del Messico, pertanto l'uso della Piattaforma comporta un trasferimento internazionale di dati, fondato sulle clausole contrattuali e sulle condizioni di trattamento di ciascun fornitore.",
           "Autorità: quando sussiste un obbligo di legge."
         ]
       },
       {
         "h": "7. Conservazione dei dati",
         "p": [
-          "Conserviamo i tuoi dati finché il tuo account è attivo e per i periodi richiesti dalla normativa applicabile. Successivamente vengono eliminati o resi anonimi."
+          "Conserviamo i tuoi dati finché il tuo account è attivo e per i periodi richiesti dalla normativa applicabile. Successivamente vengono eliminati o resi anonimi.",
+          "Le schede della directory non rivendicate vengono ritirate 75 giorni dopo l'avviso inviato al loro titolare. Vedi la sezione 8."
         ]
       },
       {
-        "h": "8. I tuoi diritti",
+        "h": "8. Schede della directory non rivendicate",
+        "p": [
+          "Neuromundi include schede di prestatori elaborate a partire da fonti di accesso pubblico — registri professionali, ordini, associazioni e siti istituzionali. Contengono dati di contatto professionale, non personale, e la loro finalità è consentire alle famiglie di trovare assistenza specializzata e al titolare di rivendicare e completare la propria scheda.",
+          "Il titolare riceve un avviso via posta elettronica con un collegamento per rivendicare la scheda, correggerla o chiederne il ritiro. Se non viene rivendicata entro 75 giorni da tale avviso, la scheda viene ritirata automaticamente.",
+          "Il ritiro può essere richiesto in qualsiasi momento, senza creare un account, dal collegamento della posta o scrivendo a admin@neuromundi.com, ed è eseguito senza condizioni. Quando il titolare non ha pubblicato un indirizzo, la mappa mostra soltanto il centro della sua città, indicato come posizione approssimativa."
+        ]
+      },
+      {
+        "h": "9. I tuoi diritti",
         "p": [
           "Puoi richiedere accesso, rettifica, cancellazione od opposizione (diritti ARCO o equivalenti), nonché la portabilità e la revoca del consenso, scrivendo a admin@neuromundi.com. Tratteremo la tua richiesta ai sensi della legge applicabile."
         ]
       },
       {
-        "h": "9. Sicurezza",
+        "h": "10. Sicurezza",
         "p": [
           "Applichiamo misure tecniche e organizzative ragionevoli per proteggere i tuoi dati. La trasmissione di informazioni via internet non è completamente infallibile; lavoriamo continuamente per mitigare i rischi."
         ]
       },
       {
-        "h": "10. Minori",
+        "h": "11. Minori",
         "p": [
           "Gli account di tipo « genitore o tutore » trattano dati di minori sotto la responsabilità e il consenso di chi esercita la potestà genitoriale o la tutela. La Piattaforma non è destinata alla creazione di account da parte di minori senza tale rappresentanza."
         ]
       },
       {
-        "h": "11. Modifiche a questa Informativa sulla privacy",
+        "h": "12. Modifiche a questa Informativa sulla privacy",
         "p": [
           "Possiamo aggiornare questa Informativa. Pubblicheremo la versione vigente sulla Piattaforma e indicheremo la data dell’ultimo aggiornamento."
         ]
       },
       {
-        "h": "12. Contatti",
+        "h": "13. Contatti",
         "p": [
           "Per esercitare i tuoi diritti o per domande sulla privacy, contattaci a admin@neuromundi.com."
         ]

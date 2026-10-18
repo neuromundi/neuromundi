@@ -4,7 +4,7 @@
 import type { LegalBundle } from './legalContent';
 
 export const legalPt: LegalBundle = {
-  "updated": "17 de junho de 2026",
+  "updated": "18 de outubro de 2026",
   "terms": {
     "intro": [
       "Estes Termos e Condições (\"Termos\") regem o acesso e uso da plataforma Neuromundi (a \"Plataforma\"), operada por Neuromundi ou seus representantes conforme a lei, com domicílio em Querétaro, México e contato em admin@neuromundi.com. Ao criar uma conta ou utilizar a Plataforma, você aceita estes Termos integralmente."
@@ -20,7 +20,8 @@ export const legalPt: LegalBundle = {
         "h": "2. Descrição do serviço",
         "p": [
           "A Neuromundi é um diretório especializado em neurodesenvolvimento, neurodivergência e condições neurológicas que conecta pessoas, pais/mães ou responsáveis e pacientes com prestadores de serviços e fornecedores de produtos inclusivos. A Plataforma facilita a descoberta, a aplicação de descontos por meio de códigos QR, a avaliação de experiências e a recomendação de produtos.",
-          "A Neuromundi atua como intermediária. As compras, contratações de serviços e sua prestação ocorrem diretamente entre o usuário e o fornecedor; a Plataforma não é parte dessas relações nem processa pagamentos por elas."
+          "A Neuromundi atua como intermediária. As compras, contratações de serviços e sua prestação ocorrem diretamente entre o usuário e o fornecedor; a Plataforma não é parte dessas relações nem processa pagamentos por elas.",
+          "O diretório inclui fichas de prestadores elaboradas a partir de fontes de acesso público que ainda não foram reclamadas pelo seu titular. Enquanto não forem reclamadas, a sua informação provém dessas fontes e a localização apresentada pode ser aproximada, ao nível da cidade, quando o titular não publicou uma morada."
         ]
       },
       {
@@ -121,7 +122,8 @@ export const legalPt: LegalBundle = {
           "Dados de saúde / neurodivergência: o tipo de neurodivergência, neurodesenvolvimento ou condição neurológica (própria ou do filho(a)). Ver a seção 3.",
           "Localização: país, estado/província, município e, no caso de fornecedores, endereços e coordenadas de filiais.",
           "Atividade na Plataforma: ofertas, resgates, avaliações, comentários, prescrições e listas.",
-          "Dados técnicos: os necessários para operar a sessão e a segurança da conta."
+          "Dados técnicos: os necessários para operar a sessão e a segurança da conta.",
+          "Ao iniciar sessão ou registar-se, o seu endereço IP e sinais técnicos do seu navegador são enviados ao nosso verificador anti-robôs com a única finalidade de distinguir uma pessoa de um programa automatizado. Se utilizar «Procurar perto de mim», o seu navegador pedirá permissão para partilhar a sua localização; essa localização é usada apenas no seu dispositivo para ordenar os resultados e não é guardada."
         ]
       },
       {
@@ -156,42 +158,52 @@ export const legalPt: LegalBundle = {
         ],
         "li": [
           "Fornecedores afiliados: ao resgatar um desconto ou interagir com eles, compartilham a informação mínima necessária para essa interação.",
-          "Operadores de tratamento: serviços de infraestrutura que operam a Plataforma (por exemplo, o provedor de banco de dados e autenticação), sob obrigações de confidencialidade.",
+          "Subcontratantes: Supabase (base de dados, autenticação e armazenamento), Resend (envio de correio eletrónico), Stripe (processamento de pagamentos), Cloudflare (verificação anti-robôs no acesso), Google Analytics (medição de utilização) e CARTO em conjunto com o OpenStreetMap (mapas), sob obrigações de confidencialidade.",
+          "Transferências internacionais: estes serviços operam servidores fora da União Europeia e do México, pelo que a utilização da Plataforma implica uma transferência internacional de dados, amparada nas cláusulas contratuais e condições de tratamento de cada fornecedor.",
           "Autoridades: quando houver obrigação legal."
         ]
       },
       {
         "h": "7. Conservação dos dados",
         "p": [
-          "Conservamos seus dados enquanto sua conta estiver ativa e pelos prazos exigidos pela legislação aplicável. Depois, são eliminados ou anonimizados."
+          "Conservamos seus dados enquanto sua conta estiver ativa e pelos prazos exigidos pela legislação aplicável. Depois, são eliminados ou anonimizados.",
+          "As fichas do diretório que não foram reclamadas são removidas 75 dias após o aviso enviado ao seu titular. Ver a secção 8."
         ]
       },
       {
-        "h": "8. Seus direitos",
+        "h": "8. Fichas do diretório não reclamadas",
+        "p": [
+          "A Neuromundi inclui fichas de prestadores elaboradas a partir de fontes de acesso público — registos profissionais, ordens, associações e sítios institucionais. Contêm dados de contacto profissional, não pessoal, e a sua finalidade é permitir que as famílias encontrem atendimento especializado e que o titular reclame e complete a sua própria ficha.",
+          "O titular recebe um aviso por correio eletrónico com uma ligação para reclamar a ficha, corrigi-la ou solicitar a sua remoção. Se não for reclamada no prazo de 75 dias a contar desse aviso, a ficha é removida automaticamente.",
+          "A remoção pode ser solicitada a qualquer momento, sem necessidade de criar conta, a partir da ligação do correio ou escrevendo para admin@neuromundi.com, e é executada sem condições. Quando o titular não publicou uma morada, o mapa mostra apenas o centro da sua cidade, assinalado como localização aproximada."
+        ]
+      },
+      {
+        "h": "9. Seus direitos",
         "p": [
           "Você pode solicitar acesso, retificação, cancelamento ou oposição (direitos ARCO ou equivalentes), bem como a portabilidade e a retirada do consentimento, escrevendo para admin@neuromundi.com. Atenderemos sua solicitação conforme a lei aplicável."
         ]
       },
       {
-        "h": "9. Segurança",
+        "h": "10. Segurança",
         "p": [
           "Aplicamos medidas técnicas e organizacionais razoáveis para proteger seus dados. A transmissão de informações pela internet não é completamente infalível; trabalhamos continuamente para mitigar os riscos."
         ]
       },
       {
-        "h": "10. Menores de idade",
+        "h": "11. Menores de idade",
         "p": [
           "As contas do tipo \"pai/mãe ou responsável\" tratam dados de menores sob a responsabilidade e o consentimento de quem exerce o poder familiar ou a tutela. A Plataforma não se destina a que menores criem contas por conta própria sem essa representação."
         ]
       },
       {
-        "h": "11. Alterações a este Aviso de Privacidade",
+        "h": "12. Alterações a este Aviso de Privacidade",
         "p": [
           "Podemos atualizar este Aviso. Publicaremos a versão vigente na Plataforma e indicaremos a data da última atualização."
         ]
       },
       {
-        "h": "12. Contato",
+        "h": "13. Contato",
         "p": [
           "Para exercer seus direitos ou esclarecer dúvidas sobre privacidade, contate-nos em admin@neuromundi.com."
         ]

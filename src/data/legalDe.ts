@@ -4,7 +4,7 @@
 import type { LegalBundle } from './legalContent';
 
 export const legalDe: LegalBundle = {
-  "updated": "17. Juni 2026",
+  "updated": "18. Oktober 2026",
   "terms": {
     "intro": [
       "Diese Allgemeinen Geschäftsbedingungen („Bedingungen“) regeln den Zugang zur und die Nutzung der Neuromundi-Plattform (die „Plattform“), betrieben von Neuromundi oder seinen gesetzlichen Vertretern, mit Sitz in Querétaro, Mexiko, und Kontakt unter admin@neuromundi.com. Mit der Erstellung eines Kontos oder der Nutzung der Plattform akzeptieren Sie diese Bedingungen vollständig."
@@ -20,7 +20,8 @@ export const legalDe: LegalBundle = {
         "h": "2. Beschreibung des Dienstes",
         "p": [
           "Neuromundi ist ein auf Neuroentwicklung, Neurodivergenz und neurologische Erkrankungen spezialisiertes Verzeichnis, das Menschen, Eltern oder Erziehungsberechtigte und Patienten mit inklusiven Dienstleistern und Produktanbietern verbindet. Die Plattform ermöglicht das Entdecken, das Einlösen von Rabatten über QR-Codes, das Bewerten von Erfahrungen und das Empfehlen von Produkten.",
-          "Neuromundi handelt als Vermittler. Käufe, Dienstleistungsverträge und deren Erbringung erfolgen direkt zwischen Nutzer und Anbieter; die Plattform ist nicht Vertragspartei dieser Beziehungen und wickelt keine Zahlungen dafür ab."
+          "Neuromundi handelt als Vermittler. Käufe, Dienstleistungsverträge und deren Erbringung erfolgen direkt zwischen Nutzer und Anbieter; die Plattform ist nicht Vertragspartei dieser Beziehungen und wickelt keine Zahlungen dafür ab.",
+          "Das Verzeichnis enthält Anbietereinträge aus öffentlich zugänglichen Quellen, die von ihrem Inhaber noch nicht beansprucht wurden. Solange das nicht geschehen ist, stammen ihre Angaben aus diesen Quellen, und der angezeigte Standort kann ungefähr sein — auf Stadtebene —, wenn der Inhaber keine Anschrift veröffentlicht hat."
         ]
       },
       {
@@ -121,7 +122,8 @@ export const legalDe: LegalBundle = {
           "Gesundheits-/Neurodivergenzdaten: die Art der Neurodivergenz, Neuroentwicklung oder neurologischen Erkrankung (eigene oder die des Kindes). Siehe Abschnitt 3.",
           "Standort: Land, Bundesland/Provinz, Gemeinde und – bei Anbietern – Adressen und Koordinaten der Standorte.",
           "Aktivität auf der Plattform: Angebote, Einlösungen, Bewertungen, Kommentare, Verordnungen und Listen.",
-          "Technische Daten: die für den Betrieb der Sitzung und die Kontosicherheit erforderlichen."
+          "Technische Daten: die für den Betrieb der Sitzung und die Kontosicherheit erforderlichen.",
+          "Bei Anmeldung oder Registrierung werden Ihre IP-Adresse und technische Signale Ihres Browsers an unseren Bot-Prüfdienst gesendet, ausschließlich um eine Person von einem automatisierten Programm zu unterscheiden. Wenn Sie „In meiner Nähe suchen“ verwenden, fragt Ihr Browser um Erlaubnis, Ihren Standort zu teilen; dieser Standort wird nur auf Ihrem Gerät zum Sortieren der Ergebnisse verwendet und nicht gespeichert."
         ]
       },
       {
@@ -156,42 +158,52 @@ export const legalDe: LegalBundle = {
         ],
         "li": [
           "Angeschlossene Anbieter: beim Einlösen eines Rabatts oder bei der Interaktion teilen sie die für diese Interaktion mindestens erforderlichen Informationen.",
-          "Auftragsverarbeiter: Infrastrukturdienste, die die Plattform betreiben (z. B. der Datenbank- und Authentifizierungsanbieter), unter Vertraulichkeitspflichten.",
+          "Auftragsverarbeiter: Supabase (Datenbank, Authentifizierung und Speicherung), Resend (E-Mail-Versand), Stripe (Zahlungsabwicklung), Cloudflare (Bot-Prüfung beim Zugang), Google Analytics (Nutzungsmessung) sowie CARTO zusammen mit OpenStreetMap (Karten), jeweils unter Vertraulichkeitspflichten.",
+          "Internationale Übermittlungen: Diese Dienste betreiben Server außerhalb der Europäischen Union und Mexikos. Die Nutzung der Plattform bringt daher eine internationale Datenübermittlung mit sich, gestützt auf die Vertragsklauseln und Verarbeitungsbedingungen des jeweiligen Anbieters.",
           "Behörden: sofern eine gesetzliche Verpflichtung besteht."
         ]
       },
       {
         "h": "7. Aufbewahrung der Daten",
         "p": [
-          "Wir bewahren Ihre Daten auf, solange Ihr Konto aktiv ist und für die von den geltenden Vorschriften geforderten Zeiträume. Danach werden sie gelöscht oder anonymisiert."
+          "Wir bewahren Ihre Daten auf, solange Ihr Konto aktiv ist und für die von den geltenden Vorschriften geforderten Zeiträume. Danach werden sie gelöscht oder anonymisiert.",
+          "Nicht beanspruchte Verzeichniseinträge werden 75 Tage nach der an den Inhaber gesendeten Mitteilung entfernt. Siehe Abschnitt 8."
         ]
       },
       {
-        "h": "8. Ihre Rechte",
+        "h": "8. Nicht beanspruchte Verzeichniseinträge",
+        "p": [
+          "Neuromundi enthält Einträge von Anbietern, die aus öffentlich zugänglichen Quellen erstellt wurden — Berufsregistern, Kammern, Verbänden und institutionellen Websites. Sie enthalten berufliche, keine privaten Kontaktdaten; ihr Zweck ist es, Familien die Suche nach spezialisierter Betreuung zu ermöglichen und dem Inhaber, seinen eigenen Eintrag zu beanspruchen und zu vervollständigen.",
+          "Der Inhaber erhält eine Mitteilung per E-Mail mit einem Link, um den Eintrag zu beanspruchen, zu berichtigen oder dessen Entfernung zu verlangen. Wird er nicht innerhalb von 75 Tagen ab dieser Mitteilung beansprucht, wird der Eintrag automatisch entfernt.",
+          "Die Entfernung kann jederzeit und ohne Anlegen eines Kontos über den Link in der E-Mail oder per Nachricht an admin@neuromundi.com verlangt werden und erfolgt bedingungslos. Hat der Inhaber keine Anschrift veröffentlicht, zeigt die Karte nur das Zentrum seiner Stadt, gekennzeichnet als ungefährer Standort."
+        ]
+      },
+      {
+        "h": "9. Ihre Rechte",
         "p": [
           "Sie können Auskunft, Berichtigung, Löschung oder Widerspruch (ARCO-Rechte oder gleichwertige) sowie Datenübertragbarkeit und Widerruf der Einwilligung verlangen, indem Sie an admin@neuromundi.com schreiben. Wir bearbeiten Ihre Anfrage nach geltendem Recht."
         ]
       },
       {
-        "h": "9. Sicherheit",
+        "h": "10. Sicherheit",
         "p": [
           "Wir treffen angemessene technische und organisatorische Maßnahmen zum Schutz Ihrer Daten. Die Übertragung von Informationen über das Internet ist nicht völlig sicher; wir arbeiten kontinuierlich daran, die Risiken zu verringern."
         ]
       },
       {
-        "h": "10. Minderjährige",
+        "h": "11. Minderjährige",
         "p": [
           "Konten des Typs „Elternteil oder Erziehungsberechtigter“ verarbeiten Daten Minderjähriger unter der Verantwortung und Einwilligung der sorgeberechtigten Person. Die Plattform ist nicht dafür bestimmt, dass Minderjährige ohne diese Vertretung selbst Konten erstellen."
         ]
       },
       {
-        "h": "11. Änderungen dieser Datenschutzerklärung",
+        "h": "12. Änderungen dieser Datenschutzerklärung",
         "p": [
           "Wir können diese Erklärung aktualisieren. Wir veröffentlichen die jeweils gültige Fassung auf der Plattform und geben das Datum der letzten Aktualisierung an."
         ]
       },
       {
-        "h": "12. Kontakt",
+        "h": "13. Kontakt",
         "p": [
           "Zur Ausübung Ihrer Rechte oder bei Datenschutzfragen kontaktieren Sie uns unter admin@neuromundi.com."
         ]

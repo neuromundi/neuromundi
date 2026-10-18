@@ -4,7 +4,7 @@
 import type { LegalBundle } from './legalContent';
 
 export const legalFr: LegalBundle = {
-  "updated": "17 juin 2026",
+  "updated": "18 octobre 2026",
   "terms": {
     "intro": [
       "Les présentes Conditions générales (« Conditions ») régissent l’accès et l’utilisation de la plateforme Neuromundi (la « Plateforme »), exploitée par Neuromundi ou ses représentants conformément à la loi, dont le siège est à Querétaro, Mexique, et le contact à admin@neuromundi.com. En créant un compte ou en utilisant la Plateforme, vous acceptez ces Conditions dans leur intégralité."
@@ -20,7 +20,8 @@ export const legalFr: LegalBundle = {
         "h": "2. Description du service",
         "p": [
           "Neuromundi est un annuaire spécialisé dans le neurodéveloppement, la neurodivergence et les affections neurologiques qui met en relation les personnes, les parents ou tuteurs et les patients avec des prestataires de services et des fournisseurs de produits inclusifs. La Plateforme facilite la découverte, l’application de remises via des codes QR, l’évaluation des expériences et la recommandation de produits.",
-          "Neuromundi agit en tant qu’intermédiaire. Les achats, les prestations de services et leur exécution ont lieu directement entre l’utilisateur et le prestataire ; la Plateforme n’est pas partie à ces relations et ne traite pas les paiements correspondants."
+          "Neuromundi agit en tant qu’intermédiaire. Les achats, les prestations de services et leur exécution ont lieu directement entre l’utilisateur et le prestataire ; la Plateforme n’est pas partie à ces relations et ne traite pas les paiements correspondants.",
+          "Le répertoire comprend des fiches de prestataires établies à partir de sources accessibles au public et non encore revendiquées par leur titulaire. Tant qu'elles ne le sont pas, leurs informations proviennent de ces sources et la localisation affichée peut être approximative, à l'échelle de la ville, lorsque le titulaire n'a pas publié d'adresse."
         ]
       },
       {
@@ -121,7 +122,8 @@ export const legalFr: LegalBundle = {
           "Données de santé / neurodivergence : le type de neurodivergence, de neurodéveloppement ou d’affection neurologique (la vôtre ou celle de votre enfant). Voir la section 3.",
           "Localisation : pays, État/province, municipalité et, pour les prestataires, adresses et coordonnées des établissements.",
           "Activité sur la Plateforme : offres, échanges, évaluations, commentaires, ordonnances et listes.",
-          "Données techniques : celles nécessaires au fonctionnement de la session et à la sécurité du compte."
+          "Données techniques : celles nécessaires au fonctionnement de la session et à la sécurité du compte.",
+          "Lors de la connexion ou de l'inscription, votre adresse IP et des signaux techniques de votre navigateur sont envoyés à notre vérificateur anti-robots dans le seul but de distinguer une personne d'un programme automatisé. Si vous utilisez « Chercher près de moi », votre navigateur vous demandera l'autorisation de partager votre position ; cette position est utilisée uniquement sur votre appareil pour trier les résultats et n'est pas conservée."
         ]
       },
       {
@@ -156,42 +158,52 @@ export const legalFr: LegalBundle = {
         ],
         "li": [
           "Prestataires affiliés : lors de l’échange d’une remise ou d’une interaction, ils partagent le minimum d’informations nécessaire à cette interaction.",
-          "Sous-traitants : services d’infrastructure qui font fonctionner la Plateforme (par exemple, le fournisseur de base de données et d’authentification), soumis à des obligations de confidentialité.",
+          "Sous-traitants : Supabase (base de données, authentification et stockage), Resend (envoi de courrier électronique), Stripe (traitement des paiements), Cloudflare (vérification anti-robots à la connexion), Google Analytics (mesure d'audience) et CARTO avec OpenStreetMap (cartes), soumis à des obligations de confidentialité.",
+          "Transferts internationaux : ces services exploitent des serveurs hors de l'Union européenne et du Mexique ; l'utilisation de la Plateforme implique donc un transfert international de données, encadré par les clauses contractuelles et les conditions de traitement de chaque fournisseur.",
           "Autorités : lorsqu’il existe une obligation légale."
         ]
       },
       {
         "h": "7. Conservation des données",
         "p": [
-          "Nous conservons vos données tant que votre compte est actif et pendant les durées exigées par la réglementation applicable. Elles sont ensuite supprimées ou anonymisées."
+          "Nous conservons vos données tant que votre compte est actif et pendant les durées exigées par la réglementation applicable. Elles sont ensuite supprimées ou anonymisées.",
+          "Les fiches du répertoire non revendiquées sont retirées 75 jours après l'avis envoyé à leur titulaire. Voir la section 8."
         ]
       },
       {
-        "h": "8. Vos droits",
+        "h": "8. Fiches du répertoire non revendiquées",
+        "p": [
+          "Neuromundi comprend des fiches de prestataires établies à partir de sources accessibles au public — registres professionnels, ordres, associations et sites institutionnels. Elles contiennent des coordonnées professionnelles, et non personnelles, et ont pour finalité de permettre aux familles de trouver une prise en charge spécialisée et au titulaire de revendiquer et de compléter sa propre fiche.",
+          "Le titulaire reçoit un avis par courrier électronique avec un lien pour revendiquer la fiche, la corriger ou demander son retrait. Si elle n'est pas revendiquée dans un délai de 75 jours à compter de cet avis, la fiche est retirée automatiquement.",
+          "Le retrait peut être demandé à tout moment, sans créer de compte, depuis le lien du courrier ou en écrivant à admin@neuromundi.com, et il est exécuté sans condition. Lorsque le titulaire n'a pas publié d'adresse, la carte n'affiche que le centre de sa ville, signalé comme localisation approximative."
+        ]
+      },
+      {
+        "h": "9. Vos droits",
         "p": [
           "Vous pouvez demander l’accès, la rectification, l’effacement ou l’opposition (droits ARCO ou équivalents), ainsi que la portabilité et le retrait du consentement, en écrivant à admin@neuromundi.com. Nous traiterons votre demande conformément à la loi applicable."
         ]
       },
       {
-        "h": "9. Sécurité",
+        "h": "10. Sécurité",
         "p": [
           "Nous appliquons des mesures techniques et organisationnelles raisonnables pour protéger vos données. La transmission d’informations sur Internet n’est pas totalement infaillible ; nous travaillons en continu à réduire les risques."
         ]
       },
       {
-        "h": "10. Mineurs",
+        "h": "11. Mineurs",
         "p": [
           "Les comptes de type « parent ou tuteur » traitent les données de mineurs sous la responsabilité et le consentement de la personne exerçant l’autorité parentale ou la tutelle. La Plateforme n’est pas destinée à ce que des mineurs créent des comptes par eux-mêmes sans cette représentation."
         ]
       },
       {
-        "h": "11. Modifications de cet Avis de confidentialité",
+        "h": "12. Modifications de cet Avis de confidentialité",
         "p": [
           "Nous pouvons mettre à jour cet Avis. Nous publierons la version en vigueur sur la Plateforme et indiquerons la date de dernière mise à jour."
         ]
       },
       {
-        "h": "12. Contact",
+        "h": "13. Contact",
         "p": [
           "Pour exercer vos droits ou pour toute question de confidentialité, contactez-nous à admin@neuromundi.com."
         ]
