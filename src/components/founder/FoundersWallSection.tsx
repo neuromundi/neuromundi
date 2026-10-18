@@ -7,7 +7,8 @@
  */
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Star, Building2, User, Globe, Award } from 'lucide-react';
+import { Star, Building2, User, Globe, Award, ChevronRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { SkeletonCard, EmptyState, AvisoDeFallo } from '@/components/ui';
 import { useFoundersWall, useFoundersWallCountries, type FounderEntry } from '@/hooks/useFoundersWall';
 import { useCountry } from '@/stores/countryStore';
@@ -22,13 +23,15 @@ const KIND_KEY: Record<FounderEntry['kind'], string> = {
 
 function FounderCard({ e, featured }: { e: FounderEntry; featured: boolean }) {
   const { t } = useTranslation();
-  return (
-    <div
-      className={cn(
-        'flex items-center gap-3 rounded-2xl border p-4',
-        featured ? 'border-brand-300 bg-gradient-to-br from-brand-50 to-warm-50 shadow-sm' : 'border-slate-100 bg-white',
-      )}
-    >
+  // La tarjeta sólo es un enlace cuando el fundador tiene una ficha que de
+  // verdad se puede visitar. Lo decide la base (`provider_id`), no esta
+  // pantalla: una familia fundadora nunca lo trae, y tampoco quien todavía no
+  // está publicado. Sin identificador la tarjeta se queda como texto, para que
+  // nadie toque algo que no lleva a ninguna parte.
+  const visitable = !!e.provider_id;
+
+  const contenido = (
+    <>
       <span className={cn('flex h-11 w-11 shrink-0 items-center justify-center rounded-xl', featured ? 'bg-brand-100 text-brand-700' : 'bg-slate-100 text-slate-500')}>
         {e.is_company ? <Building2 className="h-5 w-5" aria-hidden="true" /> : <User className="h-5 w-5" aria-hidden="true" />}
       </span>
@@ -42,7 +45,24 @@ function FounderCard({ e, featured }: { e: FounderEntry; featured: boolean }) {
           <span className="rounded-full bg-slate-100 px-2 py-0.5 text-slate-600">{t(KIND_KEY[e.kind])}</span>
         </p>
       </div>
-    </div>
+      {visitable && (
+        <ChevronRight className="ml-auto h-5 w-5 shrink-0 text-brand-500" aria-hidden="true" />
+      )}
+    </>
+  );
+
+  const clases = cn(
+    'flex items-center gap-3 rounded-2xl border p-4',
+    featured ? 'border-brand-300 bg-gradient-to-br from-brand-50 to-warm-50 shadow-sm' : 'border-slate-100 bg-white',
+    visitable && 'transition hover:border-brand-400 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500',
+  );
+
+  if (!visitable) return <div className={clases}>{contenido}</div>;
+
+  return (
+    <Link to={`/proveedor/${e.provider_id}`} className={clases} aria-label={t('foundersWall.visit', { name: e.display_name })}>
+      {contenido}
+    </Link>
   );
 }
 

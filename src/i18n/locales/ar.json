@@ -4940,7 +4940,8 @@
       "families": "عائلة",
       "professionals": "مختص",
       "providers": "نشاط تجاري"
-    }
+    },
+    "visit": "عرض بطاقة {{name}} في الدليل"
   },
   "foundersPage": {
     "badge": "برنامج المؤسِّسين",

@@ -4940,7 +4940,8 @@
       "families": "משפחה",
       "professionals": "איש מקצוע",
       "providers": "עסק"
-    }
+    },
+    "visit": "צפייה בכרטיס של {{name}} במדריך"
   },
   "foundersPage": {
     "badge": "תוכנית המייסדים",

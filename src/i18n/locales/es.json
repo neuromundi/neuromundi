@@ -4940,7 +4940,8 @@
       "families": "Familia",
       "professionals": "Profesional",
       "providers": "Comercio"
-    }
+    },
+    "visit": "Ver la ficha de {{name}} en el directorio"
   },
   "foundersPage": {
     "badge": "Programa Fundador",

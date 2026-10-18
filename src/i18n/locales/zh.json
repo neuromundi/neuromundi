@@ -4940,7 +4940,8 @@
       "families": "家庭",
       "professionals": "专业人士",
       "providers": "商家"
-    }
+    },
+    "visit": "在目录中查看 {{name}} 的条目"
   },
   "foundersPage": {
     "badge": "创始计划",

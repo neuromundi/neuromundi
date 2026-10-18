@@ -18,6 +18,14 @@ export interface FounderEntry {
   country: string | null;
   featured: boolean;
   is_company: boolean;
+  /**
+   * Identificador de la ficha a la que lleva la tarjeta. Viene SOLO cuando esa
+   * ficha se puede visitar de verdad en el directorio; para las familias es
+   * siempre nulo, porque su perfil es el de una persona particular y el muro no
+   * es una puerta a él. La decisión la toma la base (ver migración 0276), no
+   * esta pantalla.
+   */
+  provider_id: string | null;
 }
 
 export interface FounderCountry {
@@ -38,7 +46,7 @@ export function useFoundersWall(country?: string | null) {
     let alive = true;
     setLoading(true);
     (async () => {
-      const { data, error } = await supabase.rpc('founders_wall', { p_country: country ?? null });
+      const { data, error } = await supabase.rpc('founders_wall_v2', { p_country: country ?? null });
       if (alive) {
         setEntries(error ? [] : ((data as FounderEntry[] | null) ?? []));
         setFallo(!!error);

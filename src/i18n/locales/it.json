@@ -4940,7 +4940,8 @@
       "families": "Famiglia",
       "professionals": "Professionista",
       "providers": "Attività"
-    }
+    },
+    "visit": "Vedi la scheda di {{name}} nella directory"
   },
   "foundersPage": {
     "badge": "Programma Fondatori",

@@ -4940,7 +4940,8 @@
       "families": "Familie",
       "professionals": "Fachkraft",
       "providers": "Unternehmen"
-    }
+    },
+    "visit": "Eintrag von {{name}} im Verzeichnis ansehen"
   },
   "foundersPage": {
     "badge": "Gründerprogramm",

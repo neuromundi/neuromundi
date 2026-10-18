@@ -8573,6 +8573,18 @@ export type Database = {
           member_no: number
         }[]
       }
+      founders_wall_v2: {
+        Args: { p_country?: string | null }
+        Returns: {
+          country: string
+          display_name: string
+          featured: boolean
+          is_company: boolean
+          kind: string
+          member_no: number
+          provider_id: string | null
+        }[]
+      }
       founders_wall_countries: {
         Args: never
         Returns: {

@@ -4940,7 +4940,8 @@
       "families": "家族",
       "professionals": "専門家",
       "providers": "事業者"
-    }
+    },
+    "visit": "ディレクトリで{{name}}の掲載情報を見る"
   },
   "foundersPage": {
     "badge": "創設メンバープログラム",

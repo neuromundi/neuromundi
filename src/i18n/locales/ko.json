@@ -4940,7 +4940,8 @@
       "families": "가족",
       "professionals": "전문가",
       "providers": "상점"
-    }
+    },
+    "visit": "디렉터리에서 {{name}}의 등록 정보 보기"
   },
   "foundersPage": {
     "badge": "창립 멤버 프로그램",
