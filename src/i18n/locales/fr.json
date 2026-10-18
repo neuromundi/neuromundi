@@ -3766,7 +3766,12 @@
       "topeMensual": "Vous avez atteint la limite de propositions du mois."
     },
     "info": "Programme et inscription",
-    "fInfoUrl": "Lien vers l'annonce ou l'inscription"
+    "fInfoUrl": "Lien vers l'annonce ou l'inscription",
+    "inZone": " · heure de {{zona}}",
+    "timeTbc": " · heure à confirmer",
+    "fZone": "Fuseau horaire de l'événement",
+    "fZoneReader": "Afficher à l'heure du lecteur",
+    "fTimeTbc": "L'heure n'est pas encore confirmée"
   },
   "calendar": {
     "title": "Mon calendrier",

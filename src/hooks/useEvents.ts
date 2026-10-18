@@ -19,6 +19,8 @@ export interface EventItem {
   is_online: boolean;
   online_url: string | null;
   info_url?: string | null;
+  timezone?: string | null;
+  hora_confirmada?: boolean;
   country: string | null;
   city: string | null;
   venue: string | null;
@@ -37,6 +39,8 @@ export interface EventInput {
   is_online: boolean;
   online_url?: string | null;
   info_url?: string | null;
+  timezone?: string | null;
+  hora_confirmada?: boolean;
   country?: string | null;
   city?: string | null;
   venue?: string | null;

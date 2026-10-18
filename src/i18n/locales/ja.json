@@ -3766,7 +3766,12 @@
       "topeMensual": "今月の申請上限に達しました。"
     },
     "info": "詳細と申し込み",
-    "fInfoUrl": "開催案内または申し込みのリンク"
+    "fInfoUrl": "開催案内または申し込みのリンク",
+    "inZone": " · {{zona}}の時刻",
+    "timeTbc": " · 時刻は未定",
+    "fZone": "イベントのタイムゾーン",
+    "fZoneReader": "閲覧者の時刻で表示",
+    "fTimeTbc": "時刻はまだ確定していません"
   },
   "calendar": {
     "title": "マイカレンダー",

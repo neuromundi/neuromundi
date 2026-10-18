@@ -3766,7 +3766,12 @@
       "topeMensual": "已达到本月提交上限。"
     },
     "info": "详情与报名",
-    "fInfoUrl": "公告或报名链接"
+    "fInfoUrl": "公告或报名链接",
+    "inZone": " · {{zona}}时间",
+    "timeTbc": " · 时间待定",
+    "fZone": "活动所在时区",
+    "fZoneReader": "按阅读者所在时间显示",
+    "fTimeTbc": "时间尚未确定"
   },
   "calendar": {
     "title": "我的日历",

@@ -3766,7 +3766,12 @@
       "topeMensual": "You reached this month’s limit of proposals."
     },
     "info": "Details and registration",
-    "fInfoUrl": "Link to the announcement or registration"
+    "fInfoUrl": "Link to the announcement or registration",
+    "inZone": " · {{zona}} time",
+    "timeTbc": " · time to be confirmed",
+    "fZone": "Event time zone",
+    "fZoneReader": "Show in the reader's own time",
+    "fTimeTbc": "The time is not confirmed yet"
   },
   "calendar": {
     "title": "My calendar",

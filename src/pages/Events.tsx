@@ -20,6 +20,8 @@ import { googleCalendarUrl, downloadICS } from '@/lib/calendar';
 import { filterEvents, eventToCalendarEvent, toLocalDatetimeInput } from '@/lib/calendarView';
 import { cn } from '@/lib/utils';
 import { safeHttpUrl } from '@/lib/safeUrl';
+import { ZONAS_HORARIAS } from '@/data/zonasHorarias';
+import { fechaDeEvento, zonaQueConvieneDecir, instanteDesdeHoraLocal, horaLocalDesdeInstante } from '@/lib/horaEvento';
 
 const inputCls =
   'w-full rounded-xl border border-slate-200 p-3 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500';
@@ -37,9 +39,12 @@ export function Events() {
   const [editing, setEditing] = useState<EventItem | null>(null);
   const [creating, setCreating] = useState(false);
 
-  const fmt = (iso: string) =>
-    new Date(iso).toLocaleString(i18n.language, {
-      weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit',
+  // Un evento ocurre en la hora de su ciudad, no en la de quien lo mira.
+  const fmt = (ev: EventItem) =>
+    fechaDeEvento(ev.starts_at, {
+      zona: ev.timezone,
+      conHora: ev.hora_confirmada !== false,
+      idioma: i18n.language,
     });
 
   const term = q.trim().toLowerCase();
@@ -66,7 +71,15 @@ export function Events() {
     return (
       <article className="flex flex-col rounded-2xl border border-slate-100 bg-white p-4 shadow-sm">
         <div className="flex items-center gap-2 text-sm font-semibold text-brand-700">
-          <CalendarDays className="h-4 w-4" aria-hidden="true" /> {fmt(ev.starts_at)}
+          <CalendarDays className="h-4 w-4" aria-hidden="true" /> {fmt(ev)}
+          {zonaQueConvieneDecir(ev.timezone, ev.hora_confirmada !== false, ev.country) && (
+            <span className="font-normal text-muted">
+              {t('events.inZone', { zona: zonaQueConvieneDecir(ev.timezone, true, ev.country) })}
+            </span>
+          )}
+          {ev.hora_confirmada === false && (
+            <span className="font-normal text-muted">{t('events.timeTbc')}</span>
+          )}
         </div>
         <h3 className="mt-1 font-bold text-slate-900">{ev.title}</h3>
         {ev.category && <p className="text-xs text-muted">{t(`events.cat.${ev.category}`)}</p>}
@@ -215,8 +228,20 @@ function EventForm({
   const [ctry, setCtry] = useState(initial?.country ?? '');
   const [city, setCity] = useState(initial?.city ?? '');
   const [venue, setVenue] = useState(initial?.venue ?? '');
-  const [starts, setStarts] = useState(toLocalDatetimeInput(initial?.starts_at ?? null));
-  const [ends, setEnds] = useState(toLocalDatetimeInput(initial?.ends_at ?? null));
+  const [zona, setZona] = useState(initial?.timezone ?? '');
+  const [horaConfirmada, setHoraConfirmada] = useState(initial?.hora_confirmada !== false);
+  // Las horas del formulario son horas de pared de la zona elegida; si no hay
+  // zona, son las del navegador, que es el comportamiento de siempre.
+  const [starts, setStarts] = useState(
+    initial?.starts_at
+      ? horaLocalDesdeInstante(initial.starts_at, initial.timezone ?? null)
+      : toLocalDatetimeInput(null),
+  );
+  const [ends, setEnds] = useState(
+    initial?.ends_at
+      ? horaLocalDesdeInstante(initial.ends_at, initial.timezone ?? null)
+      : toLocalDatetimeInput(null),
+  );
   const [description, setDescription] = useState(initial?.description ?? '');
   const [published, setPublished] = useState(initial?.is_published ?? true);
 
@@ -238,8 +263,10 @@ function EventForm({
       country: isOnline ? null : (ctry || null),
       city: isOnline ? null : (city.trim() || null),
       venue: isOnline ? null : (venue.trim() || null),
-      starts_at: new Date(starts).toISOString(),
-      ends_at: ends ? new Date(ends).toISOString() : null,
+      timezone: zona || null,
+      hora_confirmada: horaConfirmada,
+      starts_at: instanteDesdeHoraLocal(starts, zona || null),
+      ends_at: ends ? instanteDesdeHoraLocal(ends, zona || null) : null,
       description: description.trim() || null,
       is_published: published,
     });
@@ -269,6 +296,13 @@ function EventForm({
           </>
         )}
         <input className={inputCls} placeholder={t('events.fInfoUrl')} value={infoUrl} onChange={(e) => setInfoUrl(e.target.value)} />
+        <select className={inputCls} value={zona} onChange={(e) => setZona(e.target.value)}>
+          <option value="">{t('events.fZoneReader')}</option>
+          {ZONAS_HORARIAS.map((z) => <option key={z.value} value={z.value}>{z.label}</option>)}
+        </select>
+        <label className="flex items-center gap-2 text-sm text-slate-700">
+          <input type="checkbox" className="h-5 w-5" checked={!horaConfirmada} onChange={(e) => setHoraConfirmada(!e.target.checked)} /> {t('events.fTimeTbc')}
+        </label>
         <label className="block text-sm font-semibold text-slate-700">{t('events.fStarts')}
           <input type="datetime-local" className={inputCls} value={starts} onChange={(e) => setStarts(e.target.value)} />
         </label>

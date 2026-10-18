@@ -3766,7 +3766,12 @@
       "topeMensual": "Sie haben das Monatslimit für Vorschläge erreicht."
     },
     "info": "Infos und Anmeldung",
-    "fInfoUrl": "Link zur Ankündigung oder Anmeldung"
+    "fInfoUrl": "Link zur Ankündigung oder Anmeldung",
+    "inZone": " · Zeit in {{zona}}",
+    "timeTbc": " · Uhrzeit noch offen",
+    "fZone": "Zeitzone der Veranstaltung",
+    "fZoneReader": "In der Zeit der Lesenden anzeigen",
+    "fTimeTbc": "Die Uhrzeit steht noch nicht fest"
   },
   "calendar": {
     "title": "Mein Kalender",

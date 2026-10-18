@@ -12,6 +12,8 @@ import { Button, SkeletonCard, AvisoDeFallo } from '@/components/ui';
 import { useEventosPropios } from '@/hooks/useEventosPropios';
 import { useAvisarResultado } from '@/hooks/useAvisarResultado';
 import { EVENT_CATEGORIES } from '@/hooks/useEvents';
+import { ZONAS_HORARIAS } from '@/data/zonasHorarias';
+import { instanteDesdeHoraLocal } from '@/lib/horaEvento';
 import { formatDate } from '@/lib/utils';
 
 const inputCls =
@@ -37,6 +39,8 @@ export function EventosPropios() {
   const [isOnline, setIsOnline] = useState(false);
   const [onlineUrl, setOnlineUrl] = useState('');
   const [infoUrl, setInfoUrl] = useState('');
+  const [zona, setZona] = useState('');
+  const [horaConfirmada, setHoraConfirmada] = useState(true);
   const [country, setCountry] = useState('');
   const [city, setCity] = useState('');
   const [venue, setVenue] = useState('');
@@ -49,11 +53,12 @@ export function EventosPropios() {
     setCountry(''); setCity(''); setVenue(''); setStarts(''); setEnds(''); setDescription('');
   };
 
-  // `datetime-local` entrega hora local sin zona; la base guarda timestamptz.
+  // `datetime-local` entrega hora de pared sin zona. Si el prestador eligió la
+  // zona del evento, esa hora se lee en esa zona; si no, en la del navegador.
   const aIso = (v: string): string | null => {
     if (!v) return null;
-    const d = new Date(v);
-    return Number.isNaN(d.getTime()) ? null : d.toISOString();
+    const iso = instanteDesdeHoraLocal(v, zona || null);
+    return Number.isNaN(new Date(iso).getTime()) ? null : iso;
   };
 
   const enviar = async () => {
@@ -69,6 +74,8 @@ export function EventosPropios() {
           is_online: isOnline,
           online_url: isOnline ? onlineUrl : null,
           info_url: infoUrl.trim() || null,
+          timezone: zona || null,
+          hora_confirmada: horaConfirmada,
           country: isOnline ? null : country,
           city: isOnline ? null : city,
           venue: isOnline ? null : venue,
@@ -144,6 +151,19 @@ export function EventosPropios() {
               </div>
             </div>
           )}
+
+          <div>
+            <label htmlFor="ev-zone" className={labelCls}>{t('events.fZone')}</label>
+            <select id="ev-zone" className={inputCls} value={zona} onChange={(e) => setZona(e.target.value)}>
+              <option value="">{t('events.fZoneReader')}</option>
+              {ZONAS_HORARIAS.map((z) => <option key={z.value} value={z.value}>{z.label}</option>)}
+            </select>
+          </div>
+
+          <label className="flex items-center gap-3 text-sm font-semibold text-slate-900">
+            <input type="checkbox" className="h-5 w-5" checked={!horaConfirmada} onChange={(e) => setHoraConfirmada(!e.target.checked)} />
+            {t('events.fTimeTbc')}
+          </label>
 
           <div>
             <label htmlFor="ev-info-url" className={labelCls}>{t('events.fInfoUrl')}</label>

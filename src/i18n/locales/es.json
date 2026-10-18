@@ -3766,7 +3766,12 @@
       "topeMensual": "Alcanzó el tope de propuestas del mes."
     },
     "info": "Convocatoria e inscripción",
-    "fInfoUrl": "Enlace a la convocatoria o inscripción"
+    "fInfoUrl": "Enlace a la convocatoria o inscripción",
+    "inZone": " · hora de {{zona}}",
+    "timeTbc": " · hora por confirmar",
+    "fZone": "Zona horaria del evento",
+    "fZoneReader": "Mostrar en la hora de quien lo lea",
+    "fTimeTbc": "La hora todavía no está confirmada"
   },
   "calendar": {
     "title": "Mi calendario",

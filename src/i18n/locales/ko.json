@@ -3766,7 +3766,12 @@
       "topeMensual": "이번 달 제안 한도에 도달했습니다."
     },
     "info": "안내 및 등록",
-    "fInfoUrl": "공고 또는 등록 링크"
+    "fInfoUrl": "공고 또는 등록 링크",
+    "inZone": " · {{zona}} 시간",
+    "timeTbc": " · 시간 미정",
+    "fZone": "행사 표준시",
+    "fZoneReader": "읽는 사람의 시간으로 표시",
+    "fTimeTbc": "시간이 아직 확정되지 않았습니다"
   },
   "calendar": {
     "title": "내 캘린더",

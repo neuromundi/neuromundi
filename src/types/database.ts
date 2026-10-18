@@ -2437,6 +2437,8 @@ export type Database = {
           is_published: boolean
           nota_admin: string | null
           info_url: string | null
+          timezone: string | null
+          hora_confirmada: boolean
           online_url: string | null
           revisada_en: string | null
           revisada_por: string | null
@@ -2460,6 +2462,8 @@ export type Database = {
           is_published?: boolean
           nota_admin?: string | null
           info_url?: string | null
+          timezone?: string | null
+          hora_confirmada?: boolean
           online_url?: string | null
           revisada_en?: string | null
           revisada_por?: string | null
@@ -2483,6 +2487,8 @@ export type Database = {
           is_published?: boolean
           nota_admin?: string | null
           info_url?: string | null
+          timezone?: string | null
+          hora_confirmada?: boolean
           online_url?: string | null
           revisada_en?: string | null
           revisada_por?: string | null

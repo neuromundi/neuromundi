@@ -26,6 +26,8 @@ export interface EventoPropio {
   is_online: boolean;
   online_url: string | null;
   info_url: string | null;
+  timezone: string | null;
+  hora_confirmada: boolean;
   country: string | null;
   city: string | null;
   venue: string | null;
@@ -46,6 +48,8 @@ export interface PropuestaEvento {
   is_online: boolean;
   online_url?: string | null;
   info_url?: string | null;
+  timezone?: string | null;
+  hora_confirmada?: boolean;
   country?: string | null;
   city?: string | null;
   venue?: string | null;
@@ -88,7 +92,7 @@ export function useEventosPropios() {
     setLoading(true);
     const { data, error } = await supabase
       .from('events')
-      .select('id, title, description, category, is_online, online_url, info_url, country, city, venue, starts_at, ends_at, cover_url, is_published, revision, nota_admin, created_at')
+      .select('id, title, description, category, is_online, online_url, info_url, timezone, hora_confirmada, country, city, venue, starts_at, ends_at, cover_url, is_published, revision, nota_admin, created_at')
       .eq('created_by', userId)
       .order('created_at', { ascending: false })
       .limit(100);
@@ -120,9 +124,13 @@ export function useEventosPropios() {
     // conserva su firma (cambiarla crearía una segunda función con el mismo
     // nombre y dejaría la llamada ambigua). Mientras la propuesta sigue
     // pendiente, la política 0249 permite al prestador actualizar su fila.
+    const extra: { info_url?: string; timezone?: string; hora_confirmada?: boolean } = {};
     const enlace = (p.info_url ?? '').trim();
-    if (r.id && enlace) {
-      await supabase.from('events').update({ info_url: enlace }).eq('id', r.id);
+    if (enlace) extra.info_url = enlace;
+    if (p.timezone) extra.timezone = p.timezone;
+    if (p.hora_confirmada === false) extra.hora_confirmada = false;
+    if (r.id && Object.keys(extra).length > 0) {
+      await supabase.from('events').update(extra).eq('id', r.id);
     }
     await reload();
     return { ok: true };
