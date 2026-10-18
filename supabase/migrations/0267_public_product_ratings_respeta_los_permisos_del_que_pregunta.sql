@@ -1,0 +1,27 @@
+-- 0267: una de las once vistas senaladas en rojo pasa a respetar los permisos
+-- de quien pregunta, en vez de correr como dueña.
+--
+-- Se probo cada vista contra la API publica con la llave de visitante anonimo,
+-- antes y despues. Resultado:
+--
+--   · public_product_ratings -> la tabla de abajo (product_reviews) ya tiene
+--     una regla de lectura publica ("true"), asi que el modo dueña no estaba
+--     aportando nada. Cambiada. Sigue respondiendo igual.
+--
+--   · founder_counts -> se cambio y SE ROMPIO: el visitante anonimo recibio
+--     401, porque la regla de founder_members consulta profiles y el anonimo
+--     no tiene permiso ahi. Pasaba de 3 filas a un error. REVERTIDA en el acto.
+--
+--   · public_post_ratings, public_provider_ratings, public_provider_comments y
+--     blog_feed -> NO se tocan. Sus tablas de abajo no dejan leer al visitante
+--     (content_ratings exige sesion; satisfaction_surveys solo deja ver lo
+--     propio), asi que el modo dueña es justo lo que hace que las resenas y las
+--     calificaciones publicas se vean. Cambiarlas las vaciaria en silencio en
+--     cuanto haya contenido. El arreglo de fondo es darle a esas tablas una
+--     regla de lectura publica acotada, y eso es un cambio de diseño aparte.
+--
+--   · affiliate_earnings, perfiles_basicos y provider_badge_inputs -> no se
+--     tocan: ya filtran por el usuario de la sesion, asi que el modo dueña no
+--     les deja ver de mas.
+
+alter view public.public_product_ratings set (security_invoker = true);
