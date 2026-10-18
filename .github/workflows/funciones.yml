@@ -61,7 +61,11 @@ jobs:
       - name: Traer el código
         uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
         with:
-          fetch-depth: 2 # hacen falta dos commits para saber qué cambió
+          # Hace falta TODO el historial, no dos commits. Un push puede traer
+          # varios commits de golpe y lo que cambió es el rango entero del
+          # push, no el último commit. Con fetch-depth: 2 el rango no existe
+          # en el clon y la comparación salía vacía.
+          fetch-depth: 0
 
       - name: Comprobar que el token está configurado
         env:
@@ -81,6 +85,7 @@ jobs:
           # ejecutar como orden.
           PEDIDA: ${{ inputs.funcion }}
           EVENTO: ${{ github.event_name }}
+          ANTES_DEL_PUSH: ${{ github.event.before }}
         run: |
           set -euo pipefail
           cd supabase/functions
@@ -106,7 +111,26 @@ jobs:
               exit 1
             fi
           else
-            CAMBIOS=$(git diff --name-only HEAD^ HEAD || true)
+            # ANTES comparaba HEAD^ con HEAD, es decir SOLO el último commit
+            # del push. El 18 de octubre de 2026 un push trajo dos commits: el
+            # primero cambiaba el correo de invitación y el segundo no tocaba
+            # ninguna función. Como sólo se miró el segundo, la lista salió
+            # vacía, no se desplegó nada y el trabajo terminó en verde en nueve
+            # segundos. Un fallo silencioso: el aviso decía éxito y la función
+            # en producción seguía siendo la vieja.
+            #
+            # Ahora se compara el rango COMPLETO del push. github.event.before
+            # es el commit en el que estaba la rama antes de empujar.
+            ANTES="${ANTES_DEL_PUSH:-}"
+            if [ -z "$ANTES" ] || [ "$ANTES" = "0000000000000000000000000000000000000000" ] \
+               || ! git cat-file -e "$ANTES^{commit}" 2>/dev/null; then
+              # Rama nueva, o historial que no llega: se cae al commit anterior.
+              RANGO="HEAD^ HEAD"
+            else
+              RANGO="$ANTES HEAD"
+            fi
+            echo "Comparando el rango: $RANGO"
+            CAMBIOS=$(git diff --name-only $RANGO || true)
             LISTA=$(echo "$CAMBIOS" \
               | sed -n 's#^supabase/functions/\([^/]*\)/.*#\1#p' \
               | sort -u)
@@ -121,6 +145,8 @@ jobs:
 
           if [ -z "$LISTA" ]; then
             echo "Ninguna función cambió en este push. No hay nada que desplegar."
+            echo "Archivos mirados en el rango:"
+            echo "$CAMBIOS" | sed 's/^/  /'
           else
             echo "Se van a desplegar:"
             echo "$LISTA"
