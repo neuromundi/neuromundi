@@ -2436,6 +2436,7 @@ export type Database = {
           is_online: boolean
           is_published: boolean
           nota_admin: string | null
+          info_url: string | null
           online_url: string | null
           revisada_en: string | null
           revisada_por: string | null
@@ -2458,6 +2459,7 @@ export type Database = {
           is_online?: boolean
           is_published?: boolean
           nota_admin?: string | null
+          info_url?: string | null
           online_url?: string | null
           revisada_en?: string | null
           revisada_por?: string | null
@@ -2480,6 +2482,7 @@ export type Database = {
           is_online?: boolean
           is_published?: boolean
           nota_admin?: string | null
+          info_url?: string | null
           online_url?: string | null
           revisada_en?: string | null
           revisada_por?: string | null

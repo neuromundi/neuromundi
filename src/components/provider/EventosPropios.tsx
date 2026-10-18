@@ -36,6 +36,7 @@ export function EventosPropios() {
   const [category, setCategory] = useState<string>('workshop');
   const [isOnline, setIsOnline] = useState(false);
   const [onlineUrl, setOnlineUrl] = useState('');
+  const [infoUrl, setInfoUrl] = useState('');
   const [country, setCountry] = useState('');
   const [city, setCity] = useState('');
   const [venue, setVenue] = useState('');
@@ -67,6 +68,7 @@ export function EventosPropios() {
           category,
           is_online: isOnline,
           online_url: isOnline ? onlineUrl : null,
+          info_url: infoUrl.trim() || null,
           country: isOnline ? null : country,
           city: isOnline ? null : city,
           venue: isOnline ? null : venue,
@@ -142,6 +144,12 @@ export function EventosPropios() {
               </div>
             </div>
           )}
+
+          <div>
+            <label htmlFor="ev-info-url" className={labelCls}>{t('events.fInfoUrl')}</label>
+            <input id="ev-info-url" className={inputCls} value={infoUrl} onChange={(e) => setInfoUrl(e.target.value)}
+              placeholder="https://" inputMode="url" maxLength={500} />
+          </div>
 
           <div className="grid gap-3 sm:grid-cols-2">
             <div>

@@ -3707,7 +3707,8 @@
       "fair": "展会",
       "webinar": "网络研讨会",
       "support_group": "支持小组",
-      "other": "其他"
+      "other": "其他",
+      "congress": "大会"
     },
     "fTitle": "活动标题",
     "fUrl": "线上活动链接",
@@ -3763,7 +3764,9 @@
       "portadaNoValida": "封面必须是 http:// 或 https:// 链接。",
       "yaPendientes": "您已有三个提交在审核中，请等待答复。",
       "topeMensual": "已达到本月提交上限。"
-    }
+    },
+    "info": "详情与报名",
+    "fInfoUrl": "公告或报名链接"
   },
   "calendar": {
     "title": "我的日历",

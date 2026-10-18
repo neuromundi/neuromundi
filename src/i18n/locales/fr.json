@@ -3707,7 +3707,8 @@
       "fair": "Salon",
       "webinar": "Webinaire",
       "support_group": "Groupe de soutien",
-      "other": "Autre"
+      "other": "Autre",
+      "congress": "Congrès"
     },
     "fTitle": "Titre de l'événement",
     "fUrl": "Lien de l'événement en ligne",
@@ -3763,7 +3764,9 @@
       "portadaNoValida": "La couverture doit être un lien http:// ou https://",
       "yaPendientes": "Vous avez déjà trois propositions en cours d’examen. Attendez la réponse.",
       "topeMensual": "Vous avez atteint la limite de propositions du mois."
-    }
+    },
+    "info": "Programme et inscription",
+    "fInfoUrl": "Lien vers l'annonce ou l'inscription"
   },
   "calendar": {
     "title": "Mon calendrier",

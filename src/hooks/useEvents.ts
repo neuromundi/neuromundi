@@ -18,6 +18,7 @@ export interface EventItem {
   category: string | null;
   is_online: boolean;
   online_url: string | null;
+  info_url?: string | null;
   country: string | null;
   city: string | null;
   venue: string | null;
@@ -35,6 +36,7 @@ export interface EventInput {
   category?: string | null;
   is_online: boolean;
   online_url?: string | null;
+  info_url?: string | null;
   country?: string | null;
   city?: string | null;
   venue?: string | null;
@@ -45,6 +47,7 @@ export interface EventInput {
 }
 
 export const EVENT_CATEGORIES = [
+  'congress',
   'workshop',
   'talk',
   'group_therapy',

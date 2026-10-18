@@ -111,6 +111,11 @@ export function Events() {
                 <Globe2 className="h-4 w-4" aria-hidden="true" /> {t('events.join')}
               </a>
             )}
+            {ev.info_url && (
+              <a href={safeHttpUrl(ev.info_url)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 rounded-lg px-2 py-1 text-sm font-semibold text-brand-700 hover:underline">
+                <ExternalLink className="h-4 w-4" aria-hidden="true" /> {t('events.info')}
+              </a>
+            )}
           </div>
           {isAdmin && (
             <div className="flex gap-2 border-t border-slate-100 pt-2">
@@ -206,6 +211,7 @@ function EventForm({
   const [category, setCategory] = useState(initial?.category ?? 'workshop');
   const [isOnline, setIsOnline] = useState(initial?.is_online ?? false);
   const [onlineUrl, setOnlineUrl] = useState(initial?.online_url ?? '');
+  const [infoUrl, setInfoUrl] = useState(initial?.info_url ?? '');
   const [ctry, setCtry] = useState(initial?.country ?? '');
   const [city, setCity] = useState(initial?.city ?? '');
   const [venue, setVenue] = useState(initial?.venue ?? '');
@@ -228,6 +234,7 @@ function EventForm({
       category,
       is_online: isOnline,
       online_url: isOnline ? (onlineUrl.trim() || null) : null,
+      info_url: infoUrl.trim() || null,
       country: isOnline ? null : (ctry || null),
       city: isOnline ? null : (city.trim() || null),
       venue: isOnline ? null : (venue.trim() || null),
@@ -261,6 +268,7 @@ function EventForm({
             <input className={inputCls} placeholder={t('events.fVenue')} value={venue} onChange={(e) => setVenue(e.target.value)} />
           </>
         )}
+        <input className={inputCls} placeholder={t('events.fInfoUrl')} value={infoUrl} onChange={(e) => setInfoUrl(e.target.value)} />
         <label className="block text-sm font-semibold text-slate-700">{t('events.fStarts')}
           <input type="datetime-local" className={inputCls} value={starts} onChange={(e) => setStarts(e.target.value)} />
         </label>

@@ -3707,7 +3707,8 @@
       "fair": "Feria",
       "webinar": "Webinar",
       "support_group": "Grupo de apoyo",
-      "other": "Otro"
+      "other": "Otro",
+      "congress": "Congreso"
     },
     "fTitle": "Título del evento",
     "fUrl": "Enlace del evento en línea",
@@ -3763,7 +3764,9 @@
       "portadaNoValida": "La portada debe ser un enlace http:// o https://",
       "yaPendientes": "Ya tiene tres propuestas en revisión. Espere la respuesta.",
       "topeMensual": "Alcanzó el tope de propuestas del mes."
-    }
+    },
+    "info": "Convocatoria e inscripción",
+    "fInfoUrl": "Enlace a la convocatoria o inscripción"
   },
   "calendar": {
     "title": "Mi calendario",

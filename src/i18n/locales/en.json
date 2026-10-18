@@ -3707,7 +3707,8 @@
       "fair": "Fair",
       "webinar": "Webinar",
       "support_group": "Support group",
-      "other": "Other"
+      "other": "Other",
+      "congress": "Conference"
     },
     "fTitle": "Event title",
     "fUrl": "Online event link",
@@ -3763,7 +3764,9 @@
       "portadaNoValida": "The cover must be an http:// or https:// link.",
       "yaPendientes": "You already have three proposals under review. Wait for the answer.",
       "topeMensual": "You reached this month’s limit of proposals."
-    }
+    },
+    "info": "Details and registration",
+    "fInfoUrl": "Link to the announcement or registration"
   },
   "calendar": {
     "title": "My calendar",

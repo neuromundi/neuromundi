@@ -3707,7 +3707,8 @@
       "fair": "박람회",
       "webinar": "웨비나",
       "support_group": "지원 모임",
-      "other": "기타"
+      "other": "기타",
+      "congress": "학술대회"
     },
     "fTitle": "이벤트 제목",
     "fUrl": "온라인 이벤트 링크",
@@ -3763,7 +3764,9 @@
       "portadaNoValida": "표지는 http:// 또는 https:// 링크여야 합니다.",
       "yaPendientes": "검토 중인 제안이 이미 세 건입니다. 답변을 기다려 주세요.",
       "topeMensual": "이번 달 제안 한도에 도달했습니다."
-    }
+    },
+    "info": "안내 및 등록",
+    "fInfoUrl": "공고 또는 등록 링크"
   },
   "calendar": {
     "title": "내 캘린더",

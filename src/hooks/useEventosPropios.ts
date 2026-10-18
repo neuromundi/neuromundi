@@ -25,6 +25,7 @@ export interface EventoPropio {
   category: string | null;
   is_online: boolean;
   online_url: string | null;
+  info_url: string | null;
   country: string | null;
   city: string | null;
   venue: string | null;
@@ -44,6 +45,7 @@ export interface PropuestaEvento {
   category?: string | null;
   is_online: boolean;
   online_url?: string | null;
+  info_url?: string | null;
   country?: string | null;
   city?: string | null;
   venue?: string | null;
@@ -86,7 +88,7 @@ export function useEventosPropios() {
     setLoading(true);
     const { data, error } = await supabase
       .from('events')
-      .select('id, title, description, category, is_online, online_url, country, city, venue, starts_at, ends_at, cover_url, is_published, revision, nota_admin, created_at')
+      .select('id, title, description, category, is_online, online_url, info_url, country, city, venue, starts_at, ends_at, cover_url, is_published, revision, nota_admin, created_at')
       .eq('created_by', userId)
       .order('created_at', { ascending: false })
       .limit(100);
@@ -112,8 +114,16 @@ export function useEventosPropios() {
       p_cover_url: p.cover_url ?? null,
     });
     if (error) return { ok: false, error: error.message };
-    const r = (data ?? null) as { ok?: boolean; motivo?: string } | null;
+    const r = (data ?? null) as { ok?: boolean; motivo?: string; id?: string } | null;
     if (r?.ok !== true) return { ok: false, error: traducir(claveDeMotivoEvento(r?.motivo)) };
+    // El enlace a la convocatoria se guarda aparte: la función proponer_evento
+    // conserva su firma (cambiarla crearía una segunda función con el mismo
+    // nombre y dejaría la llamada ambigua). Mientras la propuesta sigue
+    // pendiente, la política 0249 permite al prestador actualizar su fila.
+    const enlace = (p.info_url ?? '').trim();
+    if (r.id && enlace) {
+      await supabase.from('events').update({ info_url: enlace }).eq('id', r.id);
+    }
     await reload();
     return { ok: true };
   }, [reload]);

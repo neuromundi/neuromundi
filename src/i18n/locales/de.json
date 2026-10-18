@@ -3707,7 +3707,8 @@
       "fair": "Messe",
       "webinar": "Webinar",
       "support_group": "Selbsthilfegruppe",
-      "other": "Sonstiges"
+      "other": "Sonstiges",
+      "congress": "Kongress"
     },
     "fTitle": "Titel der Veranstaltung",
     "fUrl": "Link zur Online-Veranstaltung",
@@ -3763,7 +3764,9 @@
       "portadaNoValida": "Das Titelbild muss ein http:// oder https:// Link sein.",
       "yaPendientes": "Sie haben bereits drei Vorschläge in Prüfung. Warten Sie die Antwort ab.",
       "topeMensual": "Sie haben das Monatslimit für Vorschläge erreicht."
-    }
+    },
+    "info": "Infos und Anmeldung",
+    "fInfoUrl": "Link zur Ankündigung oder Anmeldung"
   },
   "calendar": {
     "title": "Mein Kalender",
