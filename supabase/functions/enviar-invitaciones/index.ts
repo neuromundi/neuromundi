@@ -404,7 +404,8 @@ function beneficios(r: Row, fundador = true): string {
     <li style="margin:6px 0">🎓&nbsp; <b>Formación e instrumentos:</b> acceso gratuito a cursos, talleres y eventos exclusivos para miembros Neuromundi.</li>
     ${founderLi}
     <li style="margin:6px 0">📋&nbsp; <b>Liderazgo en el sector:</b> participación prioritaria en la 1.ª Encuesta sobre la Situación Neurológica Mundial.</li>
-  </ul>`;
+  </ul>
+  <p style="margin:12px 0 0;color:#334155;font-size:14px;line-height:1.5">📄&nbsp; Si anuncia un evento, puede enviarnos su cartel a <a href="mailto:admin@neuromundi.com" style="color:#0369a1">admin@neuromundi.com</a> o cargarlo al publicarlo: lo mostramos en la tarjeta del evento, con su crédito. Si no nos lo envía, ponemos una portada de Neuromundi.</p>`;
 }
 
 // Version portuguesa de la lista de beneficios. Se mantiene aparte y no
@@ -463,7 +464,8 @@ function beneficiosPT(r: Row, fundador = true): string {
     <li style="margin:6px 0">🎓&nbsp; <b>Formação e instrumentos:</b> acesso gratuito a cursos, oficinas e eventos exclusivos para membros Neuromundi.</li>
     ${founderLi}
     <li style="margin:6px 0">📋&nbsp; <b>Liderança no sector:</b> participação prioritária no 1.º Inquérito sobre a Situação Neurológica Mundial.</li>
-  </ul>`;
+  </ul>
+  <p style="margin:12px 0 0;color:#334155;font-size:14px;line-height:1.5">📄&nbsp; Se anunciar um evento, pode enviar-nos o seu cartaz para <a href="mailto:admin@neuromundi.com" style="color:#0369a1">admin@neuromundi.com</a> ou carregá-lo ao publicá-lo: mostramo-lo no cartão do evento, com o devido crédito. Se não o enviar, colocamos uma capa da Neuromundi.</p>`;
 }
 
 // Tabla comparativa (versión CORREO, región México): HTML de tablas + estilos en
