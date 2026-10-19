@@ -5674,7 +5674,9 @@
     },
     "whatAreThey": "Cosa significano?",
     "explainTitle": "Le tre aree di Neuromundi",
-    "explainIntro": "Neuromundi organizza il supporto in tre grandi aree. Nel profilo di un fornitore, queste etichette indicano le aree di cui si occupa o che offre."
+    "explainIntro": "Neuromundi organizza il supporto in tre grandi aree. Nel profilo di un fornitore, queste etichette indicano le aree di cui si occupa o che offre.",
+    "pickLabel": "A quale area appartiene?",
+    "pickHint": "Selezionane una o più, così lo trova chi cerca proprio quello. Se non selezioni nessuna, comparirà in tutte le ricerche."
   },
   "sectionsField": {
     "label": "Quali sezioni copre il tuo profilo?",

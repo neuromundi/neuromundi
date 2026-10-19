@@ -31,6 +31,12 @@ export interface EventoEnRevision {
   prestador: string | null;
   member_no: number | null;
   prestador_id: string | null;
+  info_url: string | null;
+  timezone: string | null;
+  hora_confirmada: boolean;
+  // Cómo clasificó el prestador su evento. El administrador lo ve antes de
+  // aprobar: si está mal, el evento saldría en el filtro que no le toca.
+  sections: string[];
 }
 
 export function useEventosEnRevision(estado: RevisionEvento | 'todas' = 'pendiente') {
@@ -41,7 +47,7 @@ export function useEventosEnRevision(estado: RevisionEvento | 'todas' = 'pendien
 
   const reload = useCallback(async () => {
     setLoading(true);
-    const { data, error } = await supabase.rpc('admin_eventos_en_revision', { p_estado: estado });
+    const { data, error } = await supabase.rpc('admin_eventos_en_revision_con_areas', { p_estado: estado });
     setFallo(!!error);
     setItems(error ? [] : ((data ?? []) as EventoEnRevision[]));
     setLoading(false);

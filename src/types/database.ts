@@ -7761,6 +7761,35 @@ export type Database = {
           venue: string
         }[]
       }
+      admin_eventos_en_revision_con_areas: {
+        Args: { p_estado?: string | null }
+        Returns: {
+          category: string
+          city: string
+          country: string
+          cover_url: string
+          created_at: string
+          description: string
+          ends_at: string
+          hora_confirmada: boolean
+          id: string
+          info_url: string
+          is_online: boolean
+          is_published: boolean
+          member_no: number
+          nota_admin: string
+          online_url: string
+          prestador: string
+          prestador_id: string
+          revisada_en: string
+          revision: string
+          sections: string[]
+          starts_at: string
+          timezone: string
+          title: string
+          venue: string
+        }[]
+      }
       admin_eventos_pendientes: { Args: never; Returns: number }
       admin_exencion_resolver: {
         Args: {

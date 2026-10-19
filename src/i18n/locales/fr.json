@@ -5674,7 +5674,9 @@
     },
     "whatAreThey": "Que signifient-elles ?",
     "explainTitle": "Les trois domaines de Neuromundi",
-    "explainIntro": "Neuromundi organise l'accompagnement en trois grands domaines. Sur le profil d'un prestataire, ces étiquettes indiquent les domaines qu'il prend en charge ou propose."
+    "explainIntro": "Neuromundi organise l'accompagnement en trois grands domaines. Sur le profil d'un prestataire, ces étiquettes indiquent les domaines qu'il prend en charge ou propose.",
+    "pickLabel": "À quel domaine cela appartient-il ?",
+    "pickHint": "Cochez-en un ou plusieurs pour que les personnes qui cherchent précisément cela le trouvent. Si vous n'en cochez aucun, cela apparaîtra dans toutes les recherches."
   },
   "sectionsField": {
     "label": "Quelles sections votre profil couvre-t-il ?",

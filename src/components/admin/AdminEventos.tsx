@@ -77,6 +77,15 @@ export function AdminEventos() {
                       <><MapPin className="h-3.5 w-3.5" aria-hidden="true" /> {[e.venue, e.city, e.country].filter(Boolean).join(', ')}</>
                     )}
                   </p>
+                  {e.sections.length > 0 && (
+                    <p className="mt-1 flex flex-wrap gap-1.5">
+                      {e.sections.map((sec) => (
+                        <span key={sec} className="rounded-full bg-slate-100 px-2 py-0.5 text-[11px] font-semibold text-slate-700">
+                          {t(`sections.${sec}.name`)}
+                        </span>
+                      ))}
+                    </p>
+                  )}
                   {e.description && (
                     <p className="mt-2 whitespace-pre-wrap text-sm text-slate-800">{e.description}</p>
                   )}

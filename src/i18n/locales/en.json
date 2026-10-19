@@ -5679,7 +5679,9 @@
     },
     "whatAreThey": "What do these mean?",
     "explainTitle": "The three areas of Neuromundi",
-    "explainIntro": "Neuromundi organizes support into three broad areas. On a provider's profile, these labels indicate the areas they serve or offer."
+    "explainIntro": "Neuromundi organizes support into three broad areas. On a provider's profile, these labels indicate the areas they serve or offer.",
+    "pickLabel": "Which area does it belong to?",
+    "pickHint": "Tick one or more so the people looking for exactly that can find it. If you tick none, it will show up in every search."
   },
   "sectionsField": {
     "label": "Which sections does your profile cover?",

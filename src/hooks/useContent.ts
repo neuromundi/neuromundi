@@ -42,11 +42,14 @@ export function useContent() {
   useEffect(() => { void load(); }, [load]);
 
   const create = useCallback(
-    async (p: { type: 'blog' | 'link'; title: string; body?: string; external_url?: string; keywords: string[]; topic?: string; excerpt?: string; cover_url?: string }): Promise<Result<true>> => {
+    async (p: { type: 'blog' | 'link'; title: string; body?: string; external_url?: string; keywords: string[]; topic?: string; excerpt?: string; cover_url?: string; sections?: string[] }): Promise<Result<true>> => {
       if (!userId) return { ok: false, error: 'Sin sesión' };
       const { error } = await supabase.from('content_posts').insert({
         author_id: userId, type: p.type, title: p.title, body: p.body || null, external_url: p.external_url || null, keywords: p.keywords,
         topic: p.topic || null, excerpt: p.excerpt || null, cover_url: p.cover_url || null,
+        // El autor clasifica su entrada en las tres áreas de Neuromundi. Sin
+        // marcar nada queda '{}', que los filtros muestran siempre.
+        sections: p.sections ?? [],
       });
       if (error) return { ok: false, error: toMessage(error) };
       await load();

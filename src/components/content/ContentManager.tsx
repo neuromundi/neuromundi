@@ -10,6 +10,7 @@ import { Button, SkeletonCard, useToast, useConfirm, HowTo} from '@/components/u
 import { useContent } from '@/hooks/useContent';
 import { BLOG_TOPICS } from '@/data/blogTopics';
 import { useCatLabel } from '@/lib/catLabel';
+import { SectionPicker } from '@/components/common/SectionPicker';
 
 const input = 'w-full rounded-lg border border-slate-200 p-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500';
 
@@ -28,10 +29,12 @@ export function ContentManager() {
   const [topic, setTopic] = useState('');
   const [excerpt, setExcerpt] = useState('');
   const [cover, setCover] = useState('');
+  // Las tres áreas de Neuromundi: las marca el autor, no el administrador.
+  const [secs, setSecs] = useState<string[]>([]);
   const [busy, setBusy] = useState(false);
   const catLabel = useCatLabel();
 
-  const reset = () => { setTitle(''); setBody(''); setUrl(''); setKeywords(''); setTopic(''); setExcerpt(''); setCover(''); setType('blog'); };
+  const reset = () => { setTitle(''); setBody(''); setUrl(''); setKeywords(''); setTopic(''); setExcerpt(''); setCover(''); setSecs([]); setType('blog'); };
 
   const onCreate = async () => {
     if (!title.trim()) return toast.error(t('content.errTitle'));
@@ -46,6 +49,8 @@ export function ContentManager() {
       topic: type === 'blog' ? topic : undefined,
       excerpt: type === 'blog' ? excerpt.trim() : undefined,
       cover_url: type === 'blog' ? cover.trim() : undefined,
+      // Vale igual para un artículo y para un enlace: ambos se filtran por área.
+      sections: secs,
     });
     setBusy(false);
     if (res.ok) { toast.success(t('content.created')); reset(); setOpen(false); }
@@ -89,6 +94,7 @@ export function ContentManager() {
             <input className={input} placeholder="https://…" value={url} onChange={(e) => setUrl(e.target.value)} />
           )}
           <input className={input} placeholder={t('content.fKeywords')} value={keywords} onChange={(e) => setKeywords(e.target.value)} />
+          <SectionPicker value={secs} onChange={setSecs} />
           <Button fullWidth loading={busy} onClick={onCreate}>{t('content.publish')}</Button>
         </div>
       )}

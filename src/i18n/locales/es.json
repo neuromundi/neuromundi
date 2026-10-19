@@ -5679,7 +5679,9 @@
     },
     "whatAreThey": "¿Qué significan?",
     "explainTitle": "Las tres áreas de Neuromundi",
-    "explainIntro": "Neuromundi organiza el apoyo en tres grandes áreas. En el perfil de un prestador, estas etiquetas indican las áreas que atiende u ofrece."
+    "explainIntro": "Neuromundi organiza el apoyo en tres grandes áreas. En el perfil de un prestador, estas etiquetas indican las áreas que atiende u ofrece.",
+    "pickLabel": "¿A qué área pertenece?",
+    "pickHint": "Marque una o más. Así la encuentra quien busca justo eso. Si no marca ninguna, aparecerá en todas las búsquedas."
   },
   "sectionsField": {
     "label": "¿Qué secciones abarca tu perfil?",

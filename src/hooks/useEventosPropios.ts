@@ -34,6 +34,7 @@ export interface EventoPropio {
   starts_at: string;
   ends_at: string | null;
   cover_url: string | null;
+  sections: string[];
   is_published: boolean;
   revision: RevisionEvento;
   nota_admin: string | null;
@@ -55,6 +56,7 @@ export interface PropuestaEvento {
   venue?: string | null;
   ends_at?: string | null;
   cover_url?: string | null;
+  sections?: string[];
 }
 
 type Resultado = { ok: boolean; error?: string };
@@ -92,7 +94,7 @@ export function useEventosPropios() {
     setLoading(true);
     const { data, error } = await supabase
       .from('events')
-      .select('id, title, description, category, is_online, online_url, info_url, timezone, hora_confirmada, country, city, venue, starts_at, ends_at, cover_url, is_published, revision, nota_admin, created_at')
+      .select('id, title, description, category, is_online, online_url, info_url, timezone, hora_confirmada, country, city, venue, starts_at, ends_at, cover_url, sections, is_published, revision, nota_admin, created_at')
       .eq('created_by', userId)
       .order('created_at', { ascending: false })
       .limit(100);
@@ -124,11 +126,14 @@ export function useEventosPropios() {
     // conserva su firma (cambiarla crearía una segunda función con el mismo
     // nombre y dejaría la llamada ambigua). Mientras la propuesta sigue
     // pendiente, la política 0249 permite al prestador actualizar su fila.
-    const extra: { info_url?: string; timezone?: string; hora_confirmada?: boolean } = {};
+    const extra: { info_url?: string; timezone?: string; hora_confirmada?: boolean; sections?: string[] } = {};
     const enlace = (p.info_url ?? '').trim();
     if (enlace) extra.info_url = enlace;
     if (p.timezone) extra.timezone = p.timezone;
     if (p.hora_confirmada === false) extra.hora_confirmada = false;
+    // Las áreas que marcó el prestador. La columna es NOT NULL con valor '{}',
+    // así que una lista vacía no hace falta escribirla.
+    if (p.sections && p.sections.length > 0) extra.sections = p.sections;
     if (r.id && Object.keys(extra).length > 0) {
       await supabase.from('events').update(extra).eq('id', r.id);
     }

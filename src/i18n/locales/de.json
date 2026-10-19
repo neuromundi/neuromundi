@@ -5674,7 +5674,9 @@
     },
     "whatAreThey": "Was bedeutet das?",
     "explainTitle": "Die drei Bereiche von Neuromundi",
-    "explainIntro": "Neuromundi gliedert die Unterstützung in drei große Bereiche. Im Profil eines Anbieters zeigen diese Etiketten die Bereiche an, die er betreut oder anbietet."
+    "explainIntro": "Neuromundi gliedert die Unterstützung in drei große Bereiche. Im Profil eines Anbieters zeigen diese Etiketten die Bereiche an, die er betreut oder anbietet.",
+    "pickLabel": "Zu welchem Bereich gehört es?",
+    "pickHint": "Wählen Sie einen oder mehrere aus, damit es die Menschen finden, die genau danach suchen. Ohne Auswahl erscheint es in allen Suchen."
   },
   "sectionsField": {
     "label": "Welche Bereiche deckt dein Profil ab?",

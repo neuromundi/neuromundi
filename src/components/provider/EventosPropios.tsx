@@ -15,6 +15,7 @@ import { EVENT_CATEGORIES } from '@/hooks/useEvents';
 import { ZONAS_HORARIAS } from '@/data/zonasHorarias';
 import { instanteDesdeHoraLocal } from '@/lib/horaEvento';
 import { formatDate } from '@/lib/utils';
+import { SectionPicker } from '@/components/common/SectionPicker';
 
 const inputCls =
   'w-full rounded-xl border border-slate-200 p-3 text-base ' +
@@ -39,6 +40,8 @@ export function EventosPropios() {
   const [isOnline, setIsOnline] = useState(false);
   const [onlineUrl, setOnlineUrl] = useState('');
   const [infoUrl, setInfoUrl] = useState('');
+  // Las tres áreas de Neuromundi: las marca quien propone el evento.
+  const [secs, setSecs] = useState<string[]>([]);
   const [zona, setZona] = useState('');
   const [horaConfirmada, setHoraConfirmada] = useState(true);
   const [country, setCountry] = useState('');
@@ -50,7 +53,8 @@ export function EventosPropios() {
 
   const limpiar = () => {
     setTitle(''); setCategory('workshop'); setIsOnline(false); setOnlineUrl('');
-    setCountry(''); setCity(''); setVenue(''); setStarts(''); setEnds(''); setDescription('');
+    setCountry(''); setCity(''); setVenue(''); setStarts(''); setEnds(''); setDescription(''); setInfoUrl(''); setSecs([]);
+    setZona(''); setHoraConfirmada(true);
   };
 
   // `datetime-local` entrega hora de pared sin zona. Si el prestador eligió la
@@ -74,6 +78,7 @@ export function EventosPropios() {
           is_online: isOnline,
           online_url: isOnline ? onlineUrl : null,
           info_url: infoUrl.trim() || null,
+          sections: secs,
           timezone: zona || null,
           hora_confirmada: horaConfirmada,
           country: isOnline ? null : country,
@@ -171,6 +176,8 @@ export function EventosPropios() {
               placeholder="https://" inputMode="url" maxLength={500} />
           </div>
 
+          <SectionPicker value={secs} onChange={setSecs} />
+
           <div className="grid gap-3 sm:grid-cols-2">
             <div>
               <label htmlFor="ev-starts" className={labelCls}>{t('events.fStarts')}</label>
@@ -218,6 +225,15 @@ export function EventosPropios() {
                     {formatDate(e.starts_at)}
                     {e.is_online ? ` · ${t('events.online')}` : ` · ${[e.venue, e.city, e.country].filter(Boolean).join(', ')}`}
                   </p>
+                  {e.sections.length > 0 && (
+                    <p className="mt-1 flex flex-wrap gap-1.5">
+                      {e.sections.map((sec) => (
+                        <span key={sec} className="rounded-full bg-white px-2 py-0.5 text-[11px] font-semibold text-slate-700">
+                          {t(`sections.${sec}.name`)}
+                        </span>
+                      ))}
+                    </p>
+                  )}
                   {e.nota_admin && (
                     <p className="mt-2 rounded-lg bg-white px-3 py-2 text-xs text-slate-700">{e.nota_admin}</p>
                   )}
