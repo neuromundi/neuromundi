@@ -179,21 +179,17 @@ export function ClinicRegister({ onSuccess, complete = false }: { onSuccess?: ()
   const hasTac = isGabinete && diagServices.includes('tac');
   const hasSangre = isLab && diagServices.includes('sangre');
 
-  const canNext = () => {
-    if (step === 0) return name.trim().length >= 2 && categories.length > 0;
-    if (step === 2) return !(specialties.includes('otro') && !clinicSpecialtyOther.trim()) && !(services.includes('otro') && !clinicServiceOther.trim());
-    if (step === 5) {
-      const accountOk = complete || (isStrictEmail(email) && email.trim().toLowerCase() === confirmEmail.trim().toLowerCase() && password.length >= 8 && password === confirmPassword);
-      return accountOk && acceptTerms && acceptRules && acceptManifesto;
-    }
-    return true;
-  };
-
   const stepMissing = (): string[] => {
     const m: string[] = [];
     if (step === 0) {
       if (name.trim().length < 2) m.push(t('reg.miss.institution'));
       if (categories.length === 0) m.push(t('reg.miss.category'));
+    }
+    // Paso 2: el botón se quedaba quieto sin decir nada cuando se elegía
+    // "otro" y no se escribía cuál.
+    if (step === 2) {
+      if (specialties.includes('otro') && !clinicSpecialtyOther.trim()) m.push(t('reg.miss.otherSpecify'));
+      if (services.includes('otro') && !clinicServiceOther.trim()) m.push(t('reg.miss.otherSpecify'));
     }
     if (step === 5) {
       if (!country) m.push(t('reg.miss.country'));
@@ -209,8 +205,13 @@ export function ClinicRegister({ onSuccess, complete = false }: { onSuccess?: ()
       if (!acceptRules) m.push(t('reg.miss.rules'));
     if (!acceptManifesto) m.push(t('reg.miss.manifesto'));
     }
-    return m;
+    return [...new Set(m)];
   };
+
+  // El botón y la lista de abajo tienen que exigir LO MISMO: si el botón no
+  // avanza, la lista debe decir por qué. Antes el botón pedía país no y la
+  // lista sí, y admitía contraseñas que luego el alta rechazaba.
+  const canNext = () => stepMissing().length === 0;
 
   const submit = async () => {
     if (!canNext()) return;
