@@ -1587,7 +1587,11 @@
       "otherSpecify": "Especifique quando escolher \"Outro\".",
       "passwordWeak": "A senha deve ter pelo menos 8 caracteres e incluir uma minúscula, uma maiúscula, um número e um símbolo.",
       "emailTaken": "Este e-mail já tem uma conta. Entre ou use outro e-mail.",
-      "country": "Selecione seu país (define a moeda do seu pagamento)."
+      "country": "Selecione seu país (define a moeda do seu pagamento).",
+      "pais": "País",
+      "estado": "Estado ou província",
+      "municipio": "Município ou cidade",
+      "sucursales": "Pelo menos uma unidade com telefone e horários"
     },
     "errManifesto": "Você deve aceitar o Manifesto da Comunidade.",
     "acceptManifestoPre": "Li e adiro ao",

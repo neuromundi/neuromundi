@@ -1587,7 +1587,11 @@
       "otherSpecify": "Précisez lorsque vous choisissez « Autre ».",
       "passwordWeak": "Le mot de passe doit comporter au moins 8 caractères et inclure une minuscule, une majuscule, un chiffre et un symbole.",
       "emailTaken": "Cet e-mail possède déjà un compte. Connectez-vous ou utilisez une autre adresse.",
-      "country": "Sélectionne ton pays (il définit la devise de ton paiement)."
+      "country": "Sélectionne ton pays (il définit la devise de ton paiement).",
+      "pais": "Pays",
+      "estado": "État ou province",
+      "municipio": "Commune ou ville",
+      "sucursales": "Au moins une adresse avec téléphone et horaires"
     },
     "errManifesto": "Vous devez accepter le Manifeste de la communauté.",
     "acceptManifestoPre": "J’ai lu et j’adhère au",

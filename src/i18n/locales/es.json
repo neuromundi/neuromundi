@@ -1624,7 +1624,11 @@
       "otherSpecify": "Especifica el motivo cuando eliges \"Otro\".",
       "passwordWeak": "La contraseña debe tener al menos 8 caracteres e incluir minúscula, mayúscula, número y símbolo.",
       "emailTaken": "Este correo ya tiene una cuenta. Inicia sesión o usa otro correo.",
-      "country": "Selecciona tu país (define la moneda de tu pago)."
+      "country": "Selecciona tu país (define la moneda de tu pago).",
+      "pais": "País",
+      "estado": "Estado o provincia",
+      "municipio": "Municipio o ciudad",
+      "sucursales": "Al menos una sucursal con teléfono y horarios"
     },
     "errManifesto": "Debes aceptar el Manifiesto de la Comunidad.",
     "acceptManifestoPre": "He leído y me adhiero al",

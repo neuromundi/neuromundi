@@ -231,6 +231,16 @@ export const regLocationSchema = z.object({
 export const REG_TYPES = ['patient', 'parent', 'service_provider', 'merchant', 'school'] as const;
 export type RegType = (typeof REG_TYPES)[number];
 
+// Grupos de casillas (varias casillas con el MISMO nombre): react-hook-form
+// devuelve un arreglo con lo marcado, pero cuando NO hay nada marcado devuelve
+// `false`, y con una sola casilla marcada puede devolver un texto suelto. El
+// esquema esperaba siempre un arreglo, de modo que un registro sin marcar
+// ninguna casilla fallaba con un mensaje en inglés y en un campo que no se
+// dibuja: el formulario no avanzaba y no se veía por qué.
+const listaDeCasillas = z
+  .union([z.array(z.string()), z.string(), z.boolean(), z.null(), z.undefined()])
+  .transform((v) => (Array.isArray(v) ? v : typeof v === 'string' ? [v] : []));
+
 export const registerSchema = z
   .object({
     regType: z.enum(REG_TYPES),
@@ -244,9 +254,9 @@ export const registerSchema = z
     confirm_password: z.string().optional().default(''),
     confirm_email: z.string().trim().optional().default(''),
     is_company: z.boolean().default(false),
-    school_grades: z.array(z.string()).optional().default([]),
+    school_grades: listaDeCasillas.optional().default([]),
     // Secciones de interés del consumidor (paciente/familiar): 1 o más de las tres.
-    sections: z.array(z.string()).optional().default([]),
+    sections: listaDeCasillas.optional().default([]),
     full_name: z.string().trim().optional().default(''),
     business_name: z.string().trim().optional().default(''),
     birth_date: z.string().optional().default(''),
@@ -265,7 +275,7 @@ export const registerSchema = z
     cedula_profesional: z.string().trim().optional().default(''),
     // Adulto independiente (flujo paciente "para mí")
     life_stage: z.string().optional().default(''),
-    interests: z.array(z.string()).optional().default([]),
+    interests: listaDeCasillas.optional().default([]),
     comms_opt_in: z.boolean().optional().default(false),
     locations: z.array(regLocationSchema).optional().default([]),
     accept_terms: z.boolean().refine((v) => v === true, { message: 'reg.errTerms' }),

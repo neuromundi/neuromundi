@@ -6,8 +6,8 @@
  * proveedores pueden agregar varias sucursales con dirección, coordenadas,
  * teléfono y horarios para ubicarse en el mapa.
  */
-import { useEffect, useState } from 'react';
-import { useForm, useFieldArray } from 'react-hook-form';
+import { useEffect, useRef, useState } from 'react';
+import { useForm, useFieldArray, type FieldErrors } from 'react-hook-form';
 import { PasswordStrength } from './PasswordStrength';
 import { GeoFields } from './GeoFields';
 import { SCHOOL_GRADES } from '@/data/satCatalogs';
@@ -30,6 +30,27 @@ const inputCls =
 const labelCls = 'mb-1 block font-semibold text-slate-900';
 const errCls = 'mt-1 text-sm text-evs-1';
 
+// Nombre legible de cada campo, para poder decirle a la persona exactamente
+// qué le falta en vez de un "completa los datos obligatorios" a secas.
+const ETIQUETA_CAMPO: Record<string, string> = {
+  full_name: 'reg.fullName',
+  business_name: 'reg.businessName',
+  email: 'reg.miss.email',
+  confirm_email: 'reg.miss.emailMatch',
+  password: 'reg.miss.password',
+  confirm_password: 'reg.miss.passwordMatch',
+  birth_date: 'reg.birthDate',
+  condition: 'reg.conditionChild',
+  country: 'reg.miss.pais',
+  state: 'reg.miss.estado',
+  municipality: 'reg.miss.municipio',
+  services_offered: 'reg.services',
+  locations: 'reg.miss.sucursales',
+  accept_terms: 'reg.miss.terms',
+  accept_rules: 'reg.miss.rules',
+  accept_manifesto: 'reg.miss.manifesto',
+};
+
 const TYPE_LABEL_KEY: Record<RegType, string> = {
   patient: 'reg.typePatient',
   parent: 'reg.typeParent',
@@ -37,6 +58,10 @@ const TYPE_LABEL_KEY: Record<RegType, string> = {
   merchant: 'reg.typeMerchant',
   school: 'reg.typeSchool',
 };
+
+// Las casillas agrupadas pueden llegar como arreglo, como texto suelto o como
+// false; el esquema ya lo normaliza, esto deja el tipo claro en el envío.
+const soloLista = (v: unknown): string[] => (Array.isArray(v) ? (v as string[]) : typeof v === 'string' ? [v] : []);
 
 const numOrNull = (v: unknown) => (v === '' || v == null ? null : Number(v));
 
@@ -53,6 +78,8 @@ export function RegisterForm({ onSuccess, initialType, complete = false }: { onS
   const { signUp, completeProfile, fullName: authName } = useAuth();
   const { t } = useTranslation();
   const [formError, setFormError] = useState<string | null>(null);
+  const [faltantes, setFaltantes] = useState<string[]>([]);
+  const avisoRef = useRef<HTMLDivElement | null>(null);
   const [checkEmail, setCheckEmail] = useState(false);
 
   const {
@@ -77,8 +104,12 @@ export function RegisterForm({ onSuccess, initialType, complete = false }: { onS
             full_name: authName ?? '',
             email: 'social-login@neuromundi.app',
             confirm_email: 'social-login@neuromundi.app',
-            password: 'SocialLogin1',
-            confirm_password: 'SocialLogin1',
+            // OJO: este relleno TIENE que pasar la validación de fortaleza del
+            // propio esquema (minúscula, mayúscula, número y símbolo). Con
+            // 'SocialLogin1' fallaba, y como en este modo el campo no se
+            // dibuja, el registro se bloqueaba sin que se viera ningún error.
+            password: 'SocialLogin1!',
+            confirm_password: 'SocialLogin1!',
           }
         : {}),
     },
@@ -110,8 +141,34 @@ export function RegisterForm({ onSuccess, initialType, complete = false }: { onS
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isProvider]);
 
+  // Al enviar con datos incompletos, armar la lista de lo que falta con el
+  // nombre de cada campo y llevar el aviso a la vista: el formulario es largo
+  // y vive dentro de una ventana con su propio desplazamiento, así que un
+  // aviso arriba del todo quedaba fuera de pantalla y parecía que el botón no
+  // hacía nada.
+  const alEnviarIncompleto = (errs: FieldErrors<RegisterValues>) => {
+    setFormError(t('reg.missTitle'));
+    const vistos = new Set<string>();
+    const lista: string[] = [];
+    for (const clave of Object.keys(errs)) {
+      const raiz = clave.split('.')[0];
+      if (vistos.has(raiz)) continue;
+      vistos.add(raiz);
+      const etiqueta = ETIQUETA_CAMPO[raiz];
+      if (etiqueta) { lista.push(t(etiqueta)); continue; }
+      const msg = (errs as Record<string, { message?: unknown }>)[raiz]?.message;
+      lista.push(typeof msg === 'string' ? t(msg) : raiz);
+    }
+    setFaltantes(lista);
+  };
+
+  useEffect(() => {
+    if (faltantes.length > 0) avisoRef.current?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  }, [faltantes]);
+
   const onSubmit = async (values: RegisterValues) => {
     setFormError(null);
+    setFaltantes([]);
     setFounderOptoutFlag(!values.wants_founder); // registro ordinario si desmarcó Fundador
     const provider = values.regType === 'service_provider' || values.regType === 'merchant' || values.regType === 'school';
     const payload = {
@@ -136,13 +193,13 @@ export function RegisterForm({ onSuccess, initialType, complete = false }: { onS
       facebook: values.facebook || null,
       cedulaProfesional: values.cedula_profesional || null,
       rulesVersion: RULES_VERSION,
-      schoolGrades: values.regType === 'school' ? (values.school_grades ?? []) : [],
+      schoolGrades: values.regType === 'school' ? soloLista(values.school_grades) : [],
       accountType: (values.regType === 'patient' ? 'adulto_independiente' : values.regType === 'parent' ? 'padre_tutor' : null) as 'adulto_independiente' | 'padre_tutor' | null,
       lifeStage: values.regType === 'patient' ? (values.life_stage || null) : null,
-      interests: values.regType === 'patient' ? (values.interests ?? []) : [],
+      interests: values.regType === 'patient' ? soloLista(values.interests) : [],
       // Secciones de interés (paciente/familiar). Los prestadores las declaran en
       // sus formularios dedicados, así que aquí solo aplica a consumidores.
-      sections: (values.regType === 'patient' || values.regType === 'parent') ? (values.sections ?? []) : [],
+      sections: (values.regType === 'patient' || values.regType === 'parent') ? soloLista(values.sections) : [],
       commsOptIn: values.regType === 'patient' ? !!values.comms_opt_in : false,
       locations: provider ? (values.locations ?? []) : [],
     };
@@ -190,8 +247,8 @@ export function RegisterForm({ onSuccess, initialType, complete = false }: { onS
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit, () => setFormError(t('reg.missTitle')))} className="space-y-5" noValidate>
-      {formError && (
+    <form onSubmit={handleSubmit(onSubmit, alEnviarIncompleto)} className="space-y-5" noValidate>
+      {formError && faltantes.length === 0 && (
         <p role="alert" className="rounded-lg bg-red-50 p-3 text-sm text-evs-1">
           {formError}
         </p>
@@ -685,6 +742,18 @@ export function RegisterForm({ onSuccess, initialType, complete = false }: { onS
       {!acceptTerms && <p className={errCls}>• {t('reg.miss.terms')}</p>}
       {!acceptRules && <p className={errCls}>• {t('reg.miss.rules')}</p>}
       {!acceptManifesto && <p className={errCls}>• {t('reg.miss.manifesto')}</p>}
+
+      {faltantes.length > 0 && (
+        <div ref={avisoRef} role="alert" className="rounded-xl border border-red-200 bg-red-50 p-3">
+          <p className="text-sm font-semibold text-evs-1">{t('reg.missTitle')}</p>
+          <ul className="mt-1 list-disc pl-5 text-sm text-evs-1">
+            {faltantes.map((f, i) => (
+              <li key={`${i}-${f}`}>{f}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       <Button type="submit" loading={isSubmitting} fullWidth>
         {complete ? t('onb.finish') : t('auth.createAccount')}
       </Button>
