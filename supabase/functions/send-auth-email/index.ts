@@ -523,6 +523,36 @@ function escapeHtml(s: string): string {
 // Con "Secure Email Change" activo, Supabase pide confirmar el cambio DESDE LAS
 // DOS direcciones: la actual y la nueva. Este aviso se añade a los dos correos
 // para que la persona sepa que falta la otra mitad.
+// El correo que va a la direccion ACTUAL no pide confirmar un correo nuevo:
+// pide autorizar el cambio desde la direccion de siempre. Solo cambian el
+// asunto, el encabezado y la entrada; el resto del texto es el mismo.
+const AUTORIZA_TITULO: Record<string, string> = {
+  es: 'Autoriza el cambio de tu correo',
+  en: 'Authorize your email change',
+  pt: 'Autorize a alteração do seu e-mail',
+  fr: "Autorisez le changement de votre adresse",
+  de: 'Bestätigen Sie die Änderung Ihrer E-Mail',
+  it: 'Autorizza il cambio della tua e-mail',
+  ar: 'اعتمد تغيير بريدك',
+  he: 'אישור שינוי הדוא"ל שלך',
+  ja: 'メールアドレス変更の承認',
+  ko: '이메일 변경 승인',
+  zh: '授权更改你的邮箱',
+};
+const AUTORIZA_ENTRADA: Record<string, string> = {
+  es: 'Pediste cambiar el correo con el que entras a Neuromundi. Autorízalo desde esta dirección, la que usas hoy.',
+  en: 'You asked to change the email you use to sign in to Neuromundi. Authorize it from this address, the one you use today.',
+  pt: 'Você pediu para alterar o e-mail com o qual entra no Neuromundi. Autorize a partir deste endereço, o que você usa hoje.',
+  fr: "Vous avez demandé à changer l'adresse avec laquelle vous vous connectez à Neuromundi. Autorisez-le depuis cette adresse, celle que vous utilisez aujourd'hui.",
+  de: 'Sie haben darum gebeten, die E-Mail-Adresse zu ändern, mit der Sie sich bei Neuromundi anmelden. Bestätigen Sie es von dieser Adresse aus, der, die Sie heute verwenden.',
+  it: "Hai chiesto di cambiare l'e-mail con cui accedi a Neuromundi. Autorizzalo da questo indirizzo, quello che usi oggi.",
+  ar: 'طلبت تغيير البريد الذي تدخل به إلى Neuromundi. اعتمد التغيير من هذا العنوان، العنوان الذي تستخدمه اليوم.',
+  he: 'ביקשת לשנות את כתובת הדוא"ל שאיתה נכנסים ל-Neuromundi. אשר מהכתובת הזו, זו שבשימוש היום.',
+  ja: 'Neuromundi へのログインに使うメールアドレスの変更が申請されました。現在お使いのこのアドレスから承認してください。',
+  ko: 'Neuromundi 로그인에 사용하는 이메일 변경을 요청했습니다. 현재 사용 중인 이 주소에서 승인해 주세요.',
+  zh: '你申请更改用于登录 Neuromundi 的邮箱。请从这个你当前使用的地址授权此更改。',
+};
+
 const AVISO_DOBLE: Record<string, string> = {
   es: 'Por seguridad, el cambio sólo se aplica cuando se confirma desde las dos direcciones: la actual y la nueva. Revise los dos buzones.',
   en: 'For your security, the change only takes effect once it is confirmed from both addresses: the current one and the new one. Please check both inboxes.',
@@ -654,12 +684,12 @@ Deno.serve(async (req) => {
     // una sola llamada del hook y hay que mandar DOS correos, uno a cada
     // direccion. Si sólo viene una clave, es que la opcion esta apagada y basta
     // con el correo a la direccion nueva.
-    const destinos: { to: string; token: string }[] = [];
+    const destinos: { to: string; token: string; actual?: boolean }[] = [];
     if (action === 'email_change') {
       const nueva = String(data.user.new_email ?? '').trim();
       const claveActual = String(ed.token_hash_new ?? '').trim();
       if (nueva) destinos.push({ to: nueva, token: ed.token_hash });
-      if (claveActual) destinos.push({ to: data.user.email, token: claveActual });
+      if (claveActual) destinos.push({ to: data.user.email, token: claveActual, actual: true });
       if (!destinos.length) destinos.push({ to: data.user.email, token: ed.token_hash });
     } else {
       destinos.push({ to: data.user.email, token: ed.token_hash });
@@ -668,11 +698,15 @@ Deno.serve(async (req) => {
 
     for (const destino of destinos) {
       const link = enlaceDeVerificacion(destino.token);
-      const html = render(s, link, lang, showPay, avisoDoble);
+      const titulo = AUTORIZA_TITULO[lang] ?? AUTORIZA_TITULO.es;
+      const textos: Strings = destino.actual
+        ? { ...s, subject: `${titulo} · Neuromundi`, heading: titulo, intro: AUTORIZA_ENTRADA[lang] ?? AUTORIZA_ENTRADA.es }
+        : s;
+      const html = render(textos, link, lang, showPay, avisoDoble);
       const r = await fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: { Authorization: `Bearer ${RESEND_API_KEY}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ from: FROM, to: [destino.to], subject: s.subject, html }),
+        body: JSON.stringify({ from: FROM, to: [destino.to], subject: textos.subject, html }),
       });
       if (!r.ok) {
         const t = await r.text();
