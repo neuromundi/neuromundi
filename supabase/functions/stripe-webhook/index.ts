@@ -300,10 +300,14 @@ Deno.serve(async (req: Request) => {
               body: 'Recibimos tu pago. Tu perfil ya puede recibir consultas e interactuar con la comunidad.',
               data: { period: s.metadata?.period ?? 'annual', affiliate_type: affType },
             });
+            // Tipo PROPIO para el aviso al administrador: comparte el del
+            // miembro y los dos mensajes son distintos, asi que la pantalla
+            // no podia traducir ninguno de los dos (la traduccion va por tipo)
+            // y ambos se quedaban en el espanol guardado en la fila.
             await admin.rpc('notify_admins', {
-              p_type: 'membership_paid',
+              p_type: notifPeriod === 'mensual' ? 'membership_paid_admin_mensual' : 'membership_paid_admin_anual',
               p_title: 'Nueva membresía pagada',
-              p_body: `Un miembro activó su membresía (${notifPeriod}).`,
+              p_body: `Un miembro activó su membresía ${notifPeriod}.`,
               p_data: { user_id: userId, affiliate_type: affType, period: s.metadata?.period ?? 'annual' },
             });
           } catch (e) {

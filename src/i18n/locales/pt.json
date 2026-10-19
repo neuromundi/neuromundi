@@ -1258,7 +1258,7 @@
     "confirmBody": "Útil se você acha que alguém pode ter copiado seu código."
   },
   "admin": {
-    "title": "Moderação",
+    "title": "Administração",
     "typeService": "Especialista",
     "typeMerchant": "Fornecedor",
     "noType": "Sem tipo",
@@ -2154,6 +2154,18 @@
       "donation_thanks": {
         "title": "Obrigado pelo seu donativo",
         "body": "O seu contributo impulsiona a inclusão. Veja as suas recompensas no seu painel."
+      },
+      "membership_paid": {
+        "title": "A sua adesão está ativa!",
+        "body": "Recebemos o seu pagamento. O seu perfil já pode receber consultas e participar na comunidade."
+      },
+      "membership_paid_admin_anual": {
+        "title": "Nova adesão paga",
+        "body": "Um membro ativou a sua adesão anual."
+      },
+      "membership_paid_admin_mensual": {
+        "title": "Nova adesão paga",
+        "body": "Um membro ativou a sua adesão mensal."
       }
     }
   },

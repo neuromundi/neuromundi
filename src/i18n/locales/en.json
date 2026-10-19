@@ -1295,7 +1295,7 @@
     "confirmBody": "This is useful if you think someone may have copied your code."
   },
   "admin": {
-    "title": "Moderation",
+    "title": "Administration",
     "typeService": "Specialist",
     "typeMerchant": "Provider",
     "noType": "No type",
@@ -2191,6 +2191,18 @@
       "donation_thanks": {
         "title": "Thank you for your donation",
         "body": "Your contribution drives inclusion. Check your rewards in your dashboard."
+      },
+      "membership_paid": {
+        "title": "Your membership is active!",
+        "body": "We received your payment. Your profile can now receive enquiries and take part in the community."
+      },
+      "membership_paid_admin_anual": {
+        "title": "New membership paid",
+        "body": "A member activated their annual membership."
+      },
+      "membership_paid_admin_mensual": {
+        "title": "New membership paid",
+        "body": "A member activated their monthly membership."
       }
     }
   },

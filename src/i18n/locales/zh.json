@@ -1258,7 +1258,7 @@
     "confirmBody": "如果你担心有人复制了你的二维码，这很有用。"
   },
   "admin": {
-    "title": "审核",
+    "title": "管理",
     "typeService": "专业人员",
     "typeMerchant": "提供商",
     "noType": "无类型",
@@ -2154,6 +2154,18 @@
       "donation_thanks": {
         "title": "感谢您的捐赠",
         "body": "您的贡献推动共融。可在您的面板中查看回馈。"
+      },
+      "membership_paid": {
+        "title": "你的会员资格已启用",
+        "body": "我们已收到付款。你的资料现在可以接收咨询并参与社区。"
+      },
+      "membership_paid_admin_anual": {
+        "title": "新的付费会员",
+        "body": "一位会员启用了年度会员资格。"
+      },
+      "membership_paid_admin_mensual": {
+        "title": "新的付费会员",
+        "body": "一位会员启用了月度会员资格。"
       }
     }
   },

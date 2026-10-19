@@ -60,6 +60,7 @@ export function notifCategory(type: string): NotifCategory {
     type === 'commission_paid' ||
     type === 'donation_thanks' ||
     type === 'membership_paid' ||
+    type.startsWith('membership_paid_admin') ||
     type === 'pago_terapia' ||
     // Prefijo, no lista: la 0246 partió los avisos de exención en cuatro tipos
     // más (aprobada, aprobada_hasta, rechazada, rechazada_motivo) y con la
@@ -96,7 +97,7 @@ export function notifDestino(type: string, data?: unknown): string | null {
   if (type === 'badge' || type === 'muro_de_fundadores' || type === 'founder_wall') return '/fundadores';
   if (type === 'donor_wall' || type === 'donation_thanks') return '/donantes';
   if (type === 'referral_use' || type === 'referral_reward' || type === 'commission_paid') return '/panel';
-  if (type === 'membership_paid' || type === 'pago_terapia') return '/panel';
+  if (type === 'membership_paid' || type.startsWith('membership_paid_admin') || type === 'pago_terapia') return '/panel';
   if (type === 'exencion_solicitada' || type === 'exencion_resuelta' || type === 'exencion_por_vencer') return '/panel';
   if (type === 'founder_request' || type === 'founder_request_approved' || type === 'fundador_resolicita') return '/panel';
   if (type === 'empresa_limitada' || type === 'empresa_reactivada' || type === 'empresa_sin_directorio') return '/panel';
