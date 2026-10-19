@@ -6422,5 +6422,14 @@
       "muchosPaises": "Trop de pays.",
       "yaTiene": "Vous avez déjà une proposition en cours d’examen."
     }
+  },
+  "mailConfirm": {
+    "title": "Confirmation reçue",
+    "titleDone": "Adresse mise à jour",
+    "received": "Nous avons reçu votre confirmation.",
+    "pending": "Par sécurité, le changement d'adresse ne s'applique qu'après confirmation depuis les deux adresses : l'actuelle et la nouvelle. Vérifiez l'autre boîte de réception et ouvrez aussi ce lien.",
+    "done": "Votre adresse de connexion a été mise à jour. Connectez-vous désormais à Neuromundi avec la nouvelle adresse.",
+    "toSettings": "Aller à mes réglages",
+    "toHome": "Aller à l'accueil"
   }
 }

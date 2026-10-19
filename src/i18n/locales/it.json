@@ -6422,5 +6422,14 @@
       "muchosPaises": "Troppi paesi.",
       "yaTiene": "Ha già una proposta in revisione."
     }
+  },
+  "mailConfirm": {
+    "title": "Conferma ricevuta",
+    "titleDone": "E-mail aggiornata",
+    "received": "Abbiamo ricevuto la tua conferma.",
+    "pending": "Per sicurezza, la modifica dell'e-mail diventa effettiva solo quando viene confermata da entrambi gli indirizzi: quello attuale e quello nuovo. Controlla l'altra casella e apri anche quel link.",
+    "done": "La tua e-mail di accesso è stata aggiornata. Da ora accedi a Neuromundi con il nuovo indirizzo.",
+    "toSettings": "Vai alle mie impostazioni",
+    "toHome": "Vai alla home"
   }
 }

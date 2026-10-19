@@ -6422,5 +6422,14 @@
       "muchosPaises": "Too many countries.",
       "yaTiene": "You already have a proposal under review."
     }
+  },
+  "mailConfirm": {
+    "title": "Confirmation received",
+    "titleDone": "Email updated",
+    "received": "We got your confirmation.",
+    "pending": "For your security, the email change only takes effect once it is confirmed from both addresses: the current one and the new one. Check the other inbox and open that link too.",
+    "done": "Your sign-in email has been updated. From now on, sign in to Neuromundi with the new address.",
+    "toSettings": "Go to my settings",
+    "toHome": "Go to home"
   }
 }

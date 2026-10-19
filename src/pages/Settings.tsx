@@ -131,7 +131,13 @@ export function Settings() {
       toast.error(t('settings.mailSame')); return;
     }
     setCorreoBusy(true);
-    const { error } = await supabase.auth.updateUser({ email: destino });
+    const { error } = await supabase.auth.updateUser(
+      { email: destino },
+      // Los dos enlaces de confirmación llegan a una página que explica qué
+      // pasó y qué falta; antes dejaban a la persona en el inicio sin sesión
+      // y sin ningún mensaje.
+      { emailRedirectTo: `${window.location.origin}/correo-confirmado` },
+    );
     setCorreoBusy(false);
     if (error) { toast.error(error.message); return; }
     setCorreoPedido(true);

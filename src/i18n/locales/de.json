@@ -6422,5 +6422,14 @@
       "muchosPaises": "Zu viele Länder.",
       "yaTiene": "Sie haben bereits einen Vorschlag in Prüfung."
     }
+  },
+  "mailConfirm": {
+    "title": "Bestätigung erhalten",
+    "titleDone": "E-Mail aktualisiert",
+    "received": "Wir haben Ihre Bestätigung erhalten.",
+    "pending": "Aus Sicherheitsgründen wird die Änderung der E-Mail-Adresse erst wirksam, wenn sie von beiden Adressen bestätigt wird: der aktuellen und der neuen. Prüfen Sie das andere Postfach und öffnen Sie auch diesen Link.",
+    "done": "Ihre Anmelde-E-Mail wurde aktualisiert. Melden Sie sich ab jetzt mit der neuen Adresse bei Neuromundi an.",
+    "toSettings": "Zu meinen Einstellungen",
+    "toHome": "Zur Startseite"
   }
 }

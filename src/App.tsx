@@ -79,6 +79,7 @@ const Toolkit = lazy(() => import('@/pages/Toolkit').then((m) => ({ default: m.T
 const Blog = lazy(() => import('@/pages/Blog').then((m) => ({ default: m.Blog })));
 const Author = lazy(() => import('@/pages/Author').then((m) => ({ default: m.Author })));
 const Manifiesto = lazy(() => import('@/pages/Manifiesto').then((m) => ({ default: m.Manifiesto })));
+const CorreoConfirmado = lazy(() => import('@/pages/CorreoConfirmado').then((m) => ({ default: m.CorreoConfirmado })));
 const Donate = lazy(() => import('@/pages/Donate').then((m) => ({ default: m.Donate })));
 const DonorWall = lazy(() => import('@/pages/DonorWall').then((m) => ({ default: m.DonorWall })));
 const Allies = lazy(() => import('@/pages/Allies').then((m) => ({ default: m.Allies })));
@@ -133,6 +134,7 @@ const router = createBrowserRouter([
       { path: '/blog', element: <Blog /> },
       { path: '/autor/:id', element: <Author /> },
       { path: '/manifiesto', element: <Manifiesto /> },
+      { path: '/correo-confirmado', element: <CorreoConfirmado /> },
       { path: '/donar', element: <Donate /> },
       { path: '/donantes', element: <DonorWall /> },
       { path: '/aliados', element: <Allies /> },

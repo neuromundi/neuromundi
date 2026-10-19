@@ -6422,5 +6422,14 @@
       "muchosPaises": "Demasiados países.",
       "yaTiene": "Ya tiene una propuesta en revisión."
     }
+  },
+  "mailConfirm": {
+    "title": "Confirmación recibida",
+    "titleDone": "Correo actualizado",
+    "received": "Recibimos tu confirmación.",
+    "pending": "Por seguridad, el cambio de correo sólo se aplica cuando se confirma desde las dos direcciones: la actual y la nueva. Revisa el otro buzón y abre también ese enlace.",
+    "done": "Tu correo de acceso quedó actualizado. Desde ahora entra a Neuromundi con la dirección nueva.",
+    "toSettings": "Ir a mis ajustes",
+    "toHome": "Ir al inicio"
   }
 }
