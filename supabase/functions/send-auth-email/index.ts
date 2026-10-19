@@ -37,7 +37,7 @@ const SUPABASE_URL = Deno.env.get('SUPABASE_URL') ?? '';
 
 const RTL = new Set(['ar', 'he']);
 
-type Action = 'signup' | 'recovery' | 'generic';
+type Action = 'signup' | 'recovery' | 'email_change' | 'generic';
 
 interface Strings {
   subject: string;
@@ -50,7 +50,7 @@ interface Strings {
   pay: string; // solo se usa en signup para prestadores
 }
 
-// Textos por idioma. signup + recovery; el resto de acciones caen en 'generic'.
+// Textos por idioma. signup + recovery + email_change; el resto cae en 'generic'.
 const T: Record<string, Record<Action, Strings>> = {
   es: {
     signup: {
@@ -72,6 +72,16 @@ const T: Record<string, Record<Action, Strings>> = {
       fallback: 'Si el botón no funciona, copia y pega este enlace en tu navegador:',
       ignore: 'Si no solicitaste esto, ignora este correo; tu contraseña no cambiará.',
       footer: 'Mensaje automático de Neuromundi. Por favor no respondas a este correo.',
+    },
+    email_change: {
+      subject: "Confirma tu correo nuevo · Neuromundi",
+      heading: "Confirma tu correo nuevo",
+      intro: "Pediste cambiar el correo con el que entras a Neuromundi. Confírmalo desde esta dirección para que empiece a funcionar.",
+      button: "Confirmar el cambio",
+      pay: '',
+      fallback: "Si el botón no funciona, copia y pega este enlace en tu navegador:",
+      ignore: "Si no pediste este cambio, ignora este mensaje: tu correo actual sigue funcionando.",
+      footer: "Mensaje automático de Neuromundi. Por favor no respondas a este correo.",
     },
     generic: {
       subject: 'Confirma esta acción · Neuromundi',
@@ -105,6 +115,16 @@ const T: Record<string, Record<Action, Strings>> = {
       ignore: "If you didn't request this, ignore this email; your password won't change.",
       footer: "Automated message from Neuromundi. Please don't reply to this email.",
     },
+    email_change: {
+      subject: "Confirm your new email · Neuromundi",
+      heading: "Confirm your new email",
+      intro: "You asked to change the email you sign in to Neuromundi with. Confirm it from this address so it starts working.",
+      button: "Confirm the change",
+      pay: '',
+      fallback: "If the button does not work, copy and paste this link into your browser:",
+      ignore: "If you did not request this change, ignore this message: your current email keeps working.",
+      footer: "Automatic message from Neuromundi. Please do not reply to this email.",
+    },
     generic: {
       subject: 'Confirm this action · Neuromundi',
       heading: 'Confirmation required',
@@ -136,6 +156,16 @@ const T: Record<string, Record<Action, Strings>> = {
       fallback: 'Si le bouton ne fonctionne pas, copiez ce lien dans votre navigateur :',
       ignore: "Si vous n'êtes pas à l'origine de cette demande, ignorez cet e-mail ; votre mot de passe ne changera pas.",
       footer: 'Message automatique de Neuromundi. Merci de ne pas répondre.',
+    },
+    email_change: {
+      subject: "Confirmez votre nouvelle adresse · Neuromundi",
+      heading: "Confirmez votre nouvelle adresse",
+      intro: "Vous avez demandé à changer l’adresse avec laquelle vous vous connectez à Neuromundi. Confirmez depuis cette adresse pour qu’elle devienne active.",
+      button: "Confirmer le changement",
+      pay: '',
+      fallback: "Si le bouton ne fonctionne pas, copiez et collez ce lien dans votre navigateur :",
+      ignore: "Si vous n’avez pas demandé ce changement, ignorez ce message : votre adresse actuelle continue de fonctionner.",
+      footer: "Message automatique de Neuromundi. Merci de ne pas répondre à cet e-mail.",
     },
     generic: {
       subject: 'Confirmez cette action · Neuromundi',
@@ -169,6 +199,16 @@ const T: Record<string, Record<Action, Strings>> = {
       ignore: 'Wenn du das nicht angefordert hast, ignoriere diese E-Mail; dein Passwort bleibt unverändert.',
       footer: 'Automatische Nachricht von Neuromundi. Bitte nicht auf diese E-Mail antworten.',
     },
+    email_change: {
+      subject: "Bestätigen Sie Ihre neue E-Mail · Neuromundi",
+      heading: "Bestätigen Sie Ihre neue E-Mail",
+      intro: "Sie haben darum gebeten, die E-Mail-Adresse für Ihre Anmeldung bei Neuromundi zu ändern. Bestätigen Sie von dieser Adresse aus, damit sie gilt.",
+      button: "Änderung bestätigen",
+      pay: '',
+      fallback: "Wenn die Schaltfläche nicht funktioniert, kopieren Sie diesen Link in Ihren Browser:",
+      ignore: "Wenn Sie diese Änderung nicht angefordert haben, ignorieren Sie diese Nachricht: Ihre bisherige E-Mail gilt weiterhin.",
+      footer: "Automatische Nachricht von Neuromundi. Bitte antworten Sie nicht auf diese E-Mail.",
+    },
     generic: {
       subject: 'Bestätige diese Aktion · Neuromundi',
       heading: 'Bestätigung erforderlich',
@@ -200,6 +240,16 @@ const T: Record<string, Record<Action, Strings>> = {
       fallback: 'Se il pulsante non funziona, copia e incolla questo link nel browser:',
       ignore: "Se non hai richiesto questo, ignora l'email; la tua password non cambierà.",
       footer: 'Messaggio automatico di Neuromundi. Ti preghiamo di non rispondere.',
+    },
+    email_change: {
+      subject: "Conferma la tua nuova e-mail · Neuromundi",
+      heading: "Conferma la tua nuova e-mail",
+      intro: "Hai chiesto di cambiare l’e-mail con cui accedi a Neuromundi. Confermala da questo indirizzo perché entri in funzione.",
+      button: "Conferma la modifica",
+      pay: '',
+      fallback: "Se il pulsante non funziona, copia e incolla questo link nel browser:",
+      ignore: "Se non hai richiesto questa modifica, ignora il messaggio: la tua e-mail attuale continua a funzionare.",
+      footer: "Messaggio automatico di Neuromundi. Per favore non rispondere a questa e-mail.",
     },
     generic: {
       subject: 'Conferma questa azione · Neuromundi',
@@ -233,6 +283,16 @@ const T: Record<string, Record<Action, Strings>> = {
       ignore: 'Se você não solicitou isso, ignore este e-mail; sua senha não será alterada.',
       footer: 'Mensagem automática da Neuromundi. Por favor, não responda a este e-mail.',
     },
+    email_change: {
+      subject: "Confirme o seu novo e-mail · Neuromundi",
+      heading: "Confirme o seu novo e-mail",
+      intro: "Pediu para alterar o e-mail com que entra no Neuromundi. Confirme a partir deste endereço para que comece a funcionar.",
+      button: "Confirmar a alteração",
+      pay: '',
+      fallback: "Se o botão não funcionar, copie e cole esta ligação no seu navegador:",
+      ignore: "Se não pediu esta alteração, ignore esta mensagem: o seu e-mail atual continua a funcionar.",
+      footer: "Mensagem automática do Neuromundi. Por favor não responda a este e-mail.",
+    },
     generic: {
       subject: 'Confirme esta ação · Neuromundi',
       heading: 'Confirmação necessária',
@@ -264,6 +324,16 @@ const T: Record<string, Record<Action, Strings>> = {
       fallback: 'ボタンが機能しない場合は、このリンクをブラウザに貼り付けてください:',
       ignore: '心当たりがない場合はこのメールを無視してください。パスワードは変更されません。',
       footer: 'Neuromundi の自動送信メールです。返信はできません。',
+    },
+    email_change: {
+      subject: "新しいメールアドレスの確認 · Neuromundi",
+      heading: "新しいメールアドレスの確認",
+      intro: "Neuromundi のログインに使うメールアドレスの変更が申請されました。このアドレスから確認すると有効になります。",
+      button: "変更を確定する",
+      pay: '',
+      fallback: "ボタンが動作しない場合は、このリンクをブラウザーに貼り付けてください：",
+      ignore: "お心当たりがない場合は、このメールを無視してください。現在のアドレスはそのまま使えます。",
+      footer: "Neuromundi の自動送信メールです。このメールには返信しないでください。",
     },
     generic: {
       subject: '操作の確認 · Neuromundi',
@@ -297,6 +367,16 @@ const T: Record<string, Record<Action, Strings>> = {
       ignore: '如果这不是你发起的，请忽略此邮件；你的密码不会更改。',
       footer: 'Neuromundi 自动发送的邮件，请勿回复。',
     },
+    email_change: {
+      subject: "确认您的新邮箱 · Neuromundi",
+      heading: "确认您的新邮箱",
+      intro: "您申请更改登录 Neuromundi 所用的邮箱。请从此地址确认，更改才会生效。",
+      button: "确认更改",
+      pay: '',
+      fallback: "如果按钮无法使用，请将此链接复制到浏览器中打开：",
+      ignore: "如果这不是您本人申请的，请忽略本邮件：您当前的邮箱仍然有效。",
+      footer: "Neuromundi 自动发送的邮件，请勿回复。",
+    },
     generic: {
       subject: '确认此操作 · Neuromundi',
       heading: '需要确认',
@@ -328,6 +408,16 @@ const T: Record<string, Record<Action, Strings>> = {
       fallback: 'إذا لم يعمل الزر، انسخ هذا الرابط والصقه في متصفحك:',
       ignore: 'إذا لم تطلب ذلك، تجاهل هذه الرسالة؛ لن تتغيّر كلمة مرورك.',
       footer: 'رسالة تلقائية من Neuromundi. يرجى عدم الرد.',
+    },
+    email_change: {
+      subject: "أكّد بريدك الجديد · Neuromundi",
+      heading: "أكّد بريدك الجديد",
+      intro: "طلبتَ تغيير البريد الذي تدخل به إلى Neuromundi. أكّده من هذا العنوان ليبدأ العمل.",
+      button: "تأكيد التغيير",
+      pay: '',
+      fallback: "إذا لم يعمل الزر، انسخ هذا الرابط والصقه في متصفحك:",
+      ignore: "إن لم تطلب هذا التغيير فتجاهل الرسالة: بريدك الحالي ما زال يعمل.",
+      footer: "رسالة تلقائية من Neuromundi. الرجاء عدم الرد على هذا البريد.",
     },
     generic: {
       subject: 'أكّد هذا الإجراء · Neuromundi',
@@ -361,6 +451,16 @@ const T: Record<string, Record<Action, Strings>> = {
       ignore: 'אם לא ביקשת זאת, התעלם מהודעה זו; הסיסמה שלך לא תשתנה.',
       footer: 'הודעה אוטומטית מ-Neuromundi. אין להשיב להודעה זו.',
     },
+    email_change: {
+      subject: "אישור הדוא\"ל החדש · Neuromundi",
+      heading: "אישור הדוא\"ל החדש",
+      intro: "ביקשתם לשנות את כתובת הדוא\"ל שאיתה נכנסים ל-Neuromundi. אשרו מהכתובת הזו כדי שתיכנס לתוקף.",
+      button: "אישור השינוי",
+      pay: '',
+      fallback: "אם הכפתור לא עובד, העתיקו את הקישור לדפדפן:",
+      ignore: "אם לא ביקשתם את השינוי, התעלמו מההודעה: הכתובת הנוכחית ממשיכה לעבוד.",
+      footer: "הודעה אוטומטית מ-Neuromundi. נא לא להשיב למייל הזה.",
+    },
     generic: {
       subject: 'אישור פעולה זו · Neuromundi',
       heading: 'נדרש אישור',
@@ -393,6 +493,16 @@ const T: Record<string, Record<Action, Strings>> = {
       ignore: '요청하지 않았다면 이 메일을 무시하세요. 비밀번호는 변경되지 않습니다.',
       footer: 'Neuromundi에서 자동으로 보낸 메일입니다. 회신하지 마세요.',
     },
+    email_change: {
+      subject: "새 이메일 확인 · Neuromundi",
+      heading: "새 이메일 확인",
+      intro: "Neuromundi 로그인에 사용하는 이메일 변경이 요청되었습니다. 이 주소에서 확인하면 적용됩니다.",
+      button: "변경 확인",
+      pay: '',
+      fallback: "버튼이 작동하지 않으면 이 링크를 브라우저에 붙여 넣으세요:",
+      ignore: "요청하지 않으셨다면 이 메일을 무시하세요. 현재 이메일은 계속 사용됩니다.",
+      footer: "Neuromundi 자동 발송 메일입니다. 회신하지 마세요.",
+    },
     generic: {
       subject: '이 작업 확인 · Neuromundi',
       heading: '확인 필요',
@@ -413,6 +523,10 @@ function escapeHtml(s: string): string {
 function actionFor(t: string): Action {
   if (t === 'signup') return 'signup';
   if (t === 'recovery') return 'recovery';
+  // Supabase manda 'email_change' al pedirlo y 'email_change_current' /
+  // 'email_change_new' cuando se confirma por las dos direcciones. Los tres
+  // son el mismo asunto para quien lo lee.
+  if (t.startsWith('email_change')) return 'email_change';
   return 'generic';
 }
 
