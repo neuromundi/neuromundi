@@ -520,6 +520,23 @@ function escapeHtml(s: string): string {
   return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
+// Con "Secure Email Change" activo, Supabase pide confirmar el cambio DESDE LAS
+// DOS direcciones: la actual y la nueva. Este aviso se añade a los dos correos
+// para que la persona sepa que falta la otra mitad.
+const AVISO_DOBLE: Record<string, string> = {
+  es: 'Por seguridad, el cambio sólo se aplica cuando se confirma desde las dos direcciones: la actual y la nueva. Revise los dos buzones.',
+  en: 'For your security, the change only takes effect once it is confirmed from both addresses: the current one and the new one. Please check both inboxes.',
+  pt: 'Por segurança, a alteração só é aplicada quando for confirmada nos dois endereços: o atual e o novo. Verifique as duas caixas de entrada.',
+  fr: "Par sécurité, le changement ne s'applique qu'après confirmation depuis les deux adresses : l'actuelle et la nouvelle. Vérifiez les deux boîtes de réception.",
+  de: 'Aus Sicherheitsgründen wird die Änderung erst wirksam, wenn sie von beiden Adressen bestätigt wird: der aktuellen und der neuen. Prüfen Sie beide Postfächer.',
+  it: 'Per sicurezza, la modifica diventa effettiva solo quando viene confermata da entrambi gli indirizzi: quello attuale e quello nuovo. Controlli le due caselle.',
+  ar: 'لدواعي الأمان، لا يسري التغيير إلا بعد تأكيده من العنوانين: الحالي والجديد. يرجى مراجعة صندوقي البريد.',
+  he: 'מטעמי אבטחה, השינוי ייכנס לתוקף רק לאחר אישור משתי הכתובות: הנוכחית והחדשה. נא לבדוק את שתי תיבות הדואר.',
+  ja: '安全のため、この変更は現在のアドレスと新しいアドレスの両方で確認されたときにのみ適用されます。両方の受信箱をご確認ください。',
+  ko: '보안을 위해 이 변경은 현재 주소와 새 주소 양쪽에서 확인된 후에만 적용됩니다. 두 받은 편지함을 모두 확인해 주세요.',
+  zh: '为保障安全，仅当从当前地址和新地址两处都确认后，此更改才会生效。请查看两个收件箱。',
+};
+
 function actionFor(t: string): Action {
   if (t === 'signup') return 'signup';
   if (t === 'recovery') return 'recovery';
@@ -530,7 +547,7 @@ function actionFor(t: string): Action {
   return 'generic';
 }
 
-function render(s: Strings, link: string, lang: string, showPay: boolean): string {
+function render(s: Strings, link: string, lang: string, showPay: boolean, aviso = ''): string {
   const dir = RTL.has(lang) ? 'rtl' : 'ltr';
   const align = RTL.has(lang) ? 'right' : 'left';
   const payBlock =
@@ -539,6 +556,11 @@ function render(s: Strings, link: string, lang: string, showPay: boolean): strin
           s.pay,
         )}</p>`
       : '';
+  const avisoBlock = aviso
+    ? `<p style="margin:0 0 16px;font-size:14px;line-height:1.6;color:#334155;background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:12px 14px;">${escapeHtml(
+        aviso,
+      )}</p>`
+    : '';
   return `<!DOCTYPE html>
 <html lang="${lang}" dir="${dir}">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
@@ -551,6 +573,7 @@ function render(s: Strings, link: string, lang: string, showPay: boolean): strin
       <h1 style="margin:0 0 12px;font-size:22px;line-height:1.3;color:#0f172a;">${escapeHtml(s.heading)}</h1>
       <p style="margin:0 0 20px;font-size:15px;line-height:1.6;color:#334155;">${escapeHtml(s.intro)}</p>
       ${payBlock}
+      ${avisoBlock}
     </td></tr>
     <tr><td style="padding:4px 28px 20px;text-align:center;">
       <a href="${link}" style="display:inline-block;background:#0e7490;color:#ffffff;text-decoration:none;font-weight:700;font-size:16px;padding:14px 28px;border-radius:12px;">${escapeHtml(
@@ -578,9 +601,13 @@ Deno.serve(async (req) => {
   const headers = Object.fromEntries(req.headers);
 
   let data: {
-    user: { email: string; user_metadata?: Record<string, unknown> };
+    user: { email: string; new_email?: string; user_metadata?: Record<string, unknown> };
     email_data: {
       token_hash: string;
+      // OJO: los nombres vienen invertidos por compatibilidad de Supabase.
+      // token_hash      -> sirve para la direccion NUEVA (user.new_email)
+      // token_hash_new  -> sirve para la direccion ACTUAL (user.email)
+      token_hash_new?: string;
       redirect_to: string;
       email_action_type: string;
       site_url: string;
@@ -618,21 +645,40 @@ Deno.serve(async (req) => {
     // Host del proyecto Supabase (no el site_url). Fallback al site_url por si
     // SUPABASE_URL faltara, aunque siempre está presente en Edge Functions.
     const verifyHost = SUPABASE_URL || ed.site_url;
-    const link = `${verifyHost}/auth/v1/verify?token=${encodeURIComponent(
-      ed.token_hash,
-    )}&type=${encodeURIComponent(ed.email_action_type)}&redirect_to=${encodeURIComponent(ed.redirect_to)}`;
+    const enlaceDeVerificacion = (clave: string) =>
+      `${verifyHost}/auth/v1/verify?token=${encodeURIComponent(
+        clave,
+      )}&type=${encodeURIComponent(ed.email_action_type)}&redirect_to=${encodeURIComponent(ed.redirect_to)}`;
 
-    const html = render(s, link, lang, showPay);
+    // Un cambio de correo con "Secure Email Change" activo genera DOS claves en
+    // una sola llamada del hook y hay que mandar DOS correos, uno a cada
+    // direccion. Si sólo viene una clave, es que la opcion esta apagada y basta
+    // con el correo a la direccion nueva.
+    const destinos: { to: string; token: string }[] = [];
+    if (action === 'email_change') {
+      const nueva = String(data.user.new_email ?? '').trim();
+      const claveActual = String(ed.token_hash_new ?? '').trim();
+      if (nueva) destinos.push({ to: nueva, token: ed.token_hash });
+      if (claveActual) destinos.push({ to: data.user.email, token: claveActual });
+      if (!destinos.length) destinos.push({ to: data.user.email, token: ed.token_hash });
+    } else {
+      destinos.push({ to: data.user.email, token: ed.token_hash });
+    }
+    const avisoDoble = destinos.length > 1 ? AVISO_DOBLE[lang] ?? AVISO_DOBLE.es : '';
 
-    const r = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${RESEND_API_KEY}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ from: FROM, to: [data.user.email], subject: s.subject, html }),
-    });
-    if (!r.ok) {
-      const t = await r.text();
-      console.error('send-auth-email: Resend falló', r.status, t);
-      return new Response(JSON.stringify({ error: 'send failed' }), { status: 500 });
+    for (const destino of destinos) {
+      const link = enlaceDeVerificacion(destino.token);
+      const html = render(s, link, lang, showPay, avisoDoble);
+      const r = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${RESEND_API_KEY}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ from: FROM, to: [destino.to], subject: s.subject, html }),
+      });
+      if (!r.ok) {
+        const t = await r.text();
+        console.error('send-auth-email: Resend falló', r.status, t);
+        return new Response(JSON.stringify({ error: 'send failed' }), { status: 500 });
+      }
     }
     return new Response(JSON.stringify({ ok: true }), {
       status: 200,
