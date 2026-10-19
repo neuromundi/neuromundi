@@ -23,14 +23,45 @@ initTheme();
 const RELOAD_KEY = 'nm-last-reload';
 const RELOAD_COOLDOWN_MS = 15000;
 
+// Recargar mientras alguien escribe le borra lo que llevaba. Si hay un campo
+// con el foco o un formulario empezado, se espera: la recarga se hace en
+// cuanto suelte el campo, no en medio de la frase.
+function estaEscribiendo(): boolean {
+  const el = document.activeElement as HTMLElement | null;
+  if (el && /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName)) return true;
+  if (el?.isContentEditable) return true;
+  return [...document.querySelectorAll('form input, form textarea')].some((c) => {
+    const campo = c as HTMLInputElement | HTMLTextAreaElement;
+    if (campo.type === 'checkbox' || campo.type === 'radio') return (campo as HTMLInputElement).checked;
+    return (campo.value ?? '') !== '';
+  });
+}
+
+let recargaPendiente: string | null = null;
+
 function reloadOnce(reason: string): void {
   try {
     const last = Number(sessionStorage.getItem(RELOAD_KEY) ?? 0);
     if (Number.isFinite(last) && Date.now() - last < RELOAD_COOLDOWN_MS) return;
-    sessionStorage.setItem(RELOAD_KEY, String(Date.now()));
   } catch {
-    /* almacenamiento no disponible: recargamos igual, una vez */
+    /* almacenamiento no disponible: seguimos */
   }
+  if (estaEscribiendo()) {
+    if (!recargaPendiente) {
+      recargaPendiente = reason;
+      console.info('[pwa] recarga aplazada: hay datos escritos sin enviar');
+      const reintentar = () => {
+        if (!recargaPendiente || estaEscribiendo()) return;
+        const motivo = recargaPendiente;
+        recargaPendiente = null;
+        reloadOnce(motivo);
+      };
+      document.addEventListener('focusout', () => setTimeout(reintentar, 400));
+      window.addEventListener('pagehide', reintentar);
+    }
+    return;
+  }
+  try { sessionStorage.setItem(RELOAD_KEY, String(Date.now())); } catch { /* ignorar */ }
   console.info('[pwa] recargando:', reason);
   window.location.reload();
 }
@@ -51,14 +82,21 @@ if (!isReactSnap && 'serviceWorker' in navigator) {
     navigator.serviceWorker
       .register('/sw.js')
       .then((reg) => {
-        // Busca versión nueva al abrir, cada 30 min y al volver a la pestaña.
-        // Sin esto, una pestaña abierta muchas horas nunca se entera.
+        // Busca versión nueva al abrir y en cada señal de que la pestaña vuelve
+        // a estar en uso. Medido el 19 de octubre de 2026: una pestaña siguió
+        // ejecutando el programa de las 11:24 cuando el servidor ya tenía el de
+        // las 13:31, con tres despliegues en medio. Con el equipo dormido los
+        // temporizadores no corren y la pestaña puede seguir marcada como
+        // "visible", así que mirar solo cada media hora y al cambiar de pestaña
+        // no basta: se añaden el foco de la ventana y la vuelta de la red.
         const check = () => { void reg.update().catch(() => {}); };
         check();
-        setInterval(check, 30 * 60 * 1000);
+        setInterval(check, 5 * 60 * 1000);
         document.addEventListener('visibilitychange', () => {
           if (document.visibilityState === 'visible') check();
         });
+        window.addEventListener('focus', check);
+        window.addEventListener('online', check);
       })
       .catch(() => {
         /* entorno sin soporte/permiso de SW: ignorar sin romper la app */
