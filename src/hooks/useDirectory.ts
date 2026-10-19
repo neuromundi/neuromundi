@@ -33,6 +33,47 @@ const LABEL = new Map<string, string>([
 ]);
 const labelsOf = (arr?: string[] | null) => (arr ?? []).map((v) => LABEL.get(v) ?? v).join(' ');
 
+/**
+ * Cuántos identificadores caben en un `in.(...)` sin pasarse del largo máximo
+ * de URL que acepta el servidor.
+ *
+ * FALLA ENCONTRADA el 19 oct 2026 recorriendo /directorio en un navegador: con
+ * el directorio ya cargado, estas consultas mandaban los MIL identificadores en
+ * una sola URL de 37.000 caracteres y el servidor respondía 400. El resultado
+ * no era una pantalla rota —las fichas se pintaban igual— sino algo peor: todas
+ * salían SIN su calificación, SIN sus distintivos y SIN sus categorías, en
+ * silencio, porque el error se descartaba con `?? []`. Y sólo aparecía al
+ * crecer: con pocos perfiles la URL es corta y todo parecía bien.
+ *
+ * Un identificador ocupa 37 caracteres con su coma, así que 200 por tanda deja
+ * la URL en unos 7.500 caracteres, muy por debajo del límite.
+ */
+const POR_TANDA = 200;
+
+/** Parte una lista larga en tandas del tamaño de arriba. */
+function enTandas<T>(items: T[], tam = POR_TANDA): T[][] {
+  const out: T[][] = [];
+  for (let i = 0; i < items.length; i += tam) out.push(items.slice(i, i + tam));
+  return out;
+}
+
+/**
+ * Consulta una tabla por `provider_id` en tandas y junta las filas.
+ *
+ * Si CUALQUIER tanda falla, lanza. Antes el error se descartaba y la pantalla
+ * mostraba fichas incompletas como si estuvieran completas; es preferible que
+ * el directorio avise a que mienta. (Mismo criterio del hallazgo A-12.)
+ */
+async function porTandas<T>(
+  consulta: (tanda: string[]) => PromiseLike<{ data: T[] | null; error: { message: string } | null }>,
+  ids: string[],
+): Promise<T[]> {
+  const partes = await Promise.all(enTandas(ids).map((tanda) => consulta(tanda)));
+  const fallo = partes.find((r) => r.error);
+  if (fallo?.error) throw fallo.error;
+  return partes.flatMap((r) => r.data ?? []);
+}
+
 export interface DirectoryFilters {
   /** Texto libre (nombre, profesión, especialidad, producto…). */
   query?: string;
@@ -109,11 +150,14 @@ export function useDirectory(filters: DirectoryFilters): UseDirectoryValue {
       }
 
       // 2) EVS + 3) categorías + 4) fundadores, en paralelo.
-      const [ratingsRes, pcRes, catsRes, badgeRes, founderRes, donorRes, typeBadgeRes] = await Promise.all([
-        supabase.from('public_provider_ratings').select('*').in('provider_id', ids),
-        supabase.from('provider_categories').select('*').in('provider_id', ids),
+      // Las tres consultas por identificador van EN TANDAS: con el directorio
+      // completo, mandarlas de una sola vez genera una URL que el servidor
+      // rechaza (ver POR_TANDA arriba).
+      const [ratingsRows, pcRows, catsRes, badgeRows, founderRes, donorRes, typeBadgeRes] = await Promise.all([
+        porTandas((t) => supabase.from('public_provider_ratings').select('*').in('provider_id', t), ids),
+        porTandas((t) => supabase.from('provider_categories').select('*').in('provider_id', t), ids),
         supabase.from('categories').select('*'),
-        supabase.from('provider_badge_inputs').select('*').in('provider_id', ids),
+        porTandas((t) => supabase.from('provider_badge_inputs').select('*').in('provider_id', t), ids),
         supabase.rpc('founder_provider_ids'),
         supabase.rpc('donor_provider_ids'),
         supabase.rpc('type_badge_providers'),
@@ -126,17 +170,17 @@ export function useDirectory(filters: DirectoryFilters): UseDirectoryValue {
       );
 
       const badgeMap = new Map<string, BadgeResult>(
-        (badgeRes.data ?? []).filter((r) => r.provider_id).map((r) => [r.provider_id as string, computeBadge(inputsFromRow(r))]),
+        badgeRows.filter((r) => r.provider_id).map((r) => [r.provider_id as string, computeBadge(inputsFromRow(r))]),
       );
 
       const ratingMap = new Map<string, ProviderRating>(
-        (ratingsRes.data ?? [])
+        ratingsRows
           .filter((r): r is ProviderRating & { provider_id: string } => !!r.provider_id)
           .map((r) => [r.provider_id, r]),
       );
       const catMap = new Map<number, Category>((catsRes.data ?? []).map((c) => [c.id, c]));
       const byProvider = new Map<string, Category[]>();
-      for (const pc of pcRes.data ?? []) {
+      for (const pc of pcRows) {
         const cat = catMap.get(pc.category_id);
         if (!cat) continue;
         const arr = byProvider.get(pc.provider_id) ?? [];

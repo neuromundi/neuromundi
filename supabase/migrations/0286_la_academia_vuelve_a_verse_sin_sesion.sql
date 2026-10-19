@@ -1,0 +1,14 @@
+-- REGRESIÓN introducida por la migración 0283, encontrada el 19 oct 2026 al
+-- recorrer la plataforma en un navegador: /academy devolvía 401 a todo
+-- visitante sin sesión y el catálogo quedaba vacío.
+--
+-- Causa: al reconstruir courses_public para publicar el área del curso, le puse
+-- `security_invoker = true`, que hace que la vista se ejecute con los permisos
+-- de quien la consulta. La vista lee profiles para sacar el país del autor, y
+-- un visitante anónimo no puede leer profiles, así que la consulta entera se
+-- rechazaba. Antes de 0283 la vista NO tenía esa opción.
+--
+-- Se devuelve al comportamiento anterior. No se amplía nada: la vista expone
+-- las mismas columnas de siempre más `sections`, y ninguna de profiles salvo
+-- el país del autor, que ya salía antes como `effective_country`.
+alter view public.courses_public set (security_invoker = false);
