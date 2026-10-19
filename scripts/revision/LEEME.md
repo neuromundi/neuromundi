@@ -36,9 +36,16 @@ idiomas a los que les faltan claves, y traducciones que quedaron en español en
 idiomas de otro alfabeto. Ignora marcas, nombres propios y cadenas que sólo
 llevan huecos de sustitución, porque ésas son iguales a propósito.
 
+**revisar-formularios.mjs** — campos que el esquema exige y el formulario
+nunca dibuja ni rellena, y campos que dibuja y el esquema no conoce. Es la
+firma exacta del defecto que bloqueó el alta social. Cuando los valores
+iniciales llegan desde otro módulo no puede verlos: lo dice en vez de callarlo,
+y esos casos se cubren con una prueba automática.
+
 **revisar-pantallas.mjs** — abre la plataforma en un navegador real y recorre
-las pantallas públicas anotando errores de consola, peticiones fallidas,
-pantallas en blanco y claves de texto crudas.
+30 pantallas públicas anotando errores de consola, peticiones fallidas,
+pantallas en blanco y claves de texto crudas. Con `--url` se apunta a una copia
+local; con la variable `NAVEGADOR` se indica dónde está Chromium.
 
 ## El vigía que corre solo
 

@@ -1,0 +1,89 @@
+#!/usr/bin/env node
+/**
+ * revisar-pantallas.mjs — AUDITOR 3 (parte viva): recorre la plataforma en un
+ * navegador real y anota lo que falla de verdad al cargar cada pantalla.
+ *
+ * Qué marca, y sólo eso:
+ *   - errores de JavaScript en la consola (una pantalla que se cae)
+ *   - peticiones con respuesta 4xx o 5xx
+ *   - pantallas practicamente vacias (menos de 400 caracteres de texto)
+ *   - claves de texto crudas visibles ("metrics.new7d" en vez de su texto)
+ *
+ * Uso:
+ *   node scripts/revision/revisar-pantallas.mjs
+ *   node scripts/revision/revisar-pantallas.mjs --url http://localhost:4173
+ *
+ * Necesita Playwright instalado (npm i -D playwright && npx playwright install chromium).
+ * Recorre solo pantallas PUBLICAS: las privadas necesitan sesion y se revisan
+ * aparte, con una cuenta de prueba de cada tipo.
+ */
+const args = process.argv.slice(2);
+const base = (args[args.indexOf('--url') + 1] || '').startsWith('http')
+  ? args[args.indexOf('--url') + 1]
+  : 'https://www.neuromundi.com';
+
+let chromium;
+try { ({ chromium } = await import('playwright')); }
+catch {
+  console.log('Falta Playwright. Instalalo con: npm i -D playwright && npx playwright install chromium');
+  process.exit(2);
+}
+
+const RUTAS = [
+  '/', '/directorio', '/buscar', '/tienda', '/eventos', '/blog', '/academy',
+  '/kit', '/inclusion-escolar', '/inclusion-laboral', '/red', '/tribu',
+  '/aliados', '/fundadores', '/donantes', '/donar', '/beneficios',
+  '/conocer-mas', '/manifiesto', '/reglamento', '/encuesta', '/verificados',
+  '/proteccion-datos', '/privacidad', '/terminos', '/soporte',
+  '/pregunta-al-experto', '/crear-cuenta', '/entrar', '/correo-confirmado',
+];
+
+// Una clave cruda se reconoce porque es palabra.palabra sin espacios ni acentos.
+const CLAVE_CRUDA = /\b[a-z][a-zA-Z0-9]{2,}\.[a-z][a-zA-Z0-9]{2,}(\.[a-zA-Z0-9]+)*\b/g;
+const PERMITIDO = /(www\.|\.com|\.org|\.mx|\.net|\.co|@|\.png|\.jpg|\.svg|\.js|\.css)/;
+
+// En entornos donde Chromium vive fuera del sitio habitual, se indica con la
+// variable NAVEGADOR (ruta al ejecutable).
+const navegador = await chromium.launch(
+  process.env.NAVEGADOR ? { executablePath: process.env.NAVEGADOR } : {},
+);
+const hallazgos = [];
+
+for (const ruta of RUTAS) {
+  const ctx = await navegador.newContext({ locale: 'es-MX' });
+  const pag = await ctx.newPage();
+  const errores = [];
+  const fallos = [];
+  pag.on('console', (m) => { if (m.type() === 'error') errores.push(m.text().slice(0, 160)); });
+  pag.on('response', (r) => {
+    const s = r.status();
+    if (s >= 400 && !r.url().includes('/rest/v1/rpc/')) fallos.push(`${s} ${r.url().slice(0, 110)}`);
+  });
+
+  try {
+    await pag.goto(base + ruta, { waitUntil: 'networkidle', timeout: 30000 });
+    await pag.waitForTimeout(1200);
+    const texto = await pag.innerText('body');
+
+    if (texto.trim().length < 400) hallazgos.push(`${ruta}  pantalla casi vacia (${texto.trim().length} caracteres)`);
+
+    const crudas = [...new Set((texto.match(CLAVE_CRUDA) || []).filter((c) => !PERMITIDO.test(c)))];
+    if (crudas.length) hallazgos.push(`${ruta}  textos sin traducir a la vista: ${crudas.slice(0, 5).join(', ')}`);
+
+    for (const e of [...new Set(errores)]) hallazgos.push(`${ruta}  error de consola: ${e}`);
+    for (const f of [...new Set(fallos)]) hallazgos.push(`${ruta}  peticion fallida: ${f}`);
+  } catch (e) {
+    hallazgos.push(`${ruta}  no cargo: ${String(e).slice(0, 120)}`);
+  }
+  await ctx.close();
+}
+
+await navegador.close();
+
+if (hallazgos.length === 0) {
+  console.log(`Revision de pantallas (${RUTAS.length} rutas en ${base}): sin hallazgos.`);
+  process.exit(0);
+}
+console.log(`Revision de pantallas (${RUTAS.length} rutas en ${base}): ${hallazgos.length} hallazgo(s).\n`);
+for (const h of hallazgos) console.log('  ' + h);
+process.exit(1);

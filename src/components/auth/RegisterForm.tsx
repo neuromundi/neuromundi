@@ -22,6 +22,7 @@ import { supabase } from '@/lib/supabase';
 import { registerSchema, REG_TYPES, type RegisterValues, type RegType } from '@/lib/schemas';
 import { RULES_VERSION } from '@/lib/legal';
 import { setFounderOptoutFlag } from '@/lib/founderPref';
+import { RELLENO_LOGIN_SOCIAL } from '@/lib/registroSocial';
 import { DIAL_CODES, DEFAULT_DIAL } from '@/data/dialCodes';
 import { cn } from '@/lib/utils';
 
@@ -100,17 +101,7 @@ export function RegisterForm({ onSuccess, initialType, complete = false }: { onS
       accept_manifesto: false,
       wants_founder: true,
       ...(complete
-        ? {
-            full_name: authName ?? '',
-            email: 'social-login@neuromundi.app',
-            confirm_email: 'social-login@neuromundi.app',
-            // OJO: este relleno TIENE que pasar la validación de fortaleza del
-            // propio esquema (minúscula, mayúscula, número y símbolo). Con
-            // 'SocialLogin1' fallaba, y como en este modo el campo no se
-            // dibuja, el registro se bloqueaba sin que se viera ningún error.
-            password: 'SocialLogin1!',
-            confirm_password: 'SocialLogin1!',
-          }
+        ? { full_name: authName ?? '', ...RELLENO_LOGIN_SOCIAL }
         : {}),
     },
   });
