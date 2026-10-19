@@ -1489,7 +1489,8 @@
     "secComisiones": "Comisiones",
     "secExperto": "שאלו מומחה",
     "secEventos": "אירועים",
-    "secAliados": "שותפים"
+    "secAliados": "שותפים",
+    "secContenido": "מאמרים"
   },
   "reg": {
     "typePatient": "מטופל/ת",
@@ -1965,7 +1966,28 @@
     "external": "קישור חיצוני",
     "fTopic": "נושא (טקסונומיית בלוג)",
     "fCover": "כתובת תמונת שער (אופציונלי)",
-    "fExcerpt": "תקציר קצר (אופציונלי)"
+    "fExcerpt": "תקציר קצר (אופציונלי)",
+    "rev": {
+      "pendiente": "בבדיקה",
+      "aprobado": "אושר",
+      "rechazado": "לא פורסם"
+    },
+    "sendToReview": "שליחה לבדיקה",
+    "sentToReview": "המאמר שלך בבדיקה.",
+    "reviewNotice": "מנהל בודק אותו לפני הפרסום. כל עוד הוא בבדיקה אפשר לתקן או למחוק אותו.",
+    "admin": {
+      "pendiente": "בבדיקה",
+      "aprobado": "פורסמו",
+      "rechazado": "לא פורסמו",
+      "todas": "הכול",
+      "empty": "אין מאמרים במצב הזה.",
+      "anon": "חבר",
+      "socio": "חבר {{n}}",
+      "notaPlaceholder": "הערה לכותב (לא חובה)",
+      "aprobar": "לאשר ולפרסם",
+      "rechazar": "לא לפרסם",
+      "hecho": "בוצע"
+    }
   },
   "search": {
     "title": "חיפוש",

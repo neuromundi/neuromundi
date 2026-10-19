@@ -1,7 +1,13 @@
 /**
- * ContentManager — el prestador crea blogs (artículos en la app) o enlaces a
- * reels/redes (se abren en pestaña nueva), con palabras clave para el buscador.
- * Puede publicar/despublicar y eliminar.
+ * ContentManager — el miembro propone artículos del blog o enlaces a
+ * reels/redes, con palabras clave para el buscador.
+ *
+ * Desde el 19 de octubre de 2026 el artículo NO sale solo: pasa por revisión
+ * del administrador, igual que un evento. Antes se publicaba en el momento, sin
+ * que nadie lo viera antes. Aquí se muestra en qué estado está y, si fue
+ * rechazado, la nota de por qué. Sólo lo ya aprobado se puede ocultar o volver
+ * a mostrar; corregir el texto de un artículo aprobado lo devuelve a revisión
+ * (lo hace la base, no esta pantalla).
  */
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -13,6 +19,13 @@ import { useCatLabel } from '@/lib/catLabel';
 import { SectionPicker } from '@/components/common/SectionPicker';
 
 const input = 'w-full rounded-lg border border-slate-200 p-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500';
+
+/** Color del estado de revisión. Un estado desconocido no rompe nada. */
+const ESTADO_CLS: Record<string, string> = {
+  pendiente: 'text-warm-700',
+  aprobado: 'text-evs-5',
+  rechazado: 'text-evs-1',
+};
 
 export function ContentManager() {
   const { t } = useTranslation();
@@ -53,7 +66,7 @@ export function ContentManager() {
       sections: secs,
     });
     setBusy(false);
-    if (res.ok) { toast.success(t('content.created')); reset(); setOpen(false); }
+    if (res.ok) { toast.success(t('content.sentToReview')); reset(); setOpen(false); }
     else toast.error(res.error);
   };
 
@@ -95,7 +108,8 @@ export function ContentManager() {
           )}
           <input className={input} placeholder={t('content.fKeywords')} value={keywords} onChange={(e) => setKeywords(e.target.value)} />
           <SectionPicker value={secs} onChange={setSecs} />
-          <Button fullWidth loading={busy} onClick={onCreate}>{t('content.publish')}</Button>
+          <p className="text-xs text-muted">{t('content.reviewNotice')}</p>
+          <Button fullWidth loading={busy} onClick={onCreate}>{t('content.sendToReview')}</Button>
         </div>
       )}
 
@@ -104,20 +118,27 @@ export function ContentManager() {
       ) : (
         <ul className="space-y-2">
           {posts.map((p) => (
-            <li key={p.id} className="flex items-center gap-2 rounded-xl border border-slate-100 bg-white p-3 text-sm shadow-sm">
+            <li key={p.id} className="flex items-start gap-2 rounded-xl border border-slate-100 bg-white p-3 text-sm shadow-sm">
               <div className="min-w-0 flex-1">
                 <p className="truncate font-medium text-slate-900">
                   {p.title} {p.type === 'link' && <ExternalLink className="inline h-3.5 w-3.5 text-muted" />}
                 </p>
-                <span className={`text-xs ${p.is_published ? 'text-evs-5' : 'text-muted'}`}>
-                  {t(p.is_published ? 'content.published' : 'content.draft')}
+                <span className={`text-xs ${ESTADO_CLS[p.revision] ?? 'text-muted'}`}>
+                  {t(`content.rev.${p.revision}`, { defaultValue: p.revision })}
+                  {p.revision === 'aprobado' && ` · ${t(p.is_published ? 'content.published' : 'content.draft')}`}
                 </span>
+                {p.revision === 'rechazado' && p.nota_admin && (
+                  <p className="mt-1 rounded-lg bg-slate-50 px-2 py-1 text-xs text-slate-700">{p.nota_admin}</p>
+                )}
               </div>
-              <button type="button" title={t(p.is_published ? 'content.unpublish' : 'content.publish')}
-                onClick={async () => { const r = await togglePublish(p.id, !p.is_published); if (!r.ok) toast.error(r.error); }}
-                className="text-slate-500 hover:text-brand-700">
-                {p.is_published ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-              </button>
+              {/* Ocultar o volver a mostrar sólo tiene sentido en lo ya aprobado. */}
+              {p.revision === 'aprobado' && (
+                <button type="button" title={t(p.is_published ? 'content.unpublish' : 'content.publish')}
+                  onClick={async () => { const r = await togglePublish(p.id, !p.is_published); if (!r.ok) toast.error(r.error); }}
+                  className="text-slate-500 hover:text-brand-700">
+                  {p.is_published ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                </button>
+              )}
               <button type="button" title={t('content.delete')}
                 onClick={async () => { if (!(await confirmDialog({ title: t('content.delete'), message: t('content.confirmDelete'), danger: true }))) return; const r = await remove(p.id); if (!r.ok) toast.error(r.error); }}
                 className="text-evs-1 hover:opacity-80">

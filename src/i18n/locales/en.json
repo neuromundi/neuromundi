@@ -1489,7 +1489,8 @@
     "secComisiones": "Commissions",
     "secExperto": "Ask an expert",
     "secEventos": "Events",
-    "secAliados": "Allies"
+    "secAliados": "Allies",
+    "secContenido": "Articles"
   },
   "reg": {
     "typePatient": "Patient",
@@ -1965,7 +1966,28 @@
     "external": "External link",
     "fTopic": "Topic (blog taxonomy)",
     "fCover": "Cover image URL (optional)",
-    "fExcerpt": "Short excerpt (optional)"
+    "fExcerpt": "Short excerpt (optional)",
+    "rev": {
+      "pendiente": "Under review",
+      "aprobado": "Approved",
+      "rechazado": "Not published"
+    },
+    "sendToReview": "Send for review",
+    "sentToReview": "Your article is under review.",
+    "reviewNotice": "An administrator reviews it before publishing. While it is under review you can correct or delete it.",
+    "admin": {
+      "pendiente": "Under review",
+      "aprobado": "Published",
+      "rechazado": "Not published",
+      "todas": "All",
+      "empty": "No articles in this state.",
+      "anon": "Member",
+      "socio": "member {{n}}",
+      "notaPlaceholder": "Note for the author (optional)",
+      "aprobar": "Approve and publish",
+      "rechazar": "Do not publish",
+      "hecho": "Done"
+    }
   },
   "search": {
     "title": "Search",

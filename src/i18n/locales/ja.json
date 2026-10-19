@@ -1452,7 +1452,8 @@
     "secComisiones": "Comisiones",
     "secExperto": "専門家に質問",
     "secEventos": "イベント",
-    "secAliados": "パートナー"
+    "secAliados": "パートナー",
+    "secContenido": "記事"
   },
   "reg": {
     "typePatient": "患者",
@@ -1928,7 +1929,28 @@
     "external": "外部リンク",
     "fCover": "カバー画像のURL（任意）",
     "fExcerpt": "短い抜粋（任意）",
-    "fTopic": "トピック（ブログ分類）"
+    "fTopic": "トピック（ブログ分類）",
+    "rev": {
+      "pendiente": "確認中",
+      "aprobado": "承認済み",
+      "rechazado": "未掲載"
+    },
+    "sendToReview": "確認を依頼する",
+    "sentToReview": "記事を確認中にしました。",
+    "reviewNotice": "掲載前に管理者が確認します。確認中のあいだは修正も削除もできます。",
+    "admin": {
+      "pendiente": "確認中",
+      "aprobado": "掲載済み",
+      "rechazado": "未掲載",
+      "todas": "すべて",
+      "empty": "この状態の記事はありません。",
+      "anon": "メンバー",
+      "socio": "会員 {{n}}",
+      "notaPlaceholder": "執筆者へのメモ（任意）",
+      "aprobar": "承認して掲載",
+      "rechazar": "掲載しない",
+      "hecho": "完了"
+    }
   },
   "search": {
     "title": "検索",

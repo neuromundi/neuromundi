@@ -1489,7 +1489,8 @@
     "secComisiones": "Comisiones",
     "secExperto": "اسأل خبيرًا",
     "secEventos": "الفعاليات",
-    "secAliados": "الحلفاء"
+    "secAliados": "الحلفاء",
+    "secContenido": "المقالات"
   },
   "reg": {
     "typePatient": "مريض",
@@ -1965,7 +1966,28 @@
     "external": "رابط خارجي",
     "fTopic": "الموضوع (تصنيف المدونة)",
     "fCover": "رابط صورة الغلاف (اختياري)",
-    "fExcerpt": "مقتطف قصير (اختياري)"
+    "fExcerpt": "مقتطف قصير (اختياري)",
+    "rev": {
+      "pendiente": "قيد المراجعة",
+      "aprobado": "معتمد",
+      "rechazado": "غير منشور"
+    },
+    "sendToReview": "إرسال للمراجعة",
+    "sentToReview": "مقالك الآن قيد المراجعة.",
+    "reviewNotice": "تراجعه الإدارة قبل نشره. وما دام قيد المراجعة يمكنك تصحيحه أو حذفه.",
+    "admin": {
+      "pendiente": "قيد المراجعة",
+      "aprobado": "منشورة",
+      "rechazado": "غير منشورة",
+      "todas": "الكل",
+      "empty": "لا توجد مقالات في هذه الحالة.",
+      "anon": "عضو",
+      "socio": "العضو {{n}}",
+      "notaPlaceholder": "ملاحظة للكاتب (اختياري)",
+      "aprobar": "اعتماد ونشر",
+      "rechazar": "عدم النشر",
+      "hecho": "تم"
+    }
   },
   "search": {
     "title": "بحث",

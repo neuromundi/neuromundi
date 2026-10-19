@@ -1452,7 +1452,8 @@
     "secComisiones": "Comisiones",
     "secExperto": "Expertin oder Experten fragen",
     "secEventos": "Veranstaltungen",
-    "secAliados": "Partner"
+    "secAliados": "Partner",
+    "secContenido": "Beiträge"
   },
   "reg": {
     "typePatient": "Patient",
@@ -1928,7 +1929,28 @@
     "external": "Externer Link",
     "fCover": "Cover-Bild-URL (optional)",
     "fExcerpt": "Kurzer Auszug (optional)",
-    "fTopic": "Thema (Blog-Taxonomie)"
+    "fTopic": "Thema (Blog-Taxonomie)",
+    "rev": {
+      "pendiente": "In Prüfung",
+      "aprobado": "Freigegeben",
+      "rechazado": "Nicht veröffentlicht"
+    },
+    "sendToReview": "Zur Prüfung senden",
+    "sentToReview": "Ihr Beitrag ist in Prüfung.",
+    "reviewNotice": "Die Verwaltung prüft ihn vor der Veröffentlichung. Solange er in Prüfung ist, können Sie ihn ändern oder löschen.",
+    "admin": {
+      "pendiente": "In Prüfung",
+      "aprobado": "Veröffentlicht",
+      "rechazado": "Nicht veröffentlicht",
+      "todas": "Alle",
+      "empty": "Keine Beiträge in diesem Zustand.",
+      "anon": "Mitglied",
+      "socio": "Mitglied {{n}}",
+      "notaPlaceholder": "Hinweis für die verfassende Person (optional)",
+      "aprobar": "Freigeben und veröffentlichen",
+      "rechazar": "Nicht veröffentlichen",
+      "hecho": "Fertig"
+    }
   },
   "search": {
     "title": "Suche",

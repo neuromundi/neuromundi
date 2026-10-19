@@ -1452,7 +1452,8 @@
     "secComisiones": "Comisiones",
     "secExperto": "Demander à un expert",
     "secEventos": "Événements",
-    "secAliados": "Alliés"
+    "secAliados": "Alliés",
+    "secContenido": "Articles"
   },
   "reg": {
     "typePatient": "Patient",
@@ -1928,7 +1929,28 @@
     "external": "Lien externe",
     "fCover": "URL de l’image de couverture (facultatif)",
     "fExcerpt": "Court extrait (facultatif)",
-    "fTopic": "Thème (taxonomie du blog)"
+    "fTopic": "Thème (taxonomie du blog)",
+    "rev": {
+      "pendiente": "En cours d’examen",
+      "aprobado": "Approuvé",
+      "rechazado": "Non publié"
+    },
+    "sendToReview": "Envoyer pour examen",
+    "sentToReview": "Votre article est en cours d’examen.",
+    "reviewNotice": "L’administrateur l’examine avant publication. Tant qu’il est en examen, vous pouvez le corriger ou le supprimer.",
+    "admin": {
+      "pendiente": "En cours d’examen",
+      "aprobado": "Publiés",
+      "rechazado": "Non publiés",
+      "todas": "Tous",
+      "empty": "Aucun article dans cet état.",
+      "anon": "Membre",
+      "socio": "membre {{n}}",
+      "notaPlaceholder": "Note pour l’auteur (facultatif)",
+      "aprobar": "Approuver et publier",
+      "rechazar": "Ne pas publier",
+      "hecho": "Terminé"
+    }
   },
   "search": {
     "title": "Rechercher",

@@ -1489,7 +1489,8 @@
     "secComisiones": "Comisiones",
     "secExperto": "Pregunta al experto",
     "secEventos": "Eventos",
-    "secAliados": "Aliados"
+    "secAliados": "Aliados",
+    "secContenido": "Artículos"
   },
   "reg": {
     "typePatient": "Paciente",
@@ -1965,7 +1966,28 @@
     "external": "Enlace externo",
     "fTopic": "Tema (taxonomía del blog)",
     "fCover": "URL de portada (opcional)",
-    "fExcerpt": "Extracto breve (opcional)"
+    "fExcerpt": "Extracto breve (opcional)",
+    "rev": {
+      "pendiente": "En revisión",
+      "aprobado": "Aprobado",
+      "rechazado": "No publicado"
+    },
+    "sendToReview": "Enviar a revisión",
+    "sentToReview": "Su artículo quedó en revisión.",
+    "reviewNotice": "El administrador lo revisa antes de publicarlo. Mientras siga en revisión puede corregirlo o eliminarlo.",
+    "admin": {
+      "pendiente": "En revisión",
+      "aprobado": "Publicados",
+      "rechazado": "No publicados",
+      "todas": "Todas",
+      "empty": "No hay artículos en este estado.",
+      "anon": "Miembro",
+      "socio": "socio {{n}}",
+      "notaPlaceholder": "Nota para el autor (opcional)",
+      "aprobar": "Aprobar y publicar",
+      "rechazar": "No publicar",
+      "hecho": "Listo"
+    }
   },
   "search": {
     "title": "Buscar",

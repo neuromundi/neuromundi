@@ -1381,6 +1381,10 @@ export type Database = {
       }
       content_posts: {
         Row: {
+          revision: string
+          nota_admin: string | null
+          revisada_por: string | null
+          revisada_en: string | null
           author_id: string
           body: string | null
           cover_url: string | null
@@ -1397,6 +1401,10 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          revision?: string
+          nota_admin?: string | null
+          revisada_por?: string | null
+          revisada_en?: string | null
           author_id: string
           body?: string | null
           cover_url?: string | null
@@ -1413,6 +1421,10 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          revision?: string
+          nota_admin?: string | null
+          revisada_por?: string | null
+          revisada_en?: string | null
           author_id?: string
           body?: string | null
           cover_url?: string | null
@@ -7801,6 +7813,34 @@ export type Database = {
           timezone: string
           title: string
           venue: string
+        }[]
+      }
+      admin_contenido_pendiente: { Args: never; Returns: number }
+      admin_revisar_contenido: {
+        Args: { p_decision: string | null; p_id: string | null; p_nota?: string | null }
+        Returns: Json
+      }
+      admin_contenido_en_revision: {
+        Args: { p_estado?: string | null }
+        Returns: {
+          autor: string
+          autor_id: string
+          body: string
+          cover_url: string
+          created_at: string
+          excerpt: string
+          external_url: string
+          id: string
+          is_published: boolean
+          keywords: string[]
+          member_no: number
+          nota_admin: string
+          revisada_en: string
+          revision: string
+          sections: string[]
+          title: string
+          topic: string
+          type: string
         }[]
       }
       admin_eventos_pendientes: { Args: never; Returns: number }

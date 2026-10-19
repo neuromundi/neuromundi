@@ -1489,7 +1489,8 @@
     "secComisiones": "Comisiones",
     "secExperto": "전문가에게 질문",
     "secEventos": "행사",
-    "secAliados": "파트너"
+    "secAliados": "파트너",
+    "secContenido": "글"
   },
   "reg": {
     "typePatient": "환자",
@@ -1965,7 +1966,28 @@
     "external": "외부 링크",
     "fTopic": "주제 (블로그 분류)",
     "fCover": "표지 이미지 URL (선택)",
-    "fExcerpt": "짧은 발췌 (선택)"
+    "fExcerpt": "짧은 발췌 (선택)",
+    "rev": {
+      "pendiente": "검토 중",
+      "aprobado": "승인됨",
+      "rechazado": "미게시"
+    },
+    "sendToReview": "검토 요청",
+    "sentToReview": "글이 검토 중입니다.",
+    "reviewNotice": "게시 전에 관리자가 검토합니다. 검토 중에는 수정하거나 삭제할 수 있습니다.",
+    "admin": {
+      "pendiente": "검토 중",
+      "aprobado": "게시됨",
+      "rechazado": "미게시",
+      "todas": "전체",
+      "empty": "이 상태의 글이 없습니다.",
+      "anon": "회원",
+      "socio": "회원 {{n}}",
+      "notaPlaceholder": "작성자에게 남길 메모(선택)",
+      "aprobar": "승인하고 게시",
+      "rechazar": "게시하지 않음",
+      "hecho": "완료"
+    }
   },
   "search": {
     "title": "검색",

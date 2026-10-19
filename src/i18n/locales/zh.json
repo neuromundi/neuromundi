@@ -1452,7 +1452,8 @@
     "secComisiones": "Comisiones",
     "secExperto": "向专家提问",
     "secEventos": "活动",
-    "secAliados": "伙伴"
+    "secAliados": "伙伴",
+    "secContenido": "文章"
   },
   "reg": {
     "typePatient": "患者",
@@ -1928,7 +1929,28 @@
     "external": "外部链接",
     "fCover": "封面图片网址（可选）",
     "fExcerpt": "简短摘要（可选）",
-    "fTopic": "主题（博客分类）"
+    "fTopic": "主题（博客分类）",
+    "rev": {
+      "pendiente": "审核中",
+      "aprobado": "已通过",
+      "rechazado": "未发布"
+    },
+    "sendToReview": "提交审核",
+    "sentToReview": "您的文章已进入审核。",
+    "reviewNotice": "管理员会在发布前审核。审核期间您可以修改或删除。",
+    "admin": {
+      "pendiente": "审核中",
+      "aprobado": "已发布",
+      "rechazado": "未发布",
+      "todas": "全部",
+      "empty": "该状态下没有文章。",
+      "anon": "成员",
+      "socio": "会员 {{n}}",
+      "notaPlaceholder": "给作者的备注（可选）",
+      "aprobar": "通过并发布",
+      "rechazar": "不发布",
+      "hecho": "完成"
+    }
   },
   "search": {
     "title": "搜索",
