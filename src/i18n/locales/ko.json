@@ -2149,6 +2149,13 @@
       "aliado_rechazado_motivo": {
         "title": "파트너 등재가 수락되지 않았습니다",
         "body": "{{nombre}}은(는) 공개되지 않았습니다. 사유: {{motivo}}"
+      },
+      "post_achievement": {
+        "title": "축하합니다! 게시물이 별 {{avg}}개에 도달했습니다"
+      },
+      "donation_thanks": {
+        "title": "기부해 주셔서 감사합니다",
+        "body": "여러분의 기여가 포용을 앞당깁니다. 혜택은 내 패널에서 확인하세요."
       }
     }
   },

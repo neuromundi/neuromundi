@@ -2112,6 +2112,13 @@
       "aliado_rechazado_motivo": {
         "title": "Votre inscription comme alliée n’a pas abouti",
         "body": "{{nombre}} n’a pas été publiée. Motif : {{motivo}}"
+      },
+      "post_achievement": {
+        "title": "Félicitations ! Votre publication a atteint {{avg}} étoiles"
+      },
+      "donation_thanks": {
+        "title": "Merci pour votre don",
+        "body": "Votre contribution fait avancer l’inclusion. Consultez vos récompenses dans votre tableau de bord."
       }
     }
   },

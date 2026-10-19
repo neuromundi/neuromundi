@@ -2112,6 +2112,13 @@
       "aliado_rechazado_motivo": {
         "title": "贵机构的伙伴申请未被接受",
         "body": "{{nombre}} 未被公开。原因：{{motivo}}"
+      },
+      "post_achievement": {
+        "title": "恭喜！您的内容已达到 {{avg}} 星"
+      },
+      "donation_thanks": {
+        "title": "感谢您的捐赠",
+        "body": "您的贡献推动共融。可在您的面板中查看回馈。"
       }
     }
   },

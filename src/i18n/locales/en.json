@@ -2149,6 +2149,13 @@
       "aliado_rechazado_motivo": {
         "title": "Your ally listing was not accepted",
         "body": "{{nombre}} was not published. Reason: {{motivo}}"
+      },
+      "post_achievement": {
+        "title": "Congratulations! Your post reached {{avg}} stars"
+      },
+      "donation_thanks": {
+        "title": "Thank you for your donation",
+        "body": "Your contribution drives inclusion. Check your rewards in your dashboard."
       }
     }
   },

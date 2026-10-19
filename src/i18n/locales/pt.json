@@ -2112,6 +2112,13 @@
       "aliado_rechazado_motivo": {
         "title": "Sua inscrição como aliada não foi aceita",
         "body": "{{nombre}} não foi publicada. Motivo: {{motivo}}"
+      },
+      "post_achievement": {
+        "title": "Parabéns! A sua publicação alcançou {{avg}} estrelas"
+      },
+      "donation_thanks": {
+        "title": "Obrigado pelo seu donativo",
+        "body": "O seu contributo impulsiona a inclusão. Veja as suas recompensas no seu painel."
       }
     }
   },

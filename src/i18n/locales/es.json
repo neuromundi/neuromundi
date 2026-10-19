@@ -2149,6 +2149,13 @@
       "aliado_rechazado_motivo": {
         "title": "Su alta como aliada no procedió",
         "body": "{{nombre}} no fue publicada. Motivo: {{motivo}}"
+      },
+      "post_achievement": {
+        "title": "¡Felicidades! Tu publicación alcanzó {{avg}} estrellas"
+      },
+      "donation_thanks": {
+        "title": "Gracias por tu donativo",
+        "body": "Tu aporte impulsa la inclusión. Revisa tus recompensas en tu panel."
       }
     }
   },

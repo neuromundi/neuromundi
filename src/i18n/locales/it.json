@@ -2112,6 +2112,13 @@
       "aliado_rechazado_motivo": {
         "title": "Il suo inserimento come alleata non è andato a buon fine",
         "body": "{{nombre}} non è stata pubblicata. Motivo: {{motivo}}"
+      },
+      "post_achievement": {
+        "title": "Complimenti! Il tuo contenuto ha raggiunto {{avg}} stelle"
+      },
+      "donation_thanks": {
+        "title": "Grazie per la tua donazione",
+        "body": "Il tuo contributo promuove l’inclusione. Controlla i tuoi riconoscimenti nel tuo pannello."
       }
     }
   },

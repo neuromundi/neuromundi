@@ -2112,6 +2112,13 @@
       "aliado_rechazado_motivo": {
         "title": "パートナー掲載は承認されませんでした",
         "body": "{{nombre}} は掲載されませんでした。理由: {{motivo}}"
+      },
+      "post_achievement": {
+        "title": "おめでとうございます。投稿が{{avg}}つ星に到達しました"
+      },
+      "donation_thanks": {
+        "title": "ご寄付ありがとうございます",
+        "body": "あなたの支援がインクルージョンを前に進めます。特典はマイページでご確認ください。"
       }
     }
   },

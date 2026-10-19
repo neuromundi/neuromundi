@@ -2112,6 +2112,13 @@
       "aliado_rechazado_motivo": {
         "title": "Ihre Aufnahme als Partner wurde nicht angenommen",
         "body": "{{nombre}} wurde nicht veröffentlicht. Grund: {{motivo}}"
+      },
+      "post_achievement": {
+        "title": "Glückwunsch! Ihr Beitrag hat {{avg}} Sterne erreicht"
+      },
+      "donation_thanks": {
+        "title": "Danke für Ihre Spende",
+        "body": "Ihr Beitrag treibt Inklusion voran. Ihre Prämien finden Sie in Ihrem Bereich."
       }
     }
   },
