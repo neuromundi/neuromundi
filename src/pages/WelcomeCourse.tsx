@@ -1,12 +1,16 @@
 /**
  * WelcomeCourse — curso virtual de bienvenida (/curso-bienvenida). Acceso para
- * miembros con sesión (al confirmar el correo ya pueden entrar). Muestra un video
- * de bienvenida (lo sube el equipo en `public/curso-bienvenida.{webm,mp4}`; si no
- * existe, el bloque de video no estorba) y los módulos introductorios. También
- * ofrece el enlace al grupo privado si el admin lo configuró.
+ * miembros con sesión (al confirmar el correo ya pueden entrar). Muestra los
+ * módulos introductorios y, si el admin lo configuró, el enlace al grupo privado.
+ *
+ * El video todavía no existe (18 oct 2026). Antes había un reproductor apuntando
+ * a `public/curso-bienvenida.{webm,mp4}`: como los archivos no estaban, el
+ * visitante veía un recuadro negro roto y no entendía por qué. En su lugar va un
+ * aviso que dice cuándo estará. Cuando el video exista, se sustituye este aviso
+ * por el reproductor.
  */
 import { useTranslation } from 'react-i18next';
-import { GraduationCap, PlayCircle, Users, Check } from 'lucide-react';
+import { GraduationCap, PlayCircle, Users, Check, CalendarClock } from 'lucide-react';
 import { Button } from '@/components/ui';
 import { useCampaign } from '@/hooks/useCampaign';
 
@@ -26,12 +30,11 @@ export function WelcomeCourse() {
         <p className="mx-auto mt-3 max-w-xl text-muted">{t('course.intro')}</p>
       </header>
 
-      {/* Video del curso (opcional). Si el archivo no está, el navegador no pinta nada útil. */}
-      <div className="mt-6 overflow-hidden rounded-2xl border border-slate-100 bg-slate-950">
-        <video className="aspect-video w-full" controls playsInline preload="metadata" poster="">
-          <source src="/curso-bienvenida.webm" type="video/webm" />
-          <source src="/curso-bienvenida.mp4" type="video/mp4" />
-        </video>
+      {/* Aviso en lugar del video, que todavía no existe. */}
+      <div className="mt-6 rounded-2xl border border-brand-100 bg-brand-50/60 p-6 text-center">
+        <CalendarClock className="mx-auto h-9 w-9 text-brand-600" aria-hidden="true" />
+        <h2 className="mt-3 font-bold text-slate-900">{t('course.soonTitle')}</h2>
+        <p className="mx-auto mt-2 max-w-md text-sm text-muted">{t('course.soonBody')}</p>
       </div>
 
       <section className="mt-6 rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
