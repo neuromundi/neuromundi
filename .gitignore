@@ -90,3 +90,6 @@ claves*.txt
 *claves*.txt
 cloudflare-*.txt
 *secret*.txt
+
+# Paquete temporal para correr las pruebas en Linux (scripts/empaquetar-fuente-para-pruebas.sh).
+fuente-para-pruebas.tar.gz
