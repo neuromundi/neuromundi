@@ -361,8 +361,36 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     const userId = get().user?.id;
     if (!userId) return { ok: false, error: 'Sesión no disponible.' };
     const role = input.role ?? 'provider';
+
+    // El rol, el estado de membresía y la aceptación del reglamento están
+    // protegidos por un disparador de la base (protect_profile_columns): sólo
+    // se pueden escribir desde complete_onboarding, que levanta la bandera de
+    // privilegio dentro de la transacción. Un UPDATE directo no sólo los
+    // ignoraba en silencio: rules_accepted_at hacía fallar TODA la operación,
+    // así que ningún alta por Google llegaba a completarse.
+    if (input.rulesVersion) {
+      const { data: alta, error: errAlta } = await supabase.rpc('complete_onboarding', {
+        p_role: role,
+        p_provider_type: input.providerType ?? '',
+        p_full_name: input.fullName?.trim() ?? '',
+        p_country: input.country ?? '',
+        p_state: input.state ?? '',
+        p_municipality: input.municipality ?? '',
+        p_rules_version: input.rulesVersion,
+        p_school_grades: input.schoolGrades ?? [],
+      });
+      if (errAlta) return { ok: false, error: toMessage(errAlta) };
+      if (alta === false) {
+        await get().refreshProfile();
+        return {
+          ok: false,
+          error:
+            'Este perfil ya se había completado antes, así que el tipo elegido no se aplicó. Si tu cuenta quedó con el tipo equivocado, hay que corregirla desde la base de datos.',
+        };
+      }
+    }
+
     const patch: TablesUpdate<'profiles'> = {
-      role,
       provider_type: role === 'provider' ? (input.providerType ?? null) : null,
       full_name: input.fullName?.trim() || undefined,
       is_company: input.isCompany ?? undefined,
@@ -405,9 +433,6 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       life_stage: input.lifeStage ?? null,
       interests: input.interests ?? undefined,
       comms_opt_in: input.commsOptIn ?? undefined,
-      membership_status: role === 'parent' || role === 'patient' ? 'exempt' : 'pending',
-      rules_version_accepted: input.rulesVersion ?? undefined,
-      rules_accepted_at: input.rulesVersion ? new Date().toISOString() : undefined,
     };
     const { error } = await supabase.from('profiles').update(patch).eq('id', userId);
     if (error) return { ok: false, error: toMessage(error) };

@@ -199,7 +199,16 @@ export const logger = {
 
 /** Normaliza errores desconocidos a un mensaje legible para la UI. */
 export function toMessage(error: unknown, fallback = 'Algo no salió bien.'): string {
-  const raw = error instanceof Error ? error.message : typeof error === 'string' ? error : '';
+  // Supabase no devuelve instancias de Error, sino objetos planos con
+  // `message` (PostgrestError, AuthError). Leyendo sólo `instanceof Error` se
+  // perdía el motivo real y la pantalla mostraba el relleno "Algo no salió
+  // bien", que no le dice nada ni a quien usa la plataforma ni a quien la
+  // repara.
+  const deObjeto =
+    typeof error === 'object' && error !== null && typeof (error as { message?: unknown }).message === 'string'
+      ? (error as { message: string }).message
+      : '';
+  const raw = error instanceof Error ? error.message : typeof error === 'string' ? error : deObjeto;
   // Red de seguridad i18n: Supabase Auth (GoTrue) devuelve el requisito de
   // contraseña SIEMPRE en inglés (texto fijo). Lo mostramos en el idioma del
   // usuario si llega a colarse pese a la validación de cliente.
