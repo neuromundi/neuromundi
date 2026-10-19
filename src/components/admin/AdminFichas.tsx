@@ -127,7 +127,8 @@ export function AdminFichas() {
             {t('adminFichas.bajasEmpty')}
           </p>
         ) : (
-          <table className="w-full overflow-hidden rounded-2xl border border-slate-100 bg-white text-sm shadow-sm">
+          <div className="overflow-x-auto">
+          <table className="w-full min-w-[720px] overflow-hidden rounded-2xl border border-slate-100 bg-white text-sm shadow-sm">
             <thead>
               <tr className="bg-slate-50 text-left text-xs uppercase tracking-wide text-muted">
                 <th scope="col" className="px-4 py-2">{t('adminFichas.motivo')}</th>
@@ -143,6 +144,7 @@ export function AdminFichas() {
               ))}
             </tbody>
           </table>
+          </div>
         )}
       </section>
 

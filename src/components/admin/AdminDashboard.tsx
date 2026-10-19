@@ -255,10 +255,15 @@ export function AdminDashboard({ advisor = false }: { advisor?: boolean } = {}) 
     else toast.success(t('admin.recalcDone', { count: data ?? 0 }));
   };
 
-  // La tabla de miembros necesita ancho: el panel vivía en max-w-2xl (672 px),
-  // que para una tabla con cinco columnas y botones es asfixiante. El resto de
-  // las secciones se leen mejor en columna estrecha, así que sólo esa se ensancha.
-  const anchoPanel = section === 'members' || section === 'fichas' || section === 'comisiones' ? 'max-w-7xl' : 'max-w-2xl';
+  // Ancho del panel. Vivía en 672 px salvo tres secciones, y en escritorio eso
+  // deja las tablas en una rendija: hay que desplazarlas a mano para leer
+  // columnas que caben de sobra en la pantalla. Ahora el panel ocupa el ancho
+  // disponible hasta 1600 px, y sólo las secciones que son FORMULARIO o TEXTO
+  // seguido se quedan estrechas, porque un renglón de 1600 px no se lee.
+  const SECCIONES_ESTRECHAS = new Set<AdminSection>([
+    'carousel', 'campaign', 'survey', 'improve', 'other',
+  ]);
+  const anchoPanel = SECCIONES_ESTRECHAS.has(section) ? 'max-w-3xl' : 'max-w-[1600px]';
 
   return (
     <div className={`mx-auto w-full p-4 ${anchoPanel}`}>
