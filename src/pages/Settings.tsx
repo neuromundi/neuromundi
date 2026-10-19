@@ -9,7 +9,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
-import { Camera, LogOut, Trash2, KeyRound, HelpCircle, BellRing, MessageCircle, CalendarCheck, Instagram, Facebook } from 'lucide-react';
+import { Camera, LogOut, Trash2, KeyRound, HelpCircle, BellRing, MessageCircle, CalendarCheck, Instagram, Facebook, Mail } from 'lucide-react';
 import { usePushSubscribe } from '@/hooks/usePushSubscribe';
 import { Button, useToast, SkeletonCard, PasswordInput} from '@/components/ui';
 import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher';
@@ -73,6 +73,14 @@ export function Settings() {
   const [showAccountFlow, setShowAccountFlow] = useState(false);
   const [searchParams] = useSearchParams();
   const recovery = searchParams.get('recovery') === '1';
+  // El correo es la LLAVE DE ACCESO: no se cambia en el acto. Se pide el
+  // cambio y la persona lo confirma desde la dirección nueva. Hasta entonces
+  // sigue entrando con la vieja, que es lo que la protege si alguien más le
+  // tocara la sesión.
+  const [correoActual, setCorreoActual] = useState('');
+  const [correoNuevo, setCorreoNuevo] = useState('');
+  const [correoBusy, setCorreoBusy] = useState(false);
+  const [correoPedido, setCorreoPedido] = useState(false);
   const [newPassword, setNewPassword] = useState('');
   const [newPassword2, setNewPassword2] = useState('');
   const [pwBusy, setPwBusy] = useState(false);
@@ -103,6 +111,33 @@ export function Settings() {
     return () => clearInterval(id);
   }, [lockUntil]);
   const pwLocked = lockUntil != null && lockLeft > 0;
+
+  // Se lee de la sesión, no del perfil: la tabla de perfiles NO guarda el
+  // correo; vive sólo en la cuenta de acceso.
+  useEffect(() => {
+    let vivo = true;
+    void supabase.auth.getUser().then(({ data }) => {
+      if (vivo) setCorreoActual(data.user?.email ?? '');
+    });
+    return () => { vivo = false; };
+  }, []);
+
+  const pedirCambioDeCorreo = async () => {
+    const destino = correoNuevo.trim().toLowerCase();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(destino)) {
+      toast.error(t('settings.mailInvalid')); return;
+    }
+    if (destino === correoActual.trim().toLowerCase()) {
+      toast.error(t('settings.mailSame')); return;
+    }
+    setCorreoBusy(true);
+    const { error } = await supabase.auth.updateUser({ email: destino });
+    setCorreoBusy(false);
+    if (error) { toast.error(error.message); return; }
+    setCorreoPedido(true);
+    setCorreoNuevo('');
+    toast.success(t('settings.mailSent'));
+  };
 
   const changePassword = async () => {
     if (pwLocked) return;
@@ -661,6 +696,45 @@ export function Settings() {
       </form>
 
       {isProvider && <ProviderLocations providerId={profile.id} />}
+
+      {/* Correo de acceso. Antes no se podÃ­a ni ver: quien se equivocaba al
+          registrarse, o perdÃ­a esa direcciÃ³n, se quedaba sin forma de entrar.
+          (Hallazgo de Enyoria, 19 oct 2026.) */}
+      <section className="space-y-3 rounded-2xl border border-slate-100 p-4">
+        <h2 className="flex items-center gap-2 font-bold text-slate-900">
+          <Mail className="h-5 w-5 text-brand-600" aria-hidden="true" /> {t('settings.mailTitle')}
+        </h2>
+        <p className="text-sm text-muted">{t('settings.mailHelp')}</p>
+        <div>
+          <label className={labelCls}>{t('settings.mailCurrent')}</label>
+          <p className="rounded-xl bg-slate-50 px-3 py-2 text-sm font-medium text-slate-800">
+            {correoActual || 'â€”'}
+          </p>
+        </div>
+        {correoPedido ? (
+          <p className="rounded-lg bg-sage-50 p-3 text-sm text-sage-800">{t('settings.mailPending')}</p>
+        ) : (
+          <>
+            <div>
+              <label htmlFor="correo-nuevo" className={labelCls}>{t('settings.mailNew')}</label>
+              <input
+                id="correo-nuevo"
+                type="email"
+                autoComplete="email"
+                inputMode="email"
+                maxLength={200}
+                className={inputCls}
+                value={correoNuevo}
+                onChange={(e) => setCorreoNuevo(e.target.value)}
+              />
+            </div>
+            <Button loading={correoBusy} disabled={correoNuevo.trim().length < 5}
+              onClick={pedirCambioDeCorreo} leadingIcon={<Mail className="h-4 w-4" />}>
+              {t('settings.mailRequest')}
+            </Button>
+          </>
+        )}
+      </section>
 
       {/* Cambio de contraseÃ±a (tambiÃ©n atiende el flujo de recuperaciÃ³n) */}
       <section id="password" className={`space-y-3 rounded-2xl border p-4 ${recovery ? 'border-brand-300 bg-brand-50' : 'border-slate-100'}`}>

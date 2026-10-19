@@ -347,7 +347,16 @@
     "yearStartedHint": "es. 2015",
     "certifiedStaff": "Disponiamo di personale certificato",
     "accessibility": "Accessibilità della sede",
-    "bioHint": "Facoltativo. Fino a 500 caratteri (nessun minimo)."
+    "bioHint": "Facoltativo. Fino a 500 caratteri (nessun minimo).",
+    "mailTitle": "E-mail di accesso",
+    "mailCurrent": "E-mail attuale",
+    "mailNew": "Nuova e-mail",
+    "mailRequest": "Richiedi la modifica",
+    "mailHelp": "È l’indirizzo con cui accedi. Per cambiarlo inviamo un link al NUOVO indirizzo: finché non lo apri, continui a entrare con quello attuale.",
+    "mailPending": "Abbiamo inviato un link al nuovo indirizzo. Aprilo da lì per confermare. Fino ad allora continui a entrare con l’e-mail attuale.",
+    "mailInvalid": "Inserisci un’e-mail valida.",
+    "mailSame": "Quella è già la tua e-mail attuale.",
+    "mailSent": "Fatto: controlla il nuovo indirizzo."
   },
   "val": {
     "email": "Inserisci un'email valida",

@@ -347,7 +347,16 @@
     "yearStartedHint": "z. B. 2015",
     "certifiedStaff": "Wir haben zertifiziertes Personal",
     "accessibility": "Barrierefreiheit des Ortes",
-    "bioHint": "Optional. Bis zu 500 Zeichen (kein Minimum)."
+    "bioHint": "Optional. Bis zu 500 Zeichen (kein Minimum).",
+    "mailTitle": "Anmelde-E-Mail",
+    "mailCurrent": "Aktuelle E-Mail",
+    "mailNew": "Neue E-Mail",
+    "mailRequest": "Änderung anfordern",
+    "mailHelp": "Mit dieser Adresse melden Sie sich an. Für eine Änderung senden wir einen Link an die NEUE Adresse: Solange Sie ihn nicht öffnen, gilt weiterhin die alte.",
+    "mailPending": "Wir haben einen Link an die neue Adresse gesendet. Öffnen Sie ihn dort, um zu bestätigen. Bis dahin melden Sie sich weiterhin mit der bisherigen E-Mail an.",
+    "mailInvalid": "Geben Sie eine gültige E-Mail-Adresse ein.",
+    "mailSame": "Das ist bereits Ihre aktuelle E-Mail.",
+    "mailSent": "Fertig: Sehen Sie in der neuen Adresse nach."
   },
   "val": {
     "email": "Gib eine gültige E-Mail ein",

@@ -384,7 +384,16 @@
     "yearStartedHint": "e.g. 2015",
     "certifiedStaff": "We have certified staff",
     "accessibility": "Venue accessibility",
-    "bioHint": "Optional. Up to 500 characters (no minimum)."
+    "bioHint": "Optional. Up to 500 characters (no minimum).",
+    "mailTitle": "Sign-in email",
+    "mailCurrent": "Current email",
+    "mailNew": "New email",
+    "mailRequest": "Request the change",
+    "mailHelp": "This is the address you sign in with. To change it we send a link to the NEW address: until you open it, you keep signing in with the current one.",
+    "mailPending": "We sent a link to the new address. Open it from there to confirm. Until then you keep signing in with your current email.",
+    "mailInvalid": "Enter a valid email.",
+    "mailSame": "That is already your current email.",
+    "mailSent": "Done: check the new address."
   },
   "val": {
     "email": "Enter a valid email",

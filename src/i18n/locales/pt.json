@@ -347,7 +347,16 @@
     "yearStartedHint": "ex. 2015",
     "certifiedStaff": "Temos equipe certificada",
     "accessibility": "Acessibilidade do local",
-    "bioHint": "Opcional. Até 500 caracteres (sem mínimo)."
+    "bioHint": "Opcional. Até 500 caracteres (sem mínimo).",
+    "mailTitle": "E-mail de acesso",
+    "mailCurrent": "E-mail atual",
+    "mailNew": "Novo e-mail",
+    "mailRequest": "Pedir a alteração",
+    "mailHelp": "É o endereço com que entra. Para o alterar enviamos uma ligação ao endereço NOVO: enquanto não a abrir, continua a entrar com o atual.",
+    "mailPending": "Enviámos uma ligação para o endereço novo. Abra-a a partir daí para confirmar. Até lá continua a entrar com o e-mail atual.",
+    "mailInvalid": "Escreva um e-mail válido.",
+    "mailSame": "Esse já é o seu e-mail atual.",
+    "mailSent": "Pronto: verifique o endereço novo."
   },
   "val": {
     "email": "Digite um e-mail válido",
