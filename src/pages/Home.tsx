@@ -32,6 +32,9 @@ const MemberBadgesBanner = lazy(() => import('@/components/home/MemberBadgesBann
 // de la hidratación crítica; se montan al acercarse al viewport (useInView).
 const ComparisonTable = lazy(() => import('@/components/home/ComparisonTable').then((m) => ({ default: m.ComparisonTable })));
 const WelcomeVideoHome = lazy(() => import('@/components/home/WelcomeVideoHome').then((m) => ({ default: m.WelcomeVideoHome })));
+// Asoma el blog y los eventos. Consulta propia a Supabase, así que va fuera del
+// bundle inicial y se monta al acercarse al viewport, igual que los de arriba.
+const HomeBlogEvents = lazy(() => import('@/components/home/HomeBlogEvents').then((m) => ({ default: m.HomeBlogEvents })));
 
 export function Home() {
   const navigate = useNavigate();
@@ -40,6 +43,7 @@ export function Home() {
   const [badgesRef, badgesInView] = useInView<HTMLDivElement>();
   const [videoRef, videoInView] = useInView<HTMLDivElement>();
   const [cmpRef, cmpInView] = useInView<HTMLDivElement>();
+  const [peekRef, peekInView] = useInView<HTMLDivElement>();
 
   // Nombre del país localizado para mostrar; el `value` sigue siendo el nombre
   // canónico (español) para que coincida con `profiles.country` al filtrar.
@@ -163,6 +167,17 @@ export function Home() {
         <Feature icon={<ShieldCheck className="h-6 w-6" />} title={t('home.f2.title')}>{t('home.f2.body')}</Feature>
         <Feature icon={<Compass className="h-6 w-6" />} title={t('home.f3.title')}>{t('home.f3.body')}</Feature>
         <Feature icon={<Lock className="h-6 w-6" />} title={t('home.f4.title')}>{t('home.f4.body')}</Feature>
+      </div>
+
+      {/* Blog y eventos: dos fichas contiguas con ejemplos reales, para que el
+          visitante se percate de que las dos secciones existen. Van ARRIBA de
+          «¿Qué es Neuromundi?», donde todavía está decidiendo si le sirve. */}
+      <div ref={peekRef}>
+        {peekInView && (
+          <Suspense fallback={<div className="mt-16 h-64 rounded-2xl bg-slate-50" />}>
+            <HomeBlogEvents />
+          </Suspense>
+        )}
       </div>
 
       {/* Acerca + Video + invitación al Kit — tres columnas en escritorio, apiladas en móvil */}

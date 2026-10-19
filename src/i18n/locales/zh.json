@@ -251,6 +251,16 @@
       "badge": "视频",
       "title": "一分钟了解 Neuromundi",
       "subtitle": "简短了解我们是谁，以及如何陪伴家庭。"
+    },
+    "peek": {
+      "blogTitle": "Neuromundi 博客",
+      "blogBody": "来自专业人士与家庭的文章与资源，涵盖平台的三大领域。",
+      "blogCta": "查看全部博客",
+      "blogEmpty": "社区的文章与资源将显示在这里。",
+      "eventsTitle": "活动",
+      "eventsBody": "来自世界各地的大会、工作坊与研习日，线下与线上皆有。",
+      "eventsCta": "查看全部活动",
+      "eventsEmpty": "社区的大会、工作坊与研习日将显示在这里。"
     }
   },
   "auth": {

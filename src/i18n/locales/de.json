@@ -251,6 +251,16 @@
       "badge": "Video",
       "title": "Neuromundi in einer Minute kennenlernen",
       "subtitle": "Ein kurzer Blick darauf, wer wir sind und wie wir Familien begleiten."
+    },
+    "peek": {
+      "blogTitle": "Neuromundi-Blog",
+      "blogBody": "Beiträge und Materialien von Fachleuten und Familien, zu allen drei Bereichen der Plattform.",
+      "blogCta": "Zum gesamten Blog",
+      "blogEmpty": "Hier erscheinen die Beiträge und Materialien der Gemeinschaft.",
+      "eventsTitle": "Veranstaltungen",
+      "eventsBody": "Kongresse, Workshops und Tagungen aus aller Welt, vor Ort und online.",
+      "eventsCta": "Alle Veranstaltungen ansehen",
+      "eventsEmpty": "Hier erscheinen die Kongresse, Workshops und Tagungen der Gemeinschaft."
     }
   },
   "auth": {

@@ -288,6 +288,16 @@
       "badge": "영상",
       "title": "1분으로 만나는 Neuromundi",
       "subtitle": "우리가 누구이며 가족을 어떻게 돕는지 짧게 소개합니다."
+    },
+    "peek": {
+      "blogTitle": "Neuromundi 블로그",
+      "blogBody": "전문가와 가족이 쓴 글과 자료를 플랫폼의 세 영역에 걸쳐 제공합니다.",
+      "blogCta": "블로그 전체 보기",
+      "blogEmpty": "커뮤니티의 글과 자료가 이곳에 표시됩니다.",
+      "eventsTitle": "행사",
+      "eventsBody": "세계 각지의 학술대회, 워크숍, 연수를 현장과 온라인으로 안내합니다.",
+      "eventsCta": "모든 행사 보기",
+      "eventsEmpty": "커뮤니티의 학술대회, 워크숍, 연수가 이곳에 표시됩니다."
     }
   },
   "auth": {

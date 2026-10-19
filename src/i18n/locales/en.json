@@ -288,6 +288,16 @@
       "badge": "Video",
       "title": "Get to know Neuromundi in a minute",
       "subtitle": "A short look at who we are and how we support families."
+    },
+    "peek": {
+      "blogTitle": "Neuromundi Blog",
+      "blogBody": "Articles and resources from specialists and families, across the platform's three areas.",
+      "blogCta": "See the whole blog",
+      "blogEmpty": "Articles and resources from the community will appear here.",
+      "eventsTitle": "Events",
+      "eventsBody": "Conferences, workshops and meetings from around the world, in person and online.",
+      "eventsCta": "See all events",
+      "eventsEmpty": "The community's conferences, workshops and meetings will appear here."
     }
   },
   "auth": {
