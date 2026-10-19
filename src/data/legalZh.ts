@@ -4,7 +4,7 @@
 import type { LegalBundle } from './legalContent';
 
 export const legalZh: LegalBundle = {
-  "updated": "2026年10月18日",
+  "updated": "2026年10月19日",
   "terms": {
     "intro": [
       "本条款与条件（“条款”）规范对 Neuromundi 平台（“平台”）的访问与使用。该平台由 Neuromundi 或其依法授权的代表运营，住所位于墨西哥克雷塔罗，联系方式为 admin@neuromundi.com。创建账户或使用本平台即表示你完全接受本条款。"
@@ -158,7 +158,7 @@ export const legalZh: LegalBundle = {
         ],
         "li": [
           "关联提供者：在核销折扣或与其互动时，共享该互动所需的最少信息。",
-          "受托处理方：Supabase（数据库、身份验证与存储）、Resend（电子邮件发送）、Stripe（支付处理）、Cloudflare（登录时的人机识别）、Google Analytics（使用情况统计），以及 CARTO 与 OpenStreetMap（地图），均负有保密义务。",
+          "国家/地区建议：打开平台时会向 ipwho.is 服务查询一次，并在此过程中发送您的 IP 地址，唯一目的是为您建议一个国家/地区，免去手动选择。您可随时用国家/地区选择器更改，您的选择始终优先。", "受托处理方：Supabase（数据库、身份验证与存储）、Resend（电子邮件发送）、Stripe（支付处理）、Cloudflare（登录时的人机识别）、Google Analytics（使用情况统计），以及 CARTO 与 OpenStreetMap（地图），均负有保密义务。",
           "跨境传输：上述服务的服务器位于欧盟与墨西哥境外，因此使用本平台将涉及数据的跨境传输，依据各服务提供方的合同条款与处理条件进行。",
           "主管机关：存在法律义务时。"
         ]

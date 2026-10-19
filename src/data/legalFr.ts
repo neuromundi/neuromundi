@@ -4,7 +4,7 @@
 import type { LegalBundle } from './legalContent';
 
 export const legalFr: LegalBundle = {
-  "updated": "18 octobre 2026",
+  "updated": "19 octobre 2026",
   "terms": {
     "intro": [
       "Les présentes Conditions générales (« Conditions ») régissent l’accès et l’utilisation de la plateforme Neuromundi (la « Plateforme »), exploitée par Neuromundi ou ses représentants conformément à la loi, dont le siège est à Querétaro, Mexique, et le contact à admin@neuromundi.com. En créant un compte ou en utilisant la Plateforme, vous acceptez ces Conditions dans leur intégralité."
@@ -158,7 +158,7 @@ export const legalFr: LegalBundle = {
         ],
         "li": [
           "Prestataires affiliés : lors de l’échange d’une remise ou d’une interaction, ils partagent le minimum d’informations nécessaire à cette interaction.",
-          "Sous-traitants : Supabase (base de données, authentification et stockage), Resend (envoi de courrier électronique), Stripe (traitement des paiements), Cloudflare (vérification anti-robots à la connexion), Google Analytics (mesure d'audience) et CARTO avec OpenStreetMap (cartes), soumis à des obligations de confidentialité.",
+          "Suggestion de pays : à l’ouverture de la Plateforme, le service ipwho.is est interrogé une seule fois et reçoit votre adresse IP, dans le seul but de vous suggérer un pays afin que vous n’ayez pas à le choisir manuellement. Vous pouvez le modifier à tout moment avec le sélecteur de pays et votre choix prévaut toujours.", "Sous-traitants : Supabase (base de données, authentification et stockage), Resend (envoi de courrier électronique), Stripe (traitement des paiements), Cloudflare (vérification anti-robots à la connexion), Google Analytics (mesure d'audience) et CARTO avec OpenStreetMap (cartes), soumis à des obligations de confidentialité.",
           "Transferts internationaux : ces services exploitent des serveurs hors de l'Union européenne et du Mexique ; l'utilisation de la Plateforme implique donc un transfert international de données, encadré par les clauses contractuelles et les conditions de traitement de chaque fournisseur.",
           "Autorités : lorsqu’il existe une obligation légale."
         ]

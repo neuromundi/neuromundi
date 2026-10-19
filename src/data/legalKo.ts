@@ -4,7 +4,7 @@
 import type { LegalBundle } from './legalContent';
 
 export const legalKo: LegalBundle = {
-  "updated": "2026년 10월 18일",
+  "updated": "2026년 10월 19일",
   "terms": {
     "intro": [
       "본 이용약관(\"약관\")은 Neuromundi 또는 그 법적 대리인이 운영하는 Neuromundi 플랫폼(\"플랫폼\")에 대한 접근과 이용을 규율합니다. 소재지는 멕시코 케레타로이며, 문의는 admin@neuromundi.com입니다. 계정을 만들거나 플랫폼을 이용함으로써 귀하는 본 약관에 전적으로 동의합니다."
@@ -158,7 +158,7 @@ export const legalKo: LegalBundle = {
         ],
         "li": [
           "제휴 제공자: 할인을 사용하거나 그들과 상호작용할 때, 해당 상호작용에 필요한 최소한의 정보를 공유합니다.",
-          "수탁처리자: Supabase(데이터베이스, 인증 및 저장), Resend(전자우편 발송), Stripe(결제 처리), Cloudflare(접속 시 자동 프로그램 판별), Google Analytics(이용 측정), 그리고 CARTO와 OpenStreetMap(지도). 모두 비밀유지 의무를 집니다.",
+          "국가 제안: 플랫폼을 열 때 ipwho.is 서비스를 한 번만 조회하며, 이때 귀하의 IP 주소가 전송됩니다. 목적은 국가를 직접 고르지 않아도 되도록 제안하는 것뿐입니다. 국가 선택기에서 언제든 변경할 수 있고 귀하의 선택이 항상 우선합니다.", "수탁처리자: Supabase(데이터베이스, 인증 및 저장), Resend(전자우편 발송), Stripe(결제 처리), Cloudflare(접속 시 자동 프로그램 판별), Google Analytics(이용 측정), 그리고 CARTO와 OpenStreetMap(지도). 모두 비밀유지 의무를 집니다.",
           "국외 이전: 이들 서비스는 유럽연합과 멕시코 밖의 서버에서 운영되므로, 플랫폼 이용에는 데이터의 국외 이전이 수반되며 각 제공자의 계약 조항과 처리 조건에 따릅니다.",
           "당국: 법적 의무가 있는 경우."
         ]

@@ -4,7 +4,7 @@
 import type { LegalBundle } from './legalContent';
 
 export const legalIt: LegalBundle = {
-  "updated": "18 ottobre 2026",
+  "updated": "19 ottobre 2026",
   "terms": {
     "intro": [
       "I presenti Termini e Condizioni (« Termini ») regolano l’accesso e l’uso della piattaforma Neuromundi (la « Piattaforma »), gestita da Neuromundi o dai suoi rappresentanti a norma di legge, con sede a Querétaro, Messico, e contatto a admin@neuromundi.com. Creando un account o utilizzando la Piattaforma, accetti integralmente questi Termini."
@@ -158,7 +158,7 @@ export const legalIt: LegalBundle = {
         ],
         "li": [
           "Fornitori affiliati: al riscatto di uno sconto o interagendo con loro, condividono le informazioni minime necessarie per tale interazione.",
-          "Responsabili del trattamento: Supabase (banca dati, autenticazione e archiviazione), Resend (invio di posta elettronica), Stripe (elaborazione dei pagamenti), Cloudflare (verifica anti-robot in accesso), Google Analytics (misurazione d'uso) e CARTO insieme a OpenStreetMap (mappe), con obblighi di riservatezza.",
+          "Suggerimento del paese: all’apertura della Piattaforma viene interrogato una sola volta il servizio ipwho.is, che riceve il tuo indirizzo IP, al solo fine di suggerirti un paese così non devi sceglierlo a mano. Puoi cambiarlo quando vuoi con il selettore del paese e la tua scelta prevale sempre.", "Responsabili del trattamento: Supabase (banca dati, autenticazione e archiviazione), Resend (invio di posta elettronica), Stripe (elaborazione dei pagamenti), Cloudflare (verifica anti-robot in accesso), Google Analytics (misurazione d'uso) e CARTO insieme a OpenStreetMap (mappe), con obblighi di riservatezza.",
           "Trasferimenti internazionali: questi servizi operano server al di fuori dell'Unione europea e del Messico, pertanto l'uso della Piattaforma comporta un trasferimento internazionale di dati, fondato sulle clausole contrattuali e sulle condizioni di trattamento di ciascun fornitore.",
           "Autorità: quando sussiste un obbligo di legge."
         ]

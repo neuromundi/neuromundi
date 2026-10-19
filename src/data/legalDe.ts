@@ -4,7 +4,7 @@
 import type { LegalBundle } from './legalContent';
 
 export const legalDe: LegalBundle = {
-  "updated": "18. Oktober 2026",
+  "updated": "19. Oktober 2026",
   "terms": {
     "intro": [
       "Diese Allgemeinen Geschäftsbedingungen („Bedingungen“) regeln den Zugang zur und die Nutzung der Neuromundi-Plattform (die „Plattform“), betrieben von Neuromundi oder seinen gesetzlichen Vertretern, mit Sitz in Querétaro, Mexiko, und Kontakt unter admin@neuromundi.com. Mit der Erstellung eines Kontos oder der Nutzung der Plattform akzeptieren Sie diese Bedingungen vollständig."
@@ -158,7 +158,7 @@ export const legalDe: LegalBundle = {
         ],
         "li": [
           "Angeschlossene Anbieter: beim Einlösen eines Rabatts oder bei der Interaktion teilen sie die für diese Interaktion mindestens erforderlichen Informationen.",
-          "Auftragsverarbeiter: Supabase (Datenbank, Authentifizierung und Speicherung), Resend (E-Mail-Versand), Stripe (Zahlungsabwicklung), Cloudflare (Bot-Prüfung beim Zugang), Google Analytics (Nutzungsmessung) sowie CARTO zusammen mit OpenStreetMap (Karten), jeweils unter Vertraulichkeitspflichten.",
+          "Ländervorschlag: Beim Öffnen der Plattform wird einmalig der Dienst ipwho.is abgefragt, der dabei Ihre IP-Adresse erhält, ausschließlich um Ihnen ein Land vorzuschlagen, damit Sie es nicht von Hand auswählen müssen. Sie können es jederzeit über die Länderauswahl ändern; Ihre Wahl hat immer Vorrang.", "Auftragsverarbeiter: Supabase (Datenbank, Authentifizierung und Speicherung), Resend (E-Mail-Versand), Stripe (Zahlungsabwicklung), Cloudflare (Bot-Prüfung beim Zugang), Google Analytics (Nutzungsmessung) sowie CARTO zusammen mit OpenStreetMap (Karten), jeweils unter Vertraulichkeitspflichten.",
           "Internationale Übermittlungen: Diese Dienste betreiben Server außerhalb der Europäischen Union und Mexikos. Die Nutzung der Plattform bringt daher eine internationale Datenübermittlung mit sich, gestützt auf die Vertragsklauseln und Verarbeitungsbedingungen des jeweiligen Anbieters.",
           "Behörden: sofern eine gesetzliche Verpflichtung besteht."
         ]

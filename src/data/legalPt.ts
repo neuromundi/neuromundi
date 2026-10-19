@@ -4,7 +4,7 @@
 import type { LegalBundle } from './legalContent';
 
 export const legalPt: LegalBundle = {
-  "updated": "18 de outubro de 2026",
+  "updated": "19 de outubro de 2026",
   "terms": {
     "intro": [
       "Estes Termos e Condições (\"Termos\") regem o acesso e uso da plataforma Neuromundi (a \"Plataforma\"), operada por Neuromundi ou seus representantes conforme a lei, com domicílio em Querétaro, México e contato em admin@neuromundi.com. Ao criar uma conta ou utilizar a Plataforma, você aceita estes Termos integralmente."
@@ -158,7 +158,7 @@ export const legalPt: LegalBundle = {
         ],
         "li": [
           "Fornecedores afiliados: ao resgatar um desconto ou interagir com eles, compartilham a informação mínima necessária para essa interação.",
-          "Subcontratantes: Supabase (base de dados, autenticação e armazenamento), Resend (envio de correio eletrónico), Stripe (processamento de pagamentos), Cloudflare (verificação anti-robôs no acesso), Google Analytics (medição de utilização) e CARTO em conjunto com o OpenStreetMap (mapas), sob obrigações de confidencialidade.",
+          "Sugestão de país: ao abrir a Plataforma consulta-se uma única vez o serviço ipwho.is, ao qual é enviado o seu endereço IP, com o único fim de sugerir um país para que não tenha de o escolher à mão. Pode alterá-lo quando quiser no seletor de país e a sua escolha prevalece sempre.", "Subcontratantes: Supabase (base de dados, autenticação e armazenamento), Resend (envio de correio eletrónico), Stripe (processamento de pagamentos), Cloudflare (verificação anti-robôs no acesso), Google Analytics (medição de utilização) e CARTO em conjunto com o OpenStreetMap (mapas), sob obrigações de confidencialidade.",
           "Transferências internacionais: estes serviços operam servidores fora da União Europeia e do México, pelo que a utilização da Plataforma implica uma transferência internacional de dados, amparada nas cláusulas contratuais e condições de tratamento de cada fornecedor.",
           "Autoridades: quando houver obrigação legal."
         ]
