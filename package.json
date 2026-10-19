@@ -15,7 +15,7 @@
     "revisar:textos": "node scripts/revision/revisar-textos.mjs",
     "revisar:formularios": "node scripts/revision/revisar-formularios.mjs",
     "revisar:pantallas": "node scripts/revision/revisar-pantallas.mjs",
-    "revisar": "npm run revisar:base && npm run revisar:textos && npm run revisar:formularios"
+    "revisar": "node scripts/revision/revisar-todo.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
