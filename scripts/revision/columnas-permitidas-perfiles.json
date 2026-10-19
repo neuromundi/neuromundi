@@ -1,0 +1,20 @@
+{
+  "_comentario": "Columnas que el disparador protect_profile_columns deja escribir a un miembro sobre su propio perfil. Copiado de la funcion en la base el 19 de octubre de 2026. Si cambia el disparador, hay que regenerar este archivo: select pg_get_functiondef(oid) from pg_proc where proname='protect_profile_columns'.",
+  "_generado_en": "2026-10-19",
+  "permitidas": [
+    "accepts_neuromundi_id","accepts_payments","account_type","address","age_ranges",
+    "avatar_url","bio","birth_date","booking_url","business_name","cedula_profesional",
+    "certified_staff","city","comms_opt_in","condition","consultation_amount",
+    "consultation_currency","country","dial_code","facebook","fiscal_country","fiscal_cp",
+    "fiscal_direccion","fiscal_email","fiscal_razon_social","fiscal_regimen","fiscal_tax_id",
+    "fiscal_uso_cfdi","full_name","gender","instagram","interests","intervention_areas",
+    "is_company","is_inclusive_company","is_inclusive_school","is_institutional_ally",
+    "is_published","latitude","life_stage","linkedin","longitude","membership_period",
+    "modalities","municipality","neuro_conditions","neuroaffirming","org_doc_kind",
+    "org_doc_note","org_doc_submitted_at","org_doc_url","phone","price_range",
+    "product_categories","products_offered","profession","provider_details","provider_type",
+    "rfc","sales_channels","school_grades","sections","services_offered","shipping_coverage",
+    "specialties","state","tiktok","title_prefix","wants_founder","website","website_url",
+    "whatsapp","year_started","updated_at","search_tsv","qr_token","public_key"
+  ]
+}
