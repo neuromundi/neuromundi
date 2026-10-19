@@ -389,11 +389,11 @@
     "mailCurrent": "Current email",
     "mailNew": "New email",
     "mailRequest": "Request the change",
-    "mailHelp": "This is the address you sign in with. To change it we send a link to the NEW address: until you open it, you keep signing in with the current one.",
-    "mailPending": "We sent a link to the new address. Open it from there to confirm. Until then you keep signing in with your current email.",
+    "mailHelp": "This is the address you sign in with. To change it we send a link to your current address and another to the new one: the change takes effect once you confirm from both. Until then you keep signing in with the old one.",
+    "mailPending": "We sent a link to your current address and another to the new one. Open both to confirm the change. Until then you keep signing in with your current email.",
     "mailInvalid": "Enter a valid email.",
     "mailSame": "That is already your current email.",
-    "mailSent": "Done: check the new address."
+    "mailSent": "Done: we sent one email to your current address and another to the new one. The change takes effect once you confirm from both."
   },
   "val": {
     "email": "Enter a valid email",

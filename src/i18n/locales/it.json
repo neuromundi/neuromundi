@@ -352,11 +352,11 @@
     "mailCurrent": "E-mail attuale",
     "mailNew": "Nuova e-mail",
     "mailRequest": "Richiedi la modifica",
-    "mailHelp": "È l’indirizzo con cui accedi. Per cambiarlo inviamo un link al NUOVO indirizzo: finché non lo apri, continui a entrare con quello attuale.",
-    "mailPending": "Abbiamo inviato un link al nuovo indirizzo. Aprilo da lì per confermare. Fino ad allora continui a entrare con l’e-mail attuale.",
+    "mailHelp": "È l'indirizzo con cui accedi. Per cambiarlo inviamo un link al tuo indirizzo attuale e un altro a quello nuovo: la modifica diventa effettiva quando confermi da entrambi. Nel frattempo continui ad accedere con quello di sempre.",
+    "mailPending": "Abbiamo inviato un link al tuo indirizzo attuale e un altro a quello nuovo. Aprili entrambi per confermare la modifica. Fino ad allora continui ad accedere con la tua e-mail attuale.",
     "mailInvalid": "Inserisci un’e-mail valida.",
     "mailSame": "Quella è già la tua e-mail attuale.",
-    "mailSent": "Fatto: controlla il nuovo indirizzo."
+    "mailSent": "Fatto: abbiamo inviato un'e-mail all'indirizzo attuale e un'altra a quello nuovo. La modifica diventa effettiva quando confermi da entrambi."
   },
   "val": {
     "email": "Inserisci un'email valida",

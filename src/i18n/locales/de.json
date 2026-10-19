@@ -352,11 +352,11 @@
     "mailCurrent": "Aktuelle E-Mail",
     "mailNew": "Neue E-Mail",
     "mailRequest": "Änderung anfordern",
-    "mailHelp": "Mit dieser Adresse melden Sie sich an. Für eine Änderung senden wir einen Link an die NEUE Adresse: Solange Sie ihn nicht öffnen, gilt weiterhin die alte.",
-    "mailPending": "Wir haben einen Link an die neue Adresse gesendet. Öffnen Sie ihn dort, um zu bestätigen. Bis dahin melden Sie sich weiterhin mit der bisherigen E-Mail an.",
+    "mailHelp": "Das ist die Adresse, mit der Sie sich anmelden. Zum Ändern schicken wir einen Link an Ihre aktuelle Adresse und einen an die neue: Die Änderung wird wirksam, sobald Sie von beiden bestätigen. Bis dahin melden Sie sich weiter mit der alten an.",
+    "mailPending": "Wir haben einen Link an Ihre aktuelle Adresse und einen an die neue geschickt. Öffnen Sie beide, um die Änderung zu bestätigen. Bis dahin melden Sie sich weiter mit Ihrer aktuellen E-Mail an.",
     "mailInvalid": "Geben Sie eine gültige E-Mail-Adresse ein.",
     "mailSame": "Das ist bereits Ihre aktuelle E-Mail.",
-    "mailSent": "Fertig: Sehen Sie in der neuen Adresse nach."
+    "mailSent": "Fertig: Wir haben eine E-Mail an Ihre aktuelle Adresse und eine an die neue geschickt. Die Änderung wird wirksam, sobald Sie von beiden bestätigen."
   },
   "val": {
     "email": "Gib eine gültige E-Mail ein",

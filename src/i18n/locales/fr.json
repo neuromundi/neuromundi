@@ -352,11 +352,11 @@
     "mailCurrent": "Adresse actuelle",
     "mailNew": "Nouvelle adresse",
     "mailRequest": "Demander le changement",
-    "mailHelp": "C’est l’adresse avec laquelle vous vous connectez. Pour la changer, nous envoyons un lien à la NOUVELLE adresse : tant que vous ne l’ouvrez pas, vous continuez avec l’actuelle.",
-    "mailPending": "Nous avons envoyé un lien à la nouvelle adresse. Ouvrez-le depuis celle-ci pour confirmer. D’ici là, vous continuez avec votre adresse actuelle.",
+    "mailHelp": "C'est l'adresse avec laquelle vous vous connectez. Pour la changer, nous envoyons un lien à votre adresse actuelle et un autre à la nouvelle : le changement s'applique une fois les deux confirmés. En attendant, vous continuez avec l'ancienne.",
+    "mailPending": "Nous avons envoyé un lien à votre adresse actuelle et un autre à la nouvelle. Ouvrez les deux pour confirmer le changement. D'ici là, vous continuez à vous connecter avec votre adresse actuelle.",
     "mailInvalid": "Saisissez une adresse valide.",
     "mailSame": "C’est déjà votre adresse actuelle.",
-    "mailSent": "C’est fait : vérifiez la nouvelle adresse."
+    "mailSent": "C'est fait : nous avons envoyé un e-mail à votre adresse actuelle et un autre à la nouvelle. Le changement s'applique une fois les deux confirmés."
   },
   "val": {
     "email": "Saisissez un e-mail valide",
