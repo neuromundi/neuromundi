@@ -6435,5 +6435,24 @@
     "done": "O seu e-mail de acesso foi atualizado. A partir de agora, entre no Neuromundi com o novo endereço.",
     "toSettings": "Ir para as minhas configurações",
     "toHome": "Ir para o início"
+  },
+  "fichasVistas": {
+    "title": "Fichas do diretório mais visitadas",
+    "hint": "Conta apenas as fichas curadas do diretório. Os perfis de membros têm a sua própria medição.",
+    "dias_one": "{{count}} dia",
+    "dias_other": "{{count}} dias",
+    "error": "Não foi possível carregar as visitas.",
+    "vacio": "Ainda não há visitas registadas neste período.",
+    "reclamada": "Reivindicada",
+    "totFichas": "Fichas visitadas",
+    "totVisitas": "Visitas",
+    "totSesion": "Com sessão iniciada",
+    "totContactos": "Contactos",
+    "colFicha": "Ficha",
+    "colLugar": "Local",
+    "colVisitas": "Visitas",
+    "colSesion": "Com sessão",
+    "colContactos": "Contactos",
+    "colUltima": "Última"
   }
 }

@@ -6435,5 +6435,24 @@
     "done": "ログイン用のメールアドレスを更新しました。今後は新しいアドレスで Neuromundi にログインしてください。",
     "toSettings": "設定へ",
     "toHome": "ホームへ"
+  },
+  "fichasVistas": {
+    "title": "よく見られているディレクトリ掲載",
+    "hint": "収録済みの掲載のみを数えます。会員プロフィールは別で計測しています。",
+    "dias_one": "{{count}}日",
+    "dias_other": "{{count}}日",
+    "error": "閲覧数を読み込めませんでした。",
+    "vacio": "この期間の閲覧はまだありません。",
+    "reclamada": "引き継ぎ済み",
+    "totFichas": "閲覧された掲載",
+    "totVisitas": "閲覧数",
+    "totSesion": "ログイン済み",
+    "totContactos": "問い合わせ",
+    "colFicha": "掲載",
+    "colLugar": "場所",
+    "colVisitas": "閲覧数",
+    "colSesion": "ログイン済み",
+    "colContactos": "問い合わせ",
+    "colUltima": "最終"
   }
 }

@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { Users, ShieldCheck, Eye, Crown, ShoppingBag, ShieldAlert, Share2, TrendingUp, RefreshCw, UserX } from 'lucide-react';
 import { Button, SkeletonCard } from '@/components/ui';
 import { supabase } from '@/lib/supabase';
+import { AdminFichasVistas } from './AdminFichasVistas';
 
 interface Metrics {
   members_total: number;
@@ -80,6 +81,10 @@ export function AdminMetrics() {
             </div>
           );
         })}
+      </div>
+
+      <div className="border-t border-slate-100 pt-4">
+        <AdminFichasVistas />
       </div>
     </div>
   );

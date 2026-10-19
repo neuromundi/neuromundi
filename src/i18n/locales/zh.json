@@ -6435,5 +6435,24 @@
     "done": "你的登录邮箱已更新。从现在起请使用新地址登录 Neuromundi。",
     "toSettings": "前往我的设置",
     "toHome": "返回首页"
+  },
+  "fichasVistas": {
+    "title": "访问最多的目录条目",
+    "hint": "仅统计精选的目录条目。会员资料有各自的统计。",
+    "dias_one": "{{count}} 天",
+    "dias_other": "{{count}} 天",
+    "error": "无法加载访问数据。",
+    "vacio": "此期间还没有访问记录。",
+    "reclamada": "已认领",
+    "totFichas": "被访问的条目",
+    "totVisitas": "访问",
+    "totSesion": "已登录",
+    "totContactos": "联系",
+    "colFicha": "条目",
+    "colLugar": "地点",
+    "colVisitas": "访问",
+    "colSesion": "已登录",
+    "colContactos": "联系",
+    "colUltima": "最近"
   }
 }

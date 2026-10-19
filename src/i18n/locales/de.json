@@ -6435,5 +6435,24 @@
     "done": "Ihre Anmelde-E-Mail wurde aktualisiert. Melden Sie sich ab jetzt mit der neuen Adresse bei Neuromundi an.",
     "toSettings": "Zu meinen Einstellungen",
     "toHome": "Zur Startseite"
+  },
+  "fichasVistas": {
+    "title": "Meistbesuchte Verzeichniseinträge",
+    "hint": "Zählt nur die kuratierten Verzeichniseinträge. Mitgliedsprofile werden getrennt gemessen.",
+    "dias_one": "{{count}} Tag",
+    "dias_other": "{{count}} Tage",
+    "error": "Die Besuche konnten nicht geladen werden.",
+    "vacio": "In diesem Zeitraum sind noch keine Besuche erfasst.",
+    "reclamada": "Übernommen",
+    "totFichas": "Besuchte Einträge",
+    "totVisitas": "Besuche",
+    "totSesion": "Angemeldet",
+    "totContactos": "Kontakte",
+    "colFicha": "Eintrag",
+    "colLugar": "Ort",
+    "colVisitas": "Besuche",
+    "colSesion": "Angemeldet",
+    "colContactos": "Kontakte",
+    "colUltima": "Zuletzt"
   }
 }

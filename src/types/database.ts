@@ -7816,6 +7816,30 @@ export type Database = {
         }[]
       }
       admin_contenido_pendiente: { Args: never; Returns: number }
+      admin_resumen_de_fichas: {
+        Args: { p_dias?: number | null }
+        Returns: {
+          fichas_vistas: number
+          visitas: number
+          visitas_con_sesion: number
+          contactos: number
+        }[]
+      }
+      admin_fichas_mas_vistas: {
+        Args: { p_dias?: number | null; p_limite?: number | null }
+        Returns: {
+          ficha_id: string
+          nombre: string
+          ciudad: string | null
+          estado: string | null
+          pais: string | null
+          reclamada: boolean
+          vistas: number
+          vistas_con_sesion: number
+          contactos: number
+          ultima: string | null
+        }[]
+      }
       admin_revisar_contenido: {
         Args: { p_decision: string | null; p_id: string | null; p_nota?: string | null }
         Returns: Json

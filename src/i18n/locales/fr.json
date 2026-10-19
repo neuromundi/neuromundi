@@ -6435,5 +6435,24 @@
     "done": "Votre adresse de connexion a été mise à jour. Connectez-vous désormais à Neuromundi avec la nouvelle adresse.",
     "toSettings": "Aller à mes réglages",
     "toHome": "Aller à l'accueil"
+  },
+  "fichasVistas": {
+    "title": "Fiches de l'annuaire les plus visitées",
+    "hint": "Ne compte que les fiches sélectionnées de l'annuaire. Les profils de membres ont leur propre mesure.",
+    "dias_one": "{{count}} jour",
+    "dias_other": "{{count}} jours",
+    "error": "Impossible de charger les visites.",
+    "vacio": "Aucune visite enregistrée sur cette période.",
+    "reclamada": "Revendiquée",
+    "totFichas": "Fiches visitées",
+    "totVisitas": "Visites",
+    "totSesion": "Connectés",
+    "totContactos": "Contacts",
+    "colFicha": "Fiche",
+    "colLugar": "Lieu",
+    "colVisitas": "Visites",
+    "colSesion": "Connectés",
+    "colContactos": "Contacts",
+    "colUltima": "Dernière"
   }
 }

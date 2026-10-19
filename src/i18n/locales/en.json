@@ -6435,5 +6435,24 @@
     "done": "Your sign-in email has been updated. From now on, sign in to Neuromundi with the new address.",
     "toSettings": "Go to my settings",
     "toHome": "Go to home"
+  },
+  "fichasVistas": {
+    "title": "Most visited directory listings",
+    "hint": "Counts curated directory listings only. Member profiles have their own metrics.",
+    "dias_one": "{{count}} day",
+    "dias_other": "{{count}} days",
+    "error": "Visits could not be loaded.",
+    "vacio": "No visits recorded in this period yet.",
+    "reclamada": "Claimed",
+    "totFichas": "Listings visited",
+    "totVisitas": "Visits",
+    "totSesion": "Signed in",
+    "totContactos": "Contacts",
+    "colFicha": "Listing",
+    "colLugar": "Place",
+    "colVisitas": "Visits",
+    "colSesion": "Signed in",
+    "colContactos": "Contacts",
+    "colUltima": "Last"
   }
 }
