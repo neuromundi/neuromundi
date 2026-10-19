@@ -139,7 +139,7 @@ export function useCourseAuthor() {
 
   useEffect(() => { void load(); }, [load]);
 
-  const createCourse = useCallback(async (c: { title: string; description?: string; level?: string; audience?: string | null; cover_url?: string }): Promise<Result<string>> => {
+  const createCourse = useCallback(async (c: { title: string; description?: string; level?: string; audience?: string | null; cover_url?: string; sections?: string[] }): Promise<Result<string>> => {
     if (!userId) return { ok: false, error: 'Sin sesión' };
     const { data, error } = await supabase.from('courses').insert({ author_id: userId, ...c }).select('id').single();
     if (error || !data) return { ok: false, error: toMessage(error) };

@@ -16,6 +16,8 @@ import { Button, SkeletonCard, useToast, EmptyState, HowTo } from '@/components/
 import { useAuth } from '@/hooks/useAuth';
 import { useAcademy } from '@/hooks/useAcademy';
 import { CountryFilter } from '@/components/common/CountryFilter';
+import { SectionFilter, perteneceASeccion } from '@/components/common/SectionFilter';
+import type { SectionValue } from '@/data/sections';
 
 type ProfileKey = 'families' | 'specialists' | 'educators';
 
@@ -36,6 +38,8 @@ export function Academy() {
   const [profile, setProfile] = useState<ProfileKey | null>(null);
   const [level, setLevel] = useState<string>('');
   const [q, setQ] = useState('');
+  // Las tres áreas de Neuromundi, igual que en el directorio y el blog.
+  const [section, setSection] = useState<SectionValue | null>(null);
 
   const levels = useMemo(
     () => [...new Set(courses.map((c) => c.level).filter((l): l is string => !!l))].sort(),
@@ -50,9 +54,10 @@ export function Academy() {
         const matchLevel = !level || c.level === level;
         const term = q.trim().toLowerCase();
         const matchText = !term || `${c.title} ${c.description ?? ''}`.toLowerCase().includes(term);
-        return matchProfile && matchLevel && matchText;
+        const matchArea = perteneceASeccion(c.sections, section);
+        return matchProfile && matchLevel && matchText && matchArea;
       }),
-    [courses, profile, level, q],
+    [courses, profile, level, q, section],
   );
 
   const themes = profile ? (t(`lms.profiles.${profile}.themes`, { returnObjects: true }) as string[]) : [];
@@ -113,6 +118,9 @@ export function Academy() {
 
       {/* Segmentación por país (por el país del autor del curso) */}
       <CountryFilter />
+
+      {/* Filtro por las tres áreas de Neuromundi */}
+      <SectionFilter value={section} onChange={setSection} />
 
       {/* Buscador de cursos */}
       <div className="relative">

@@ -11,6 +11,7 @@ import { Button, SkeletonCard, EmptyState, useToast, useConfirm } from '@/compon
 import { useMyJobs, type JobOpening, type JobPatch } from '@/hooks/useJobOpenings';
 import { useCountryLabel } from '@/lib/countryLabel';
 import { COUNTRIES } from '@/data/countries';
+import { SectionPicker } from '@/components/common/SectionPicker';
 
 const inputCls = 'w-full rounded-xl border border-slate-200 p-2.5 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500';
 const labelCls = 'mb-1 block text-sm font-semibold text-slate-800';
@@ -19,6 +20,9 @@ const EMPTY: JobPatch = {
   opportunity_type: 'employment',
   positions: null, title: '', experience: '', education: '', salary_text: '',
   country: '', city: '', skills: '', apply_email: '', apply_url: '', note: '',
+  // Las tres áreas de Neuromundi: la empresa dice a quién va dirigida la
+  // vacante, para que la encuentre quien busca justo eso.
+  sections: [],
 };
 
 const OPP_TYPES = ['employment', 'volunteering', 'social_service'] as const;
@@ -68,6 +72,7 @@ function JobForm({ initial, onCancel, onSave }: { initial?: JobOpening; onCancel
         <div className="sm:col-span-2"><label className={labelCls}>{t('jobs.applyUrl')}</label><input className={inputCls} placeholder="https://" value={f.apply_url ?? ''} onChange={(e) => set('apply_url', e.target.value)} /></div>
         <div className="sm:col-span-2"><label className={labelCls}>{t('jobs.skills')}</label><textarea rows={2} className={inputCls} value={f.skills ?? ''} onChange={(e) => set('skills', e.target.value)} /></div>
         <div className="sm:col-span-2"><label className={labelCls}>{t('jobs.note')}</label><textarea rows={2} className={inputCls} value={f.note ?? ''} onChange={(e) => set('note', e.target.value)} /></div>
+        <div className="sm:col-span-2"><SectionPicker value={f.sections ?? []} onChange={(v) => set('sections', v)} /></div>
       </div>
       <div className="mt-3 flex gap-2">
         <Button size="sm" loading={busy} onClick={() => void avisar(save())} leadingIcon={<Save className="h-4 w-4" />}>{t('jobs.save')}</Button>

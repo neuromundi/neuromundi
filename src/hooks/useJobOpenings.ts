@@ -72,6 +72,9 @@ export interface PublicJob {
   apply_url: string | null;
   note: string | null;
   created_at: string;
+  // A qué áreas de Neuromundi va dirigida la vacante. Vacío = sin clasificar,
+  // y el filtro la muestra siempre.
+  sections: string[];
 }
 
 /** Oportunidades públicas (activas). `country` y `type` filtran; null = todos. */
@@ -87,7 +90,7 @@ export function usePublicJobs(country?: string | null, type?: OpportunityType | 
     let alive = true;
     setLoading(true);
     (async () => {
-      const { data, error } = await supabase.rpc('public_jobs', { p_country: country ?? null, p_type: type ?? null });
+      const { data, error } = await supabase.rpc('public_jobs_con_areas', { p_country: country ?? null, p_type: type ?? null });
       if (alive) {
         setJobs(error ? [] : ((data as PublicJob[] | null) ?? []));
         setFallo(!!error);

@@ -15,6 +15,7 @@ import { useProducts } from '@/hooks/useProducts';
 import { useCategories } from '@/hooks/useCategories';
 import { useCatLabel } from '@/lib/catLabel';
 import { STORE_CATEGORIES } from '@/data/storeCatalog';
+import { SectionPicker } from '@/components/common/SectionPicker';
 import {
   productSchema,
   defaultProductValues,
@@ -39,6 +40,7 @@ function toInsert(v: ProductFormValues): Omit<ProductInsert, 'vendor_id'> {
     store_subcategory: v.store_category && v.store_category !== 'otro' ? orNull(v.store_subcategory) : null,
     store_category_other: v.store_category === 'otro' ? orNull(v.store_category_other) : null,
     stock: v.stock ?? null,
+    sections: v.sections ?? [],
     is_active: v.is_active,
   };
 }
@@ -82,6 +84,7 @@ export function ProductManager({ vendorId }: { vendorId: string }) {
       store_subcategory: p.store_subcategory ?? '',
       store_category_other: p.store_category_other ?? '',
       stock: p.stock ?? null,
+      sections: p.sections ?? [],
       is_active: p.is_active,
     });
     setOpen(true);
@@ -278,6 +281,7 @@ export function ProductManager({ vendorId }: { vendorId: string }) {
             <p className="mt-1 text-xs text-muted">{t('product.purchaseHint')}</p>
             {errors.purchase_url && <p role="alert" className="mt-1 text-sm text-evs-1">{t(errors.purchase_url.message!)}</p>}
           </div>
+          <SectionPicker value={watch('sections') ?? []} onChange={(v) => setValue('sections', v)} />
           <label className="flex items-center gap-3">
             <input type="checkbox" className="h-5 w-5 rounded border-slate-300 text-brand-500" {...register('is_active')} />
             <span className="text-sm text-slate-700">{t('product.visible')}</span>

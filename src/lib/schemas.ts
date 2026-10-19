@@ -182,6 +182,9 @@ export const productSchema = z.object({
   store_category_other: z.string().trim().max(60).optional().default(''),
   // Inventario: null = sin control (ilimitado); entero >= 0 = unidades.
   stock: z.number().int().min(0, 'product.errStock').nullable(),
+  // Las tres áreas de Neuromundi. Lista vacía = sin clasificar, y el buscador
+  // de la tienda la muestra en todos los filtros.
+  sections: z.array(z.string()).max(3).optional().default([]),
   is_active: z.boolean(),
 }).refine(
   (v) => v.store_category !== 'otro' || (v.store_category_other ?? '').trim().length >= 3,
@@ -202,6 +205,7 @@ export function defaultProductValues(): ProductFormValues {
     store_subcategory: '',
     store_category_other: '',
     stock: null,
+    sections: [],
     is_active: true,
   };
 }

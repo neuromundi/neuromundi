@@ -15,6 +15,8 @@ import { CountryFilter } from '@/components/common/CountryFilter';
 import { useCountry } from '@/stores/countryStore';
 import { useCatLabel } from '@/lib/catLabel';
 import { STORE_CATEGORIES } from '@/data/storeCatalog';
+import { SectionFilter, perteneceASeccion } from '@/components/common/SectionFilter';
+import type { SectionValue } from '@/data/sections';
 import { cn } from '@/lib/utils';
 
 export function Store() {
@@ -27,6 +29,9 @@ export function Store() {
   const [reviewsFor, setReviewsFor] = useState<Product | null>(null);
   const [q, setQ] = useState('');
   const [cat, setCat] = useState('');
+  // Las tres áreas de Neuromundi. El comentario de cabecera prometía este
+  // filtro desde el principio; hasta hoy no existía.
+  const [section, setSection] = useState<SectionValue | null>(null);
   const [corporate, setCorporate] = useState(false);
   const [suggestOpen, setSuggestOpen] = useState(false);
   const ref = getRefCode();
@@ -37,14 +42,15 @@ export function Store() {
       products.filter((p) => {
         if (corporate && !p.is_featured) return false;
         if (cat && p.store_category !== cat) return false;
+        if (!perteneceASeccion(p.sections, section)) return false;
         if (country && sellers[p.vendor_id]?.country !== country) return false;
         if (term && !`${p.name} ${p.description ?? ''}`.toLowerCase().includes(term)) return false;
         return true;
       }),
-    [products, cat, term, country, sellers, corporate],
+    [products, cat, term, country, sellers, corporate, section],
   );
   const featured = useMemo(() => products.filter((p) => p.is_featured), [products]);
-  const showFeatured = featured.length > 0 && !term && !cat && !corporate;
+  const showFeatured = featured.length > 0 && !term && !cat && !corporate && !section;
 
   const onBuy = async (p: Product) => {
     setBusyId(p.id);
@@ -177,6 +183,7 @@ export function Store() {
             className="w-full rounded-xl border border-slate-200 py-3 pl-11 pr-3 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
           />
         </div>
+        <SectionFilter value={section} onChange={setSection} />
         <div className="flex flex-wrap gap-2" role="group" aria-label={t('shop.categories')}>
           <button
             type="button"

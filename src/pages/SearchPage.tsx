@@ -8,6 +8,8 @@ import { useTranslation } from 'react-i18next';
 import { Search as SearchIcon, FileText, Store, Package, SearchX } from 'lucide-react';
 import { Button , EmptyState} from '@/components/ui';
 import { useSearch, type SearchResult } from '@/hooks/useSearch';
+import { SectionFilter, perteneceASeccion } from '@/components/common/SectionFilter';
+import type { SectionValue } from '@/data/sections';
 
 const input = 'w-full rounded-lg border border-slate-200 p-2.5 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500';
 
@@ -18,6 +20,10 @@ export function SearchPage() {
   const { t } = useTranslation();
   const { results, loading, searched, search } = useSearch();
   const [q, setQ] = useState('');
+  // Las tres áreas de Neuromundi. Se aplica sobre lo ya traído, así que cambiar
+  // de área no obliga a volver a buscar.
+  const [section, setSection] = useState<SectionValue | null>(null);
+  const visibles = results.filter((r) => perteneceASeccion(r.sections, section));
 
   const Row = ({ r }: { r: SearchResult }) => {
     const Icon = ICON[r.kind];
@@ -52,9 +58,11 @@ export function SearchPage() {
 
       {q.trim().length > 0 && q.trim().length < 2 && <p className="text-sm text-muted">{t('search.hint')}</p>}
 
+      {results.length > 0 && <SectionFilter value={section} onChange={setSection} />}
+
       <div className="space-y-2">
-        {results.map((r) => <Row key={`${r.kind}-${r.id}`} r={r} />)}
-        {searched && !loading && results.length === 0 && <EmptyState icon={<SearchX className="h-6 w-6" />} title={t('search.emptyTitle')} description={t('search.empty')} />}
+        {visibles.map((r) => <Row key={`${r.kind}-${r.id}`} r={r} />)}
+        {searched && !loading && visibles.length === 0 && <EmptyState icon={<SearchX className="h-6 w-6" />} title={t('search.emptyTitle')} description={t('search.empty')} />}
       </div>
     </main>
   );

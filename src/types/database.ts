@@ -1750,6 +1750,7 @@ export type Database = {
       }
       courses: {
         Row: {
+          sections: string[]
           audience: string | null
           author_id: string
           country: string | null
@@ -1762,6 +1763,7 @@ export type Database = {
           title: string
         }
         Insert: {
+          sections?: string[]
           audience?: string | null
           author_id: string
           country?: string | null
@@ -1774,6 +1776,7 @@ export type Database = {
           title: string
         }
         Update: {
+          sections?: string[]
           audience?: string | null
           author_id?: string
           country?: string | null
@@ -2891,6 +2894,7 @@ export type Database = {
       }
       job_openings: {
         Row: {
+          sections: string[]
           apply_email: string | null
           apply_url: string | null
           city: string | null
@@ -2910,6 +2914,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          sections?: string[]
           apply_email?: string | null
           apply_url?: string | null
           city?: string | null
@@ -2929,6 +2934,7 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          sections?: string[]
           apply_email?: string | null
           apply_url?: string | null
           city?: string | null
@@ -3508,6 +3514,7 @@ export type Database = {
       }
       offers: {
         Row: {
+          sections: string[]
           created_at: string
           description: string | null
           discount_type: string
@@ -3524,6 +3531,7 @@ export type Database = {
           valid_until: string | null
         }
         Insert: {
+          sections?: string[]
           created_at?: string
           description?: string | null
           discount_type?: string
@@ -3540,6 +3548,7 @@ export type Database = {
           valid_until?: string | null
         }
         Update: {
+          sections?: string[]
           created_at?: string
           description?: string | null
           discount_type?: string
@@ -4138,6 +4147,7 @@ export type Database = {
       }
       products: {
         Row: {
+          sections: string[]
           category_id: number | null
           created_at: string
           currency: string
@@ -4160,6 +4170,7 @@ export type Database = {
           vendor_id: string
         }
         Insert: {
+          sections?: string[]
           category_id?: number | null
           created_at?: string
           currency?: string
@@ -4182,6 +4193,7 @@ export type Database = {
           vendor_id: string
         }
         Update: {
+          sections?: string[]
           category_id?: number | null
           created_at?: string
           currency?: string
@@ -7029,6 +7041,7 @@ export type Database = {
       }
       courses_public: {
         Row: {
+          sections: string[] | null
           audience: string | null
           author_id: string | null
           country: string | null
@@ -9045,6 +9058,28 @@ export type Database = {
           title: string
         }[]
       }
+      public_jobs_con_areas: {
+        Args: { p_country?: string | null; p_type?: string | null }
+        Returns: {
+          sections: string[]
+          apply_email: string
+          apply_url: string
+          city: string
+          company_id: string
+          company_name: string
+          country: string
+          created_at: string
+          education: string
+          experience: string
+          id: string
+          note: string
+          opportunity_type: string
+          positions: number
+          salary_text: string
+          skills: string
+          title: string
+        }[]
+      }
       public_jobs_countries: {
         Args: never
         Returns: {
@@ -9218,6 +9253,17 @@ export type Database = {
       search_all: {
         Args: { q: string | null }
         Returns: {
+          id: string
+          kind: string
+          subtitle: string
+          title: string
+          url: string
+        }[]
+      }
+      search_all_con_areas: {
+        Args: { q: string | null }
+        Returns: {
+          sections: string[]
           id: string
           kind: string
           subtitle: string

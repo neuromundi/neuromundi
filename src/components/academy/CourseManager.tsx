@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Plus, Eye, EyeOff, Trash2, FolderPlus, FilePlus } from 'lucide-react';
 import { Button, SkeletonCard, useToast, useConfirm, HowTo} from '@/components/ui';
+import { SectionPicker } from '@/components/common/SectionPicker';
 import { useCourseAuthor } from '@/hooks/useAcademy';
 
 const input = 'w-full rounded-lg border border-slate-200 p-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500';
@@ -27,6 +28,8 @@ export function CourseManager() {
   const [level, setLevel] = useState('');
   const [audience, setAudience] = useState('');
   const [cover, setCover] = useState('');
+  // Las tres áreas de Neuromundi: las marca el autor del curso.
+  const [secs, setSecs] = useState<string[]>([]);
   const [editing, setEditing] = useState<string | null>(null);
 
   if (loading) return <SkeletonCard rows={3} />;
@@ -59,10 +62,11 @@ export function CourseManager() {
             </label>
           </div>
           <input className={input} placeholder={t('lms.coverUrl')} value={cover} onChange={(e) => setCover(e.target.value)} />
+          <SectionPicker value={secs} onChange={setSecs} />
           <Button fullWidth onClick={async () => {
             if (!title.trim()) return;
-            const r = await createCourse({ title: title.trim(), description: desc, level: level || undefined, audience: audience || null, cover_url: cover || undefined });
-            if (r.ok) { setTitle(''); setDesc(''); setLevel(''); setAudience(''); setCover(''); setOpen(false); toast.success(t('lms.created')); } else toast.error(r.error);
+            const r = await createCourse({ title: title.trim(), description: desc, level: level || undefined, audience: audience || null, cover_url: cover || undefined, sections: secs });
+            if (r.ok) { setTitle(''); setDesc(''); setLevel(''); setAudience(''); setCover(''); setSecs([]); setOpen(false); toast.success(t('lms.created')); } else toast.error(r.error);
           }}>{t('lms.create')}</Button>
         </div>
       )}

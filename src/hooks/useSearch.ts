@@ -1,6 +1,7 @@
 /**
- * useSearch — buscador global (Fase 4). Consulta la RPC search_all, que busca en
- * publicaciones (blogs/enlaces), prestadores/proveedores y productos.
+ * useSearch — buscador global. Consulta la RPC search_all_con_areas, que busca
+ * en publicaciones (blogs/enlaces), prestadores/proveedores y productos, y
+ * devuelve el área de Neuromundi de cada resultado para poder depurar por ella.
  */
 import { useCallback, useState } from 'react';
 import { supabase } from '@/lib/supabase';
@@ -11,6 +12,9 @@ export interface SearchResult {
   title: string;
   subtitle: string;
   url: string;
+  // Las áreas del resultado. Vacío = sin clasificar, y el filtro lo muestra
+  // siempre.
+  sections: string[];
 }
 
 export function useSearch() {
@@ -26,7 +30,7 @@ export function useSearch() {
       return;
     }
     setLoading(true);
-    const { data } = await supabase.rpc('search_all', { q: term });
+    const { data } = await supabase.rpc('search_all_con_areas', { q: term });
     setResults((data as SearchResult[]) ?? []);
     setLoading(false);
     setSearched(true);

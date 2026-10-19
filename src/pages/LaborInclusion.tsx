@@ -13,6 +13,8 @@ import { usePublicJobs, usePublicJobsCountries, type PublicJob, type Opportunity
 import { useCountry } from '@/stores/countryStore';
 import { useCountryLabel } from '@/lib/countryLabel';
 import { COUNTRIES } from '@/data/countries';
+import { SectionFilter, perteneceASeccion } from '@/components/common/SectionFilter';
+import type { SectionValue } from '@/data/sections';
 import { safeHttpUrl } from '@/lib/safeUrl';
 
 const OPP_TYPES: (OpportunityType | 'all')[] = ['all', 'employment', 'volunteering', 'social_service'];
@@ -82,6 +84,8 @@ export function LaborInclusion() {
   const [selected, setSelected] = useState<string>('');
   const [oppType, setOppType] = useState<OpportunityType | 'all'>('all');
   const [q, setQ] = useState('');
+  // Las tres áreas de Neuromundi, igual que en el directorio y el blog.
+  const [section, setSection] = useState<SectionValue | null>(null);
 
   // El selector lista TODOS los países (localizados), no solo los que ya tienen
   // vacantes: así nunca aparece vacío. Se muestra el conteo cuando existe.
@@ -101,13 +105,14 @@ export function LaborInclusion() {
 
   const filtered = useMemo(() => {
     const needle = q.trim().toLowerCase();
-    if (!needle) return jobs;
-    return jobs.filter((j) =>
-      [j.title, j.company_name, j.skills, j.city, j.education, j.experience]
+    return jobs.filter((j) => {
+      if (!perteneceASeccion(j.sections, section)) return false;
+      if (!needle) return true;
+      return [j.title, j.company_name, j.skills, j.city, j.education, j.experience]
         .filter(Boolean)
-        .some((s) => (s as string).toLowerCase().includes(needle)),
-    );
-  }, [jobs, q]);
+        .some((s) => (s as string).toLowerCase().includes(needle));
+    });
+  }, [jobs, q, section]);
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-10">
@@ -135,6 +140,11 @@ export function LaborInclusion() {
             {t(`labor.type.${ot}`)}
           </button>
         ))}
+      </div>
+
+      {/* Filtro por las tres áreas de Neuromundi */}
+      <div className="mt-4 flex justify-center">
+        <SectionFilter value={section} onChange={setSection} />
       </div>
 
       <div className="mt-4 flex flex-col gap-3 sm:flex-row">
