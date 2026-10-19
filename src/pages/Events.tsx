@@ -20,7 +20,10 @@ import { googleCalendarUrl, downloadICS } from '@/lib/calendar';
 import { filterEvents, eventToCalendarEvent, toLocalDatetimeInput } from '@/lib/calendarView';
 import { cn } from '@/lib/utils';
 import { safeHttpUrl } from '@/lib/safeUrl';
+import { SectionFilter } from '@/components/common/SectionFilter';
+import { SECTIONS, type SectionValue } from '@/data/sections';
 import { ZONAS_HORARIAS } from '@/data/zonasHorarias';
+import { AMBITOS, ambitoDeLista, listaDeAmbito, type ValorAmbito } from '@/data/ambitos';
 import { fechaDeEvento, zonaQueConvieneDecir, instanteDesdeHoraLocal, horaLocalDesdeInstante } from '@/lib/horaEvento';
 
 const inputCls =
@@ -36,6 +39,7 @@ export function Events() {
 
   const [q, setQ] = useState('');
   const [mode, setMode] = useState<'all' | 'presencial' | 'online'>('all');
+  const [section, setSection] = useState<SectionValue | null>(null);
   const [editing, setEditing] = useState<EventItem | null>(null);
   const [creating, setCreating] = useState(false);
 
@@ -49,8 +53,8 @@ export function Events() {
 
   const term = q.trim().toLowerCase();
   const filtered = useMemo(
-    () => filterEvents(events, { mode, country, term }),
-    [events, mode, country, term],
+    () => filterEvents(events, { mode, country, term, section }),
+    [events, mode, country, term, section],
   );
 
   const onSave = async (ev: EventItem) => {
@@ -103,7 +107,13 @@ export function Events() {
           {ev.is_online ? (
             <><Globe2 className="h-4 w-4 text-sage-600" aria-hidden="true" /> {t('events.online')}</>
           ) : (
-            <><MapPin className="h-4 w-4 text-slate-400" aria-hidden="true" /> {[ev.venue, ev.city, ev.country].filter(Boolean).join(', ') || t('events.inPerson')}</>
+            <>
+              <MapPin className="h-4 w-4 shrink-0 text-slate-400" aria-hidden="true" />
+              <span>
+                {[ev.venue, ev.city, ev.country].filter(Boolean).join(', ') || t('events.inPerson')}
+                {!ev.venue && <span className="text-muted"> · {t('events.venueTbc')}</span>}
+              </span>
+            </>
           )}
         </p>
         {ev.description && <p className="mt-2 line-clamp-3 text-sm text-slate-600">{ev.description}</p>}
@@ -198,6 +208,10 @@ export function Events() {
         )}
       </div>
 
+      <div className="flex flex-wrap items-center gap-3">
+        <SectionFilter value={section} onChange={setSection} />
+      </div>
+
       {loading ? (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <SkeletonCard rows={2} /><SkeletonCard rows={2} /><SkeletonCard rows={2} />
@@ -248,6 +262,8 @@ function EventForm({
   const [venue, setVenue] = useState(initial?.venue ?? '');
   const [zona, setZona] = useState(initial?.timezone ?? '');
   const [horaConfirmada, setHoraConfirmada] = useState(initial?.hora_confirmada !== false);
+  const [ambito, setAmbito] = useState<ValorAmbito>(ambitoDeLista(initial?.paises));
+  const [secs, setSecs] = useState<string[]>(initial?.sections ?? []);
   // Las horas del formulario son horas de pared de la zona elegida; si no hay
   // zona, son las del navegador, que es el comportamiento de siempre.
   const [starts, setStarts] = useState(
@@ -278,6 +294,10 @@ function EventForm({
       is_online: isOnline,
       online_url: isOnline ? (onlineUrl.trim() || null) : null,
       info_url: infoUrl.trim() || null,
+      // La lista de países sólo tiene sentido en los eventos en línea: el
+      // presencial ya se acota por el país donde ocurre.
+      paises: isOnline ? listaDeAmbito(ambito, initial?.paises) : [],
+      sections: secs,
       cover_url: coverUrl.trim() || null,
       country: isOnline ? null : (ctry || null),
       city: isOnline ? null : (city.trim() || null),
@@ -303,7 +323,13 @@ function EventForm({
           <input type="checkbox" className="h-5 w-5" checked={isOnline} onChange={(e) => setIsOnline(e.target.checked)} /> {t('events.isOnline')}
         </label>
         {isOnline ? (
-          <input className={inputCls} placeholder={t('events.fUrl')} value={onlineUrl} onChange={(e) => setOnlineUrl(e.target.value)} />
+          <>
+            <input className={inputCls} placeholder={t('events.fUrl')} value={onlineUrl} onChange={(e) => setOnlineUrl(e.target.value)} />
+            <select className={inputCls} value={ambito} onChange={(e) => setAmbito(e.target.value as ValorAmbito)}>
+              {AMBITOS.map((a) => <option key={a.value} value={a.value}>{t(a.claveTexto)}</option>)}
+              {ambito === 'medida' && <option value="medida">{t('events.scopeCustom')}</option>}
+            </select>
+          </>
         ) : (
           <>
             <select className={inputCls} value={ctry} onChange={(e) => setCtry(e.target.value)}>
@@ -316,6 +342,28 @@ function EventForm({
         )}
         <input className={inputCls} placeholder={t('events.fInfoUrl')} value={infoUrl} onChange={(e) => setInfoUrl(e.target.value)} />
         <input className={inputCls} placeholder={t('events.fCover')} value={coverUrl} onChange={(e) => setCoverUrl(e.target.value)} />
+        <div>
+          <p className="mb-1 text-sm font-semibold text-slate-700">{t('directory.sectionLabel')}</p>
+          <div className="flex flex-wrap gap-2">
+            {SECTIONS.map((sec) => {
+              const activa = secs.includes(sec.value);
+              return (
+                <button
+                  key={sec.value}
+                  type="button"
+                  aria-pressed={activa}
+                  onClick={() => setSecs(activa ? secs.filter((x) => x !== sec.value) : [...secs, sec.value])}
+                  className={cn(
+                    'rounded-full border px-3 py-1.5 text-sm font-medium transition-colors',
+                    activa ? `border-transparent bg-gradient-to-br text-white ${sec.gradient}` : sec.softInactive,
+                  )}
+                >
+                  {t(`sections.${sec.value}.name`)}
+                </button>
+              );
+            })}
+          </div>
+        </div>
         <select className={inputCls} value={zona} onChange={(e) => setZona(e.target.value)}>
           <option value="">{t('events.fZoneReader')}</option>
           {ZONAS_HORARIAS.map((z) => <option key={z.value} value={z.value}>{z.label}</option>)}

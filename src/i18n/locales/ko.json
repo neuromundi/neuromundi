@@ -3772,7 +3772,12 @@
     "fZone": "행사 표준시",
     "fZoneReader": "읽는 사람의 시간으로 표시",
     "fTimeTbc": "시간이 아직 확정되지 않았습니다",
-    "fCover": "커버 이미지(링크 또는 경로)"
+    "fCover": "커버 이미지(링크 또는 경로)",
+    "scopeAll": "모든 국가에 공개",
+    "scopeEs": "스페인어권 국가",
+    "scopePt": "포르투갈어권 국가",
+    "scopeCustom": "사용자 목록(유지됨)",
+    "venueTbc": "장소 미정"
   },
   "calendar": {
     "title": "내 캘린더",

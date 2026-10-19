@@ -1384,6 +1384,7 @@ export type Database = {
           author_id: string
           body: string | null
           cover_url: string | null
+          sections: string[]
           created_at: string
           excerpt: string | null
           external_url: string | null
@@ -1399,6 +1400,7 @@ export type Database = {
           author_id: string
           body?: string | null
           cover_url?: string | null
+          sections?: string[]
           created_at?: string
           excerpt?: string | null
           external_url?: string | null
@@ -1414,6 +1416,7 @@ export type Database = {
           author_id?: string
           body?: string | null
           cover_url?: string | null
+          sections?: string[]
           created_at?: string
           excerpt?: string | null
           external_url?: string | null
@@ -2437,6 +2440,8 @@ export type Database = {
           is_published: boolean
           nota_admin: string | null
           info_url: string | null
+          paises: string[]
+          sections: string[]
           timezone: string | null
           hora_confirmada: boolean
           online_url: string | null
@@ -2462,6 +2467,8 @@ export type Database = {
           is_published?: boolean
           nota_admin?: string | null
           info_url?: string | null
+          paises?: string[]
+          sections?: string[]
           timezone?: string | null
           hora_confirmada?: boolean
           online_url?: string | null
@@ -2487,6 +2494,8 @@ export type Database = {
           is_published?: boolean
           nota_admin?: string | null
           info_url?: string | null
+          paises?: string[]
+          sections?: string[]
           timezone?: string | null
           hora_confirmada?: boolean
           online_url?: string | null
@@ -6981,6 +6990,7 @@ export type Database = {
           avg_stars: number | null
           body: string | null
           cover_url: string | null
+          sections: string[] | null
           created_at: string | null
           excerpt: string | null
           external_url: string | null

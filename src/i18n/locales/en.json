@@ -3772,7 +3772,12 @@
     "fZone": "Event time zone",
     "fZoneReader": "Show in the reader's own time",
     "fTimeTbc": "The time is not confirmed yet",
-    "fCover": "Cover image (link or path)"
+    "fCover": "Cover image (link or path)",
+    "scopeAll": "Open to every country",
+    "scopeEs": "Spanish-speaking countries",
+    "scopePt": "Portuguese-speaking countries",
+    "scopeCustom": "Custom list (kept as is)",
+    "venueTbc": "venue to be confirmed"
   },
   "calendar": {
     "title": "My calendar",

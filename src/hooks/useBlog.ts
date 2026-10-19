@@ -10,6 +10,8 @@
  */
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { supabase } from '@/lib/supabase';
+import type { SectionValue } from '@/data/sections';
+import { perteneceASeccion } from '@/components/common/SectionFilter';
 import { toMessage } from '@/lib/utils';
 import { useAuth } from '@/hooks/useAuth';
 import { useAuthStore } from '@/stores/authStore';
@@ -22,6 +24,7 @@ export function useBlogFeed() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [topic, setTopic] = useState('');
+  const [section, setSection] = useState<SectionValue | null>(null);
   const [q, setQ] = useState('');
 
   const load = useCallback(async () => {
@@ -38,13 +41,15 @@ export function useBlogFeed() {
   const term = q.trim().toLowerCase();
   const filtered = useMemo(
     () =>
-      posts.filter((p) =>
-        !term ? true : `${p.title} ${p.excerpt ?? ''} ${(p.keywords ?? []).join(' ')}`.toLowerCase().includes(term),
-      ),
-    [posts, term],
+      posts.filter((p) => {
+        if (!perteneceASeccion(p.sections, section)) return false;
+        if (!term) return true;
+        return `${p.title} ${p.excerpt ?? ''} ${(p.keywords ?? []).join(' ')}`.toLowerCase().includes(term);
+      }),
+    [posts, term, section],
   );
 
-  return { posts: filtered, loading, topic, setTopic, q, setQ, reload: load };
+  return { posts: filtered, loading, topic, setTopic, section, setSection, q, setQ, reload: load };
 }
 
 export function useBlogRecommendations(limit = 6) {

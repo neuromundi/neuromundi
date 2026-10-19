@@ -10,6 +10,8 @@
 import type { EventItem } from '@/hooks/useEvents';
 import type { CalendarItem } from '@/hooks/useCalendar';
 import type { CalendarEvent } from '@/lib/calendar';
+import type { SectionValue } from '@/data/sections';
+import { perteneceASeccion } from '@/components/common/SectionFilter';
 
 export type EventMode = 'all' | 'presencial' | 'online';
 
@@ -17,13 +19,30 @@ export interface EventFilter {
   mode: EventMode;
   country: string | null;
   term: string;
+  /** Una de las tres secciones de la plataforma, o null para no acotar. */
+  section?: SectionValue | null;
 }
 
-/** ¿El evento pasa el filtro actual? Los eventos en línea no se acotan por país. */
+/**
+ * ¿El evento pasa el filtro actual?
+ *
+ * Un evento presencial se acota por su país. Uno en línea se acota por la
+ * lista de países a los que va dirigido, y si esa lista está vacía se entiende
+ * que está abierto a todos. Antes no se acotaba nunca, así que un congreso
+ * virtual en español salía también en la búsqueda de Portugal o de Japón.
+ */
 export function eventMatchesFilter(ev: EventItem, f: EventFilter): boolean {
   if (f.mode === 'online' && !ev.is_online) return false;
   if (f.mode === 'presencial' && ev.is_online) return false;
-  if (f.country && !ev.is_online && ev.country !== f.country) return false;
+  if (f.country) {
+    if (ev.is_online) {
+      const destino = ev.paises ?? [];
+      if (destino.length > 0 && !destino.includes(f.country)) return false;
+    } else if (ev.country !== f.country) {
+      return false;
+    }
+  }
+  if (!perteneceASeccion(ev.sections, f.section ?? null)) return false;
   const needle = (f.term ?? '').trim().toLowerCase();
   if (needle) {
     const hay = `${ev.title} ${ev.description ?? ''} ${ev.city ?? ''} ${ev.venue ?? ''}`.toLowerCase();

@@ -3772,7 +3772,12 @@
     "fZone": "Zona horaria del evento",
     "fZoneReader": "Mostrar en la hora de quien lo lea",
     "fTimeTbc": "La hora todavía no está confirmada",
-    "fCover": "Portada (enlace o ruta de la imagen)"
+    "fCover": "Portada (enlace o ruta de la imagen)",
+    "scopeAll": "Abierto a todos los países",
+    "scopeEs": "Países de habla hispana",
+    "scopePt": "Países de habla portuguesa",
+    "scopeCustom": "Lista a medida (se conserva)",
+    "venueTbc": "sede por confirmar"
   },
   "calendar": {
     "title": "Mi calendario",

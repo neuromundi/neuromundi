@@ -3772,7 +3772,12 @@
     "fZone": "活动所在时区",
     "fZoneReader": "按阅读者所在时间显示",
     "fTimeTbc": "时间尚未确定",
-    "fCover": "封面图片（链接或路径）"
+    "fCover": "封面图片（链接或路径）",
+    "scopeAll": "面向所有国家",
+    "scopeEs": "西班牙语国家",
+    "scopePt": "葡萄牙语国家",
+    "scopeCustom": "自定义列表（保留）",
+    "venueTbc": "场地待定"
   },
   "calendar": {
     "title": "我的日历",

@@ -13,6 +13,7 @@ function ev(p: Partial<EventItem>): EventItem {
     country: p.country ?? 'México', city: p.city ?? 'CDMX', venue: p.venue ?? 'Centro',
     starts_at: p.starts_at ?? '2025-01-15T12:00:00.000Z', ends_at: p.ends_at ?? null,
     cover_url: p.cover_url ?? null, is_published: p.is_published ?? true,
+    paises: p.paises ?? [], sections: p.sections ?? [],
   };
 }
 function item(p: Partial<CalendarItem>): CalendarItem {
@@ -34,11 +35,38 @@ describe('eventMatchesFilter / filterEvents', () => {
     expect(filterEvents(all, { mode: 'online', country: null, term: '' }).map((e) => e.id)).toEqual(['c']);
   });
 
-  it('el país filtra presenciales pero NO los online', () => {
+  it('el país filtra presenciales; el online sin lista de países sale en todos', () => {
     const r = filterEvents(all, { mode: 'all', country: 'México', term: '' }).map((e) => e.id);
     expect(r).toContain('a');   // presencial MX
-    expect(r).toContain('c');   // online (no se acota por país)
+    expect(r).toContain('c');   // online sin lista = abierto a todos
     expect(r).not.toContain('b'); // presencial AR
+  });
+
+  it('el online CON lista de países sólo sale en esos países', () => {
+    // Un congreso virtual en español no le sirve a nadie en Portugal.
+    const virtualEs = ev({
+      id: 'd', is_online: true, country: null, title: 'Congreso virtual',
+      paises: ['España', 'Argentina', 'México'],
+    });
+    const conLista = [...all, virtualEs];
+    expect(filterEvents(conLista, { mode: 'all', country: 'España', term: '' }).map((e) => e.id)).toContain('d');
+    expect(filterEvents(conLista, { mode: 'all', country: 'Portugal', term: '' }).map((e) => e.id)).not.toContain('d');
+    // Sin país elegido sigue saliendo.
+    expect(filterEvents(conLista, { mode: 'all', country: null, term: '' }).map((e) => e.id)).toContain('d');
+  });
+
+  it('la sección acota, y lo que no está clasificado no se esconde', () => {
+    const neuro = ev({ id: 'e', title: 'Jornada de dislexia', sections: ['neurodivergencias'] });
+    const clinico = ev({ id: 'f', title: 'Congreso de neuropsicología', sections: ['afecciones'] });
+    const sinClasificar = ev({ id: 'g', title: 'Taller abierto', sections: [] });
+    const lista = [neuro, clinico, sinClasificar];
+    const r = filterEvents(lista, { mode: 'all', country: null, term: '', section: 'neurodivergencias' })
+      .map((e) => e.id);
+    expect(r).toContain('e');
+    expect(r).toContain('g');     // sin clasificar: aparece siempre
+    expect(r).not.toContain('f');
+    // Sin sección elegida salen las tres.
+    expect(filterEvents(lista, { mode: 'all', country: null, term: '' })).toHaveLength(3);
   });
 
   it('el texto busca en título/descr/ciudad/lugar, sin distinguir mayúsculas', () => {

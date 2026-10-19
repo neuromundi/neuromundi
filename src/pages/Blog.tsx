@@ -11,6 +11,7 @@ import { Button, useToast, EmptyState, SkeletonCard } from '@/components/ui';
 import { useBlogFeed, useBlogRecommendations, useInterests } from '@/hooks/useBlog';
 import { useAuth } from '@/hooks/useAuth';
 import { useCatLabel } from '@/lib/catLabel';
+import { SectionFilter } from '@/components/common/SectionFilter';
 import { BLOG_TOPICS } from '@/data/blogTopics';
 import { BlogPostCard } from '@/components/blog/BlogPostCard';
 import { cn } from '@/lib/utils';
@@ -72,7 +73,7 @@ export function Blog() {
   const catLabel = useCatLabel();
   const { userId } = useAuth();
   const { hasInterests } = useInterests();
-  const { posts, loading, topic, setTopic, q, setQ } = useBlogFeed();
+  const { posts, loading, topic, setTopic, section, setSection, q, setQ } = useBlogFeed();
   const recs = useBlogRecommendations(6);
 
   return (
@@ -108,6 +109,7 @@ export function Blog() {
             className="w-full rounded-xl border border-slate-200 py-3 pl-11 pr-3 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
           />
         </div>
+        <SectionFilter value={section} onChange={setSection} />
         <div className="flex flex-wrap gap-2" role="group" aria-label={t('blog.topics')}>
           <button
             type="button"

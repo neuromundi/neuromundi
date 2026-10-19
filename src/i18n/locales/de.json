@@ -3772,7 +3772,12 @@
     "fZone": "Zeitzone der Veranstaltung",
     "fZoneReader": "In der Zeit der Lesenden anzeigen",
     "fTimeTbc": "Die Uhrzeit steht noch nicht fest",
-    "fCover": "Titelbild (Link oder Pfad)"
+    "fCover": "Titelbild (Link oder Pfad)",
+    "scopeAll": "Für alle Länder offen",
+    "scopeEs": "Spanischsprachige Länder",
+    "scopePt": "Portugiesischsprachige Länder",
+    "scopeCustom": "Eigene Liste (bleibt erhalten)",
+    "venueTbc": "Ort noch offen"
   },
   "calendar": {
     "title": "Mein Kalender",

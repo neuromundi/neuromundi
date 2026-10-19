@@ -3772,7 +3772,12 @@
     "fZone": "Fuso orario dell'evento",
     "fZoneReader": "Mostrare nell'ora di chi legge",
     "fTimeTbc": "L'orario non è ancora confermato",
-    "fCover": "Copertina (link o percorso)"
+    "fCover": "Copertina (link o percorso)",
+    "scopeAll": "Aperto a tutti i paesi",
+    "scopeEs": "Paesi di lingua spagnola",
+    "scopePt": "Paesi di lingua portoghese",
+    "scopeCustom": "Elenco su misura (si conserva)",
+    "venueTbc": "sede da confermare"
   },
   "calendar": {
     "title": "Il mio calendario",

@@ -21,6 +21,8 @@ export interface EventItem {
   info_url?: string | null;
   timezone?: string | null;
   hora_confirmada?: boolean;
+  paises?: string[];
+  sections?: string[];
   country: string | null;
   city: string | null;
   venue: string | null;
@@ -41,6 +43,8 @@ export interface EventInput {
   info_url?: string | null;
   timezone?: string | null;
   hora_confirmada?: boolean;
+  paises?: string[];
+  sections?: string[];
   country?: string | null;
   city?: string | null;
   venue?: string | null;
