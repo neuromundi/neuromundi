@@ -29,7 +29,10 @@ export function useBlogFeed() {
 
   const load = useCallback(async () => {
     setLoading(true);
-    let query = supabase.from('blog_feed').select('*').order('created_at', { ascending: false }).limit(60);
+    // El tope era 60 y el blog ya pasa de esa cifra: con 68 entradas se perdían
+    // ocho sin que nadie lo notara. Se sube con holgura y el filtro por sección
+    // y por tema hace el resto.
+    let query = supabase.from('blog_feed').select('*').order('created_at', { ascending: false }).limit(300);
     if (topic) query = query.eq('topic', topic);
     const { data } = await query;
     setPosts((data as BlogPost[]) ?? []);
