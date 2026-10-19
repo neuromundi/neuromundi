@@ -16,6 +16,7 @@ import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher';
 import { useAuth } from '@/hooks/useAuth';
 import { useProfile } from '@/hooks/useProfile';
 import { supabase } from '@/lib/supabase';
+import { pedirCambioDeCorreo as pedirCambioDeCorreoEnSupabase } from '@/lib/cambioDeCorreo';
 import { ProviderLocations } from '@/components/provider';
 import { FiscalSchoolFields } from '@/components/provider/FiscalSchoolFields';
 import { MyReports } from '@/components/report/MyReports';
@@ -123,23 +124,15 @@ export function Settings() {
   }, []);
 
   const pedirCambioDeCorreo = async () => {
-    const destino = correoNuevo.trim().toLowerCase();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(destino)) {
-      toast.error(t('settings.mailInvalid')); return;
-    }
-    if (destino === correoActual.trim().toLowerCase()) {
-      toast.error(t('settings.mailSame')); return;
-    }
     setCorreoBusy(true);
-    const { error } = await supabase.auth.updateUser(
-      { email: destino },
-      // Los dos enlaces de confirmación llegan a una página que explica qué
-      // pasó y qué falta; antes dejaban a la persona en el inicio sin sesión
-      // y sin ningún mensaje.
-      { emailRedirectTo: `${window.location.origin}/correo-confirmado` },
-    );
+    const r = await pedirCambioDeCorreoEnSupabase(correoActual, correoNuevo);
     setCorreoBusy(false);
-    if (error) { toast.error(error.message); return; }
+    if (!r.ok) {
+      if (r.motivo === 'formato') toast.error(t('settings.mailInvalid'));
+      else if (r.motivo === 'igual') toast.error(t('settings.mailSame'));
+      else toast.error(r.mensaje ?? '');
+      return;
+    }
     setCorreoPedido(true);
     setCorreoNuevo('');
     toast.success(t('settings.mailSent'));

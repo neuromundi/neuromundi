@@ -232,8 +232,11 @@ export function toMessage(error: unknown, fallback = 'Algo no salió bien.'): st
       return i18next.t('reg.miss.emailTaken');
     }
   }
-  if (error instanceof Error) return error.message;
-  if (typeof error === 'string') return error;
+  // `raw` ya cubre los tres casos (Error, texto suelto y objeto simple de
+  // Supabase). Devolverlo aqui es lo que faltaba: sin esta linea, el motivo
+  // real de un error de Supabase se calculaba arriba, se usaba para las
+  // traducciones... y luego se tiraba, dejando otra vez "Algo no salio bien".
+  if (raw) return raw;
   return fallback;
 }
 
