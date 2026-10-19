@@ -1400,7 +1400,10 @@
         "suspend": "Suspension",
         "cancel": "Cancellation",
         "reactivate": "Reactivation",
-        "winback": "Cancellation (cost)"
+        "winback": "Cancellation (cost)",
+        "extend": "Extension",
+        "exempt": "Exemption granted",
+        "unexempt": "Exemption withdrawn"
       }
     },
     "secImprove": "Improvements",
@@ -3684,7 +3687,16 @@
     "empty": "No views recorded yet. Share your profile to start measuring.",
     "incomplete": "Incomplete registrations",
     "refresh": "Refresh",
-    "unavailable": "Metrics unavailable right now."
+    "unavailable": "Metrics unavailable right now.",
+    "new7d": "Sign-ups last 7 days",
+    "new30d": "Sign-ups last 30 days",
+    "members": "Members",
+    "verified": "Verified providers",
+    "published": "Published listings",
+    "founders": "Founders",
+    "products": "Active products",
+    "referrals": "Referrals",
+    "reportsOpen": "Open reports"
   },
   "events": {
     "title": "Events",

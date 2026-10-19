@@ -1400,7 +1400,10 @@
         "suspend": "정지",
         "cancel": "취소",
         "reactivate": "재활성화",
-        "winback": "취소 (비용)"
+        "winback": "취소 (비용)",
+        "extend": "기간 연장",
+        "exempt": "면제 부여",
+        "unexempt": "면제 해제"
       }
     },
     "secImprove": "개선 제안",
@@ -3684,7 +3687,16 @@
     "empty": "아직 조회가 기록되지 않았습니다. 측정을 시작하려면 프로필을 공유하세요.",
     "incomplete": "미완료 등록",
     "refresh": "새로고침",
-    "unavailable": "지표를 지금 사용할 수 없습니다."
+    "unavailable": "지표를 지금 사용할 수 없습니다.",
+    "new7d": "최근 7일 신규 가입",
+    "new30d": "최근 30일 신규 가입",
+    "members": "회원",
+    "verified": "인증된 제공자",
+    "published": "공개된 프로필",
+    "founders": "창립 회원",
+    "products": "활성 상품",
+    "referrals": "추천",
+    "reportsOpen": "처리 중인 신고"
   },
   "events": {
     "title": "이벤트",

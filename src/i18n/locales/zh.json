@@ -1363,7 +1363,10 @@
         "suspend": "暂停",
         "cancel": "注销",
         "reactivate": "重新启用",
-        "winback": "注销（费用）"
+        "winback": "注销（费用）",
+        "extend": "延期",
+        "exempt": "已给予豁免",
+        "unexempt": "已撤销豁免"
       }
     },
     "secImprove": "改进",
@@ -3684,7 +3687,16 @@
     "empty": "暂无浏览记录。分享您的主页以开始统计。",
     "incomplete": "未完成的注册",
     "refresh": "刷新",
-    "unavailable": "暂时无法显示指标。"
+    "unavailable": "暂时无法显示指标。",
+    "new7d": "近7天新注册",
+    "new30d": "近30天新注册",
+    "members": "成员",
+    "verified": "已认证的服务者",
+    "published": "已发布的名片",
+    "founders": "创始会员",
+    "products": "在售商品",
+    "referrals": "推荐",
+    "reportsOpen": "待处理举报"
   },
   "events": {
     "title": "活动",

@@ -1363,7 +1363,10 @@
         "suspend": "Pausierung",
         "cancel": "Kündigung",
         "reactivate": "Reaktivierung",
-        "winback": "Kündigung (Kosten)"
+        "winback": "Kündigung (Kosten)",
+        "extend": "Verlängerung",
+        "exempt": "Befreiung erteilt",
+        "unexempt": "Befreiung aufgehoben"
       }
     },
     "secImprove": "Verbesserungen",
@@ -3684,7 +3687,16 @@
     "empty": "Noch keine Aufrufe erfasst. Teile dein Profil, um mit dem Messen zu beginnen.",
     "incomplete": "Unvollständige Registrierungen",
     "refresh": "Aktualisieren",
-    "unavailable": "Metriken derzeit nicht verfügbar."
+    "unavailable": "Metriken derzeit nicht verfügbar.",
+    "new7d": "Anmeldungen letzte 7 Tage",
+    "new30d": "Anmeldungen letzte 30 Tage",
+    "members": "Mitglieder",
+    "verified": "Verifizierte Anbieter",
+    "published": "Veröffentlichte Profile",
+    "founders": "Gründungsmitglieder",
+    "products": "Aktive Produkte",
+    "referrals": "Empfehlungen",
+    "reportsOpen": "Offene Meldungen"
   },
   "events": {
     "title": "Veranstaltungen",

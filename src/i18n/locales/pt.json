@@ -1363,7 +1363,10 @@
         "suspend": "Suspensão",
         "cancel": "Cancelamento",
         "reactivate": "Reativação",
-        "winback": "Cancelamento (custo)"
+        "winback": "Cancelamento (custo)",
+        "extend": "Prorrogação",
+        "exempt": "Isenção concedida",
+        "unexempt": "Isenção retirada"
       }
     },
     "secImprove": "Melhorias",
@@ -3684,7 +3687,16 @@
     "empty": "Ainda não há visualizações registradas. Compartilhe seu perfil para começar a medir.",
     "incomplete": "Cadastros não concluídos",
     "refresh": "Atualizar",
-    "unavailable": "Métricas indisponíveis no momento."
+    "unavailable": "Métricas indisponíveis no momento.",
+    "new7d": "Inscrições nos últimos 7 dias",
+    "new30d": "Inscrições nos últimos 30 dias",
+    "members": "Membros",
+    "verified": "Prestadores verificados",
+    "published": "Fichas publicadas",
+    "founders": "Fundadores",
+    "products": "Produtos ativos",
+    "referrals": "Indicações",
+    "reportsOpen": "Denúncias abertas"
   },
   "events": {
     "title": "Eventos",

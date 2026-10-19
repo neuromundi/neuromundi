@@ -1363,7 +1363,10 @@
         "suspend": "一時停止",
         "cancel": "解約",
         "reactivate": "再開",
-        "winback": "解約（費用）"
+        "winback": "解約（費用）",
+        "extend": "期間延長",
+        "exempt": "免除の付与",
+        "unexempt": "免除の取り消し"
       }
     },
     "secImprove": "改善",
@@ -3684,7 +3687,16 @@
     "empty": "まだ閲覧が記録されていません。プロフィールを共有して計測を始めましょう。",
     "incomplete": "未完了の登録",
     "refresh": "更新",
-    "unavailable": "現在、指標を表示できません。"
+    "unavailable": "現在、指標を表示できません。",
+    "new7d": "過去7日間の新規登録",
+    "new30d": "過去30日間の新規登録",
+    "members": "メンバー",
+    "verified": "認証済みの提供者",
+    "published": "公開中のプロフィール",
+    "founders": "創設メンバー",
+    "products": "有効な商品",
+    "referrals": "紹介",
+    "reportsOpen": "未処理の通報"
   },
   "events": {
     "title": "イベント",
