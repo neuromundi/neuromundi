@@ -8161,6 +8161,15 @@ export type Database = {
           uses: number
         }[]
       }
+      admin_pendientes_de_validacion: {
+        Args: never
+        Returns: {
+          documento_mas_antiguo: string
+          documentos_por_revisar: number
+          sin_filtro_cero: number
+          sin_publicar: number
+        }[]
+      }
       admin_pending_org_docs: {
         Args: never
         Returns: {

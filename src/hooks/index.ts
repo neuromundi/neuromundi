@@ -63,3 +63,6 @@ export type { UseSharedListValue } from './useSharedList';
 
 export { useProviderLocations, usePublicLocations } from './useProviderLocations';
 export type { LocationDraft } from './useProviderLocations';
+
+export { usePendientesDeValidacion } from './usePendientesDeValidacion';
+export type { Pendientes, UsePendientesValue } from './usePendientesDeValidacion';

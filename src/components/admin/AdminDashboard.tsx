@@ -12,6 +12,7 @@ import { ShieldCheck, ShieldOff, Eye, EyeOff, ExternalLink, RefreshCw, FileText,
 import { Button, Tabs, SkeletonCard, useToast, Avatar, DistintivoBadge, AvisoDeFallo } from '@/components/ui';
 import { useAdmin, type AdminFilter, type ProfileBadgeFlag } from '@/hooks/useAdmin';
 import { useAuth } from '@/hooks/useAuth';
+import { usePendientesDeValidacion, type Pendientes } from '@/hooks/usePendientesDeValidacion';
 import { ProductManager } from '@/components/merchant/ProductManager';
 import { AdminProducts } from './AdminProducts';
 import { AdminOtherValues } from './AdminOtherValues';
@@ -241,12 +242,55 @@ type AdminSection = 'metrics' | 'members' | 'exemptions' | 'messages' | 'moderat
 const ADVISOR_SECTIONS: AdminSection[] = ['tribe'];
 const ALL_SECTIONS: AdminSection[] = ['metrics', 'members', 'exemptions', 'messages', 'moderation', 'products', 'store', 'renewals', 'referrals', 'fees', 'donations', 'founders', 'badges', 'carousel', 'tribe', 'accounts', 'advisors', 'campaign', 'survey', 'improve', 'experto', 'eventos', 'contenido', 'aliados', 'suggestions', 'invitations', 'fichas', 'comisiones', 'reports', 'other'];
 
+/** Numero que se pinta en el boton de cada seccion; 0 = no se pinta nada. */
+function avisosPorSeccion(s: AdminSection, p: Pendientes | null): number {
+  if (!p) return 0;
+  if (s === 'moderation') return p.sinFiltroCero;
+  if (s === 'exemptions') return p.documentosPorRevisar;
+  return 0;
+}
+
+/** Resumen en palabras de lo que esta esperando, arriba de Moderacion. */
+function ResumenDePendientes({ pendientes }: { pendientes: Pendientes | null }) {
+  const { t, i18n } = useTranslation();
+  if (!pendientes) return null;
+  const { sinFiltroCero, sinPublicar, documentosPorRevisar, documentoMasAntiguo } = pendientes;
+  if (sinFiltroCero === 0 && sinPublicar === 0 && documentosPorRevisar === 0) {
+    return (
+      <p className="rounded-xl border border-slate-200 bg-slate-50 p-3 text-sm text-muted">
+        {t('admin.pendNada')}
+      </p>
+    );
+  }
+  const partes: string[] = [];
+  if (sinFiltroCero > 0) partes.push(t('admin.pendSinFiltro', { count: sinFiltroCero }));
+  if (sinPublicar > 0) partes.push(t('admin.pendSinPublicar', { count: sinPublicar }));
+  if (documentosPorRevisar > 0) partes.push(t('admin.pendDocs', { count: documentosPorRevisar }));
+  return (
+    <p className="rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900">
+      <strong className="font-semibold">{t('admin.pendTitulo')}</strong>{' '}
+      {partes.join(' · ')}
+      {documentoMasAntiguo && (
+        <>
+          {' · '}
+          {t('admin.pendDesde', {
+            fecha: new Date(documentoMasAntiguo).toLocaleDateString(i18n.language),
+          })}
+        </>
+      )}
+    </p>
+  );
+}
+
 export function AdminDashboard({ advisor = false }: { advisor?: boolean } = {}) {
   const { t } = useTranslation();
   const toast = useToast();
   const { userId } = useAuth();
   const [tab, setTab] = useState<AdminFilter>('pending');
   const sections = advisor ? ADVISOR_SECTIONS : ALL_SECTIONS;
+  // Cuantos perfiles esperan una decision suya. Antes no habia ninguna cifra:
+  // habia que entrar a Moderacion y a Exenciones y contar a ojo.
+  const { pendientes } = usePendientesDeValidacion(!advisor);
   const [section, setSection] = useState<AdminSection>(advisor ? 'tribe' : 'metrics');
   const [recalcBusy, setRecalcBusy] = useState(false);
 
@@ -283,6 +327,11 @@ export function AdminDashboard({ advisor = false }: { advisor?: boolean } = {}) 
               section === s ? 'bg-white text-slate-900 shadow-sm' : 'text-muted',
             )}
           >
+            {avisosPorSeccion(s, pendientes) > 0 && (
+              <span className="mr-1.5 inline-flex min-w-5 items-center justify-center rounded-full bg-amber-500 px-1.5 py-0.5 text-[11px] font-bold leading-none text-white">
+                {avisosPorSeccion(s, pendientes)}
+              </span>
+            )}
             {t(s === 'metrics' ? 'admin.secMetrics' : s === 'members' ? 'admin.secMembers' : s === 'exemptions' ? 'admin.secExemptions' : s === 'messages' ? 'admin.secMessages' : s === 'moderation' ? 'admin.secModeration' : s === 'products' ? 'admin.secProducts' : s === 'store' ? 'admin.secStore' : s === 'renewals' ? 'admin.secRenewals' : s === 'referrals' ? 'admin.secReferrals' : s === 'fees' ? 'admin.secFees' : s === 'donations' ? 'admin.secDonations' : s === 'founders' ? 'admin.secFounders' : s === 'badges' ? 'admin.secBadges' : s === 'carousel' ? 'admin.secCarousel' : s === 'tribe' ? 'admin.secTribe' : s === 'accounts' ? 'admin.secAccounts' : s === 'advisors' ? 'admin.secAdvisors' : s === 'campaign' ? 'admin.secCampaign' : s === 'survey' ? 'admin.secSurvey' : s === 'improve' ? 'admin.secImprove' : s === 'experto' ? 'admin.secExperto' : s === 'eventos' ? 'admin.secEventos' : s === 'contenido' ? 'admin.secContenido' : s === 'aliados' ? 'admin.secAliados' : s === 'suggestions' ? 'admin.secSuggestions' : s === 'invitations' ? 'admin.secInvitations' : s === 'fichas' ? 'admin.secFichas' : s === 'comisiones' ? 'admin.secComisiones' : s === 'reports' ? 'admin.secReports' : 'admin.secOther')}
           </button>
         ))}
@@ -294,6 +343,7 @@ export function AdminDashboard({ advisor = false }: { advisor?: boolean } = {}) 
         <AdminMessages />
       ) : section === 'moderation' ? (
         <div className="space-y-3">
+          <ResumenDePendientes pendientes={pendientes} />
           <div className="flex justify-end">
             <Button size="sm" variant="secondary" loading={recalcBusy} onClick={recalcBadges} leadingIcon={<RefreshCw className="h-4 w-4" />}>
               {t('admin.recalcBadges')}
