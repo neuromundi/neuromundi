@@ -37,6 +37,12 @@ verify_jwt = false
 [functions.enviar-invitaciones]
 verify_jwt = false
 
+# La llama Resend con sus avisos de entrega, rebote y queja de spam. No puede
+# mandar un token de sesion: la autenticidad se comprueba con la FIRMA del
+# aviso (RESEND_WEBHOOK_SECRET), no con el token.
+[functions.eventos-de-correo]
+verify_jwt = false
+
 [functions.notify-admin-invite-open]
 verify_jwt = false
 

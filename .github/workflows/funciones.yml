@@ -96,7 +96,10 @@ jobs:
         run: |
           set -euo pipefail
           cd supabase/functions
-          TODAS=$(ls -d */ | tr -d '/' | sort)
+          # Las carpetas que empiezan con _ son codigo COMPARTIDO entre
+          # funciones (_compartido), no funciones: si entraran en la lista, el
+          # cliente intentaria desplegarlas y el trabajo fallaria.
+          TODAS=$(ls -d */ | tr -d '/' | grep -v '^_' | sort)
           cd - >/dev/null
 
           if [ "$EVENTO" = "workflow_dispatch" ]; then
@@ -140,7 +143,16 @@ jobs:
             CAMBIOS=$(git diff --name-only $RANGO || true)
             LISTA=$(echo "$CAMBIOS" \
               | sed -n 's#^supabase/functions/\([^/]*\)/.*#\1#p' \
+              | grep -v '^_' \
               | sort -u)
+            # Si cambio codigo compartido, hay que volver a desplegar TODAS las
+            # funciones que lo importan. Como no se puede saber cuales sin
+            # analizar los imports, se avisa en vez de callarlo.
+            if echo "$CAMBIOS" | grep -q '^supabase/functions/_'; then
+              echo "AVISO: cambio codigo compartido (supabase/functions/_...)."
+              echo "Las funciones que lo importan siguen con la version vieja"
+              echo "hasta que se desplieguen a mano desde la pestana Actions."
+            fi
             if echo "$CAMBIOS" | grep -q '^supabase/config.toml$'; then
               echo "AVISO: cambió supabase/config.toml."
               echo "El régimen de token de alguna función pudo cambiar. Este"
