@@ -2166,6 +2166,14 @@
       "membership_paid_admin_mensual": {
         "title": "Nuovo abbonamento pagato",
         "body": "Un membro ha attivato il suo abbonamento mensile."
+      },
+      "contenido_propuesto": {
+        "title": "Un membro ha proposto un articolo",
+        "body": "{{titulo}} attende la revisione."
+      },
+      "contenido_rechazado": {
+        "title": "Il tuo articolo non è stato pubblicato",
+        "body": "{{titulo}} non è stato pubblicato."
       }
     }
   },

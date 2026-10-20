@@ -2203,6 +2203,14 @@
       "membership_paid_admin_mensual": {
         "title": "عضوية جديدة مدفوعة",
         "body": "فعّل أحد الأعضاء عضويته الشهرية."
+      },
+      "contenido_propuesto": {
+        "title": "اقترح أحد الأعضاء مقالًا",
+        "body": "{{titulo}} في انتظار المراجعة."
+      },
+      "contenido_rechazado": {
+        "title": "لم يُنشر مقالك",
+        "body": "{{titulo}} لم يُنشر."
       }
     }
   },

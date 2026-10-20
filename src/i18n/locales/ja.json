@@ -2166,6 +2166,14 @@
       "membership_paid_admin_mensual": {
         "title": "新しい有料メンバーシップ",
         "body": "メンバーが月額メンバーシップを有効にしました。"
+      },
+      "contenido_propuesto": {
+        "title": "メンバーが記事を提案しました",
+        "body": "{{titulo}} が確認を待っています。"
+      },
+      "contenido_rechazado": {
+        "title": "あなたの記事は公開されませんでした",
+        "body": "{{titulo}} は公開されませんでした。"
       }
     }
   },

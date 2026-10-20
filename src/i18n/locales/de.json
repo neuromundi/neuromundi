@@ -2166,6 +2166,14 @@
       "membership_paid_admin_mensual": {
         "title": "Neue Mitgliedschaft bezahlt",
         "body": "Ein Mitglied hat seine Monatsmitgliedschaft aktiviert."
+      },
+      "contenido_propuesto": {
+        "title": "Ein Mitglied hat einen Artikel vorgeschlagen",
+        "body": "{{titulo}} wartet auf Prüfung."
+      },
+      "contenido_rechazado": {
+        "title": "Dein Artikel wurde nicht veröffentlicht",
+        "body": "{{titulo}} wurde nicht veröffentlicht."
       }
     }
   },

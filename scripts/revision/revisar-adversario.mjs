@@ -35,7 +35,7 @@
  *   node scripts/revision/revisar-adversario.mjs --pendientes
  */
 import { readFileSync, existsSync } from 'node:fs';
-import { execFileSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 
 const args = process.argv.slice(2);
 const soloPendientes = args.includes('--pendientes');
@@ -80,14 +80,18 @@ const porPantalla = new Map(registro.repasos.map((r) => [r.pantalla, r]));
 // --- 3. ¿Cambio el codigo desde el repaso? --------------------------------
 function huellaDe(archivos) {
   if (!archivos || !archivos.length) return null;
-  try {
-    // El hash del ultimo commit que toco esos archivos. Si cambia, el repaso
-    // caduca: la pantalla no es la que se repaso.
-    const out = execFileSync('git', ['log', '-1', '--format=%H', '--', ...archivos], {
-      encoding: 'utf8',
-    }).trim();
-    return out || null;
-  } catch { return null; }
+  // Hash del CONTENIDO de los archivos repasados. Si cambia, el repaso caduca:
+  // la pantalla ya no es la que se repaso.
+  //
+  // La primera version usaba el hash del ultimo commit de git. Dos problemas:
+  // llamar a git una vez por repaso tardaba tanto en Windows que el guion se
+  // quedaba colgado, y un cambio sin commitear no caducaba el repaso aunque la
+  // pantalla ya fuera otra. El contenido no tiene esos dos problemas.
+  const h = createHash('sha256');
+  for (const a of [...archivos].sort()) {
+    try { h.update(readFileSync(a)); } catch { h.update(`(falta:${a})`); }
+  }
+  return h.digest('hex').slice(0, 16);
 }
 
 const nunca = [];

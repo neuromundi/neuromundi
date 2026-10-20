@@ -2166,6 +2166,14 @@
       "membership_paid_admin_mensual": {
         "title": "新的付费会员",
         "body": "一位会员启用了月度会员资格。"
+      },
+      "contenido_propuesto": {
+        "title": "一位成员提交了一篇文章",
+        "body": "{{titulo}} 正在等待审核。"
+      },
+      "contenido_rechazado": {
+        "title": "你的文章未获发布",
+        "body": "{{titulo}} 未获发布。"
       }
     }
   },

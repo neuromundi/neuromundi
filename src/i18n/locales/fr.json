@@ -2166,6 +2166,14 @@
       "membership_paid_admin_mensual": {
         "title": "Nouvelle adhésion payée",
         "body": "Un membre a activé son adhésion mensuelle."
+      },
+      "contenido_propuesto": {
+        "title": "Un membre a proposé un article",
+        "body": "{{titulo}} attend votre relecture."
+      },
+      "contenido_rechazado": {
+        "title": "Ton article n'a pas été publié",
+        "body": "{{titulo}} n'a pas été publié."
       }
     }
   },

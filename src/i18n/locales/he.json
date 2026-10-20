@@ -2203,6 +2203,14 @@
       "membership_paid_admin_mensual": {
         "title": "מנוי חדש שולם",
         "body": "חבר הפעיל מנוי חודשי."
+      },
+      "contenido_propuesto": {
+        "title": "חבר הציע מאמר",
+        "body": "{{titulo}} ממתין לבדיקה."
+      },
+      "contenido_rechazado": {
+        "title": "המאמר שלך לא פורסם",
+        "body": "{{titulo}} לא פורסם."
       }
     }
   },

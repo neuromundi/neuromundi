@@ -2203,6 +2203,14 @@
       "membership_paid_admin_mensual": {
         "title": "Nueva membresía pagada",
         "body": "Un miembro activó su membresía mensual."
+      },
+      "contenido_propuesto": {
+        "title": "Un miembro propuso un artículo",
+        "body": "{{titulo}} espera su revisión."
+      },
+      "contenido_rechazado": {
+        "title": "Tu artículo no fue publicado",
+        "body": "{{titulo}} no fue publicado."
       }
     }
   },

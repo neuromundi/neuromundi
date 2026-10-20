@@ -2203,6 +2203,14 @@
       "membership_paid_admin_mensual": {
         "title": "새 유료 멤버십",
         "body": "회원이 월간 멤버십을 활성화했습니다."
+      },
+      "contenido_propuesto": {
+        "title": "회원이 글을 제안했습니다",
+        "body": "{{titulo}} 이(가) 검토를 기다리고 있습니다."
+      },
+      "contenido_rechazado": {
+        "title": "작성한 글이 게시되지 않았습니다",
+        "body": "{{titulo}} 은(는) 게시되지 않았습니다."
       }
     }
   },
