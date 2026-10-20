@@ -70,6 +70,39 @@ export type PrescriptionInsert = TablesInsert<'prescriptions'>;
 // pantalla ramifica sobre ellos: la vista sólo expone perfiles publicados, que
 // siempre tienen identificador y tipo.
 type FilaDirectorio = Views<'directorio_publico_seguro'>;
+
+/**
+ * COLUMNAS_DIRECTORIO — lo que la pantalla del directorio pide de verdad.
+ *
+ * Antes pedia `select('*')`: las 73 columnas de las 1,000 fichas, 1,750 KB por
+ * visitante. Medido el 19 de octubre de 2026: con 10 visitantes a la vez el
+ * directorio tardaba 6.7 segundos. Dos tercios de ese peso eran los NOMBRES de
+ * las columnas repetidos mil veces.
+ *
+ * La lista es la union de todo lo que usan el gancho (los nueve filtros, el
+ * orden y la lista de ciudades), la tarjeta y el mapa. `PerfilPublico` se
+ * construye con `Pick` sobre esta lista, asi que si alguien usa un campo que no
+ * se pide, el compilador lo detiene AQUI en vez de dejar la pantalla con un
+ * hueco en blanco que nadie ve. Para anadir un campo a la tarjeta hay que
+ * anadirlo tambien a esta lista: eso es lo que protege.
+ *
+ * `provider_types` se lee con un casteo en el filtro por tipo, asi que el
+ * compilador no lo vigila: no se quite de aqui.
+ */
+export const COLUMNAS_DIRECTORIO = [
+  'id', 'role', 'provider_type', 'provider_types',
+  'full_name', 'business_name', 'avatar_url', 'bio', 'profession',
+  'city', 'state', 'country', 'latitude', 'longitude', 'ubicacion_aproximada',
+  'sections', 'specialties', 'intervention_areas', 'neuro_conditions',
+  'product_categories', 'products_offered', 'services_offered',
+  'age_ranges', 'modalities', 'neuroaffirming', 'provider_details',
+  'is_published', 'is_verified', 'perfil_activo', 'verificada',
+  'is_inclusive_school', 'is_inclusive_company', 'is_institutional_ally',
+] as const satisfies readonly (keyof FilaDirectorio)[];
+
+/** La misma lista, lista para `select()`. */
+export const SELECT_DIRECTORIO = COLUMNAS_DIRECTORIO.join(',');
+
 export type PerfilPublico = Omit<
   FilaDirectorio,
   'id' | 'role' | 'provider_type' | 'perfil_activo' | 'verificada'
@@ -81,8 +114,21 @@ export type PerfilPublico = Omit<
   verificada?: boolean | null;
 };
 
+/**
+ * PerfilDeDirectorio — la fila recortada que llega a la LISTA del directorio.
+ *
+ * `PerfilPublico` sigue siendo la fila completa, porque el perfil del prestador
+ * y la pagina de inclusion escolar leen la misma vista con sus propias
+ * consultas y necesitan telefono, direccion, numero de miembro y demas. El
+ * recorte es solo de esta pantalla, que trae mil fichas de golpe.
+ */
+export type PerfilDeDirectorio = Pick<
+  PerfilPublico,
+  (typeof COLUMNAS_DIRECTORIO)[number]
+>;
+
 /** Proveedor enriquecido con su EVS y categorías, listo para el directorio. */
-export interface ProviderWithRating extends PerfilPublico {
+export interface ProviderWithRating extends PerfilDeDirectorio {
   rating: ProviderRating | null;
   categories: Category[];
   /** Distintivo oficial calculado (src/lib/badge). Opcional: lo adjunta el directorio. */

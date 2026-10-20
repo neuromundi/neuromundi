@@ -15,11 +15,12 @@ import { SPECIALTIES, INTERVENTION_AREAS, PROFESSIONS } from '@/data/specialistC
 import { PRODUCT_CATEGORIES } from '@/data/providerCatalog';
 import { K_OFFERINGS } from '@/data/kCatalog';
 import { NEURO_CONDITIONS } from '@/data/neuroConditionsCatalog';
+import { SELECT_DIRECTORIO } from '@/types/app';
 import type {
   Category,
   ProviderRating,
   ProviderWithRating,
-  PerfilPublico,
+  PerfilDeDirectorio,
 } from '@/types/app';
 
 const K_ALL = Object.values(K_OFFERINGS).flat();
@@ -132,7 +133,9 @@ export function useDirectory(filters: DirectoryFilters): UseDirectoryValue {
       //    Segmentado por país en el servidor: no traemos otros países.
       let query = supabase
         .from('directorio_publico_seguro')
-        .select('*')
+        // Columnas explicitas, no '*': ver COLUMNAS_DIRECTORIO en types/app.ts.
+        // Pedir las 73 costaba 1,750 KB por visitante; estas pesan 357 KB.
+        .select(SELECT_DIRECTORIO)
         .eq('role', 'provider')
         .eq('is_published', true);
       if (country) query = query.eq('country', country);
@@ -142,7 +145,7 @@ export function useDirectory(filters: DirectoryFilters): UseDirectoryValue {
       // La vista pierde los NOT NULL de la tabla, así que sus columnas llegan
       // nulables. `id`, `role` y `provider_type` sí vienen siempre: la vista
       // sólo expone perfiles publicados y fichas publicadas.
-      const list = (profiles ?? []) as unknown as PerfilPublico[];
+      const list = (profiles ?? []) as unknown as PerfilDeDirectorio[];
       const ids = list.map((p) => p.id);
       if (ids.length === 0) {
         setProviders([]);

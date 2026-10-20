@@ -128,26 +128,36 @@ Enciéndalo cuando haya altas reales y usted decida que la secuencia automática
 le parece bien: `select cron.alter_job((select jobid from cron.job where
 jobname='nm-campaign-emails'), active := true);`
 
-## 9. Carga del directorio: no se cae, pero se pone lento (medido hoy)
+## 9. Carga del directorio: medida, corregida y vuelta a medir
 
-Prueba contra producción con visitantes simultáneos de verdad:
+Prueba contra producción con visitantes simultáneos de verdad, antes y después
+de pedir sólo las columnas que la pantalla usa:
 
-| Visitantes a la vez | Directorio (mediana) | Peor caso | Peticiones fallidas |
+| Visitantes a la vez | Antes | Después | Fallidas |
 |---|---|---|---|
-| 1  | 1.3 s | 1.3 s  | 0 |
-| 10 | 6.7 s | 6.8 s  | 0 |
-| 25 | 7.2 s | 8.1 s  | 0 |
-| 50 | 7.6 s | 11.0 s | 0 |
+| 1  | 1.26 s | **1.09 s** | 0 |
+| 10 | 6.68 s | **1.72 s** | 0 |
+| 25 | 7.23 s | **2.64 s** | 0 |
+| 50 | 7.55 s | **5.24 s** | 0 |
 
-**Cero fallos en los cuatro niveles.** La plataforma no se cae; se pone lenta.
+**Cero fallos en los ocho casos.** Con diez visitantes a la vez, que es la carga
+realista del primer día, el directorio pasa de **6.7 a 1.7 segundos**.
 
-La causa está medida: la pantalla del directorio pide **las 73 columnas** de las
-1,000 fichas, y eso son **1,750 KB por visitante**. Pidiendo sólo las 12
-columnas que la tarjeta necesita, la misma consulta pesa **357 KB** y tarda la
-mitad: **cinco veces menos**. Dos tercios de ese peso son sólo los nombres de
-las columnas repetidos mil veces.
+La causa estaba medida: la pantalla pedía las **73 columnas** de las fichas
+(`select('*')`), **1,750 KB por visitante**. Ahora pide las **33** que de verdad
+usan los nueve filtros, el orden, la tarjeta y el mapa: **876 KB**, la mitad de
+peso y 39 % menos tiempo en una sola petición.
 
-Cambiar `select('*')` por una lista explícita en `useDirectory` es la mejora más
-rentable que queda, y **no está hecha**: exige repasar una por una todas las
-columnas que usan la tarjeta y los filtros, porque si falta alguna el campo
-aparece vacío sin avisar. Es trabajo de revisión, no de teclado.
+La lista vive en `COLUMNAS_DIRECTORIO`, en `src/types/app.ts`, y el tipo de la
+lista del directorio se construye con `Pick` sobre ella. **Si alguien usa un
+campo que no se pide, el compilador lo detiene**, en vez de dejar un hueco en
+blanco en la pantalla que nadie ve. Para añadir un campo a la tarjeta hay que
+añadirlo también a esa lista.
+
+`PerfilPublico` sigue siendo la fila completa: el perfil del prestador y la
+página de inclusión escolar leen la misma vista con sus propias consultas y sí
+necesitan teléfono, dirección y número de miembro. El recorte es sólo de la
+lista, que trae mil fichas de golpe.
+
+La prueba está en `scripts/revision/prueba de carga del directorio.py`: se
+vuelve a medir en un minuto en vez de discutirse.
