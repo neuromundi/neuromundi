@@ -21,8 +21,15 @@ export function CampaignWelcomePopup({ onClose, onSeeBenefits }: { onClose: () =
   // Solo se muestra "Ver video" si alguno existe (a prueba de fallos: sin archivo,
   // el popup enseña únicamente los beneficios a todo el ancho).
   const [videoUrl, setVideoUrl] = useState<string | null>(null);
+  // Mientras se averigua si hay video, el popup NO se pinta. Antes se pintaba
+  // de una columna (solo beneficios) y, al resolverse la busqueda, pasaba a dos
+  // columnas con un panel de video de 260px: ese salto era 0.2745 de los 0.274
+  // de desplazamiento de diseno que mide PageSpeed en el movil. Es decir, CASI
+  // TODO el problema venia de aqui. (Medido con Lighthouse, 20 oct 2026.)
+  const [buscandoVideo, setBuscandoVideo] = useState(true);
   useEffect(() => {
     let alive = true;
+    setBuscandoVideo(true);
     const lang = (i18n.language || 'es').slice(0, 2);
     const candidates: string[] = [];
     // Video por idioma (incluido español, que tiene su propio -es). Respaldo final
@@ -34,14 +41,19 @@ export function CampaignWelcomePopup({ onClose, onSeeBenefits }: { onClose: () =
         try {
           const r = await fetch(url, { method: 'HEAD' });
           if (r.ok && (r.headers.get('content-type') ?? '').startsWith('video')) {
-            if (alive) setVideoUrl(url);
+            if (alive) { setVideoUrl(url); setBuscandoVideo(false); }
             return;
           }
         } catch { /* 404/sin red: siguiente candidato */ }
       }
+      // Ningun candidato sirvio: no hay video y el popup va a una columna.
+      if (alive) setBuscandoVideo(false);
     })();
     return () => { alive = false; };
   }, [i18n.language]);
+
+  // Nada que pintar hasta saber de que tamano va a ser el popup.
+  if (buscandoVideo) return null;
 
   if (playing && videoUrl) {
     return (

@@ -29,6 +29,12 @@ function useCountUp(target: number, run: boolean, ms = 1300): number {
   const [n, setN] = useState(0);
   useEffect(() => {
     if (!run) { setN(0); return; }
+    // Quien pidio menos movimiento ve el numero final de una vez, sin cuenta.
+    if (typeof window !== 'undefined'
+        && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
+      setN(target);
+      return;
+    }
     let raf = 0;
     const t0 = performance.now();
     const tick = (t: number) => {
@@ -49,8 +55,19 @@ function Stat({ value, run, suffix, label, sub, icon, accent }: {
   return (
     <div className="flex min-h-[120px] min-w-0 flex-col items-center justify-center rounded-2xl border border-slate-100 bg-white p-2.5 text-center shadow-sm sm:min-h-[140px] sm:p-4">
       <span className={`mx-auto mb-2 flex h-10 w-10 items-center justify-center rounded-xl ${accent}`}>{icon}</span>
-      <p className="text-xl font-extrabold text-slate-900 sm:text-2xl">
-        {n.toLocaleString()}{suffix ? <span className="text-sm font-bold text-slate-500 sm:text-base"> {suffix}</span> : null}
+      {/* El hueco lo reserva SIEMPRE el valor final, invisible: mientras la
+          cuenta sube, "1" ocupa menos que "1,300" y la tarjeta se reacomodaba
+          en cada fotograma. Eso aportaba 0.027 de desplazamiento de diseno
+          (medido con Lighthouse, 20 oct 2026). El numero que se ve va encima,
+          en la misma caja. `tabular-nums` ademas evita el temblor entre
+          cifras del mismo largo. */}
+      <p className="relative text-xl font-extrabold tabular-nums text-slate-900 sm:text-2xl">
+        <span className="invisible" aria-hidden="true">
+          {value.toLocaleString()}{suffix ? <span className="text-sm font-bold sm:text-base"> {suffix}</span> : null}
+        </span>
+        <span className="absolute inset-0 flex items-center justify-center">
+          {n.toLocaleString()}{suffix ? <span className="text-sm font-bold text-slate-500 sm:text-base"> {suffix}</span> : null}
+        </span>
       </p>
       <p className="mt-1 hyphens-auto break-words text-[11px] font-semibold leading-snug text-slate-800 sm:text-xs">{label}</p>
       {sub && <p className="mt-0.5 hyphens-auto break-words text-[10px] leading-snug text-muted sm:text-[11px]">{sub}</p>}
