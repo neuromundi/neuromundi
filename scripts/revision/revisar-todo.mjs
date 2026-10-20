@@ -16,6 +16,7 @@ const REVISORES = [
   // Del revisor de conteos solo la parte estatica: la que compara la base con
   // la pantalla necesita navegador y se corre aparte (revisar:conteos).
   ['conteos', 'scripts/revision/revisar-conteos.mjs', ['--solo-estatico']],
+  ['redaccion', 'scripts/revision/revisar-redaccion.mjs', []],
 ];
 
 const conHallazgos = [];

@@ -553,7 +553,7 @@
     "myNetwork": "Mi red",
     "incoming": "Solicitudes recibidas",
     "outgoing": "Solicitudes enviadas",
-    "empty": "Aún no tienes contactos en tu red. Conéctate con otros proveedores desde su perfil.",
+    "empty": "Aún no tienes contactos en tu red. Conéctate con otros proveedores desde su perfil público.",
     "emptyIncoming": "Sin solicitudes pendientes.",
     "sent": "Solicitud enviada.",
     "accepted": "¡Conexión aceptada!",
@@ -1660,8 +1660,8 @@
     },
     "afterConfirmPay": "Al confirmar tu correo e iniciar sesión, se te pedirá completar el pago de tu membresía.",
     "countryFeeHint": "De tu país dependen la cuota y la moneda en que se te cobra.",
-    "fotoSubida": "Su foto quedó guardada en su perfil.",
-    "fotoPendiente": "Guardamos su foto en este dispositivo: se subirá a su perfil en cuanto entre por primera vez.",
+    "fotoSubida": "Tu foto quedó guardada en tu perfil.",
+    "fotoPendiente": "Guardamos tu foto en este dispositivo: se subirá a tu perfil en cuanto entres por primera vez.",
     "fotoFallo": "No pudimos guardar su foto. Podrá subirla desde Mi Perfil.",
     "coordsPaste": "Pegue aquí lo que copió de Google Maps"
   },
@@ -1686,11 +1686,11 @@
     "bodyNote": "El contenido siguiente está en español como base; sustitúyelo por tu texto legal definitivo.",
     "reaccept": {
       "title": "Reglamento actualizado",
-      "body": "Actualizamos el reglamento de la plataforma. Le pedimos leerlo y aceptarlo para seguir usando su cuenta.",
+      "body": "Actualizamos el reglamento de la plataforma. Te pedimos leerlo y aceptarlo para seguir usando tu cuenta.",
       "read": "Leer el reglamento",
       "accept": "Acepto",
       "saving": "Guardando…",
-      "failed": "No se pudo registrar su aceptación. Vuelva a intentarlo."
+      "failed": "No se pudo registrar tu aceptación. Vuelve a intentarlo."
     }
   },
   "intro": {
@@ -2135,7 +2135,7 @@
       },
       "exencion_por_vencer": {
         "title": "Su exención de cuota está por vencer",
-        "body": "Vence el {{fecha}}. Renueve su expediente para que su ficha siga publicada."
+        "body": "Vence el {{fecha}}. Renueva tu expediente para que tu ficha siga publicada."
       },
       "founder_request_approved": {
         "title": "Tu cuota de Miembro Fundador fue autorizada",

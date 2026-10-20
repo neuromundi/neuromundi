@@ -103,3 +103,44 @@ un comentario cortaba la cadena de la consulta y el revisor denunciaba una
 consulta que sí estaba paginada; un ejemplo escrito en la documentación de un
 ayudante hacía que el revisor de base denunciara una tabla inexistente. Los dos
 revisores ya los borran.
+
+## Auditor 6 — redacción: ¿está bien escrito lo que lee la persona?
+
+```
+npm run revisar:redaccion
+node scripts/revision/revisar-redaccion.mjs --idioma es
+```
+
+**Por qué existe.** El panel de administración llevaba semanas diciendo
+"Ubicacion", "Accion", "Telefono", "membresia" y "Como se le pago": 19 textos
+sin acentos. Y el panel familiar decía "Foros de la Neurocamps", con el artículo
+que quedó de cuando se llamaba "la Tribu": 88 textos en seis idiomas. **Los
+encontré leyendo**, que es justo lo que no escala. Los otros auditores
+comprueban que el texto exista y esté en todos los idiomas; ninguno comprobaba
+que esté bien escrito.
+
+**Sin diccionario, a propósito.** No hay corrector de español instalado, y
+pedir uno habría dejado el revisor sin correr en la máquina de alguien.
+
+**Qué comprueba:** palabras que no existen sin su acento (lista corta y
+cerrada); las terminaciones `-cion` y `-sion`; un artículo delante de la marca
+cuando cierra la frase; mezcla de tuteo y usted dentro de un mismo grupo; y
+erratas mecánicas (espacios dobles, espacio antes de un signo, interrogaciones
+y exclamaciones sin abrir, paréntesis sin cerrar).
+
+**Lo que este revisor NO hace, y por qué importa.** Su primera versión era más
+ambiciosa y era peor. Comparaba cada palabra consigo misma: si "Teléfono"
+aparecía 40 veces y "Telefono" una, denunciaba la una. Dio cuatro avisos y **los
+cuatro eran falsos**: en español hay decenas de pares donde las dos formas son
+correctas ("se prorroga" contra "la prórroga", "la campana" que suena contra "la
+campaña" que se lanza, "me quedo" contra "quedó"). También probé reglas para el
+condicional y el futuro, y dieron cinco avisos falsos más, porque `-arias` vale
+para "retirarías" y para "hereditarias", y `-eran` para "esperarán" y para
+"esperan". **Las quité en vez de dejarlas haciendo ruido.** Un revisor que grita
+sin razón se aprende a ignorar, y entonces no sirve para nada.
+
+Por la misma razón hay dos listas de excepciones escritas en el propio guión:
+`TERCERA_PERSONA`, para textos donde "su" o "le" se refieren a alguien que no es
+quien lee ("el vendedor **le** paga al promotor"), y la regla de marca por
+idioma, porque en portugués "a Neuromundi" es correcto y así ha estado siempre.
+**La excepción se escribe donde se ve, no se recuerda.**
