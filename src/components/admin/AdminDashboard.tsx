@@ -7,6 +7,7 @@
  */
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { etiquetaDeTipo } from '@/lib/etiquetaDeTipo';
 import { ShieldCheck, ShieldOff, Eye, EyeOff, ExternalLink, RefreshCw, FileText, Sparkles, Award } from 'lucide-react';
 import { Button, Tabs, SkeletonCard, useToast , Avatar, DistintivoBadge} from '@/components/ui';
 import { useAdmin, type AdminFilter, type ProfileBadgeFlag } from '@/hooks/useAdmin';
@@ -47,11 +48,6 @@ import { useAdminBadges } from '@/hooks/useAdminBadges';
 import { supabase } from '@/lib/supabase';
 import type { BadgeResult } from '@/lib/badge';
 
-const TYPE_LABEL_KEY: Record<string, string> = {
-  service_provider: 'admin.typeService',
-  merchant: 'admin.typeMerchant',
-};
-
 function ProviderRow({
   provider,
   onVerify,
@@ -82,7 +78,7 @@ function ProviderRow({
         <div className="min-w-0 flex-1">
           <p className="truncate font-semibold text-slate-900">{name}</p>
           <p className="text-sm text-muted">
-            {provider.provider_type ? t(TYPE_LABEL_KEY[provider.provider_type]) : t('admin.noType')}
+            {provider.provider_type ? etiquetaDeTipo(t, provider.provider_type) : t('admin.noType')}
             {provider.city ? ` · ${provider.city}` : ''} · {formatDate(provider.created_at)}
           </p>
           <div className="mt-1 flex flex-wrap gap-2 text-xs">

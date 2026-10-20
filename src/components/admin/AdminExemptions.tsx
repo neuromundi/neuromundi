@@ -11,6 +11,7 @@
  */
 import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { etiquetaDeTipo } from '@/lib/etiquetaDeTipo';
 import { Check, FileText, X } from 'lucide-react';
 import { Button, EmptyState, SkeletonCard, useToast } from '@/components/ui';
 import { supabase } from '@/lib/supabase';
@@ -199,7 +200,7 @@ export function AdminExemptions() {
                   <div className="min-w-0">
                     <p className="font-semibold text-slate-900">{d.nombre ?? d.id}</p>
                     <p className="text-sm text-muted">
-                      {(d.member_no ? `NM-${d.member_no} · ` : '')}{d.provider_type ?? '—'} · {t(d.org_doc_kind === 'acta' ? 'orgdoc.kindActa' : 'orgdoc.kindCarta')}
+                      {(d.member_no ? `NM-${d.member_no} · ` : '')}{d.provider_type ? etiquetaDeTipo(t, d.provider_type) : '—'} · {t(d.org_doc_kind === 'acta' ? 'orgdoc.kindActa' : 'orgdoc.kindCarta')}
                     </p>
                   </div>
                   <span className="rounded-full bg-sky-100 px-2.5 py-1 text-xs font-semibold text-sky-800">

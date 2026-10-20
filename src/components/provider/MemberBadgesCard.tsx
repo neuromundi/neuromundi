@@ -5,6 +5,7 @@
  * activos para ese tipo, no renderiza nada.
  */
 import { useTranslation } from 'react-i18next';
+import { etiquetaLegible } from '@/lib/etiquetaDeTipo';
 import { Download, Award } from 'lucide-react';
 import { useMemberBadges } from '@/hooks/useJobOpenings';
 
@@ -29,7 +30,7 @@ export function MemberBadgesCard({ memberType }: { memberType: string | null | u
               <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg bg-slate-100 text-slate-400"><Award className="h-6 w-6" /></span>
             )}
             <div className="min-w-0 flex-1">
-              <p className="truncate text-sm font-semibold text-slate-900">{b.title || t(`memberBadges.key.${b.badge_key}`, { defaultValue: b.badge_key })}</p>
+              <p className="truncate text-sm font-semibold text-slate-900">{b.title || t(`memberBadges.key.${b.badge_key}`, { defaultValue: etiquetaLegible(b.badge_key) })}</p>
               {b.public_url && (
                 <a
                   href={b.public_url}

@@ -13,6 +13,7 @@
 import type React from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { etiquetaDeTipo } from '@/lib/etiquetaDeTipo';
 import { RefreshCw, Search, Eye, EyeOff, Globe, Phone, Mail } from 'lucide-react';
 import { Button, SkeletonCard } from '@/components/ui';
 import { useToast } from '@/components/ui/Toast';
@@ -130,7 +131,7 @@ export function AdminFichasRetiradas() {
                   <tr key={f.ficha_id} className="border-t border-slate-100 align-top">
                     <td className="px-3 py-2">
                       <span className="font-medium text-slate-900">{f.nombre ?? '—'}</span>
-                      <span className="block text-xs text-muted">{f.provider_type ?? '—'} · {f.sector ?? '—'}</span>
+                      <span className="block text-xs text-muted">{f.provider_type ? etiquetaDeTipo(t, f.provider_type) : '—'} · {f.sector ?? '—'}</span>
                     </td>
                     <td className="px-3 py-2 text-xs text-muted">
                       {[f.ciudad, f.estado, f.pais].filter(Boolean).join(', ') || '—'}

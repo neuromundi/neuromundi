@@ -5,6 +5,7 @@
  */
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { etiquetaDeTipo } from '@/lib/etiquetaDeTipo';
 import { Search, RefreshCw } from 'lucide-react';
 import { Button, SkeletonCard, FounderBadge } from '@/components/ui';
 import { useAdminRenewals } from '@/hooks/useAdminRenewals';
@@ -71,7 +72,7 @@ export function AdminRenewals() {
                     {r.name} {r.member_no != null && <span className="font-mono text-xs text-muted">NM-{String(r.member_no).padStart(6, '0')}</span>}
                   </p>
                   <p className="text-xs text-muted">
-                    {r.provider_type ? t(`cat.${r.provider_type}`, { defaultValue: r.provider_type }) : '—'}
+                    {r.provider_type ? etiquetaDeTipo(t, r.provider_type) : '—'}
                     {r.country ? ` · ${r.country}` : ''}
                     {date ? ` · ${t('renew.on')} ${formatDate(date)}` : ` · ${t('renew.noDate')}`}
                   </p>

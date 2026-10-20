@@ -14,6 +14,7 @@
 import type React from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { etiquetaDeTipo } from '@/lib/etiquetaDeTipo';
 import { RefreshCw, Search, Phone, Globe, Check } from 'lucide-react';
 import { Button, SkeletonCard } from '@/components/ui';
 import { useToast } from '@/components/ui/Toast';
@@ -145,7 +146,7 @@ export function AdminCapturaTelefonica() {
                   <tr key={f.ficha_id} className="border-t border-slate-100 align-top">
                     <td className="px-3 py-2">
                       <span className="font-medium text-slate-900">{f.nombre ?? '—'}</span>
-                      <span className="block text-xs text-muted">{f.provider_type ?? '—'} · {f.sector ?? '—'}</span>
+                      <span className="block text-xs text-muted">{f.provider_type ? etiquetaDeTipo(t, f.provider_type) : '—'} · {f.sector ?? '—'}</span>
                       {f.sitio_web ? (
                         <a href={f.sitio_web} target="_blank" rel="noopener noreferrer"
                            className="mt-0.5 flex items-center gap-1 text-xs text-brand-700 hover:underline">

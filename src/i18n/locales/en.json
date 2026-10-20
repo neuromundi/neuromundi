@@ -5160,7 +5160,11 @@
     "inclusiveSchoolDesc": "Schools with an inclusion program.",
     "inclusiveCompanyDesc": "Companies with workplace inclusion.",
     "desc": "Your member badge, ready to download and place on your site or social profiles.",
-    "download": "Download badge"
+    "download": "Download badge",
+    "key": {
+      "empresa_inclusiva": "Inclusive company",
+      "aliado_neuromundi": "Neuromundi ally"
+    }
   },
   "esp": {
     "miss": {
@@ -6466,5 +6470,24 @@
     "colSesion": "Signed in",
     "colContactos": "Contacts",
     "colUltima": "Last"
+  },
+  "tipoMiembro": {
+    "families": "Families",
+    "service_provider": "Specialist",
+    "merchant": "Product supplier",
+    "school": "School",
+    "clinic": "Clinic",
+    "wellness": "Wellness",
+    "tourism": "Tourism",
+    "legal": "Legal",
+    "ngo": "NGO / Association",
+    "caregiver": "Caregiver",
+    "company": "Company",
+    "founder": "Founder",
+    "patient": "Patient",
+    "parent": "Parent or guardian",
+    "provider": "Provider",
+    "admin": "Administrator",
+    "advisor": "Advisor"
   }
 }

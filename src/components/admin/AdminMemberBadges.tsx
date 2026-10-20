@@ -7,6 +7,7 @@
 import { useMemo, useRef, useState } from 'react';
 import { useAvisarResultado } from '@/hooks/useAvisarResultado';
 import { useTranslation } from 'react-i18next';
+import { etiquetaDeTipo } from '@/lib/etiquetaDeTipo';
 import { Award, Upload, Eye, EyeOff, Trash2 } from 'lucide-react';
 import { Button, SkeletonCard, EmptyState, useToast, useConfirm } from '@/components/ui';
 import { useAdminMemberBadges, type AdminBadge } from '@/hooks/useAdminMemberBadges';
@@ -49,7 +50,7 @@ function UploadForm({ onUpload }: { onUpload: ReturnType<typeof useAdminMemberBa
         <div>
           <label className="mb-1 block text-xs font-semibold text-slate-700">{t('adm.badges.memberType')}</label>
           <select className={inputCls} value={memberType} onChange={(e) => setMemberType(e.target.value)}>
-            {MEMBER_TYPES.map((m) => <option key={m} value={m}>{t(`adm.badges.type.${m}`, { defaultValue: m })}</option>)}
+            {MEMBER_TYPES.map((m) => <option key={m} value={m}>{etiquetaDeTipo(t, m)}</option>)}
           </select>
         </div>
         <div>
@@ -86,7 +87,7 @@ function BadgeRow({ b, onToggle, onDelete }: { b: AdminBadge; onToggle: () => vo
       <div className="min-w-0 flex-1">
         <p className="truncate text-sm font-semibold text-slate-900">{b.title || b.badge_key}</p>
         <p className="flex flex-wrap gap-x-2 text-xs text-muted">
-          <span>{t(`adm.badges.type.${b.member_type}`, { defaultValue: b.member_type })}</span>
+          <span>{etiquetaDeTipo(t, b.member_type)}</span>
           <span className="font-mono">{b.badge_key}</span>
           {!b.is_active && <span className="rounded-full bg-slate-100 px-2 py-0.5 text-slate-500">{t('adm.badges.down')}</span>}
         </p>

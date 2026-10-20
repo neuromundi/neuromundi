@@ -67,6 +67,24 @@ for (const archivo of archivos(RAIZ)) {
   }
 }
 
+// 1b. Grupos de textos que el codigo arma con una parte variable
+//     (`t(`tipoMiembro.${clave}`)`). No se puede saber que valores tomara la
+//     variable, pero SI se puede exigir que el grupo exista en espanol: si
+//     esta vacio, la pantalla imprimira la clave interna cruda. Asi se colo
+//     `adm.badges.type.` hasta el 19 de octubre de 2026, que hacia aparecer
+//     "service_provider" y "ngo" en el panel de administracion.
+for (const archivo of archivos(RAIZ)) {
+  const src = readFileSync(archivo, 'utf8');
+  const rel = relative('.', archivo);
+  for (const m of src.matchAll(/\bt\(\s*`([a-zA-Z0-9_.]+)\.\$\{/g)) {
+    const grupo = m[1];
+    const cuantas = [...es.keys()].filter((k) => k.startsWith(grupo + '.')).length;
+    if (cuantas === 0) {
+      hallazgos.push(`${rel}:${lineaDe(src, m.index)}  arma textos con '${grupo}.<variable>', pero ese grupo no tiene ni un texto en espanol`);
+    }
+  }
+}
+
 // 2. Claves que faltan en algun idioma.
 for (const [lang, dic] of diccionarios) {
   if (lang === 'es') continue;
@@ -91,8 +109,11 @@ for (const lang of OTRO_ALFABETO) {
     const palabras = limpio.split(/\s+/).filter(Boolean);
     return palabras.length >= 3 && PALABRAS_ES.test(limpio);
   };
+  // Nombres propios de instituciones: son identicos en todos los idiomas a
+  // proposito (el nombre del Observatorio no se traduce).
+  const NOMBRES_PROPIOS = new Set(['ally.logoAlt']);
   const copiados = [...es.entries()].filter(([k, v]) =>
-    typeof v === 'string' && esProsa(v) && dic.get(k) === v,
+    typeof v === 'string' && !NOMBRES_PROPIOS.has(k) && esProsa(v) && dic.get(k) === v,
   );
   if (copiados.length) {
     hallazgos.push(`${lang}.json  tiene ${copiados.length} texto(s) identicos al espanol (sin traducir): ${copiados.slice(0, 4).map(([k]) => k).join(', ')}${copiados.length > 4 ? ', ...' : ''}`);

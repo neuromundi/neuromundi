@@ -14,6 +14,7 @@
  */
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { etiquetaDeTipo } from '@/lib/etiquetaDeTipo';
 import { Search, ShieldOff, ShieldCheck, Gift, CalendarPlus, CalendarClock, BadgeCheck, Download } from 'lucide-react';
 import { Button, SkeletonCard, EmptyState } from '@/components/ui';
 import { useToast } from '@/components/ui';
@@ -213,7 +214,7 @@ export function AdminMembers() {
                       </div>
                     </td>
                     <td className="p-3 text-xs text-slate-600">
-                      <div>{x.affiliate_type ?? x.provider_type ?? x.role ?? '—'}</div>
+                      <div>{etiquetaDeTipo(t, x.affiliate_type ?? x.provider_type ?? x.role) || '—'}</div>
                       {x.membership_period && <div className="text-muted">{t(`adm.members.p.${x.membership_period}`)}</div>}
                       {x.ficha_id && (
                         <div className={x.ficha_verificada ? 'text-sage-700' : 'text-amber-700'}>

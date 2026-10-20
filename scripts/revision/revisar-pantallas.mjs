@@ -50,6 +50,22 @@ const RUTAS_PRIVADAS = [
 const CLAVE_CRUDA = /\b[a-z][a-zA-Z0-9]{2,}\.[a-z][a-zA-Z0-9]{2,}(\.[a-zA-Z0-9]+)*\b/g;
 const PERMITIDO = /(www\.|\.com|\.org|\.mx|\.net|\.co|@|\.png|\.jpg|\.svg|\.js|\.css)/;
 
+// Claves internas con guion bajo que se quedan a la vista cuando la pantalla
+// pide una traduccion que no existe y cae al respaldo (asi se descubrio que
+// `service_provider`, `ngo` y `wellness` se imprimian crudos en el panel de
+// administracion el 19 de octubre de 2026). El patron de puntos de arriba no
+// las veia porque no llevan punto.
+const CLAVE_GUION = /\b[a-z]{3,}(_[a-z]{2,}){1,3}\b/g;
+
+// Correos y direcciones web producen falsos positivos (`karen.garcia`,
+// `cuidare.ae`): se borran del texto ANTES de buscar claves.
+function sinCorreosNiEnlaces(texto) {
+  return texto
+    .replace(/[\w.+-]+@[\w.-]+\.[a-z]{2,}/gi, ' ')
+    .replace(/\bhttps?:\/\/\S+/gi, ' ')
+    .replace(/\b[\w-]+(\.[\w-]+)+\.(com|org|net|mx|es|pt|br|ar|cl|pe|co|ca|us|edu|gov|info|biz|io|app|ae|cat|eu|uk|de|fr|it)\b/gi, ' ');
+}
+
 // En entornos donde Chromium vive fuera del sitio habitual, se indica con la
 // variable NAVEGADOR (ruta al ejecutable).
 const privadas = args.includes('--privadas');
@@ -92,8 +108,12 @@ for (const ruta of TODAS) {
 
     if (texto.trim().length < 400) hallazgos.push(`${ruta}  pantalla casi vacia (${texto.trim().length} caracteres)`);
 
-    const crudas = [...new Set((texto.match(CLAVE_CRUDA) || []).filter((c) => !PERMITIDO.test(c)))];
+    const limpio = sinCorreosNiEnlaces(texto);
+    const crudas = [...new Set((limpio.match(CLAVE_CRUDA) || []).filter((c) => !PERMITIDO.test(c)))];
     if (crudas.length) hallazgos.push(`${ruta}  textos sin traducir a la vista: ${crudas.slice(0, 5).join(', ')}`);
+
+    const conGuion = [...new Set(limpio.match(CLAVE_GUION) || [])];
+    if (conGuion.length) hallazgos.push(`${ruta}  claves internas a la vista: ${conGuion.slice(0, 5).join(', ')}`);
 
     for (const e of [...new Set(errores)]) hallazgos.push(`${ruta}  error de consola: ${e}`);
     for (const f of [...new Set(fallos)]) hallazgos.push(`${ruta}  peticion fallida: ${f}`);

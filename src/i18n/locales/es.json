@@ -5160,7 +5160,11 @@
     "inclusiveSchoolDesc": "Escuelas con programa de inclusión.",
     "inclusiveCompanyDesc": "Empresas con inclusión laboral.",
     "desc": "Su distintivo de miembro, listo para descargar y colocar en su sitio o en sus redes.",
-    "download": "Descargar distintivo"
+    "download": "Descargar distintivo",
+    "key": {
+      "empresa_inclusiva": "Empresa inclusiva",
+      "aliado_neuromundi": "Aliado Neuromundi"
+    }
   },
   "esp": {
     "miss": {
@@ -6466,5 +6470,24 @@
     "colSesion": "Con sesión",
     "colContactos": "Contactos",
     "colUltima": "Última"
+  },
+  "tipoMiembro": {
+    "families": "Familias",
+    "service_provider": "Especialista",
+    "merchant": "Proveedor de productos",
+    "school": "Escuela",
+    "clinic": "Clínica",
+    "wellness": "Bienestar",
+    "tourism": "Turismo",
+    "legal": "Legal",
+    "ngo": "ONG / Asociación",
+    "caregiver": "Cuidador",
+    "company": "Empresa",
+    "founder": "Fundador",
+    "patient": "Paciente",
+    "parent": "Padre, madre o tutor",
+    "provider": "Prestador",
+    "admin": "Administración",
+    "advisor": "Asesor"
   }
 }
