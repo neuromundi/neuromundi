@@ -27,6 +27,13 @@ const admin = createClient(
 
 const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY') ?? '';
 const FROM = Deno.env.get('CAMPAIGN_FROM') ?? 'Neuromundi <admin@admin.neuromundi.com>';
+// A donde van las RESPUESTAS. Medido el 20 de octubre de 2026: el remitente
+// configurado es info@admin.neuromundi.com, y el MX de ese subdominio apunta a
+// la entrada de Amazon SES, no al buzon de Hostinger que se lee todos los dias.
+// El pie del correo promete al destinatario que puede ejercer sus derechos de
+// datos "respondiendo a este correo", y la firma da admin@neuromundi.com: las
+// respuestas tienen que llegar ahi, no a un buzon que nadie abre.
+const REPLY_TO = Deno.env.get('CAMPAIGN_REPLY_TO') ?? 'admin@neuromundi.com';
 const SITE = Deno.env.get('PUBLIC_SITE_URL') ?? 'https://www.neuromundi.com';
 
 const json = (status: number, body: unknown) =>
@@ -58,6 +65,7 @@ async function sendEmail(
     },
     body: JSON.stringify({
       from: FROM, to: [to], subject, html,
+      reply_to: REPLY_TO,
       headers: { 'List-Unsubscribe': listUnsub },
     }),
   });
@@ -831,6 +839,7 @@ Deno.serve(async (req: Request) => {
       // Remitente efectivo: permite comprobar CAMPAIGN_FROM antes de cada tanda
       // sin tener que mandar un correo de verdad.
       remitente: FROM,
+      responder_a: REPLY_TO,
       ejemplos: rows.slice(0, 5).map((r) => ({ correo: r.correo, nombre: r.nombre, tanda: segmentOf(r), personal: r.correo_personal })),
       relojes: {
         retiro_de_fichas: RELOJES.verif ? RELOJES.verif.toISOString() : null,
