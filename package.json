@@ -17,6 +17,8 @@
     "revisar:pantallas": "node scripts/revision/revisar-pantallas.mjs",
     "revisar:conteos": "node scripts/revision/revisar-conteos.mjs",
     "revisar:redaccion": "node scripts/revision/revisar-redaccion.mjs",
+    "revisar:trazado": "node scripts/revision/revisar-trazado.mjs",
+    "revisar:adversario": "node scripts/revision/revisar-adversario.mjs",
     "revisar": "node scripts/revision/revisar-todo.mjs"
   },
   "dependencies": {

@@ -17,6 +17,9 @@ const REVISORES = [
   // la pantalla necesita navegador y se corre aparte (revisar:conteos).
   ['conteos', 'scripts/revision/revisar-conteos.mjs', ['--solo-estatico']],
   ['redaccion', 'scripts/revision/revisar-redaccion.mjs', []],
+  // Informe, no veredicto: lo que falta repasar es trabajo por hacer, no un
+  // defecto, y los hallazgos abiertos esperan una decision de Enyoria.
+  ['adversario (informe)', 'scripts/revision/revisar-adversario.mjs', ['--informativo']],
 ];
 
 const conHallazgos = [];

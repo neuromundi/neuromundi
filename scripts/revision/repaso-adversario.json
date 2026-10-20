@@ -1,0 +1,162 @@
+{
+  "_nota": "Constancia de los repasos adversarios. Se anota SOLO lo que de verdad se repaso con la lista de modos de fallo silencioso de REPASO-ADVERSARIO.md. Un recorrido en navegador que comprueba que la pantalla carga NO es un repaso adversario: eso ya lo hace el auditor 3. Apuntar como repasado algo que no se repaso es peor que no apuntar nada.",
+  "repasos": [
+    {
+      "pantalla": "/directorio",
+      "fecha": "2026-10-19",
+      "quien": "Claude",
+      "archivos": [
+        "src/hooks/useDirectory.ts",
+        "src/components/directory/ProviderCard.tsx",
+        "src/components/directory/MapView.tsx",
+        "src/types/app.ts"
+      ],
+      "huella": "90fdbf28f14e29c3c31e06f66f60b9d53ce50b8c",
+      "modos_revisados": [
+        "recortes",
+        "encontrabilidad",
+        "permisos",
+        "cifras"
+      ],
+      "encontrado": [
+        "mostraba 1,000 fichas de 1,818 por el tope del servidor: corregido con paginado",
+        "pedia las 73 columnas (1,750 KB por visitante): corregido a 33",
+        "la tanda de categorias podia pedir 1,400 filas y cortar en 1,000: bajada a 140"
+      ],
+      "hallazgos_abiertos": []
+    },
+    {
+      "pantalla": "/inclusion-escolar",
+      "fecha": "2026-10-19",
+      "quien": "Claude",
+      "archivos": [
+        "src/pages/SchoolInclusion.tsx"
+      ],
+      "huella": "90fdbf28f14e29c3c31e06f66f60b9d53ce50b8c",
+      "modos_revisados": [
+        "recortes"
+      ],
+      "encontrado": [
+        "leia sin paginar (223 filas hoy, cortaria al crecer): corregido con traerTodo"
+      ],
+      "hallazgos_abiertos": []
+    },
+    {
+      "pantalla": "/proveedor/:id",
+      "fecha": "2026-10-19",
+      "quien": "Claude",
+      "archivos": [
+        "src/pages/ProviderProfile.tsx",
+        "src/hooks/useProviderProfile.ts",
+        "src/hooks/useProviderRatings.ts"
+      ],
+      "huella": "90fdbf28f14e29c3c31e06f66f60b9d53ce50b8c",
+      "modos_revisados": [
+        "cifras",
+        "recortes"
+      ],
+      "encontrado": [
+        "el grupo de pares del EVS se traia sin paginar: con la tabla llena habria comparado contra un grupo incompleto. Corregido"
+      ],
+      "hallazgos_abiertos": []
+    },
+    {
+      "pantalla": "admin:fichas",
+      "fecha": "2026-10-19",
+      "quien": "Claude",
+      "archivos": [
+        "src/components/admin/AdminFichas.tsx",
+        "src/components/admin/AdminFichasRetiradas.tsx",
+        "src/components/admin/AdminCapturaTelefonica.tsx"
+      ],
+      "huella": "cdb169335181c70bd361f06bf55b60a860953f3f",
+      "modos_revisados": [
+        "sustituciones",
+        "encontrabilidad"
+      ],
+      "encontrado": [
+        "imprimia la clave interna del tipo de miembro: corregido",
+        "15 fichas publicadas sin area, invisibles en todos los filtros: 12 clasificadas"
+      ],
+      "hallazgos_abiertos": [
+        "3 fichas publicadas siguen sin area y no hay con que clasificarlas: Estancia Dorita Ojeda I.A.P., Dinamica Familiar Laguna A.C. y Pequenos Maestros. Esperan decision de Enyoria"
+      ]
+    },
+    {
+      "pantalla": "admin:invitations",
+      "fecha": "2026-10-19",
+      "quien": "Claude",
+      "archivos": [
+        "src/components/admin/AdminInvitations.tsx",
+        "supabase/functions/enviar-invitaciones/index.ts"
+      ],
+      "huella": "4e4f3edd642c32be6961de9bcc411d374985f6ab",
+      "modos_revisados": [
+        "recortes",
+        "ceros y vacios"
+      ],
+      "encontrado": [
+        "746 fichas del plan sin token: la cola las saltaba en silencio. Creados",
+        "el limite por omision de 50 cortaba una tanda de 51 sin decirlo: corregido",
+        "se avisaba la apertura de invitaciones que nunca se enviaron: corregido"
+      ],
+      "hallazgos_abiertos": []
+    },
+    {
+      "pantalla": "admin:badges",
+      "fecha": "2026-10-19",
+      "quien": "Claude",
+      "archivos": [
+        "src/components/admin/AdminMemberBadges.tsx",
+        "src/components/provider/MemberBadgesCard.tsx"
+      ],
+      "huella": "cdb169335181c70bd361f06bf55b60a860953f3f",
+      "modos_revisados": [
+        "sustituciones"
+      ],
+      "encontrado": [
+        "el desplegable mostraba las 12 claves internas porque el grupo de textos no existia en ningun idioma: corregido"
+      ],
+      "hallazgos_abiertos": []
+    },
+    {
+      "pantalla": "admin:renewals",
+      "fecha": "2026-10-19",
+      "quien": "Claude",
+      "archivos": [
+        "src/components/admin/AdminRenewals.tsx"
+      ],
+      "huella": "cdb169335181c70bd361f06bf55b60a860953f3f",
+      "modos_revisados": [
+        "sustituciones"
+      ],
+      "encontrado": [
+        "mostraba 'ngo' y 'wellness' en vez del nombre del tipo: corregido"
+      ],
+      "hallazgos_abiertos": []
+    },
+    {
+      "pantalla": "/crear-cuenta",
+      "fecha": "2026-10-19",
+      "quien": "Claude",
+      "archivos": [
+        "src/components/auth/RegisterForm.tsx",
+        "src/lib/schemas.ts",
+        "src/stores/authStore.ts"
+      ],
+      "huella": "6119ebb210bc2cf97b45f3ff8923820a9c00a9ae",
+      "modos_revisados": [
+        "escrituras que se pierden",
+        "lo que se le dice a la persona"
+      ],
+      "encontrado": [
+        "el alta se bloqueaba sin decir que campos faltaban: ahora los enumera",
+        "el guardian de columnas del perfil rechazaba la escritura callando: ahora pasa por complete_onboarding",
+        "se podia completar un alta sin pais: el servidor ya lo rechaza"
+      ],
+      "hallazgos_abiertos": [
+        "el perfil de Sergio Edilberto Ramirez Perez (NM-000018) no tiene pais ni ningun dato de ubicacion. No se puede rellenar sin inventarlo: necesita que Enyoria lo pregunte"
+      ]
+    }
+  ]
+}

@@ -144,3 +144,56 @@ Por la misma razón hay dos listas de excepciones escritas en el propio guión:
 quien lee ("el vendedor **le** paga al promotor"), y la regla de marca por
 idioma, porque en portugués "a Neuromundi" es correcto y así ha estado siempre.
 **La excepción se escribe donde se ve, no se recuerda.**
+
+## Auditor 7 — trazado: ¿cada ficha publicada se puede encontrar?
+
+```
+npm run revisar:trazado
+node scripts/revision/revisar-trazado.mjs --sin-navegador
+node scripts/revision/revisar-trazado.mjs --muestra 10
+```
+
+**Por qué existe.** Había quince fichas **publicadas** que no aparecían en
+ningún filtro del directorio porque no tenían área. Y 746 fichas del plan de
+invitaciones que no podían recibir su correo porque les faltaba el token. En los
+dos casos el dato existía, estaba marcado como publicado, y **no llegaba a los
+ojos de quien lo buscaba.** "Publicada" no significa "encontrable", y esa
+diferencia es invisible mirando una sola capa.
+
+Sigue las 1,818 fichas publicadas, una por una, y exige de cada una: que esté en
+la consulta base del directorio, que tenga área, país y nombre (sin cualquiera
+de los tres queda fuera de un filtro), y que si está en el plan de invitaciones
+tenga token y su tanda la devuelva. Sobre una muestra, además, abre su perfil en
+un navegador y comprueba que su nombre se ve.
+
+**Necesita Playwright para la parte de navegador**, que no está instalado en la
+máquina de Enyoria: sin él **lo dice** y hace el resto. No se da por bueno lo
+que no se midió.
+
+## Auditor 8 — repaso adversario: lo que nadie formuló
+
+```
+npm run revisar:adversario
+node scripts/revision/revisar-adversario.mjs --pendientes
+```
+
+**Por qué existe.** Los siete auditores anteriores comprueban cosas que alguien
+supo formular. Los defectos del 19 de octubre tenían **todos la misma forma** y
+ninguno estaba formulado: recortes y sustituciones calladas. Los encontré
+leyendo, uno por uno. Eso funcionó y no sirve, porque depende de que alguien
+pase por ahí. **Un auditor escrito por quien escribió el código comprueba lo que
+su autor esperaba, y por definición no puede ver lo que su autor no se planteó.**
+
+Este guión no lee la mente de nadie: **lleva la cuenta.** Enumera las 81
+pantallas y secciones que existen, las cruza con el registro de repasos y dice
+qué no se ha repasado nunca, qué repaso **caducó porque su código cambió
+después**, y qué hallazgos quedaron abiertos. Esa última parte es la que
+convierte un día de lectura en un inventario que se puede retomar.
+
+El método y la lista de modos de fallo silencioso —escrita a partir de defectos
+reales, no de imaginación— están en `REPASO-ADVERSARIO.md`.
+
+**Al 19 de octubre de 2026: 8 de 81 repasadas.** Se anota sólo lo que de verdad
+se repasó con la lista. Un recorrido en navegador que comprueba que la pantalla
+carga **no** es un repaso adversario: eso ya lo hace el auditor 3. Apuntar como
+repasado algo que no se repasó es peor que no apuntar nada.

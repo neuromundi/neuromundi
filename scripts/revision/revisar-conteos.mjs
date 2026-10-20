@@ -139,18 +139,37 @@ for (const archivo of archivos('src')) {
 // Cada entrada dice: que pantalla, que recurso del servidor la alimenta con
 // que filtros, y como se cuenta lo que pinta. `cuenta` se ejecuta DENTRO del
 // navegador, asi que solo puede usar el DOM.
+//
+// CUIDADO con la equivalencia de las dos consultas. En su primera pasada con
+// navegador este revisor dio DOS avisos y los dos eran mios:
+//  · dijo que el directorio mostraba 32 de 1,818. Falso: el directorio filtra
+//    por el pais del visitante, la maquina que corria el revisor estaba en
+//    Estados Unidos, y en Estados Unidos hay exactamente 32 fichas. Comparaba
+//    una cuenta sin filtro contra una pantalla filtrada. Ahora se le PREGUNTA
+//    a la pantalla por que pais filtro, y se cuenta con ese mismo filtro.
+//  · dijo que verificados mostraba 2 y en la base habia 0. Falso: esa pantalla
+//    no lee el directorio, lee la tabla de aliados. El recurso estaba mal.
+// Un revisor que compara dos cosas distintas no descubre defectos: los
+// inventa, y entonces se aprende a ignorarlo.
 const PANTALLAS = [
   {
     ruta: '/directorio',
     recurso: 'directorio_publico_seguro?role=eq.provider&is_published=is.true',
+    // Devuelve el pais por el que la pantalla filtro, o null si no filtro.
+    filtro: () => {
+      const sel = [...document.querySelectorAll('main select')]
+        .find((s) => [...s.options].some((o) => o.text === 'Todos los países'));
+      const texto = sel ? sel.options[sel.selectedIndex]?.text : null;
+      return !texto || texto === 'Todos los países' ? null : { columna: 'country', valor: texto };
+    },
     cuenta: () => (document.querySelector('main')?.innerText.match(/Ver perfil/g) || []).length,
     nota: 'fichas del directorio',
   },
   {
     ruta: '/verificados',
-    recurso: 'directorio_publico_seguro?role=eq.provider&is_published=is.true&is_verified=is.true',
-    cuenta: () => document.querySelectorAll('main table tbody tr, main li').length,
-    nota: 'registro de verificados',
+    recurso: 'allies?is_active=is.true',
+    cuenta: () => document.querySelectorAll('main table tbody tr, main li, main a[href^="/verificar/aliado/"]').length,
+    nota: 'aliados verificados',
   },
 ];
 
@@ -170,10 +189,28 @@ if (!soloEstatico) {
     if (chromium) {
       const navegador = await chromium.launch({ executablePath: process.env.NAVEGADOR || undefined });
       for (const p of PANTALLAS) {
-        // Cuantas filas dice el servidor que hay.
-        let enLaBase = null;
+        // PRIMERO la pantalla, para saber con que filtro hay que contar.
+        const ctx = await navegador.newContext({ locale: 'es-MX' });
+        const pag = await ctx.newPage();
+        let enPantalla = null;
+        let filtro = null;
         try {
-          const r = await fetch(`${url}/rest/v1/${p.recurso}&select=id`, {
+          await pag.goto(base + p.ruta, { waitUntil: 'networkidle', timeout: 45000 });
+          // El directorio tarda varios segundos en pintar las mil fichas.
+          await pag.waitForTimeout(6000);
+          enPantalla = await pag.evaluate(p.cuenta);
+          if (p.filtro) filtro = await pag.evaluate(p.filtro);
+        } catch (e) {
+          hallazgos.push(`${p.ruta}  no cargo: ${String(e).slice(0, 110)}`);
+        }
+        await ctx.close();
+        if (enPantalla === null) continue;
+
+        // DESPUES la base, con el MISMO filtro que uso la pantalla.
+        let enLaBase = null;
+        const extra = filtro ? `&${filtro.columna}=eq.${encodeURIComponent(filtro.valor)}` : '';
+        try {
+          const r = await fetch(`${url}/rest/v1/${p.recurso}${extra}&select=id`, {
             method: 'HEAD',
             headers: { apikey: key, Prefer: 'count=exact', 'Range-Unit': 'items', Range: '0-0' },
           });
@@ -186,20 +223,7 @@ if (!soloEstatico) {
           hallazgos.push(`${p.ruta}  no pude contar en la base (${p.nota}): queda SIN MEDIR, no se da por bueno`);
           continue;
         }
-
-        const ctx = await navegador.newContext({ locale: 'es-MX' });
-        const pag = await ctx.newPage();
-        let enPantalla = null;
-        try {
-          await pag.goto(base + p.ruta, { waitUntil: 'networkidle', timeout: 45000 });
-          await pag.waitForTimeout(2500);
-          enPantalla = await pag.evaluate(p.cuenta);
-        } catch (e) {
-          hallazgos.push(`${p.ruta}  no cargo: ${String(e).slice(0, 110)}`);
-        }
-        await ctx.close();
-
-        if (enPantalla === null) continue;
+        if (filtro) console.log(`  ${p.ruta}: la pantalla filtro por ${filtro.columna}="${filtro.valor}"; se cuenta con ese filtro`);
         if (enPantalla < enLaBase) {
           hallazgos.push(
             `${p.ruta}  la pantalla muestra ${enPantalla} de ${enLaBase} ${p.nota}: FALTAN ${enLaBase - enPantalla}`
