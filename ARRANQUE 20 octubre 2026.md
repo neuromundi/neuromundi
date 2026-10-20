@@ -161,3 +161,27 @@ lista, que trae mil fichas de golpe.
 
 La prueba está en `scripts/revision/prueba de carga del directorio.py`: se
 vuelve a medir en un minuto en vez de discutirse.
+
+## 10. El directorio mostraba 1,000 fichas de 1,818 (encontrado y corregido)
+
+Apareció al verificar lo anterior en el navegador, y **no lo había causado el
+recorte de columnas: llevaba ahí desde antes.**
+
+El servidor devuelve **como máximo 1,000 filas por petición, y lo hace sin
+avisar**: no es un error, simplemente llegan mil. Con **1,818 fichas
+publicadas**, un visitante que no elegía país veía 1,000 y **818 quedaban
+invisibles**. Nunca se notó porque con el filtro de México son 931, por debajo
+del tope.
+
+Corregido: la pantalla pide por páginas hasta que una viene incompleta.
+Comprobado: la segunda página devuelve exactamente **818 filas**, las que
+faltaban. Lleva un tope de seguridad para que no pueda quedarse en bucle en el
+navegador de nadie.
+
+Peso: las dos páginas juntas son **1,620 KB para las 1,818 fichas**, menos de lo
+que antes costaban 1,000 solas (1,750 KB). Quien filtra por país —el caso
+normal— sigue haciendo una sola petición rápida.
+
+De paso quedó acortada a 140 la tanda de la consulta de categorías: con 200
+identificadores podía pedir hasta 1,400 filas y el servidor habría cortado en
+1,000 sin avisar. Hoy esa tabla está vacía, así que no cortaba nada todavía.

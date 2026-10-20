@@ -68,8 +68,9 @@ function enTandas<T>(items: T[], tam = POR_TANDA): T[][] {
 async function porTandas<T>(
   consulta: (tanda: string[]) => PromiseLike<{ data: T[] | null; error: { message: string } | null }>,
   ids: string[],
+  tam = POR_TANDA,
 ): Promise<T[]> {
-  const partes = await Promise.all(enTandas(ids).map((tanda) => consulta(tanda)));
+  const partes = await Promise.all(enTandas(ids, tam).map((tanda) => consulta(tanda)));
   const fallo = partes.find((r) => r.error);
   if (fallo?.error) throw fallo.error;
   return partes.flatMap((r) => r.data ?? []);
@@ -131,16 +132,34 @@ export function useDirectory(filters: DirectoryFilters): UseDirectoryValue {
       // 1) Catálogo público: perfiles de proveedores con cuenta MÁS fichas del
       //    directorio que todavía no tienen dueño (vista directorio_publico).
       //    Segmentado por país en el servidor: no traemos otros países.
-      let query = supabase
-        .from('directorio_publico_seguro')
-        // Columnas explicitas, no '*': ver COLUMNAS_DIRECTORIO en types/app.ts.
-        // Pedir las 73 costaba 1,750 KB por visitante; estas pesan 357 KB.
-        .select(SELECT_DIRECTORIO)
-        .eq('role', 'provider')
-        .eq('is_published', true);
-      if (country) query = query.eq('country', country);
-      const { data: profiles, error: pErr } = await query;
-      if (pErr) throw pErr;
+      // El servidor devuelve como maximo 1,000 filas por peticion, y lo hace
+      // SIN avisar: no es un error, simplemente llegan mil. Con 1,818 fichas
+      // publicadas, sin filtro de pais el directorio mostraba 1,000 y dejaba
+      // 818 invisibles. Por eso se pide por paginas hasta que una venga
+      // incompleta, que es la senal de que ya no hay mas.
+      const POR_PAGINA = 1000;
+      const profiles: unknown[] = [];
+      for (let desde = 0; ; desde += POR_PAGINA) {
+        let query = supabase
+          .from('directorio_publico_seguro')
+          // Columnas explicitas, no '*': ver COLUMNAS_DIRECTORIO en types/app.ts.
+          // Pedir las 73 costaba 1,750 KB por visitante; estas pesan la mitad.
+          .select(SELECT_DIRECTORIO)
+          .eq('role', 'provider')
+          .eq('is_published', true)
+          .order('id', { ascending: true })
+          .range(desde, desde + POR_PAGINA - 1);
+        if (country) query = query.eq('country', country);
+        const { data: pagina, error: pErr } = await query;
+        if (pErr) throw pErr;
+        const filas = pagina ?? [];
+        profiles.push(...filas);
+        if (filas.length < POR_PAGINA) break;
+        // Tope de seguridad: si algun dia el orden o el filtro cambian y la
+        // pagina siempre viene llena, esto evita un bucle infinito en el
+        // navegador de la persona.
+        if (desde / POR_PAGINA >= 20) break;
+      }
 
       // La vista pierde los NOT NULL de la tabla, así que sus columnas llegan
       // nulables. `id`, `role` y `provider_type` sí vienen siempre: la vista
@@ -158,7 +177,11 @@ export function useDirectory(filters: DirectoryFilters): UseDirectoryValue {
       // rechaza (ver POR_TANDA arriba).
       const [ratingsRows, pcRows, catsRes, badgeRows, founderRes, donorRes, typeBadgeRes] = await Promise.all([
         porTandas((t) => supabase.from('public_provider_ratings').select('*').in('provider_id', t), ids),
-        porTandas((t) => supabase.from('provider_categories').select('*').in('provider_id', t), ids),
+        // Tanda mas corta SOLO para esta: un prestador puede pertenecer a
+        // varias de las 7 categorias, asi que 200 identificadores podrian
+        // devolver hasta 1,400 filas y el servidor corta en 1,000 sin avisar.
+        // Con 140 el techo es 980 y no puede cortar.
+        porTandas((t) => supabase.from('provider_categories').select('*').in('provider_id', t), ids, 140),
         supabase.from('categories').select('*'),
         porTandas((t) => supabase.from('provider_badge_inputs').select('*').in('provider_id', t), ids),
         supabase.rpc('founder_provider_ids'),
