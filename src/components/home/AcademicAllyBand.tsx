@@ -26,8 +26,8 @@ export function AcademicAllyBand() {
         <img
           src="/observaneuro.webp"
           alt={t('ally.logoAlt')}
-          width={640}
-          height={781}
+          width={384}
+          height={469}
           loading="lazy"
           className="h-auto w-full"
         />
