@@ -21,15 +21,19 @@ export type RenewalRow = {
 export function useAdminRenewals() {
   const [rows, setRows] = useState<RenewalRow[]>([]);
   const [loading, setLoading] = useState(true);
+  const [fallo, setFallo] = useState(false);
 
   const load = useCallback(async () => {
     setLoading(true);
-    const { data } = await supabase.rpc('admin_membership_renewals');
+    // El error se tiraba: un fallo quedaba igual que "no hay" y la pantalla
+    // lo decia. (Repaso adversario, 19 oct 2026.)
+    const { data, error } = await supabase.rpc('admin_membership_renewals');
+    if (error) { setFallo(true); setRows([]); setLoading(false); return; }
     setRows((data as RenewalRow[]) ?? []);
     setLoading(false);
   }, []);
 
   useEffect(() => { void load(); }, [load]);
 
-  return { rows, loading, reload: load };
+  return { rows, loading, fallo, reload: load };
 }

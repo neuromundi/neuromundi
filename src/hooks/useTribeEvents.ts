@@ -35,10 +35,14 @@ export interface EventInput {
 export function useTribeEvents(country: string, section?: string | null) {
   const [events, setEvents] = useState<TribeEvent[]>([]);
   const [loading, setLoading] = useState(true);
+  const [fallo, setFallo] = useState(false);
 
   const load = useCallback(async () => {
     setLoading(true);
-    const { data } = await supabase.rpc('tribe_events_list', { p_country: country || null, p_section: section || null });
+    // El error se tiraba: un fallo quedaba igual que "no hay" y la pantalla
+    // lo decia. (Repaso adversario, 19 oct 2026.)
+    const { data, error } = await supabase.rpc('tribe_events_list', { p_country: country || null, p_section: section || null });
+    if (error) { setFallo(true); setEvents([]); setLoading(false); return; }
     setEvents((data as TribeEvent[] | null) ?? []);
     setLoading(false);
   }, [country, section]);
@@ -77,5 +81,5 @@ export function useTribeEvents(country: string, section?: string | null) {
     return null;
   }, [load]);
 
-  return { events, loading, reload: load, create, rsvp, cancel, report };
+  return { events, loading, fallo, reload: load, create, rsvp, cancel, report };
 }

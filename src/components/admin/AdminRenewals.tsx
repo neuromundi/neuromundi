@@ -20,7 +20,7 @@ function statusChip(days: number | null): { key: string; cls: string } {
 
 export function AdminRenewals() {
   const { t } = useTranslation();
-  const { rows, loading, reload } = useAdminRenewals();
+  const { rows, loading, fallo, reload } = useAdminRenewals();
   const [q, setQ] = useState('');
 
   const term = q.trim().toLowerCase();
@@ -58,7 +58,7 @@ export function AdminRenewals() {
       </div>
 
       {filtered.length === 0 ? (
-        <p className="py-8 text-center text-sm text-muted">{t('renew.empty')}</p>
+        <p className="py-8 text-center text-sm text-muted">{fallo ? t('renew.noSePudo') : t('renew.empty')}</p>
       ) : (
         <ul className="space-y-2">
           {filtered.map((r) => {

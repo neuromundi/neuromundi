@@ -7,7 +7,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CalendarDays, Plus, Volume2, ShieldCheck, MapPin, Users, Sparkles } from 'lucide-react';
-import { Button, SkeletonCard, EmptyState } from '@/components/ui';
+import { Button, SkeletonCard, EmptyState, AvisoDeFallo } from '@/components/ui';
 import { useTribeEvents, type TribeEvent } from '@/hooks/useTribeEvents';
 import { useSection } from '@/stores/sectionStore';
 import { CreateEventModal } from './CreateEventModal';
@@ -53,7 +53,7 @@ function EventCard({ e, onRsvp, onReport }: { e: TribeEvent; onRsvp: (going: boo
 export function EventsSection() {
   const { t } = useTranslation();
   const { section } = useSection();
-  const { events, loading, rsvp, reload } = useTribeEvents('', section);
+  const { events, loading, fallo, rsvp, reload } = useTribeEvents('', section);
   const [creating, setCreating] = useState(false);
   const [reporting, setReporting] = useState<{ id: string; title: string } | null>(null);
 
@@ -70,7 +70,7 @@ export function EventsSection() {
         {loading ? (
           <SkeletonCard rows={3} />
         ) : events.length === 0 ? (
-          <EmptyState icon={<CalendarDays className="h-6 w-6" />} title={t('tribe.event.emptyTitle')} description={t('tribe.event.empty')} />
+          fallo ? <AvisoDeFallo onRetry={() => void reload()} /> : <EmptyState icon={<CalendarDays className="h-6 w-6" />} title={t('tribe.event.emptyTitle')} description={t('tribe.event.empty')} />
         ) : (
           <div className="space-y-3">
             {events.map((e) => (

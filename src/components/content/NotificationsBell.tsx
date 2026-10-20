@@ -13,7 +13,7 @@ import { useAvisarResultado } from '@/hooks/useAvisarResultado';
 
 export function NotificationsBell() {
   const { t } = useTranslation();
-  const { items, unreadCount, markRead, markAllRead } = useNotifications();
+  const { items, fallo, unreadCount, markRead, markAllRead } = useNotifications();
   const navigate = useNavigate();
   const avisar = useAvisarResultado();
   const [open, setOpen] = useState(false);
@@ -55,7 +55,7 @@ export function NotificationsBell() {
           </div>
 
           {items.length === 0 ? (
-            <p className="px-2 py-6 text-center text-sm text-muted">{t('notif.empty')}</p>
+            <p className="px-2 py-6 text-center text-sm text-muted">{fallo ? t('notif.noSePudo') : t('notif.empty')}</p>
           ) : (
             <ul className="space-y-1">
               {items.map((n) => {

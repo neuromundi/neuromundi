@@ -2180,7 +2180,8 @@
         "title": "Ton article n'a pas été publié",
         "body": "{{titulo}} n'a pas été publié."
       }
-    }
+    },
+    "noSePudo": "Nous n'avons pas pu charger tes notifications. Cela ne veut pas dire que tu n'en as aucune : rouvre la cloche dans un instant."
   },
   "clin": {
     "s1": "Informations générales",
@@ -3635,7 +3636,8 @@
     "refresh": "Actualiser",
     "search": "Rechercher par nom, pays ou identifiant…",
     "empty": "Aucun profil avec adhésion payante.",
-    "on": "renouvelle le"
+    "on": "renouvelle le",
+    "noSePudo": "Les renouvellements n'ont pas pu être chargés. Cela ne veut pas dire qu'aucun n'arrive à échéance : réessayez."
   },
   "report": {
     "footerButton": "Signaler",
@@ -3763,7 +3765,8 @@
     "founders": "Fondateurs",
     "products": "Produits actifs",
     "referrals": "Parrainages",
-    "reportsOpen": "Signalements ouverts"
+    "reportsOpen": "Signalements ouverts",
+    "noSePudo": "Tes statistiques n'ont pas pu être chargées. Cela ne veut pas dire qu'elles sont à zéro : réessaie."
   },
   "events": {
     "title": "Événements",
@@ -6099,7 +6102,8 @@
     "empty": "Aucun allié publié pour ce pays pour le moment.",
     "visit": "Visiter",
     "communityTitle": "Aidez-nous à protéger les badges",
-    "communityBody": "Les badges Neuromundi sont un symbole de confiance pour les familles. Avec l'aide de la communauté, nous évitons le piratage et l'usage abusif. Si vous voyez un badge que vous soupçonnez non authentique, vérifiez-le ici et signalez-le avec le bouton « Signaler » du pied de page."
+    "communityBody": "Les badges Neuromundi sont un symbole de confiance pour les familles. Avec l'aide de la communauté, nous évitons le piratage et l'usage abusif. Si vous voyez un badge que vous soupçonnez non authentique, vérifiez-le ici et signalez-le avec le bouton « Signaler » du pied de page.",
+    "noSePudo": "Le registre n'a pas pu être chargé. Cela ne veut pas dire qu'il n'y a pas d'alliés vérifiés : réessaie."
   },
   "launch": {
     "soonTitle": "Bientôt dans votre pays",

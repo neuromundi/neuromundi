@@ -19,12 +19,17 @@ export function VerifiedRegistry() {
   const { country } = useCountry();
   const [allies, setAllies] = useState<Ally[]>([]);
   const [folio, setFolio] = useState('');
+  const [fallo, setFallo] = useState(false);
 
   useEffect(() => {
     let alive = true;
     (async () => {
-      const { data } = await supabase.from('allies').select('id,name,website,countries').eq('is_active', true).order('sort_order');
-      if (alive) setAllies((data as Ally[]) ?? []);
+      const { data, error } = await supabase.from('allies').select('id,name,website,countries').eq('is_active', true).order('sort_order');
+      // El error se tiraba y el registro decia que no hay aliados verificados.
+      // (Repaso adversario, 19 oct 2026.)
+      if (!alive) return;
+      if (error) { setFallo(true); setAllies([]); return; }
+      setAllies((data as Ally[]) ?? []);
     })();
     return () => { alive = false; };
   }, []);
@@ -74,7 +79,7 @@ export function VerifiedRegistry() {
       <section>
         <h2 className="mb-3 text-lg font-bold text-slate-900">{t('registry.alliesTitle')}</h2>
         {shown.length === 0 ? (
-          <p className="text-sm text-muted">{t('registry.empty')}</p>
+          <p className="text-sm text-muted">{fallo ? t('registry.noSePudo') : t('registry.empty')}</p>
         ) : (
           <ul className="grid gap-3 sm:grid-cols-2">
             {shown.map((a) => (

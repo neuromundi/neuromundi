@@ -23,7 +23,7 @@ function Stat({ icon, label, value, sub }: { icon: React.ReactNode; label: strin
 
 export function ProviderMetricsPanel() {
   const { t } = useTranslation();
-  const { metrics, loading } = useProviderMetrics();
+  const { metrics, loading, fallo } = useProviderMetrics();
 
   if (loading) return <SkeletonCard rows={2} />;
 
@@ -59,7 +59,7 @@ export function ProviderMetricsPanel() {
       </div>
 
       {metrics.views_total === 0 && (
-        <p className="rounded-xl bg-slate-50 p-3 text-center text-sm text-muted">{t('metrics.empty')}</p>
+        <p className="rounded-xl bg-slate-50 p-3 text-center text-sm text-muted">{fallo ? t('metrics.noSePudo') : t('metrics.empty')}</p>
       )}
     </div>
   );

@@ -2217,7 +2217,8 @@
         "title": "Your article was not published",
         "body": "{{titulo}} was not published."
       }
-    }
+    },
+    "noSePudo": "We could not load your notifications. This does not mean you have none: open the bell again in a moment."
   },
   "clin": {
     "s1": "General information",
@@ -3635,7 +3636,8 @@
     "refresh": "Refresh",
     "search": "Search by name, country or ID…",
     "empty": "No profiles with a paid membership.",
-    "on": "renews on"
+    "on": "renews on",
+    "noSePudo": "Renewals could not be loaded. This does not mean none are due: try again before taking it as settled."
   },
   "report": {
     "footerButton": "Report",
@@ -3763,7 +3765,8 @@
     "founders": "Founders",
     "products": "Active products",
     "referrals": "Referrals",
-    "reportsOpen": "Open reports"
+    "reportsOpen": "Open reports",
+    "noSePudo": "Your metrics could not be loaded. It does not mean they are at zero: please try again."
   },
   "events": {
     "title": "Events",
@@ -6099,7 +6102,8 @@
     "empty": "No allies published for this country yet.",
     "visit": "Visit",
     "communityTitle": "Help us protect the badges",
-    "communityBody": "Neuromundi badges are a symbol of trust for families. With the community's help we prevent piracy and misuse. If you see a badge you suspect is not authentic, verify it here and report it using the “Report” button in the footer."
+    "communityBody": "Neuromundi badges are a symbol of trust for families. With the community's help we prevent piracy and misuse. If you see a badge you suspect is not authentic, verify it here and report it using the “Report” button in the footer.",
+    "noSePudo": "The registry could not be loaded. This does not mean there are no verified allies: please try again."
   },
   "launch": {
     "soonTitle": "Coming soon to your country",

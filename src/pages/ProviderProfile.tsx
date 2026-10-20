@@ -20,7 +20,7 @@ import { cn } from '@/lib/utils';
 import { SECTION_BY_VALUE } from '@/data/sections';
 import { badgeArt } from '@/data/badgeArt';
 import { qualityBadge } from '@/lib/qualityBadge';
-import { Button, EVSBadge, SkeletonCard, DistintivoBadge, FounderBadge } from '@/components/ui';
+import { Button, EVSBadge, SkeletonCard, DistintivoBadge, FounderBadge, AvisoDeFallo } from '@/components/ui';
 import { ConnectButton, SaveToListButton } from '@/components/directory';
 import { SolicitarContactoButton } from '@/components/directory/SolicitarContactoButton';
 import { BookAppointment } from '@/components/booking/BookAppointment';
@@ -53,7 +53,7 @@ export function ProviderProfile() {
   const { t, i18n } = useTranslation();
   const catLabel = useCatLabel();
   const { isProvider, isParent, isConsumer, userId, isAuthenticated } = useAuth();
-  const { profile, categories, network, loading } = useProviderProfile(id);
+  const { profile, categories, network, loading, error } = useProviderProfile(id);
   const { badge } = useProviderBadge(id);
   const { isFounder } = useFounderStatus(id);
   const { rating, radar } = useProviderRatings(id, profile?.provider_type ?? null);
@@ -83,6 +83,19 @@ export function ProviderProfile() {
     return (
       <div className="mx-auto max-w-2xl p-4">
         <SkeletonCard rows={3} />
+      </div>
+    );
+  }
+
+  // El gancho SI devolvia el error y esta pantalla lo ignoraba: un fallo de
+  // carga se mostraba como "este perfil no existe". Es la pagina a la que lleva
+  // el enlace de la invitacion despues de reclamar una ficha, asi que decirle a
+  // alguien que su propio perfil no existe es de lo peor que puede pasar aqui.
+  // (Repaso adversario, 19 oct 2026.)
+  if (error) {
+    return (
+      <div className="mx-auto max-w-2xl p-8">
+        <AvisoDeFallo onRetry={() => window.location.reload()} />
       </div>
     );
   }

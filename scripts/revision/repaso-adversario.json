@@ -42,25 +42,6 @@
       "hallazgos_abiertos": []
     },
     {
-      "pantalla": "/proveedor/:id",
-      "fecha": "2026-10-19",
-      "quien": "Claude",
-      "archivos": [
-        "src/pages/ProviderProfile.tsx",
-        "src/hooks/useProviderProfile.ts",
-        "src/hooks/useProviderRatings.ts"
-      ],
-      "huella": "3b7195a052ec4d9d",
-      "modos_revisados": [
-        "cifras",
-        "recortes"
-      ],
-      "encontrado": [
-        "el grupo de pares del EVS se traia sin paginar: con la tabla llena habria comparado contra un grupo incompleto. Corregido"
-      ],
-      "hallazgos_abiertos": []
-    },
-    {
       "pantalla": "admin:fichas",
       "fecha": "2026-10-19",
       "quien": "Claude",
@@ -116,22 +97,6 @@
       ],
       "encontrado": [
         "el desplegable mostraba las 12 claves internas porque el grupo de textos no existia en ningun idioma: corregido"
-      ],
-      "hallazgos_abiertos": []
-    },
-    {
-      "pantalla": "admin:renewals",
-      "fecha": "2026-10-19",
-      "quien": "Claude",
-      "archivos": [
-        "src/components/admin/AdminRenewals.tsx"
-      ],
-      "huella": "5a74e15dc22ed97e",
-      "modos_revisados": [
-        "sustituciones"
-      ],
-      "encontrado": [
-        "mostraba 'ngo' y 'wellness' en vez del nombre del tipo: corregido"
       ],
       "hallazgos_abiertos": []
     },
@@ -505,23 +470,6 @@
       "huella": "d236de754bc2d44b"
     },
     {
-      "pantalla": "componente: campana de avisos",
-      "archivos": [
-        "src/components/content/NotificationsBell.tsx"
-      ],
-      "modos_revisados": [
-        "sustituciones"
-      ],
-      "encontrado": [
-        "de los 10 tipos de aviso de la base, 5 no tenian texto propio. No salia la clave cruda (el respaldo es el titulo guardado), pero dos que ve un PRESTADOR salian solo en espanol: traducidos a los 11 idiomas",
-        "decidido: el tipo 'auditoria' se queda en espanol, su cuerpo lo genera la base y solo lo ve la administracion"
-      ],
-      "hallazgos_abiertos": [],
-      "fecha": "2026-10-19",
-      "quien": "Claude",
-      "huella": "b98e943264b0daae"
-    },
-    {
       "pantalla": "/tienda",
       "archivos": [
         "src/pages/Store.tsx",
@@ -697,6 +645,139 @@
       "fecha": "2026-10-19",
       "quien": "Claude",
       "huella": "b8714f87a67a98b0"
+    },
+    {
+      "pantalla": "/proveedor/:id",
+      "archivos": [
+        "src/pages/ProviderProfile.tsx",
+        "src/hooks/useProviderProfile.ts",
+        "src/hooks/useProviderRatings.ts"
+      ],
+      "modos_revisados": [
+        "ceros y vacios",
+        "cifras",
+        "recortes"
+      ],
+      "encontrado": [
+        "el gancho SI devolvia el error y la pantalla lo ignoraba: un fallo de carga se mostraba como 'este perfil no existe'. Es la pagina a la que lleva el enlace de la invitacion despues de reclamar una ficha, asi que decirle a alguien que su propio perfil no existe es de lo peor que puede pasar aqui. Corregido",
+        "el grupo de pares del EVS se traia sin paginar (corregido en una tanda anterior con traerTodo)"
+      ],
+      "hallazgos_abiertos": [],
+      "fecha": "2026-10-19",
+      "quien": "Claude",
+      "huella": "8cf5ea5bb68cdd10"
+    },
+    {
+      "pantalla": "/verificados",
+      "archivos": [
+        "src/pages/VerifiedRegistry.tsx"
+      ],
+      "modos_revisados": [
+        "ceros y vacios"
+      ],
+      "encontrado": [
+        "el error se tiraba: un fallo decia que no hay aliados verificados, lo que resta credibilidad justo en la pantalla que existe para dar credibilidad. Corregido"
+      ],
+      "hallazgos_abiertos": [],
+      "fecha": "2026-10-19",
+      "quien": "Claude",
+      "huella": "33d956a50df39253"
+    },
+    {
+      "pantalla": "componente: campana de avisos",
+      "archivos": [
+        "src/components/content/NotificationsBell.tsx",
+        "src/hooks/useNotifications.ts"
+      ],
+      "modos_revisados": [
+        "sustituciones",
+        "ceros y vacios",
+        "recortes"
+      ],
+      "encontrado": [
+        "de los 10 tipos de aviso de la base, 5 no tenian texto propio; dos de ellos los ve un prestador y salian solo en espanol. Traducidos a los 11 idiomas",
+        "el error se tiraba: la campana decia 'no tienes notificaciones' cuando no se pudieron cargar. Alguien con un aviso importante sin leer creia que no tenia ninguno. Corregido",
+        "la campana trae como maximo 30 avisos: es un tope deliberado de una lista cronologica, no un recorte que engane"
+      ],
+      "hallazgos_abiertos": [],
+      "fecha": "2026-10-19",
+      "quien": "Claude",
+      "huella": "cd9386c4b527ef5a"
+    },
+    {
+      "pantalla": "componente: metricas del prestador",
+      "archivos": [
+        "src/components/provider/ProviderMetricsPanel.tsx",
+        "src/hooks/useProviderMetrics.ts"
+      ],
+      "modos_revisados": [
+        "ceros y vacios",
+        "cifras"
+      ],
+      "encontrado": [
+        "el error se tiraba y la pantalla decia que no hay metricas: un prestador podia creer que nadie lo ha visto cuando lo que paso fue que la consulta no llego. Corregido"
+      ],
+      "hallazgos_abiertos": [],
+      "fecha": "2026-10-19",
+      "quien": "Claude",
+      "huella": "41fd225d9156e8f0"
+    },
+    {
+      "pantalla": "admin:renewals",
+      "archivos": [
+        "src/components/admin/AdminRenewals.tsx",
+        "src/hooks/useAdminRenewals.ts"
+      ],
+      "modos_revisados": [
+        "ceros y vacios",
+        "sustituciones"
+      ],
+      "encontrado": [
+        "el error se tiraba: la pantalla decia que no hay renovaciones por vencer cuando la consulta fallaba. En una pantalla de cobros, ese cero de mas puede costar una membresia perdida. Corregido",
+        "mostraba la clave interna del tipo de miembro ('ngo', 'wellness'): corregido en una tanda anterior"
+      ],
+      "hallazgos_abiertos": [],
+      "fecha": "2026-10-19",
+      "quien": "Claude",
+      "huella": "c9462ea8f56fd56e"
+    },
+    {
+      "pantalla": "/tribu",
+      "archivos": [
+        "src/pages/TribuNeuromundi.tsx",
+        "src/components/tribe/EventsSection.tsx",
+        "src/hooks/useTribeEvents.ts"
+      ],
+      "modos_revisados": [
+        "ceros y vacios"
+      ],
+      "encontrado": [
+        "la seccion de eventos tiraba el error y decia que no hay eventos. Corregido con AvisoDeFallo"
+      ],
+      "hallazgos_abiertos": [
+        "del resto de /tribu (foros, mentoria, insignias) solo se repaso la seccion de eventos: las demas quedan pendientes"
+      ],
+      "fecha": "2026-10-19",
+      "quien": "Claude",
+      "huella": "4ce38e760713056d"
+    },
+    {
+      "pantalla": "/neurocamps",
+      "archivos": [
+        "src/pages/TribuNeuromundi.tsx"
+      ],
+      "modos_revisados": [
+        "ceros y vacios"
+      ],
+      "encontrado": [
+        "misma pantalla que /tribu"
+      ],
+      "hallazgos_abiertos": [
+        "igual que /tribu: solo la seccion de eventos"
+      ],
+      "fecha": "2026-10-19",
+      "quien": "Claude",
+      "huella": "e617ed428cfaaf1b"
     }
   ]
 }

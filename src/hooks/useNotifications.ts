@@ -14,6 +14,7 @@ export function useNotifications() {
   const { userId } = useAuth();
   const [items, setItems] = useState<Notification[]>([]);
   const [loading, setLoading] = useState(true);
+  const [fallo, setFallo] = useState(false);
 
   const load = useCallback(async () => {
     if (!userId) {
@@ -22,12 +23,18 @@ export function useNotifications() {
       return;
     }
     setLoading(true);
-    const { data } = await supabase
+    setFallo(false);
+    const { data, error } = await supabase
       .from('notifications')
       .select('*')
       .eq('user_id', userId)
       .order('created_at', { ascending: false })
       .limit(30);
+    // El error se tiraba, asi que la campana decia "no tienes notificaciones"
+    // cuando lo que paso fue que no se pudieron cargar. Alguien con un aviso
+    // importante sin leer creia que no tenia ninguno. (Repaso adversario,
+    // 19 oct 2026.)
+    if (error) { setFallo(true); setItems([]); setLoading(false); return; }
     setItems(data ?? []);
     setLoading(false);
   }, [userId]);
@@ -54,5 +61,5 @@ export function useNotifications() {
     return { ok: true };
   }, [userId]);
 
-  return { items, unreadCount, loading, reload: load, markRead, markAllRead };
+  return { items, fallo, unreadCount, loading, reload: load, markRead, markAllRead };
 }

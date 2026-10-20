@@ -30,11 +30,15 @@ export async function trackProfileEvent(providerId: string, kind: 'view' | 'cont
 export function useProviderMetrics() {
   const [metrics, setMetrics] = useState<ProviderMetrics>(ZERO);
   const [loading, setLoading] = useState(true);
+  const [fallo, setFallo] = useState(false);
 
   useEffect(() => {
     let alive = true;
     (async () => {
-      const { data } = await supabase.rpc('provider_metrics');
+    // El error se tiraba: un fallo quedaba igual que "no hay" y la pantalla
+    // lo decia. (Repaso adversario, 19 oct 2026.)
+      const { data, error } = await supabase.rpc('provider_metrics');
+      if (error) { setFallo(true); setLoading(false); return; }
       if (alive) {
         const row = (data as ProviderMetrics[] | null)?.[0];
         setMetrics(row ?? ZERO);
@@ -44,5 +48,5 @@ export function useProviderMetrics() {
     return () => { alive = false; };
   }, []);
 
-  return { metrics, loading };
+  return { metrics, loading, fallo };
 }

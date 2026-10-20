@@ -2180,7 +2180,8 @@
         "title": "Dein Artikel wurde nicht veröffentlicht",
         "body": "{{titulo}} wurde nicht veröffentlicht."
       }
-    }
+    },
+    "noSePudo": "Deine Benachrichtigungen konnten nicht geladen werden. Das heißt nicht, dass du keine hast: öffne die Glocke in einem Moment erneut."
   },
   "clin": {
     "s1": "Allgemeine Informationen",
@@ -3635,7 +3636,8 @@
     "refresh": "Aktualisieren",
     "search": "Nach Name, Land oder Nummer suchen…",
     "empty": "Keine Profile mit kostenpflichtiger Mitgliedschaft.",
-    "on": "verlängert am"
+    "on": "verlängert am",
+    "noSePudo": "Die Verlängerungen konnten nicht geladen werden. Das heißt nicht, dass keine fällig sind: versuchen Sie es erneut."
   },
   "report": {
     "footerButton": "Melden",
@@ -3763,7 +3765,8 @@
     "founders": "Gründungsmitglieder",
     "products": "Aktive Produkte",
     "referrals": "Empfehlungen",
-    "reportsOpen": "Offene Meldungen"
+    "reportsOpen": "Offene Meldungen",
+    "noSePudo": "Deine Kennzahlen konnten nicht geladen werden. Das heißt nicht, dass sie null sind: versuche es erneut."
   },
   "events": {
     "title": "Veranstaltungen",
@@ -6099,7 +6102,8 @@
     "empty": "Für dieses Land sind noch keine Partner veröffentlicht.",
     "visit": "Besuchen",
     "communityTitle": "Hilf uns, die Abzeichen zu schützen",
-    "communityBody": "Neuromundi-Abzeichen sind ein Vertrauenssymbol für Familien. Mit Hilfe der Gemeinschaft verhindern wir Piraterie und Missbrauch. Wenn du ein Abzeichen siehst, das du für unecht hältst, prüfe es hier und melde es über die Schaltfläche „Melden“ in der Fußzeile."
+    "communityBody": "Neuromundi-Abzeichen sind ein Vertrauenssymbol für Familien. Mit Hilfe der Gemeinschaft verhindern wir Piraterie und Missbrauch. Wenn du ein Abzeichen siehst, das du für unecht hältst, prüfe es hier und melde es über die Schaltfläche „Melden“ in der Fußzeile.",
+    "noSePudo": "Das Register konnte nicht geladen werden. Das heißt nicht, dass es keine geprüften Partner gibt: versuche es erneut."
   },
   "launch": {
     "soonTitle": "Bald in deinem Land",

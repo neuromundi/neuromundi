@@ -2217,7 +2217,8 @@
         "title": "Tu artículo no fue publicado",
         "body": "{{titulo}} no fue publicado."
       }
-    }
+    },
+    "noSePudo": "No se pudieron cargar tus avisos. Esto no quiere decir que no tengas ninguno: vuelve a abrir la campana en un momento."
   },
   "clin": {
     "s1": "Información general",
@@ -3635,7 +3636,8 @@
     "refresh": "Actualizar",
     "search": "Buscar por nombre, país o folio…",
     "empty": "No hay perfiles con cobro de membresía.",
-    "on": "renueva el"
+    "on": "renueva el",
+    "noSePudo": "No se pudieron cargar las renovaciones. Esto no quiere decir que no haya ninguna por vencer: vuelva a intentarlo antes de darlo por bueno."
   },
   "report": {
     "footerButton": "Denuncia",
@@ -3763,7 +3765,8 @@
     "founders": "Fundadores",
     "products": "Productos activos",
     "referrals": "Referidos",
-    "reportsOpen": "Denuncias abiertas"
+    "reportsOpen": "Denuncias abiertas",
+    "noSePudo": "No se pudieron cargar tus métricas. No quiere decir que estén en cero: vuelve a intentarlo."
   },
   "events": {
     "title": "Eventos",
@@ -6099,7 +6102,8 @@
     "empty": "Aún no hay aliados publicados para este país.",
     "visit": "Visitar",
     "communityTitle": "Ayúdanos a proteger los distintivos",
-    "communityBody": "Los distintivos Neuromundi son un símbolo de confianza para las familias. Con la ayuda de la comunidad evitamos la piratería y el uso indebido. Si ves un distintivo que sospechas no es auténtico, verifícalo aquí y repórtalo con el botón «Denuncia» del pie de página."
+    "communityBody": "Los distintivos Neuromundi son un símbolo de confianza para las familias. Con la ayuda de la comunidad evitamos la piratería y el uso indebido. Si ves un distintivo que sospechas no es auténtico, verifícalo aquí y repórtalo con el botón «Denuncia» del pie de página.",
+    "noSePudo": "No se pudo cargar el registro. Esto no quiere decir que no haya aliados verificados: vuelve a intentarlo."
   },
   "launch": {
     "soonTitle": "Pronto en tu país",

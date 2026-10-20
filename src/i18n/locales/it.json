@@ -2180,7 +2180,8 @@
         "title": "Il tuo articolo non è stato pubblicato",
         "body": "{{titulo}} non è stato pubblicato."
       }
-    }
+    },
+    "noSePudo": "Non è stato possibile caricare i tuoi avvisi. Non vuol dire che non ne hai: riapri la campanella tra un momento."
   },
   "clin": {
     "s1": "Informazioni generali",
@@ -3635,7 +3636,8 @@
     "refresh": "Aggiorna",
     "search": "Cerca per nome, Paese o codice…",
     "empty": "Nessun profilo con abbonamento a pagamento.",
-    "on": "rinnova il"
+    "on": "rinnova il",
+    "noSePudo": "Non è stato possibile caricare i rinnovi. Non vuol dire che non ce ne siano in scadenza: riprovi."
   },
   "report": {
     "footerButton": "Segnala",
@@ -3763,7 +3765,8 @@
     "founders": "Fondatori",
     "products": "Prodotti attivi",
     "referrals": "Segnalazioni amici",
-    "reportsOpen": "Segnalazioni aperte"
+    "reportsOpen": "Segnalazioni aperte",
+    "noSePudo": "Non è stato possibile caricare le tue metriche. Non vuol dire che siano a zero: riprova."
   },
   "events": {
     "title": "Eventi",
@@ -6099,7 +6102,8 @@
     "empty": "Nessun alleato pubblicato per questo paese.",
     "visit": "Visita",
     "communityTitle": "Aiutaci a proteggere i distintivi",
-    "communityBody": "I distintivi Neuromundi sono un simbolo di fiducia per le famiglie. Con l'aiuto della comunità evitiamo la pirateria e l'uso improprio. Se vedi un distintivo che sospetti non sia autentico, verificalo qui e segnalalo con il pulsante «Segnala» nel piè di pagina."
+    "communityBody": "I distintivi Neuromundi sono un simbolo di fiducia per le famiglie. Con l'aiuto della comunità evitiamo la pirateria e l'uso improprio. Se vedi un distintivo che sospetti non sia autentico, verificalo qui e segnalalo con il pulsante «Segnala» nel piè di pagina.",
+    "noSePudo": "Non è stato possibile caricare il registro. Non vuol dire che non ci siano alleati verificati: riprova."
   },
   "launch": {
     "soonTitle": "Presto nel tuo paese",
