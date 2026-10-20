@@ -28,18 +28,29 @@ export interface SendMessageInput {
   memberNo?: number | null;
 }
 
+// El historial se corta a proposito en los 50 ultimos avisos, pero el tope se
+// PUBLICA (ver `recortado`) para que nadie lea esa lista como si fuera todo lo
+// que se ha enviado.
+const TOPE_HISTORIAL = 50;
+
 export function useAdminMessages() {
   const [sent, setSent] = useState<AdminMessage[]>([]);
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
+  // «No hay mensajes enviados» y «no se pudo leer el historial» se veian igual,
+  // y sobre ese historial se decide si un aviso ya salio o hay que repetirlo.
+  // (Repaso adversario, 20 oct 2026.)
+  const [fallo, setFallo] = useState(false);
 
   const load = useCallback(async () => {
     setLoading(true);
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from('admin_messages')
       .select('*')
       .order('created_at', { ascending: false })
-      .limit(50);
+      .limit(TOPE_HISTORIAL);
+    if (error) { setFallo(true); setLoading(false); return; }
+    setFallo(false);
     setSent((data ?? []) as unknown as AdminMessage[]);
     setLoading(false);
   }, []);
@@ -65,5 +76,5 @@ export function useAdminMessages() {
     [load],
   );
 
-  return { sent, loading, busy, send, reload: load };
+  return { sent, loading, fallo, busy, tope: TOPE_HISTORIAL, recortado: sent.length >= TOPE_HISTORIAL, send, reload: load };
 }

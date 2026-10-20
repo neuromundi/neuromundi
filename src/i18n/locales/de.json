@@ -82,7 +82,8 @@
     "refresh": "Aktualisieren",
     "remove": "Entfernen",
     "loadFailed": "Konnte nicht geladen werden. Das heißt nicht, dass nichts da ist – bitte erneut versuchen.",
-    "retry": "Erneut versuchen"
+    "retry": "Erneut versuchen",
+    "recortado": "Es werden die ersten {{tope}} Datensätze angezeigt. Verfeinern Sie die Filter, um den Rest zu sehen; der Download ist ebenfalls gekürzt."
   },
   "nav": {
     "directory": "Verzeichnis",

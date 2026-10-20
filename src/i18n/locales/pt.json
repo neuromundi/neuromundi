@@ -82,7 +82,8 @@
     "refresh": "Atualizar",
     "remove": "Remover",
     "loadFailed": "Não foi possível carregar. Isso não significa que não haja nada: tente de novo.",
-    "retry": "Tentar de novo"
+    "retry": "Tentar de novo",
+    "recortado": "Mostrando os primeiros {{tope}} registros. Refine os filtros para ver o restante; o download também sai cortado."
   },
   "nav": {
     "directory": "Diretório",

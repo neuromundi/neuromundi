@@ -6,6 +6,7 @@
  */
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { supabase } from '@/lib/supabase';
+import { traerTodo } from '@/lib/traerTodo';
 import { toMessage } from '@/lib/utils';
 import type { Profile, Result } from '@/types/app';
 
@@ -34,13 +35,20 @@ export function useAdmin(filter: AdminFilter): UseAdminValue {
     setLoading(true);
     setError(null);
     try {
-      const { data, error: err } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('role', 'provider')
-        .order('created_at', { ascending: false });
-      if (err) throw err;
-      setAll(data ?? []);
+      // El servidor corta toda respuesta en 1,000 filas sin avisar, asi que la
+      // lista de moderacion se habria quedado en las 1,000 mas recientes con
+      // aspecto de estar completa. Se pide por paginas. Medido el 20 de octubre
+      // de 2026: hay 6 cuentas, asi que todavia no recortaba nada.
+      // (Repaso adversario.)
+      const filas = await traerTodo<Profile>((desde, hasta) =>
+        supabase
+          .from('profiles')
+          .select('*')
+          .eq('role', 'provider')
+          .order('created_at', { ascending: false })
+          .range(desde, hasta),
+      );
+      setAll(filas);
     } catch (e) {
       setError(toMessage(e, 'No se pudieron cargar los proveedores.'));
     } finally {

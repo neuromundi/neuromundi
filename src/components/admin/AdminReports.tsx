@@ -6,7 +6,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Paperclip, ShieldAlert } from 'lucide-react';
-import { SkeletonCard, Button, useToast } from '@/components/ui';
+import { SkeletonCard, Button, useToast, AvisoDeFallo } from '@/components/ui';
 import { useAdminReports, type Report } from '@/hooks/useAdminReports';
 import { formatDate } from '@/lib/utils';
 
@@ -65,7 +65,7 @@ function ReportCard({ r, onStatus, sign }: { r: Report; onStatus: (id: string, s
 export function AdminReports() {
   const { t } = useTranslation();
   const toast = useToast();
-  const { reports, loading, setStatus, signedUrl } = useAdminReports();
+  const { reports, loading, fallo, reload, setStatus, signedUrl } = useAdminReports();
   const [busy, setBusy] = useState(false);
 
   const onStatus = async (id: string, s: string) => {
@@ -76,6 +76,7 @@ export function AdminReports() {
   };
 
   if (loading) return <SkeletonCard rows={4} />;
+  if (fallo) return <AvisoDeFallo onRetry={() => void reload()} />;
   if (reports.length === 0) {
     return (
       <div className="rounded-2xl border border-dashed border-slate-200 p-8 text-center text-muted">

@@ -996,6 +996,195 @@
       "notas": "Sin hallazgos: los contadores salen de constantes locales, y el contador de fundadores y la tabla comparativa NO inventan una cifra si la consulta falla (se callan). HomeBlogEvents ya distingue el fallo.",
       "fecha": "2026-10-20",
       "huella": "32c5c56454fd9af7"
+    },
+    {
+      "pantalla": "admin:metrics",
+      "archivos": [
+        "src/components/admin/AdminMetrics.tsx"
+      ],
+      "notas": "Sin hallazgos: ya comprueba el error de admin_metrics y lo dice.",
+      "fecha": "2026-10-20",
+      "huella": "303f5f0bb249a181"
+    },
+    {
+      "pantalla": "admin:members",
+      "archivos": [
+        "src/components/admin/AdminMembers.tsx",
+        "src/hooks/useAdminMembers.ts"
+      ],
+      "notas": "El boton de descarga exportaba las filas visibles con nombre de respaldo completo, y la consulta pedia 300 filas sin decirlo en ninguna parte. Ahora el tope se publica en pantalla y el nombre del CSV dice «(primeros N)» cuando esta recortado. Medido el 20 oct 2026: hay 6 cuentas, asi que el tope todavia no recorta; con 1,121 invitaciones por enviar, lo hara en campana. La funcion de la base nunca devuelve mas de 1,000 aunque se le pidan mas: paginarla es trabajo aparte y lo decide Enyoria.",
+      "fecha": "2026-10-20",
+      "huella": "92e25c0112c7938a"
+    },
+    {
+      "pantalla": "admin:messages",
+      "archivos": [
+        "src/components/admin/AdminMessages.tsx",
+        "src/hooks/useAdminMessages.ts"
+      ],
+      "notas": "El historial decia «no hay mensajes enviados» cuando no se podia leer, y sobre ese historial se decide si un aviso ya salio o hay que repetirlo. El tope de 50 ahora se publica.",
+      "fecha": "2026-10-20",
+      "huella": "6ab1a1aa81d99f0d"
+    },
+    {
+      "pantalla": "admin:moderation",
+      "archivos": [
+        "src/components/admin/AdminDashboard.tsx",
+        "src/hooks/useAdmin.ts"
+      ],
+      "notas": "useAdmin ya guardaba el error pero la lista NO lo leia: un fallo se veia como «no hay perfiles por revisar». Ademas la consulta de perfiles no estaba paginada (el servidor corta en 1,000 sin avisar): ahora pasa por traerTodo. Y al abrir un documento de verificacion, si no se podia firmar el enlace el clic no hacia nada y parecia que el documento no existia.",
+      "fecha": "2026-10-20",
+      "huella": "0998cce167679931"
+    },
+    {
+      "pantalla": "admin:products",
+      "archivos": [
+        "src/components/admin/AdminProducts.tsx",
+        "src/hooks/useProductModeration.ts"
+      ],
+      "notas": "Cola de moderacion que decia «no hay productos» cuando no se pudo leer. El tope de 100 por tanda ahora se publica.",
+      "fecha": "2026-10-20",
+      "huella": "310f5faa1aadc394"
+    },
+    {
+      "pantalla": "admin:store",
+      "archivos": [
+        "src/components/merchant/ProductManager.tsx"
+      ],
+      "notas": "Sin hallazgos nuevos en el barrido: no tiene lecturas que tiren el error.",
+      "fecha": "2026-10-20",
+      "huella": "300086897e138733"
+    },
+    {
+      "pantalla": "admin:referrals",
+      "archivos": [
+        "src/components/admin/AdminReferrals.tsx",
+        "src/hooks/useReferralProgram.ts"
+      ],
+      "notas": "Tres lecturas tiraban el error, entre ellas la del DESCUENTO de cuota: si fallaba, se dejaba en nada y se le habria cobrado la cuota completa a quien tiene descuento.",
+      "fecha": "2026-10-20",
+      "huella": "20465293ba620d09"
+    },
+    {
+      "pantalla": "admin:donations",
+      "archivos": [
+        "src/components/admin/AdminDonations.tsx",
+        "src/hooks/useAdminDonations.ts"
+      ],
+      "notas": "Son donaciones: unos totales en cero por un fallo de lectura se leen como «no ha entrado nada», y ese es un dato que se reporta hacia afuera. Tambien la lista de aliados.",
+      "fecha": "2026-10-20",
+      "huella": "5e4683041c877145"
+    },
+    {
+      "pantalla": "admin:founders",
+      "archivos": [
+        "src/components/admin/AdminFounders.tsx",
+        "src/components/admin/AdminSolicitudesFundador.tsx"
+      ],
+      "notas": "Sin hallazgos: ambos ya distinguen el fallo del vacio.",
+      "fecha": "2026-10-20",
+      "huella": "bcd2961e87982088"
+    },
+    {
+      "pantalla": "admin:carousel",
+      "archivos": [
+        "src/components/admin/AdminHeroCarousel.tsx",
+        "src/hooks/useHeroSlides.ts"
+      ],
+      "notas": "«No hay escenas» cuando no se pudieron leer: el admin podia volver a cargar las mismas imagenes del carrusel.",
+      "fecha": "2026-10-20",
+      "huella": "04eac1a91622ca09"
+    },
+    {
+      "pantalla": "admin:accounts",
+      "archivos": [
+        "src/components/admin/AdminAccountActions.tsx"
+      ],
+      "notas": "Sin hallazgos: ya usa AvisoDeFallo.",
+      "fecha": "2026-10-20",
+      "huella": "0d0cbff9d01b9f8b"
+    },
+    {
+      "pantalla": "admin:improve",
+      "archivos": [
+        "src/components/admin/AdminImprovements.tsx"
+      ],
+      "notas": "Sin hallazgos en el barrido.",
+      "fecha": "2026-10-20",
+      "huella": "ecc8d1844110e738"
+    },
+    {
+      "pantalla": "admin:experto",
+      "archivos": [
+        "src/components/admin/AdminPreguntasExperto.tsx"
+      ],
+      "notas": "Sin hallazgos en el barrido.",
+      "fecha": "2026-10-20",
+      "huella": "e1b783e9cc37fac5"
+    },
+    {
+      "pantalla": "admin:eventos",
+      "archivos": [
+        "src/components/admin/AdminEventos.tsx"
+      ],
+      "notas": "Sin hallazgos: ya usa AvisoDeFallo.",
+      "fecha": "2026-10-20",
+      "huella": "b08f27248706e288"
+    },
+    {
+      "pantalla": "admin:contenido",
+      "archivos": [
+        "src/components/admin/AdminContenido.tsx"
+      ],
+      "notas": "Sin hallazgos: ya usa AvisoDeFallo.",
+      "fecha": "2026-10-20",
+      "huella": "9c709e8741fc57c1"
+    },
+    {
+      "pantalla": "admin:aliados",
+      "archivos": [
+        "src/components/admin/AdminAliados.tsx"
+      ],
+      "notas": "Sin hallazgos: ya usa AvisoDeFallo.",
+      "fecha": "2026-10-20",
+      "huella": "0db2825d71b484d5"
+    },
+    {
+      "pantalla": "admin:suggestions",
+      "archivos": [
+        "src/components/admin/AdminCatalogSuggestions.tsx"
+      ],
+      "notas": "Sin hallazgos: ya usa AvisoDeFallo.",
+      "fecha": "2026-10-20",
+      "huella": "29ef998c4c4b082f"
+    },
+    {
+      "pantalla": "admin:comisiones",
+      "archivos": [
+        "src/components/admin/AdminComisiones.tsx"
+      ],
+      "notas": "La lista si avisaba del fallo, pero el DESGLOSE de cada comision no: en blanco se leia como «esta comision no tiene renglones», y sobre ese desglose se liquida dinero.",
+      "fecha": "2026-10-20",
+      "huella": "83c50b0143cad72f"
+    },
+    {
+      "pantalla": "admin:reports",
+      "archivos": [
+        "src/components/admin/AdminReports.tsx",
+        "src/hooks/useAdminReports.ts"
+      ],
+      "notas": "«No hay reportes» cuando no se pudieron leer, en la pantalla de los reportes de abuso.",
+      "fecha": "2026-10-20",
+      "huella": "97c510ad54c7ff32"
+    },
+    {
+      "pantalla": "admin:other",
+      "archivos": [
+        "src/components/admin/AdminOtherValues.tsx"
+      ],
+      "notas": "Sin hallazgos en el barrido.",
+      "fecha": "2026-10-20",
+      "huella": "e44c4610b85a260c"
     }
   ]
 }

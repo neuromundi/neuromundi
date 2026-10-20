@@ -9,7 +9,7 @@ import { useState } from 'react';
 import { useAvisarResultado } from '@/hooks/useAvisarResultado';
 import { useTranslation } from 'react-i18next';
 import { ArrowUp, ArrowDown, Trash2, Plus, Eye, EyeOff, ImagePlus } from 'lucide-react';
-import { Button, useToast } from '@/components/ui';
+import { Button, useToast, AvisoDeFallo } from '@/components/ui';
 import { useAdminHeroSlides, type HeroSlide } from '@/hooks/useHeroSlides';
 
 const LANGS: [string, string][] = [
@@ -23,7 +23,7 @@ export function AdminHeroCarousel() {
   // Nunca se tira el resultado de una escritura. (Hallazgo A-13.)
   const avisar = useAvisarResultado();
   const toast = useToast();
-  const { slides, loading, uploadImage, create, update, remove, move } = useAdminHeroSlides();
+  const { slides, loading, fallo, reload, uploadImage, create, update, remove, move } = useAdminHeroSlides();
   const [drafts, setDrafts] = useState<Record<string, Record<string, string>>>({});
   const [busy, setBusy] = useState(false);
   const [newEs, setNewEs] = useState('');
@@ -94,6 +94,8 @@ export function AdminHeroCarousel() {
 
       {loading ? (
         <p className="text-sm text-muted">{t('common.loading', { defaultValue: 'Cargando…' })}</p>
+      ) : fallo ? (
+        <AvisoDeFallo onRetry={() => void reload()} />
       ) : slides.length === 0 ? (
         <p className="rounded-xl border border-dashed border-slate-200 p-4 text-sm text-muted">{t('adm.hero.emptyDefault')}</p>
       ) : (

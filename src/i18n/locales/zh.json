@@ -82,7 +82,8 @@
     "refresh": "刷新",
     "remove": "移除",
     "loadFailed": "加载失败。这并不表示没有内容，请重试。",
-    "retry": "重试"
+    "retry": "重试",
+    "recortado": "仅显示前 {{tope}} 条记录。请细化筛选条件以查看其余内容；下载内容同样被截断。"
   },
   "nav": {
     "directory": "目录",

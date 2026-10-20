@@ -42,13 +42,18 @@ export function useHeroSlides() {
 export function useAdminHeroSlides() {
   const [slides, setSlides] = useState<HeroSlide[]>([]);
   const [loading, setLoading] = useState(true);
+  const [fallo, setFallo] = useState(false);
 
   const load = useCallback(async () => {
     setLoading(true);
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from('hero_slides')
       .select('id, image_url, captions, sort_order, is_active')
       .order('sort_order', { ascending: true });
+    // «No hay escenas» cuando no se pudieron leer: el admin podia volver a
+    // cargar las mismas imagenes del carrusel. (Repaso adversario, 20 oct.)
+    if (error) { setFallo(true); setLoading(false); return; }
+    setFallo(false);
     setSlides((data as HeroSlide[] | null) ?? []);
     setLoading(false);
   }, []);
@@ -110,5 +115,5 @@ export function useAdminHeroSlides() {
     return { ok: true };
   }, [slides, load]);
 
-  return { slides, loading, reload: load, uploadImage, create, update, remove, move };
+  return { slides, loading, fallo, reload: load, uploadImage, create, update, remove, move };
 }

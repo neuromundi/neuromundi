@@ -82,6 +82,7 @@ export function AdminComisiones() {
   const [detalle, setDetalle] = useState<Detalle[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [falloDetalle, setFalloDetalle] = useState(false);
   const [ocupada, setOcupada] = useState<string | null>(null);
 
   const load = useCallback(async (e: string) => {
@@ -97,7 +98,11 @@ export function AdminComisiones() {
   const abrir = async (id: string) => {
     if (abierta === id) { setAbierta(null); return; }
     setAbierta(id);
-    const { data } = await supabase.rpc('admin_comisiones_detalle', { p_referrer: id });
+    setFalloDetalle(false);
+    const { data, error: err } = await supabase.rpc('admin_comisiones_detalle', { p_referrer: id });
+    // El desglose en blanco se leia como «esta comision no tiene renglones», y
+    // sobre ese desglose se LIQUIDA dinero. (Repaso adversario, 20 oct 2026.)
+    if (err) { setFalloDetalle(true); setDetalle([]); return; }
     setDetalle((data ?? []) as unknown as Detalle[]);
   };
 
@@ -259,6 +264,11 @@ export function AdminComisiones() {
                       <tr key={`${f.referrer_id}-d`} className="border-t border-slate-100 bg-slate-50">
                         <td colSpan={5} className="px-3 py-2">
                           <ul className="space-y-1 text-xs text-muted">
+                            {falloDetalle && (
+                              <li className="rounded-lg border border-amber-200 bg-amber-50 p-2 text-amber-900">
+                                {t('common.loadFailed')}
+                              </li>
+                            )}
                             {detalle.map((d) => (
                               <li key={d.id} className="flex flex-wrap justify-between gap-2">
                                 <span className="text-slate-900">{d.referido}</span>

@@ -6,7 +6,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Megaphone, Send, Users } from 'lucide-react';
-import { Button, useToast, SkeletonCard } from '@/components/ui';
+import { Button, useToast, SkeletonCard, AvisoDeFallo } from '@/components/ui';
 import { useAdminMessages, type MessageAudience } from '@/hooks/useAdminMessages';
 import { formatDate } from '@/lib/utils';
 
@@ -18,7 +18,7 @@ const AUDIENCES: MessageAudience[] = ['all', 'consumers', 'providers', 'founders
 export function AdminMessages() {
   const { t } = useTranslation();
   const toast = useToast();
-  const { sent, loading, busy, send } = useAdminMessages();
+  const { sent, loading, fallo, recortado, tope, busy, send, reload } = useAdminMessages();
   const [audience, setAudience] = useState<MessageAudience>('all');
   const [folio, setFolio] = useState('');
   const [title, setTitle] = useState('');
@@ -79,10 +79,17 @@ export function AdminMessages() {
         </h3>
         {loading ? (
           <SkeletonCard rows={1} />
+        ) : fallo ? (
+          <AvisoDeFallo onRetry={() => void reload()} />
         ) : sent.length === 0 ? (
           <p className="rounded-xl border border-dashed border-slate-200 p-4 text-center text-sm text-muted">{t('msg.empty')}</p>
         ) : (
           <ul className="space-y-2">
+            {recortado && (
+              <li className="rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900">
+                {t('common.recortado', { tope })}
+              </li>
+            )}
             {sent.map((m) => (
               <li key={m.id} className="rounded-xl border border-slate-100 bg-white p-3">
                 <div className="flex items-center justify-between gap-2">

@@ -60,9 +60,13 @@ export function AdminMembers() {
 
   /** Exporta las filas visibles, con los filtros tal como están aplicados. */
   function exportar() {
+    // Si la consulta llegó al tope, el archivo NO es el padrón completo y se
+    // dice en el nombre: un CSV recortado con nombre de respaldo completo es
+    // justo la clase de archivo que nadie vuelve a revisar.
+    const sufijo = m.recortado ? ` (primeros ${m.tope})` : '';
     const hoy = new Date().toISOString().slice(0, 10);
     descargarCsv(
-      `miembros neuromundi ${hoy}.csv`,
+      `miembros neuromundi ${hoy}${sufijo}.csv`,
       ['Socio', 'Nombre', 'Razon social', 'Correo', 'Pais', 'Tipo', 'Secciones',
        'Estado', 'Periodo', 'Vigencia', 'Fundador', 'Publicado', 'Ficha reclamada',
        'Ficha verificada', 'Ha pagado', 'Suspendido desde', 'Alta'],
@@ -172,6 +176,12 @@ export function AdminMembers() {
           <Download className="mr-1 h-4 w-4" />{t('adm.members.csv')}
         </Button>
       </div>
+
+      {m.recortado && (
+        <p className="rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900">
+          {t('common.recortado', { tope: m.tope })}
+        </p>
+      )}
 
       {m.error && (
         <p className="rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700">{m.error}</p>

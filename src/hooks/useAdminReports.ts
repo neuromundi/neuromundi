@@ -14,10 +14,15 @@ export type Report = Tables<'reports'>;
 export function useAdminReports() {
   const [reports, setReports] = useState<Report[]>([]);
   const [loading, setLoading] = useState(true);
+  // «No hay reportes» cuando no se pudieron leer, en la pantalla de los
+  // reportes de abuso. (Repaso adversario, 20 oct 2026.)
+  const [fallo, setFallo] = useState(false);
 
   const load = useCallback(async () => {
     setLoading(true);
-    const { data } = await supabase.rpc('admin_reports');
+    const { data, error } = await supabase.rpc('admin_reports');
+    if (error) { setFallo(true); setLoading(false); return; }
+    setFallo(false);
     setReports((data as Report[]) ?? []);
     setLoading(false);
   }, []);
@@ -36,5 +41,5 @@ export function useAdminReports() {
     return data?.signedUrl ?? null;
   }, []);
 
-  return { reports, loading, reload: load, setStatus, signedUrl };
+  return { reports, loading, fallo, reload: load, setStatus, signedUrl };
 }

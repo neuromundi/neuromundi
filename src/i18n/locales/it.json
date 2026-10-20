@@ -82,7 +82,8 @@
     "refresh": "Aggiorna",
     "remove": "Rimuovi",
     "loadFailed": "Impossibile caricare. Non significa che non ci sia nulla: riprova.",
-    "retry": "Riprova"
+    "retry": "Riprova",
+    "recortado": "Vengono mostrati i primi {{tope}} record. Affina i filtri per vedere il resto; anche il download è troncato."
   },
   "nav": {
     "directory": "Directory",

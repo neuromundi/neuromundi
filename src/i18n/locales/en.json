@@ -82,7 +82,8 @@
     "refresh": "Refresh",
     "remove": "Remove",
     "loadFailed": "Could not load. This does not mean there is nothing here — please try again.",
-    "retry": "Try again"
+    "retry": "Try again",
+    "recortado": "Showing the first {{tope}} records. Narrow the filters to see the rest; the download is trimmed too."
   },
   "followUs": {
     "title": "Follow us",

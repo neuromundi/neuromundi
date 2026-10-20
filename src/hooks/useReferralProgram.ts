@@ -54,47 +54,60 @@ export function useReferralSummary() {
   const { userId } = useAuth();
   const [summary, setSummary] = useState<ReferralSummary | null>(null);
   const [loading, setLoading] = useState(true);
+  // Aqui se cuentan recomendaciones y comisiones. Un resumen que no se pudo
+  // leer se veia igual que «no has recomendado a nadie». (Repaso adversario.)
+  const [fallo, setFallo] = useState(false);
 
   const reload = useCallback(async () => {
     if (!userId) { setSummary(null); setLoading(false); return; }
     setLoading(true);
-    const { data } = await supabase.rpc('my_referral_summary');
+    const { data, error } = await supabase.rpc('my_referral_summary');
+    if (error) { setFallo(true); setLoading(false); return; }
+    setFallo(false);
     setSummary(firstRow<ReferralSummary>(data));
     setLoading(false);
   }, [userId]);
 
   useEffect(() => { void reload(); }, [reload]);
-  return { summary, loading, reload };
+  return { summary, loading, fallo, reload };
 }
 
 export function useMyDiscount() {
   const { userId } = useAuth();
   const [discount, setDiscount] = useState<MyDiscount | null>(null);
   const [loading, setLoading] = useState(true);
+  const [fallo, setFallo] = useState(false);
 
   const reload = useCallback(async () => {
     if (!userId) { setDiscount(null); setLoading(false); return; }
     setLoading(true);
-    const { data } = await supabase.rpc('my_membership_discount');
+    const { data, error } = await supabase.rpc('my_membership_discount');
+    // Si no se pudo leer NO se deja el descuento en nada: se queda en «no se
+    // sabe», para no cobrar la cuota completa a quien tiene descuento.
+    if (error) { setFallo(true); setLoading(false); return; }
+    setFallo(false);
     setDiscount(firstRow<MyDiscount>(data));
     setLoading(false);
   }, [userId]);
 
   useEffect(() => { void reload(); }, [reload]);
-  return { discount, loading, reload };
+  return { discount, loading, fallo, reload };
 }
 
 export function useAdminReferrals() {
   const [items, setItems] = useState<AdminReferral[]>([]);
   const [loading, setLoading] = useState(true);
+  const [fallo, setFallo] = useState(false);
 
   const reload = useCallback(async () => {
     setLoading(true);
-    const { data } = await supabase.rpc('admin_referrals');
+    const { data, error } = await supabase.rpc('admin_referrals');
+    if (error) { setFallo(true); setLoading(false); return; }
+    setFallo(false);
     setItems((data as AdminReferral[]) ?? []);
     setLoading(false);
   }, []);
 
   useEffect(() => { void reload(); }, [reload]);
-  return { items, loading, reload };
+  return { items, loading, fallo, reload };
 }

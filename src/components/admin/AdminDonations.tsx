@@ -11,7 +11,7 @@ import { useAvisarResultado } from '@/hooks/useAvisarResultado';
 import { ZERO_DECIMAL } from '@/lib/commissions';
 import { useTranslation } from 'react-i18next';
 import { Coins, Star, StarOff, Eye, EyeOff, Truck, Pencil, Plus, Trash2, Save, Handshake, Banknote } from 'lucide-react';
-import { Button, SkeletonCard, EmptyState, useToast, useConfirm } from '@/components/ui';
+import { Button, SkeletonCard, EmptyState, useToast, useConfirm, AvisoDeFallo } from '@/components/ui';
 import { useAdminDonations, useAdminAllies, type AdminDonation } from '@/hooks/useAdminDonations';
 import { useAdminDonationTiers, type DonationTierRow } from '@/hooks/useDonationTiers';
 import type { Ally } from '@/hooks/useDonorWall';
@@ -241,7 +241,7 @@ function AlliesManager() {
   const { t } = useTranslation();
   const toast = useToast();
   const confirm = useConfirm();
-  const { allies, loading, save, remove } = useAdminAllies();
+  const { allies, loading, fallo: falloAliados, reload: reloadAliados, save, remove } = useAdminAllies();
   const [draft, setDraft] = useState<Partial<Ally>>({});
   const [busy, setBusy] = useState(false);
 
@@ -311,6 +311,8 @@ function AlliesManager() {
 
       {loading ? (
         <div className="mt-3"><SkeletonCard rows={1} /></div>
+      ) : falloAliados ? (
+        <div className="mt-3"><AvisoDeFallo onRetry={() => void reloadAliados()} /></div>
       ) : (
         <ul className="mt-3 space-y-2">
           {allies.map((a) => (
@@ -347,7 +349,7 @@ function AlliesManager() {
 
 export function AdminDonations() {
   const { t, i18n } = useTranslation();
-  const { stats, rows, loading, setWall } = useAdminDonations();
+  const { stats, rows, loading, fallo, reload, setWall } = useAdminDonations();
 
   return (
     <div className="space-y-5">
@@ -358,6 +360,8 @@ export function AdminDonations() {
         </h3>
         {loading ? (
           <SkeletonCard rows={1} />
+        ) : fallo ? (
+          <AvisoDeFallo onRetry={() => void reload()} />
         ) : stats.length === 0 ? (
           <p className="text-sm text-muted">{t('adm.don.noStats')}</p>
         ) : (
@@ -382,6 +386,8 @@ export function AdminDonations() {
         <h3 className="mb-2 font-semibold text-slate-900">{t('adm.don.listTitle')}</h3>
         {loading ? (
           <SkeletonCard rows={3} />
+        ) : fallo ? (
+          <AvisoDeFallo onRetry={() => void reload()} />
         ) : rows.length === 0 ? (
           <EmptyState icon={<Coins className="h-6 w-6" />} title={t('adm.don.emptyTitle')} description={t('adm.don.empty')} />
         ) : (

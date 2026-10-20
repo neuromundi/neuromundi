@@ -50,6 +50,18 @@ export interface AdminMember {
 
 type Rpc = { rpc: (f: string, a?: unknown) => Promise<{ data: unknown; error: { message: string } | null }> };
 
+/**
+ * Tope de filas que devuelve `admin_members`. Existe para no traer el padron
+ * entero en cada tecleo, pero el tope se PUBLICA (ver `recortado`): la version
+ * anterior pedia 300 filas sin decirlo en ninguna parte, y el boton de descarga
+ * exportaba justo esas 300 filas con el nombre de un respaldo completo. La
+ * funcion de la base, ademas, nunca devuelve mas de 1,000 aunque se le pidan
+ * mas. Medido el 20 de octubre de 2026: hay 6 cuentas, asi que el tope todavia
+ * no recorta nada; con 1,121 invitaciones por enviar, lo hara en campana.
+ * (Repaso adversario.)
+ */
+const TOPE_DE_FILAS = 1000;
+
 export function useAdminMembers() {
   const [items, setItems] = useState<AdminMember[]>([]);
   const [estado, setEstado] = useState<EstadoFiltro>('todos');
@@ -82,7 +94,7 @@ export function useAdminMembers() {
       .rpc('admin_members', {
         p_estado: estado,
         p_q: q || null,
-        p_limit: 300,
+        p_limit: TOPE_DE_FILAS,
         p_pais: pais || null,
         p_seccion: seccion || null,
         p_fundador: fundador === 'todos' ? null : fundador === 'si',
@@ -122,7 +134,7 @@ export function useAdminMembers() {
   }, []);
 
   return {
-    items, loading, error, reload: load,
+    items, loading, error, reload: load, tope: TOPE_DE_FILAS, recortado: items.length >= TOPE_DE_FILAS,
     estado, setEstado, q, setQ,
     pais, setPais, seccion, setSeccion, fundador, setFundador, tipo, setTipo, facetas,
     publicado, setPublicado, reclamado, setReclamado, pagado, setPagado,

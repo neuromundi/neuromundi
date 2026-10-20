@@ -9,7 +9,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { etiquetaDeTipo } from '@/lib/etiquetaDeTipo';
 import { ShieldCheck, ShieldOff, Eye, EyeOff, ExternalLink, RefreshCw, FileText, Sparkles, Award } from 'lucide-react';
-import { Button, Tabs, SkeletonCard, useToast , Avatar, DistintivoBadge} from '@/components/ui';
+import { Button, Tabs, SkeletonCard, useToast, Avatar, DistintivoBadge, AvisoDeFallo } from '@/components/ui';
 import { useAdmin, type AdminFilter, type ProfileBadgeFlag } from '@/hooks/useAdmin';
 import { useAuth } from '@/hooks/useAuth';
 import { ProductManager } from '@/components/merchant/ProductManager';
@@ -64,12 +64,16 @@ function ProviderRow({
   badge?: BadgeResult | null;
 }) {
   const { t } = useTranslation();
+  const toast = useToast();
   const name = provider.business_name ?? provider.full_name;
   const pd = (provider.provider_details ?? {}) as { verification_docs?: unknown };
   const docs = Array.isArray(pd.verification_docs) ? (pd.verification_docs as string[]) : [];
   const openDoc = async (path: string) => {
-    const { data } = await supabase.storage.from('verification').createSignedUrl(path, 300);
+    // Antes, si no se podia firmar el enlace, el clic no hacia absolutamente
+    // nada y parecia que el documento no existia. (Repaso adversario.)
+    const { data, error } = await supabase.storage.from('verification').createSignedUrl(path, 300);
     if (data?.signedUrl) window.open(data.signedUrl, '_blank', 'noopener');
+    else toast.error(error?.message ?? t('common.loadFailed'));
   };
   return (
     <li className="rounded-2xl border border-slate-100 bg-white p-4 shadow-sm">
@@ -188,7 +192,7 @@ function ProviderRow({
 }
 
 function ProviderList({ filter }: { filter: AdminFilter }) {
-  const { providers, loading, setVerified, setPublished, setNeuroaffirming, setProfileFlag } = useAdmin(filter);
+  const { providers, loading, error, refetch, setVerified, setPublished, setNeuroaffirming, setProfileFlag } = useAdmin(filter);
   const badges = useAdminBadges();
   const toast = useToast();
   const { t } = useTranslation();
@@ -211,6 +215,9 @@ function ProviderList({ filter }: { filter: AdminFilter }) {
   };
 
   if (loading) return <div className="space-y-3"><SkeletonCard rows={0} /><SkeletonCard rows={0} /></div>;
+  // useAdmin ya guardaba el error, pero esta lista no lo leia: un fallo de
+  // lectura se veia como «no hay perfiles por revisar». (Repaso adversario.)
+  if (error) return <AvisoDeFallo onRetry={() => void refetch()} mensaje={error} />;
   if (providers.length === 0) {
     return (
       <div className="rounded-2xl border border-dashed border-slate-200 p-8 text-center text-muted">

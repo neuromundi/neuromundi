@@ -45,6 +45,10 @@ export function useAdminDonations(status?: string) {
   const [stats, setStats] = useState<DonationStat[]>([]);
   const [rows, setRows] = useState<AdminDonation[]>([]);
   const [loading, setLoading] = useState(true);
+  // Son DONACIONES: unos totales en cero por un fallo de lectura se leen como
+  // «no ha entrado nada», y eso es un dato que alguien reporta hacia afuera.
+  // (Repaso adversario, 20 oct 2026.)
+  const [fallo, setFallo] = useState(false);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -52,6 +56,8 @@ export function useAdminDonations(status?: string) {
       supabase.rpc('admin_donation_stats'),
       supabase.rpc('admin_donations', { p_status: status ?? null }),
     ]);
+    if (s.error || l.error) { setFallo(true); setLoading(false); return; }
+    setFallo(false);
     setStats((s.data as DonationStat[] | null) ?? []);
     setRows((l.data as AdminDonation[] | null) ?? []);
     setLoading(false);
@@ -81,16 +87,19 @@ export function useAdminDonations(status?: string) {
     [load],
   );
 
-  return { stats, rows, loading, reload: load, setWall };
+  return { stats, rows, loading, fallo, reload: load, setWall };
 }
 
 export function useAdminAllies() {
   const [allies, setAllies] = useState<Ally[]>([]);
   const [loading, setLoading] = useState(true);
+  const [fallo, setFallo] = useState(false);
 
   const load = useCallback(async () => {
     setLoading(true);
-    const { data } = await supabase.from('allies').select('*').order('sort_order', { ascending: true });
+    const { data, error } = await supabase.from('allies').select('*').order('sort_order', { ascending: true });
+    if (error) { setFallo(true); setLoading(false); return; }
+    setFallo(false);
     setAllies((data as Ally[] | null) ?? []);
     setLoading(false);
   }, []);
@@ -125,5 +134,5 @@ export function useAdminAllies() {
     [load],
   );
 
-  return { allies, loading, reload: load, save, remove };
+  return { allies, loading, fallo, reload: load, save, remove };
 }

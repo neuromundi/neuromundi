@@ -6,7 +6,7 @@
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Gift, Search, CheckCircle2, Clock, Percent, Save, HandCoins } from 'lucide-react';
-import { Button, useToast, SkeletonCard, EmptyState } from '@/components/ui';
+import { Button, useToast, SkeletonCard, EmptyState, AvisoDeFallo } from '@/components/ui';
 import { useAdminReferrals, type AdminReferral } from '@/hooks/useReferralProgram';
 import { useReferralConfig } from '@/hooks/useAdminPricing';
 import { formatDate, cn } from '@/lib/utils';
@@ -71,7 +71,7 @@ function ConfigPanel() {
 
 export function AdminReferrals() {
   const { t } = useTranslation();
-  const { items, loading } = useAdminReferrals();
+  const { items, loading, fallo, reload } = useAdminReferrals();
   const [q, setQ] = useState('');
   const [onlyReward, setOnlyReward] = useState(false);
 
@@ -142,7 +142,9 @@ export function AdminReferrals() {
         </button>
       </div>
 
-      {rows.length === 0 ? (
+      {fallo ? (
+        <AvisoDeFallo onRetry={() => void reload()} />
+      ) : rows.length === 0 ? (
         <EmptyState icon={<Gift className="h-6 w-6" />} title={t('ref.emptyTitle')} description={t('ref.empty')} />
       ) : (
         <ul className="space-y-2">

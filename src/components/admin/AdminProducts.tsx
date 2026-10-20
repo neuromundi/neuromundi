@@ -6,7 +6,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Check, X, ExternalLink, ShoppingBag, Star } from 'lucide-react';
-import { Button, SkeletonCard, useToast } from '@/components/ui';
+import { Button, SkeletonCard, useToast, AvisoDeFallo } from '@/components/ui';
 import { useProductModeration, type ProductFilter, type ModProduct } from '@/hooks/useProductModeration';
 import { safeHttpUrl } from '@/lib/safeUrl';
 
@@ -83,13 +83,19 @@ function ProductRow({ p, filter, onApprove, onReject, onToggleFeatured }: {
 function ProductList({ filter }: { filter: ProductFilter }) {
   const { t } = useTranslation();
   const toast = useToast();
-  const { items, loading, approve, reject, toggleFeatured } = useProductModeration(filter);
+  const { items, loading, fallo, recortado, tope, reload, approve, reject, toggleFeatured } = useProductModeration(filter);
 
   if (loading) return <SkeletonCard rows={3} />;
+  if (fallo) return <AvisoDeFallo onRetry={() => void reload()} />;
   if (items.length === 0) return <p className="py-8 text-center text-sm text-muted">{t('admin.noProducts')}</p>;
 
   return (
     <ul className="space-y-3">
+      {recortado && (
+        <li className="rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900">
+          {t('common.recortado', { tope })}
+        </li>
+      )}
       {items.map((p) => (
         <ProductRow
           key={p.id}

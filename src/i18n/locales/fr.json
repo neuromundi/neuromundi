@@ -82,7 +82,8 @@
     "refresh": "Actualiser",
     "remove": "Retirer",
     "loadFailed": "Chargement impossible. Cela ne veut pas dire qu’il n’y a rien : réessayez.",
-    "retry": "Réessayer"
+    "retry": "Réessayer",
+    "recortado": "Les {{tope}} premiers enregistrements sont affichés. Affinez les filtres pour voir le reste ; le téléchargement est également tronqué."
   },
   "nav": {
     "directory": "Annuaire",
