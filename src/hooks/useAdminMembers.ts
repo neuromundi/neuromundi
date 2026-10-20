@@ -23,6 +23,9 @@ const triestado = (v: SiNo): boolean | null => (v === 'todos' ? null : v === 'si
 
 export interface Facetas { paises: string[]; tipos: string[] }
 
+/** Lo que devuelve `admin_members_pagina`: la fila mas el total del filtro. */
+interface FilaConTotal extends AdminMember { total?: number | string | null }
+
 export interface AdminMember {
   id: string;
   member_no: number | null;
@@ -51,16 +54,19 @@ export interface AdminMember {
 type Rpc = { rpc: (f: string, a?: unknown) => Promise<{ data: unknown; error: { message: string } | null }> };
 
 /**
- * Tope de filas que devuelve `admin_members`. Existe para no traer el padron
- * entero en cada tecleo, pero el tope se PUBLICA (ver `recortado`): la version
- * anterior pedia 300 filas sin decirlo en ninguna parte, y el boton de descarga
- * exportaba justo esas 300 filas con el nombre de un respaldo completo. La
- * funcion de la base, ademas, nunca devuelve mas de 1,000 aunque se le pidan
- * mas. Medido el 20 de octubre de 2026: hay 6 cuentas, asi que el tope todavia
- * no recorta nada; con 1,121 invitaciones por enviar, lo hara en campana.
- * (Repaso adversario.)
+ * Cuantas filas se piden por pagina. La pantalla no trae el padron entero en
+ * cada tecleo, pero YA NO MIENTE sobre lo que falta: `admin_members_pagina`
+ * (migracion 0314) devuelve tambien el TOTAL de filas que cumplen el filtro,
+ * asi que `recortado` no se adivina comparando con el tope, se sabe. Y la
+ * descarga completa pide todas las paginas en vez de exportar lo que se veia.
+ *
+ * La version anterior pedia 300 filas sin decirlo en ninguna parte y su boton
+ * de descarga exportaba justo esas 300 con nombre de respaldo completo.
+ * (Repaso adversario, 20 de octubre de 2026.)
  */
-const TOPE_DE_FILAS = 1000;
+const FILAS_POR_PAGINA = 300;
+/** Tope de la funcion de la base: no devuelve mas de 5,000 por llamada. */
+const MAXIMO_POR_LLAMADA = 5000;
 
 export function useAdminMembers() {
   const [items, setItems] = useState<AdminMember[]>([]);
@@ -78,6 +84,8 @@ export function useAdminMembers() {
   const [facetas, setFacetas] = useState<Facetas>({ paises: [], tipos: [] });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  // Cuantas filas cumplen el filtro EN TOTAL, segun la base. null = no se sabe.
+  const [total, setTotal] = useState<number | null>(null);
 
   // Sólo manda la ÚLTIMA petición. La búsqueda dispara una consulta por cada
   // pausa al teclear, y la RPC recorre perfiles y directorio: una respuesta
@@ -86,27 +94,60 @@ export function useAdminMembers() {
   // (Auditoría 15 oct 2026, hallazgo M-4.)
   const peticion = useRef(0);
 
+  /** Los filtros tal como los pide la funcion de la base. */
+  const filtros = useCallback((limite: number, desde: number) => ({
+    p_estado: estado,
+    p_q: q || null,
+    p_limit: limite,
+    p_offset: desde,
+    p_pais: pais || null,
+    p_seccion: seccion || null,
+    p_fundador: fundador === 'todos' ? null : fundador === 'si',
+    p_tipo: tipo || null,
+    p_publicado: triestado(publicado),
+    p_reclamado: triestado(reclamado),
+    p_pagado: triestado(pagado),
+  }), [estado, q, pais, seccion, fundador, tipo, publicado, reclamado, pagado]);
+
   const load = useCallback(async () => {
     const mia = ++peticion.current;
     setLoading(true);
     setError(null);
     const { data, error: e } = await (supabase as unknown as Rpc)
-      .rpc('admin_members', {
-        p_estado: estado,
-        p_q: q || null,
-        p_limit: TOPE_DE_FILAS,
-        p_pais: pais || null,
-        p_seccion: seccion || null,
-        p_fundador: fundador === 'todos' ? null : fundador === 'si',
-        p_tipo: tipo || null,
-        p_publicado: triestado(publicado),
-        p_reclamado: triestado(reclamado),
-        p_pagado: triestado(pagado),
-      });
+      .rpc('admin_members_pagina', filtros(FILAS_POR_PAGINA, 0));
     if (mia !== peticion.current) return;
-    if (e) { setError(e.message); setItems([]); } else { setItems((data as AdminMember[] | null) ?? []); }
+    if (e) {
+      setError(e.message);
+      setItems([]);
+      setTotal(null);
+    } else {
+      const filas = (data as FilaConTotal[] | null) ?? [];
+      setItems(filas);
+      // El total viene en cada fila (count sobre la ventana). Sin filas no hay
+      // de donde leerlo, y entonces el total ES cero.
+      setTotal(filas.length > 0 ? Number(filas[0].total ?? filas.length) : 0);
+    }
     setLoading(false);
-  }, [estado, q, pais, seccion, fundador, tipo, publicado, reclamado, pagado]);
+  }, [filtros]);
+
+  /**
+   * Trae TODAS las filas del filtro, pagina por pagina, para la descarga.
+   * Antes el boton exportaba las filas que estaban a la vista con el nombre de
+   * un respaldo completo. (Repaso adversario, 20 oct 2026.)
+   */
+  const traerTodas = useCallback(async (): Promise<{ ok: true; filas: AdminMember[] } | { ok: false; error: string }> => {
+    const todas: AdminMember[] = [];
+    for (let pagina = 0; pagina < 40; pagina += 1) {
+      const desde = pagina * MAXIMO_POR_LLAMADA;
+      const { data, error: e } = await (supabase as unknown as Rpc)
+        .rpc('admin_members_pagina', filtros(MAXIMO_POR_LLAMADA, desde));
+      if (e) return { ok: false, error: e.message };
+      const filas = (data as FilaConTotal[] | null) ?? [];
+      todas.push(...filas);
+      if (filas.length < MAXIMO_POR_LLAMADA) break;
+    }
+    return { ok: true, filas: todas };
+  }, [filtros]);
 
   // La búsqueda espera a que la persona deje de escribir: cada pulsación
   // dispararía una consulta a una RPC que recorre perfiles y directorio.
@@ -134,7 +175,9 @@ export function useAdminMembers() {
   }, []);
 
   return {
-    items, loading, error, reload: load, tope: TOPE_DE_FILAS, recortado: items.length >= TOPE_DE_FILAS,
+    items, loading, error, reload: load, total, traerTodas,
+    // Ya no se adivina comparando con el tope: la base dice cuantas hay.
+    recortado: total != null && total > items.length,
     estado, setEstado, q, setQ,
     pais, setPais, seccion, setSeccion, fundador, setFundador, tipo, setTipo, facetas,
     publicado, setPublicado, reclamado, setReclamado, pagado, setPagado,

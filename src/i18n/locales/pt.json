@@ -4590,7 +4590,8 @@
       "fPaidYes": "Paid only",
       "fPaidNo": "Unpaid only",
       "csv": "Download CSV",
-      "expiryPrompt": "Data de vencimento (AAAA-MM-DD). Vazio = remover a prorrogação (vence já)."
+      "expiryPrompt": "Data de vencimento (AAAA-MM-DD). Vazio = remover a prorrogação (vence já).",
+      "deTotal": "Exibindo {{vistas}} de {{total}} registros. Refine os filtros para ver o restante; o download inclui todos."
     },
     "exe": {
       "title": "Isenções",

@@ -4590,7 +4590,8 @@
       "fPaidYes": "Paid only",
       "fPaidNo": "Unpaid only",
       "csv": "Download CSV",
-      "expiryPrompt": "만료일(YYYY-MM-DD). 비우면 연장 취소(즉시 만료)."
+      "expiryPrompt": "만료일(YYYY-MM-DD). 비우면 연장 취소(즉시 만료).",
+      "deTotal": "{{total}}건 중 {{vistas}}건을 표시합니다. 나머지를 보려면 필터를 좁히세요. 다운로드에는 전체가 포함됩니다."
     },
     "exe": {
       "title": "면제",

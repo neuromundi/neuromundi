@@ -43,6 +43,7 @@ export function AdminMembers() {
   const { t } = useTranslation();
   const toast = useToast();
   const m = useAdminMembers();
+  const [exportando, setExportando] = useState(false);
   const [ocupado, setOcupado] = useState<string | null>(null);
 
   /** Ejecuta una acción mostrando el resultado; nunca deja la fila trabada. */
@@ -58,19 +59,23 @@ export function AdminMembers() {
     }
   }
 
-  /** Exporta las filas visibles, con los filtros tal como están aplicados. */
-  function exportar() {
-    // Si la consulta llegó al tope, el archivo NO es el padrón completo y se
-    // dice en el nombre: un CSV recortado con nombre de respaldo completo es
-    // justo la clase de archivo que nadie vuelve a revisar.
-    const sufijo = m.recortado ? ` (primeros ${m.tope})` : '';
+  /**
+   * Exporta TODAS las filas del filtro, pidiéndolas página por página.
+   * Antes exportaba las filas que estaban a la vista con el nombre de un
+   * respaldo completo. (Repaso adversario, 20 oct 2026.)
+   */
+  async function exportar() {
+    setExportando(true);
+    const r = await m.traerTodas();
+    setExportando(false);
+    if (!r.ok) { toast.error(r.error); return; }
     const hoy = new Date().toISOString().slice(0, 10);
     descargarCsv(
-      `miembros neuromundi ${hoy}${sufijo}.csv`,
+      `miembros neuromundi ${hoy}.csv`,
       ['Socio', 'Nombre', 'Razon social', 'Correo', 'Pais', 'Tipo', 'Secciones',
        'Estado', 'Periodo', 'Vigencia', 'Fundador', 'Publicado', 'Ficha reclamada',
        'Ficha verificada', 'Ha pagado', 'Suspendido desde', 'Alta'],
-      m.items.map((x) => [
+      r.filas.map((x) => [
         x.member_no, x.full_name, x.business_name, x.email, x.country,
         x.affiliate_type ?? x.provider_type ?? x.role,
         (x.sections ?? []).join(' | '),
@@ -172,14 +177,16 @@ export function AdminMembers() {
         </div>
         {/* Descarga lo que se está viendo, con los filtros aplicados: un
             respaldo de «todos» y un recorte de trabajo se piden igual. */}
-        <Button variant="secondary" onClick={exportar} disabled={m.items.length === 0}>
+        <Button variant="secondary" loading={exportando} onClick={() => void exportar()} disabled={m.items.length === 0}>
           <Download className="mr-1 h-4 w-4" />{t('adm.members.csv')}
         </Button>
       </div>
 
-      {m.recortado && (
+      {/* La base dice cuántas filas cumplen el filtro, así que el aviso ya no
+          se adivina: se publica el número real y la descarga sí trae todas. */}
+      {m.recortado && m.total != null && (
         <p className="rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900">
-          {t('common.recortado', { tope: m.tope })}
+          {t('adm.members.deTotal', { vistas: m.items.length, total: m.total })}
         </p>
       )}
 

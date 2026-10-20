@@ -4590,7 +4590,8 @@
       "fPaidYes": "Paid only",
       "fPaidNo": "Unpaid only",
       "csv": "Download CSV",
-      "expiryPrompt": "到期日（YYYY-MM-DD）。留空＝取消延期（立即到期）。"
+      "expiryPrompt": "到期日（YYYY-MM-DD）。留空＝取消延期（立即到期）。",
+      "deTotal": "显示 {{total}} 条记录中的 {{vistas}} 条。请细化筛选条件以查看其余内容；下载内容包含全部记录。"
     },
     "exe": {
       "title": "豁免",

@@ -4590,7 +4590,8 @@
       "fPaidYes": "Paid only",
       "fPaidNo": "Unpaid only",
       "csv": "Download CSV",
-      "expiryPrompt": "Data di scadenza (AAAA-MM-GG). Vuoto = rimuovi la proroga (scade subito)."
+      "expiryPrompt": "Data di scadenza (AAAA-MM-GG). Vuoto = rimuovi la proroga (scade subito).",
+      "deTotal": "Vengono mostrati {{vistas}} record su {{total}}. Affina i filtri per vedere il resto; il download li contiene tutti."
     },
     "exe": {
       "title": "Esenzioni",

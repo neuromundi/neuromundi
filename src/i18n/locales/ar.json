@@ -4590,7 +4590,8 @@
       "fPaidYes": "Paid only",
       "fPaidNo": "Unpaid only",
       "csv": "Download CSV",
-      "expiryPrompt": "تاريخ الانتهاء (YYYY-MM-DD). فارغ = إزالة التمديد (ينتهي الآن)."
+      "expiryPrompt": "تاريخ الانتهاء (YYYY-MM-DD). فارغ = إزالة التمديد (ينتهي الآن).",
+      "deTotal": "يتم عرض {{vistas}} من {{total}} سجل. حسِّن عوامل التصفية لرؤية الباقي؛ أما التنزيل فيشملها جميعاً."
     },
     "exe": {
       "title": "الإعفاءات",

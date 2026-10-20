@@ -4590,7 +4590,8 @@
       "fPaidYes": "Paid only",
       "fPaidNo": "Unpaid only",
       "csv": "Download CSV",
-      "expiryPrompt": "Ablaufdatum (JJJJ-MM-TT). Leer = Verlängerung entfernen (läuft sofort ab)."
+      "expiryPrompt": "Ablaufdatum (JJJJ-MM-TT). Leer = Verlängerung entfernen (läuft sofort ab).",
+      "deTotal": "Es werden {{vistas}} von {{total}} Datensätzen angezeigt. Verfeinern Sie die Filter, um den Rest zu sehen; der Download enthält alle."
     },
     "exe": {
       "title": "Befreiungen",

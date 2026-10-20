@@ -4590,7 +4590,8 @@
       "fPaidYes": "Paid only",
       "fPaidNo": "Unpaid only",
       "csv": "Download CSV",
-      "expiryPrompt": "תאריך תפוגה (YYYY-MM-DD). ריק = הסרת ההארכה (פג עכשיו)."
+      "expiryPrompt": "תאריך תפוגה (YYYY-MM-DD). ריק = הסרת ההארכה (פג עכשיו).",
+      "deTotal": "מוצגות {{vistas}} מתוך {{total}} רשומות. צמצמו את המסננים כדי לראות את השאר; ההורדה כוללת את כולן."
     },
     "exe": {
       "title": "פטורים",

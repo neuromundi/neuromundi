@@ -8075,6 +8075,47 @@ export type Database = {
           suspended_at: string
         }[]
       }
+      admin_members_pagina: {
+        Args: {
+          p_estado?: string | null
+          p_fundador?: boolean | null
+          p_limit?: number | null
+          p_offset?: number | null
+          p_pagado?: boolean | null
+          p_pais?: string | null
+          p_publicado?: boolean | null
+          p_q?: string | null
+          p_reclamado?: boolean | null
+          p_seccion?: string | null
+          p_tipo?: string | null
+        }
+        Returns: {
+          affiliate_type: string
+          business_name: string
+          country: string
+          created_at: string
+          email: string
+          es_fundador: boolean
+          ficha_id: string
+          ficha_verificada: boolean
+          full_name: string
+          ha_pagado: boolean
+          id: string
+          is_published: boolean
+          member_no: number
+          membership_due_at: string
+          membership_paid_until: string
+          membership_period: string
+          membership_status: string
+          offset_aplicado: number
+          provider_type: string
+          role: string
+          sections: string[]
+          suspend_until: string
+          suspended_at: string
+          total: number
+        }[]
+      }
       admin_members_facetas: {
         Args: never
         Returns: {

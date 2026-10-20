@@ -4590,7 +4590,8 @@
       "fPaidYes": "Sólo pagados",
       "fPaidNo": "Sólo sin pagar",
       "csv": "Descargar CSV",
-      "expiryPrompt": "Fecha de vencimiento (AAAA-MM-DD). Vacío = quitar la prórroga (vence ya)."
+      "expiryPrompt": "Fecha de vencimiento (AAAA-MM-DD). Vacío = quitar la prórroga (vence ya).",
+      "deTotal": "Se ven {{vistas}} de {{total}} registros. Afine los filtros para ver el resto; la descarga sí trae todos."
     },
     "exe": {
       "title": "Exenciones",

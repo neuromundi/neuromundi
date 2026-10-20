@@ -4590,7 +4590,8 @@
       "fPaidYes": "Paid only",
       "fPaidNo": "Unpaid only",
       "csv": "Download CSV",
-      "expiryPrompt": "Date d'échéance (AAAA-MM-JJ). Vide = retirer la prolongation (expire maintenant)."
+      "expiryPrompt": "Date d'échéance (AAAA-MM-JJ). Vide = retirer la prolongation (expire maintenant).",
+      "deTotal": "{{vistas}} enregistrements affichés sur {{total}}. Affinez les filtres pour voir le reste ; le téléchargement, lui, contient tout."
     },
     "exe": {
       "title": "Exonérations",
