@@ -27,7 +27,7 @@ import { AccountFlowModal } from '@/components/membership/AccountFlowModal';
 import { GuidedTour } from '@/components/onboarding';
 import { PasswordStrength } from '@/components/auth/PasswordStrength';
 import { profileSchema, TIPOS_QUE_DECLARAN_AREA, type ProfileFormValues } from '@/lib/schemas';
-import { ACCESSIBILITY_FEATURES } from '@/data/specialistCatalog';
+import { ACCESSIBILITY_FEATURES, PROFESSIONS } from '@/data/specialistCatalog';
 import { useCatLabel } from '@/lib/catLabel';
 import type { ProfileUpdate } from '@/hooks/useProfile';
 import type { ProviderType } from '@/types/app';
@@ -525,10 +525,22 @@ export function Settings() {
             {/* Profesión / Especialidades / Áreas: perfiles de servicio, no comercios ni empresas de empleo */}
             {!noServiceDirectory && (
             <>
-            {/* Profesión */}
+            {/* Profesión.
+                Era un campo de TEXTO LIBRE, y de ahí sale la cuota: la
+                plataforma distingue especialista médico de no médico por el
+                valor de este campo, y sólo reconoce los de la lista. Quien
+                escribía "Neuropsicóloga" a mano quedaba sin clasificar para
+                siempre, y su correo de invitación le había prometido un precio
+                "desde" que nunca se concretaba. Ahora es la MISMA lista que usa
+                el alta de especialista. (20 oct 2026.) */}
             <div>
               <label htmlFor="s-prof" className={labelCls}>{t('settings.profession')}</label>
-              <input id="s-prof" className={inputCls} placeholder={t('settings.professionPlaceholder')} {...register('profession')} />
+              <select id="s-prof" className={inputCls} {...register('profession')}>
+                <option value="">{t('settings.professionPlaceholder')}</option>
+                {PROFESSIONS.map((p) => (
+                  <option key={p.value} value={p.value}>{catLabel(p.value, p.label)}</option>
+                ))}
+              </select>
             </div>
 
             {/* Especialidades (texto libre, coma-separado) */}

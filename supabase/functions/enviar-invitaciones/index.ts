@@ -81,6 +81,10 @@ interface Row {
   orden?: number; affiliate_type?: string | null; moneda?: string | null;
   precio_fundador?: number | null; precio_ordinario?: number | null;
   precio_configurado?: boolean | null;
+  /** Cierto cuando NO sabemos si es especialista medico o no: el correo habla
+   *  de un precio "desde" y la persona fija su cuota al declarar su profesion
+   *  al completar el perfil. (Decision de Enyoria, 20 oct 2026.) */
+  precio_desde?: boolean | null;
   // 0261: plazo de fundador sellado para ESTA invitacion al momento del envio.
   // Lo llena el bucle de envio con sellar_plazo_invitacion(); en la simulacion
   // viene vacio y el correo cae a la fecha del pais.
@@ -151,14 +155,24 @@ function bloquePrecio(r: Row): string {
   const pt = esPT(r);
   const fd = fundadorDe(r);
   const titulo = pt ? 'A sua quota, sem rodeios' : 'Su cuota, sin rodeos';
+  // Cuando no sabemos si es especialista medico, la cifra es un "desde": la
+  // cuota exacta queda fijada cuando la persona declara su profesion al
+  // completar su perfil. Decir una cifra cerrada y cobrar otra es lo que se
+  // siente como engano.
+  const desde = !!r.precio_desde;
+  const notaDesde = desde
+    ? (pt
+        ? ' A quota exacta fica definida quando indicar a sua profissão ao completar o perfil.'
+        : ' La cuota exacta queda definida cuando indique su profesión al completar su perfil.')
+    : '';
   const cuerpo = pt
-    ? `A adesão anual para o seu tipo de perfil é de <b>${MXN(Number(r.precio_ordinario))} ${cur}</b>.
+    ? `A adesão anual para o seu tipo de perfil é de <b>${desde ? 'a partir de ' : ''}${MXN(Number(r.precio_ordinario))} ${cur}</b>.
       Se a activar <b>${fd ? `antes de ${fechaLarga(fd, true)}` : 'durante a campanha de fundadores'}</b> fica como Membro Fundador e paga
-      <b style="color:#0369a1">${MXN(Number(r.precio_fundador))} ${cur} por ano</b>, metade, e esse preço é respeitado nas renovações.
+      <b style="color:#0369a1">${desde ? 'a partir de ' : ''}${MXN(Number(r.precio_fundador))} ${cur} por ano</b>, metade, e esse preço é respeitado nas renovações.${notaDesde}
       <br><br>A tarifa de fundador é <b>anual</b>; o pagamento mensal existe, mas com a quota normal.<br><br>Reclamar a ficha não cobra nada e o pagamento é um passo posterior: a decisão é sua.`
-    : `La membresía anual para su tipo de perfil es de <b>${MXN(Number(r.precio_ordinario))} ${cur}</b>.
+    : `La membresía anual para su tipo de perfil es de <b>${desde ? 'desde ' : ''}${MXN(Number(r.precio_ordinario))} ${cur}</b>.
       Si la activa <b>${fd ? `antes del ${fechaLarga(fd)}` : 'durante la campaña de fundadores'}</b> queda como Miembro Fundador y paga
-      <b style="color:#0369a1">${MXN(Number(r.precio_fundador))} ${cur} al año</b>, la mitad, y ese precio se le respeta en las renovaciones.
+      <b style="color:#0369a1">${desde ? 'desde ' : ''}${MXN(Number(r.precio_fundador))} ${cur} al año</b>, la mitad, y ese precio se le respeta en las renovaciones.${notaDesde}
       <br><br>La tarifa de fundador es <b>anual</b>; el pago mensual existe, pero a cuota ordinaria.<br><br>Reclamar la ficha no cobra nada y el pago es un paso posterior: usted decide si lo da.`;
   return `<div style="margin:18px 0;padding:14px 16px;border:1px solid #bae6fd;background:#f0f9ff;border-radius:12px">
     <p style="margin:0 0 6px;font-weight:800;font-size:15px;color:#0c4a6e">${titulo}</p>
@@ -629,16 +643,16 @@ function buildEmail(r: Row, fundador = true, promo: string | null = null): { sub
          com estas condições vitalícias:</p>
        <p style="margin:12px 0;padding:14px 16px;border:1px solid #bae6fd;background:#f0f9ff;border-radius:12px;font-size:15px;line-height:1.6;color:#0c4a6e">
          <u>Desconto vitalício</u><sup>*</sup> de <b>50%</b> como Membro Fundador: apenas
-         <b style="color:#0369a1">${MXN(Number(r.precio_fundador))} ${cur} por ano</b>,
-         em vez do preço normal de <b>${MXN(Number(r.precio_ordinario))} ${cur}</b>.
+         <b style="color:#0369a1">${r.precio_desde ? 'a partir de ' : ''}${MXN(Number(r.precio_fundador))} ${cur} por ano</b>,
+         em vez do preço normal de <b>${r.precio_desde ? 'a partir de ' : ''}${MXN(Number(r.precio_ordinario))} ${cur}</b>.${r.precio_desde ? ' A quota exacta fica definida quando indicar a sua profissão ao completar o perfil.' : ''}
        </p>`
     : `<p>Y para motivarle aún más a formar parte de Neuromundi, le ofrecemos ingresar como
          <b>Miembro Fundador</b>. Queremos que forme parte de la base fundadora de la plataforma,
          con estas condiciones de por vida:</p>
        <p style="margin:12px 0;padding:14px 16px;border:1px solid #bae6fd;background:#f0f9ff;border-radius:12px;font-size:15px;line-height:1.6;color:#0c4a6e">
          <u>Descuento vitalicio</u><sup>*</sup> del <b>50%</b> como Miembro Fundador: Sólo
-         <b style="color:#0369a1">${MXN(Number(r.precio_fundador))} ${cur} al año</b>,
-         en lugar del precio ordinario de <b>${MXN(Number(r.precio_ordinario))} ${cur}</b>.
+         <b style="color:#0369a1">${r.precio_desde ? 'desde ' : ''}${MXN(Number(r.precio_fundador))} ${cur} al año</b>,
+         en lugar del precio ordinario de <b>${r.precio_desde ? 'desde ' : ''}${MXN(Number(r.precio_ordinario))} ${cur}</b>.${r.precio_desde ? ' La cuota exacta queda definida cuando indique su profesión al completar su perfil.' : ''}
        </p>`)
     : '';
 
@@ -833,7 +847,7 @@ Deno.serve(async (req: Request) => {
     // Si viene `tanda`, la cola respeta el plan (directorio_plan_invitacion) y
     // trae la tarifa exacta de cada ficha. Sin `tanda`, comportamiento anterior.
     const { data, error } = body.tanda
-      ? await admin.rpc('directorio_invitaciones_cola_tanda_v2', { p_tanda: body.tanda, p_limit: 200 })
+      ? await admin.rpc('directorio_invitaciones_cola_tanda_v3', { p_tanda: body.tanda, p_limit: 200 })
       : await admin.rpc('directorio_invitaciones_cola_v2', { p_limit: 1000 });
     if (error) return json(500, { error: error.message });
     rows = (data ?? []) as Row[];
