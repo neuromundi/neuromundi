@@ -148,11 +148,36 @@ async function loadLanguage(code: LanguageCode): Promise<void> {
  * desde index.html) y monta la app enseguida; el diccionario completo se descarga
  * y fusiona en segundo plano. Así el LCP no espera a las ~2.7k claves.
  */
+/**
+ * ¿Se puede arrancar con el chunk crítico? Solo en la PORTADA.
+ *
+ * El chunk crítico contiene únicamente los textos de la portada. Si alguien
+ * llega directo a otra dirección —y con 1,121 invitaciones en la calle,
+ * `/crear-cuenta` y `/entrar` son justo eso— esa pantalla se pinta antes de
+ * que llegue el diccionario y enseña las claves crudas («auth.email» en vez de
+ * «Correo»). Medido el 20 de octubre de 2026 con un navegador real sobre el
+ * sitio publicado: pasaba de forma intermitente en /entrar, /crear-cuenta,
+ * /reglamento, /proteccion-datos, /conocer-mas, /fundadores, /aliados,
+ * /terminos, /privacidad y /correo-confirmado. Fuera de la portada se espera
+ * el diccionario completo, como antes del refactor de arranque: la mejora
+ * medida de LCP era en la portada y ahí se conserva intacta.
+ */
+export function arrancaSoloConLoCritico(): boolean {
+  if (typeof window === 'undefined') return false;
+  if (navigator.userAgent === 'ReactSnap') return false;
+  const ruta = window.location.pathname.replace(/\/+$/, '');
+  return ruta === '' || ruta === '/index.html';
+}
+
 export async function initI18n(): Promise<void> {
   const lng = detectInitial();
-  const crit = await CRITICAL_LOADERS[lng]();
+  const soloCritico = arrancaSoloConLoCritico();
+  const inicial = soloCritico
+    ? (await CRITICAL_LOADERS[lng]()).default
+    : (await LOADERS[lng]()).default;
+  if (!soloCritico) loaded.add(lng);
   await i18n.use(initReactI18next).init({
-    resources: { [lng]: { translation: crit.default } },
+    resources: { [lng]: { translation: inicial } },
     lng,
     // Apunta al propio idioma: el respaldo nunca debe ser un bundle no
     // descargado. La paridad de claves es 0, así que no se pierde nada.
@@ -172,6 +197,7 @@ export async function initI18n(): Promise<void> {
   // el critico deja el indice de velocidad inestable (de 4,788 a 6,058 ms entre
   // corridas) porque la portada enseñaba claves crudas y repintaba tarde. Van
   // juntos a proposito.
+  if (!soloCritico) return;  // ya se cargó completo; no hay nada que diferir.
   let pedido = false;
   const pedirCompleto = () => {
     if (pedido) return;
