@@ -3250,7 +3250,8 @@
     "miembro": "عضو موثَّق",
     "aliado": "عضو متميّز",
     "embajador": "سفير Neuromundi",
-    "enRevision": "قيد المراجعة"
+    "enRevision": "الشارة قيد المراجعة",
+    "enRevisionNota": "ملفك ظاهر بالفعل لكل المجتمع؛ ما تبقّى للتحقق هو الشارة فقط."
   },
   "badgeProgress": {
     "title": "شارتي",

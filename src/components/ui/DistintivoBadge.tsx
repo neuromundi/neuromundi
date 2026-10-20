@@ -20,10 +20,17 @@ export interface DistintivoBadgeProps {
   showLabel?: boolean;
   /** Muestra el aviso "En revisión" si aplica (para el panel del propio proveedor). */
   showReview?: boolean;
+  /**
+   * Añade bajo el aviso la aclaración de que lo que está en revisión es el
+   * DISTINTIVO, no el perfil: el perfil ya se ve en el directorio. Se activa
+   * donde hay sitio para la frase (el perfil propio y el panel), no en la lista
+   * de administración, que es una tabla.
+   */
+  conNota?: boolean;
   className?: string;
 }
 
-export function DistintivoBadge({ badge, size = 'md', showLabel = false, showReview = false, className }: DistintivoBadgeProps) {
+export function DistintivoBadge({ badge, size = 'md', showLabel = false, showReview = false, conNota = false, className }: DistintivoBadgeProps) {
   const { t, i18n } = useTranslation();
   if (!badge) return null;
 
@@ -45,9 +52,20 @@ export function DistintivoBadge({ badge, size = 'md', showLabel = false, showRev
   }
 
   if (showReview && badge.status === 'en_revision') {
-    return (
-      <span className={cn('inline-flex items-center gap-1 rounded-full bg-amber-50 px-2.5 py-1 text-xs font-semibold text-amber-700', className)}>
+    // El aviso decía sólo "En revisión" y no aclaraba QUÉ está en revisión:
+    // más de uno entendería que su perfil no se ve todavía. El perfil se ve
+    // desde que se publica; lo que falta validar es el distintivo.
+    // (Enyoria, 20 de octubre de 2026.)
+    const chip = (
+      <span className="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2.5 py-1 text-xs font-semibold text-amber-700">
         <Clock className="h-3.5 w-3.5" aria-hidden="true" /> {t('badge.enRevision')}
+      </span>
+    );
+    if (!conNota) return <span className={className}>{chip}</span>;
+    return (
+      <span className={cn('inline-flex flex-col items-start gap-1', className)}>
+        {chip}
+        <span className="text-xs text-muted">{t('badge.enRevisionNota')}</span>
       </span>
     );
   }

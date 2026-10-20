@@ -41,7 +41,7 @@ export function BadgeProgress({ badge, inputs }: { badge: BadgeResult | null; in
       </h3>
 
       <div className="mt-3 flex items-center gap-3">
-        <DistintivoBadge badge={badge} size="lg" showReview />
+        <DistintivoBadge badge={badge} size="lg" showReview conNota />
         <div>
           <p className="text-lg font-bold text-slate-900">{currentLabel}</p>
           <p className="text-sm text-muted">{t('badgeProgress.score', { score: badge.score })}</p>

@@ -3250,7 +3250,8 @@
     "miembro": "Verified Member",
     "aliado": "Outstanding Member",
     "embajador": "Neuromundi Ambassador",
-    "enRevision": "Under review"
+    "enRevision": "Badge under review",
+    "enRevisionNota": "Your profile is already visible to the whole community; what is still being validated is the badge."
   },
   "badgeProgress": {
     "title": "My badge",

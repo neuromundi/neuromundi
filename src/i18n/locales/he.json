@@ -3250,7 +3250,8 @@
     "miembro": "חבר מאומת",
     "aliado": "חבר מצטיין",
     "embajador": "שגריר Neuromundi",
-    "enRevision": "בבדיקה"
+    "enRevision": "התג בבדיקה",
+    "enRevisionNota": "הפרופיל שלך כבר גלוי לכל הקהילה; מה שנותר לאימות הוא התג בלבד."
   },
   "badgeProgress": {
     "title": "התג שלי",

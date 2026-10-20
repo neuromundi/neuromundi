@@ -3262,8 +3262,9 @@
   "badge": {
     "aliado": "優秀メンバー",
     "embajador": "Neuromundi アンバサダー",
-    "enRevision": "審査中",
-    "miembro": "認証済みメンバー"
+    "enRevision": "バッジは審査中",
+    "miembro": "認証済みメンバー",
+    "enRevisionNota": "プロフィールはすでにコミュニティ全体に公開されています。審査中なのはバッジだけです。"
   },
   "badgeProgress": {
     "blockCommitment": "取り組みと信頼性",

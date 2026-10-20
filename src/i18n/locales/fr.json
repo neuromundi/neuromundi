@@ -3262,8 +3262,9 @@
   "badge": {
     "aliado": "Membre Distingué",
     "embajador": "Ambassadeur Neuromundi",
-    "enRevision": "En cours d’examen",
-    "miembro": "Membre vérifié"
+    "enRevision": "Badge en cours de validation",
+    "miembro": "Membre vérifié",
+    "enRevisionNota": "Votre profil est déjà visible par toute la communauté ; ce qui reste à valider, c'est le badge."
   },
   "badgeProgress": {
     "blockCommitment": "Engagement et fiabilité",

@@ -3262,8 +3262,9 @@
   "badge": {
     "aliado": "Herausragendes Mitglied",
     "embajador": "Neuromundi-Botschafter",
-    "enRevision": "In Prüfung",
-    "miembro": "Verifiziertes Mitglied"
+    "enRevision": "Abzeichen in Prüfung",
+    "miembro": "Verifiziertes Mitglied",
+    "enRevisionNota": "Ihr Profil ist bereits für die gesamte Gemeinschaft sichtbar; geprüft wird nur noch das Abzeichen."
   },
   "badgeProgress": {
     "blockCommitment": "Engagement & Zuverlässigkeit",

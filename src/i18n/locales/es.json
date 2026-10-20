@@ -3250,7 +3250,8 @@
     "miembro": "Miembro Verificado",
     "aliado": "Miembro Destacado",
     "embajador": "Embajador Neuromundi",
-    "enRevision": "En revisión"
+    "enRevision": "Distintivo en revisión",
+    "enRevisionNota": "Tu perfil ya es visible para toda la comunidad; lo que falta por validar es el distintivo."
   },
   "badgeProgress": {
     "title": "Mi distintivo",

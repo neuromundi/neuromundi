@@ -3262,8 +3262,9 @@
   "badge": {
     "aliado": "Membro in Evidenza",
     "embajador": "Ambasciatore Neuromundi",
-    "enRevision": "In revisione",
-    "miembro": "Membro verificato"
+    "enRevision": "Distintivo in revisione",
+    "miembro": "Membro verificato",
+    "enRevisionNota": "Il tuo profilo è già visibile a tutta la comunità; ciò che resta da validare è il distintivo."
   },
   "badgeProgress": {
     "blockCommitment": "Impegno e affidabilità",

@@ -399,7 +399,7 @@ export function ProviderProfile() {
           )}
           <div className="mt-2 flex flex-wrap items-center gap-3">
             <EVSBadge score={rating?.evs_score ?? null} totalReviews={rating?.total_reviews ?? 0} size="lg" />
-            <DistintivoBadge badge={badge} size="md" showLabel showReview={userId === id} />
+            <DistintivoBadge badge={badge} size="md" showLabel showReview={userId === id} conNota={userId === id} />
           </div>
           {(() => {
             const quality = qualityBadge(profile.provider_type, rating?.evs_score ?? null, rating?.total_reviews ?? 0);
