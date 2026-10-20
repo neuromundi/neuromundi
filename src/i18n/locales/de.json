@@ -370,7 +370,8 @@
     "emailDisposable": "Temporäre oder Wegwerf-E-Mails sind nicht erlaubt.",
     "passwordMismatch": "Die Passwörter stimmen nicht überein",
     "emailMismatch": "Die E-Mails stimmen nicht überein",
-    "year": "Ungültiges Jahr"
+    "year": "Ungültiges Jahr",
+    "areas": "Wählen Sie mindestens einen Interventionsbereich: Daran finden Familien Sie über das, was Sie tun."
   },
   "directory": {
     "searchPlaceholder": "Geschäft oder Dienst suchen",
@@ -1594,7 +1595,8 @@
       "pais": "Land",
       "estado": "Bundesland oder Provinz",
       "municipio": "Gemeinde oder Stadt",
-      "sucursales": "Mindestens eine Filiale mit Telefon und Öffnungszeiten"
+      "sucursales": "Mindestens eine Filiale mit Telefon und Öffnungszeiten",
+      "areas": "Wählen Sie mindestens einen Interventionsbereich: Daran finden Familien Sie über das, was Sie tun."
     },
     "errManifesto": "Du musst das Community-Manifest akzeptieren.",
     "acceptManifestoPre": "Ich habe das",

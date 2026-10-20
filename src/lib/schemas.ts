@@ -338,6 +338,15 @@ export type RegisterValues = z.input<typeof registerSchema>;
 
 // ── Perfil / ajustes ─────────────────────────────────────────────────────────
 
+/**
+ * Perfiles que DEBEN declarar al menos un area de intervencion: los que
+ * atienden personas. A un comercio, una empresa de empleo, turismo o legal no
+ * se les pide, porque el catalogo de areas no tiene nada que puedan elegir con
+ * verdad. La misma lista vive en el guardian de publicacion de la base
+ * (migracion 0315): si cambia una, cambia la otra.
+ */
+export const TIPOS_QUE_DECLARAN_AREA = ['service_provider', 'clinic', 'school', 'caregiver'];
+
 export const profileSchema = z.object({
   full_name: z.string().trim().min(2, 'val.nameMin'),
   phone: z.string().trim().max(30).optional().default(''),
@@ -382,6 +391,9 @@ export const profileSchema = z.object({
   // ── Directorio ──────────────────────────────────────────────────────────────
   profession: z.string().trim().max(140).optional().default(''),
   specialties: z.array(z.string()).optional().default([]),
+  // El area de intervencion es OBLIGATORIA para quien atiende personas; la
+  // regla por tipo de perfil se aplica abajo, con un refine, porque depende de
+  // otro campo del formulario. (Decision de Enyoria, 20 oct 2026.)
   intervention_areas: z.array(z.string()).optional().default([]),
   neuro_conditions: z.array(z.string()).optional().default([]),
   sections: z.array(z.string()).optional().default([]),
@@ -391,6 +403,13 @@ export const profileSchema = z.object({
   booking_url: z.string().trim().url('val.url').refine(isSafeHttpUrl, 'val.url').optional().or(z.literal('')),
   instagram: z.string().trim().max(200).optional().default(''),
   facebook: z.string().trim().max(200).optional().default(''),
-});
+})
+  .refine(
+    (v) =>
+      !TIPOS_QUE_DECLARAN_AREA.includes(String(v.provider_type ?? '')) ||
+      (v.intervention_areas ?? []).length > 0,
+    { path: ['intervention_areas'], message: 'val.areas' },
+  );
+
 
 export type ProfileFormValues = z.input<typeof profileSchema>;

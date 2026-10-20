@@ -370,7 +370,8 @@
     "emailDisposable": "E-mails temporários ou descartáveis não são permitidos.",
     "passwordMismatch": "As senhas não coincidem",
     "emailMismatch": "Os e-mails não coincidem",
-    "year": "Ano inválido"
+    "year": "Ano inválido",
+    "areas": "Escolha pelo menos uma área de intervenção: é o que permite que as famílias o encontrem pelo que faz."
   },
   "directory": {
     "searchPlaceholder": "Busque um negócio ou serviço",
@@ -1594,7 +1595,8 @@
       "pais": "País",
       "estado": "Estado ou província",
       "municipio": "Município ou cidade",
-      "sucursales": "Pelo menos uma unidade com telefone e horários"
+      "sucursales": "Pelo menos uma unidade com telefone e horários",
+      "areas": "Escolha pelo menos uma área de intervenção: é o que permite que as famílias o encontrem pelo que faz."
     },
     "errManifesto": "Você deve aceitar o Manifesto da Comunidade.",
     "acceptManifestoPre": "Li e adiro ao",

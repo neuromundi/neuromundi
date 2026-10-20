@@ -370,7 +370,8 @@
     "emailDisposable": "Non sono ammesse email temporanee o usa e getta.",
     "passwordMismatch": "Le password non coincidono",
     "emailMismatch": "Le e-mail non coincidono",
-    "year": "Anno non valido"
+    "year": "Anno non valido",
+    "areas": "Scegli almeno un'area di intervento: è ciò che permette alle famiglie di trovarti per quello che fai."
   },
   "directory": {
     "searchPlaceholder": "Cerca un negozio o un servizio",
@@ -1594,7 +1595,8 @@
       "pais": "Paese",
       "estado": "Stato o provincia",
       "municipio": "Comune o città",
-      "sucursales": "Almeno una sede con telefono e orari"
+      "sucursales": "Almeno una sede con telefono e orari",
+      "areas": "Scegli almeno un'area di intervento: è ciò che permette alle famiglie di trovarti per quello che fai."
     },
     "errManifesto": "Devi accettare il Manifesto della comunità.",
     "acceptManifestoPre": "Ho letto e aderisco al",

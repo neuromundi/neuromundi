@@ -407,7 +407,8 @@
     "emailDisposable": "Temporary or disposable emails are not allowed.",
     "passwordMismatch": "Passwords do not match",
     "emailMismatch": "Emails do not match",
-    "year": "Invalid year"
+    "year": "Invalid year",
+    "areas": "Choose at least one area of intervention: it is what lets families find you by what you do."
   },
   "directory": {
     "searchPlaceholder": "Search a shop or service",
@@ -1631,7 +1632,8 @@
       "pais": "Country",
       "estado": "State or province",
       "municipio": "Municipality or city",
-      "sucursales": "At least one branch with phone and opening hours"
+      "sucursales": "At least one branch with phone and opening hours",
+      "areas": "Choose at least one area of intervention: it is what lets families find you by what you do."
     },
     "errManifesto": "You must accept the Community Manifesto.",
     "acceptManifestoPre": "I have read and adhere to the",

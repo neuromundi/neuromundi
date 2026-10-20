@@ -407,7 +407,8 @@
     "emailDisposable": "No se permiten correos temporales o desechables.",
     "passwordMismatch": "Las contraseñas no coinciden",
     "emailMismatch": "Los correos no coinciden",
-    "year": "Año no válido"
+    "year": "Año no válido",
+    "areas": "Elige al menos un área de intervención: es lo que permite que las familias te encuentren por lo que haces."
   },
   "directory": {
     "searchPlaceholder": "Busca un negocio o servicio",
@@ -1631,7 +1632,8 @@
       "pais": "País",
       "estado": "Estado o provincia",
       "municipio": "Municipio o ciudad",
-      "sucursales": "Al menos una sucursal con teléfono y horarios"
+      "sucursales": "Al menos una sucursal con teléfono y horarios",
+      "areas": "Elige al menos un área de intervención: es lo que permite que las familias te encuentren por lo que haces."
     },
     "errManifesto": "Debes aceptar el Manifiesto de la Comunidad.",
     "acceptManifestoPre": "He leído y me adhiero al",

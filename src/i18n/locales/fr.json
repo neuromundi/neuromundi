@@ -370,7 +370,8 @@
     "emailDisposable": "Les e-mails temporaires ou jetables ne sont pas autorisés.",
     "passwordMismatch": "Les mots de passe ne correspondent pas",
     "emailMismatch": "Les e-mails ne correspondent pas",
-    "year": "Année non valide"
+    "year": "Année non valide",
+    "areas": "Choisissez au moins un domaine d'intervention : c'est ce qui permet aux familles de vous trouver selon ce que vous faites."
   },
   "directory": {
     "searchPlaceholder": "Cherchez un commerce ou un service",
@@ -1594,7 +1595,8 @@
       "pais": "Pays",
       "estado": "État ou province",
       "municipio": "Commune ou ville",
-      "sucursales": "Au moins une adresse avec téléphone et horaires"
+      "sucursales": "Au moins une adresse avec téléphone et horaires",
+      "areas": "Choisissez au moins un domaine d'intervention : c'est ce qui permet aux familles de vous trouver selon ce que vous faites."
     },
     "errManifesto": "Vous devez accepter le Manifeste de la communauté.",
     "acceptManifestoPre": "J’ai lu et j’adhère au",

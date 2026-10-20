@@ -133,6 +133,9 @@ export function SpecialistRegister({ onSuccess, complete = false }: { onSuccess?
     if (!profession) miss.push(t('reg.miss.profession'));
     if (!cedula.trim()) miss.push(t('reg.miss.cedula'));
     if (specialties.includes('otro') && !specialtyOther.trim()) miss.push(t('reg.miss.otherSpecify'));
+    // El area de intervencion es obligatoria: es lo que permite que las
+    // familias encuentren a alguien por lo que hace. (Enyoria, 20 oct 2026.)
+    if (areas.length === 0) miss.push(t('reg.miss.areas'));
     if (areas.includes('otro') && !areaOther.trim()) miss.push(t('reg.miss.otherSpecify'));
     // En modo "completar" (login social) NO se piden email ni contraseña: la
     // cuenta ya existe.
@@ -410,7 +413,7 @@ export function SpecialistRegister({ onSuccess, complete = false }: { onSuccess?
             </div>
           </div>
           <div>
-            <label className={labelCls}>{t('spec.areas')}</label>
+            <label className={labelCls}>{t('spec.areas')} *</label>
             <div className="flex flex-wrap gap-2">
               {INTERVENTION_AREAS.map((a) => (
                 <button type="button" key={a.value} onClick={() => toggleArea(a.value)} className={chip(areas.includes(a.value))}>{catLabel(a.value, a.label)}</button>

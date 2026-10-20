@@ -370,7 +370,8 @@
     "emailDisposable": "不允许使用临时或一次性邮箱。",
     "passwordMismatch": "两次输入的密码不一致",
     "emailMismatch": "两次输入的邮箱不一致",
-    "year": "年份无效"
+    "year": "年份无效",
+    "areas": "请至少选择一个干预领域：这是家庭能够按您的专长找到您的依据。"
   },
   "directory": {
     "searchPlaceholder": "搜索商家或服务",
@@ -1594,7 +1595,8 @@
       "pais": "国家",
       "estado": "州或省",
       "municipio": "市或区",
-      "sucursales": "至少一个带电话和营业时间的网点"
+      "sucursales": "至少一个带电话和营业时间的网点",
+      "areas": "请至少选择一个干预领域：这是家庭能够按您的专长找到您的依据。"
     },
     "errManifesto": "你必须接受社区宣言。",
     "acceptManifestoPre": "我已阅读并认同",

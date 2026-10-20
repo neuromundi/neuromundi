@@ -26,7 +26,7 @@ import { TopicSubscriptions } from '@/components/membership/TopicSubscriptions';
 import { AccountFlowModal } from '@/components/membership/AccountFlowModal';
 import { GuidedTour } from '@/components/onboarding';
 import { PasswordStrength } from '@/components/auth/PasswordStrength';
-import { profileSchema, type ProfileFormValues } from '@/lib/schemas';
+import { profileSchema, TIPOS_QUE_DECLARAN_AREA, type ProfileFormValues } from '@/lib/schemas';
 import { ACCESSIBILITY_FEATURES } from '@/data/specialistCatalog';
 import { useCatLabel } from '@/lib/catLabel';
 import type { ProfileUpdate } from '@/hooks/useProfile';
@@ -239,6 +239,8 @@ export function Settings() {
   }
 
   const watchType = watch('provider_type');
+  // Quien atiende personas tiene que declarar su área de intervención.
+  const areasObligatorias = TIPOS_QUE_DECLARAN_AREA.includes(String(watchType ?? ''));
   // Coherencia de campos por tipo de perfil:
   //  - merchant (comercio de productos): sin profesión/especialidades/áreas, sin citas.
   //  - company (empresa de empleo, exenta): sin directorio de servicios, sin citas, sin secciones.
@@ -544,19 +546,30 @@ export function Settings() {
               <p className="mt-1 text-xs text-muted">{t('settings.specialtiesHint')}</p>
             </div>
 
-            {/* Áreas de intervención */}
+            {/* Áreas de intervención — OBLIGATORIAS para quien atiende
+                personas (decisión de Enyoria, 20 oct 2026). La misma lista de
+                tipos vive en el guardián de publicación de la base
+                (migración 0315). */}
             <div>
-              <label htmlFor="s-areas" className={labelCls}>{t('settings.interventionAreas')}</label>
+              <label htmlFor="s-areas" className={labelCls}>
+                {t('settings.interventionAreas')}{areasObligatorias && ' *'}
+              </label>
               <input
                 id="s-areas"
                 className={inputCls}
+                aria-required={areasObligatorias}
+                aria-invalid={!!errors.intervention_areas}
                 placeholder={t('settings.areasPlaceholder')}
                 value={(watch('intervention_areas') ?? []).join(', ')}
                 onChange={(e) =>
                   setValue('intervention_areas', e.target.value.split(',').map((s) => s.trim()).filter(Boolean), { shouldDirty: true })
                 }
               />
-              <p className="mt-1 text-xs text-muted">{t('settings.specialtiesHint')}</p>
+              {errors.intervention_areas ? (
+                <p role="alert" className="mt-1 text-sm text-evs-1">{t(errors.intervention_areas.message!)}</p>
+              ) : (
+                <p className="mt-1 text-xs text-muted">{t('settings.specialtiesHint')}</p>
+              )}
             </div>
             </>
             )}

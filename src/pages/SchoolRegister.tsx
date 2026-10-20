@@ -122,6 +122,9 @@ export function SchoolRegister({ onSuccess, complete = false }: { onSuccess?: ()
   const submit = async () => {
     const miss: string[] = [];
     if (name.trim().length < 2) miss.push(t('reg.miss.institution'));
+    // Modelos y servicios son lo que alimenta intervention_areas (ver el envio
+    // mas abajo), y el area es obligatoria. (Enyoria, 20 oct 2026.)
+    if (models.length === 0 && services.length === 0) miss.push(t('reg.miss.areas'));
     if (models.includes('otro') && !modelOther.trim()) miss.push(t('reg.miss.otherSpecify'));
     if (services.includes('otro') && !serviceOther.trim()) miss.push(t('reg.miss.otherSpecify'));
     if (!country) miss.push(t('reg.miss.country'));
