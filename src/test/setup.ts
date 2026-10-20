@@ -1,3 +1,4 @@
+import { vi } from 'vitest';
 import '@testing-library/jest-dom/vitest';
 
 // El cliente de Supabase LANZA al cargarse si faltan sus variables de entorno.
@@ -10,11 +11,14 @@ import '@testing-library/jest-dom/vitest';
 //
 // Aqui se rellenan con valores de juguete SOLO si faltan, asi que en local
 // siguen mandando las de verdad. Las pruebas nunca salen a la red.
+// Se usa vi.stubEnv y no una asignacion directa: `import.meta.env` es de SOLO
+// LECTURA para el compilador, y asignarle algo compila en mi maquina pero
+// tumba `tsc --noEmit` en la integracion continua. (Me paso: despliegue #365.)
 if (!import.meta.env.VITE_SUPABASE_URL) {
-  import.meta.env.VITE_SUPABASE_URL = 'https://pruebas.supabase.co';
+  vi.stubEnv('VITE_SUPABASE_URL', 'https://pruebas.supabase.co');
 }
 if (!import.meta.env.VITE_SUPABASE_ANON_KEY) {
-  import.meta.env.VITE_SUPABASE_ANON_KEY = 'clave-de-juguete-para-pruebas';
+  vi.stubEnv('VITE_SUPABASE_ANON_KEY', 'clave-de-juguete-para-pruebas');
 }
 
 // crypto.randomUUID existe en jsdom moderno; fallback por si acaso.
