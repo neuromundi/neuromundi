@@ -85,6 +85,32 @@ for (const archivo of archivos(RAIZ)) {
   }
 }
 
+// 1c. Los archivos "criticos" (src/i18n/critical/*.crit.json) se GENERAN desde
+//     los diccionarios y estan versionados, porque son los textos del primer
+//     pintado. Si alguien cambia un texto y no vuelve a generarlos, la pantalla
+//     ensena el texto VIEJO el primer instante y nada falla. Deriva callada,
+//     igual que las demas: aqui se comprueba que lo generado coincida con su
+//     fuente. Se arregla con `npm run gen:i18n-critical`.
+for (const lang of idiomas) {
+  const rutaCrit = join('src/i18n/critical', `${lang}.crit.json`);
+  let crit;
+  try { crit = plano(JSON.parse(readFileSync(rutaCrit, 'utf8'))); }
+  catch { continue; }   // si no existe, no es asunto de este control
+  const dic = diccionarios.get(lang);
+  // Las listas (home.slides) llegan como arreglo, y dos arreglos nunca son
+  // iguales con !==. Se comparan por su contenido, o el control denunciaba los
+  // once idiomas siempre.
+  const iguales = (a, b) =>
+    Array.isArray(a) || Array.isArray(b) ? JSON.stringify(a) === JSON.stringify(b) : a === b;
+  const distintos = [...crit.entries()].filter(([k, v]) => dic.has(k) && !iguales(dic.get(k), v));
+  if (distintos.length) {
+    hallazgos.push(
+      `${lang}.crit.json  ${distintos.length} texto(s) del primer pintado no coinciden con ${lang}.json`
+      + ` (ejecute: npm run gen:i18n-critical): ${distintos.slice(0, 4).map(([k]) => k).join(', ')}`,
+    );
+  }
+}
+
 // 2. Claves que faltan en algun idioma.
 for (const [lang, dic] of diccionarios) {
   if (lang === 'es') continue;

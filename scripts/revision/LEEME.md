@@ -197,3 +197,16 @@ reales, no de imaginación— están en `REPASO-ADVERSARIO.md`.
 se repasó con la lista. Un recorrido en navegador que comprueba que la pantalla
 carga **no** es un repaso adversario: eso ya lo hace el auditor 3. Apuntar como
 repasado algo que no se repasó es peor que no apuntar nada.
+
+## Un control más en el auditor 2 — los textos del primer pintado
+
+Los archivos `src/i18n/critical/*.crit.json` **se generan** desde los
+diccionarios y están versionados, porque son los textos que se pintan en el
+primer instante. Si alguien cambia un texto y no vuelve a generarlos, la
+pantalla enseña el texto **viejo** ese primer instante y nada falla. Deriva
+callada, de la misma familia que todo lo demás.
+
+El auditor de textos lo comprueba ahora. Se arregla con
+`npm run gen:i18n-critical`. **El control está probado al revés**: se ensució
+el archivo generado a propósito, el revisor lo denunció, y al restaurarlo se
+quedó callado. Un detector que no se ha visto detectar no es un detector.
