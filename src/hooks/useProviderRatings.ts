@@ -11,6 +11,7 @@
  */
 import { useCallback, useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
+import { traerTodo } from '@/lib/traerTodo';
 import { toMessage } from '@/lib/utils';
 import {
   dimensionsForProviderType,
@@ -99,10 +100,17 @@ export function useProviderRatings(
       const categoryIds = (myCats ?? []).map((c) => c.category_id);
 
       if (categoryIds.length > 0) {
-        const { data: peers } = await supabase
-          .from('provider_categories')
-          .select('provider_id')
-          .in('category_id', categoryIds);
+        // Todas las filas, no las primeras mil (ver `traerTodo`): si el
+        // servidor cortara, el EVS se compararia contra un grupo de pares
+        // INCOMPLETO y la cifra que ve el prestador seria falsa sin que nada
+        // fallara. Hoy la tabla esta vacia, asi que no cortaba todavia.
+        const peers = await traerTodo<{ provider_id: string }>((desde, hasta) =>
+          supabase
+            .from('provider_categories')
+            .select('provider_id')
+            .in('category_id', categoryIds)
+            .order('provider_id', { ascending: true })
+            .range(desde, hasta));
         const peerIds = [
           ...new Set((peers ?? []).map((p) => p.provider_id).filter((id) => id !== providerId)),
         ];

@@ -15,6 +15,7 @@
     "revisar:textos": "node scripts/revision/revisar-textos.mjs",
     "revisar:formularios": "node scripts/revision/revisar-formularios.mjs",
     "revisar:pantallas": "node scripts/revision/revisar-pantallas.mjs",
+    "revisar:conteos": "node scripts/revision/revisar-conteos.mjs",
     "revisar": "node scripts/revision/revisar-todo.mjs"
   },
   "dependencies": {

@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { School, MapPin, ArrowRight, Search } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
+import { traerTodo } from '@/lib/traerTodo';
 import { SkeletonCard, AvisoDeFallo } from '@/components/ui';
 import type { PerfilPublico } from '@/types/app';
 import { providerOtherText } from '@/lib/utils';
@@ -31,14 +32,27 @@ export function SchoolInclusion() {
       // declaran el área de intervención "educación inclusiva" (terapeutas de
       // sombra, asesores docentes, etc.), para vincular la categoría del catálogo
       // con esta sección.
-      let query = supabase
-        .from('directorio_publico_seguro')
-        .select('*')
-        .eq('role', 'provider')
-        .eq('is_published', true)
-        .or('provider_type.eq.school,intervention_areas.cs.{educacion_inclusiva}');
-      if (country) query = query.eq('country', country);
-      const { data, error } = await query;
+      // Todas las filas, no las primeras mil (ver `traerTodo`). Hoy son 223,
+      // asi que todavia no cortaba; con el directorio creciendo, cortaria sin
+      // avisar y a una familia le faltarian escuelas sin saberlo.
+      let error = null;
+      let data = null;
+      try {
+        data = await traerTodo((desde, hasta) => {
+          let q = supabase
+            .from('directorio_publico_seguro')
+            .select('*')
+            .eq('role', 'provider')
+            .eq('is_published', true)
+            .or('provider_type.eq.school,intervention_areas.cs.{educacion_inclusiva}')
+            .order('id', { ascending: true })
+            .range(desde, hasta);
+          if (country) q = q.eq('country', country);
+          return q;
+        });
+      } catch (e) {
+        error = e;
+      }
       if (!vivo) return;
       // Un fallo NO es "no hay escuelas inclusivas en tu país": eso se le
       // estaba diciendo a una familia. (Hallazgos M-4 y A-12.)

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * revisar-todo.mjs — ejecuta los tres revisores que no necesitan navegador y
+ * revisar-todo.mjs — ejecuta los revisores que no necesitan navegador y
  * SIEMPRE los ejecuta todos, aunque el primero encuentre algo.
  *
  * Encadenarlos con && hacia que el primer hallazgo cortara la cadena y los
@@ -10,21 +10,24 @@
 import { spawnSync } from 'node:child_process';
 
 const REVISORES = [
-  ['base', 'scripts/revision/revisar-base.mjs'],
-  ['textos', 'scripts/revision/revisar-textos.mjs'],
-  ['formularios', 'scripts/revision/revisar-formularios.mjs'],
+  ['base', 'scripts/revision/revisar-base.mjs', []],
+  ['textos', 'scripts/revision/revisar-textos.mjs', []],
+  ['formularios', 'scripts/revision/revisar-formularios.mjs', []],
+  // Del revisor de conteos solo la parte estatica: la que compara la base con
+  // la pantalla necesita navegador y se corre aparte (revisar:conteos).
+  ['conteos', 'scripts/revision/revisar-conteos.mjs', ['--solo-estatico']],
 ];
 
 const conHallazgos = [];
-for (const [nombre, guion] of REVISORES) {
+for (const [nombre, guion, extra] of REVISORES) {
   console.log(`\n──────── ${nombre} ────────`);
-  const r = spawnSync(process.execPath, [guion], { stdio: 'inherit' });
+  const r = spawnSync(process.execPath, [guion, ...extra], { stdio: 'inherit' });
   if (r.status !== 0) conHallazgos.push(nombre);
 }
 
 console.log('\n════════ resumen ════════');
 if (conHallazgos.length === 0) {
-  console.log('Los tres revisores pasaron sin hallazgos.');
+  console.log('Todos los revisores pasaron sin hallazgos.');
   process.exit(0);
 }
 console.log(`Con hallazgos: ${conHallazgos.join(', ')}.`);

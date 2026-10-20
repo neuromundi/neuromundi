@@ -18,6 +18,13 @@
  * Sale con codigo 1 si encuentra algo, para poder encadenarlo a una tuberia.
  */
 import { readFileSync, readdirSync, statSync } from 'node:fs';
+
+/** Borra comentarios conservando los saltos de linea (los numeros no se mueven). */
+function sinComentarios(src) {
+  return src
+    .replace(/\/\*[\s\S]*?\*\//g, (m) => m.replace(/[^\n]/g, ' '))
+    .replace(/(^|[^:])\/\/[^\n]*/g, (m, p1) => p1 + ' '.repeat(m.length - p1.length));
+}
 import { join, relative } from 'node:path';
 import { leerEsquema } from './esquema.mjs';
 
@@ -78,7 +85,13 @@ function clavesDe(cuerpo) {
 
 for (const archivo of archivos(RAIZ)) {
   if (archivo.includes('types/database.ts')) continue;
-  const src = readFileSync(archivo, 'utf8');
+  // Los COMENTARIOS se borran antes de analizar, conservando los saltos de
+  // linea para no mover los numeros. Un ejemplo escrito en un comentario
+  // (`supabase.from('tabla')` dentro de la documentacion de un ayudante) hacia
+  // que el revisor denunciara una tabla inexistente. Pasa con cualquier
+  // analizador que lea el codigo como texto: si no quita los comentarios,
+  // acaba auditando prosa.
+  const src = sinComentarios(readFileSync(archivo, 'utf8'));
   const rel = relative('.', archivo);
 
   // 1. Funciones llamadas por el codigo.

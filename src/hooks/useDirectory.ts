@@ -15,6 +15,7 @@ import { SPECIALTIES, INTERVENTION_AREAS, PROFESSIONS } from '@/data/specialistC
 import { PRODUCT_CATEGORIES } from '@/data/providerCatalog';
 import { K_OFFERINGS } from '@/data/kCatalog';
 import { NEURO_CONDITIONS } from '@/data/neuroConditionsCatalog';
+import { traerTodo } from '@/lib/traerTodo';
 import { SELECT_DIRECTORIO } from '@/types/app';
 import type {
   Category,
@@ -132,34 +133,22 @@ export function useDirectory(filters: DirectoryFilters): UseDirectoryValue {
       // 1) Catálogo público: perfiles de proveedores con cuenta MÁS fichas del
       //    directorio que todavía no tienen dueño (vista directorio_publico).
       //    Segmentado por país en el servidor: no traemos otros países.
-      // El servidor devuelve como maximo 1,000 filas por peticion, y lo hace
-      // SIN avisar: no es un error, simplemente llegan mil. Con 1,818 fichas
-      // publicadas, sin filtro de pais el directorio mostraba 1,000 y dejaba
-      // 818 invisibles. Por eso se pide por paginas hasta que una venga
-      // incompleta, que es la senal de que ya no hay mas.
-      const POR_PAGINA = 1000;
-      const profiles: unknown[] = [];
-      for (let desde = 0; ; desde += POR_PAGINA) {
-        let query = supabase
+      // Todas las filas, no las primeras mil: ver `traerTodo` en lib. Antes
+      // esta consulta mostraba 1,000 de las 1,818 fichas publicadas sin que
+      // nada fallara.
+      const profiles = await traerTodo((desde, hasta) => {
+        let q = supabase
           .from('directorio_publico_seguro')
-          // Columnas explicitas, no '*': ver COLUMNAS_DIRECTORIO en types/app.ts.
-          // Pedir las 73 costaba 1,750 KB por visitante; estas pesan la mitad.
+          // Columnas explicitas, no asterisco: ver COLUMNAS_DIRECTORIO en
+          // types/app.ts. Pedir las 73 costaba 1,750 KB por visitante
           .select(SELECT_DIRECTORIO)
           .eq('role', 'provider')
           .eq('is_published', true)
           .order('id', { ascending: true })
-          .range(desde, desde + POR_PAGINA - 1);
-        if (country) query = query.eq('country', country);
-        const { data: pagina, error: pErr } = await query;
-        if (pErr) throw pErr;
-        const filas = pagina ?? [];
-        profiles.push(...filas);
-        if (filas.length < POR_PAGINA) break;
-        // Tope de seguridad: si algun dia el orden o el filtro cambian y la
-        // pagina siempre viene llena, esto evita un bucle infinito en el
-        // navegador de la persona.
-        if (desde / POR_PAGINA >= 20) break;
-      }
+          .range(desde, hasta);
+        if (country) q = q.eq('country', country);
+        return q;
+      });
 
       // La vista pierde los NOT NULL de la tabla, así que sus columnas llegan
       // nulables. `id`, `role` y `provider_type` sí vienen siempre: la vista
@@ -177,10 +166,12 @@ export function useDirectory(filters: DirectoryFilters): UseDirectoryValue {
       // rechaza (ver POR_TANDA arriba).
       const [ratingsRows, pcRows, catsRes, badgeRows, founderRes, donorRes, typeBadgeRes] = await Promise.all([
         porTandas((t) => supabase.from('public_provider_ratings').select('*').in('provider_id', t), ids),
+        // techo-comprobado: 140 identificadores x 7 categorias = 980 < 1,000.
         // Tanda mas corta SOLO para esta: un prestador puede pertenecer a
         // varias de las 7 categorias, asi que 200 identificadores podrian
         // devolver hasta 1,400 filas y el servidor corta en 1,000 sin avisar.
-        // Con 140 el techo es 980 y no puede cortar.
+        // Con 140 el techo es 980 y no puede cortar. Si algun dia hay mas de 7
+        // categorias, hay que recalcular este numero.
         porTandas((t) => supabase.from('provider_categories').select('*').in('provider_id', t), ids, 140),
         supabase.from('categories').select('*'),
         porTandas((t) => supabase.from('provider_badge_inputs').select('*').in('provider_id', t), ids),

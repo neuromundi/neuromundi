@@ -61,3 +61,45 @@ Para ver qué diría ahora mismo, sin esperar:
 select public.auditoria_plataforma() ;  -- todo, con sus números
 select public.auditoria_diaria();       -- lo que avisaría hoy
 ```
+
+## Auditor 5 — conteos: ¿lo que se ve es todo lo que hay?
+
+```
+npm run revisar:conteos                       # base contra pantalla (abre navegador)
+node scripts/revision/revisar-conteos.mjs --solo-estatico   # sólo el análisis de código
+```
+
+**Por qué existe.** El 19 de octubre de 2026 el directorio mostraba 1,000
+fichas de las 1,818 publicadas: 818 invisibles, el 45 %, sin un solo error. El
+servidor devuelve como máximo mil filas por petición y lo hace **en silencio**.
+Los otros cuatro auditores no podían verlo: comprueban que la base cumpla sus
+reglas, que los textos existan, que los formularios validen y que la pantalla
+cargue sin caerse. **Ninguno comparaba cuántas filas hay con cuántas se ven.**
+
+Y no era un despiste suelto. Casi todos los defectos de esa jornada eran
+**recortes callados**: el envío cortaba a 50 sin decirlo, la cola saltaba 746
+fichas sin token sin decirlo, la consulta de categorías podía cortar a mil sin
+decirlo. Un recorte callado no se detecta mirando una sola fuente: hay que
+comparar **dos fuentes independientes** y exigir que cuadren.
+
+**Qué hace.**
+
+1. **Conteo de punta a punta.** Para cada pantalla de lista, pregunta al
+   servidor cuántas filas existen con los mismos filtros, abre la pantalla en
+   un navegador de verdad, cuenta lo que pinta y exige que coincidan. Si lo que
+   se ve son exactamente 1,000, lo dice: es la firma del tope.
+2. **Topes sin paginar**, sin navegador: busca lecturas de tablas que pueden
+   pasar de mil filas sin pedir páginas, y lotes cuyo techo (identificadores
+   por lote × filas por identificador) puede pasarse del tope.
+
+**Cuando un techo ya se calculó**, se acepta dejándolo escrito junto a la
+consulta: un comentario `techo-comprobado: 140 x 7 = 980 < 1,000`. Así el
+revisor no grita siempre por lo mismo y la cuenta queda a la vista de quien lea
+el código, no en la cabeza de alguien.
+
+**Una lección que costó dos falsos positivos:** un analizador que lee el código
+como texto **tiene que borrar los comentarios antes**. Un punto y coma dentro de
+un comentario cortaba la cadena de la consulta y el revisor denunciaba una
+consulta que sí estaba paginada; un ejemplo escrito en la documentación de un
+ayudante hacía que el revisor de base denunciara una tabla inexistente. Los dos
+revisores ya los borran.
