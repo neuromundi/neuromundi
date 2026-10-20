@@ -100,6 +100,20 @@ La verificación que NO debe fallar antes de entregar: `npm run build`.
 
 ## Reglas críticas (no romper)
 
+### 0. Desde el 30 de octubre de 2026: toda tabla nueva necesita GRANT explícito
+Supabase deja de conceder acceso automático a la API de datos a las tablas nuevas del
+esquema `public` (aviso oficial recibido el 20 oct 2026). Las tablas que ya existen NO se
+afectan y siguen accesibles. Pero **cualquier tabla creada desde esa fecha** necesita su
+GRANT en la MISMA migración que la crea, o `supabase-js` responde «permission denied»:
+```sql
+grant select on public.tu_tabla to anon;
+grant select, insert, update, delete on public.tu_tabla to authenticated;
+grant select, insert, update, delete on public.tu_tabla to service_role;
+```
+Esto aplica también a cualquier reconstrucción del esquema: proyectos nuevos, ramas de
+vista previa y `supabase db reset`. Los GRANT no sustituyen a las políticas RLS: siguen
+siendo obligatorias (ver regla de RLS más abajo).
+
 ### 1. i18n con paridad total
 - Las cadenas visibles usan `t('clave')`. Las claves viven en `src/i18n/locales/*.json`.
 - **Toda clave nueva debe existir en los 11 idiomas.** La paridad debe ser exacta (0).
