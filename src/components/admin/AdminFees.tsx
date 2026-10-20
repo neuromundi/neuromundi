@@ -13,7 +13,7 @@
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Coins, Save, RotateCcw, Pencil, Check, Crown, User } from 'lucide-react';
-import { Button, useToast, SkeletonCard } from '@/components/ui';
+import { Button, useToast, SkeletonCard, AvisoDeFallo } from '@/components/ui';
 import { useCountryPrices, type CountryPriceRow, type MemberClass } from '@/hooks/useAdminPricing';
 import { COUNTRIES } from '@/data/countries';
 import { annualFromMonthly, listFromMonthly } from '@/lib/pricing';
@@ -197,7 +197,7 @@ export function AdminFees() {
   const { t } = useTranslation();
   const toast = useToast();
   const [country, setCountry] = useState('mexico');
-  const { rows, configured, loading, reload, setPrice, clearPrice } = useCountryPrices(country);
+  const { rows, configured, loading, fallo, reload, setPrice, clearPrice } = useCountryPrices(country);
 
   const configuredList = useMemo(
     () => Object.keys(configured).filter((c) => c !== 'default').sort(),
@@ -284,6 +284,8 @@ export function AdminFees() {
 
       {loading ? (
         <SkeletonCard rows={3} />
+      ) : fallo ? (
+        <AvisoDeFallo onRetry={() => void reload()} />
       ) : byType.length === 0 ? (
         <p className="rounded-2xl border border-dashed border-slate-200 p-6 text-center text-sm text-muted">
           {t('fees.noTypes')}

@@ -8,7 +8,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Percent, Trash2, Plus, Globe } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
-import { Button, useToast } from '@/components/ui';
+import { Button, useToast, AvisoDeFallo } from '@/components/ui';
 import { COUNTRIES } from '@/data/countries';
 import { useCountryLabel } from '@/lib/countryLabel';
 
@@ -25,9 +25,14 @@ export function AdminCountryDiscounts() {
   const [pct, setPct] = useState('');
   const [note, setNote] = useState('');
   const [busy, setBusy] = useState(false);
+  // Sin esto, una lectura fallida se leia como «no hay ningun descuento
+  // configurado», y el admin podia dar de alta uno que ya existia.
+  const [fallo, setFallo] = useState(false);
 
   const load = useCallback(async () => {
-    const { data } = await supabase.rpc('admin_country_discounts');
+    const { data, error } = await supabase.rpc('admin_country_discounts');
+    if (error) { setFallo(true); return; }
+    setFallo(false);
     setRows((data as Row[]) ?? []);
   }, []);
   useEffect(() => { void load(); }, [load]);
@@ -77,7 +82,9 @@ export function AdminCountryDiscounts() {
       </div>
 
       {/* Listado */}
-      {rows.length > 0 ? (
+      {fallo ? (
+        <div className="mt-4"><AvisoDeFallo onRetry={() => void load()} /></div>
+      ) : rows.length > 0 ? (
         <ul className="mt-4 divide-y divide-slate-100">
           {rows.map((r) => (
             <li key={r.country_label} className="flex flex-wrap items-center gap-2 py-2 text-sm">

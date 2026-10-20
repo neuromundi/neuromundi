@@ -8,7 +8,7 @@ import { useAvisarResultado } from '@/hooks/useAvisarResultado';
 import { useTranslation } from 'react-i18next';
 import { Users, Check, X, RotateCcw, ShieldCheck, UserCog, Search, MessagesSquare, Trash2, ArrowLeft, Megaphone, Lock } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
-import { SkeletonCard, EmptyState, Button, useToast } from '@/components/ui';
+import { SkeletonCard, EmptyState, Button, useToast, AvisoDeFallo } from '@/components/ui';
 
 type Area = 'forums' | 'moderators' | 'members' | 'messages' | 'forummods';
 const STATUS_TABS = ['pending', 'approved', 'rejected'] as const;
@@ -25,7 +25,17 @@ function ForumsArea() {
   const [tab, setTab] = useState<(typeof STATUS_TABS)[number]>('pending');
   const [rows, setRows] = useState<AdminForum[]>([]);
   const [loading, setLoading] = useState(true);
-  const load = useCallback(async () => { setLoading(true); const { data } = await supabase.rpc('admin_tribe_forums', { p_status: tab }); setRows((data as AdminForum[] | null) ?? []); setLoading(false); }, [tab]);
+  const [fallo, setFallo] = useState(false);
+  const load = useCallback(async () => {
+    setLoading(true);
+    const { data, error } = await supabase.rpc('admin_tribe_forums', { p_status: tab });
+    // Una lectura fallida se veia como «no hay nada pendiente», en una
+    // pantalla de moderacion: las solicitudes quedaban invisibles.
+    if (error) { setFallo(true); setLoading(false); return; }
+    setFallo(false);
+    setRows((data as AdminForum[] | null) ?? []);
+    setLoading(false);
+  }, [tab]);
   useEffect(() => { void load(); }, [load]);
   const setStatus = async (id: string, status: string) => { const { error } = await supabase.rpc('admin_set_forum_status', { p_forum: id, p_status: status }); if (error) toast.error(error.message); else { toast.success(t('adm.tribe.done')); await load(); } };
   const callMods = async (id: string) => { const { error } = await supabase.rpc('tribe_forum_call_moderators', { p_forum: id }); if (error) toast.error(error.message); else toast.success(t('adm.tribe.called')); };
@@ -35,7 +45,7 @@ function ForumsArea() {
       <div className="inline-flex rounded-xl bg-slate-100 p-1">
         {STATUS_TABS.map((s) => <button key={s} type="button" onClick={() => setTab(s)} className={`rounded-lg px-3 py-1.5 text-sm font-semibold ${tab === s ? 'bg-white text-slate-900 shadow-sm' : 'text-muted'}`}>{t(`adm.tribe.${s}`)}</button>)}
       </div>
-      {loading ? <SkeletonCard rows={3} /> : rows.length === 0 ? <EmptyState icon={<Users className="h-6 w-6" />} title={t('adm.tribe.emptyTitle')} description={t('adm.tribe.empty')} /> : (
+      {loading ? <SkeletonCard rows={3} /> : fallo ? <AvisoDeFallo onRetry={() => void load()} /> : rows.length === 0 ? <EmptyState icon={<Users className="h-6 w-6" />} title={t('adm.tribe.emptyTitle')} description={t('adm.tribe.empty')} /> : (
         <div className="space-y-2">{rows.map((f) => (
           <div key={f.id} className="rounded-xl border border-slate-100 bg-white p-3">
             <p className="font-semibold text-slate-900">{f.title}</p>
@@ -65,7 +75,17 @@ function ForumModsArea() {
   const [tab, setTab] = useState<(typeof STATUS_TABS)[number]>('pending');
   const [rows, setRows] = useState<ForumModApp[]>([]);
   const [loading, setLoading] = useState(true);
-  const load = useCallback(async () => { setLoading(true); const { data } = await supabase.rpc('admin_forum_moderators', { p_forum: null, p_status: tab }); setRows((data as ForumModApp[] | null) ?? []); setLoading(false); }, [tab]);
+  const [fallo, setFallo] = useState(false);
+  const load = useCallback(async () => {
+    setLoading(true);
+    const { data, error } = await supabase.rpc('admin_forum_moderators', { p_forum: null, p_status: tab });
+    // Una lectura fallida se veia como «no hay nada pendiente», en una
+    // pantalla de moderacion: las solicitudes quedaban invisibles.
+    if (error) { setFallo(true); setLoading(false); return; }
+    setFallo(false);
+    setRows((data as ForumModApp[] | null) ?? []);
+    setLoading(false);
+  }, [tab]);
   useEffect(() => { void load(); }, [load]);
   const setStatus = async (id: string, status: string) => { const { error } = await supabase.rpc('admin_set_forum_moderator', { p_id: id, p_status: status }); if (error) toast.error(error.message); else { toast.success(t('adm.tribe.done')); await load(); } };
 
@@ -74,7 +94,7 @@ function ForumModsArea() {
       <div className="inline-flex rounded-xl bg-slate-100 p-1">
         {STATUS_TABS.map((s) => <button key={s} type="button" onClick={() => setTab(s)} className={`rounded-lg px-3 py-1.5 text-sm font-semibold ${tab === s ? 'bg-white text-slate-900 shadow-sm' : 'text-muted'}`}>{t(`adm.tribe.${s}`)}</button>)}
       </div>
-      {loading ? <SkeletonCard rows={3} /> : rows.length === 0 ? <EmptyState icon={<ShieldCheck className="h-6 w-6" />} title={t('adm.tribe.modEmptyTitle')} description={t('adm.tribe.modEmpty')} /> : (
+      {loading ? <SkeletonCard rows={3} /> : fallo ? <AvisoDeFallo onRetry={() => void load()} /> : rows.length === 0 ? <EmptyState icon={<ShieldCheck className="h-6 w-6" />} title={t('adm.tribe.modEmptyTitle')} description={t('adm.tribe.modEmpty')} /> : (
         <div className="space-y-2">{rows.map((m) => (
           <div key={m.id} className="rounded-xl border border-slate-100 bg-white p-3">
             <p className="font-semibold text-slate-900">{m.name} {m.member_no != null && <span className="font-mono text-xs text-brand-700">NM-{String(m.member_no).padStart(6, '0')}</span>}</p>
@@ -98,7 +118,17 @@ function ModeratorsArea() {
   const [tab, setTab] = useState<(typeof STATUS_TABS)[number]>('pending');
   const [rows, setRows] = useState<AdminMod[]>([]);
   const [loading, setLoading] = useState(true);
-  const load = useCallback(async () => { setLoading(true); const { data } = await supabase.rpc('admin_tribe_moderators', { p_status: tab }); setRows((data as AdminMod[] | null) ?? []); setLoading(false); }, [tab]);
+  const [fallo, setFallo] = useState(false);
+  const load = useCallback(async () => {
+    setLoading(true);
+    const { data, error } = await supabase.rpc('admin_tribe_moderators', { p_status: tab });
+    // Una lectura fallida se veia como «no hay nada pendiente», en una
+    // pantalla de moderacion: las solicitudes quedaban invisibles.
+    if (error) { setFallo(true); setLoading(false); return; }
+    setFallo(false);
+    setRows((data as AdminMod[] | null) ?? []);
+    setLoading(false);
+  }, [tab]);
   useEffect(() => { void load(); }, [load]);
   const setStatus = async (uid: string, status: string) => { const { error } = await supabase.rpc('admin_set_moderator_status', { p_user: uid, p_status: status }); if (error) toast.error(error.message); else { toast.success(t('adm.tribe.done')); await load(); } };
 
@@ -107,7 +137,7 @@ function ModeratorsArea() {
       <div className="inline-flex rounded-xl bg-slate-100 p-1">
         {STATUS_TABS.map((s) => <button key={s} type="button" onClick={() => setTab(s)} className={`rounded-lg px-3 py-1.5 text-sm font-semibold ${tab === s ? 'bg-white text-slate-900 shadow-sm' : 'text-muted'}`}>{t(`adm.tribe.${s}`)}</button>)}
       </div>
-      {loading ? <SkeletonCard rows={3} /> : rows.length === 0 ? <EmptyState icon={<ShieldCheck className="h-6 w-6" />} title={t('adm.tribe.modEmptyTitle')} description={t('adm.tribe.modEmpty')} /> : (
+      {loading ? <SkeletonCard rows={3} /> : fallo ? <AvisoDeFallo onRetry={() => void load()} /> : rows.length === 0 ? <EmptyState icon={<ShieldCheck className="h-6 w-6" />} title={t('adm.tribe.modEmptyTitle')} description={t('adm.tribe.modEmpty')} /> : (
         <div className="space-y-2">{rows.map((m) => (
           <div key={m.user_id} className="rounded-xl border border-slate-100 bg-white p-3">
             <p className="font-semibold text-slate-900">{m.name} {m.member_no != null && <span className="font-mono text-xs text-brand-700">NM-{String(m.member_no).padStart(6, '0')}</span>}</p>
@@ -135,7 +165,11 @@ function MembersArea() {
   const lookup = async () => {
     const n = parseInt(folio.replace(/\D/g, ''), 10);
     if (Number.isNaN(n)) { toast.error(t('tribe.invalidFolio')); return; }
-    const { data } = await supabase.rpc('admin_tribe_member_lookup', { p_member_no: n });
+    const { data, error } = await supabase.rpc('admin_tribe_member_lookup', { p_member_no: n });
+    // Si la consulta falla NO se dice «no existe ese miembro»: se dice que no
+    // se pudo consultar. Decir «no existe» de alguien que si existe es peor que
+    // no decir nada. (Repaso adversario, 19 oct 2026.)
+    if (error) { setMember(null); setNotFound(false); toast.error(t('common.loadFailed')); return; }
     const row = (data as MemberLookup[] | null)?.[0] ?? null;
     setMember(row); setNotFound(!row);
   };
@@ -198,10 +232,16 @@ function MessagesArea() {
   const [open, setOpen] = useState<AdminForum | null>(null);
   const [msgs, setMsgs] = useState<AdminMsg[]>([]);
   const [loadingMsgs, setLoadingMsgs] = useState(false);
+  // Un foro con mensajes que no se pudieron leer se veia como un foro sin
+  // mensajes, justo en la pantalla con la que se moderan.
+  const [falloForos, setFalloForos] = useState(false);
+  const [falloMsgs, setFalloMsgs] = useState(false);
 
   const loadForums = useCallback(async () => {
     setLoadingForums(true);
-    const { data } = await supabase.rpc('admin_tribe_forums', { p_status: 'approved' });
+    const { data, error } = await supabase.rpc('admin_tribe_forums', { p_status: 'approved' });
+    if (error) { setFalloForos(true); setLoadingForums(false); return; }
+    setFalloForos(false);
     setForums((data as AdminForum[] | null) ?? []);
     setLoadingForums(false);
   }, []);
@@ -209,7 +249,9 @@ function MessagesArea() {
 
   const loadMsgs = useCallback(async (forumId: string) => {
     setLoadingMsgs(true);
-    const { data } = await supabase.rpc('tribe_forum_messages', { p_forum: forumId });
+    const { data, error } = await supabase.rpc('tribe_forum_messages', { p_forum: forumId });
+    if (error) { setFalloMsgs(true); setLoadingMsgs(false); return; }
+    setFalloMsgs(false);
     setMsgs((data as AdminMsg[] | null) ?? []);
     setLoadingMsgs(false);
   }, []);
@@ -228,7 +270,9 @@ function MessagesArea() {
       <div className="space-y-3">
         <button type="button" onClick={() => setOpen(null)} className="inline-flex items-center gap-1 text-sm text-brand-700 hover:underline"><ArrowLeft className="h-4 w-4" /> {t('adm.tribe.backForums')}</button>
         <p className="font-bold text-slate-900">{open.title}</p>
-        {loadingMsgs ? <SkeletonCard rows={3} /> : msgs.length === 0 ? (
+        {loadingMsgs ? <SkeletonCard rows={3} /> : falloMsgs ? (
+          <AvisoDeFallo onRetry={() => void loadMsgs(open.id)} />
+        ) : msgs.length === 0 ? (
           <EmptyState icon={<MessagesSquare className="h-6 w-6" />} title={t('adm.tribe.noMsgsTitle')} description={t('adm.tribe.noMsgs')} />
         ) : (
           <div className="space-y-2">{msgs.map((m) => (
@@ -248,7 +292,9 @@ function MessagesArea() {
   return (
     <div className="space-y-3">
       <p className="text-sm text-muted">{t('adm.tribe.msgPick')}</p>
-      {loadingForums ? <SkeletonCard rows={3} /> : forums.length === 0 ? (
+      {loadingForums ? <SkeletonCard rows={3} /> : falloForos ? (
+        <AvisoDeFallo onRetry={() => void loadForums()} />
+      ) : forums.length === 0 ? (
         <EmptyState icon={<Users className="h-6 w-6" />} title={t('adm.tribe.emptyTitle')} description={t('adm.tribe.empty')} />
       ) : (
         <div className="space-y-2">{forums.map((f) => (

@@ -34,6 +34,13 @@ const diccionarios = new Map(
 );
 const es = diccionarios.get('es');
 
+/** Borra comentarios conservando los saltos de linea (los numeros no se mueven). */
+function sinComentarios(src) {
+  return src
+    .replace(/\/\*[\s\S]*?\*\//g, (m) => m.replace(/[^\n]/g, ' '))
+    .replace(/(^|[^:])\/\/[^\n]*/g, (m, p1) => p1 + ' '.repeat(m.length - p1.length));
+}
+
 function archivos(dir) {
   const salida = [];
   for (const e of readdirSync(dir)) {
@@ -81,6 +88,29 @@ for (const archivo of archivos(RAIZ)) {
     const cuantas = [...es.keys()].filter((k) => k.startsWith(grupo + '.')).length;
     if (cuantas === 0) {
       hallazgos.push(`${rel}:${lineaDe(src, m.index)}  arma textos con '${grupo}.<variable>', pero ese grupo no tiene ni un texto en espanol`);
+    }
+  }
+}
+
+// 1d. Listas pedidas con `returnObjects: true` que no se blindan con
+//     Array.isArray. i18next devuelve la CLAVE (una cadena) cuando falta la
+//     traduccion, y entonces el `.map` de la pantalla revienta: pantalla en
+//     blanco, sin mensaje, en el idioma al que le falte el texto. Tres sitios
+//     ya lo blindaban y dos no (Academy y Benefits, 19 de octubre de 2026).
+//     Esto no se puede comprobar comparando diccionarios: hay que exigir el
+//     blindaje en el codigo, porque el dia que falte una clave ya es tarde.
+for (const archivo of archivos(RAIZ)) {
+  const src = sinComentarios(readFileSync(archivo, 'utf8'));
+  const rel = relative('.', archivo);
+  for (const m of src.matchAll(/returnObjects:\s*true/g)) {
+    // Ventana: desde el inicio de la sentencia hasta 220 caracteres despues.
+    const ini = Math.max(0, src.lastIndexOf('\n', m.index - 1));
+    const ventana = src.slice(ini, m.index + 220);
+    const blindado = /Array\.isArray/.test(ventana) || /defaultValue:\s*\[\s*\]/.test(ventana);
+    if (!blindado) {
+      hallazgos.push(
+        `${rel}:${lineaDe(src, m.index)}  pide una lista con returnObjects sin blindarla: si falta la traduccion, t() devuelve la clave (una cadena) y el .map revienta la pantalla. Usar Array.isArray o defaultValue: []`,
+      );
     }
   }
 }

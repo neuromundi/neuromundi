@@ -10,6 +10,7 @@
  * por el reproductor.
  */
 import { useTranslation } from 'react-i18next';
+import { listaDeTextos } from '@/lib/listaDeTextos';
 import { GraduationCap, PlayCircle, Users, Check, CalendarClock } from 'lucide-react';
 import { Button } from '@/components/ui';
 import { useCampaign } from '@/hooks/useCampaign';
@@ -17,7 +18,7 @@ import { useCampaign } from '@/hooks/useCampaign';
 export function WelcomeCourse() {
   const { t } = useTranslation();
   const { config } = useCampaign();
-  const modules = (t('course.modules', { returnObjects: true }) as string[]) ?? [];
+  const modules = listaDeTextos(t, 'course.modules');
   const community = config?.community_url ?? null;
 
   return (

@@ -13,7 +13,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { etiquetaDeTipo } from '@/lib/etiquetaDeTipo';
 import { Check, FileText, X } from 'lucide-react';
-import { Button, EmptyState, SkeletonCard, useToast } from '@/components/ui';
+import { Button, EmptyState, SkeletonCard, useToast, AvisoDeFallo } from '@/components/ui';
 import { supabase } from '@/lib/supabase';
 
 type Fila = {
@@ -46,6 +46,7 @@ export function AdminExemptions() {
   const [todas, setTodas] = useState(false);
   const [ocupado, setOcupado] = useState<string | null>(null);
   const [orgDocs, setOrgDocs] = useState<OrgDoc[] | null>(null);
+  const [falloDocs, setFalloDocs] = useState(false);
   const [ocupadoDoc, setOcupadoDoc] = useState<string | null>(null);
   // Mini-checklist de revisión (30 s) por documento. Aprobar exige marcarla toda.
   const [checks, setChecks] = useState<Record<string, boolean[]>>({});
@@ -71,7 +72,10 @@ export function AdminExemptions() {
   const cargarDocs = useCallback(async () => {
     setOrgDocs(null);
     const { data, error } = await (supabase as unknown as Rpc).rpc('admin_pending_org_docs');
-    if (error) { setOrgDocs([]); return; }
+    // Antes se ponia la lista en vacio, asi que un fallo de lectura se leia
+    // como «no hay documentos por revisar» y la cola quedaba invisible.
+    if (error) { setFalloDocs(true); setOrgDocs([]); return; }
+    setFalloDocs(false);
     setOrgDocs((data as OrgDoc[]) ?? []);
   }, []);
 
@@ -190,6 +194,8 @@ export function AdminExemptions() {
 
         {orgDocs === null ? (
           <div className="mt-4"><SkeletonCard rows={2} /></div>
+        ) : falloDocs ? (
+          <div className="mt-4"><AvisoDeFallo onRetry={() => void cargarDocs()} /></div>
         ) : orgDocs.length === 0 ? (
           <div className="mt-4"><EmptyState title={t('adm.orgdoc.empty')} description={t('adm.orgdoc.emptyDesc')} /></div>
         ) : (

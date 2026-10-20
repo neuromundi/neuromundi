@@ -8,6 +8,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useAvisarResultado } from '@/hooks/useAvisarResultado';
 import { useTranslation } from 'react-i18next';
+import { listaDeTextos } from '@/lib/listaDeTextos';
 import { Video, CalendarClock, Plus, Trash2, Palmtree } from 'lucide-react';
 import { Button, SkeletonCard, Modal, useToast, useConfirm, HowTo} from '@/components/ui';
 import { useProviderAgenda, generateSlots, type WaitlistEntry, type Slot } from '@/hooks/useAgenda';
@@ -37,7 +38,7 @@ export function ProviderAgenda() {
   const confirmDialog = useConfirm();
   const { availability, appointments, waitlist, timeOff, loading, saveAvailability, addTimeOff, removeTimeOff, cancelAppointment, setVideoLink, assignFromWaitlist } =
     useProviderAgenda();
-  const weekdays = t('agenda.weekdays', { returnObjects: true }) as string[];
+  const weekdays = listaDeTextos(t, 'agenda.weekdays');
 
   const [draft, setDraft] = useState<DayDraft[]>([]);
   const [assigning, setAssigning] = useState<WaitlistEntry | null>(null);

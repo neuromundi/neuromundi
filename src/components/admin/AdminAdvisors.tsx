@@ -8,7 +8,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Search, ShieldPlus, Trash2, UserCog } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
-import { Button, SkeletonCard, EmptyState, useToast } from '@/components/ui';
+import { Button, SkeletonCard, EmptyState, useToast, AvisoDeFallo } from '@/components/ui';
 
 interface Advisor { user_id: string; name: string; email: string; member_no: number | null }
 interface Match { member_no: number; full_name: string; business_name: string | null; role: string }
@@ -20,13 +20,18 @@ export function AdminAdvisors() {
   const toast = useToast();
   const [advisors, setAdvisors] = useState<Advisor[]>([]);
   const [loading, setLoading] = useState(true);
+  // «No hay asesores» y «no se pudo leer la lista» se veian igual, en la
+  // pantalla que dice quien tiene poderes de asesor. (Repaso adversario.)
+  const [fallo, setFallo] = useState(false);
   const [q, setQ] = useState('');
   const [matches, setMatches] = useState<Match[]>([]);
   const [searching, setSearching] = useState(false);
 
   const load = useCallback(async () => {
     setLoading(true);
-    const { data } = await supabase.rpc('admin_list_advisors');
+    const { data, error } = await supabase.rpc('admin_list_advisors');
+    if (error) { setFallo(true); setLoading(false); return; }
+    setFallo(false);
     setAdvisors((data as Advisor[] | null) ?? []);
     setLoading(false);
   }, []);
@@ -89,6 +94,8 @@ export function AdminAdvisors() {
         <h3 className="mb-3 font-semibold text-slate-900">{t('admin.adv.current')}</h3>
         {loading ? (
           <SkeletonCard rows={2} />
+        ) : fallo ? (
+          <AvisoDeFallo onRetry={() => void load()} />
         ) : advisors.length === 0 ? (
           <EmptyState icon={<UserCog className="h-6 w-6" />} title={t('admin.adv.emptyTitle')} description={t('admin.adv.empty')} />
         ) : (

@@ -6,6 +6,7 @@
  */
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { listaDeTextos } from '@/lib/listaDeTextos';
 import { Award, Check, Users } from 'lucide-react';
 import { Button } from '@/components/ui';
 import { useCampaign } from '@/hooks/useCampaign';
@@ -43,7 +44,7 @@ export function Benefits() {
   const navigate = useNavigate();
   const { config } = useCampaign();
   const community = config?.community_url ?? null;
-  const arr = (k: string) => (t(k, { returnObjects: true }) as string[]) ?? [];
+  const arr = (k: string) => listaDeTextos(t, k);
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-10">

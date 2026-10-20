@@ -11,7 +11,7 @@ import { useEmpresaLimitada } from '@/hooks/useEmpresaLimitada';
 import { EmpresaLimitadaMuro } from '@/components/membership/EmpresaLimitadaMuro';
 import { useTranslation } from 'react-i18next';
 import { MessageSquare, Send, Video, ArrowLeft, Plus, Search, FileText, Trash2 } from 'lucide-react';
-import { Button, useToast, EmptyState, Avatar, SkeletonCard } from '@/components/ui';
+import { Button, useToast, EmptyState, Avatar, SkeletonCard, AvisoDeFallo } from '@/components/ui';
 import { useMessages, type Message, type Thread } from '@/hooks/useMessages';
 import { useMessageTemplates } from '@/hooks/useMessageTemplates';
 import { useAuth } from '@/hooks/useAuth';
@@ -60,7 +60,7 @@ export function Messages() {
   const { t } = useTranslation();
   const toast = useToast();
   const { isAdmin, isProvider } = useAuth();
-  const { userId, threads, loading, reloadThreads, fetchThread, markThreadRead, send } = useMessages();
+  const { userId, threads, loading, fallo, reloadThreads, fetchThread, markThreadRead, send } = useMessages();
 
   // Plantillas de respuesta rápida: para quien escribe mucho (prestador/admin).
   const canTemplate = isProvider || isAdmin;
@@ -80,6 +80,8 @@ export function Messages() {
 
   const [active, setActive] = useState<Thread | null>(null);
   const [msgs, setMsgs] = useState<Message[]>([]);
+  // Un hilo que no se pudo leer se veia como un hilo sin mensajes.
+  const [falloHilo, setFalloHilo] = useState(false);
   const [text, setText] = useState('');
   const [busy, setBusy] = useState(false);
   const [newOpen, setNewOpen] = useState(false);
@@ -110,7 +112,8 @@ export function Messages() {
     setActive(th);
     setNewOpen(false);
     const list = await fetchThread(th.other_id);
-    setMsgs(list);
+    setFalloHilo(list === null);
+    setMsgs(list ?? []);
     if (th.unread > 0) { await markThreadRead(th.other_id); void reloadThreads(); }
   }, [fetchThread, markThreadRead, reloadThreads]);
 
@@ -131,14 +134,21 @@ export function Messages() {
     setText('');
     await reloadThreads();
     if (active) {
-      setMsgs(await fetchThread(active.other_id));
+      const lista = await fetchThread(active.other_id);
+      setFalloHilo(lista === null);
+      setMsgs(lista ?? []);
     } else {
       // Conversación nueva: localizar el hilo recién creado y abrirlo.
       const { data } = await supabase.rpc('message_threads');
       const th = ((data as Thread[]) ?? []).find((x) => x.other_member_no === memberNo) ?? null;
       setNewOpen(false);
       setFolio('');
-      if (th) { setActive(th); setMsgs(await fetchThread(th.other_id)); }
+      if (th) {
+        setActive(th);
+        const lista = await fetchThread(th.other_id);
+        setFalloHilo(lista === null);
+        setMsgs(lista ?? []);
+      }
     }
   };
 
@@ -193,6 +203,8 @@ export function Messages() {
           <div className="mt-3 space-y-1">
             {loading ? (
               <SkeletonCard rows={3} />
+            ) : fallo ? (
+              <AvisoDeFallo onRetry={() => void reloadThreads()} />
             ) : threads.length === 0 ? (
               <p className="px-2 py-6 text-center text-sm text-muted">{t('msg.emptyThreads')}</p>
             ) : (
@@ -305,7 +317,9 @@ export function Messages() {
               </header>
 
               <div className="flex-1 space-y-2 overflow-y-auto p-3">
-                {active && msgs.length === 0 ? (
+                {active && falloHilo ? (
+                  <AvisoDeFallo onRetry={() => void openThread(active)} />
+                ) : active && msgs.length === 0 ? (
                   <p className="py-8 text-center text-sm text-muted">{t('msg.threadEmpty')}</p>
                 ) : (
                   msgs.map((m) => {

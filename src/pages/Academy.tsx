@@ -11,6 +11,7 @@ import { useEmpresaLimitada } from '@/hooks/useEmpresaLimitada';
 import { EmpresaLimitadaMuro } from '@/components/membership/EmpresaLimitadaMuro';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { listaDeTextos } from '@/lib/listaDeTextos';
 import { GraduationCap, BookOpen, Play, Check, HeartHandshake, Stethoscope, School, Search } from 'lucide-react';
 import { Button, SkeletonCard, useToast, EmptyState, HowTo , AvisoDeFallo } from '@/components/ui';
 import { useAuth } from '@/hooks/useAuth';
@@ -60,7 +61,7 @@ export function Academy() {
     [courses, profile, level, q, section],
   );
 
-  const themes = profile ? (t(`lms.profiles.${profile}.themes`, { returnObjects: true }) as string[]) : [];
+  const themes = profile ? listaDeTextos(t, `lms.profiles.${profile}.themes`) : [];
 
   // Empresa con 45 días sin publicar oferta: esta pantalla queda limitada
   // hasta que publique una (migración 0223). No hay cargo de por medio.

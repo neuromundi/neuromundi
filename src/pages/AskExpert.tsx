@@ -5,6 +5,7 @@
  */
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { listaDeTextos } from '@/lib/listaDeTextos';
 import { useCatLabel } from '@/lib/catLabel';
 import { MessageCircleQuestion, Check, ShieldCheck, Mail } from 'lucide-react';
 import { Button, useToast } from '@/components/ui';
@@ -28,7 +29,7 @@ export function AskExpert() {
   const [question, setQuestion] = useState('');
   const [sending, setSending] = useState(false);
 
-  const notes = t('expert.form.notes', { returnObjects: true }) as string[];
+  const notes = listaDeTextos(t, 'expert.form.notes');
 
   // Se retiró el respaldo por mailto: la pregunta ya queda guardada en
   // expert_questions y el administrador la ve en su bandeja, así que mandar

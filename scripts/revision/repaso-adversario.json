@@ -278,7 +278,8 @@
         "no arma ningun texto con una variable, asi que no puede imprimir una clave cruda"
       ],
       "hallazgos_abiertos": [],
-      "huella": "f335d29f0a768c4d"
+      "huella": "21c3792ea1c33d19",
+      "notas": "(19 oct: se blindaron sus listas de i18n con listaDeTextos; repaso revalidado.)"
     },
     {
       "pantalla": "/conocer-mas",
@@ -522,7 +523,8 @@
       "hallazgos_abiertos": [],
       "fecha": "2026-10-19",
       "quien": "Claude",
-      "huella": "56ad374ee18b7b0d"
+      "huella": "bf8357e3e3a9d7c6",
+      "notas": "(19 oct: se blindaron sus listas de i18n con listaDeTextos; repaso revalidado.)"
     },
     {
       "pantalla": "/autor/:id",
@@ -778,6 +780,100 @@
       "fecha": "2026-10-19",
       "quien": "Claude",
       "huella": "e617ed428cfaaf1b"
+    },
+    {
+      "pantalla": "/mensajes",
+      "archivos": [
+        "src/pages/Messages.tsx",
+        "src/hooks/useMessages.ts"
+      ],
+      "notas": "El buzon decia «no tienes conversaciones» y un hilo se veia sin mensajes cuando la lectura fallaba. Y el tope de 300 mensajes se pedia ASCENDENTE, asi que una conversacion larga ensenaba los 300 mas antiguos y escondia los recientes.",
+      "fecha": "2026-10-19",
+      "huella": "36fcb7673b26258b"
+    },
+    {
+      "pantalla": "/pregunta-al-experto",
+      "archivos": [
+        "src/pages/AskExpert.tsx"
+      ],
+      "notas": "La escritura si se comprueba. Se blindo la lista de notas, que reventaba la pantalla si faltaba la traduccion.",
+      "fecha": "2026-10-19",
+      "huella": "0e9a41f11277d6d5"
+    },
+    {
+      "pantalla": "/beneficios",
+      "archivos": [
+        "src/pages/Benefits.tsx"
+      ],
+      "notas": "Las diez listas de beneficios se pedian sin blindaje; un «?? []» que no protege de nada.",
+      "fecha": "2026-10-19",
+      "huella": "3e35107d25366870"
+    },
+    {
+      "pantalla": "/curso-bienvenida",
+      "archivos": [
+        "src/pages/WelcomeCourse.tsx"
+      ],
+      "notas": "Misma lista sin blindar.",
+      "fecha": "2026-10-19",
+      "huella": "de9440a311f51199"
+    },
+    {
+      "pantalla": "admin:advisors",
+      "archivos": [
+        "src/components/admin/AdminAdvisors.tsx"
+      ],
+      "notas": "«No hay asesores» cuando no se pudo leer, en la pantalla que dice quien tiene poderes de asesor.",
+      "fecha": "2026-10-19",
+      "huella": "c73823516849ab5a"
+    },
+    {
+      "pantalla": "admin:tribe",
+      "archivos": [
+        "src/components/admin/AdminTribe.tsx"
+      ],
+      "notas": "Seis lecturas tiraban el error: foros, postulaciones de moderador, moderadores, mensajes de un foro y la busqueda por folio, que decia «no existe ese miembro» cuando la consulta fallaba.",
+      "fecha": "2026-10-19",
+      "huella": "b12037c51a4819db"
+    },
+    {
+      "pantalla": "admin:campaign",
+      "archivos": [
+        "src/components/admin/AdminCampaign.tsx"
+      ],
+      "notas": "Lo peor de la tanda: si campaign_status fallaba, el formulario se quedaba con los valores por omision Y dejaba guardar, escribiendo esos valores encima de la configuracion real de la campana.",
+      "fecha": "2026-10-19",
+      "huella": "dabdf46099b1c098"
+    },
+    {
+      "pantalla": "admin:survey",
+      "archivos": [
+        "src/components/admin/AdminSurvey.tsx"
+      ],
+      "notas": "La descarga del CSV pedia select(*) sin paginar: el servidor corta en 1,000 filas y el archivo se habria entregado truncado con aspecto de completo.",
+      "hallazgos_abiertos": [],
+      "fecha": "2026-10-19",
+      "huella": "57e0df1eb4c92d84"
+    },
+    {
+      "pantalla": "admin:exemptions",
+      "archivos": [
+        "src/components/admin/AdminExemptions.tsx"
+      ],
+      "notas": "La cola de verificacion documental se ponia en vacio al fallar: «no hay documentos por revisar».",
+      "fecha": "2026-10-19",
+      "huella": "62b0ff77db006fda"
+    },
+    {
+      "pantalla": "admin:fees",
+      "archivos": [
+        "src/components/admin/AdminFees.tsx",
+        "src/components/admin/AdminCountryDiscounts.tsx",
+        "src/hooks/useAdminPricing.ts"
+      ],
+      "notas": "Las cuotas por pais y los descuentos por pais decian «sin configurar» cuando no se podian leer, en la pantalla donde se fijan los precios.",
+      "fecha": "2026-10-19",
+      "huella": "8388377a3da76900"
     }
   ]
 }

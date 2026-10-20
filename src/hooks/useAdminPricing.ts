@@ -48,9 +48,14 @@ export function useCountryPrices(country: string) {
   const [rows, setRows] = useState<CountryPriceRow[]>([]);
   const [configured, setConfigured] = useState<Record<string, number>>({});
   const [loading, setLoading] = useState(true);
+  // «Este pais no tiene cuotas configuradas» y «no se pudo leer la tabla de
+  // cuotas» se veian igual. En la pantalla con la que se fijan los precios, eso
+  // invita a escribir una cuota encima de otra. (Repaso adversario, 19 oct 2026.)
+  const [fallo, setFallo] = useState(false);
 
   const reloadConfigured = useCallback(async () => {
-    const { data } = await supabase.rpc('admin_configured_countries');
+    const { data, error } = await supabase.rpc('admin_configured_countries');
+    if (error) { setFallo(true); return; }
     const map: Record<string, number> = {};
     for (const r of (data as { country_label: string; types: number }[]) ?? []) {
       map[r.country_label] = r.types;
@@ -61,7 +66,9 @@ export function useCountryPrices(country: string) {
   const reload = useCallback(async () => {
     if (!country) { setRows([]); setLoading(false); return; }
     setLoading(true);
-    const { data } = await supabase.rpc('admin_country_prices', { p_country: country });
+    const { data, error } = await supabase.rpc('admin_country_prices', { p_country: country });
+    if (error) { setFallo(true); setLoading(false); return; }
+    setFallo(false);
     setRows((data as CountryPriceRow[]) ?? []);
     setLoading(false);
   }, [country]);
@@ -110,7 +117,7 @@ export function useCountryPrices(country: string) {
     [country, reload, reloadConfigured],
   );
 
-  return { rows, configured, loading, reload, setPrice, clearPrice };
+  return { rows, configured, loading, fallo, reload, setPrice, clearPrice };
 }
 
 export function useReferralConfig() {

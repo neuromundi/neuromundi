@@ -8,7 +8,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Plus, Trash2, Save, Ticket } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
-import { Button, SkeletonCard, useToast } from '@/components/ui';
+import { Button, SkeletonCard, useToast, AvisoDeFallo } from '@/components/ui';
 import { useCountryLabel } from '@/lib/countryLabel';
 import { COUNTRIES } from '@/data/countries';
 import { CONTINENTS } from '@/data/continents';
@@ -43,13 +43,20 @@ export function AdminCampaign() {
   const [whatsapp, setWhatsapp] = useState('');
   const [activeMarkets, setActiveMarkets] = useState<string[]>([]);
   const [addMarket, setAddMarket] = useState('');
+  const [fallo, setFallo] = useState(false);
   const [drawCount, setDrawCount] = useState(1);
   const [drawRole, setDrawRole] = useState('');
   const [winners, setWinners] = useState<{ name: string; member_no: number | null; email: string; tickets: number }[]>([]);
 
   const load = useCallback(async () => {
     setLoading(true);
-    const { data } = await supabase.rpc('campaign_status');
+    const { data, error } = await supabase.rpc('campaign_status');
+    // Si la lectura falla, el formulario se quedaba con los valores por
+    // omision Y seguia permitiendo GUARDAR: un clic en guardar escribia esos
+    // valores encima de la configuracion real de la campana. Ahora no se pinta
+    // el formulario. (Repaso adversario, 19 oct 2026.)
+    if (error) { setFallo(true); setLoading(false); return; }
+    setFallo(false);
     const c = data as {
       active: boolean; start_at: string | null; default_block_days: number;
       block_days_by_country: Record<string, number>; popup_active: boolean; popup_continents: Record<string, boolean>;
@@ -137,6 +144,7 @@ export function AdminCampaign() {
   };
 
   if (loading) return <SkeletonCard rows={4} />;
+  if (fallo) return <AvisoDeFallo onRetry={() => void load()} />;
 
   return (
     <section className="space-y-4">

@@ -6,6 +6,7 @@
  */
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
+import { traerTodo } from '@/lib/traerTodo';
 
 type Agg = {
   total: number;
@@ -17,7 +18,13 @@ type Agg = {
 // La tabla/RPC son nuevas y no están en los tipos generados: cliente casteado.
 const db = supabase as unknown as {
   rpc: (fn: string) => Promise<{ data: unknown; error: unknown }>;
-  from: (t: string) => { select: (c: string) => Promise<{ data: unknown; error: unknown }> };
+  from: (t: string) => {
+    select: (c: string) => {
+      order: (c: string, o: { ascending: boolean }) => {
+        range: (d: number, h: number) => PromiseLike<{ data: Record<string, unknown>[] | null; error: { message: string } | null }>;
+      };
+    };
+  };
 };
 
 function Bars({ title, data }: { title: string; data: Record<string, number> }) {
@@ -58,10 +65,20 @@ export function AdminSurvey() {
 
   async function exportCsv() {
     setBusy(true);
-    const { data, error } = await db.from('survey_responses').select('*');
+    // El servidor corta toda respuesta en 1,000 filas sin avisar: el CSV se
+    // habria entregado truncado y con aspecto de completo. Se pide por paginas.
+    // (Repaso adversario, 19 oct 2026.)
+    let rows: Record<string, unknown>[];
+    try {
+      rows = await traerTodo<Record<string, unknown>>((desde, hasta) =>
+        db.from('survey_responses').select('*').order('created_at', { ascending: true }).range(desde, hasta),
+      );
+    } catch {
+      setBusy(false);
+      setErr('No se pudo exportar.');
+      return;
+    }
     setBusy(false);
-    if (error || !Array.isArray(data)) { setErr('No se pudo exportar.'); return; }
-    const rows = data as Record<string, unknown>[];
     if (rows.length === 0) { setErr('Aún no hay respuestas.'); return; }
     const cols = ['created_at', 'lang', 'role', 'country', 'sections', 'consent', 'answers'];
     const esc = (v: unknown) => '"' + String(v ?? '').replace(/"/g, '""') + '"';

@@ -31,28 +31,39 @@ export function useMessages() {
   const { userId } = useAuth();
   const [threads, setThreads] = useState<Thread[]>([]);
   const [loading, setLoading] = useState(true);
+  // Un buzon vacio y un buzon que no se pudo leer se veian igual: «no tienes
+  // conversaciones». Ahora se distinguen. (Repaso adversario, 19 oct 2026.)
+  const [fallo, setFallo] = useState(false);
 
   const reloadThreads = useCallback(async () => {
     if (!userId) { setThreads([]); setLoading(false); return; }
     setLoading(true);
-    const { data } = await supabase.rpc('message_threads');
+    const { data, error } = await supabase.rpc('message_threads');
+    if (error) { setFallo(true); setLoading(false); return; }
+    setFallo(false);
     setThreads((data as Thread[]) ?? []);
     setLoading(false);
   }, [userId]);
 
   useEffect(() => { void reloadThreads(); }, [reloadThreads]);
 
-  const fetchThread = useCallback(async (otherId: string): Promise<Message[]> => {
+  const fetchThread = useCallback(async (otherId: string): Promise<Message[] | null> => {
     if (!userId) return [];
-    const { data } = await supabase
+    // El tope de 300 se pedia con created_at ASCENDENTE, asi que en una
+    // conversacion larga se quedaba con los 300 mensajes MAS ANTIGUOS y
+    // escondia los recientes, que son los que la persona viene a leer. Se pide
+    // descendente y se le da la vuelta. (Repaso adversario, 19 oct 2026.)
+    const { data, error } = await supabase
       .from('messages')
       .select('*')
       .or(
         `and(sender_id.eq.${userId},recipient_id.eq.${otherId}),and(sender_id.eq.${otherId},recipient_id.eq.${userId})`,
       )
-      .order('created_at', { ascending: true })
+      .order('created_at', { ascending: false })
       .limit(300);
-    return (data as Message[]) ?? [];
+    // null = no se pudo leer. Un arreglo vacio si es «no hay mensajes».
+    if (error) return null;
+    return ((data as Message[]) ?? []).slice().reverse();
   }, [userId]);
 
   const markThreadRead = useCallback(async (otherId: string) => {
@@ -80,5 +91,5 @@ export function useMessages() {
     return { ok: true, data: r.message_id ?? '' };
   }, []);
 
-  return { userId, threads, loading, reloadThreads, fetchThread, markThreadRead, send };
+  return { userId, threads, loading, fallo, reloadThreads, fetchThread, markThreadRead, send };
 }
