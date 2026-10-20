@@ -72,10 +72,15 @@ export function useDonationTiers() {
 export function useAdminDonationTiers() {
   const [rows, setRows] = useState<DonationTierRow[]>([]);
   const [loading, setLoading] = useState(true);
+  const [fallo, setFallo] = useState(false);
 
   const load = useCallback(async () => {
     setLoading(true);
-    const { data } = await supabase.from('donation_tiers').select('*').order('currency');
+    const { data, error } = await supabase.from('donation_tiers').select('*').order('currency');
+    // «No hay tramos configurados» cuando no se pudieron leer, en la pantalla
+    // donde se fijan los montos de donacion. (Repaso adversario.)
+    if (error) { setFallo(true); setLoading(false); return; }
+    setFallo(false);
     setRows((data as DonationTierRow[] | null) ?? []);
     setLoading(false);
   }, []);
@@ -102,5 +107,5 @@ export function useAdminDonationTiers() {
     [load],
   );
 
-  return { rows, loading, reload: load, save };
+  return { fallo, rows, loading, reload: load, save };
 }

@@ -140,11 +140,15 @@ export function useCourseAuthor() {
   const { userId } = useAuth();
   const [courses, setCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
+  const [fallo, setFallo] = useState(false);
 
   const load = useCallback(async () => {
     if (!userId) return;
     setLoading(true);
-    const { data } = await supabase.from('courses').select('*').eq('author_id', userId).order('created_at', { ascending: false });
+    const { data, error } = await supabase.from('courses').select('*').eq('author_id', userId).order('created_at', { ascending: false });
+    // «No has creado ningun curso» cuando no se pudo leer. (Repaso adversario.)
+    if (error) { setFallo(true); setLoading(false); return; }
+    setFallo(false);
     setCourses(data ?? []);
     setLoading(false);
   }, [userId]);
@@ -192,5 +196,5 @@ export function useCourseAuthor() {
     return { ok: true, data: true };
   }, []);
 
-  return { courses, loading, reload: load, createCourse, updateCourse, togglePublish, remove, addModule, addLesson };
+  return { fallo, courses, loading, reload: load, createCourse, updateCourse, togglePublish, remove, addModule, addLesson };
 }

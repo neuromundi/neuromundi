@@ -4007,7 +4007,8 @@
     "searchLabel": "Cerca membro",
     "searchPlaceholder": "Folio, nome o cognome…",
     "searching": "Ricerca…",
-    "toName": "A: {{name}}"
+    "toName": "A: {{name}}",
+    "sentButNoThread": "Il tuo messaggio è stato inviato. La conversazione comparirà nella tua casella tra poco."
   },
   "book": {
     "title": "Prenota il tuo appuntamento",

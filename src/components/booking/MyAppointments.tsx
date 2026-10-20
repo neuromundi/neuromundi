@@ -4,7 +4,7 @@
  */
 import { useTranslation } from 'react-i18next';
 import { CalendarClock, Video, Download, ExternalLink, CreditCard } from 'lucide-react';
-import { SkeletonCard, useToast, useConfirm, HowTo} from '@/components/ui';
+import { SkeletonCard, useToast, useConfirm, HowTo, AvisoDeFallo } from '@/components/ui';
 import { useMyAppointments } from '@/hooks/useAgenda';
 import { useConsumerPayments } from '@/hooks/usePayments';
 import { downloadICS, googleCalendarUrl, type CalendarEvent } from '@/lib/calendar';
@@ -21,10 +21,12 @@ export function MyAppointments() {
   const { t } = useTranslation();
   const toast = useToast();
   const confirmDialog = useConfirm();
-  const { appointments, loading, cancel } = useMyAppointments();
+  const { appointments, loading, fallo, reload, cancel } = useMyAppointments();
   const { pay } = useConsumerPayments();
 
   if (loading) return <SkeletonCard rows={3} />;
+  // Son citas: no se dice «no tienes ninguna» si lo que fallo fue la lectura.
+  if (fallo) return <AvisoDeFallo onRetry={() => void reload()} />;
   if (appointments.length === 0) return <p className="p-4 text-sm text-muted">{t('agenda.noAppointments')}</p>;
 
   return (

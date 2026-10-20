@@ -147,7 +147,7 @@ function TiersManager() {
   // Nunca se tira el resultado de una escritura. (Hallazgo A-13.)
   const avisar = useAvisarResultado();
   const toast = useToast();
-  const { rows, loading, save } = useAdminDonationTiers();
+  const { rows, loading, fallo: falloTramos, reload: reloadTramos, save } = useAdminDonationTiers();
   // Copia editable local; se compara contra la fila original al guardar.
   const [draft, setDraft] = useState<Record<string, DonationTierRow>>({});
   const [busyCur, setBusyCur] = useState<string | null>(null);
@@ -189,6 +189,8 @@ function TiersManager() {
 
       {loading ? (
         <div className="mt-3"><SkeletonCard rows={1} /></div>
+      ) : falloTramos ? (
+        <div className="mt-3"><AvisoDeFallo onRetry={() => void reloadTramos()} /></div>
       ) : (
         <div className="mt-3 space-y-3">
           {rows.map((base) => {

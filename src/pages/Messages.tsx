@@ -82,6 +82,7 @@ export function Messages() {
   const [msgs, setMsgs] = useState<Message[]>([]);
   // Un hilo que no se pudo leer se veia como un hilo sin mensajes.
   const [falloHilo, setFalloHilo] = useState(false);
+  const [falloBusqueda, setFalloBusqueda] = useState(false);
   const [text, setText] = useState('');
   const [busy, setBusy] = useState(false);
   const [newOpen, setNewOpen] = useState(false);
@@ -102,8 +103,15 @@ export function Messages() {
     let alive = true;
     setSearching(true);
     const id = window.setTimeout(async () => {
-      const { data } = await supabase.rpc('search_contacts', { p_query: q });
-      if (alive) { setHits((data as MemberHit[] | null) ?? []); setSearching(false); }
+      const { data, error } = await supabase.rpc('search_contacts', { p_query: q });
+      if (!alive) return;
+      // Antes, un fallo de la busqueda se veia igual que «no hay nadie con ese
+      // nombre»: la persona concluia que su contacto no esta en Neuromundi.
+      // (Repaso adversario, 20 oct 2026.)
+      if (error) { setFalloBusqueda(true); setHits([]); setSearching(false); return; }
+      setFalloBusqueda(false);
+      setHits((data as MemberHit[] | null) ?? []);
+      setSearching(false);
     }, 300);
     return () => { alive = false; window.clearTimeout(id); };
   }, [query, newOpen]);
@@ -138,8 +146,11 @@ export function Messages() {
       setFalloHilo(lista === null);
       setMsgs(lista ?? []);
     } else {
-      // Conversación nueva: localizar el hilo recién creado y abrirlo.
-      const { data } = await supabase.rpc('message_threads');
+      // Conversación nueva: localizar el hilo recién creado y abrirlo. Si esta
+      // lectura falla, el mensaje YA se envió: no se dice nada que lo niegue,
+      // solo no se puede abrir el hilo todavía. (Repaso adversario, 20 oct.)
+      const { data, error: errHilos } = await supabase.rpc('message_threads');
+      if (errHilos) { toast.info(t('msg.sentButNoThread')); setNewOpen(false); setFolio(''); return; }
       const th = ((data as Thread[]) ?? []).find((x) => x.other_member_no === memberNo) ?? null;
       setNewOpen(false);
       setFolio('');
@@ -268,6 +279,9 @@ export function Messages() {
                           />
                         </div>
                         {/* Resultados */}
+                        {falloBusqueda && (
+                          <p role="alert" className="mt-1 text-sm font-semibold text-amber-700">{t('common.loadFailed')}</p>
+                        )}
                         {(hits.length > 0 || searching) && (
                           <ul className="absolute z-10 mt-1 max-h-64 w-full overflow-auto rounded-xl border border-slate-200 bg-white shadow-lg">
                             {searching && hits.length === 0 ? (

@@ -5,6 +5,8 @@
  */
 import { useCallback, useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
+import { logger } from '@/lib/utils';
+
 import type { Tables } from '@/types/database';
 
 export type JobOpening = Tables<'job_openings'>;
@@ -142,15 +144,17 @@ export function useMemberBadges(memberType: string | null | undefined) {
     if (!memberType) { setBadges([]); setLoading(false); return; }
     setLoading(true);
     (async () => {
-      const { data } = await supabase
+      const { data, error } = await supabase
         .from('member_badges')
         .select('id, member_type, badge_key, title, public_url')
         .eq('member_type', memberType)
         .eq('is_active', true);
-      if (alive) {
-        setBadges((data as MemberBadge[] | null) ?? []);
-        setLoading(false);
-      }
+      if (!alive) return;
+      // La tarjeta se oculta cuando no hay distintivos; con un fallo de lectura
+      // tambien, y eso no miente, pero el error se registra. (Repaso adversario.)
+      if (error) { logger.error('No se pudieron leer los distintivos del miembro:', error.message); setLoading(false); return; }
+      setBadges((data as MemberBadge[] | null) ?? []);
+      setLoading(false);
     })();
     return () => { alive = false; };
   }, [memberType]);

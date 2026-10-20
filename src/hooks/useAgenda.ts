@@ -243,16 +243,21 @@ export function useMyAppointments() {
   const { userId } = useAuth();
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [loading, setLoading] = useState(true);
+  const [fallo, setFallo] = useState(false);
 
   const load = useCallback(async () => {
     if (!userId) return;
     setLoading(true);
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from('appointments')
       .select('*')
       .eq('patient_id', userId)
       .gte('starts_at', new Date(Date.now() - DAY_MS).toISOString())
       .order('starts_at');
+    // Son CITAS: «no tienes citas» cuando la lectura fallo es como para que
+    // alguien falte a una. (Repaso adversario, 20 oct 2026.)
+    if (error) { setFallo(true); setLoading(false); return; }
+    setFallo(false);
     setAppointments(data ?? []);
     setLoading(false);
   }, [userId]);
@@ -266,5 +271,5 @@ export function useMyAppointments() {
     return { ok: true, data: true };
   }, [load]);
 
-  return { appointments, loading, reload: load, cancel };
+  return { fallo, appointments, loading, reload: load, cancel };
 }

@@ -12,9 +12,12 @@ import { safeHttpUrl } from '@/lib/safeUrl';
 
 export function ContentCarousel() {
   const { t } = useTranslation();
-  const { items, loading } = useContentFeed();
+  const { items, loading, fallo } = useContentFeed();
 
-  if (loading || items.length === 0) return null;
+  // Si no hay nada publicado, el carrusel no se pinta; si la consulta FALLA
+  // tampoco, y eso no miente (no afirma que no haya contenido, simplemente no
+  // ocupa la portada). Revisado en el repaso adversario del 20 oct 2026.
+  if (loading || fallo || items.length === 0) return null;
 
   return (
     <section className="mt-14 space-y-3">

@@ -4007,7 +4007,8 @@
     "searchLabel": "Search member",
     "searchPlaceholder": "Folio, first or last name…",
     "searching": "Searching…",
-    "toName": "To: {{name}}"
+    "toName": "To: {{name}}",
+    "sentButNoThread": "Your message was sent. The conversation will show up in your inbox shortly."
   },
   "book": {
     "title": "Book your appointment",

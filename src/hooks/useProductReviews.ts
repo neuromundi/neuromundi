@@ -31,17 +31,22 @@ export function useProductReviews(productId: string | null) {
   const [reviews, setReviews] = useState<ProductReview[]>([]);
   const [summary, setSummary] = useState<ProductRatingSummary>({ avg: 0, count: 0 });
   const [loading, setLoading] = useState(true);
+  const [fallo, setFallo] = useState(false);
   const [saving, setSaving] = useState(false);
 
   const load = useCallback(async () => {
     if (!productId) { setLoading(false); return; }
     setLoading(true);
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from('product_reviews')
       .select('id, product_id, reviewer_id, rating, comment, created_at')
       .eq('product_id', productId)
       .order('created_at', { ascending: false })
       .limit(50);
+    // «Este producto no tiene opiniones» cuando no se pudieron leer, en una
+    // pantalla de compra. (Repaso adversario, 20 oct 2026.)
+    if (error) { setFallo(true); setLoading(false); return; }
+    setFallo(false);
     const list = (data ?? []) as unknown as ProductReview[];
     setReviews(list);
     const count = list.length;
@@ -92,5 +97,5 @@ export function useProductReviews(productId: string | null) {
     return { ok: true, data: true };
   }, [userId, myReview, load]);
 
-  return { reviews, summary, myReview, loading, saving, submitReview, deleteReview, reload: load };
+  return { fallo, reviews, summary, myReview, loading, saving, submitReview, deleteReview, reload: load };
 }

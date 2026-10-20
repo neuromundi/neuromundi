@@ -12,7 +12,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Plus, Trash2, Eye, EyeOff, ExternalLink } from 'lucide-react';
-import { Button, SkeletonCard, useToast, useConfirm, HowTo} from '@/components/ui';
+import { Button, SkeletonCard, useToast, useConfirm, HowTo, AvisoDeFallo } from '@/components/ui';
 import { useContent } from '@/hooks/useContent';
 import { BLOG_TOPICS } from '@/data/blogTopics';
 import { useCatLabel } from '@/lib/catLabel';
@@ -31,7 +31,7 @@ export function ContentManager() {
   const { t } = useTranslation();
   const toast = useToast();
   const confirmDialog = useConfirm();
-  const { posts, loading, create, togglePublish, remove } = useContent();
+  const { posts, loading, fallo, reload, create, togglePublish, remove } = useContent();
 
   const [open, setOpen] = useState(false);
   const [type, setType] = useState<'blog' | 'link'>('blog');
@@ -113,7 +113,9 @@ export function ContentManager() {
         </div>
       )}
 
-      {posts.length === 0 ? (
+      {fallo ? (
+        <AvisoDeFallo onRetry={() => void reload()} />
+      ) : posts.length === 0 ? (
         <p className="text-sm text-muted">{t('content.empty')}</p>
       ) : (
         <ul className="space-y-2">

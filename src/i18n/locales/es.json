@@ -4007,7 +4007,8 @@
     "searchLabel": "Buscar miembro",
     "searchPlaceholder": "Folio, nombre o apellido…",
     "searching": "Buscando…",
-    "toName": "Para: {{name}}"
+    "toName": "Para: {{name}}",
+    "sentButNoThread": "Su mensaje se envió. La conversación aparecerá en su bandeja en un momento."
   },
   "book": {
     "title": "Reserva tu cita",

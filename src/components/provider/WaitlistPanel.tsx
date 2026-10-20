@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { useAvisarResultado } from '@/hooks/useAvisarResultado';
 import { useTranslation } from 'react-i18next';
 import { Users, UserPlus, BellRing, Check, X } from 'lucide-react';
-import { Button, useToast, SkeletonCard, EmptyState, HowTo } from '@/components/ui';
+import { Button, useToast, SkeletonCard, EmptyState, HowTo, AvisoDeFallo } from '@/components/ui';
 import { useWaitlist } from '@/hooks/useWaitlist';
 import { formatDate } from '@/lib/utils';
 
@@ -19,7 +19,7 @@ export function WaitlistPanel() {
   // Nunca se tira el resultado de una escritura. (Hallazgo A-13.)
   const avisar = useAvisarResultado();
   const toast = useToast();
-  const { rows, waiting, loading, addByFolio, setStatus, notifySlot } = useWaitlist();
+  const { rows, waiting, loading, fallo, reload, addByFolio, setStatus, notifySlot } = useWaitlist();
   const [folio, setFolio] = useState('');
   const [note, setNote] = useState('');
   const [msg, setMsg] = useState('');
@@ -78,6 +78,8 @@ export function WaitlistPanel() {
       {/* Lista */}
       {loading ? (
         <SkeletonCard rows={2} />
+      ) : fallo ? (
+        <AvisoDeFallo onRetry={() => void reload()} />
       ) : rows.length === 0 ? (
         <EmptyState icon={<Users className="h-6 w-6" />} title={t('wait.emptyTitle')} description={t('wait.empty')} />
       ) : (

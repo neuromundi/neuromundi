@@ -38,11 +38,17 @@ export function useWaitlist() {
   const { userId } = useAuth();
   const [rows, setRows] = useState<WaitlistRow[]>([]);
   const [loading, setLoading] = useState(true);
+  // «No hay nadie en lista de espera» cuando no se pudo leer: el especialista
+  // da el hueco a otra persona y quien esperaba nunca se enteró.
+  // (Repaso adversario, 20 oct 2026.)
+  const [fallo, setFallo] = useState(false);
 
   const reload = useCallback(async () => {
     if (!userId) { setRows([]); setLoading(false); return; }
     setLoading(true);
-    const { data } = await supabase.rpc('my_waitlist');
+    const { data, error } = await supabase.rpc('my_waitlist');
+    if (error) { setFallo(true); setLoading(false); return; }
+    setFallo(false);
     setRows((data as WaitlistRow[]) ?? []);
     setLoading(false);
   }, [userId]);
@@ -76,23 +82,31 @@ export function useWaitlist() {
 
   const waiting = rows.filter((r) => r.status === 'waiting');
 
-  return { rows, waiting, loading, reload, addByFolio, setStatus, notifySlot };
+  return { rows, waiting, loading, fallo, reload, addByFolio, setStatus, notifySlot };
 }
+
+/** Las ultimas 30 campanas; el tope se publica donde se pintan. */
+const TOPE_CAMPANAS = 30;
 
 export function useCampaigns() {
   const { userId } = useAuth();
   const [items, setItems] = useState<Campaign[]>([]);
   const [loading, setLoading] = useState(true);
+  const [fallo, setFallo] = useState(false);
 
   const reload = useCallback(async () => {
     if (!userId) { setItems([]); setLoading(false); return; }
     setLoading(true);
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from('campaigns')
       .select('*')
       .eq('owner_id', userId)
       .order('created_at', { ascending: false })
-      .limit(30);
+      .limit(TOPE_CAMPANAS);
+    // «No has enviado ninguna campana» cuando no se pudo leer: se podria
+    // mandar dos veces la misma. (Repaso adversario, 20 oct 2026.)
+    if (error) { setFallo(true); setLoading(false); return; }
+    setFallo(false);
     setItems((data as Campaign[]) ?? []);
     setLoading(false);
   }, [userId]);
@@ -126,5 +140,5 @@ export function useCampaigns() {
     [userId, reload],
   );
 
-  return { items, loading, reload, createAndSend };
+  return { items, loading, fallo, tope: TOPE_CAMPANAS, recortado: items.length >= TOPE_CAMPANAS, reload, createAndSend };
 }

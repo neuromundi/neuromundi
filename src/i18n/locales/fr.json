@@ -4007,7 +4007,8 @@
     "searchLabel": "Rechercher un membre",
     "searchPlaceholder": "Folio, nom ou prénom…",
     "searching": "Recherche…",
-    "toName": "À : {{name}}"
+    "toName": "À : {{name}}",
+    "sentButNoThread": "Votre message a été envoyé. La conversation apparaîtra dans votre boîte dans un instant."
   },
   "book": {
     "title": "Réservez votre rendez-vous",

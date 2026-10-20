@@ -26,15 +26,23 @@ export function useConsents() {
   const [accessTo, setAccessTo] = useState<(Consent & { patient: Party })[]>([]);
   const [connections, setConnections] = useState<Party[]>([]);
   const [loading, setLoading] = useState(true);
+  // Son CONSENTIMIENTOS de expediente clinico. Si la lectura falla y la lista
+  // se queda vacia, la pantalla dice «no has dado acceso a nadie» o «no tienes
+  // acceso a ningun expediente», que es una afirmacion sobre permisos de datos
+  // de salud: la peor de todas para darla por buena sin comprobar.
+  // (Repaso adversario, 20 oct 2026.)
+  const [fallo, setFallo] = useState(false);
 
   const load = useCallback(async () => {
     if (!userId) return;
     setLoading(true);
     if (isConsumer) {
-      const { data } = await supabase
+      const { data, error } = await supabase
         .from('clinical_consents')
         .select('*, provider:profiles!clinical_consents_provider_id_fkey(id, full_name, business_name)')
         .eq('patient_id', userId);
+      if (error) { setFallo(true); setLoading(false); return; }
+      setFallo(false);
       setGranted(
         (data ?? []).map((c) => {
           const pr = c.provider as unknown as { id: string; full_name: string | null; business_name: string | null };
@@ -42,10 +50,13 @@ export function useConsents() {
         }),
       );
       // Especialistas guardados en favoritos a los que se les puede dar acceso.
-      const { data: conns } = await supabase
+      // Esta es la lista de especialistas a los que se PODRIA dar acceso: si
+      // falla, no se puede afirmar nada, pero tampoco se pierde el expediente.
+      const { data: conns, error: errConns } = await supabase
         .from('parent_list_items')
         .select('provider:profiles!parent_list_items_provider_id_fkey(id, full_name, business_name, provider_type), parent_lists!inner(owner_id)')
         .eq('parent_lists.owner_id', userId);
+      if (errConns) { setFallo(true); setLoading(false); return; }
       const seen = new Set<string>();
       const list: Party[] = [];
       for (const x of conns ?? []) {
@@ -57,11 +68,13 @@ export function useConsents() {
       }
       setConnections(list);
     } else {
-      const { data } = await supabase
+      const { data, error } = await supabase
         .from('clinical_consents')
         .select('*, patient:profiles!clinical_consents_patient_id_fkey(id, full_name, business_name)')
         .eq('provider_id', userId)
         .eq('status', 'active');
+      if (error) { setFallo(true); setLoading(false); return; }
+      setFallo(false);
       setAccessTo(
         (data ?? []).map((c) => {
           const pt = c.patient as unknown as { id: string; full_name: string | null; business_name: string | null };
@@ -96,7 +109,7 @@ export function useConsents() {
     return { ok: true, data: true };
   }, [userId, load]);
 
-  return { granted, accessTo, connections, loading, reload: load, grant, revoke };
+  return { granted, accessTo, connections, loading, fallo, reload: load, grant, revoke };
 }
 
 // ── Expediente concreto ────────────────────────────────────────────────────────
@@ -106,6 +119,7 @@ export function useClinicalRecord(patientId: string, providerId?: string) {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(true);
+  const [falloExpediente, setFalloExpediente] = useState(false);
 
   // Para el chat: el "hilo" es (patient, provider). Si el usuario es el especialista, es él.
   const threadProvider = isConsumer ? providerId : userId;
@@ -117,15 +131,21 @@ export function useClinicalRecord(patientId: string, providerId?: string) {
       supabase.from('clinical_entries').select('*').eq('patient_id', patientId).order('created_at', { ascending: false }),
       supabase.from('home_tasks').select('*').eq('patient_id', patientId).order('created_at', { ascending: false }),
     ]);
+    // Un expediente clinico que se ve vacio porque fallo la consulta es lo
+    // ultimo que puede pasar aqui: quien lo consulta concluiria que no hay
+    // antecedentes. (Repaso adversario, 20 oct 2026.)
+    if (e.error || t.error) { setFalloExpediente(true); setLoading(false); return; }
+    setFalloExpediente(false);
     setEntries(e.data ?? []);
     setTasks(t.data ?? []);
     if (threadProvider) {
-      const { data } = await supabase
+      const { data, error } = await supabase
         .from('clinical_messages')
         .select('*')
         .eq('patient_id', patientId)
         .eq('provider_id', threadProvider)
         .order('created_at');
+      if (error) { setFalloExpediente(true); setLoading(false); return; }
       setMessages(data ?? []);
     }
     setLoading(false);
@@ -169,5 +189,5 @@ export function useClinicalRecord(patientId: string, providerId?: string) {
     return { ok: true, data: true };
   }, [userId, threadProvider, patientId, load]);
 
-  return { entries, tasks, messages, loading, reload: load, addEntry, addTask, toggleTask, sendMessage };
+  return { entries, tasks, messages, loading, fallo: falloExpediente, reload: load, addEntry, addTask, toggleTask, sendMessage };
 }

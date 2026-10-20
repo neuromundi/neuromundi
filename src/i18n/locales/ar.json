@@ -4007,7 +4007,8 @@
     "searchLabel": "ابحث عن عضو",
     "searchPlaceholder": "رقم العضوية، الاسم الأول أو الأخير…",
     "searching": "جارٍ البحث…",
-    "toName": "إلى: {{name}}"
+    "toName": "إلى: {{name}}",
+    "sentButNoThread": "تم إرسال رسالتك. ستظهر المحادثة في صندوقك بعد قليل."
   },
   "book": {
     "title": "احجز موعدك",

@@ -7,7 +7,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Megaphone, Send } from 'lucide-react';
-import { Button, useToast, SkeletonCard, HowTo } from '@/components/ui';
+import { Button, useToast, SkeletonCard, HowTo, AvisoDeFallo } from '@/components/ui';
 import { useCampaigns, type CampaignAudience, type CampaignChannel } from '@/hooks/useWaitlist';
 import { formatDate, cn } from '@/lib/utils';
 
@@ -20,7 +20,7 @@ const AUDIENCES: CampaignAudience[] = ['waitlist', 'patients'];
 export function CampaignsPanel() {
   const { t } = useTranslation();
   const toast = useToast();
-  const { items, loading, createAndSend } = useCampaigns();
+  const { items, loading, fallo, recortado, tope, reload, createAndSend } = useCampaigns();
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
   const [channels, setChannels] = useState<CampaignChannel[]>(['push']);
@@ -103,10 +103,17 @@ export function CampaignsPanel() {
 
       {loading ? (
         <SkeletonCard rows={2} />
+      ) : fallo ? (
+        <AvisoDeFallo onRetry={() => void reload()} />
       ) : items.length === 0 ? (
         <p className="rounded-2xl border border-dashed border-slate-200 p-6 text-center text-sm text-muted">{t('camp.empty')}</p>
       ) : (
         <ul className="space-y-2">
+          {recortado && (
+            <li className="rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900">
+              {t('common.recortado', { tope })}
+            </li>
+          )}
           {items.map((c) => (
             <li key={c.id} className="rounded-2xl border border-slate-100 p-3">
               <p className="font-semibold text-slate-900">{c.title}</p>

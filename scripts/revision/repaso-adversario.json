@@ -504,9 +504,10 @@
         "el tope del blog ya se habia subido de 60 a 300 en una correccion anterior, por haber perdido ocho entradas en silencio"
       ],
       "hallazgos_abiertos": [],
-      "fecha": "2026-10-19",
+      "fecha": "2026-10-20",
       "quien": "Claude",
-      "huella": "86de3d2c5a43702d"
+      "huella": "93d7a3551cd5837a",
+      "notas": " (20 oct, tanda mecanica: se aplico a esta pantalla el mismo arreglo de la familia -distinguir «no se pudo» de «no hay»- y se revalido la huella.)"
     },
     {
       "pantalla": "/academy",
@@ -521,10 +522,10 @@
         "el error de carga se tiraba, asi que un fallo quedaba igual que \"no hay nada\" y la pantalla lo decia. Corregido con AvisoDeFallo, el componente que YA existia desde el 15 de octubre para esto y que no se habia aplicado aqui"
       ],
       "hallazgos_abiertos": [],
-      "fecha": "2026-10-19",
+      "fecha": "2026-10-20",
       "quien": "Claude",
-      "huella": "bf8357e3e3a9d7c6",
-      "notas": "(19 oct: se blindaron sus listas de i18n con listaDeTextos; repaso revalidado.)"
+      "huella": "867a567e58d00660",
+      "notas": "(19 oct: se blindaron sus listas de i18n con listaDeTextos; repaso revalidado.) (20 oct, tanda mecanica: se aplico a esta pantalla el mismo arreglo de la familia -distinguir «no se pudo» de «no hay»- y se revalido la huella.)"
     },
     {
       "pantalla": "/autor/:id",
@@ -539,9 +540,10 @@
         "decia \"todavia no ha publicado nada\" cuando la carga fallaba. Decirle eso a quien escribe es peor que no decir nada. Corregido"
       ],
       "hallazgos_abiertos": [],
-      "fecha": "2026-10-19",
+      "fecha": "2026-10-20",
       "quien": "Claude",
-      "huella": "f69620f188eac0c2"
+      "huella": "5516b723975a9e02",
+      "notas": " (20 oct, tanda mecanica: se aplico a esta pantalla el mismo arreglo de la familia -distinguir «no se pudo» de «no hay»- y se revalido la huella.)"
     },
     {
       "pantalla": "/eventos",
@@ -573,9 +575,10 @@
         "decia \"curso no encontrado\" ante cualquier error, incluido un fallo de red. Ahora se distingue por el codigo PGRST116, que es el unico que significa de verdad \"no hay filas\""
       ],
       "hallazgos_abiertos": [],
-      "fecha": "2026-10-19",
+      "fecha": "2026-10-20",
       "quien": "Claude",
-      "huella": "5027bb6d7fa83b28"
+      "huella": "ad95f984eb67ec37",
+      "notas": " (20 oct, tanda mecanica: se aplico a esta pantalla el mismo arreglo de la familia -distinguir «no se pudo» de «no hay»- y se revalido la huella.)"
     },
     {
       "pantalla": "/contenido/:id",
@@ -592,9 +595,10 @@
         "el registro de la vista del articulo es un upsert idempotente cuyo resultado se ignora a proposito: si falla, la vista no se cuenta y nadie se entera. Es el mismo patron que dejo el conteo de visitas del directorio en cero durante meses, pero aqui el dato es solo informativo"
       ],
       "hallazgos_abiertos": [],
-      "fecha": "2026-10-19",
+      "fecha": "2026-10-20",
       "quien": "Claude",
-      "huella": "bc9268a5f6dec7bf"
+      "huella": "b4d060b4d4768c3e",
+      "notas": " (20 oct, tanda mecanica: se aplico a esta pantalla el mismo arreglo de la familia -distinguir «no se pudo» de «no hay»- y se revalido la huella.)"
     },
     {
       "pantalla": "/reservar/:memberNo",
@@ -801,9 +805,9 @@
         "src/pages/Messages.tsx",
         "src/hooks/useMessages.ts"
       ],
-      "notas": "El buzon decia «no tienes conversaciones» y un hilo se veia sin mensajes cuando la lectura fallaba. Y el tope de 300 mensajes se pedia ASCENDENTE, asi que una conversacion larga ensenaba los 300 mas antiguos y escondia los recientes.",
-      "fecha": "2026-10-19",
-      "huella": "36fcb7673b26258b"
+      "notas": "El buzon decia «no tienes conversaciones» y un hilo se veia sin mensajes cuando la lectura fallaba. Y el tope de 300 mensajes se pedia ASCENDENTE, asi que una conversacion larga ensenaba los 300 mas antiguos y escondia los recientes. (20 oct, tanda mecanica: se aplico a esta pantalla el mismo arreglo de la familia -distinguir «no se pudo» de «no hay»- y se revalido la huella.)",
+      "fecha": "2026-10-20",
+      "huella": "756d0b225cb02020"
     },
     {
       "pantalla": "/pregunta-al-experto",
@@ -976,9 +980,9 @@
         "src/hooks/useJobOpenings.ts",
         "src/components/provider/JobsPanel.tsx"
       ],
-      "notas": "La parte publica ya avisaba del fallo. La de la empresa no: decia «no tienes vacantes publicadas» cuando no se podian leer, y a las empresas les corre un plazo de 45 dias sin publicar que limita la cuenta.",
+      "notas": "La parte publica ya avisaba del fallo. La de la empresa no: decia «no tienes vacantes publicadas» cuando no se podian leer, y a las empresas les corre un plazo de 45 dias sin publicar que limita la cuenta. (20 oct, tanda mecanica: se aplico a esta pantalla el mismo arreglo de la familia -distinguir «no se pudo» de «no hay»- y se revalido la huella.)",
       "fecha": "2026-10-20",
-      "huella": "d41e358fe3b2d532"
+      "huella": "a44afb7a58e3c85e"
     },
     {
       "pantalla": "/soporte",
@@ -1026,9 +1030,9 @@
         "src/components/admin/AdminMembers.tsx",
         "src/hooks/useAdminMembers.ts"
       ],
-      "notas": "El boton de descarga exportaba las filas visibles con nombre de respaldo completo, y la consulta pedia 300 filas sin decirlo en ninguna parte. Ahora el tope se publica en pantalla y el nombre del CSV dice «(primeros N)» cuando esta recortado. Medido el 20 oct 2026: hay 6 cuentas, asi que el tope todavia no recorta; con 1,121 invitaciones por enviar, lo hara en campana. La funcion de la base nunca devuelve mas de 1,000 aunque se le pidan mas: paginarla es trabajo aparte y lo decide Enyoria.",
+      "notas": "El boton de descarga exportaba las filas visibles con nombre de respaldo completo, y la consulta pedia 300 filas sin decirlo en ninguna parte. Ahora el tope se publica en pantalla y el nombre del CSV dice «(primeros N)» cuando esta recortado. Medido el 20 oct 2026: hay 6 cuentas, asi que el tope todavia no recorta; con 1,121 invitaciones por enviar, lo hara en campana. La funcion de la base nunca devuelve mas de 1,000 aunque se le pidan mas: paginarla es trabajo aparte y lo decide Enyoria. (20 oct, tanda mecanica: se aplico a esta pantalla el mismo arreglo de la familia -distinguir «no se pudo» de «no hay»- y se revalido la huella.)",
       "fecha": "2026-10-20",
-      "huella": "92e25c0112c7938a"
+      "huella": "f951bfef93fdaf91"
     },
     {
       "pantalla": "admin:messages",
@@ -1085,9 +1089,9 @@
         "src/components/admin/AdminDonations.tsx",
         "src/hooks/useAdminDonations.ts"
       ],
-      "notas": "Son donaciones: unos totales en cero por un fallo de lectura se leen como «no ha entrado nada», y ese es un dato que se reporta hacia afuera. Tambien la lista de aliados.",
+      "notas": "Son donaciones: unos totales en cero por un fallo de lectura se leen como «no ha entrado nada», y ese es un dato que se reporta hacia afuera. Tambien la lista de aliados. (20 oct, tanda mecanica: se aplico a esta pantalla el mismo arreglo de la familia -distinguir «no se pudo» de «no hay»- y se revalido la huella.)",
       "fecha": "2026-10-20",
-      "huella": "5e4683041c877145"
+      "huella": "d158af07b6f864da"
     },
     {
       "pantalla": "admin:founders",
@@ -1105,9 +1109,9 @@
         "src/components/admin/AdminHeroCarousel.tsx",
         "src/hooks/useHeroSlides.ts"
       ],
-      "notas": "«No hay escenas» cuando no se pudieron leer: el admin podia volver a cargar las mismas imagenes del carrusel.",
+      "notas": "«No hay escenas» cuando no se pudieron leer: el admin podia volver a cargar las mismas imagenes del carrusel. (20 oct, tanda mecanica: se aplico a esta pantalla el mismo arreglo de la familia -distinguir «no se pudo» de «no hay»- y se revalido la huella.)",
       "fecha": "2026-10-20",
-      "huella": "04eac1a91622ca09"
+      "huella": "fc2e89d1c3d7651a"
     },
     {
       "pantalla": "admin:accounts",

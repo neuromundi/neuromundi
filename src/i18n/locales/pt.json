@@ -4007,7 +4007,8 @@
     "searchLabel": "Buscar membro",
     "searchPlaceholder": "Folio, nome ou sobrenome…",
     "searching": "Buscando…",
-    "toName": "Para: {{name}}"
+    "toName": "Para: {{name}}",
+    "sentButNoThread": "Sua mensagem foi enviada. A conversa aparecerá na sua caixa em instantes."
   },
   "book": {
     "title": "Agende sua consulta",

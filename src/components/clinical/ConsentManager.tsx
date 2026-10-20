@@ -4,15 +4,18 @@
  */
 import { useTranslation } from 'react-i18next';
 import { ShieldCheck, ShieldOff } from 'lucide-react';
-import { Button, SkeletonCard, useToast } from '@/components/ui';
+import { Button, SkeletonCard, useToast, AvisoDeFallo } from '@/components/ui';
 import { useConsents } from '@/hooks/useClinical';
 
 export function ConsentManager({ onPick }: { onPick?: (providerId: string, name: string) => void }) {
   const { t } = useTranslation();
   const toast = useToast();
-  const { granted, connections, loading, grant, revoke } = useConsents();
+  const { granted, connections, loading, fallo, reload, grant, revoke } = useConsents();
 
   if (loading) return <SkeletonCard rows={2} />;
+  // Esta pantalla afirma QUIEN tiene acceso al expediente. Si no se pudo leer,
+  // no se afirma nada. (Repaso adversario, 20 oct 2026.)
+  if (fallo) return <AvisoDeFallo onRetry={() => void reload()} />;
 
   const activeIds = new Set(granted.filter((g) => g.status === 'active').map((g) => g.provider.id));
   const notGranted = connections.filter((c) => !activeIds.has(c.id));

@@ -4007,7 +4007,8 @@
     "searchLabel": "搜索会员",
     "searchPlaceholder": "编号、名或姓…",
     "searching": "搜索中…",
-    "toName": "收件人：{{name}}"
+    "toName": "收件人：{{name}}",
+    "sentButNoThread": "您的消息已发送。对话稍后会出现在您的收件箱中。"
   },
   "book": {
     "title": "预约",

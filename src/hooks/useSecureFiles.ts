@@ -19,6 +19,7 @@ export function useSecureFiles(patientId: string) {
   const { userId } = useAuth();
   const [files, setFiles] = useState<SecureFile[]>([]);
   const [loading, setLoading] = useState(true);
+  const [fallo, setFallo] = useState(false);
 
   // Publica la llave pública del usuario si aún no está (necesaria para recibir).
   useEffect(() => {
@@ -33,7 +34,12 @@ export function useSecureFiles(patientId: string) {
   const load = useCallback(async () => {
     if (!patientId) return;
     setLoading(true);
-    const { data } = await supabase.from('secure_files').select('*').eq('patient_id', patientId).order('created_at', { ascending: false });
+    const { data, error } = await supabase.from('secure_files').select('*').eq('patient_id', patientId).order('created_at', { ascending: false });
+    // Son archivos CIFRADOS de un expediente. «No hay archivos» cuando no se
+    // pudieron leer llevaria a volver a pedirlos o a darlos por perdidos.
+    // (Repaso adversario, 20 oct 2026.)
+    if (error) { setFallo(true); setLoading(false); return; }
+    setFallo(false);
     setFiles(data ?? []);
     setLoading(false);
   }, [patientId]);
@@ -144,5 +150,5 @@ export function useSecureFiles(patientId: string) {
     return { ok: true, data: true };
   }, [load]);
 
-  return { files, loading, reload: load, upload, download, remove };
+  return { files, loading, fallo, reload: load, upload, download, remove };
 }

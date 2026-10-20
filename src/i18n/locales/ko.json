@@ -4007,7 +4007,8 @@
     "searchLabel": "회원 검색",
     "searchPlaceholder": "회원번호, 이름 또는 성…",
     "searching": "검색 중…",
-    "toName": "받는 사람: {{name}}"
+    "toName": "받는 사람: {{name}}",
+    "sentButNoThread": "메시지를 보냈습니다. 대화는 곧 받은함에 표시됩니다."
   },
   "book": {
     "title": "예약하기",

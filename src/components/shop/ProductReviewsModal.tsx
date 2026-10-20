@@ -7,7 +7,7 @@
  */
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Modal, Button, useToast, StarRating } from '@/components/ui';
+import { Modal, Button, useToast, StarRating, AvisoDeFallo } from '@/components/ui';
 import { useAuth } from '@/hooks/useAuth';
 import { useProductReviews } from '@/hooks/useProductReviews';
 import { formatDate } from '@/lib/utils';
@@ -24,7 +24,7 @@ export function ProductReviewsModal({
   const { t } = useTranslation();
   const toast = useToast();
   const { isAuthenticated } = useAuth();
-  const { reviews, summary, myReview, loading, saving, submitReview, deleteReview } =
+  const { reviews, summary, myReview, loading, fallo, reload, saving, submitReview, deleteReview } =
     useProductReviews(productId);
   const [rating, setRating] = useState(myReview?.rating ?? 0);
   const [comment, setComment] = useState(myReview?.comment ?? '');
@@ -88,6 +88,8 @@ export function ProductReviewsModal({
         {/* Lista de reseñas */}
         {loading ? (
           <p className="text-sm text-muted">{t('common.loading')}</p>
+        ) : fallo ? (
+          <AvisoDeFallo onRetry={() => void reload()} />
         ) : reviews.length === 0 ? (
           <p className="text-sm text-muted">{t('shop.beFirst')}</p>
         ) : (

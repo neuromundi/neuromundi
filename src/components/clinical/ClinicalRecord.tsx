@@ -6,7 +6,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FilePlus, CheckSquare, Square, Send, Upload, Download, Trash2, Lock } from 'lucide-react';
-import { Button, SkeletonCard, useToast } from '@/components/ui';
+import { Button, SkeletonCard, useToast, AvisoDeFallo } from '@/components/ui';
 import { useAuth } from '@/hooks/useAuth';
 import { useClinicalRecord } from '@/hooks/useClinical';
 import { useSecureFiles } from '@/hooks/useSecureFiles';
@@ -17,7 +17,7 @@ export function ClinicalRecord({ patientId, providerId }: { patientId: string; p
   const { t } = useTranslation();
   const toast = useToast();
   const { userId, isConsumer } = useAuth();
-  const { entries, tasks, messages, loading, addEntry, addTask, toggleTask, sendMessage } = useClinicalRecord(patientId, providerId);
+  const { entries, tasks, messages, loading, fallo, reload, addEntry, addTask, toggleTask, sendMessage } = useClinicalRecord(patientId, providerId);
   const files = useSecureFiles(patientId);
 
   const recipientId = isConsumer ? providerId : patientId;
@@ -30,6 +30,10 @@ export function ClinicalRecord({ patientId, providerId }: { patientId: string; p
   const [expiry, setExpiry] = useState('30');
 
   if (loading) return <SkeletonCard rows={4} />;
+  // Un expediente clinico que se ve vacio por un fallo de consulta llevaria a
+  // concluir que no hay antecedentes. No se pinta nada hasta saberlo.
+  // (Repaso adversario, 20 oct 2026.)
+  if (fallo) return <AvisoDeFallo onRetry={() => void reload()} />;
 
   return (
     <div className="space-y-6">
@@ -150,7 +154,9 @@ export function ClinicalRecord({ patientId, providerId }: { patientId: string; p
             <option value="0">{t('clin.noExpiry')}</option>
           </select>
         </div>
-        {files.files.length === 0 ? (
+        {files.fallo ? (
+          <AvisoDeFallo onRetry={() => void files.reload()} />
+        ) : files.files.length === 0 ? (
           <p className="text-sm text-muted">{t('clin.noFiles')}</p>
         ) : (
           <ul className="space-y-2">

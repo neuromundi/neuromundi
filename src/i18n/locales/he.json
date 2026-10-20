@@ -4007,7 +4007,8 @@
     "searchLabel": "חפש חבר",
     "searchPlaceholder": "מספר חבר, שם פרטי או משפחה…",
     "searching": "מחפש…",
-    "toName": "אל: {{name}}"
+    "toName": "אל: {{name}}",
+    "sentButNoThread": "ההודעה נשלחה. השיחה תופיע בתיבה שלך בעוד רגע."
   },
   "book": {
     "title": "קבע את התור שלך",

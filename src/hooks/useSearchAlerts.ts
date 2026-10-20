@@ -18,14 +18,19 @@ export function useSearchAlerts() {
   const { userId } = useAuth();
   const [alerts, setAlerts] = useState<SearchAlert[]>([]);
   const [loading, setLoading] = useState(true);
+  const [fallo, setFallo] = useState(false);
 
   const load = useCallback(async () => {
     if (!userId) { setAlerts([]); setLoading(false); return; }
     setLoading(true);
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from('search_alerts')
       .select('id, country, category_id, city')
       .order('created_at', { ascending: false });
+    // «No tienes avisos guardados» cuando no se pudieron leer: se crearia otra
+    // vez el mismo aviso. (Repaso adversario, 20 oct 2026.)
+    if (error) { setFallo(true); setLoading(false); return; }
+    setFallo(false);
     setAlerts((data as SearchAlert[] | null) ?? []);
     setLoading(false);
   }, [userId]);
@@ -62,5 +67,5 @@ export function useSearchAlerts() {
     [load],
   );
 
-  return { alerts, loading, reload: load, create, remove };
+  return { fallo, alerts, loading, reload: load, create, remove };
 }

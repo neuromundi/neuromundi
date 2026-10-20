@@ -6,7 +6,7 @@
 import { useTranslation } from 'react-i18next';
 import { ShieldAlert } from 'lucide-react';
 import { useMyReports } from '@/hooks/useMyReports';
-import { SkeletonCard } from '@/components/ui';
+import { SkeletonCard, AvisoDeFallo } from '@/components/ui';
 import { formatDate } from '@/lib/utils';
 
 const STATUS_STYLE: Record<string, string> = {
@@ -18,9 +18,10 @@ const STATUS_STYLE: Record<string, string> = {
 
 export function MyReports() {
   const { t } = useTranslation();
-  const { reports, loading } = useMyReports();
+  const { reports, loading, fallo, reload } = useMyReports();
 
   if (loading) return <SkeletonCard rows={1} />;
+  if (fallo) return <AvisoDeFallo onRetry={() => void reload()} />;
   if (reports.length === 0) return null;
 
   return (

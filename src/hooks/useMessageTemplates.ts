@@ -17,15 +17,20 @@ export function useMessageTemplates(enabled: boolean) {
   const { userId } = useAuth();
   const [templates, setTemplates] = useState<MessageTemplate[]>([]);
   const [loading, setLoading] = useState(true);
+  const [fallo, setFallo] = useState(false);
 
   const load = useCallback(async () => {
     if (!enabled || !userId) { setTemplates([]); setLoading(false); return; }
     setLoading(true);
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from('message_templates')
       .select('id, title, body, sort_order')
       .order('sort_order', { ascending: true })
       .order('created_at', { ascending: true });
+    // «No tienes plantillas» cuando no se pudieron leer: se volverian a
+    // escribir las que ya existen. (Repaso adversario, 20 oct 2026.)
+    if (error) { setFallo(true); setLoading(false); return; }
+    setFallo(false);
     setTemplates((data as MessageTemplate[] | null) ?? []);
     setLoading(false);
   }, [enabled, userId]);
@@ -56,5 +61,5 @@ export function useMessageTemplates(enabled: boolean) {
     [load],
   );
 
-  return { templates, loading, reload: load, create, remove };
+  return { fallo, templates, loading, reload: load, create, remove };
 }

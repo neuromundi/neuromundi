@@ -21,14 +21,19 @@ export interface AdminBadge {
 export function useAdminMemberBadges() {
   const [badges, setBadges] = useState<AdminBadge[]>([]);
   const [loading, setLoading] = useState(true);
+  // «No hay distintivos cargados» cuando no se pudieron leer: el admin volveria
+  // a subir los que ya estan. (Repaso adversario, 20 oct 2026.)
+  const [fallo, setFallo] = useState(false);
 
   const load = useCallback(async () => {
     setLoading(true);
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from('member_badges')
       .select('*')
       .order('member_type', { ascending: true })
       .order('badge_key', { ascending: true });
+    if (error) { setFallo(true); setLoading(false); return; }
+    setFallo(false);
     setBadges((data as AdminBadge[] | null) ?? []);
     setLoading(false);
   }, []);
@@ -66,5 +71,5 @@ export function useAdminMemberBadges() {
     return true;
   }, [load]);
 
-  return { badges, loading, reload: load, upload, setActive, remove };
+  return { badges, loading, fallo, reload: load, upload, setActive, remove };
 }

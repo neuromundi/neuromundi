@@ -18,6 +18,9 @@ export type FeedItem = Post & { rating: PostRating | null };
 
 async function ratingsFor(ids: string[]): Promise<Record<string, PostRating>> {
   if (ids.length === 0) return {};
+  // Si esta lectura falla, las publicaciones se pintan SIN calificacion (que es
+  // lo correcto: no se inventan estrellas) y la lista sigue en pie. Lo que no
+  // se hace es tratar la falta de calificaciones como un cero.
   const { data } = await supabase.from('public_post_ratings').select('*').in('post_id', ids);
   const map: Record<string, PostRating> = {};
   // post_id puede venir nulo en la vista; sin identificador no hay a qué asociarlo.
@@ -30,11 +33,16 @@ export function useContent() {
   const { userId } = useAuth();
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
+  // «No has publicado nada» cuando no se pudo leer: el autor podia volver a
+  // escribir algo que ya tenia. (Repaso adversario, 20 oct 2026.)
+  const [fallo, setFallo] = useState(false);
 
   const load = useCallback(async () => {
     if (!userId) return;
     setLoading(true);
-    const { data } = await supabase.from('content_posts').select('*').eq('author_id', userId).order('created_at', { ascending: false });
+    const { data, error } = await supabase.from('content_posts').select('*').eq('author_id', userId).order('created_at', { ascending: false });
+    if (error) { setFallo(true); setLoading(false); return; }
+    setFallo(false);
     setPosts(data ?? []);
     setLoading(false);
   }, [userId]);
@@ -72,29 +80,32 @@ export function useContent() {
     return { ok: true, data: true };
   }, [load]);
 
-  return { posts, loading, reload: load, create, togglePublish, remove };
+  return { posts, loading, fallo, reload: load, create, togglePublish, remove };
 }
 
 // ── Feed (consumidores) ────────────────────────────────────────────────────────
 export function useContentFeed() {
   const [items, setItems] = useState<FeedItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [fallo, setFallo] = useState(false);
 
   useEffect(() => {
     let vivo = true;
     (async () => {
-      const { data } = await supabase.from('content_posts').select('*').eq('is_published', true).order('created_at', { ascending: false }).limit(30);
+      const { data, error } = await supabase.from('content_posts').select('*').eq('is_published', true).order('created_at', { ascending: false }).limit(30);
+      if (error) { if (vivo) { setFallo(true); setLoading(false); } return; }
       const posts = data ?? [];
       const map = await ratingsFor(posts.map((p) => p.id));
       // (Auditoría 15 oct 2026, hallazgo M-4.)
       if (!vivo) return;
+      setFallo(false);
       setItems(posts.map((p) => ({ ...p, rating: map[p.id] ?? null })));
       setLoading(false);
     })();
     return () => { vivo = false; };
   }, []);
 
-  return { items, loading };
+  return { items, loading, fallo };
 }
 
 // ── Publicación individual ─────────────────────────────────────────────────────

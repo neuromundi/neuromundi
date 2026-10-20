@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { listaDeTextos } from '@/lib/listaDeTextos';
 import { Plus, Eye, EyeOff, Trash2, FolderPlus, FilePlus } from 'lucide-react';
-import { Button, SkeletonCard, useToast, useConfirm, HowTo} from '@/components/ui';
+import { Button, SkeletonCard, useToast, useConfirm, HowTo, AvisoDeFallo } from '@/components/ui';
 import { SectionPicker } from '@/components/common/SectionPicker';
 import { useCourseAuthor } from '@/hooks/useAcademy';
 
@@ -19,7 +19,7 @@ export function CourseManager() {
   const { t } = useTranslation();
   const toast = useToast();
   const confirmDialog = useConfirm();
-  const { courses, loading, createCourse, updateCourse, togglePublish, remove, addModule, addLesson } = useCourseAuthor();
+  const { courses, loading, fallo, reload, createCourse, updateCourse, togglePublish, remove, addModule, addLesson } = useCourseAuthor();
 
   const levelOptions = listaDeTextos(t, 'lms.levels');
 
@@ -72,7 +72,9 @@ export function CourseManager() {
         </div>
       )}
 
-      {courses.length === 0 ? (
+      {fallo ? (
+        <AvisoDeFallo onRetry={() => void reload()} />
+      ) : courses.length === 0 ? (
         <p className="text-sm text-muted">{t('lms.empty')}</p>
       ) : (
         <ul className="space-y-2">

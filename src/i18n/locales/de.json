@@ -4007,7 +4007,8 @@
     "searchLabel": "Mitglied suchen",
     "searchPlaceholder": "Folio, Vor- oder Nachname…",
     "searching": "Suche…",
-    "toName": "An: {{name}}"
+    "toName": "An: {{name}}",
+    "sentButNoThread": "Ihre Nachricht wurde gesendet. Die Unterhaltung erscheint in Kürze in Ihrem Postfach."
   },
   "book": {
     "title": "Termin buchen",

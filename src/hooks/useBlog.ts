@@ -64,6 +64,9 @@ export function useBlogRecommendations(limit = 6) {
   const { userId } = useAuth();
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
+  // Sin esto, un fallo de la consulta dejaba la seccion de recomendados vacia
+  // como si no hubiera nada publicado. (Repaso adversario, 20 oct 2026.)
+  const [fallo, setFallo] = useState(false);
 
   useEffect(() => {
     let vivo = true;
@@ -72,15 +75,17 @@ export function useBlogRecommendations(limit = 6) {
       // encima de la nueva. (Auditoría 15 oct 2026, hallazgo M-4.)
     (async () => {
       setLoading(true);
-      const { data } = await supabase.rpc('recommend_blog', { p_limit: limit });
+      const { data, error } = await supabase.rpc('recommend_blog', { p_limit: limit });
       if (!vivo) return;
+      if (error) { setFallo(true); setLoading(false); return; }
+      setFallo(false);
       setPosts((data as BlogPost[]) ?? []);
       setLoading(false);
     })();
     return () => { vivo = false; };
   }, [limit, userId]);
 
-  return { posts, loading };
+  return { posts, loading, fallo };
 }
 
 export function useAuthorPosts(authorId: string) {

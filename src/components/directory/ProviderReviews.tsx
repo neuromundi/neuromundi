@@ -8,7 +8,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MessageSquareQuote, CornerDownRight } from 'lucide-react';
-import { StarRating, SkeletonCard } from '@/components/ui';
+import { StarRating, SkeletonCard, AvisoDeFallo } from '@/components/ui';
 import { supabase } from '@/lib/supabase';
 import { formatDate } from '@/lib/utils';
 
@@ -25,26 +25,43 @@ export function ProviderReviews({ providerId, providerName }: { providerId: stri
   const { t } = useTranslation();
   const [items, setItems] = useState<PublicComment[]>([]);
   const [loading, setLoading] = useState(true);
+  // «Este prestador no tiene resenas» cuando lo que paso es que no se pudieron
+  // leer: en el perfil publico eso afecta a como se le ve. (Repaso adversario,
+  // 20 oct 2026.)
+  const [fallo, setFallo] = useState(false);
+  const [recarga, setRecarga] = useState(0);
 
   useEffect(() => {
     let alive = true;
     (async () => {
-      const { data } = await supabase
+      const { data, error } = await supabase
         .from('public_provider_comments')
         .select('id, comments, created_at, overall, provider_response, provider_response_at')
         .eq('provider_id', providerId)
         .order('created_at', { ascending: false })
         .limit(20);
-      if (alive) {
-        setItems(((data as unknown as PublicComment[]) ?? []));
-        setLoading(false);
-      }
+      if (!alive) return;
+      if (error) { setFallo(true); setLoading(false); return; }
+      setFallo(false);
+      setItems(((data as unknown as PublicComment[]) ?? []));
+      setLoading(false);
     })();
     return () => { alive = false; };
-  }, [providerId]);
+  }, [providerId, recarga]);
 
   if (loading) return <SkeletonCard rows={2} />;
-  if (items.length === 0) return null; // sin reseñas, no ocupamos espacio.
+  // Sin reseñas no se ocupa espacio; pero si no se pudieron LEER, se dice.
+  if (fallo) {
+    return (
+      <section aria-label={t('reviews.title')}>
+        <h2 className="mb-3 flex items-center gap-2 text-lg font-bold text-slate-900">
+          <MessageSquareQuote className="h-5 w-5 text-brand-600" aria-hidden="true" /> {t('reviews.title')}
+        </h2>
+        <AvisoDeFallo onRetry={() => { setLoading(true); setRecarga((n) => n + 1); }} />
+      </section>
+    );
+  }
+  if (items.length === 0) return null;
 
   return (
     <section aria-label={t('reviews.title')}>

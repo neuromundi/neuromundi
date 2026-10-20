@@ -4007,7 +4007,8 @@
     "searchLabel": "メンバーを検索",
     "searchPlaceholder": "会員番号・氏名・姓…",
     "searching": "検索中…",
-    "toName": "宛先: {{name}}"
+    "toName": "宛先: {{name}}",
+    "sentButNoThread": "メッセージを送信しました。会話は間もなく受信箱に表示されます。"
   },
   "book": {
     "title": "予約する",

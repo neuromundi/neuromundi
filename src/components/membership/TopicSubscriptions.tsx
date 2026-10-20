@@ -7,7 +7,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BellPlus, Check } from 'lucide-react';
-import { Button, useToast } from '@/components/ui';
+import { Button, useToast, AvisoDeFallo } from '@/components/ui';
 import { useTopicSubscriptions, TOPIC_VALUES, type TopicValue } from '@/hooks/useTopicSubscriptions';
 import { useCountryLabel } from '@/lib/countryLabel';
 import { COUNTRIES } from '@/data/countries';
@@ -18,7 +18,7 @@ export function TopicSubscriptions() {
   const { t } = useTranslation();
   const countryLabel = useCountryLabel();
   const toast = useToast();
-  const { sub, loading, saving, save } = useTopicSubscriptions();
+  const { sub, loading, saving, fallo, save } = useTopicSubscriptions();
   const [topics, setTopics] = useState<TopicValue[] | null>(null);
   const [country, setCountry] = useState<string | null>(null);
   const [city, setCity] = useState<string | null>(null);
@@ -39,6 +39,10 @@ export function TopicSubscriptions() {
   };
 
   if (loading) return null;
+  // Si no se pudieron leer las suscripciones, la pantalla mostraba ninguna y
+  // dejaba guardar: ese clic borraba los temas de la persona. No se pinta el
+  // formulario hasta saber que hay. (Repaso adversario, 20 oct 2026.)
+  if (fallo) return <AvisoDeFallo />;
 
   return (
     <section className="rounded-2xl border border-slate-100 p-4">

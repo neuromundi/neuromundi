@@ -6,6 +6,8 @@
  */
 import { useCallback, useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
+import { logger } from '@/lib/utils';
+
 
 export interface HeroSlide {
   id: string;
@@ -23,12 +25,16 @@ export function useHeroSlides() {
   useEffect(() => {
     let cancelled = false;
     (async () => {
-      const { data } = await supabase
+      const { data, error } = await supabase
         .from('hero_slides')
         .select('id, image_url, captions, sort_order, is_active')
         .eq('is_active', true)
         .order('sort_order', { ascending: true });
       if (cancelled) return;
+      // La portada cae a su imagen por omision si no hay escenas; con un fallo
+      // de lectura hace lo mismo, que es lo correcto (no afirma nada), pero el
+      // error queda registrado en vez de desaparecer. (Repaso adversario.)
+      if (error) { logger.error('No se pudieron leer las escenas de la portada:', error.message); setLoading(false); return; }
       setSlides((data as HeroSlide[] | null) ?? []);
       setLoading(false);
     })();
