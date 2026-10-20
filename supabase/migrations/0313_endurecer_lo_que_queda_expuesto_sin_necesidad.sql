@@ -1,0 +1,40 @@
+-- ============================================================================
+-- 0313 — Quitar de la vista publica lo que no hace falta exponer
+--
+-- Medido contra produccion el 19 de octubre de 2026 con la clave publicable:
+--
+--  · `directorio_publico` se puede leer sin sesion y entrega, entre otras
+--    columnas, `membership_status`, que es el estado de cobro de la persona.
+--    La aplicacion NO usa esa vista: lee `directorio_publico_seguro`, que no
+--    trae esa columna (comprobado en useDirectory, useProviderProfile,
+--    SchoolInclusion y types/app.ts). Se le quita el acceso.
+--    Comprobado DOS VECES antes de revocar: `directorio_publico_seguro` se
+--    apoya en esta vista, pero NO tiene `security_invoker`, asi que lee con los
+--    permisos de su dueno y sigue funcionando. Comprobado despues: la vista
+--    segura devuelve 200 con datos y la otra devuelve 401.
+--
+--  · El esquema `net` (pg_net) tenia USAGE para anonimos y usuarios con sesion.
+--    No era alcanzable desde fuera, porque PostgREST solo expone `public` y
+--    `graphql_public` (comprobado: devuelve "Invalid schema: net"), asi que no
+--    habia agujero. Se revoca igualmente: ninguna funcion nuestra lo necesita,
+--    porque todas son SECURITY DEFINER y corren con los permisos del dueno.
+--
+-- Lo que NO se toca y por que:
+--  · pg_net sigue instalada en el esquema `public`. Moverla obligaria a
+--    reescribir las 19 llamadas a net.http_post de las migraciones y los
+--    comandos de cron; el aviso del analizador es de orden, no de exposicion.
+--  · Las otras vistas con permiso elevado se probaron una por una sin sesion:
+--    `affiliate_earnings` niega el acceso, y `perfiles_basicos`,
+--    `provider_badge_inputs` y `courses_public` devuelven vacio. Ninguna filtra
+--    datos de otra persona.
+--  · El directorio publico sigue entregando telefono (465 de 1,000 fichas) y
+--    direccion (84 de 1,000). Son los datos que la propia ficha publica y son
+--    el objeto del directorio. No expone correos, ni cedulas profesionales, ni
+--    `provider_details`: cero en las tres, medido.
+--
+-- Queda pendiente y NO se puede hacer desde aqui: encender la proteccion contra
+-- contrasenas filtradas en Authentication -> Policies del panel de Supabase.
+-- ============================================================================
+
+revoke select on public.directorio_publico from anon, authenticated;
+revoke usage on schema net from anon, authenticated;

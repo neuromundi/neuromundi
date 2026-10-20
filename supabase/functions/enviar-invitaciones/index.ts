@@ -757,7 +757,11 @@ Deno.serve(async (req: Request) => {
   const doSend = body.send === true;
   // Encuadre de fundador en el correo (por defecto sí, como el envío masivo).
   const fundador = body.fundador !== false;
-  const limit = Math.min(Math.max(Number(body.limit ?? 50), 1), 1000);
+  // El limite por omision era 50 SIEMPRE, asi que una llamada por tanda dejaba
+  // fuera, en silencio, las fichas que pasaran de 50 (la tanda 6 tiene 51).
+  // Cuando se pide una tanda, el valor por omision cubre la tanda completa.
+  const limitePorOmision = body.tanda ? 200 : 50;
+  const limit = Math.min(Math.max(Number(body.limit ?? limitePorOmision), 1), 1000);
   const segment = ['nuevos', 'ya_publico_social', 'ya_privado', 'todos'].includes(body.segment ?? '')
     ? (body.segment as string) : 'todos';
   const tipoCorreo = ['personal', 'institucional', 'todos'].includes(body.tipo_correo ?? '')
@@ -819,6 +823,10 @@ Deno.serve(async (req: Request) => {
     for (const r of rows) { porTanda[segmentOf(r)]++; r.correo_personal ? personal++ : institucional++; }
     return json(200, {
       dry_run: true, segment, tipo_correo: tipoCorreo, total: rows.length,
+      // Aviso explicito de corte: antes habia que adivinarlo comparando cifras.
+      limite_efectivo: limit,
+      se_cortaria: rows.length > limit,
+      quedarian_fuera: Math.max(0, rows.length - limit),
       por_tanda: porTanda, por_tipo_correo: { personal, institucional },
       // Remitente efectivo: permite comprobar CAMPAIGN_FROM antes de cada tanda
       // sin tener que mandar un correo de verdad.
@@ -856,5 +864,14 @@ Deno.serve(async (req: Request) => {
     } catch { fallidos++; }
     await sleep(700);
   }
-  return json(200, { ok: true, segment, tipo_correo: tipoCorreo, enviados, fallidos, procesados: lote.length });
+  const sinProcesar = Math.max(0, rows.length - lote.length);
+  return json(200, {
+    ok: true, segment, tipo_correo: tipoCorreo, enviados, fallidos,
+    procesados: lote.length,
+    // Si el lote se corto por el limite, se dice: antes quedaba oculto.
+    en_cola: rows.length, sin_procesar: sinProcesar,
+    nota: sinProcesar > 0
+      ? `Quedaron ${sinProcesar} sin enviar por el limite de ${limit}. Vuelva a llamar con la misma tanda para continuar.`
+      : 'La tanda quedo completa.',
+  });
 });

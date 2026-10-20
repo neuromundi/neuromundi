@@ -93,3 +93,8 @@ cloudflare-*.txt
 
 # Paquete temporal para correr las pruebas en Linux (scripts/empaquetar-fuente-para-pruebas.sh).
 fuente-para-pruebas.tar.gz
+
+# Copias de seguridad del sitio compilado: son para poder volver atras por FTP
+# sin esperar otra pasada de CI, no para versionarlas (pesan ~79 MB cada una).
+Copia buena del sitio/
+*.tgz
