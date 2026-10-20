@@ -376,7 +376,17 @@ function beneficios(r: Row, fundador = true): string {
       '🤝&nbsp; Publicar <b>oportunidades</b>: voluntariado, servicio social y empleo inclusivo.',
       '📣&nbsp; Anunciar sus <b>jornadas, talleres y campañas</b> en la sección de Eventos.',
     ];
-  } else if (pt === 'school' || pt === 'clinic') {
+  } else if (pt === 'school') {
+    // Las escuelas llevaban las vinetas de clinica ("recibir citas"), que no
+    // describen nada de lo que hace una escuela: inscribe alumnos, no agenda
+    // consultas. Y son las de la cuota mas alta del directorio (20 oct 2026).
+    items = [
+      '👪&nbsp; <b>Aparecer ante las familias</b> que buscan escuela o apoyo educativo inclusivo en su zona, con su ficha completa: teléfono, sitio, dirección y servicios.',
+      '💬&nbsp; <b>Solicitudes de informes e inscripción:</b> las familias le escriben desde su perfil y usted decide a cuáles responde.',
+      '🏅&nbsp; Obtener el <b>distintivo de Escuela Inclusiva</b> para su perfil, su sitio web y sus redes sociales.',
+      '📣&nbsp; Anunciar sus <b>jornadas de puertas abiertas, talleres para familias y actividades</b> en la sección de Eventos.',
+    ];
+  } else if (pt === 'clinic') {
     items = [
       '📅&nbsp; <b>Agenda y reservas en línea:</b> recibir citas directas, presenciales o en línea, desde su perfil.',
       '💬&nbsp; <b>Canal directo de contacto:</b> mensajería inmediata con pacientes, familias, clientes potenciales y otros miembros de la plataforma que buscan crear contactos y redes de colaboración.',
@@ -437,7 +447,14 @@ function beneficiosPT(r: Row, fundador = true): string {
       '🤝&nbsp; Publicar <b>oportunidades</b>: voluntariado, estágios e emprego inclusivo.',
       '📣&nbsp; Anunciar as suas <b>jornadas, oficinas e campanhas</b> na secção de Eventos.',
     ];
-  } else if (tp === 'school' || tp === 'clinic') {
+  } else if (tp === 'school') {
+    items = [
+      '👪&nbsp; <b>Aparecer perante as famílias</b> que procuram escola ou apoio educativo inclusivo na sua zona, com a ficha completa: telefone, site, morada e serviços.',
+      '💬&nbsp; <b>Pedidos de informação e inscrição:</b> as famílias escrevem-lhe a partir do seu perfil e é o senhor quem decide a quais responde.',
+      '🏅&nbsp; Obter o <b>distintivo de Escola Inclusiva</b> para o seu perfil, o seu site e as suas redes sociais.',
+      '📣&nbsp; Anunciar as suas <b>jornadas de portas abertas, oficinas para famílias e actividades</b> na secção de Eventos.',
+    ];
+  } else if (tp === 'clinic') {
     items = [
       '📅&nbsp; <b>Agenda e marcações online:</b> receber marcações directas, presenciais ou por vídeo, a partir do seu perfil.',
       '💬&nbsp; <b>Canal directo de contacto:</b> mensagens imediatas com utentes, famílias, potenciais clientes e outros membros da plataforma que procuram criar contactos e redes de colaboração.',
