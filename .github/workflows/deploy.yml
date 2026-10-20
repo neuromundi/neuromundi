@@ -43,7 +43,14 @@ concurrency:
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
+    # Version de la maquina FIJADA a proposito (20 oct 2026). GitHub avisa que
+    # la etiqueta ubuntu-latest migra a Ubuntu 26 a partir del 19 de octubre de
+    # 2026; esos cambios de imagen rompen compilaciones sin avisar -versiones
+    # distintas de las librerias del sistema, y react-snap depende de Chromium-.
+    # Fijandola, la migracion se hace cuando nosotros decidamos y no en medio de
+    # la campana. Al migrar: cambiar las DOS lineas (deploy.yml y funciones.yml)
+    # y comprobar que el build con prerender concluye.
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Traer el código

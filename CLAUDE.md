@@ -721,6 +721,20 @@ Al extraer lógica de una página a `src/lib`, **añade su test** (patrón: `*.t
   rebajado. El usuario NO puede editar su código ni su %: ambos son del admin.
 
 ## Despliegue
+
+### PENDIENTE: migrar la maquina de compilacion a Ubuntu 26
+Los dos flujos (`deploy.yml` y `funciones.yml`) tienen la version FIJADA en
+`ubuntu-24.04` desde el 20 de octubre de 2026, porque GitHub empezo a migrar la
+etiqueta `ubuntu-latest` a Ubuntu 26 el 19 de octubre y esos cambios de imagen
+rompen compilaciones sin avisar (react-snap depende de Chromium). La migracion
+queda pendiente **a proposito**, para hacerla fuera de la campana de
+invitaciones. Cuando se haga:
+1. Cambiar `runs-on` en las DOS lineas.
+2. Comprobar que `npm run build:prerender` concluye en el runner nuevo (es el
+   paso que depende de Chromium) y que la subida por FTP sigue funcionando.
+3. Si falla, volver a `ubuntu-24.04`: sigue con soporte hasta 2029, asi que no
+   hay prisa real.
+Aviso original: https://github.com/actions/runner-images/issues/14748
 - **CI/CD por GitHub Actions** (`.github/workflows/deploy.yml`): cada push a `main` (o
   `workflow_dispatch` manual) compila y **sube `dist/` a Hostinger por FTP**
   (`SamKirkland/FTP-Deploy-Action`, sincronización incremental, con reintento por si
