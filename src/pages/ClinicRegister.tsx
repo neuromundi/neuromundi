@@ -18,7 +18,7 @@ import { SectionsField } from '@/components/onboarding/SectionsField';
 import { RULES_VERSION } from '@/lib/legal';
 import { COUNTRIES, MEXICO_NAME } from '@/data/countries';
 import { MX_ESTADOS, MX_MUNICIPIOS } from '@/data/mxStatesMunicipalities';
-import { AGE_RANGES } from '@/data/specialistCatalog';
+import { AGE_RANGES, INTERVENTION_AREAS } from '@/data/specialistCatalog';
 import { useCountryField } from '@/hooks/useCountryField';
 import {
   CLINIC_MODALITIES, CLINIC_SPECIALTIES, CLINIC_SERVICES,
@@ -89,6 +89,11 @@ export function ClinicRegister({ onSuccess, complete = false }: { onSuccess?: ()
   const [clinicSpecialtyOther, setClinicSpecialtyOther] = useState('');
   const [ageRanges, toggleAge] = useToggleList();
   const [services, toggleService, setServices] = useToggleList();
+  // Areas de intervencion: obligatorias para una clinica, que atiende personas.
+  // (Decision de Enyoria, 20 oct 2026; el servidor tambien las exige al
+  // publicar, migracion 0315.)
+  const [areas, toggleArea] = useToggleList();
+  const [areaOther, setAreaOther] = useState('');
   const [clinicServiceOther, setClinicServiceOther] = useState('');
   // 3b. Servicios diagnósticos (gabinete / laboratorio) + indicaciones automatizadas
   const [diagServices, setDiagServices] = useState<string[]>([]);
@@ -190,6 +195,8 @@ export function ClinicRegister({ onSuccess, complete = false }: { onSuccess?: ()
     if (step === 2) {
       if (specialties.includes('otro') && !clinicSpecialtyOther.trim()) m.push(t('reg.miss.otherSpecify'));
       if (services.includes('otro') && !clinicServiceOther.trim()) m.push(t('reg.miss.otherSpecify'));
+      if (areas.length === 0) m.push(t('reg.miss.areas'));
+      if (areas.includes('otro') && !areaOther.trim()) m.push(t('reg.miss.otherSpecify'));
     }
     if (step === 5) {
       if (!country) m.push(t('reg.miss.country'));
@@ -218,6 +225,7 @@ export function ClinicRegister({ onSuccess, complete = false }: { onSuccess?: ()
     setFounderOptoutFlag(!wantsFounder);
     setBusy(true);
     const details: Record<string, unknown> = { services, categories };
+    if (areaOther.trim()) details.area_other = areaOther.trim();
     if (clinicSpecialtyOther.trim()) details.specialty_other = clinicSpecialtyOther.trim();
     if (clinicServiceOther.trim()) details.service_other = clinicServiceOther.trim();
     // Servicios diagnósticos (gabinete / laboratorio) y sus campos dinámicos
@@ -269,7 +277,7 @@ export function ClinicRegister({ onSuccess, complete = false }: { onSuccess?: ()
       instagram: instagram || null, tiktok: tiktok || null, facebook: facebook || null, linkedin: linkedin || null,
       country: country || null, state: isMexico ? stateName : null, municipality: isMexico ? municipality : null,
       address: address || null,
-      specialties, ageRanges, modalities, providerDetails: details,
+      specialties, ageRanges, modalities, interventionAreas: areas, providerDetails: details,
       sections, neuroConditions,
       rulesVersion: RULES_VERSION,
     };
@@ -414,6 +422,15 @@ export function ClinicRegister({ onSuccess, complete = false }: { onSuccess?: ()
                 {specialties.includes('otro') && <input className={`${inputCls} mt-2`} placeholder={t('reg.otherPlaceholder')} value={clinicSpecialtyOther} onChange={(e) => setClinicSpecialtyOther(e.target.value)} />}
               </div>
             )}
+            {/* Área de intervención: SIEMPRE visible. Este alta es de tipo
+                clínica, así que el área es obligatoria aunque no se marque el
+                subperfil "clínica". Dentro de {isClinic} quedaba escondida y la
+                validación la seguía exigiendo: callejón sin salida. */}
+            <div>
+              <label className={labelCls}>{t('spec.areas')} *</label>
+              <div className="flex flex-wrap gap-2">{INTERVENTION_AREAS.map((a) => <button type="button" key={a.value} onClick={() => toggleArea(a.value)} className={chip(areas.includes(a.value))}>{catLabel(a.value, a.label)}</button>)}</div>
+              {areas.includes('otro') && <input className={`${inputCls} mt-2`} placeholder={t('reg.otherPlaceholder')} value={areaOther} onChange={(e) => setAreaOther(e.target.value)} />}
+            </div>
             <div>
               <label className={labelCls}>{t('clin.population')}</label>
               <div className="flex flex-wrap gap-2">{AGE_RANGES.map((a) => <button type="button" key={a.value} onClick={() => toggleAge(a.value)} className={chip(ageRanges.includes(a.value))}>{catLabel(a.value, a.label)}</button>)}</div>

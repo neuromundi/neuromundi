@@ -23,6 +23,7 @@ import { RULES_VERSION } from '@/lib/legal';
 import { COUNTRIES, MEXICO_NAME } from '@/data/countries';
 import { MX_ESTADOS, MX_MUNICIPIOS } from '@/data/mxStatesMunicipalities';
 import { K_OFFERINGS, K_CONFIG, type KType } from '@/data/kCatalog';
+import { INTERVENTION_AREAS } from '@/data/specialistCatalog';
 import { useCountryField } from '@/hooks/useCountryField';
 
 // Los campos llevan fondo propio y borde definido para que se distingan del
@@ -65,6 +66,12 @@ export function KProviderRegister({ typeKey, onSuccess, complete = false }: { ty
   const [picked, togglePick] = useToggleList();
   const [sections, toggleSection] = useToggleList();
   const [neuroConditions, toggleCondition] = useToggleList();
+  // Area de intervencion: obligatoria SOLO para el cuidador, que es el unico
+  // perfil de este bloque que atiende personas. Al de bienestar, al legal y al
+  // de organizacion no se les pide. (Enyoria, 20 oct 2026; el servidor tambien
+  // la exige al publicar, migracion 0315.)
+  const [areas, toggleArea] = useToggleList();
+  const declaraArea = typeKey === 'caregiver';
   const [otherOffering, setOtherOffering] = useState('');
   // Contacto
   const [whatsapp, setWhatsapp] = useState('');
@@ -117,6 +124,7 @@ export function KProviderRegister({ typeKey, onSuccess, complete = false }: { ty
     const miss: string[] = [];
     if (name.trim().length < 2) miss.push(t('reg.miss.institution'));
     if (picked.includes('otro') && !otherOffering.trim()) miss.push(t('reg.miss.otherSpecify'));
+    if (declaraArea && areas.length === 0) miss.push(t('reg.miss.areas'));
     if (!country) miss.push(t('reg.miss.country'));
     if (!complete) {
       if (!email.trim()) miss.push(t('reg.miss.email'));
@@ -152,6 +160,7 @@ export function KProviderRegister({ typeKey, onSuccess, complete = false }: { ty
       country: country || null, state: isMexico ? stateName : null, municipality: isMexico ? municipality : null,
       address: address || null,
       specialties: picked, // indexable para el buscador
+      interventionAreas: declaraArea ? areas : undefined,
       sections, neuroConditions,
       providerDetails: details,
       rulesVersion: RULES_VERSION,
@@ -283,6 +292,14 @@ export function KProviderRegister({ typeKey, onSuccess, complete = false }: { ty
             </div>
             <input className={`${inputCls} mt-2`} placeholder={t('k.otherPlaceholder')} value={otherOffering} onChange={(e) => setOtherOffering(e.target.value)} />
           </div>
+          {declaraArea && (
+            <div>
+              <label className={labelCls}>{t('spec.areas')} *</label>
+              <div className="flex flex-wrap gap-2">
+                {INTERVENTION_AREAS.map((a) => <button type="button" key={a.value} onClick={() => toggleArea(a.value)} className={chip(areas.includes(a.value))}>{catLabel(a.value, a.label)}</button>)}
+              </div>
+            </div>
+          )}
         </section>
 
         {/* 3. Contacto y ubicación */}

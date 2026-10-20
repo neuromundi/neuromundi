@@ -6039,7 +6039,7 @@
       "cta": "Publicar"
     },
     "done": "Tu perfil ya aparece en el directorio.",
-    "blocked": "Para publicar necesitas completar tu perfil y cubrir tu cuota.",
+    "blocked": "Para publicar necesitas completar tu perfil, elegir al menos un área de intervención y cubrir tu cuota.",
     "missing": {
       "foto": "foto",
       "descripcion": "descripción",

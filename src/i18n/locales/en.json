@@ -6039,7 +6039,7 @@
       "cta": "Publish"
     },
     "done": "Your profile is now in the directory.",
-    "blocked": "To publish you must complete your profile and cover your fee.",
+    "blocked": "To publish you need to complete your profile, choose at least one area of intervention and pay your membership fee.",
     "missing": {
       "foto": "photo",
       "descripcion": "description",

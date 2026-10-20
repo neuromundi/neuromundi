@@ -6039,7 +6039,7 @@
       "cta": "Publier"
     },
     "done": "Votre profil apparaît désormais dans l'annuaire.",
-    "blocked": "Pour publier, complétez votre profil et réglez votre cotisation.",
+    "blocked": "Pour publier, vous devez compléter votre profil, choisir au moins un domaine d'intervention et régler votre cotisation.",
     "missing": {
       "foto": "photo",
       "descripcion": "description",
