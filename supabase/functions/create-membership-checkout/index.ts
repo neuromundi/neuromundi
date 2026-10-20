@@ -36,6 +36,29 @@ const ZERO_DECIMAL = new Set([
   'rwf', 'ugx', 'vnd', 'vuv', 'xaf', 'xof', 'xpf',
 ]);
 
+
+/**
+ * Idioma del portal de pago de Stripe.
+ *
+ * Por que (20 oct 2026, detectado por Enyoria en el arranque): sin `locale`,
+ * Stripe decide por su cuenta y a un usuario de Mexico le aparecia el portal
+ * ENTERO EN INGLES mientras pagaba su cuota. Pagar es el momento con menos
+ * tolerancia a la confusion de toda la plataforma.
+ *
+ * Stripe no admite todos nuestros idiomas: el hebreo no esta en su lista, asi
+ * que para ese caso se devuelve 'auto' y decide el navegador. El espanol de
+ * America ('es-419') se prefiere sobre el de Espana porque la campana arranca
+ * en Mexico y Latinoamerica.
+ */
+function idiomaDeStripe(lang: string | null | undefined): string {
+  const l = (lang ?? '').toLowerCase().slice(0, 5);
+  const base = l.slice(0, 2);
+  if (base === 'es') return 'es-419';
+  if (base === 'pt') return 'pt-BR';
+  const admitidos = ['en', 'fr', 'de', 'it', 'ja', 'ko', 'zh', 'ar'];
+  return admitidos.includes(base) ? base : 'auto';
+}
+
 Deno.serve(async (req: Request) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders });
   if (req.method !== 'POST') return json(405, { error: 'Método no permitido' });
@@ -66,6 +89,10 @@ Deno.serve(async (req: Request) => {
   });
   // Periodicidad elegida por el usuario en el modal de pago.
   const reqBody = await req.json().catch(() => ({}));
+  // Idioma con el que la persona esta usando Neuromundi. Si el cliente no lo
+  // manda, se cae al que declare el navegador en la peticion.
+  const idiomaPedido: string = (reqBody?.locale as string | undefined)
+    ?? req.headers.get('accept-language')?.split(',')[0] ?? '';
   const period: 'monthly' | 'annual' = reqBody?.period === 'monthly' ? 'monthly' : 'annual';
 
   const { data: u } = await userClient.auth.getUser();
@@ -274,6 +301,7 @@ Deno.serve(async (req: Request) => {
   }
 
   const session = await stripe.checkout.sessions.create({
+    locale: idiomaDeStripe(idiomaPedido) as 'auto',
     mode: 'subscription',
     customer: customerId,
     ...(discounts ? { discounts } : {}),

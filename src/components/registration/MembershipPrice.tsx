@@ -62,9 +62,23 @@ export function MembershipPrice({ type, affiliate, pending, pendingText, boxed, 
       const uid = sess?.session?.user?.id;
       if (!uid) { if (alive) setHideForMember(false); return; }
       const { data } = await (supabase as unknown as {
-        from: (t: string) => { select: (c: string) => { eq: (k: string, v: string) => { maybeSingle: () => Promise<{ data: { membership_status?: string; membership_paid_until?: string | null; membership_period?: string | null } | null }> } } };
-      }).from('profiles').select('membership_status, membership_paid_until, membership_period').eq('id', uid).maybeSingle();
+        from: (t: string) => { select: (c: string) => { eq: (k: string, v: string) => { maybeSingle: () => Promise<{ data: { membership_status?: string; membership_paid_until?: string | null; membership_period?: string | null; rules_version_accepted?: string | null } | null }> } } };
+      }).from('profiles').select('membership_status, membership_paid_until, membership_period, rules_version_accepted').eq('id', uid).maybeSingle();
       if (!alive) return;
+      // QUIEN TODAVIA ESTA COMPLETANDO SU PERFIL NO ES UN MIEMBRO AFILIADO.
+      //
+      // Al entrar con Google, la cuenta se crea ANTES de llenar el formulario y
+      // el disparador de alta le pone rol 'parent' por omision, porque Google no
+      // manda ningun rol. Y a 'parent' le corresponde membership_status
+      // 'exempt'. Resultado: mientras un especialista completaba su perfil, esta
+      // pantalla lo leia como miembro con cuota cubierta y le ESCONDIA el costo
+      // de la membresia, que si aparecia al registrarse con correo. Lo detecto
+      // Enyoria el 20 de octubre de 2026, en el arranque.
+      //
+      // `rules_version_accepted` es lo que escribe complete_onboarding: mientras
+      // siga vacio, el perfil no esta terminado y lo que diga el estado de
+      // membresia es un valor de relleno, no un hecho.
+      if (!data?.rules_version_accepted) { setHideForMember(false); return; }
       const status = data?.membership_status;
       const paidUntil = data?.membership_paid_until;
       const period = data?.membership_period;

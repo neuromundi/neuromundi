@@ -7,6 +7,7 @@
  */
 import { useState } from 'react';
 import { supabase } from '@/lib/supabase';
+import { idiomaDePago } from '@/lib/idiomaDePago';
 
 export interface DonationPayload {
   amount: number;
@@ -34,7 +35,7 @@ export function useDonation() {
     setSubmitting(true);
     try {
       const { data, error } = await supabase.functions.invoke('create-donation-checkout', {
-        body: payload,
+        body: { ...payload, locale: idiomaDePago() },
       });
       if (error) return { ok: false, error: error.message };
       const urlDest = (data as { url?: string })?.url;

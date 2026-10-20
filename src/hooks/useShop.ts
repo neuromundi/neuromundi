@@ -7,6 +7,7 @@
  */
 import { useCallback, useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
+import { idiomaDePago } from '@/lib/idiomaDePago';
 import { useAuth } from '@/hooks/useAuth';
 import { toMessage } from '@/lib/utils';
 import type { Tables } from '@/types/database';
@@ -89,7 +90,7 @@ export function useStore() {
   const buy = useCallback(async (productId: string): Promise<Result<string>> => {
     try {
       const { data, error } = await supabase.functions.invoke('create-product-checkout', {
-        body: { productId, affiliateCode: getRefCode() ?? undefined },
+        body: { productId, affiliateCode: getRefCode() ?? undefined, locale: idiomaDePago() },
       });
       if (error) throw error;
       const url = (data as { url?: string })?.url;

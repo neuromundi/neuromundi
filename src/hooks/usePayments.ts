@@ -6,6 +6,7 @@
  */
 import { useCallback, useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabase';
+import { idiomaDePago } from '@/lib/idiomaDePago';
 import { useAuth } from '@/hooks/useAuth';
 import { useAuthStore } from '@/stores/authStore';
 import { toMessage } from '@/lib/utils';
@@ -90,7 +91,7 @@ export function useConsumerPayments() {
     async (providerId: string, opts?: { appointmentId?: string; kind?: 'consultation' | 'therapy'; payerRfc?: string }): Promise<Result<string>> => {
       try {
         const { data, error } = await supabase.functions.invoke('create-consultation-checkout', {
-          body: { providerId, appointmentId: opts?.appointmentId, kind: opts?.kind ?? 'consultation', payerRfc: opts?.payerRfc },
+          body: { providerId, appointmentId: opts?.appointmentId, kind: opts?.kind ?? 'consultation', payerRfc: opts?.payerRfc, locale: idiomaDePago() },
         });
         if (error) throw error;
         const url = (data as { url?: string })?.url;

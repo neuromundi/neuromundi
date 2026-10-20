@@ -8,6 +8,7 @@
  */
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { supabase } from '@/lib/supabase';
+import { idiomaDePago } from '@/lib/idiomaDePago';
 import { useAuth } from '@/hooks/useAuth';
 import { toMessage } from '@/lib/utils';
 import type { Result } from '@/types/app';
@@ -108,7 +109,7 @@ export function useAppointmentRequests() {
     const payable = (r.charge_total ?? 0) * ((r.charge_percent ?? 100) / 100);
     if (payable <= 0) return { ok: false, error: 'no_charge' };
     const { data, error } = await supabase.functions.invoke('create-consultation-checkout', {
-      body: { providerId: r.specialist_id, appointmentId: r.id, amount: payable, currency: r.charge_currency ?? 'MXN' },
+      body: { providerId: r.specialist_id, appointmentId: r.id, amount: payable, currency: r.charge_currency ?? 'MXN', locale: idiomaDePago() },
     });
     if (error) return { ok: false, error: toMessage(error) };
     const url = (data as { url?: string })?.url;

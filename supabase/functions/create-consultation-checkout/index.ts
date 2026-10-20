@@ -31,6 +31,29 @@ const ZERO_DECIMAL = new Set([
   'rwf', 'ugx', 'vnd', 'vuv', 'xaf', 'xof', 'xpf',
 ]);
 
+
+/**
+ * Idioma del portal de pago de Stripe.
+ *
+ * Por que (20 oct 2026, detectado por Enyoria en el arranque): sin `locale`,
+ * Stripe decide por su cuenta y a un usuario de Mexico le aparecia el portal
+ * ENTERO EN INGLES mientras pagaba. Pagar es el momento con menos tolerancia
+ * a la confusion de toda la plataforma.
+ *
+ * Stripe no admite todos nuestros idiomas: el hebreo no esta en su lista, asi
+ * que para ese caso se devuelve 'auto' y decide el navegador. El espanol de
+ * America ('es-419') se prefiere sobre el de Espana porque la campana arranca
+ * en Mexico y Latinoamerica.
+ */
+function idiomaDeStripe(lang: string | null | undefined): string {
+  const l = (lang ?? '').toLowerCase().slice(0, 5);
+  const base = l.slice(0, 2);
+  if (base === 'es') return 'es-419';
+  if (base === 'pt') return 'pt-BR';
+  const admitidos = ['en', 'fr', 'de', 'it', 'ja', 'ko', 'zh', 'ar'];
+  return admitidos.includes(base) ? base : 'auto';
+}
+
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: cors });
   if (req.method !== 'POST') return json(405, { error: 'Método no permitido' });
@@ -44,6 +67,10 @@ Deno.serve(async (req) => {
 
   let body: { providerId?: string; appointmentId?: string; kind?: string; payerRfc?: string; amount?: number; currency?: string };
   try { body = await req.json(); } catch { return json(400, { error: 'Cuerpo inválido' }); }
+  // Idioma con el que la persona esta usando Neuromundi. Si el cliente no lo
+  // manda, se cae al que declare el navegador en la peticion.
+  const idiomaPedido: string = ((body as { locale?: string }).locale)
+    ?? req.headers.get('accept-language')?.split(',')[0] ?? '';
   const kind = body.kind === 'therapy' ? 'therapy' : 'consultation';
   if (!body.providerId) return json(400, { error: 'Falta providerId' });
 
@@ -126,6 +153,7 @@ Deno.serve(async (req) => {
   const session = await stripe.checkout.sessions.create(
     kind === 'therapy'
       ? {
+          locale: idiomaDeStripe(idiomaPedido) as 'auto',
           mode: 'subscription',
           line_items: [{
             quantity: 1,
@@ -142,6 +170,7 @@ Deno.serve(async (req) => {
           cancel_url: `${origin}/panel?pay=cancel`,
         }
       : {
+          locale: idiomaDeStripe(idiomaPedido) as 'auto',
           mode: 'payment',
           line_items: [{
             quantity: 1,
