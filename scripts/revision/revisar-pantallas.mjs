@@ -38,20 +38,45 @@ const RUTAS = [
   '/pregunta-al-experto', '/crear-cuenta', '/entrar', '/correo-confirmado',
 ];
 
+// Pantallas que exigen sesion. Solo se recorren con --privadas y una sesion
+// puesta en NM_SESION (el contenido del dato de sesion que guarda el navegador).
+// Claude NUNCA escribe contrasenas en produccion: la sesion la aporta quien
+// ejecuta el revisor, no se adivina ni se teclea aqui.
+const RUTAS_PRIVADAS = [
+  '/panel', '/ajustes', '/calendario', '/mensajes', '/mi-id', '/curso-bienvenida',
+];
+
 // Una clave cruda se reconoce porque es palabra.palabra sin espacios ni acentos.
 const CLAVE_CRUDA = /\b[a-z][a-zA-Z0-9]{2,}\.[a-z][a-zA-Z0-9]{2,}(\.[a-zA-Z0-9]+)*\b/g;
 const PERMITIDO = /(www\.|\.com|\.org|\.mx|\.net|\.co|@|\.png|\.jpg|\.svg|\.js|\.css)/;
 
 // En entornos donde Chromium vive fuera del sitio habitual, se indica con la
 // variable NAVEGADOR (ruta al ejecutable).
+const privadas = args.includes('--privadas');
+const sesion = process.env.NM_SESION ?? '';
+if (privadas && !sesion) {
+  console.log('Para --privadas hace falta una sesion en la variable NM_SESION.');
+  console.log('Se saca del navegador, con la sesion ya abierta, en la consola:');
+  console.log("  copy(localStorage.getItem(Object.keys(localStorage).find(k=>k.includes('auth-token'))))");
+  process.exit(2);
+}
+const TODAS = privadas ? [...RUTAS, ...RUTAS_PRIVADAS] : RUTAS;
+
 const navegador = await chromium.launch(
   process.env.NAVEGADOR ? { executablePath: process.env.NAVEGADOR } : {},
 );
 const hallazgos = [];
 
-for (const ruta of RUTAS) {
+for (const ruta of TODAS) {
   const ctx = await navegador.newContext({ locale: 'es-MX' });
   const pag = await ctx.newPage();
+  if (sesion) {
+    // La sesion se pone ANTES de que cargue la aplicacion, igual que la
+    // encontraria si la persona ya hubiera entrado.
+    await pag.addInitScript((valor) => {
+      try { localStorage.setItem('sb-sboagswcehuxwfjdbhdn-auth-token', valor); } catch { /* ignorar */ }
+    }, sesion);
+  }
   const errores = [];
   const fallos = [];
   pag.on('console', (m) => { if (m.type() === 'error') errores.push(m.text().slice(0, 160)); });
@@ -81,9 +106,9 @@ for (const ruta of RUTAS) {
 await navegador.close();
 
 if (hallazgos.length === 0) {
-  console.log(`Revision de pantallas (${RUTAS.length} rutas en ${base}): sin hallazgos.`);
+  console.log(`Revision de pantallas (${TODAS.length} rutas en ${base}): sin hallazgos.`);
   process.exit(0);
 }
-console.log(`Revision de pantallas (${RUTAS.length} rutas en ${base}): ${hallazgos.length} hallazgo(s).\n`);
+console.log(`Revision de pantallas (${TODAS.length} rutas en ${base}): ${hallazgos.length} hallazgo(s).\n`);
 for (const h of hallazgos) console.log('  ' + h);
 process.exit(1);

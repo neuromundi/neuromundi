@@ -43,7 +43,10 @@ iniciales llegan desde otro módulo no puede verlos: lo dice en vez de callarlo,
 y esos casos se cubren con una prueba automática.
 
 **revisar-pantallas.mjs** — abre la plataforma en un navegador real y recorre
-30 pantallas públicas anotando errores de consola, peticiones fallidas,
+30 pantallas públicas, y con `--privadas` seis más que exigen sesión (panel,
+ajustes, calendario, mensajes, mi ID y el curso de bienvenida). La sesión la
+aporta quien ejecuta el revisor en la variable `NM_SESION`: Claude no teclea
+contraseñas en producción, así que no puede entrar por su cuenta anotando errores de consola, peticiones fallidas,
 pantallas en blanco y claves de texto crudas. Con `--url` se apunta a una copia
 local; con la variable `NAVEGADOR` se indica dónde está Chromium.
 
