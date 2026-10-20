@@ -13,7 +13,7 @@
  *
  * Uso:  node scripts/revision/revisar-textos.mjs
  */
-import { readFileSync, readdirSync, statSync } from 'node:fs';
+import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
 import { join, relative } from 'node:path';
 
 const LOCALES = 'src/i18n/locales';
@@ -139,6 +139,48 @@ for (const archivo of archivos(RAIZ)) {
       hallazgos.push(`${rel}:${i + 1}  codificacion rota (mojibake): las tildes estan guardadas como "Ã©", "Ã±"...`);
     }
   });
+}
+
+// 1f. La PORTADA pintando claves crudas mientras llega el diccionario.
+//     El primer pintado usa solo el chunk critico (unas 400 claves de 4,949).
+//     Su contenido se decide con una lista a mano en gen_i18n_critical.mjs, y
+//     esa lista se habia quedado corta: el 20 de octubre de 2026 faltaban
+//     `counters.*` (los contadores grandes), `ally.*` (la banda del aliado),
+//     `info.title`, `events.online`, `lms.tab`, `shop.title` y los avisos de
+//     cuota. Con la red lenta, esas zonas enseñaban su clave interna —
+//     "counters.countries"— hasta que llegaba el diccionario completo. No
+//     fallaba nada: se veia texto, solo que el equivocado. La familia de
+//     siempre.
+//
+//     Aqui se comprueba al reves: se leen las claves que de verdad usan los
+//     archivos de la portada y su cascara, y se exige que TODAS esten en el
+//     chunk critico. Si alguien añade una seccion a la portada, esto lo dice.
+const ARCHIVOS_DE_LA_PORTADA = [
+  'src/pages/Home.tsx',
+  'src/components/layout/AppLayout.tsx',
+  ...(existsSync('src/components/home') ? archivos('src/components/home') : []),
+];
+{
+  const critEs = JSON.parse(readFileSync('src/i18n/critical/es.crit.json', 'utf8'));
+  const planas = (o, pre = '') => Object.entries(o).flatMap(([k, v]) => (
+    v && typeof v === 'object' && !Array.isArray(v) ? planas(v, pre + k + '.') : [pre + k]
+  ));
+  const enCritico = new Set(planas(critEs));
+  for (const archivo of ARCHIVOS_DE_LA_PORTADA) {
+    let src;
+    try { src = sinComentarios(readFileSync(archivo, 'utf8')); } catch { continue; }
+    const rel = relative('.', archivo);
+    for (const m of src.matchAll(/\bt\(\s*'([a-zA-Z0-9_.]+)'/g)) {
+      const clave = m[1];
+      if (!es.has(clave)) continue; // ya lo reclama la comprobacion 1
+      if (enCritico.has(clave)) continue;
+      const esPrefijo = [...enCritico].some((k) => k.startsWith(clave + '.'));
+      if (esPrefijo) continue;
+      hallazgos.push(
+        `${rel}:${lineaDe(src, m.index)}  la portada pinta '${clave}' pero no esta en el chunk critico: se vera la clave cruda hasta que llegue el diccionario completo. Añadirla en scripts/gen_i18n_critical.mjs`,
+      );
+    }
+  }
 }
 
 // 1c. Los archivos "criticos" (src/i18n/critical/*.crit.json) se GENERAN desde
