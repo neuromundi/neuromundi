@@ -5,7 +5,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Send, ArrowLeft } from 'lucide-react';
-import { Button, useToast } from '@/components/ui';
+import { Button, useToast, AvisoDeFallo } from '@/components/ui';
 import { useAuth } from '@/hooks/useAuth';
 import { useMentorThread, type Mentorship } from '@/hooks/useTribeMentorship';
 
@@ -13,7 +13,7 @@ export function MentorThread({ mentorship, onBack }: { mentorship: Mentorship; o
   const { t } = useTranslation();
   const toast = useToast();
   const { userId } = useAuth();
-  const { messages, loading, send } = useMentorThread(mentorship.id);
+  const { messages, loading, fallo, reload, send } = useMentorThread(mentorship.id);
   const [text, setText] = useState('');
   const [busy, setBusy] = useState(false);
   const endRef = useRef<HTMLDivElement>(null);
@@ -40,6 +40,8 @@ export function MentorThread({ mentorship, onBack }: { mentorship: Mentorship; o
       <div className="flex-1 space-y-2 overflow-y-auto p-4">
         {loading ? (
           <p className="text-center text-sm text-muted">{t('tribe.loading')}</p>
+        ) : fallo ? (
+          <AvisoDeFallo onRetry={() => void reload()} />
         ) : messages.length === 0 ? (
           <p className="py-8 text-center text-sm text-muted">{t('tribe.mentor.noMessages')}</p>
         ) : (

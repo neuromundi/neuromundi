@@ -6,7 +6,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ShieldCheck, Star, Scale } from 'lucide-react';
-import { Button } from '@/components/ui';
+import { Button, AvisoDeFallo } from '@/components/ui';
 import { useTribeModerator, useTribeModerators } from '@/hooks/useTribe';
 import { modLevelForPoints } from '@/lib/tribeModLevels';
 import { ApplyModeratorModal } from './ApplyModeratorModal';
@@ -14,8 +14,8 @@ import { RateModeratorModal } from './RateModeratorModal';
 
 export function ModeratorsSection({ userId }: { userId: string }) {
   const { t } = useTranslation();
-  const { mod, reload } = useTribeModerator();
-  const { mods, reload: reloadList } = useTribeModerators();
+  const { mod, fallo: falloMio, reload } = useTribeModerator();
+  const { mods, fallo: falloLista, reload: reloadList } = useTribeModerators();
   const [applying, setApplying] = useState(false);
   const [rating, setRating] = useState<{ id: string; name: string } | null>(null);
 
@@ -27,7 +27,13 @@ export function ModeratorsSection({ userId }: { userId: string }) {
 
       {/* Mi postulación / estado */}
       <div className="mt-3 rounded-xl bg-slate-50 p-3 text-sm">
-        {!mod && (
+        {/* Si no se pudo leer mi estado NO se dice «postúlate»: a un moderador
+            aprobado se le estaba ofreciendo postularse de nuevo, y sus
+            facultades desaparecían. (Repaso adversario, 20 oct 2026.) */}
+        {falloMio ? (
+          <AvisoDeFallo onRetry={() => void reload()} />
+        ) : null}
+        {!falloMio && !mod && (
           <div className="flex flex-wrap items-center justify-between gap-2">
             <p className="text-slate-700">{t('tribe.mod.becomePrompt')}</p>
             <Button size="sm" variant="secondary" leadingIcon={<Scale className="h-4 w-4" />} onClick={() => setApplying(true)}>{t('tribe.mod.become')}</Button>
@@ -48,7 +54,8 @@ export function ModeratorsSection({ userId }: { userId: string }) {
       </div>
 
       {/* Directorio de moderadores */}
-      {mods.length > 0 && (
+      {falloLista && <div className="mt-4"><AvisoDeFallo onRetry={() => void reloadList()} /></div>}
+      {!falloLista && mods.length > 0 && (
         <ul className="mt-4 space-y-2">
           {mods.map((m) => (
             <li key={m.user_id} className="flex flex-wrap items-center gap-3 rounded-xl border border-slate-100 bg-white p-3">

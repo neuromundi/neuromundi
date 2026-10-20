@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { useAvisarResultado } from '@/hooks/useAvisarResultado';
 import { useTranslation } from 'react-i18next';
 import { HandHeart, Check, X, MessageSquare, UserPlus } from 'lucide-react';
-import { Button } from '@/components/ui';
+import { Button, AvisoDeFallo } from '@/components/ui';
 import { useMyMentor, useMentors, useMyMentorships, MENTOR_TRACKS, type MentorTrack, type Mentorship } from '@/hooks/useTribeMentorship';
 import { useSection } from '@/stores/sectionStore';
 import { BecomeMentorModal } from './BecomeMentorModal';
@@ -18,10 +18,10 @@ export function MentorshipSection() {
   // Nunca se tira el resultado de una escritura. (Hallazgo A-13.)
   const avisar = useAvisarResultado();
   const { section } = useSection();
-  const { mentor, setActive, reload: reloadMentor } = useMyMentor();
+  const { mentor, fallo: falloMentor, setActive, reload: reloadMentor } = useMyMentor();
   const [track, setTrack] = useState<MentorTrack | ''>('');
-  const { mentors, request } = useMentors(track, section);
-  const { items, respond } = useMyMentorships();
+  const { mentors, fallo: falloMentores, reload: reloadMentores, request } = useMentors(track, section);
+  const { items, fallo: falloMias, reload: reloadMias, respond } = useMyMentorships();
   const [becoming, setBecoming] = useState(false);
   const [open, setOpen] = useState<Mentorship | null>(null);
 
@@ -36,7 +36,9 @@ export function MentorshipSection() {
 
       {/* Ser mentor */}
       <div className="mt-3 rounded-xl bg-slate-50 p-3 text-sm">
-        {!mentor || mentor.tracks.length === 0 ? (
+        {falloMentor ? (
+          <AvisoDeFallo onRetry={() => void reloadMentor()} />
+        ) : !mentor || mentor.tracks.length === 0 ? (
           <div className="flex flex-wrap items-center justify-between gap-2">
             <p className="text-slate-700">{t('tribe.mentor.offerPrompt')}</p>
             <Button size="sm" variant="secondary" leadingIcon={<UserPlus className="h-4 w-4" />} onClick={() => setBecoming(true)}>{t('tribe.mentor.offer')}</Button>
@@ -56,7 +58,8 @@ export function MentorshipSection() {
       </div>
 
       {/* Mis mentorías */}
-      {items.length > 0 && (
+      {falloMias && <div className="mt-4"><AvisoDeFallo onRetry={() => void reloadMias()} /></div>}
+      {!falloMias && items.length > 0 && (
         <div className="mt-4">
           <h3 className="text-sm font-bold text-slate-900">{t('tribe.mentor.mine')}</h3>
           <ul className="mt-2 space-y-2">
@@ -89,7 +92,9 @@ export function MentorshipSection() {
             {MENTOR_TRACKS.map((tr) => <option key={tr} value={tr}>{t(`tribe.mentor.track.${tr}`)}</option>)}
           </select>
         </div>
-        {mentors.length === 0 ? (
+        {falloMentores ? (
+          <div className="mt-2"><AvisoDeFallo onRetry={() => void reloadMentores()} /></div>
+        ) : mentors.length === 0 ? (
           <p className="mt-2 text-sm text-muted">{t('tribe.mentor.noMentors')}</p>
         ) : (
           <ul className="mt-2 space-y-2">

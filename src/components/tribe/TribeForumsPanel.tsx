@@ -20,7 +20,7 @@ export function TribeForumsPanel() {
   const toast = useToast();
   const countryLabel = useCountryLabel();
   const { forums, loading, fallo } = useTribeForums({});
-  const { prefs, save } = useTribeForumPrefs();
+  const { prefs, fallo: falloPrefs, save } = useTribeForumPrefs();
   const [showCountries, setShowCountries] = useState(false);
 
   const togglePush = async () => {
@@ -36,7 +36,11 @@ export function TribeForumsPanel() {
     <section className="rounded-2xl border border-slate-100 bg-white p-4 shadow-sm">
       <div className="flex items-center justify-between gap-2">
         <h2 className="flex items-center gap-2 font-semibold text-slate-900"><Users className="h-5 w-5 text-brand-600" /> {t('tribe.forumsPanelTitle')}</h2>
-        <button type="button" onClick={() => void togglePush()} className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium ${prefs.push_enabled ? 'bg-brand-50 text-brand-700' : 'bg-slate-100 text-slate-600'}`}>
+        {/* Si no se pudieron leer las preferencias, el boton mostraba los
+            valores por omision como si fueran los guardados y un clic los
+            escribia encima de los de la persona. Se desactiva.
+            (Repaso adversario, 20 oct 2026.) */}
+        <button type="button" disabled={falloPrefs} title={falloPrefs ? t('common.loadFailed') : undefined} onClick={() => void togglePush()} className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium disabled:opacity-50 ${prefs.push_enabled ? 'bg-brand-50 text-brand-700' : 'bg-slate-100 text-slate-600'}`}>
           {prefs.push_enabled ? <Bell className="h-4 w-4" /> : <BellOff className="h-4 w-4" />}
           {prefs.push_enabled ? t('tribe.forumPushOn') : t('tribe.forumPushOff')}
         </button>
@@ -44,7 +48,7 @@ export function TribeForumsPanel() {
 
       {/* Países de interés */}
       <div className="mt-3">
-        <button type="button" onClick={() => setShowCountries((v) => !v)} className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700 hover:underline">
+        <button type="button" disabled={falloPrefs} onClick={() => setShowCountries((v) => !v)} className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700 hover:underline disabled:opacity-50">
           <Globe className="h-4 w-4" /> {t('tribe.interestCountries')} {prefs.countries.length > 0 ? `(${prefs.countries.length})` : `· ${t('tribe.allCountries')}`}
         </button>
         {showCountries && (

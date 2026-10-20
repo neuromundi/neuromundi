@@ -14,10 +14,16 @@ export interface MyMentor { tracks: MentorTrack[]; bio: string | null; is_active
 export function useMyMentor() {
   const [mentor, setMentor] = useState<MyMentor | null>(null);
   const [loading, setLoading] = useState(true);
+  // «No tienes mentoria» / «no hay mentores» cuando lo que paso es que no se
+  // pudo leer. En una red de apoyo entre personas, un vacio que miente deja a
+  // alguien creyendo que nadie respondio. (Repaso adversario, 20 oct 2026.)
+  const [fallo, setFallo] = useState(false);
 
   const load = useCallback(async () => {
     setLoading(true);
-    const { data } = await supabase.rpc('tribe_my_mentor');
+    const { data, error } = await supabase.rpc('tribe_my_mentor');
+    if (error) { setFallo(true); setLoading(false); return; }
+    setFallo(false);
     setMentor((data as MyMentor[] | null)?.[0] ?? null);
     setLoading(false);
   }, []);
@@ -36,7 +42,7 @@ export function useMyMentor() {
     return !error;
   }, []);
 
-  return { mentor, loading, become, setActive, reload: load };
+  return { mentor, loading, fallo, become, setActive, reload: load };
 }
 
 export interface MentorRow { user_id: string; name: string; tracks: MentorTrack[]; bio: string | null; section: string | null; my_status: string | null }
@@ -44,10 +50,13 @@ export interface MentorRow { user_id: string; name: string; tracks: MentorTrack[
 export function useMentors(track: MentorTrack | '', section?: string | null) {
   const [mentors, setMentors] = useState<MentorRow[]>([]);
   const [loading, setLoading] = useState(true);
+  const [fallo, setFallo] = useState(false);
 
   const load = useCallback(async () => {
     setLoading(true);
-    const { data } = await supabase.rpc('tribe_mentors_list', { p_track: track || null, p_section: section || null });
+    const { data, error } = await supabase.rpc('tribe_mentors_list', { p_track: track || null, p_section: section || null });
+    if (error) { setFallo(true); setLoading(false); return; }
+    setFallo(false);
     setMentors((data as MentorRow[] | null) ?? []);
     setLoading(false);
   }, [track, section]);
@@ -60,7 +69,7 @@ export function useMentors(track: MentorTrack | '', section?: string | null) {
     return null;
   }, [load]);
 
-  return { mentors, loading, request, reload: load };
+  return { mentors, loading, fallo, request, reload: load };
 }
 
 export interface Mentorship { id: string; role: 'mentor' | 'mentee'; counterpart_name: string; track: string; status: string; created_at: string }
@@ -68,10 +77,13 @@ export interface Mentorship { id: string; role: 'mentor' | 'mentee'; counterpart
 export function useMyMentorships() {
   const [items, setItems] = useState<Mentorship[]>([]);
   const [loading, setLoading] = useState(true);
+  const [fallo, setFallo] = useState(false);
 
   const load = useCallback(async () => {
     setLoading(true);
-    const { data } = await supabase.rpc('tribe_my_mentorships');
+    const { data, error } = await supabase.rpc('tribe_my_mentorships');
+    if (error) { setFallo(true); setLoading(false); return; }
+    setFallo(false);
     setItems((data as Mentorship[] | null) ?? []);
     setLoading(false);
   }, []);
@@ -83,7 +95,7 @@ export function useMyMentorships() {
     return !error;
   }, [load]);
 
-  return { items, loading, respond, reload: load };
+  return { items, loading, fallo, respond, reload: load };
 }
 
 export interface MentorMsg { id: string; author_id: string; author_name: string; body: string; created_at: string }
@@ -91,11 +103,14 @@ export interface MentorMsg { id: string; author_id: string; author_name: string;
 export function useMentorThread(mentorshipId: string | null) {
   const [messages, setMessages] = useState<MentorMsg[]>([]);
   const [loading, setLoading] = useState(true);
+  const [fallo, setFallo] = useState(false);
 
   const load = useCallback(async () => {
     if (!mentorshipId) { setMessages([]); setLoading(false); return; }
     setLoading(true);
-    const { data } = await supabase.rpc('tribe_mentor_messages_list', { p_mentorship: mentorshipId });
+    const { data, error } = await supabase.rpc('tribe_mentor_messages_list', { p_mentorship: mentorshipId });
+    if (error) { setFallo(true); setLoading(false); return; }
+    setFallo(false);
     setMessages((data as MentorMsg[] | null) ?? []);
     setLoading(false);
   }, [mentorshipId]);
@@ -111,5 +126,5 @@ export function useMentorThread(mentorshipId: string | null) {
     return !error;
   }, [mentorshipId, load]);
 
-  return { messages, loading, send, reload: load };
+  return { messages, loading, fallo, send, reload: load };
 }

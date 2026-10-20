@@ -34,15 +34,21 @@ export function useTribeMembership() {
   const { userId } = useAuth();
   const [member, setMember] = useState<TribeMember | null>(null);
   const [loading, setLoading] = useState(true);
+  // Si esta lectura fallaba, la persona pasaba a ser «no miembro de la Tribu»:
+  // se le volvia a ofrecer entrar y se le escondia lo suyo. (Repaso adversario,
+  // 20 oct 2026.)
+  const [fallo, setFallo] = useState(false);
 
   const load = useCallback(async () => {
     if (!userId) { setMember(null); setLoading(false); return; }
     setLoading(true);
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from('tribe_members')
       .select('status, energy, show_country, show_city, show_interests, show_diagnosis, rules_accepted_at, points, silent_mode')
       .eq('user_id', userId)
       .maybeSingle();
+    if (error) { setFallo(true); setLoading(false); return; }
+    setFallo(false);
     setMember((data as TribeMember | null) ?? null);
     setLoading(false);
   }, [userId]);
@@ -82,7 +88,7 @@ export function useTribeMembership() {
   const isSuspended = member?.status === 'suspended';
   const canWrite = member?.status === 'active';
 
-  return { member, loading, isActive, isSuspended, canWrite, join, setEnergy, setPrivacy, setSilent, reload: load };
+  return { member, loading, fallo, isActive, isSuspended, canWrite, join, setEnergy, setPrivacy, setSilent, reload: load };
 }
 
 export interface ImpactRow { badge_key: string; n: number; points: number; silent: boolean }
@@ -92,10 +98,13 @@ export function useTribeGratitude(targetUserId?: string | null) {
   const [impact, setImpact] = useState<ImpactRow[]>([]);
   const [tokensLeft, setTokensLeft] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
+  const [fallo, setFallo] = useState(false);
 
   const loadImpact = useCallback(async () => {
     if (!targetUserId) { setImpact([]); return; }
-    const { data } = await supabase.rpc('tribe_impact', { p_user: targetUserId });
+    const { data, error } = await supabase.rpc('tribe_impact', { p_user: targetUserId });
+    if (error) { setFallo(true); return; }
+    setFallo(false);
     setImpact((data as ImpactRow[] | null) ?? []);
   }, [targetUserId]);
 
@@ -120,7 +129,7 @@ export function useTribeGratitude(targetUserId?: string | null) {
     return { ok: true, left };
   }, []);
 
-  return { impact, tokensLeft, loading, give, reloadTokens: loadTokens, reloadImpact: loadImpact };
+  return { impact, tokensLeft, loading, fallo, give, reloadTokens: loadTokens, reloadImpact: loadImpact };
 }
 
 export interface MyModerator { status: 'pending' | 'approved' | 'rejected'; points: number; justification: string | null }
@@ -129,10 +138,15 @@ export interface MyModerator { status: 'pending' | 'approved' | 'rejected'; poin
 export function useTribeModerator() {
   const [mod, setMod] = useState<MyModerator | null>(null);
   const [loading, setLoading] = useState(true);
+  // Un moderador se leia como «no eres moderador» si la consulta fallaba, y se
+  // quedaba sin sus facultades sin aviso. (Repaso adversario, 20 oct 2026.)
+  const [fallo, setFallo] = useState(false);
 
   const load = useCallback(async () => {
     setLoading(true);
-    const { data } = await supabase.rpc('tribe_my_moderator');
+    const { data, error } = await supabase.rpc('tribe_my_moderator');
+    if (error) { setFallo(true); setLoading(false); return; }
+    setFallo(false);
     const row = (data as MyModerator[] | null)?.[0] ?? null;
     setMod(row);
     setLoading(false);
@@ -147,7 +161,7 @@ export function useTribeModerator() {
     return null;
   }, [load]);
 
-  return { mod, loading, apply, reload: load };
+  return { mod, loading, fallo, apply, reload: load };
 }
 
 export interface ModeratorRow {
@@ -158,10 +172,13 @@ export interface ModeratorRow {
 export function useTribeModerators() {
   const [mods, setMods] = useState<ModeratorRow[]>([]);
   const [loading, setLoading] = useState(true);
+  const [fallo, setFallo] = useState(false);
 
   const load = useCallback(async () => {
     setLoading(true);
-    const { data } = await supabase.rpc('tribe_moderators_list');
+    const { data, error } = await supabase.rpc('tribe_moderators_list');
+    if (error) { setFallo(true); setLoading(false); return; }
+    setFallo(false);
     setMods((data as ModeratorRow[] | null) ?? []);
     setLoading(false);
   }, []);
@@ -179,7 +196,7 @@ export function useTribeModerators() {
     return null;
   }, [load]);
 
-  return { mods, loading, rate, reload: load };
+  return { mods, loading, fallo, rate, reload: load };
 }
 
 
@@ -263,10 +280,17 @@ export function useTribeForums(filters: ForumFilters) {
 export function useTribeForumPrefs() {
   const [prefs, setPrefs] = useState<{ push_enabled: boolean; countries: string[] }>({ push_enabled: true, countries: [] });
   const [loading, setLoading] = useState(true);
+  const [fallo, setFallo] = useState(false);
 
   const load = useCallback(async () => {
     setLoading(true);
-    const { data } = await supabase.rpc('tribe_forum_prefs_get');
+    const { data, error } = await supabase.rpc('tribe_forum_prefs_get');
+    // Sin esto, un fallo dejaba las preferencias en sus valores por omision y
+    // la pantalla las ensenaba como si fueran las guardadas: si la persona
+    // guardaba cualquier otra cosa, se escribian esos valores encima de los
+    // suyos. (Repaso adversario, 20 oct 2026.)
+    if (error) { setFallo(true); setLoading(false); return; }
+    setFallo(false);
     const row = (data as { push_enabled: boolean; countries: string[] | null }[] | null)?.[0];
     setPrefs({ push_enabled: row?.push_enabled ?? true, countries: row?.countries ?? [] });
     setLoading(false);
@@ -279,7 +303,7 @@ export function useTribeForumPrefs() {
     return !error;
   }, []);
 
-  return { prefs, loading, save };
+  return { prefs, loading, fallo, save };
 }
 
 export interface TribeMessage {

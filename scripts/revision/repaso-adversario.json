@@ -747,8 +747,16 @@
       "pantalla": "/tribu",
       "archivos": [
         "src/pages/TribuNeuromundi.tsx",
-        "src/components/tribe/EventsSection.tsx",
-        "src/hooks/useTribeEvents.ts"
+        "src/hooks/useTribe.ts",
+        "src/hooks/useTribeMentorship.ts",
+        "src/hooks/useTribeEvents.ts",
+        "src/components/tribe/MentorshipSection.tsx",
+        "src/components/tribe/MentorThread.tsx",
+        "src/components/tribe/ModeratorsSection.tsx",
+        "src/components/tribe/TribeForumsPanel.tsx",
+        "src/components/tribe/TribeLevelCard.tsx",
+        "src/components/tribe/ForumRoom.tsx",
+        "src/components/tribe/EventsSection.tsx"
       ],
       "modos_revisados": [
         "ceros y vacios"
@@ -756,17 +764,25 @@
       "encontrado": [
         "la seccion de eventos tiraba el error y decia que no hay eventos. Corregido con AvisoDeFallo"
       ],
-      "hallazgos_abiertos": [
-        "del resto de /tribu (foros, mentoria, insignias) solo se repaso la seccion de eventos: las demas quedan pendientes"
-      ],
-      "fecha": "2026-10-19",
+      "fecha": "2026-10-20",
       "quien": "Claude",
-      "huella": "4ce38e760713056d"
+      "huella": "7951120e67f34f14",
+      "notas": "Repaso COMPLETO (20 oct 2026), ya no solo la seccion de eventos. Lo mas grave: si no se podia leer la membresia, a quien ya estaba en la Tribu se le ensenaba la pagina de «entra a la Tribu» y se le escondia lo suyo; y a un moderador aprobado se le ofrecia postularse de nuevo. Ademas las preferencias de aviso de los foros se pintaban con los valores por omision cuando no se podian leer Y dejaban guardar, escribiendolos encima de los de la persona. Mentoria: «no tienes mentoria», «no hay mentores» y un hilo sin mensajes cuando lo que fallaba era la lectura."
     },
     {
       "pantalla": "/neurocamps",
       "archivos": [
-        "src/pages/TribuNeuromundi.tsx"
+        "src/pages/TribuNeuromundi.tsx",
+        "src/hooks/useTribe.ts",
+        "src/hooks/useTribeMentorship.ts",
+        "src/hooks/useTribeEvents.ts",
+        "src/components/tribe/MentorshipSection.tsx",
+        "src/components/tribe/MentorThread.tsx",
+        "src/components/tribe/ModeratorsSection.tsx",
+        "src/components/tribe/TribeForumsPanel.tsx",
+        "src/components/tribe/TribeLevelCard.tsx",
+        "src/components/tribe/ForumRoom.tsx",
+        "src/components/tribe/EventsSection.tsx"
       ],
       "modos_revisados": [
         "ceros y vacios"
@@ -774,12 +790,10 @@
       "encontrado": [
         "misma pantalla que /tribu"
       ],
-      "hallazgos_abiertos": [
-        "igual que /tribu: solo la seccion de eventos"
-      ],
-      "fecha": "2026-10-19",
+      "fecha": "2026-10-20",
       "quien": "Claude",
-      "huella": "e617ed428cfaaf1b"
+      "huella": "7951120e67f34f14",
+      "notas": "Misma pantalla que /tribu. Repaso COMPLETO (20 oct 2026), ya no solo la seccion de eventos. Lo mas grave: si no se podia leer la membresia, a quien ya estaba en la Tribu se le ensenaba la pagina de «entra a la Tribu» y se le escondia lo suyo; y a un moderador aprobado se le ofrecia postularse de nuevo. Ademas las preferencias de aviso de los foros se pintaban con los valores por omision cuando no se podian leer Y dejaban guardar, escribiendolos encima de los de la persona. Mentoria: «no tienes mentoria», «no hay mentores» y un hilo sin mensajes cuando lo que fallaba era la lectura."
     },
     {
       "pantalla": "/mensajes",

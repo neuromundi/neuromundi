@@ -10,7 +10,7 @@ import { useAvisarResultado } from '@/hooks/useAvisarResultado';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Users, Plus, Search, Globe, Sparkles, MailPlus, Check, X, HeartHandshake, ShieldCheck, Gauge, CalendarCheck, UserPlus, LogIn } from 'lucide-react';
-import { Button, SkeletonCard, EmptyState, useToast } from '@/components/ui';
+import { Button, SkeletonCard, EmptyState, useToast, AvisoDeFallo } from '@/components/ui';
 import { useAuth } from '@/hooks/useAuth';
 import { useTribeMembership, useTribeForums, useTribeInvites, useTribeModerator, type TribeForum } from '@/hooks/useTribe';
 import { JoinTribeModal, tribeLogo } from '@/components/tribe/JoinTribeModal';
@@ -147,7 +147,7 @@ export function TribuNeuromundi() {
   const navigate = useNavigate();
   const countryLabel = useCountryLabel();
   const { isConsumer, isProvider, userId, isAuthenticated } = useAuth();
-  const { member, loading, isSuspended, canWrite, setEnergy, setSilent, reload } = useTribeMembership();
+  const { member, loading, fallo: falloMembresia, isSuspended, canWrite, setEnergy, setSilent, reload } = useTribeMembership();
   const [showJoin, setShowJoin] = useState(false);
   const [creating, setCreating] = useState(false);
   const [open, setOpen] = useState<TribeForum | null>(null);
@@ -166,6 +166,17 @@ export function TribuNeuromundi() {
   const eligible = isConsumer || isProvider;
 
   if (loading) return <div className="mx-auto max-w-3xl p-4"><SkeletonCard rows={4} /></div>;
+
+  // Si no se pudo leer la membresia NO se da por hecho que la persona no es de
+  // la Tribu: antes se le ensenaba la pagina de «entra a la Tribu» a quien ya
+  // estaba dentro, y se le escondia lo suyo. (Repaso adversario, 20 oct 2026.)
+  if (falloMembresia) {
+    return (
+      <div className="mx-auto max-w-3xl p-4">
+        <AvisoDeFallo onRetry={() => void reload()} />
+      </div>
+    );
+  }
 
   // No inscrito (o sin sesión) → área de acceso pública: qué es la Tribu,
   // sus características y cómo entrar (crear cuenta o iniciar sesión).
