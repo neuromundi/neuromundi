@@ -105,15 +105,22 @@ export function usePost(id: string) {
   const [myStars, setMyStars] = useState<number | null>(null);
   const [comments, setComments] = useState<Comment[]>([]);
   const [loading, setLoading] = useState(true);
+  // PGRST116 es "no hay filas": eso SI es "no encontrado". Cualquier otro error
+  // es un fallo, y decir "este articulo no existe" cuando lo que paso fue un
+  // fallo de red hace creer que el enlace esta roto. (Repaso adversario,
+  // 19 oct 2026.)
+  const [fallo, setFallo] = useState(false);
 
   const load = useCallback(async () => {
     if (!id) return;
     setLoading(true);
-    const [{ data: p }, map, { data: c }] = await Promise.all([
+    setFallo(false);
+    const [{ data: p, error: errP }, map, { data: c }] = await Promise.all([
       supabase.from('content_posts').select('*').eq('id', id).single(),
       ratingsFor([id]),
       supabase.from('content_comments').select('*').eq('post_id', id).order('created_at'),
     ]);
+    if (errP && errP.code !== 'PGRST116') setFallo(true);
     setPost(p ?? null);
     setRating(map[id] ?? null);
     setComments(c ?? []);
@@ -144,5 +151,5 @@ export function usePost(id: string) {
     return { ok: true, data: true };
   }, [id, userId, load]);
 
-  return { post, rating, myStars, comments, loading, rate, comment };
+  return { post, rating, myStars, comments, loading, fallo, rate, comment };
 }

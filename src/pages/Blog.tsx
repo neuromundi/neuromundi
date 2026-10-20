@@ -7,7 +7,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BookOpen, Search, Sparkles, Check } from 'lucide-react';
-import { Button, useToast, EmptyState, SkeletonCard } from '@/components/ui';
+import { Button, useToast, EmptyState, SkeletonCard, AvisoDeFallo } from '@/components/ui';
 import { useBlogFeed, useBlogRecommendations, useInterests } from '@/hooks/useBlog';
 import { useAuth } from '@/hooks/useAuth';
 import { useCatLabel } from '@/lib/catLabel';
@@ -73,7 +73,7 @@ export function Blog() {
   const catLabel = useCatLabel();
   const { userId } = useAuth();
   const { hasInterests } = useInterests();
-  const { posts, loading, topic, setTopic, section, setSection, q, setQ } = useBlogFeed();
+  const { posts, loading, fallo, topic, setTopic, section, setSection, q, setQ, reload } = useBlogFeed();
   const recs = useBlogRecommendations(6);
 
   return (
@@ -140,7 +140,11 @@ export function Blog() {
           <SkeletonCard rows={2} />
         </div>
       ) : posts.length === 0 ? (
-        <EmptyState icon={<BookOpen className="h-6 w-6" />} title={t('blog.emptyTitle')} description={t('blog.empty')} />
+        fallo ? (
+          <AvisoDeFallo onRetry={() => void reload()} />
+        ) : (
+          <EmptyState icon={<BookOpen className="h-6 w-6" />} title={t('blog.emptyTitle')} description={t('blog.empty')} />
+        )
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {posts.map((p) => <BlogPostCard key={p.id} p={p} catLabel={catLabel} />)}

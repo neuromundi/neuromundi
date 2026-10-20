@@ -9,7 +9,7 @@
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CalendarDays, MapPin, Globe2, Search, Plus, CalendarPlus, Check, Download, Pencil, Trash2, ExternalLink } from 'lucide-react';
-import { Button, Modal, useToast, EmptyState, SkeletonCard } from '@/components/ui';
+import { Button, Modal, useToast, EmptyState, SkeletonCard, AvisoDeFallo } from '@/components/ui';
 import { CountryFilter } from '@/components/common/CountryFilter';
 import { useCountry } from '@/stores/countryStore';
 import { useAuth } from '@/hooks/useAuth';
@@ -34,7 +34,7 @@ export function Events() {
   const toast = useToast();
   const { country } = useCountry();
   const { isAuthenticated, isAdmin } = useAuth();
-  const { events, loading, createEvent, updateEvent, deleteEvent } = useEvents();
+  const { events, loading, fallo, createEvent, updateEvent, deleteEvent } = useEvents();
   const { savedEventIds, saveEventToCalendar } = useCalendar();
 
   const [q, setQ] = useState('');
@@ -217,7 +217,11 @@ export function Events() {
           <SkeletonCard rows={2} /><SkeletonCard rows={2} /><SkeletonCard rows={2} />
         </div>
       ) : filtered.length === 0 ? (
-        <EmptyState icon={<CalendarDays className="h-6 w-6" />} title={t('events.emptyTitle')} description={t('events.empty')} />
+        fallo ? (
+          <AvisoDeFallo onRetry={() => window.location.reload()} />
+        ) : (
+          <EmptyState icon={<CalendarDays className="h-6 w-6" />} title={t('events.emptyTitle')} description={t('events.empty')} />
+        )
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((ev) => <Card key={ev.id} ev={ev} />)}

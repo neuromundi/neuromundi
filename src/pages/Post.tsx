@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ArrowLeft, Send } from 'lucide-react';
-import { Button, SkeletonCard, useToast } from '@/components/ui';
+import { Button, SkeletonCard, useToast, AvisoDeFallo } from '@/components/ui';
 import { usePost } from '@/hooks/useContent';
 import { Stars } from '@/components/content/Stars';
 
@@ -18,10 +18,11 @@ export function Post() {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const toast = useToast();
-  const { post, rating, myStars, comments, loading, rate, comment } = usePost(id);
+  const { post, rating, myStars, comments, loading, fallo, rate, comment } = usePost(id);
   const [text, setText] = useState('');
 
   if (loading) return <div className="mx-auto max-w-2xl p-4"><SkeletonCard rows={4} /></div>;
+  if (fallo) return <div className="mx-auto max-w-2xl p-8"><AvisoDeFallo onRetry={() => window.location.reload()} /></div>;
   if (!post) return <p className="mx-auto max-w-2xl p-8 text-center text-muted">{t('content.notFound')}</p>;
 
   const showStars = rating && rating.avg_stars >= 3;

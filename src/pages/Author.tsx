@@ -7,7 +7,7 @@
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ArrowLeft, BookOpen, ExternalLink } from 'lucide-react';
-import { Avatar, EmptyState, SkeletonCard } from '@/components/ui';
+import { Avatar, EmptyState, SkeletonCard , AvisoDeFallo } from '@/components/ui';
 import { useAuthorPosts } from '@/hooks/useBlog';
 import { useCatLabel } from '@/lib/catLabel';
 import { BlogPostCard } from '@/components/blog/BlogPostCard';
@@ -17,7 +17,7 @@ export function Author() {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const catLabel = useCatLabel();
-  const { posts, author, loading } = useAuthorPosts(id);
+  const { posts, author, loading, fallo } = useAuthorPosts(id);
 
   if (loading) return <div className="mx-auto max-w-5xl p-4"><SkeletonCard rows={4} /></div>;
 
@@ -41,7 +41,11 @@ export function Author() {
       </section>
 
       {posts.length === 0 ? (
-        <EmptyState icon={<BookOpen className="h-6 w-6" />} title={t('author.emptyTitle')} description={t('author.empty')} />
+        fallo ? (
+          <AvisoDeFallo onRetry={() => window.location.reload()} />
+        ) : (
+          <EmptyState icon={<BookOpen className="h-6 w-6" />} title={t('author.emptyTitle')} description={t('author.empty')} />
+        )
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {posts.map((p) => (

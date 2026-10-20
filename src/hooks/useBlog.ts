@@ -23,18 +23,23 @@ export type BlogPost = Database['public']['Views']['blog_feed']['Row'];
 export function useBlogFeed() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
+  const [fallo, setFallo] = useState(false);
   const [topic, setTopic] = useState('');
   const [section, setSection] = useState<SectionValue | null>(null);
   const [q, setQ] = useState('');
 
   const load = useCallback(async () => {
     setLoading(true);
+    setFallo(false);
     // El tope era 60 y el blog ya pasa de esa cifra: con 68 entradas se perdían
     // ocho sin que nadie lo notara. Se sube con holgura y el filtro por sección
     // y por tema hace el resto.
     let query = supabase.from('blog_feed').select('*').order('created_at', { ascending: false }).limit(300);
     if (topic) query = query.eq('topic', topic);
-    const { data } = await query;
+    // El error se tiraba: una carga que FALLA quedaba igual que una lista
+    // vacia, y la pantalla decia "no hay nada". (Repaso adversario, 19 oct 2026.)
+    const { data, error } = await query;
+    if (error) { setFallo(true); setPosts([]); setLoading(false); return; }
     setPosts((data as BlogPost[]) ?? []);
     setLoading(false);
   }, [topic]);
@@ -52,7 +57,7 @@ export function useBlogFeed() {
     [posts, term, section],
   );
 
-  return { posts: filtered, loading, topic, setTopic, section, setSection, q, setQ, reload: load };
+  return { posts: filtered, loading, fallo, topic, setTopic, section, setSection, q, setQ, reload: load };
 }
 
 export function useBlogRecommendations(limit = 6) {
@@ -81,19 +86,26 @@ export function useBlogRecommendations(limit = 6) {
 export function useAuthorPosts(authorId: string) {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
+  const [fallo, setFallo] = useState(false);
 
   useEffect(() => {
     if (!authorId) return;
     let vivo = true;
     (async () => {
       setLoading(true);
-      const { data } = await supabase
+      setFallo(false);
+      const { data, error } = await supabase
         .from('blog_feed')
         .select('*')
         .eq('author_id', authorId)
         .order('created_at', { ascending: false })
         .limit(60);
       if (!vivo) return;
+      // El error se tiraba, asi que la pantalla del autor decia "todavia no ha
+      // publicado nada" cuando lo que paso fue que no se pudo cargar. Decirle
+      // eso a quien escribe es peor que no decir nada. (Repaso adversario,
+      // 19 oct 2026.)
+      if (error) { setFallo(true); setPosts([]); setLoading(false); return; }
       setPosts((data as BlogPost[]) ?? []);
       setLoading(false);
     })();
@@ -101,7 +113,7 @@ export function useAuthorPosts(authorId: string) {
   }, [authorId]);
 
   const author = posts[0] ?? null;
-  return { posts, author, loading };
+  return { posts, author, loading, fallo };
 }
 
 export function useInterests() {

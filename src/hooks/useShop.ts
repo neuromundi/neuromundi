@@ -34,11 +34,12 @@ export function useStore() {
   const [ratings, setRatings] = useState<Record<string, ProductRating>>({});
   const [sellers, setSellers] = useState<Record<string, SellerTrust>>({});
   const [loading, setLoading] = useState(true);
+  const [fallo, setFallo] = useState(false);
 
   useEffect(() => {
     let vivo = true;
     (async () => {
-      const { data } = await supabase
+      const { data, error } = await supabase
         .from('products')
         .select('*')
         .eq('is_active', true)
@@ -46,6 +47,9 @@ export function useStore() {
         .not('price', 'is', null)
         .order('created_at', { ascending: false })
         .limit(60);
+      // El error se tiraba y la tienda decia "no hay productos" cuando lo que
+      // paso fue que no se pudo cargar. (Repaso adversario, 19 oct 2026.)
+      if (error) { if (vivo) { setFallo(true); setProducts([]); setLoading(false); } return; }
       const list = data ?? [];
       // (Auditoría 15 oct 2026, hallazgo M-4.)
       if (!vivo) return;
@@ -97,7 +101,7 @@ export function useStore() {
     }
   }, []);
 
-  return { products, ratings, sellers, loading, buy };
+  return { products, ratings, sellers, loading, fallo, buy };
 }
 
 // ── Afiliados ──────────────────────────────────────────────────────────────────

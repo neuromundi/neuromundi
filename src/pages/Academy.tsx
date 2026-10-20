@@ -12,7 +12,7 @@ import { EmpresaLimitadaMuro } from '@/components/membership/EmpresaLimitadaMuro
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { GraduationCap, BookOpen, Play, Check, HeartHandshake, Stethoscope, School, Search } from 'lucide-react';
-import { Button, SkeletonCard, useToast, EmptyState, HowTo } from '@/components/ui';
+import { Button, SkeletonCard, useToast, EmptyState, HowTo , AvisoDeFallo } from '@/components/ui';
 import { useAuth } from '@/hooks/useAuth';
 import { useAcademy } from '@/hooks/useAcademy';
 import { CountryFilter } from '@/components/common/CountryFilter';
@@ -33,7 +33,7 @@ export function Academy() {
   const toast = useToast();
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
-  const { courses, enrolledIds, loading, enroll } = useAcademy();
+  const { courses, enrolledIds, loading, fallo, enroll, reload } = useAcademy();
 
   const [profile, setProfile] = useState<ProfileKey | null>(null);
   const [level, setLevel] = useState<string>('');
@@ -160,7 +160,11 @@ export function Academy() {
       {loading ? (
         <SkeletonCard rows={4} />
       ) : filtered.length === 0 ? (
-        <EmptyState icon={<GraduationCap className="h-6 w-6" />} title={t('lms.emptyTitle')} description={t('lms.empty')} />
+        fallo ? (
+          <AvisoDeFallo onRetry={() => void reload()} />
+        ) : (
+          <EmptyState icon={<GraduationCap className="h-6 w-6" />} title={t('lms.emptyTitle')} description={t('lms.empty')} />
+        )
       ) : (
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((c) => {

@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ArrowLeft, CheckCircle2, Circle, Play, ExternalLink, BookOpen } from 'lucide-react';
-import { Button, SkeletonCard, useToast } from '@/components/ui';
+import { Button, SkeletonCard, useToast , AvisoDeFallo } from '@/components/ui';
 import { useAuth } from '@/hooks/useAuth';
 import { useCourse } from '@/hooks/useAcademy';
 import { safeHttpUrl } from '@/lib/safeUrl';
@@ -27,10 +27,12 @@ export function Course() {
   const { t } = useTranslation();
   const toast = useToast();
   const { isAuthenticated } = useAuth();
-  const { course, modules, enrolled, completed, progress, totalLessons, loading, enroll, toggleLesson } = useCourse(id);
+  const { course, modules, falloCurso, enrolled, completed, progress, totalLessons, loading, enroll, toggleLesson } = useCourse(id);
   const [openLesson, setOpenLesson] = useState<string | null>(null);
 
   if (loading) return <div className="mx-auto max-w-3xl p-4"><SkeletonCard rows={5} /></div>;
+  // Un fallo de carga NO es "este curso no existe".
+  if (falloCurso) return <div className="mx-auto max-w-3xl p-8"><AvisoDeFallo onRetry={() => window.location.reload()} /></div>;
   if (!course) return <p className="mx-auto max-w-3xl p-8 text-center text-muted">{t('lms.notFound')}</p>;
 
   return (

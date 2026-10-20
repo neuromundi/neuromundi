@@ -144,7 +144,7 @@
         "src/lib/schemas.ts",
         "src/stores/authStore.ts"
       ],
-      "huella": "7244e268afffa111",
+      "huella": "a1813a58fb81eeec",
       "modos_revisados": [
         "escrituras que se pierden",
         "lo que se le dice a la persona"
@@ -152,7 +152,8 @@
       "encontrado": [
         "el alta se bloqueaba sin decir que campos faltaban: ahora los enumera",
         "el guardian de columnas del perfil rechazaba la escritura callando: ahora pasa por complete_onboarding",
-        "se podia completar un alta sin pais: el servidor ya lo rechaza"
+        "se podia completar un alta sin pais: el servidor ya lo rechaza",
+        "resellado el 19 oct 2026: el repaso caduco porque authStore cambio al anadirle limpiarAlSalir en el cierre de sesion. Revisado que ese cambio no toca el alta: solo anade un borrado de datos locales dentro de signOut"
       ],
       "hallazgos_abiertos": [
         "el perfil de Sergio Edilberto Ramirez Perez (NM-000018) no tiene pais ni ningun dato de ubicacion. No se puede rellenar sin inventarlo: necesita que Enyoria lo pregunte"
@@ -519,6 +520,183 @@
       "fecha": "2026-10-19",
       "quien": "Claude",
       "huella": "b98e943264b0daae"
+    },
+    {
+      "pantalla": "/tienda",
+      "archivos": [
+        "src/pages/Store.tsx",
+        "src/hooks/useShop.ts"
+      ],
+      "modos_revisados": [
+        "ceros y vacios",
+        "recortes"
+      ],
+      "encontrado": [
+        "el error de carga se tiraba, asi que un fallo quedaba igual que \"no hay nada\" y la pantalla lo decia. Corregido con AvisoDeFallo, el componente que YA existia desde el 15 de octubre para esto y que no se habia aplicado aqui",
+        "el listado pide como maximo 60 productos: hoy no corta, pero es un tope que habra que paginar cuando la tienda crezca"
+      ],
+      "hallazgos_abiertos": [],
+      "fecha": "2026-10-19",
+      "quien": "Claude",
+      "huella": "25f0e6c35e2cb286"
+    },
+    {
+      "pantalla": "/blog",
+      "archivos": [
+        "src/pages/Blog.tsx",
+        "src/hooks/useBlog.ts"
+      ],
+      "modos_revisados": [
+        "ceros y vacios",
+        "recortes"
+      ],
+      "encontrado": [
+        "el error de carga se tiraba, asi que un fallo quedaba igual que \"no hay nada\" y la pantalla lo decia. Corregido con AvisoDeFallo, el componente que YA existia desde el 15 de octubre para esto y que no se habia aplicado aqui",
+        "el tope del blog ya se habia subido de 60 a 300 en una correccion anterior, por haber perdido ocho entradas en silencio"
+      ],
+      "hallazgos_abiertos": [],
+      "fecha": "2026-10-19",
+      "quien": "Claude",
+      "huella": "86de3d2c5a43702d"
+    },
+    {
+      "pantalla": "/academy",
+      "archivos": [
+        "src/pages/Academy.tsx",
+        "src/hooks/useAcademy.ts"
+      ],
+      "modos_revisados": [
+        "ceros y vacios"
+      ],
+      "encontrado": [
+        "el error de carga se tiraba, asi que un fallo quedaba igual que \"no hay nada\" y la pantalla lo decia. Corregido con AvisoDeFallo, el componente que YA existia desde el 15 de octubre para esto y que no se habia aplicado aqui"
+      ],
+      "hallazgos_abiertos": [],
+      "fecha": "2026-10-19",
+      "quien": "Claude",
+      "huella": "56ad374ee18b7b0d"
+    },
+    {
+      "pantalla": "/autor/:id",
+      "archivos": [
+        "src/pages/Author.tsx",
+        "src/hooks/useBlog.ts"
+      ],
+      "modos_revisados": [
+        "ceros y vacios"
+      ],
+      "encontrado": [
+        "decia \"todavia no ha publicado nada\" cuando la carga fallaba. Decirle eso a quien escribe es peor que no decir nada. Corregido"
+      ],
+      "hallazgos_abiertos": [],
+      "fecha": "2026-10-19",
+      "quien": "Claude",
+      "huella": "f69620f188eac0c2"
+    },
+    {
+      "pantalla": "/eventos",
+      "archivos": [
+        "src/pages/Events.tsx",
+        "src/hooks/useEvents.ts"
+      ],
+      "modos_revisados": [
+        "ceros y vacios"
+      ],
+      "encontrado": [
+        "el error de carga se tiraba, asi que un fallo quedaba igual que \"no hay nada\" y la pantalla lo decia. Corregido con AvisoDeFallo, el componente que YA existia desde el 15 de octubre para esto y que no se habia aplicado aqui"
+      ],
+      "hallazgos_abiertos": [],
+      "fecha": "2026-10-19",
+      "quien": "Claude",
+      "huella": "264147ef3d186193"
+    },
+    {
+      "pantalla": "/academy/:id",
+      "archivos": [
+        "src/pages/Course.tsx",
+        "src/hooks/useAcademy.ts"
+      ],
+      "modos_revisados": [
+        "ceros y vacios"
+      ],
+      "encontrado": [
+        "decia \"curso no encontrado\" ante cualquier error, incluido un fallo de red. Ahora se distingue por el codigo PGRST116, que es el unico que significa de verdad \"no hay filas\""
+      ],
+      "hallazgos_abiertos": [],
+      "fecha": "2026-10-19",
+      "quien": "Claude",
+      "huella": "5027bb6d7fa83b28"
+    },
+    {
+      "pantalla": "/contenido/:id",
+      "archivos": [
+        "src/pages/Post.tsx",
+        "src/hooks/useContent.ts"
+      ],
+      "modos_revisados": [
+        "ceros y vacios",
+        "escrituras que se pierden"
+      ],
+      "encontrado": [
+        "decia \"este articulo no existe\" ante cualquier error: ahora se distingue por PGRST116",
+        "el registro de la vista del articulo es un upsert idempotente cuyo resultado se ignora a proposito: si falla, la vista no se cuenta y nadie se entera. Es el mismo patron que dejo el conteo de visitas del directorio en cero durante meses, pero aqui el dato es solo informativo"
+      ],
+      "hallazgos_abiertos": [],
+      "fecha": "2026-10-19",
+      "quien": "Claude",
+      "huella": "bc9268a5f6dec7bf"
+    },
+    {
+      "pantalla": "/reservar/:memberNo",
+      "archivos": [
+        "src/pages/Book.tsx"
+      ],
+      "modos_revisados": [
+        "ceros y vacios",
+        "lo que se le dice a la persona",
+        "permisos"
+      ],
+      "encontrado": [
+        "ya distinguia 'no encontrado' de 'error' con dos estados separados: sin cambios. Es el unico de esta tanda que estaba bien"
+      ],
+      "hallazgos_abiertos": [],
+      "fecha": "2026-10-19",
+      "quien": "Claude",
+      "huella": "132309faaa301b17"
+    },
+    {
+      "pantalla": "/kit",
+      "archivos": [
+        "src/pages/Toolkit.tsx"
+      ],
+      "modos_revisados": [
+        "ceros y vacios",
+        "sustituciones"
+      ],
+      "encontrado": [
+        "el avance de lectura se guarda en el dispositivo y es anonimo a proposito, para quien no tiene cuenta: no hay consulta que pueda fallar en silencio"
+      ],
+      "hallazgos_abiertos": [],
+      "fecha": "2026-10-19",
+      "quien": "Claude",
+      "huella": "b8714f87a67a98b0"
+    },
+    {
+      "pantalla": "/herramientas",
+      "archivos": [
+        "src/pages/Toolkit.tsx"
+      ],
+      "modos_revisados": [
+        "ceros y vacios",
+        "sustituciones"
+      ],
+      "encontrado": [
+        "misma pantalla que /kit"
+      ],
+      "hallazgos_abiertos": [],
+      "fecha": "2026-10-19",
+      "quien": "Claude",
+      "huella": "b8714f87a67a98b0"
     }
   ]
 }

@@ -24,14 +24,19 @@ export function useAcademy() {
   const [courses, setCourses] = useState<Course[]>([]);
   const [enrolledIds, setEnrolledIds] = useState<Set<string>>(new Set());
   const [loading, setLoading] = useState(true);
+  const [fallo, setFallo] = useState(false);
 
   const load = useCallback(async () => {
     setLoading(true);
+    setFallo(false);
     // Academy segmentada por país en el SERVIDOR vía la vista courses_public
     // (país del curso o, si es nulo, país del autor).
     let q = supabase.from('courses_public').select('*').eq('is_published', true).order('created_at', { ascending: false });
     if (country) q = q.eq('effective_country', country);
-    const { data } = await q;
+    // El error se tiraba: una carga que FALLA quedaba igual que una lista
+    // vacia, y la pantalla decia "no hay nada". (Repaso adversario, 19 oct 2026.)
+    const { data, error } = await q;
+    if (error) { setFallo(true); setCourses([]); setLoading(false); return; }
     setCourses((data ?? []) as Course[]);
     if (userId) {
       const { data: en } = await supabase.from('course_enrollments').select('course_id').eq('user_id', userId);
@@ -50,7 +55,7 @@ export function useAcademy() {
     return { ok: true, data: true };
   }, [userId, load]);
 
-  return { courses, enrolledIds, loading, enroll };
+  return { courses, enrolledIds, loading, fallo, enroll, reload: load };
 }
 
 // ── Curso / aula ─────────────────────────────────────────────────────────────
@@ -59,6 +64,9 @@ export interface ModuleWithLessons extends Module { lessons: Lesson[] }
 export function useCourse(courseId: string) {
   const { userId } = useAuth();
   const [course, setCourse] = useState<Course | null>(null);
+  // PGRST116 es "no hay filas": eso SI es "no encontrado". Cualquier otro
+  // error es un fallo y se dice como tal.
+  const [falloCurso, setFalloCurso] = useState(false);
   const [modules, setModules] = useState<ModuleWithLessons[]>([]);
   const [enrolled, setEnrolled] = useState(false);
   const [completed, setCompleted] = useState<Set<string>>(new Set());
@@ -67,8 +75,12 @@ export function useCourse(courseId: string) {
   const load = useCallback(async () => {
     if (!courseId) return;
     setLoading(true);
-    const { data: c } = await supabase.from('courses').select('*').eq('id', courseId).single();
-    setCourse(c ?? null);
+    // `single()` devuelve error TANTO si el curso no existe como si la consulta
+    // fallo. Hay que distinguirlos: decir "curso no encontrado" cuando lo que
+    // paso fue un fallo de red manda a la persona a buscar otra cosa.
+    const { data: c, error: errC } = await supabase.from('courses').select('*').eq('id', courseId).single();
+    if (errC && errC.code !== 'PGRST116') { setFalloCurso(true); setCourse(null); }
+    else setCourse(c ?? null);
 
     const { data: mods } = await supabase.from('course_modules').select('*').eq('course_id', courseId).order('position');
     const modIds = (mods ?? []).map((m) => m.id);
@@ -120,7 +132,7 @@ export function useCourse(courseId: string) {
   const totalLessons = modules.reduce((n, m) => n + m.lessons.length, 0);
   const progress = totalLessons === 0 ? 0 : Math.round((completed.size / totalLessons) * 100);
 
-  return { course, modules, enrolled, completed, progress, totalLessons, loading, enroll, toggleLesson };
+  return { course, modules, falloCurso, enrolled, completed, progress, totalLessons, loading, enroll, toggleLesson };
 }
 
 // ── Autoría ────────────────────────────────────────────────────────────────────

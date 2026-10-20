@@ -70,9 +70,11 @@ export function useEvents() {
   const { isAdmin } = useAuth();
   const [events, setEvents] = useState<EventItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [fallo, setFallo] = useState(false);
 
   const load = useCallback(async () => {
     setLoading(true);
+    setFallo(false);
     // Desde ayer para no ocultar los que empiezan hoy; próximos primero.
     const since = new Date(Date.now() - 86400000).toISOString();
     let q = supabase
@@ -87,7 +89,10 @@ export function useEvents() {
     // este filtro vería su evento pendiente en la página pública como si ya
     // estuviera anunciado.
     if (!isAdmin) q = q.eq('is_published', true).eq('revision', 'aprobado');
-    const { data } = await q;
+    // El error se tiraba: una carga que FALLA quedaba igual que "no hay",
+    // y la pantalla lo decia. (Repaso adversario, 19 oct 2026.)
+    const { data, error } = await q;
+    if (error) { setFallo(true); setLoading(false); return; }
     setEvents((data ?? []) as unknown as EventItem[]);
     setLoading(false);
   }, [isAdmin]);
@@ -115,5 +120,5 @@ export function useEvents() {
     return { ok: true, data: true };
   }, [load]);
 
-  return { events, loading, reload: load, createEvent, updateEvent, deleteEvent };
+  return { events, loading, fallo, reload: load, createEvent, updateEvent, deleteEvent };
 }

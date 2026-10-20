@@ -7,7 +7,7 @@
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ShoppingBag, Tag, Search, Star, ShieldCheck, MessageSquare, Plus } from 'lucide-react';
-import { Button, useToast, EmptyState, SkeletonCard, StarRating } from '@/components/ui';
+import { Button, useToast, EmptyState, SkeletonCard, StarRating , AvisoDeFallo } from '@/components/ui';
 import { useStore, getRefCode, type Product } from '@/hooks/useShop';
 import { ProductReviewsModal } from '@/components/shop/ProductReviewsModal';
 import { SuggestModal } from '@/components/common/SuggestModal';
@@ -23,7 +23,7 @@ export function Store() {
   const { t } = useTranslation();
   const toast = useToast();
   const catLabel = useCatLabel();
-  const { products, ratings, sellers, loading, buy } = useStore();
+  const { products, ratings, sellers, loading, fallo, buy } = useStore();
   const { country } = useCountry();
   const [busyId, setBusyId] = useState<string | null>(null);
   const [reviewsFor, setReviewsFor] = useState<Product | null>(null);
@@ -226,7 +226,11 @@ export function Store() {
           <SkeletonCard rows={2} />
         </div>
       ) : products.length === 0 ? (
-        <EmptyState icon={<ShoppingBag className="h-6 w-6" />} title={t('shop.emptyTitle')} description={t('shop.empty')} />
+        fallo ? (
+          <AvisoDeFallo onRetry={() => window.location.reload()} />
+        ) : (
+          <EmptyState icon={<ShoppingBag className="h-6 w-6" />} title={t('shop.emptyTitle')} description={t('shop.empty')} />
+        )
       ) : (
         <>
           {showFeatured ? (
