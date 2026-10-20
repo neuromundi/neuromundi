@@ -59,9 +59,8 @@
         "imprimia la clave interna del tipo de miembro: corregido",
         "15 fichas publicadas sin area, invisibles en todos los filtros: 12 clasificadas"
       ],
-      "hallazgos_abiertos": [
-        "3 fichas publicadas siguen sin area y no hay con que clasificarlas: Estancia Dorita Ojeda I.A.P., Dinamica Familiar Laguna A.C. y Pequenos Maestros. Esperan decision de Enyoria"
-      ]
+      "hallazgos_abiertos": [],
+      "notas": " | 20 oct: las tres fichas quedaron clasificadas tras buscar cada organizacion. Precision importante: lo que les faltaba era la SECCION, no el area de intervencion; «sin area» fue impreciso de mi parte. Hoy quedan 0 fichas publicadas sin seccion (medido). Aparte, 1,331 de las 1,818 publicadas no tienen area de intervencion, que es otra cosa y NO es un defecto conocido: la mayoria del directorio nunca ha declarado area. Si Enyoria quiere que el filtro por area sirva para todo el directorio, eso es trabajo aparte."
     },
     {
       "pantalla": "admin:invitations",
@@ -120,9 +119,8 @@
         "se podia completar un alta sin pais: el servidor ya lo rechaza",
         "resellado el 19 oct 2026: el repaso caduco porque authStore cambio al anadirle limpiarAlSalir en el cierre de sesion. Revisado que ese cambio no toca el alta: solo anade un borrado de datos locales dentro de signOut"
       ],
-      "hallazgos_abiertos": [
-        "el perfil de Sergio Edilberto Ramirez Perez (NM-000018) no tiene pais ni ningun dato de ubicacion. No se puede rellenar sin inventarlo: necesita que Enyoria lo pregunte"
-      ]
+      "hallazgos_abiertos": [],
+      "notas": " | 20 oct: Enyoria indico que el pais de NM-000018 es Mexico y quedo asignado. Estado y municipio siguen vacios: el no los dio y no se inventan."
     },
     {
       "pantalla": "/reclamar/:token",
