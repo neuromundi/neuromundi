@@ -64,6 +64,10 @@ export function useFounderCapacity(kind: FounderKind | null, country: string | n
   // solo respaldo local mientras llega la respuesta.
   const [capacity, setCapacity] = useState(kind ? FOUNDER_CAPACITY[kind] : 0);
   const [loading, setLoading] = useState(true);
+  // Si la cuenta de cupos usados fallaba, `used` se quedaba en 0 y la pantalla
+  // anunciaba que quedaban TODOS los lugares de fundador. Una cifra plausible y
+  // falsa, justo donde alguien paga. (Repaso adversario, 20 oct 2026.)
+  const [fallo, setFallo] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -79,7 +83,13 @@ export function useFounderCapacity(kind: FounderKind | null, country: string | n
         supabase.rpc('founder_cap_for', { p_country: country, p_kind: kind }),
       ]);
       if (cancelled) return;
-      setUsed(typeof countRes.data === 'number' ? countRes.data : 0);
+      if (countRes.error || typeof countRes.data !== 'number') {
+        setFallo(true);
+        setLoading(false);
+        return;
+      }
+      setFallo(false);
+      setUsed(countRes.data);
       setCapacity(typeof capRes.data === 'number' ? capRes.data : FOUNDER_CAPACITY[kind]);
       setLoading(false);
     })();
@@ -88,11 +98,12 @@ export function useFounderCapacity(kind: FounderKind | null, country: string | n
 
   const remaining = Math.max(0, capacity - used);
   const reached = !!kind && !!country && used >= capacity;
-  return { used, capacity, remaining, reached, loading };
+  return { used, capacity, remaining, reached, loading, fallo };
 }
 
 export function useFounderStatus(profileId: string | null | undefined) {
   const [isFounder, setIsFounder] = useState(false);
+  const [fallo, setFallo] = useState(false);
   const [kind, setKind] = useState<FounderKind | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -101,12 +112,17 @@ export function useFounderStatus(profileId: string | null | undefined) {
     if (!profileId) { setIsFounder(false); setLoading(false); return; }
     (async () => {
       setLoading(true);
-      const { data } = await supabase
+      const { data, error } = await supabase
         .from('founder_members')
         .select('kind')
         .eq('user_id', profileId)
         .maybeSingle();
       if (cancelled) return;
+      // Antes, una lectura fallida se convertia en «no es fundador»: a quien SI
+      // lo es se le retiraba la insignia y sus beneficios sin aviso. Ahora el
+      // fallo se queda como fallo. (Repaso adversario, 20 oct 2026.)
+      if (error) { setFallo(true); setLoading(false); return; }
+      setFallo(false);
       setIsFounder(!!data);
       setKind((data?.kind as FounderKind) ?? null);
       setLoading(false);
@@ -114,7 +130,7 @@ export function useFounderStatus(profileId: string | null | undefined) {
     return () => { cancelled = true; };
   }, [profileId]);
 
-  return { isFounder, kind, loading };
+  return { isFounder, kind, loading, fallo };
 }
 
 /**

@@ -806,7 +806,7 @@
         "src/pages/Benefits.tsx"
       ],
       "notas": "Las diez listas de beneficios se pedian sin blindaje; un «?? []» que no protege de nada.",
-      "fecha": "2026-10-19",
+      "fecha": "2026-10-20",
       "huella": "3e35107d25366870"
     },
     {
@@ -874,6 +874,128 @@
       "notas": "Las cuotas por pais y los descuentos por pais decian «sin configurar» cuando no se podian leer, en la pantalla donde se fijan los precios.",
       "fecha": "2026-10-19",
       "huella": "8388377a3da76900"
+    },
+    {
+      "pantalla": "/ajustes",
+      "archivos": [
+        "src/pages/Settings.tsx",
+        "src/hooks/useProfile.ts",
+        "src/hooks/usePerfilDeLaSesion.ts"
+      ],
+      "notas": "El archivo estaba guardado con la codificacion rota (36 palabras con la tilde mal, una VISIBLE: el texto de ejemplo del campo de Facebook decia facebook.com/pAgina) y con BOM. Y si el perfil no se podia leer, la pantalla entera se quedaba cargando para siempre: profileError se guardaba desde el hallazgo A-14 pero NADIE lo leia.",
+      "fecha": "2026-10-20",
+      "huella": "e582d8011200aa5b"
+    },
+    {
+      "pantalla": "/calendario",
+      "archivos": [
+        "src/pages/Calendar.tsx",
+        "src/hooks/useCalendar.ts",
+        "src/components/calendar/AppointmentRequests.tsx",
+        "src/hooks/useAppointmentRequests.ts"
+      ],
+      "notas": "Lo mas grave del repaso completo hasta hoy: el calendario decia «no tienes nada» cuando no se podia leer, y aqui dentro hay CITAS. Peor aun, el bloque de solicitudes de cita DESAPARECIA entero al fallar la lectura, asi que un especialista no veia las solicitudes pendientes y quien pidio la cita se quedaba sin respuesta.",
+      "fecha": "2026-10-20",
+      "huella": "f7a124977e36f33c"
+    },
+    {
+      "pantalla": "/become-a-founder",
+      "archivos": [
+        "src/pages/BecomeFounder.tsx",
+        "src/hooks/useFounder.ts"
+      ],
+      "notas": "Si la cuenta de cupos usados fallaba, used se quedaba en 0 y la pantalla anunciaba que quedaban TODOS los lugares de fundador: una cifra plausible y falsa justo donde alguien paga. Y una lectura fallida del padron convertia a un fundador en «no fundador».",
+      "fecha": "2026-10-20",
+      "huella": "efb8225c5ecbf9c8"
+    },
+    {
+      "pantalla": "/fundadores",
+      "archivos": [
+        "src/pages/Founders.tsx",
+        "src/components/founder/FoundersWallSection.tsx"
+      ],
+      "notas": "Sin hallazgos: el muro ya distingue «no se pudo cargar» de «no hay fundadores publicados».",
+      "fecha": "2026-10-20",
+      "huella": "a54b477884855a8e"
+    },
+    {
+      "pantalla": "/donar",
+      "archivos": [
+        "src/pages/Donate.tsx",
+        "src/components/donation/DonationSection.tsx"
+      ],
+      "notas": "Sin hallazgos nuevos: las escrituras comprueban su resultado y el aviso de retorno de Stripe se limpia de la URL.",
+      "fecha": "2026-10-20",
+      "huella": "28ae7cfcdcce40e6"
+    },
+    {
+      "pantalla": "/donantes",
+      "archivos": [
+        "src/pages/DonorWall.tsx"
+      ],
+      "notas": "Sin hallazgos: ya usa AvisoDeFallo.",
+      "fecha": "2026-10-20",
+      "huella": "136fdb2ba7dead08"
+    },
+    {
+      "pantalla": "/encuesta",
+      "archivos": [
+        "src/pages/Encuesta.tsx"
+      ],
+      "notas": "Sin hallazgos: la escritura de la respuesta comprueba su error y lo dice.",
+      "fecha": "2026-10-20",
+      "huella": "6a1bdb2006048a1a"
+    },
+    {
+      "pantalla": "/red",
+      "archivos": [
+        "src/pages/RedNeuromundi.tsx"
+      ],
+      "notas": "Sin hallazgos: pagina sin consultas.",
+      "fecha": "2026-10-20",
+      "huella": "d36a23dc5394560d"
+    },
+    {
+      "pantalla": "/inclusion-laboral",
+      "archivos": [
+        "src/pages/LaborInclusion.tsx",
+        "src/hooks/useJobOpenings.ts",
+        "src/components/provider/JobsPanel.tsx"
+      ],
+      "notas": "La parte publica ya avisaba del fallo. La de la empresa no: decia «no tienes vacantes publicadas» cuando no se podian leer, y a las empresas les corre un plazo de 45 dias sin publicar que limita la cuenta.",
+      "fecha": "2026-10-20",
+      "huella": "d41e358fe3b2d532"
+    },
+    {
+      "pantalla": "/soporte",
+      "archivos": [
+        "src/pages/Support.tsx"
+      ],
+      "notas": "Sin hallazgos: el boton siempre hace algo (mailto y respaldo al portapapeles).",
+      "fecha": "2026-10-20",
+      "huella": "0e542b9c6f385d58"
+    },
+    {
+      "pantalla": "/support",
+      "archivos": [
+        "src/pages/Support.tsx"
+      ],
+      "notas": "Misma pantalla que /soporte.",
+      "fecha": "2026-10-20",
+      "huella": "0e542b9c6f385d58"
+    },
+    {
+      "pantalla": "/",
+      "archivos": [
+        "src/pages/Home.tsx",
+        "src/components/home/HomeCounters.tsx",
+        "src/components/home/HomeBlogEvents.tsx",
+        "src/components/home/ComparisonTable.tsx",
+        "src/components/campaign/FoundersCounter.tsx"
+      ],
+      "notas": "Sin hallazgos: los contadores salen de constantes locales, y el contador de fundadores y la tabla comparativa NO inventan una cifra si la consulta falla (se callan). HomeBlogEvents ya distingue el fallo.",
+      "fecha": "2026-10-20",
+      "huella": "32c5c56454fd9af7"
     }
   ]
 }

@@ -58,15 +58,22 @@ export function useAppointmentRequests() {
   const [rows, setRows] = useState<AppointmentRequest[]>([]);
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
+  // Si esta lectura fallaba, el panel entero DESAPARECIA (hasContent quedaba en
+  // falso) y un especialista con solicitudes de cita pendientes no veia ni el
+  // bloque: la persona que pidio la cita se quedaba sin respuesta y nadie se
+  // enteraba. (Repaso adversario, 20 oct 2026.)
+  const [fallo, setFallo] = useState(false);
 
   const load = useCallback(async () => {
     if (!userId) { setRows([]); setLoading(false); return; }
     setLoading(true);
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from('appointment_requests')
       .select('*')
       .or(`specialist_id.eq.${userId},recipient_id.eq.${userId}`)
       .order('created_at', { ascending: false });
+    if (error) { setFallo(true); setLoading(false); return; }
+    setFallo(false);
     const list = (data ?? []) as unknown as AppointmentRequest[];
     // Nombre de la otra parte (especialista o destinatario) para mostrar.
     const otherIds = [...new Set(list.map((r) => (r.specialist_id === userId ? r.recipient_id : r.specialist_id)))];
@@ -160,7 +167,7 @@ export function useAppointmentRequests() {
     return (data ?? []) as unknown as PatientHit[];
   }, []);
 
-  return { sent, received, pendingReceived, payableReceived, loading, busy, sendRequest, respond, payAppointment, searchPatients, reload: load };
+  return { sent, received, pendingReceived, payableReceived, loading, fallo, busy, sendRequest, respond, payAppointment, searchPatients, reload: load };
 }
 
 /** Dispara los recordatorios de 24 h del usuario actual (fallback del cliente). */

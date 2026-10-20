@@ -7,7 +7,7 @@ import { useMemo, useState } from 'react';
 import { useAvisarResultado } from '@/hooks/useAvisarResultado';
 import { useTranslation } from 'react-i18next';
 import { Plus, Pencil, Trash2, Eye, EyeOff, Save, X, Briefcase } from 'lucide-react';
-import { Button, SkeletonCard, EmptyState, useToast, useConfirm } from '@/components/ui';
+import { Button, SkeletonCard, EmptyState, useToast, useConfirm, AvisoDeFallo } from '@/components/ui';
 import { useMyJobs, type JobOpening, type JobPatch } from '@/hooks/useJobOpenings';
 import { useCountryLabel } from '@/lib/countryLabel';
 import { COUNTRIES } from '@/data/countries';
@@ -107,7 +107,7 @@ function JobRow({ job, onToggle, onEdit, onDelete }: { job: JobOpening; onToggle
 export function JobsPanel({ companyId }: { companyId: string }) {
   const { t } = useTranslation();
   const confirm = useConfirm();
-  const { jobs, loading, create, update, remove } = useMyJobs(companyId);
+  const { jobs, loading, fallo, reload, create, update, remove } = useMyJobs(companyId);
   const [adding, setAdding] = useState(false);
   const [editing, setEditing] = useState<JobOpening | null>(null);
 
@@ -136,6 +136,8 @@ export function JobsPanel({ companyId }: { companyId: string }) {
 
       {loading ? (
         <SkeletonCard rows={3} />
+      ) : fallo ? (
+        <AvisoDeFallo onRetry={() => void reload()} />
       ) : jobs.length === 0 && !adding ? (
         <EmptyState icon={<Briefcase className="h-6 w-6" />} title={t('jobs.emptyTitle')} description={t('jobs.empty')} />
       ) : (

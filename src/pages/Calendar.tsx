@@ -9,7 +9,7 @@
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CalendarDays, CalendarRange, List, Plus, Trash2, MapPin, Globe2, Stethoscope, HeartPulse, NotebookPen, ChevronLeft, ChevronRight, Download, ExternalLink } from 'lucide-react';
-import { Button, Modal, useToast, EmptyState, SkeletonCard } from '@/components/ui';
+import { Button, Modal, useToast, EmptyState, SkeletonCard, AvisoDeFallo } from '@/components/ui';
 import { useCalendar, type CalendarItem, type EntryKind } from '@/hooks/useCalendar';
 import { AppointmentRequests } from '@/components/calendar/AppointmentRequests';
 import { googleCalendarUrl, downloadICS } from '@/lib/calendar';
@@ -30,7 +30,7 @@ const KIND_ICON: Record<EntryKind, typeof CalendarDays> = {
 export function Calendar() {
   const { t, i18n } = useTranslation();
   const toast = useToast();
-  const { items, loading, addEntry, removeEntry } = useCalendar();
+  const { items, loading, fallo, addEntry, removeEntry, reload } = useCalendar();
   const [view, setView] = useState<'agenda' | 'month'>('agenda');
   const [adding, setAdding] = useState(false);
   const [cursor, setCursor] = useState(() => { const d = new Date(); return new Date(d.getFullYear(), d.getMonth(), 1); });
@@ -118,6 +118,8 @@ export function Calendar() {
 
       {loading ? (
         <div className="space-y-3"><SkeletonCard rows={1} /><SkeletonCard rows={1} /></div>
+      ) : fallo ? (
+        <AvisoDeFallo onRetry={() => void reload()} />
       ) : view === 'agenda' ? (
         items.length === 0 ? (
           <EmptyState icon={<CalendarDays className="h-6 w-6" />} title={t('calendar.emptyTitle')} description={t('calendar.empty')} />

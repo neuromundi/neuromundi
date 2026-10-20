@@ -58,6 +58,10 @@ export function useCalendar() {
   const [appts, setAppts] = useState<CalendarItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  // Un calendario vacio y un calendario que no se pudo leer se veian igual, y
+  // aqui dentro hay CITAS: decir «no tienes nada» cuando si hay es como para
+  // que alguien falte a una consulta. (Repaso adversario, 20 oct 2026.)
+  const [fallo, setFallo] = useState(false);
 
   const load = useCallback(async () => {
     if (!userId) { setEntries([]); setAppts([]); setLoading(false); return; }
@@ -65,21 +69,24 @@ export function useCalendar() {
     const since = new Date(Date.now() - 86400000).toISOString();
 
     // Entradas propias.
-    const { data: ce } = await supabase
+    const { data: ce, error: errCe } = await supabase
       .from('calendar_entries')
       .select('*')
       .eq('user_id', userId)
       .order('starts_at', { ascending: true });
+    if (errCe) { setFallo(true); setLoading(false); return; }
     setEntries((ce ?? []) as unknown as CalEntry[]);
 
     // Citas del usuario (como paciente), en solo lectura.
-    const { data: ap } = await supabase
+    const { data: ap, error: errAp } = await supabase
       .from('appointments')
       .select('id, provider_id, starts_at, ends_at, status, video_link')
       .eq('patient_id', userId)
       .neq('status', 'cancelled')
       .gte('starts_at', since)
       .order('starts_at', { ascending: true });
+    if (errAp) { setFallo(true); setLoading(false); return; }
+    setFallo(false);
     const apptRows = ap ?? [];
     // Nombres de los prestadores para mostrar en la cita.
     const provIds = [...new Set(apptRows.map((a) => a.provider_id))];
@@ -181,5 +188,5 @@ export function useCalendar() {
     return { ok: true, data: true };
   }, [userId, savedEventIds, load]);
 
-  return { items, loading, saving, savedEventIds, addEntry, removeEntry, saveEventToCalendar, reload: load };
+  return { items, loading, fallo, saving, savedEventIds, addEntry, removeEntry, saveEventToCalendar, reload: load };
 }

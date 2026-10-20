@@ -10,7 +10,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CalendarClock, Send, Check, X, UserRound, Search, Video, CreditCard } from 'lucide-react';
-import { Button, Modal, useToast, Avatar } from '@/components/ui';
+import { Button, Modal, useToast, Avatar, AvisoDeFallo } from '@/components/ui';
 import { useAuth } from '@/hooks/useAuth';
 import { jitsiRoomUrl } from '@/lib/meet';
 import {
@@ -31,7 +31,7 @@ export function AppointmentRequests() {
   const { t, i18n } = useTranslation();
   const toast = useToast();
   const { isProvider } = useAuth();
-  const { sent, pendingReceived, payableReceived, busy, sendRequest, respond, payAppointment, searchPatients } = useAppointmentRequests();
+  const { sent, pendingReceived, payableReceived, busy, fallo, reload, sendRequest, respond, payAppointment, searchPatients } = useAppointmentRequests();
   const [sendOpen, setSendOpen] = useState(false);
   const [rejecting, setRejecting] = useState<AppointmentRequest | null>(null);
   const [reason, setReason] = useState('');
@@ -55,6 +55,16 @@ export function AppointmentRequests() {
     if (res.ok) { toast.success(t('appt.rejectedToast')); setRejecting(null); setReason(''); }
     else toast.error(errMsg(res.error));
   };
+
+  // Si no se pudo leer, se dice: es preferible un aviso a que el bloque de las
+  // solicitudes de cita se esfume sin que nadie lo note.
+  if (fallo) {
+    return (
+      <section className="rounded-2xl border border-brand-100 bg-brand-50/50 p-4">
+        <AvisoDeFallo onRetry={() => void reload()} />
+      </section>
+    );
+  }
 
   const hasContent = pendingReceived.length > 0 || isProvider;
   if (!hasContent) return null;

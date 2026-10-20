@@ -1,8 +1,8 @@
-﻿/**
- * Settings â€” ajustes de la cuenta (nÃºcleo de AccountSettings 3.1), internacionalizado.
+/**
+ * Settings — ajustes de la cuenta (núcleo de AccountSettings 3.1), internacionalizado.
  *
  * Edita datos del perfil (con avatar) y, para proveedores, los datos del negocio
- * y la publicaciÃ³n. Incluye el selector de idioma y la zona de peligro.
+ * y la publicación. Incluye el selector de idioma y la zona de peligro.
  */
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
@@ -11,7 +11,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import { Camera, LogOut, Trash2, KeyRound, HelpCircle, BellRing, MessageCircle, CalendarCheck, Instagram, Facebook, Mail } from 'lucide-react';
 import { usePushSubscribe } from '@/hooks/usePushSubscribe';
-import { Button, useToast, SkeletonCard, PasswordInput} from '@/components/ui';
+import { usePerfilDeLaSesion } from '@/hooks/usePerfilDeLaSesion';
+import { Button, useToast, SkeletonCard, PasswordInput, AvisoDeFallo } from '@/components/ui';
 import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher';
 import { useAuth } from '@/hooks/useAuth';
 import { useProfile } from '@/hooks/useProfile';
@@ -38,10 +39,10 @@ const labelCls = 'mb-1 block font-semibold text-slate-900';
 function PushSection() {
   const { t } = useTranslation();
   const { state, enable } = usePushSubscribe();
-  // Cuando ya estÃ¡ concedido, esta tarjeta solo repetÃ­a "activadas" (sin acciÃ³n)
-  // y duplicaba a la secciÃ³n "Notificaciones push" (NotificationPrefs), que ya
-  // gestiona el estado y las categorÃ­as. Se muestra Ãºnicamente cuando falta
-  // activarlo o estÃ¡ bloqueado en el navegador.
+  // Cuando ya está concedido, esta tarjeta solo repetía "activadas" (sin acción)
+  // y duplicaba a la sección "Notificaciones push" (NotificationPrefs), que ya
+  // gestiona el estado y las categorías. Se muestra únicamente cuando falta
+  // activarlo o está bloqueado en el navegador.
   if (state === 'unsupported' || state === 'unconfigured' || state === 'granted') return null;
   return (
     <section className="flex items-center justify-between gap-3 rounded-2xl border border-slate-100 p-4">
@@ -65,6 +66,7 @@ function PushSection() {
 export function Settings() {
   const { isProvider, signOut } = useAuth();
   const { profile, saving, updateProfile, uploadAvatar, deleteAccount } = useProfile();
+  const { fallo: falloDePerfil, reintentar: reintentarPerfil } = usePerfilDeLaSesion();
   const { t } = useTranslation();
   const catLabel = useCatLabel();
   const toast = useToast();
@@ -162,9 +164,9 @@ export function Settings() {
     setNewPassword(''); setNewPassword2('');
     toast.success(t('settings.pwUpdated'));
     if (recovery) {
-      // El enlace de recuperaciÃ³n es de un solo uso: al terminar cerramos la
-      // sesiÃ³n temporal para que no pueda reutilizarse; el usuario entra con su
-      // nueva contraseÃ±a.
+      // El enlace de recuperación es de un solo uso: al terminar cerramos la
+      // sesión temporal para que no pueda reutilizarse; el usuario entra con su
+      // nueva contraseña.
       await signOut();
       navigate('/auth', { replace: true });
     }
@@ -228,7 +230,10 @@ export function Settings() {
   if (!profile) {
     return (
       <div className="mx-auto max-w-2xl p-4">
-        <SkeletonCard rows={2} />
+        {/* Antes esto era SOLO el esqueleto: si el perfil no se podia leer, la
+            pantalla de ajustes se quedaba cargando para siempre, sin mensaje y
+            sin forma de reintentar. (Repaso adversario, 20 oct 2026.) */}
+        {falloDePerfil ? <AvisoDeFallo onRetry={reintentarPerfil} /> : <SkeletonCard rows={2} />}
       </div>
     );
   }
@@ -279,7 +284,7 @@ export function Settings() {
       };
       patch.provider_type = values.provider_type;
       patch.is_published = values.is_published;
-      // Datos fiscales (factura MÃ©xico/CFDI e internacional).
+      // Datos fiscales (factura México/CFDI e internacional).
       patch.fiscal_razon_social = orNull(values.fiscal_razon_social);
       patch.fiscal_regimen = orNull(values.fiscal_regimen);
       patch.fiscal_uso_cfdi = orNull(values.fiscal_uso_cfdi);
@@ -327,10 +332,10 @@ export function Settings() {
   };
 
   const finishAccountFlow = () => {
-    // La cuenta ya fue borrada y `deleteAccount` limpiÃ³ la sesiÃ³n SOLO en el
-    // cliente (sin llamar a `/auth/v1/logout`, que darÃ­a 403 porque el usuario
+    // La cuenta ya fue borrada y `deleteAccount` limpió la sesión SOLO en el
+    // cliente (sin llamar a `/auth/v1/logout`, que daría 403 porque el usuario
     // ya no existe). Recargamos en la home con `assign` para reiniciar el
-    // cliente de Supabase sin rastro del token. NO llamamos signOut aquÃ­.
+    // cliente de Supabase sin rastro del token. NO llamamos signOut aquí.
     setShowAccountFlow(false);
     window.location.assign('/');
   };
@@ -460,7 +465,7 @@ export function Settings() {
             </div>
             <div>
               <label htmlFor="s-web" className={labelCls}>{t('settings.website')}</label>
-              <input id="s-web" className={inputCls} placeholder="https://â€¦" {...register('website_url')} />
+              <input id="s-web" className={inputCls} placeholder="https://…" {...register('website_url')} />
               {errors.website_url && <p role="alert" className="mt-1 text-sm text-evs-1">{t(errors.website_url.message!)}</p>}
             </div>
             <div className="grid grid-cols-2 gap-3">
@@ -510,7 +515,7 @@ export function Settings() {
           </fieldset>
         )}
 
-        {/* â”€â”€ Directorio y especializaciÃ³n (solo proveedores) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+        {/* ── Directorio y especialización (solo proveedores) ──────────────── */}
         {isProvider && (
           <fieldset className="space-y-4 rounded-2xl border border-brand-100 bg-brand-50/30 p-4">
             <legend className="px-1 font-semibold text-slate-900">{t('settings.directory')}</legend>
@@ -518,7 +523,7 @@ export function Settings() {
             {/* Profesión / Especialidades / Áreas: perfiles de servicio, no comercios ni empresas de empleo */}
             {!noServiceDirectory && (
             <>
-            {/* ProfesiÃ³n */}
+            {/* Profesión */}
             <div>
               <label htmlFor="s-prof" className={labelCls}>{t('settings.profession')}</label>
               <input id="s-prof" className={inputCls} placeholder={t('settings.professionPlaceholder')} {...register('profession')} />
@@ -539,7 +544,7 @@ export function Settings() {
               <p className="mt-1 text-xs text-muted">{t('settings.specialtiesHint')}</p>
             </div>
 
-            {/* Ãreas de intervenciÃ³n */}
+            {/* Áreas de intervención */}
             <div>
               <label htmlFor="s-areas" className={labelCls}>{t('settings.interventionAreas')}</label>
               <input
@@ -556,7 +561,7 @@ export function Settings() {
             </>
             )}
 
-            {/* CategorÃ­as Neuromundi (neuro_conditions â†’ sections). Las empresas
+            {/* Categorías Neuromundi (neuro_conditions → sections). Las empresas
                 de empleo no declaran secciones. */}
             {!isCompany && (
             <div>
@@ -590,7 +595,7 @@ export function Settings() {
             </div>
             )}
 
-            {/* Modalidades de atenciÃ³n (solo perfiles que atienden citas) */}
+            {/* Modalidades de atención (solo perfiles que atienden citas) */}
             {!noAppointments && (
             <div>
               <p className={labelCls}>{t('settings.modalities')}</p>
@@ -665,7 +670,7 @@ export function Settings() {
                 <label htmlFor="s-book" className={labelCls}>
                   <span className="flex items-center gap-1.5"><CalendarCheck className="h-4 w-4 text-brand-600" /> {t('settings.bookingUrl')}</span>
                 </label>
-                <input id="s-book" className={inputCls} placeholder="https://cal.com/â€¦" {...register('booking_url')} />
+                <input id="s-book" className={inputCls} placeholder="https://cal.com/…" {...register('booking_url')} />
                 {errors.booking_url && <p role="alert" className="mt-1 text-sm text-evs-1">{t(errors.booking_url.message!)}</p>}
               </div>
               )}
@@ -683,7 +688,7 @@ export function Settings() {
                 <label htmlFor="s-fb" className={labelCls}>
                   <span className="flex items-center gap-1.5"><Facebook className="h-4 w-4 text-blue-600" /> Facebook</span>
                 </label>
-                <input id="s-fb" className={inputCls} placeholder="facebook.com/pÃ¡gina" {...register('facebook')} />
+                <input id="s-fb" className={inputCls} placeholder="facebook.com/página" {...register('facebook')} />
               </div>
             </div>
           </fieldset>
@@ -696,8 +701,8 @@ export function Settings() {
 
       {isProvider && <ProviderLocations providerId={profile.id} />}
 
-      {/* Correo de acceso. Antes no se podÃ­a ni ver: quien se equivocaba al
-          registrarse, o perdÃ­a esa direcciÃ³n, se quedaba sin forma de entrar.
+      {/* Correo de acceso. Antes no se podía ni ver: quien se equivocaba al
+          registrarse, o perdía esa dirección, se quedaba sin forma de entrar.
           (Hallazgo de Enyoria, 19 oct 2026.) */}
       <section className="space-y-3 rounded-2xl border border-slate-100 p-4">
         <h2 className="flex items-center gap-2 font-bold text-slate-900">
@@ -707,7 +712,7 @@ export function Settings() {
         <div>
           <label className={labelCls}>{t('settings.mailCurrent')}</label>
           <p className="rounded-xl bg-slate-50 px-3 py-2 text-sm font-medium text-slate-800">
-            {correoActual || 'â€”'}
+            {correoActual || '—'}
           </p>
         </div>
         {correoPedido ? (
@@ -735,7 +740,7 @@ export function Settings() {
         )}
       </section>
 
-      {/* Cambio de contraseÃ±a (tambiÃ©n atiende el flujo de recuperaciÃ³n) */}
+      {/* Cambio de contraseña (también atiende el flujo de recuperación) */}
       <section id="password" className={`space-y-3 rounded-2xl border p-4 ${recovery ? 'border-brand-300 bg-brand-50' : 'border-slate-100'}`}>
         <h2 className="flex items-center gap-2 font-bold text-slate-900">
           <KeyRound className="h-5 w-5 text-brand-600" aria-hidden="true" /> {t('settings.changePassword')}
@@ -763,16 +768,16 @@ export function Settings() {
       {/* Notificaciones push nativas */}
       <PushSection />
 
-      {/* Preferencias de notificaciÃ³n (quÃ© se empuja al dispositivo) */}
+      {/* Preferencias de notificación (qué se empuja al dispositivo) */}
       <NotificationPrefs />
 
-      {/* SuscripciÃ³n a avisos por categorÃ­a (empleo, esparcimientoâ€¦): solo consumidores */}
+      {/* Suscripción a avisos por categoría (empleo, esparcimiento…): solo consumidores */}
       {!isProvider && <TopicSubscriptions />}
 
       {/* Seguimiento de denuncias del miembro */}
       <MyReports />
 
-      {/* Ayuda: reabrir la guÃ­a rÃ¡pida */}
+      {/* Ayuda: reabrir la guía rápida */}
       <section className="flex items-center justify-between gap-3 rounded-2xl border border-slate-100 p-4">
         <span className="flex items-center gap-2 font-semibold text-slate-900">
           <HelpCircle className="h-5 w-5 text-brand-600" aria-hidden="true" /> {t('tour.reopenTitle')}

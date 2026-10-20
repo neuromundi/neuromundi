@@ -124,7 +124,7 @@ export function BecomeFounder() {
 function TarjetaDePerfil({ kind, look }: { kind: FounderKind; look: Look }) {
   const { t } = useTranslation();
   const { country } = useCountry();
-  const { capacity, used, loading } = useFounderCapacity(kind, country || null);
+  const { capacity, used, loading, fallo } = useFounderCapacity(kind, country || null);
   const claveTexto = Object.keys(KIND_DE).find((k) => KIND_DE[k] === kind) ?? 'families';
   const Icon = look.icon;
   const benefits = t(`becomeFounder.profiles.${claveTexto}.benefits`, { returnObjects: true, defaultValue: [] }) as string[];
@@ -144,7 +144,10 @@ function TarjetaDePerfil({ kind, look }: { kind: FounderKind; look: Look }) {
       </div>
 
       {/* El número que se publica es el que de verdad aplica a su país. */}
-      {!loading && capacity > 0 && (
+      {/* Si la cuenta de cupos no se pudo leer NO se publica una cifra: un
+          «quedan 40 de 40» inventado es peor que no decir nada, porque es
+          justo lo que mueve a alguien a pagar. (Repaso adversario, 20 oct.) */}
+      {!loading && !fallo && capacity > 0 && (
         <p className={`mt-3 inline-block rounded-full ${look.capBg} ${look.capText} px-3 py-1 text-xs font-semibold`}>
           {t('becomeFounder.quedanDe', { quedan, total: capacity, pais: country })}
         </p>

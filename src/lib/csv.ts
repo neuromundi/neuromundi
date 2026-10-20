@@ -4,6 +4,7 @@
  * Detalles que importan y suelen olvidarse:
  *  · BOM UTF-8 al inicio: sin él, Excel en Windows muestra «Mérida» como
  *    «MÃ©rida». Es la causa número uno de que un respaldo se vea roto.
+ *    (mojibake-a-proposito: esa palabra mal escrita es el EJEMPLO, no un error.)
  *  · Comillas dobles duplicadas dentro de un campo entrecomillado, que es como
  *    el formato escapa una comilla.
  *  · Un valor que empieza por = + - @ se antepone con un apóstrofo: Excel lo

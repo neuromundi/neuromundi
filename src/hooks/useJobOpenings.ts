@@ -13,15 +13,22 @@ export type JobPatch = Partial<Omit<JobOpening, 'id' | 'company_id' | 'created_a
 export function useMyJobs(companyId: string | null | undefined) {
   const [jobs, setJobs] = useState<JobOpening[]>([]);
   const [loading, setLoading] = useState(true);
+  // «No tienes vacantes publicadas» cuando lo que paso es que no se pudieron
+  // leer: la empresa podia publicar una que ya tenia. Y para las empresas hay
+  // un plazo de 45 dias sin publicar que limita su cuenta, asi que creer que no
+  // tiene ninguna no es inocuo. (Repaso adversario, 20 oct 2026.)
+  const [fallo, setFallo] = useState(false);
 
   const load = useCallback(async () => {
     if (!companyId) { setJobs([]); setLoading(false); return; }
     setLoading(true);
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from('job_openings')
       .select('*')
       .eq('company_id', companyId)
       .order('created_at', { ascending: false });
+    if (error) { setFallo(true); setLoading(false); return; }
+    setFallo(false);
     setJobs((data as JobOpening[] | null) ?? []);
     setLoading(false);
   }, [companyId]);
@@ -50,7 +57,7 @@ export function useMyJobs(companyId: string | null | undefined) {
     return true;
   }, [load]);
 
-  return { jobs, loading, reload: load, create, update, remove };
+  return { jobs, fallo, loading, reload: load, create, update, remove };
 }
 
 export type OpportunityType = 'employment' | 'volunteering' | 'social_service';

@@ -115,6 +115,32 @@ for (const archivo of archivos(RAIZ)) {
   }
 }
 
+// 1e. Archivos con la codificacion rota (mojibake) o con BOM.
+//     src/pages/Settings.tsx estaba guardado con los bytes UTF-8 leidos como
+//     si fueran Windows-1252 y vueltos a guardar: 36 palabras con la tilde
+//     rota, y una de ellas era VISIBLE, el texto de ejemplo del campo de
+//     Facebook, que decia "facebook.com/pAgina". Nada fallaba y el compilador
+//     no se queja: es la misma familia callada. El BOM se reclama porque es lo
+//     que delata que un editor reescribio el archivo con otra codificacion.
+//     Para documentar el mojibake a proposito (src/lib/csv.ts lo hace, y con
+//     razon) se pone "mojibake-a-proposito" en un comentario de esa linea o la
+//     anterior.
+for (const archivo of archivos(RAIZ)) {
+  const bytes = readFileSync(archivo);
+  const rel = relative('.', archivo);
+  if (bytes[0] === 0xef && bytes[1] === 0xbb && bytes[2] === 0xbf) {
+    hallazgos.push(`${rel}:1  empieza con BOM: senal de que se reescribio con otra codificacion`);
+  }
+  const lineas = bytes.toString('utf8').split('\n');
+  lineas.forEach((linea, i) => {
+    if (!/[\u00c2\u00c3\u00e2][\u0080-\u00bf\u2013\u2014\u20ac]/.test(linea)) return;
+    const permitido = /mojibake-a-proposito/.test(linea) || /mojibake-a-proposito/.test(lineas[i + 1] ?? '');
+    if (!permitido) {
+      hallazgos.push(`${rel}:${i + 1}  codificacion rota (mojibake): las tildes estan guardadas como "Ã©", "Ã±"...`);
+    }
+  });
+}
+
 // 1c. Los archivos "criticos" (src/i18n/critical/*.crit.json) se GENERAN desde
 //     los diccionarios y estan versionados, porque son los textos del primer
 //     pintado. Si alguien cambia un texto y no vuelve a generarlos, la pantalla

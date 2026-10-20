@@ -25,7 +25,13 @@ export function RecommendPanel() {
 
   useEffect(() => {
     let alive = true;
-    void supabase.rpc('my_raffle_tickets').then(({ data }) => { if (alive) setTickets(typeof data === 'number' ? data : 0); });
+    // Si la consulta falla NO se dice que tiene cero boletos: se deja en
+    // «no se sabe». Un cero inventado en un sorteo es de los que nadie reclama
+    // porque parece un dato. (Repaso adversario, 20 oct 2026.)
+    void supabase.rpc('my_raffle_tickets').then(({ data, error }) => {
+      if (!alive) return;
+      setTickets(error || typeof data !== 'number' ? null : data);
+    });
     return () => { alive = false; };
   }, []);
 

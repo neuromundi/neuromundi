@@ -9,6 +9,7 @@ import { Link2, Code, Copy, Check, CalendarClock, CheckCircle2, XCircle } from '
 import { Button, useToast, SkeletonCard, AvisoDeFallo } from '@/components/ui';
 import { useAvisarResultado } from '@/hooks/useAvisarResultado';
 import { useProfile } from '@/hooks/useProfile';
+import { usePerfilDeLaSesion } from '@/hooks/usePerfilDeLaSesion';
 import { supabase } from '@/lib/supabase';
 import { formatDate } from '@/lib/utils';
 
@@ -24,6 +25,7 @@ export function BookingWidgetPanel() {
   const [loading, setLoading] = useState(true);
   // Un fallo de la consulta NO es un buzón vacío. (Hallazgo A-12.)
   const [fallo, setFallo] = useState(false);
+  const { fallo: falloDePerfil, reintentar: reintentarPerfil } = usePerfilDeLaSesion();
   const [copied, setCopied] = useState<'link' | 'code' | null>(null);
   const avisar = useAvisarResultado();
 
@@ -68,7 +70,7 @@ export function BookingWidgetPanel() {
     } catch { toast.error(t('widget.copyError')); }
   };
 
-  if (!profile) return <SkeletonCard rows={2} />;
+  if (!profile) return falloDePerfil ? <AvisoDeFallo onRetry={reintentarPerfil} /> : <SkeletonCard rows={2} />;
 
   return (
     <div className="space-y-4">

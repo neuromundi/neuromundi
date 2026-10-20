@@ -7,8 +7,9 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { GraduationCap, Save } from 'lucide-react';
-import { Button, SkeletonCard, useToast } from '@/components/ui';
+import { Button, SkeletonCard, useToast, AvisoDeFallo } from '@/components/ui';
 import { useProfile } from '@/hooks/useProfile';
+import { usePerfilDeLaSesion } from '@/hooks/usePerfilDeLaSesion';
 
 export type Admissions = 'open' | 'waitlist' | 'closed';
 export const ADMISSIONS: Admissions[] = ['open', 'waitlist', 'closed'];
@@ -23,13 +24,14 @@ export function SchoolInclusionPanel() {
   const { t } = useTranslation();
   const toast = useToast();
   const { profile, updateProfile, saving } = useProfile();
+  const { fallo: falloDePerfil, reintentar: reintentarPerfil } = usePerfilDeLaSesion();
 
   const details = (profile?.provider_details ?? {}) as InclusionDetails & Record<string, unknown>;
   const [program, setProgram] = useState(details.inclusion_program ?? '');
   const [admissions, setAdmissions] = useState<Admissions>(details.admissions ?? 'open');
   const [capacity, setCapacity] = useState(details.capacity_note ?? '');
 
-  if (!profile) return <SkeletonCard rows={2} />;
+  if (!profile) return falloDePerfil ? <AvisoDeFallo onRetry={reintentarPerfil} /> : <SkeletonCard rows={2} />;
 
   const save = async () => {
     const next = {
