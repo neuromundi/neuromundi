@@ -1398,7 +1398,7 @@
     "secAdvisors": "Berater",
     "adv": {
       "title": "Berater-Profil",
-      "intro": "Ein Berater kann die gesamte Plattform erkunden und den Neurocamps moderieren – ohne finanzielle oder administrative Aktionen.",
+      "intro": "Ein Berater kann die gesamte Plattform erkunden und Neurocamps moderieren – ohne finanzielle oder administrative Aktionen.",
       "search": "Suchen",
       "searchPh": "Folio, Vor- oder Nachname",
       "searchShort": "Gib mindestens 2 Zeichen ein",
@@ -1706,7 +1706,7 @@
     "inclusiveTitle": "Inklusiv von Grund auf",
     "inclusiveBody": "Barrierefreiheit ist die Basis, kein Zusatz: Ruhemodus, Legasthenie-Einstellungen, hoher Kontrast und Textgröße; Antizipationsleitfäden und reizarme Räume; Neuroaffirmatives Siegel und Neuromundi ID. Auch der Zugang ist fair: kostenlos für Familien und Patienten, kostenlos für inklusive Unternehmen und ein Vorzugstarif für NGOs.",
     "ecosystemTitle": "Ein Ökosystem, viele Profile",
-    "ecosystemBody": "Seine Stärke liegt in der Vielfalt seiner Mitglieder, alle im selben Netzwerk verbunden: Fachkräfte, Kliniken, Geschäfte, Schulen, Freizeitorte, Unternehmen und Organisationen und, im Zentrum, Familien, Patienten und neurodivergente Menschen. Jedes Profil gibt und empfängt: Verzeichnis, Terminplanung und provisionsfreie Zahlungen, Shop, Messaging mit Videoanrufen, schulische und berufliche Inklusion, Bildung und die Neurocamps-Community.",
+    "ecosystemBody": "Seine Stärke liegt in der Vielfalt seiner Mitglieder, alle im selben Netzwerk verbunden: Fachkräfte, Kliniken, Geschäfte, Schulen, Freizeitorte, Unternehmen und Organisationen und, im Zentrum, Familien, Patienten und neurodivergente Menschen. Jedes Profil gibt und empfängt: Verzeichnis, Terminplanung und provisionsfreie Zahlungen, Shop, Messaging mit Videoanrufen, schulische und berufliche Inklusion, Bildung und Neurocamps-Community.",
     "closingTitle": "Eine Sache, die zum Netzwerk wird",
     "closingBody": "Neuromundi macht aus dem, was heute oft allein bewältigt wird, eine globale Gemeinschaft, die einander begleitet, informiert und stärkt: das gemeinsame, internationale und inklusive Zuhause von Neuroentwicklung, Neurodivergenz und neurologischen Erkrankungen."
   },
@@ -5221,7 +5221,7 @@
   "tribe": {
     "title": "Neuromundi-Neurocamps",
     "landing": "Ein Raum für soziale Inklusion: Zugehörigkeit, Teilhabe und Autonomie. Verbinde dich über deine Interessen, in deinem Tempo, in sicherer Umgebung.",
-    "onlyEligible": "Der Neurocamps steht Patienten, Familien und Fachkräften offen.",
+    "onlyEligible": "Neurocamps steht Patienten, Familien und Fachkräften offen.",
     "joinTitle": "Dem Neurocamps beitreten",
     "joinIntro": "Bevor du eintrittst, lies und akzeptiere unsere Regeln und wähle, wie du heute teilnehmen möchtest.",
     "joinCta": "Beitreten",
@@ -5505,8 +5505,8 @@
     },
     "access": {
       "title": "Wie komme ich rein?",
-      "body": "Für die Neurocamps brauchst du ein Neuromundi-Mitgliedskonto. Hast du noch keins, lege es an; bist du bereits Mitglied, melde dich an.",
-      "ready": "Du hast schon ein Konto – tritt der Neurocamps bei und mach mit.",
+      "body": "Für Neurocamps brauchst du ein Neuromundi-Mitgliedskonto. Hast du noch keins, lege es an; bist du bereits Mitglied, melde dich an.",
+      "ready": "Du hast schon ein Konto – tritt Neurocamps bei und mach mit.",
       "createBtn": "Konto erstellen",
       "loginBtn": "Anmelden"
     },

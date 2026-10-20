@@ -2073,7 +2073,7 @@
       "body": "{{name}} · {{place}}"
     },
     "forumNew": {
-      "title": "Nuevo foro en la Neurocamps",
+      "title": "Nuevo foro en Neurocamps",
       "body": "Se abrió el foro «{{title}}»."
     },
     "forumPending": {
@@ -2090,7 +2090,7 @@
     },
     "forumModApproved": {
       "title": "Moderación aprobada",
-      "body": "Ahora moderas un foro de la Neurocamps."
+      "body": "Ahora moderas un foro de Neurocamps."
     },
     "inviteOpened": {
       "title": "Invitación abierta",
@@ -2127,7 +2127,7 @@
       },
       "exencion_rechazada": {
         "title": "Su solicitud de exención no procedió",
-        "body": "Revise su expediente en el panel y vuelva a enviarlo si procede."
+        "body": "Revisa tu expediente en el panel y vuelve a enviarlo si procede."
       },
       "exencion_rechazada_motivo": {
         "title": "Su solicitud de exención no procedió",
@@ -2138,7 +2138,7 @@
         "body": "Vence el {{fecha}}. Renueve su expediente para que su ficha siga publicada."
       },
       "founder_request_approved": {
-        "title": "Su cuota de Miembro Fundador fue autorizada",
+        "title": "Tu cuota de Miembro Fundador fue autorizada",
         "body": "Le reservamos la cuota de Miembro Fundador. Ya puede contratarla al precio de fundador."
       },
       "contacto_solicitado": {
@@ -3583,7 +3583,7 @@
       "save": "Guardar",
       "saved": "Datos de cobro guardados",
       "saveFail": "No se pudo guardar",
-      "privacy": "Solo usted y la administración de Neuromundi ven estos datos.",
+      "privacy": "Solo tú y la administración de Neuromundi ven estos datos.",
       "stripeNote": "Ya cobra con Stripe, así que sus comisiones salen por ahí. No necesita llenar nada.",
       "contact": "Correo o teléfono para pedirle los datos",
       "contactHelp": "No guardamos su número de cuenta. Cuando le toque cobrar le escribimos por este medio, le pedimos los datos y hacemos la transferencia.",
@@ -4469,7 +4469,7 @@
       "modEmptyTitle": "Sin postulaciones",
       "modEmpty": "No hay moderadores en este estado.",
       "lookup": "Buscar",
-      "memberNotFound": "No se encontró un miembro de la Neurocamps con ese folio.",
+      "memberNotFound": "No se encontró un miembro de Neurocamps con ese folio.",
       "memberSaved": "Miembro actualizado.",
       "status": "Estado",
       "st": {
@@ -5221,10 +5221,10 @@
   "tribe": {
     "title": "Neurocamps Neuromundi",
     "landing": "Un espacio de inclusión social: pertenencia, participación y autonomía. Conecta desde tus intereses, a tu ritmo y en un entorno seguro.",
-    "onlyEligible": "La Neurocamps está abierta a pacientes, familias y especialistas.",
-    "joinTitle": "Únete a la Neurocamps",
+    "onlyEligible": "Neurocamps está abierto a pacientes, familias y especialistas.",
+    "joinTitle": "Únete a Neurocamps",
     "joinIntro": "Antes de entrar, lee y acepta nuestras reglas de convivencia y elige cómo quieres participar hoy.",
-    "joinCta": "Unirme a la Neurocamps",
+    "joinCta": "Unirme a Neurocamps",
     "rulesTitle": "Reglas de convivencia",
     "rules": [
       "Trato respetuoso y cero acoso: este es un espacio seguro.",
@@ -5256,10 +5256,10 @@
       "show_interests": "Mostrar mis intereses",
       "show_diagnosis": "Mostrar mi diagnóstico o condición"
     },
-    "acceptRules": "He leído y acepto las reglas de convivencia de la Neurocamps.",
+    "acceptRules": "He leído y acepto las reglas de convivencia de Neurocamps.",
     "mustAccept": "Debes aceptar las reglas para entrar.",
     "joinErr": "No se pudo completar la inscripción.",
-    "suspended": "Tu participación en la Neurocamps está suspendida por incumplir las normas. Contacta al equipo si crees que es un error.",
+    "suspended": "Tu participación en Neurocamps está suspendida por incumplir las normas. Contacta al equipo si crees que es un error.",
     "hubSubtitle": "Clubes de interés y espacios de afinidad",
     "energyToday": "¿Cómo está tu energía hoy?",
     "invitesTitle": "Invitaciones",
@@ -5294,7 +5294,7 @@
     "messagePlaceholder": "Escribe un mensaje…",
     "send": "Enviar",
     "sendErr": "No se pudo enviar.",
-    "readOnly": "Tu cuenta está en modo solo lectura en la Neurocamps.",
+    "readOnly": "Tu cuenta está en modo solo lectura en Neurocamps.",
     "noMessages": "Sé quien inicie la conversación.",
     "loading": "Cargando…",
     "grat": {
@@ -5361,7 +5361,7 @@
       "youAre": "Eres {{level}}",
       "applyTitle": "Postulación a moderador",
       "apply": "Enviar postulación",
-      "justifyLabel": "¿Por qué deseas moderar en la Neurocamps?",
+      "justifyLabel": "¿Por qué deseas moderar en Neurocamps?",
       "justifyPh": "Cuéntanos tu motivación y experiencia…",
       "justifyReq": "Escribe al menos 10 caracteres.",
       "ethicsTitle": "Código de Ética del moderador",
@@ -5488,8 +5488,8 @@
     "step1": "Lee y acepta las reglas de convivencia.",
     "step2": "Elige tu semáforo de energía social de hoy.",
     "step3": "Ajusta qué datos quieres mostrar (privacidad).",
-    "step4": "Pulsa \"Unirme a la Neurocamps\" para entrar.",
-    "privacyHint": "Tú decides qué se ve en los espacios de la Neurocamps; puedes cambiarlo cuando quieras.",
+    "step4": "Pulsa \"Unirme a Neurocamps\" para entrar.",
+    "privacyHint": "Tú decides qué se ve en los espacios de Neurocamps; puedes cambiarlo cuando quieras.",
     "about": {
       "title": "¿Qué es Neurocamps Neuromundi?",
       "forumsT": "Foros temáticos",
@@ -5505,8 +5505,8 @@
     },
     "access": {
       "title": "¿Cómo accedo?",
-      "body": "Para entrar a la Neurocamps necesitas una cuenta de miembro de Neuromundi. Si aún no la tienes, créala; si ya eres miembro, inicia sesión.",
-      "ready": "Ya tienes cuenta: únete a la Neurocamps para empezar a participar.",
+      "body": "Para entrar a Neurocamps necesitas una cuenta de miembro de Neuromundi. Si aún no la tienes, créala; si ya eres miembro, inicia sesión.",
+      "ready": "Ya tienes cuenta: únete a Neurocamps para empezar a participar.",
       "createBtn": "Crear cuenta",
       "loginBtn": "Iniciar sesión"
     },
@@ -5519,13 +5519,13 @@
     "closeForum": "Cerrar foro",
     "closeForumConfirm": "¿Cerrar este foro? Dejará de estar disponible.",
     "forumClosed": "Foro cerrado",
-    "forumsPanelTitle": "Foros de la Neurocamps",
+    "forumsPanelTitle": "Foros de Neurocamps",
     "forumsTab": "Foros",
     "forumPushOn": "Avisos activados",
     "forumPushOff": "Avisos desactivados",
     "interestCountries": "Países de interés",
     "currentForums": "Foros vigentes",
-    "goToTribe": "Ir a la Neurocamps",
+    "goToTribe": "Ir a Neurocamps",
     "prefsSaved": "Preferencia guardada",
     "pickNeurocamp": "Elige tu Neurocamp",
     "allNeurocamps": "Todos",
@@ -6316,11 +6316,11 @@
   "mispagos": {
     "tab": "Mis pagos",
     "title": "Mis pagos",
-    "help": "Su cuota, sus donativos y las comisiones que ha ganado por recomendar, en un solo lugar.",
+    "help": "Tu cuota, tus donativos y las comisiones que has ganado por recomendar, en un solo lugar.",
     "refresh": "Actualizar",
     "unavailable": "No se pudo cargar su historial ahora. Inténtelo de nuevo.",
     "vacioTitle": "Aún no hay movimientos",
-    "vacio": "Cuando pague su cuota, haga un donativo o gane una comisión, aparecerá aquí.",
+    "vacio": "Cuando pagues tu cuota, hagas un donativo o ganes una comisión, aparecerá aquí.",
     "nota": "Las cifras provienen del registro propio de Neuromundi. Para el comprobante fiscal, escriba a admin@neuromundi.com.",
     "tipo": {
       "cuota": "Cuota de membresía",
@@ -6367,7 +6367,7 @@
     "boton": "Solicitar contacto",
     "yaEnviada": "Solicitud enviada",
     "titulo": "Solicitar contacto",
-    "ayuda": "Cuénteles brevemente quién es usted y qué necesita. El prestador decide si abre la conversación.",
+    "ayuda": "Cuéntales brevemente quién eres y qué necesitas. El prestador decide si abre la conversación.",
     "etiqueta": "Su presentación",
     "ejemplo": "Soy madre de un niño de 6 años con TEA y busco terapia de lenguaje en la zona…",
     "enviar": "Enviar solicitud",
@@ -6388,7 +6388,7 @@
       "anon": "Alguien"
     },
     "err": {
-      "corto": "Escriba al menos diez caracteres.",
+      "corto": "Escribe al menos diez caracteres.",
       "largo": "El mensaje es demasiado largo.",
       "noAplica": "Esta vía es para familias y pacientes.",
       "noEncontrado": "No encontramos ese prestador.",

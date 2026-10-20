@@ -1743,7 +1743,7 @@
     "inclusiveTitle": "Inclusive by design",
     "inclusiveBody": "Accessibility is the foundation, not an add-on: calm mode, dyslexia settings, high contrast and text size; anticipation guides and low-sensory-impact spaces; a Neuroaffirming seal and the Neuromundi ID. Access is equitable too: free for families and patients, free for inclusive companies, and a preferential fee for NGOs.",
     "ecosystemTitle": "One ecosystem, many profiles",
-    "ecosystemBody": "Its strength lies in the diversity of those who make it up, all connected in the same network: specialists, clinics, shops, schools, leisure venues, companies and organizations and, at the center, families, patients and neurodivergent people. Every profile gives and receives: directory, scheduling and commission-free payments, a store, messaging with video calls, school and workplace inclusion, learning and the Neurocamps community.",
+    "ecosystemBody": "Its strength lies in the diversity of those who make it up, all connected in the same network: specialists, clinics, shops, schools, leisure venues, companies and organizations and, at the center, families, patients and neurodivergent people. Every profile gives and receives: directory, scheduling and commission-free payments, a store, messaging with video calls, school and workplace inclusion, learning and Neurocamps community.",
     "closingTitle": "A cause that becomes a network",
     "closingBody": "Neuromundi turns what is faced alone today into a global community that supports, informs and strengthens one another: the shared, international and inclusive home of neurodevelopment, neurodivergence and neurological conditions."
   },
@@ -2073,7 +2073,7 @@
       "body": "{{name}} · {{place}}"
     },
     "forumNew": {
-      "title": "New forum in the Neurocamps",
+      "title": "New forum in Neurocamps",
       "body": "The forum “{{title}}” is now open."
     },
     "forumPending": {
@@ -5221,10 +5221,10 @@
   "tribe": {
     "title": "Neuromundi Neurocamps",
     "landing": "A space for social inclusion: belonging, participation and autonomy. Connect through your interests, at your pace, in a safe environment.",
-    "onlyEligible": "The Neurocamps is open to patients, families and specialists.",
-    "joinTitle": "Join the Neurocamps",
+    "onlyEligible": "Neurocamps is open to patients, families and specialists.",
+    "joinTitle": "Join Neurocamps",
     "joinIntro": "Before entering, read and accept our community rules and choose how you want to take part today.",
-    "joinCta": "Join the Neurocamps",
+    "joinCta": "Join Neurocamps",
     "rulesTitle": "Community rules",
     "rules": [
       "Respectful treatment and zero bullying: this is a safe space.",
@@ -5256,10 +5256,10 @@
       "show_interests": "Show my interests",
       "show_diagnosis": "Show my diagnosis or condition"
     },
-    "acceptRules": "I have read and accept the Neurocamps's community rules.",
+    "acceptRules": "I have read and accept Neurocamps community rules.",
     "mustAccept": "You must accept the rules to enter.",
     "joinErr": "Couldn't complete sign-up.",
-    "suspended": "Your participation in the Neurocamps is suspended for breaking the rules. Contact the team if you think this is a mistake.",
+    "suspended": "Your participation in Neurocamps is suspended for breaking the rules. Contact the team if you think this is a mistake.",
     "hubSubtitle": "Interest clubs and affinity spaces",
     "energyToday": "How's your energy today?",
     "invitesTitle": "Invitations",
@@ -5294,7 +5294,7 @@
     "messagePlaceholder": "Write a message…",
     "send": "Send",
     "sendErr": "Couldn't send.",
-    "readOnly": "Your account is read-only in the Neurocamps.",
+    "readOnly": "Your account is read-only in Neurocamps.",
     "noMessages": "Be the one to start the conversation.",
     "loading": "Loading…",
     "grat": {
@@ -5361,7 +5361,7 @@
       "youAre": "You are {{level}}",
       "applyTitle": "Moderator application",
       "apply": "Submit application",
-      "justifyLabel": "Why do you want to moderate in the Neurocamps?",
+      "justifyLabel": "Why do you want to moderate in Neurocamps?",
       "justifyPh": "Tell us your motivation and experience…",
       "justifyReq": "Write at least 10 characters.",
       "ethicsTitle": "Moderator Code of Ethics",
@@ -5488,7 +5488,7 @@
     "step1": "Read and accept the community rules.",
     "step2": "Choose today's social energy status.",
     "step3": "Set which details you want to show (privacy).",
-    "step4": "Tap \"Join the Neurocamps\" to enter.",
+    "step4": "Tap \"Join Neurocamps\" to enter.",
     "privacyHint": "You decide what's visible in Neurocamps spaces; you can change it anytime.",
     "about": {
       "title": "What is Neurocamps Neuromundi?",
@@ -5505,8 +5505,8 @@
     },
     "access": {
       "title": "How do I get in?",
-      "body": "To join the Neurocamps you need a Neuromundi member account. If you don't have one yet, create it; if you're already a member, log in.",
-      "ready": "You already have an account — join the Neurocamps to start taking part.",
+      "body": "To join Neurocamps you need a Neuromundi member account. If you don't have one yet, create it; if you're already a member, log in.",
+      "ready": "You already have an account — join Neurocamps to start taking part.",
       "createBtn": "Create account",
       "loginBtn": "Log in"
     },
@@ -5525,7 +5525,7 @@
     "forumPushOff": "Alerts off",
     "interestCountries": "Countries of interest",
     "currentForums": "Current forums",
-    "goToTribe": "Go to the Neurocamps",
+    "goToTribe": "Go to Neurocamps",
     "prefsSaved": "Preference saved",
     "pickNeurocamp": "Choose your Neurocamp",
     "allNeurocamps": "All",

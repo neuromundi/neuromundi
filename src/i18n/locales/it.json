@@ -1398,7 +1398,7 @@
     "secAdvisors": "Consulenti",
     "adv": {
       "title": "Profilo Consulente",
-      "intro": "Il consulente può esplorare tutta la piattaforma e moderare la Neurocamps, senza azioni finanziarie o amministrative.",
+      "intro": "Il consulente può esplorare tutta la piattaforma e moderare Neurocamps, senza azioni finanziarie o amministrative.",
       "search": "Cerca",
       "searchPh": "Folio, nome o cognome",
       "searchShort": "Digita almeno 2 caratteri",
@@ -2036,7 +2036,7 @@
       "body": "{{name}} · {{place}}"
     },
     "forumNew": {
-      "title": "Nuovo forum nella Neurocamps",
+      "title": "Nuovo forum in Neurocamps",
       "body": "È stato aperto il forum «{{title}}»."
     },
     "forumPending": {
@@ -2053,7 +2053,7 @@
     },
     "forumModApproved": {
       "title": "Moderazione approvata",
-      "body": "Ora moderi un forum della Neurocamps."
+      "body": "Ora moderi un forum di Neurocamps."
     },
     "inviteOpened": {
       "title": "Invito aperto",
@@ -4448,7 +4448,7 @@
       "deleteConfirm": "Eliminare questo distintivo e il suo file?"
     },
     "tribe": {
-      "title": "Forum della Neurocamps",
+      "title": "Forum di Neurocamps",
       "subtitle": "Approva o rifiuta i forum creati dai membri.",
       "pending": "In attesa",
       "approved": "Approvati",
@@ -4469,7 +4469,7 @@
       "modEmptyTitle": "Nessuna candidatura",
       "modEmpty": "Nessun moderatore in questo stato.",
       "lookup": "Cerca",
-      "memberNotFound": "Nessun membro della Neurocamps con quel codice.",
+      "memberNotFound": "Nessun membro di Neurocamps con quel codice.",
       "memberSaved": "Membro aggiornato.",
       "status": "Stato",
       "st": {
@@ -5221,8 +5221,8 @@
   "tribe": {
     "title": "Neurocamps Neuromundi",
     "landing": "Uno spazio di inclusione sociale: appartenenza, partecipazione e autonomia. Connettiti attraverso i tuoi interessi, al tuo ritmo, in un ambiente sicuro.",
-    "onlyEligible": "La Neurocamps è aperta a pazienti, famiglie e specialisti.",
-    "joinTitle": "Unisciti alla Neurocamps",
+    "onlyEligible": "Neurocamps è aperto a pazienti, famiglie e specialisti.",
+    "joinTitle": "Unisciti a Neurocamps",
     "joinIntro": "Prima di entrare, leggi e accetta le regole di convivenza e scegli come partecipare oggi.",
     "joinCta": "Unisciti",
     "rulesTitle": "Regole di convivenza",
@@ -5256,10 +5256,10 @@
       "show_interests": "Mostra i miei interessi",
       "show_diagnosis": "Mostra la mia diagnosi o condizione"
     },
-    "acceptRules": "Ho letto e accetto le regole della Neurocamps.",
+    "acceptRules": "Ho letto e accetto le regole di Neurocamps.",
     "mustAccept": "Devi accettare le regole per entrare.",
     "joinErr": "Impossibile completare l'iscrizione.",
-    "suspended": "La tua partecipazione alla Neurocamps è sospesa per violazione delle regole. Contatta il team se pensi sia un errore.",
+    "suspended": "La tua partecipazione a Neurocamps è sospesa per violazione delle regole. Contatta il team se pensi sia un errore.",
     "hubSubtitle": "Club di interesse e spazi di affinità",
     "energyToday": "Com'è la tua energia oggi?",
     "invitesTitle": "Inviti",
@@ -5294,7 +5294,7 @@
     "messagePlaceholder": "Scrivi un messaggio…",
     "send": "Invia",
     "sendErr": "Invio non riuscito.",
-    "readOnly": "Il tuo account è in sola lettura nella Neurocamps.",
+    "readOnly": "Il tuo account è in sola lettura in Neurocamps.",
     "noMessages": "Sii tu ad avviare la conversazione.",
     "loading": "Caricamento…",
     "grat": {
@@ -5361,7 +5361,7 @@
       "youAre": "Sei {{level}}",
       "applyTitle": "Candidatura moderatore",
       "apply": "Invia candidatura",
-      "justifyLabel": "Perché vuoi moderare nella Neurocamps?",
+      "justifyLabel": "Perché vuoi moderare in Neurocamps?",
       "justifyPh": "Raccontaci la tua motivazione ed esperienza…",
       "justifyReq": "Scrivi almeno 10 caratteri.",
       "ethicsTitle": "Codice etico del moderatore",
@@ -5488,8 +5488,8 @@
     "step1": "Leggi e accetta le regole di convivenza.",
     "step2": "Scegli il tuo semaforo di energia sociale di oggi.",
     "step3": "Imposta quali dati mostrare (privacy).",
-    "step4": "Tocca \"Unisciti alla Neurocamps\" per entrare.",
-    "privacyHint": "Decidi tu cosa è visibile negli spazi della Neurocamps; modificabile quando vuoi.",
+    "step4": "Tocca \"Unisciti a Neurocamps\" per entrare.",
+    "privacyHint": "Decidi tu cosa è visibile negli spazi di Neurocamps; modificabile quando vuoi.",
     "about": {
       "title": "Che cos'è Neurocamps Neuromundi?",
       "forumsT": "Forum tematici",
@@ -5505,8 +5505,8 @@
     },
     "access": {
       "title": "Come accedo?",
-      "body": "Per entrare nella Neurocamps ti serve un account membro di Neuromundi. Se non ce l'hai, crealo; se sei già membro, accedi.",
-      "ready": "Hai già un account: unisciti alla Neurocamps per iniziare a partecipare.",
+      "body": "Per entrare in Neurocamps ti serve un account membro di Neuromundi. Se non ce l'hai, crealo; se sei già membro, accedi.",
+      "ready": "Hai già un account: unisciti a Neurocamps per iniziare a partecipare.",
       "createBtn": "Crea un account",
       "loginBtn": "Accedi"
     },
@@ -5519,13 +5519,13 @@
     "closeForum": "Chiudi forum",
     "closeForumConfirm": "Chiudere questo forum? Non sarà più disponibile.",
     "forumClosed": "Forum chiuso",
-    "forumsPanelTitle": "Forum della Neurocamps",
+    "forumsPanelTitle": "Forum di Neurocamps",
     "forumsTab": "Forum",
     "forumPushOn": "Avvisi attivi",
     "forumPushOff": "Avvisi disattivati",
     "interestCountries": "Paesi di interesse",
     "currentForums": "Forum attivi",
-    "goToTribe": "Vai alla Neurocamps",
+    "goToTribe": "Vai a Neurocamps",
     "prefsSaved": "Preferenza salvata",
     "pickNeurocamp": "Scegli il tuo Neurocamp",
     "allNeurocamps": "Tutti",
