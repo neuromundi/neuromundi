@@ -583,7 +583,9 @@
     "sharedBy": "List shared by {{name}}",
     "notFound": "This list doesn't exist or is no longer shared.",
     "newListPlaceholder": "My new list",
-    "items": "{{count}} items"
+    "items": "{{count}} items",
+    "noSePudo": "The list could not be loaded",
+    "noSePudoAyuda": "The link is not broken: the request did not arrive. Try again in a moment."
   },
   "parent": {
     "tabs": {
@@ -2011,7 +2013,10 @@
     "kindPost": "Content",
     "kindProvider": "Provider",
     "kindProduct": "Product",
-    "emptyTitle": "No results"
+    "emptyTitle": "No results",
+    "failTitle": "Search failed",
+    "failBody": "This does not mean there is nothing: the search did not reach the server. Check your connection and try again.",
+    "capped": "Showing the first {{n}}. Narrow your search to see others."
   },
   "notif": {
     "title": "Notifications",
@@ -5602,7 +5607,8 @@
     "walletErr": "Couldn't generate the pass. Try again later.",
     "downloadCard": "Download card",
     "pageTitle": "My Neuromundi ID",
-    "needLogin": "Log in to see your Neuromundi ID."
+    "needLogin": "Log in to see your Neuromundi ID.",
+    "noCargo": "We could not load your card. Check your connection and try again: your Neuromundi ID is still there."
   },
   "campaign": {
     "locked": {
@@ -6458,7 +6464,8 @@
     "pending": "For your security, the email change only takes effect once it is confirmed from both addresses: the current one and the new one. Check the other inbox and open that link too.",
     "done": "Your sign-in email has been updated. From now on, sign in to Neuromundi with the new address.",
     "toSettings": "Go to my settings",
-    "toHome": "Go to home"
+    "toHome": "Go to home",
+    "noSePudo": "We could not check your email right now. This does not mean the change failed: try again or open your settings to see it."
   },
   "fichasVistas": {
     "title": "Most visited directory listings",
@@ -6497,5 +6504,9 @@
     "provider": "Provider",
     "admin": "Administrator",
     "advisor": "Advisor"
+  },
+  "panel": {
+    "noCargoTitle": "We could not load your panel",
+    "noCargoBody": "Your account is fine: it was your profile that did not arrive. Check your connection and try again."
   }
 }

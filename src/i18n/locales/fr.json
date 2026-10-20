@@ -546,7 +546,9 @@
     "sharedBy": "Liste partagée par {{name}}",
     "notFound": "Cette liste n'existe pas ou n'est plus partagée.",
     "newListPlaceholder": "Ma nouvelle liste",
-    "items": "{{count}} éléments"
+    "items": "{{count}} éléments",
+    "noSePudo": "La liste n'a pas pu être chargée",
+    "noSePudoAyuda": "Le lien n'est pas cassé : la requête n'est pas arrivée. Réessaie dans un instant."
   },
   "parent": {
     "tabs": {
@@ -1974,7 +1976,10 @@
     "kindPost": "Contenu",
     "kindProvider": "Prestataire",
     "kindProduct": "Produit",
-    "emptyTitle": "Aucun résultat"
+    "emptyTitle": "Aucun résultat",
+    "failTitle": "La recherche a échoué",
+    "failBody": "Cela ne veut pas dire qu'il n'y a rien : la recherche n'est pas arrivée au serveur. Vérifie ta connexion et réessaie.",
+    "capped": "Nous affichons les {{n}} premiers. Affine ta recherche pour en voir d’autres."
   },
   "notif": {
     "title": "Notifications",
@@ -5602,7 +5607,8 @@
     "walletErr": "Impossible de générer le pass. Réessayez plus tard.",
     "downloadCard": "Télécharger la carte",
     "pageTitle": "Mon Neuromundi ID",
-    "needLogin": "Connectez-vous pour voir votre Neuromundi ID."
+    "needLogin": "Connectez-vous pour voir votre Neuromundi ID.",
+    "noCargo": "Nous n'avons pas pu charger ta carte. Vérifie ta connexion et réessaie : ton Neuromundi ID est toujours là."
   },
   "campaign": {
     "locked": {
@@ -6458,7 +6464,8 @@
     "pending": "Par sécurité, le changement d'adresse ne s'applique qu'après confirmation depuis les deux adresses : l'actuelle et la nouvelle. Vérifiez l'autre boîte de réception et ouvrez aussi ce lien.",
     "done": "Votre adresse de connexion a été mise à jour. Connectez-vous désormais à Neuromundi avec la nouvelle adresse.",
     "toSettings": "Aller à mes réglages",
-    "toHome": "Aller à l'accueil"
+    "toHome": "Aller à l'accueil",
+    "noSePudo": "Nous n'avons pas pu vérifier ton e-mail maintenant. Cela ne veut pas dire que le changement a échoué : réessaie ou ouvre tes paramètres."
   },
   "fichasVistas": {
     "title": "Fiches de l'annuaire les plus visitées",
@@ -6497,5 +6504,9 @@
     "provider": "Prestataire",
     "admin": "Administration",
     "advisor": "Conseiller"
+  },
+  "panel": {
+    "noCargoTitle": "Nous n'avons pas pu charger ton panneau",
+    "noCargoBody": "Ton compte va bien : c'est ton profil qui n'est pas arrivé. Vérifie ta connexion et réessaie."
   }
 }

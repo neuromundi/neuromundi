@@ -24,6 +24,10 @@ function readCache(): Profile | null {
 export function MyId() {
   const { t } = useTranslation();
   const profile = useAuthStore((s) => s.profile);
+  // Hace falta saber SI hay sesion: sin esto, un miembro cuyo perfil no cargo
+  // veia "inicia sesion", que es mentira y lo manda a un sitio que no resuelve
+  // nada. (Repaso adversario, 19 oct 2026, modo "ceros y vacios".)
+  const estado = useAuthStore((s) => s.status);
 
   // Cacheamos solo los campos que la tarjeta necesita (nada sensible más allá del
   // propio folio/QR del usuario, que ya es suyo).
@@ -53,6 +57,10 @@ export function MyId() {
       <h1 className="mb-4 text-center text-2xl font-bold text-slate-900">{t('nid.pageTitle')}</h1>
       {effective ? (
         <NeuromundiIdCard profile={effective} />
+      ) : estado === 'loading' ? (
+        <p className="text-center text-sm text-muted">{t('common.loading')}</p>
+      ) : estado === 'authenticated' ? (
+        <p className="text-center text-sm text-muted">{t('nid.noCargo')}</p>
       ) : (
         <p className="text-center text-sm text-muted">{t('nid.needLogin')}</p>
       )}

@@ -546,7 +546,9 @@
     "sharedBy": "由 {{name}} 分享的清单",
     "notFound": "此清单不存在或已停止分享。",
     "newListPlaceholder": "我的新清单",
-    "items": "{{count}} 项"
+    "items": "{{count}} 项",
+    "noSePudo": "无法加载该清单",
+    "noSePudoAyuda": "链接没有失效：请求没有送达。请稍后重试。"
   },
   "parent": {
     "tabs": {
@@ -1974,7 +1976,10 @@
     "kindPost": "内容",
     "kindProvider": "提供商",
     "kindProduct": "产品",
-    "emptyTitle": "没有结果"
+    "emptyTitle": "没有结果",
+    "failTitle": "搜索失败",
+    "failBody": "这不代表没有结果：搜索没有到达服务器。请检查网络后重试。",
+    "capped": "仅显示前 {{n}} 条。缩小搜索范围可查看其他结果。"
   },
   "notif": {
     "title": "通知",
@@ -5602,7 +5607,8 @@
     "walletErr": "无法生成通行证，请稍后再试。",
     "downloadCard": "下载证件",
     "pageTitle": "我的 Neuromundi ID",
-    "needLogin": "登录以查看你的 Neuromundi ID。"
+    "needLogin": "登录以查看你的 Neuromundi ID。",
+    "noCargo": "无法加载你的凭证。请检查网络后重试：你的 Neuromundi ID 仍在。"
   },
   "campaign": {
     "locked": {
@@ -6458,7 +6464,8 @@
     "pending": "为保障安全，邮箱更改仅在当前地址和新地址两处都确认后才会生效。请查看另一个收件箱，并打开其中的链接。",
     "done": "你的登录邮箱已更新。从现在起请使用新地址登录 Neuromundi。",
     "toSettings": "前往我的设置",
-    "toHome": "返回首页"
+    "toHome": "返回首页",
+    "noSePudo": "暂时无法核对你的邮箱。这并不表示更改失败：请重试，或打开设置查看。"
   },
   "fichasVistas": {
     "title": "访问最多的目录条目",
@@ -6497,5 +6504,9 @@
     "provider": "服务方",
     "admin": "管理员",
     "advisor": "顾问"
+  },
+  "panel": {
+    "noCargoTitle": "无法加载你的面板",
+    "noCargoBody": "你的账号没有问题：没有加载到的是你的个人资料。请检查网络后重试。"
   }
 }

@@ -182,25 +182,6 @@
       "huella": "9e4151f6375af218"
     },
     {
-      "pantalla": "componente: campana de avisos",
-      "fecha": "2026-10-19",
-      "quien": "Claude",
-      "archivos": [
-        "src/components/content/NotificationsBell.tsx"
-      ],
-      "modos_revisados": [
-        "sustituciones"
-      ],
-      "encontrado": [
-        "el texto se arma con el tipo como variable (notif.tipo.<tipo>). De los 10 tipos que existen en la base, 5 no tenian texto propio",
-        "NO mostraba la clave cruda, porque el respaldo es el titulo guardado al crear el aviso: degrada a espanol en vez de romper. Dos de esos tipos si los ve un prestador (contenido_propuesto y contenido_rechazado) y salian solo en espanol: traducidos a los 11 idiomas",
-        "invite_opened y referral_reward tienen rama propia en el componente: no les falta nada",
-        "decidido: el tipo 'auditoria' se queda solo en espanol. Su cuerpo lo genera la base en espanol y solo lo ve la administracion"
-      ],
-      "hallazgos_abiertos": [],
-      "huella": "b98e943264b0daae"
-    },
-    {
       "pantalla": "/terms",
       "fecha": "2026-10-19",
       "quien": "Claude",
@@ -370,6 +351,174 @@
       ],
       "hallazgos_abiertos": [],
       "huella": "b38dad31ef854656"
+    },
+    {
+      "pantalla": "/entrar",
+      "archivos": [
+        "src/pages/Auth.tsx",
+        "src/components/layout/ProtectedRoute.tsx"
+      ],
+      "modos_revisados": [
+        "permisos",
+        "sustituciones",
+        "lo que se le dice a la persona"
+      ],
+      "encontrado": [
+        "el destino tras entrar sale de location.state.from, que solo lo pone ProtectedRoute con la ruta actual: no se puede inyectar desde un enlace, asi que NO hay redireccion abierta. Comprobado leyendo las dos pantallas",
+        "no arma ningun texto con una variable"
+      ],
+      "hallazgos_abiertos": [],
+      "fecha": "2026-10-19",
+      "quien": "Claude",
+      "huella": "d1bb349c85e4a0e6"
+    },
+    {
+      "pantalla": "/mi-id",
+      "archivos": [
+        "src/pages/MyId.tsx",
+        "src/lib/limpiarAlSalir.ts",
+        "src/stores/authStore.ts"
+      ],
+      "modos_revisados": [
+        "ceros y vacios",
+        "permisos",
+        "escrituras que se pierden"
+      ],
+      "encontrado": [
+        "GRAVE, corregido: al cerrar sesion no se borraba nada del dispositivo, y aqui se cachea la credencial con su qr_token (lo que un prestador escanea), una foto a medio subir y las sucursales sin guardar. En un dispositivo compartido la siguiente persona abria /mi-id y veia la credencial de la anterior. Ahora signOut llama a limpiarAlSalir, con 5 pruebas",
+        "decia 'inicia sesion' tambien cuando SI habia sesion y el perfil no cargo: ahora distingue cargando, no cargo y sin sesion",
+        "lo que NO se borra al salir, a proposito: idioma, tamano de texto y avance del Kit son del dispositivo, no de la cuenta"
+      ],
+      "hallazgos_abiertos": [],
+      "fecha": "2026-10-19",
+      "quien": "Claude",
+      "huella": "498622582509e453"
+    },
+    {
+      "pantalla": "/buscar",
+      "archivos": [
+        "src/pages/SearchPage.tsx",
+        "src/hooks/useSearch.ts"
+      ],
+      "modos_revisados": [
+        "recortes",
+        "ceros y vacios",
+        "permisos",
+        "sustituciones"
+      ],
+      "encontrado": [
+        "el error de la busqueda se tiraba: una busqueda que FALLABA se mostraba igual que una SIN RESULTADOS, diciendo 'no encontramos nada'. Corregido con mensaje propio",
+        "el servidor devuelve como maximo 50 resultados y no se decia: ahora, cuando llegan justo 50, la pantalla avisa de que puede haber mas",
+        "comprobado que la busqueda global SI funciona sin sesion (200 y 50 resultados contra produccion): el revoke de search_all de esta tarde no la rompio, porque la aplicacion llama a search_all_con_areas, que es otra funcion"
+      ],
+      "hallazgos_abiertos": [],
+      "fecha": "2026-10-19",
+      "quien": "Claude",
+      "huella": "b131cebfb674c78f"
+    },
+    {
+      "pantalla": "/panel",
+      "archivos": [
+        "src/pages/Dashboard.tsx"
+      ],
+      "modos_revisados": [
+        "ceros y vacios",
+        "lo que se le dice a la persona"
+      ],
+      "encontrado": [
+        "el esqueleto de carga NO tenia salida: si el perfil no llegaba, la persona se quedaba mirando un armazon gris para siempre, sin una palabra y sin nada que pulsar. Los 7.5 segundos de 'Cargando' que vi esta tarde y atribui a una pestana vieja eran el sintoma de esto",
+        "corregido: pasados 9 segundos aparece un mensaje que dice que la cuenta esta bien y que lo que no llego fue el perfil, con un boton de reintentar"
+      ],
+      "hallazgos_abiertos": [],
+      "fecha": "2026-10-19",
+      "quien": "Claude",
+      "huella": "af488b5c20b206ef"
+    },
+    {
+      "pantalla": "/lista/:token",
+      "archivos": [
+        "src/pages/SharedList.tsx",
+        "src/hooks/useSharedList.ts"
+      ],
+      "modos_revisados": [
+        "ceros y vacios",
+        "permisos"
+      ],
+      "encontrado": [
+        "el gancho SI distinguia el fallo del vacio y la pantalla los juntaba: un fallo de carga se mostraba como 'esta lista no existe', haciendo creer que el enlace compartido estaba roto. Corregido"
+      ],
+      "hallazgos_abiertos": [],
+      "fecha": "2026-10-19",
+      "quien": "Claude",
+      "huella": "3f5b809d59fab63c"
+    },
+    {
+      "pantalla": "/correo-confirmado",
+      "archivos": [
+        "src/pages/CorreoConfirmado.tsx"
+      ],
+      "modos_revisados": [
+        "ceros y vacios",
+        "lo que se le dice a la persona"
+      ],
+      "encontrado": [
+        "un fallo de red se reportaba como 'no hay sesion': a quien acababa de pulsar el enlace de su correo se le decia que no tenia sesion y se le mandaba a entrar. Corregido con un estado propio"
+      ],
+      "hallazgos_abiertos": [],
+      "fecha": "2026-10-19",
+      "quien": "Claude",
+      "huella": "e7f084c1ee4cea98"
+    },
+    {
+      "pantalla": "/verificar/:folio",
+      "archivos": [
+        "src/pages/VerifyBadge.tsx"
+      ],
+      "modos_revisados": [
+        "ceros y vacios",
+        "permisos"
+      ],
+      "encontrado": [
+        "ya distinguia el fallo de 'no encontrado' (lo arreglo una auditoria anterior, hallazgo C-10): sin cambios"
+      ],
+      "hallazgos_abiertos": [],
+      "fecha": "2026-10-19",
+      "quien": "Claude",
+      "huella": "f5133baae1ea3451"
+    },
+    {
+      "pantalla": "/verificar/aliado/:id",
+      "archivos": [
+        "src/pages/VerifyAlly.tsx"
+      ],
+      "modos_revisados": [
+        "ceros y vacios",
+        "permisos"
+      ],
+      "encontrado": [
+        "igual que el verificador de distintivos: ya distinguia fallo de no encontrado. Sin cambios"
+      ],
+      "hallazgos_abiertos": [],
+      "fecha": "2026-10-19",
+      "quien": "Claude",
+      "huella": "d236de754bc2d44b"
+    },
+    {
+      "pantalla": "componente: campana de avisos",
+      "archivos": [
+        "src/components/content/NotificationsBell.tsx"
+      ],
+      "modos_revisados": [
+        "sustituciones"
+      ],
+      "encontrado": [
+        "de los 10 tipos de aviso de la base, 5 no tenian texto propio. No salia la clave cruda (el respaldo es el titulo guardado), pero dos que ve un PRESTADOR salian solo en espanol: traducidos a los 11 idiomas",
+        "decidido: el tipo 'auditoria' se queda en espanol, su cuerpo lo genera la base y solo lo ve la administracion"
+      ],
+      "hallazgos_abiertos": [],
+      "fecha": "2026-10-19",
+      "quien": "Claude",
+      "huella": "b98e943264b0daae"
     }
   ]
 }

@@ -8,6 +8,7 @@ import { create } from 'zustand';
 import type { Session, User } from '@supabase/supabase-js';
 import { dejarSucursalesPendientes } from '@/lib/sucursalesPendientes';
 import { supabase } from '@/lib/supabase';
+import { limpiarAlSalir } from '@/lib/limpiarAlSalir';
 import { tokenCaptcha } from '@/lib/captcha';
 import i18n from '@/i18n';
 import { logger, toMessage } from '@/lib/utils';
@@ -483,6 +484,11 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         /* sin red y sin sesión válida: igual limpiamos el estado de la app */
       }
     }
+    // Lo guardado en el dispositivo tambien es de esa persona: la credencial
+    // en cache (con su qr_token), una foto a medio subir, las sucursales sin
+    // guardar. Sin esto, en un dispositivo compartido la siguiente persona
+    // abria /mi-id y veia la credencial de la anterior.
+    limpiarAlSalir();
     set({ status: 'unauthenticated', session: null, user: null, profile: null });
   },
 

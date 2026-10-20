@@ -19,7 +19,7 @@ import { useTranslation } from 'react-i18next';
 import { MailCheck, Clock } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 
-type Estado = 'cargando' | 'aplicado' | 'pendiente' | 'sinSesion';
+type Estado = 'cargando' | 'noSePudo' | 'aplicado' | 'pendiente' | 'sinSesion';
 
 export function CorreoConfirmado() {
   const { t } = useTranslation();
@@ -35,7 +35,11 @@ export function CorreoConfirmado() {
         if (!u) return setEstado('sinSesion');
         setEstado(u.new_email ? 'pendiente' : 'aplicado');
       })
-      .catch(() => { if (vivo) setEstado('sinSesion'); });
+      // Antes un fallo de red se reportaba como 'sinSesion': a quien acababa de
+      // pulsar el enlace de su correo se le decia que no tenia sesion, que es
+      // otra cosa y lo manda a entrar cuando lo unico que paso es que la
+      // comprobacion no llego. (Repaso adversario, 19 oct 2026.)
+      .catch(() => { if (vivo) setEstado('noSePudo'); });
     return () => { vivo = false; };
   }, []);
 
@@ -52,6 +56,8 @@ export function CorreoConfirmado() {
 
         {estado === 'cargando' ? (
           <p className="mt-3 text-slate-500">{t('common.loading')}</p>
+        ) : estado === 'noSePudo' ? (
+          <p className="mt-3 text-slate-700">{t('mailConfirm.noSePudo')}</p>
         ) : aplicado ? (
           <p className="mt-3 text-slate-700">{t('mailConfirm.done')}</p>
         ) : (

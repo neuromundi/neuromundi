@@ -583,7 +583,9 @@
     "sharedBy": "Lista compartida por {{name}}",
     "notFound": "Esta lista no existe o ya no se comparte.",
     "newListPlaceholder": "Mi nueva lista",
-    "items": "{{count}} elementos"
+    "items": "{{count}} elementos",
+    "noSePudo": "No se pudo cargar la lista",
+    "noSePudoAyuda": "El enlace no está roto: la carga no llegó. Vuelve a intentarlo en un momento."
   },
   "parent": {
     "tabs": {
@@ -2011,7 +2013,10 @@
     "kindPost": "Contenido",
     "kindProvider": "Proveedor",
     "kindProduct": "Producto",
-    "emptyTitle": "Sin resultados"
+    "emptyTitle": "Sin resultados",
+    "failTitle": "No se pudo buscar",
+    "failBody": "Esto no quiere decir que no haya nada: la búsqueda no llegó al servidor. Revisa tu conexión y vuelve a intentarlo.",
+    "capped": "Mostramos los primeros {{n}}. Acota la búsqueda para ver otros."
   },
   "notif": {
     "title": "Notificaciones",
@@ -5602,7 +5607,8 @@
     "walletErr": "No se pudo generar el pase. Intenta más tarde.",
     "downloadCard": "Descargar credencial",
     "pageTitle": "Mi Neuromundi ID",
-    "needLogin": "Inicia sesión para ver tu Neuromundi ID."
+    "needLogin": "Inicia sesión para ver tu Neuromundi ID.",
+    "noCargo": "No pudimos cargar tu credencial. Revisa tu conexión y vuelve a intentarlo: tu Neuromundi ID sigue ahí."
   },
   "campaign": {
     "locked": {
@@ -6458,7 +6464,8 @@
     "pending": "Por seguridad, el cambio de correo sólo se aplica cuando se confirma desde las dos direcciones: la actual y la nueva. Revisa el otro buzón y abre también ese enlace.",
     "done": "Tu correo de acceso quedó actualizado. Desde ahora entra a Neuromundi con la dirección nueva.",
     "toSettings": "Ir a mis ajustes",
-    "toHome": "Ir al inicio"
+    "toHome": "Ir al inicio",
+    "noSePudo": "No pudimos comprobar tu correo ahora mismo. Esto no quiere decir que el cambio haya fallado: vuelve a intentarlo o entra a tus ajustes para verlo."
   },
   "fichasVistas": {
     "title": "Fichas del directorio más visitadas",
@@ -6497,5 +6504,9 @@
     "provider": "Prestador",
     "admin": "Administración",
     "advisor": "Asesor"
+  },
+  "panel": {
+    "noCargoTitle": "No pudimos cargar tu panel",
+    "noCargoBody": "Tu cuenta está bien: lo que no llegó fue tu perfil. Revisa tu conexión y vuelve a intentarlo."
   }
 }

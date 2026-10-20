@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Search as SearchIcon, FileText, Store, Package, SearchX } from 'lucide-react';
 import { Button , EmptyState} from '@/components/ui';
-import { useSearch, type SearchResult } from '@/hooks/useSearch';
+import { useSearch, TOPE_DE_RESULTADOS, type SearchResult } from '@/hooks/useSearch';
 import { SectionFilter, perteneceASeccion } from '@/components/common/SectionFilter';
 import type { SectionValue } from '@/data/sections';
 
@@ -18,7 +18,7 @@ const KIND_KEY: Record<SearchResult['kind'], string> = { post: 'search.kindPost'
 
 export function SearchPage() {
   const { t } = useTranslation();
-  const { results, loading, searched, search } = useSearch();
+  const { results, loading, searched, fallo, search } = useSearch();
   const [q, setQ] = useState('');
   // Las tres áreas de Neuromundi. Se aplica sobre lo ya traído, así que cambiar
   // de área no obliga a volver a buscar.
@@ -62,7 +62,19 @@ export function SearchPage() {
 
       <div className="space-y-2">
         {visibles.map((r) => <Row key={`${r.kind}-${r.id}`} r={r} />)}
-        {searched && !loading && visibles.length === 0 && <EmptyState icon={<SearchX className="h-6 w-6" />} title={t('search.emptyTitle')} description={t('search.empty')} />}
+        {/* Una busqueda que falla NO es una busqueda sin resultados: decir "no
+            encontramos nada" cuando lo que paso es que no se pudo buscar manda
+            a la persona a buscar en otro sitio algo que SI esta aqui. */}
+        {searched && !loading && fallo && (
+          <EmptyState icon={<SearchX className="h-6 w-6" />} title={t('search.failTitle')} description={t('search.failBody')} />
+        )}
+        {searched && !loading && !fallo && visibles.length === 0 && (
+          <EmptyState icon={<SearchX className="h-6 w-6" />} title={t('search.emptyTitle')} description={t('search.empty')} />
+        )}
+        {/* Si llegan justo los que caben, puede haber mas. */}
+        {!loading && !fallo && results.length >= TOPE_DE_RESULTADOS && (
+          <p className="pt-1 text-center text-xs text-muted">{t('search.capped', { n: TOPE_DE_RESULTADOS })}</p>
+        )}
       </div>
     </main>
   );

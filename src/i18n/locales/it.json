@@ -546,7 +546,9 @@
     "sharedBy": "Lista condivisa da {{name}}",
     "notFound": "Questa lista non esiste o non è più condivisa.",
     "newListPlaceholder": "La mia nuova lista",
-    "items": "{{count}} elementi"
+    "items": "{{count}} elementi",
+    "noSePudo": "Non è stato possibile caricare la lista",
+    "noSePudoAyuda": "Il link non è rotto: la richiesta non è arrivata. Riprova tra un momento."
   },
   "parent": {
     "tabs": {
@@ -1974,7 +1976,10 @@
     "kindPost": "Contenuto",
     "kindProvider": "Fornitore",
     "kindProduct": "Prodotto",
-    "emptyTitle": "Nessun risultato"
+    "emptyTitle": "Nessun risultato",
+    "failTitle": "Ricerca non riuscita",
+    "failBody": "Questo non vuol dire che non ci sia nulla: la ricerca non è arrivata al server. Controlla la connessione e riprova.",
+    "capped": "Mostriamo i primi {{n}}. Restringi la ricerca per vederne altri."
   },
   "notif": {
     "title": "Notifiche",
@@ -5602,7 +5607,8 @@
     "walletErr": "Impossibile generare il pass. Riprova più tardi.",
     "downloadCard": "Scarica la tessera",
     "pageTitle": "La mia Neuromundi ID",
-    "needLogin": "Accedi per vedere la tua Neuromundi ID."
+    "needLogin": "Accedi per vedere la tua Neuromundi ID.",
+    "noCargo": "Non siamo riusciti a caricare la tua tessera. Controlla la connessione e riprova: il tuo Neuromundi ID è sempre lì."
   },
   "campaign": {
     "locked": {
@@ -6458,7 +6464,8 @@
     "pending": "Per sicurezza, la modifica dell'e-mail diventa effettiva solo quando viene confermata da entrambi gli indirizzi: quello attuale e quello nuovo. Controlla l'altra casella e apri anche quel link.",
     "done": "La tua e-mail di accesso è stata aggiornata. Da ora accedi a Neuromundi con il nuovo indirizzo.",
     "toSettings": "Vai alle mie impostazioni",
-    "toHome": "Vai alla home"
+    "toHome": "Vai alla home",
+    "noSePudo": "Non siamo riusciti a verificare la tua e-mail adesso. Non vuol dire che la modifica sia fallita: riprova o apri le impostazioni."
   },
   "fichasVistas": {
     "title": "Schede della directory più visitate",
@@ -6497,5 +6504,9 @@
     "provider": "Fornitore",
     "admin": "Amministrazione",
     "advisor": "Consulente"
+  },
+  "panel": {
+    "noCargoTitle": "Non siamo riusciti a caricare il tuo pannello",
+    "noCargoBody": "Il tuo account è a posto: non è arrivato il tuo profilo. Controlla la connessione e riprova."
   }
 }

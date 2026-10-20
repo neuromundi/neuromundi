@@ -546,7 +546,9 @@
     "sharedBy": "Liste geteilt von {{name}}",
     "notFound": "Diese Liste existiert nicht oder wird nicht mehr geteilt.",
     "newListPlaceholder": "Meine neue Liste",
-    "items": "{{count}} Elemente"
+    "items": "{{count}} Elemente",
+    "noSePudo": "Die Liste konnte nicht geladen werden",
+    "noSePudoAyuda": "Der Link ist nicht kaputt: die Anfrage kam nicht an. Versuche es in einem Moment erneut."
   },
   "parent": {
     "tabs": {
@@ -1974,7 +1976,10 @@
     "kindPost": "Inhalt",
     "kindProvider": "Anbieter",
     "kindProduct": "Produkt",
-    "emptyTitle": "Keine Ergebnisse"
+    "emptyTitle": "Keine Ergebnisse",
+    "failTitle": "Suche fehlgeschlagen",
+    "failBody": "Das heißt nicht, dass es nichts gibt: die Suche hat den Server nicht erreicht. Prüfe deine Verbindung und versuche es erneut.",
+    "capped": "Wir zeigen die ersten {{n}}. Schränke die Suche ein, um weitere zu sehen."
   },
   "notif": {
     "title": "Benachrichtigungen",
@@ -5602,7 +5607,8 @@
     "walletErr": "Pass konnte nicht erstellt werden. Später erneut versuchen.",
     "downloadCard": "Ausweis herunterladen",
     "pageTitle": "Meine Neuromundi ID",
-    "needLogin": "Melde dich an, um deine Neuromundi ID zu sehen."
+    "needLogin": "Melde dich an, um deine Neuromundi ID zu sehen.",
+    "noCargo": "Wir konnten deinen Ausweis nicht laden. Prüfe deine Verbindung und versuche es erneut: deine Neuromundi ID ist weiterhin da."
   },
   "campaign": {
     "locked": {
@@ -6458,7 +6464,8 @@
     "pending": "Aus Sicherheitsgründen wird die Änderung der E-Mail-Adresse erst wirksam, wenn sie von beiden Adressen bestätigt wird: der aktuellen und der neuen. Prüfen Sie das andere Postfach und öffnen Sie auch diesen Link.",
     "done": "Ihre Anmelde-E-Mail wurde aktualisiert. Melden Sie sich ab jetzt mit der neuen Adresse bei Neuromundi an.",
     "toSettings": "Zu meinen Einstellungen",
-    "toHome": "Zur Startseite"
+    "toHome": "Zur Startseite",
+    "noSePudo": "Wir konnten deine E-Mail gerade nicht prüfen. Das heißt nicht, dass die Änderung fehlgeschlagen ist: versuche es erneut oder öffne deine Einstellungen."
   },
   "fichasVistas": {
     "title": "Meistbesuchte Verzeichniseinträge",
@@ -6497,5 +6504,9 @@
     "provider": "Anbieter",
     "admin": "Verwaltung",
     "advisor": "Berater"
+  },
+  "panel": {
+    "noCargoTitle": "Wir konnten dein Panel nicht laden",
+    "noCargoBody": "Mit deinem Konto ist alles in Ordnung: nur dein Profil kam nicht an. Prüfe deine Verbindung und versuche es erneut."
   }
 }

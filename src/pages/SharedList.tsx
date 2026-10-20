@@ -12,12 +12,25 @@ import { useSharedList } from '@/hooks/useSharedList';
 export function SharedList() {
   const { token = '' } = useParams();
   const { t } = useTranslation();
-  const { list, loading } = useSharedList(token);
+  const { list, loading, error } = useSharedList(token);
 
   if (loading) {
     return (
       <div className="mx-auto max-w-2xl p-4">
         <SkeletonCard rows={3} />
+      </div>
+    );
+  }
+
+  // Un fallo de carga NO es "esta lista no existe": el gancho ya distinguia las
+  // dos cosas y esta pantalla las juntaba. Decirle a alguien que la lista que le
+  // compartieron no existe, cuando lo que paso es que no se pudo cargar, le
+  // hace creer que el enlace esta roto. (Repaso adversario, 19 oct 2026.)
+  if (error) {
+    return (
+      <div className="mx-auto max-w-2xl p-8 text-center">
+        <p className="font-semibold text-slate-800">{t('lists.noSePudo')}</p>
+        <p className="mt-1 text-sm text-muted">{t('lists.noSePudoAyuda')}</p>
       </div>
     );
   }
