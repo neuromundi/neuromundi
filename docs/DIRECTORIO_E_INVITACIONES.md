@@ -319,3 +319,42 @@ CORRECCION al informe del 21 de octubre: ese ultimo par se marco como "mismo
 correo", pero lo que comparten es NO TENER correo (dos nulos comparan iguales).
 Siguen pareciendo duplicados por nombre y ciudad, pero esa evidencia concreta
 era espuria.
+
+## EL PLAN DE PAGA SE SEPARA POR TIPO DE BUZON (21 oct 2026)
+
+### Por que
+Medido el 21 de octubre, con 466 invitaciones enviadas y el mismo tiempo de
+exposicion en ambos grupos (13.1 h contra 12.3 h de promedio):
+
+| Tipo de buzon | Entregadas | Visitas al enlace | Reclamos |
+|---|---|---|---|
+| Institucional (`@suorganizacion.com`) | 280 | 28 — **10.0%** | 2 |
+| Personal (gmail, hotmail, yahoo…) | 160 | 0 — **0.0%** | 0 |
+
+Cero de 160. Con la tasa del 10% de los institucionales, 160 envios deberian
+haber dado unas 16 visitas. La probabilidad de que salga cero por azar es
+despreciable.
+
+Eso explica el carril de paga mejor que el precio: el 61% de las fichas de paga
+ya escritas son buzones personales, frente al 31% de las exentas. No es que la
+cuota asuste; es que a la mayoria se le escribio a un gmail.
+
+HIPOTESIS NO MEDIDA: Gmail y Hotmail estan clasificando el correo como
+promocion o spam. `email.delivered` significa que el servidor lo acepto, NO que
+llegara a la bandeja principal. Son dos cosas distintas y se venian leyendo como
+una. Para confirmarlo hace falta la cuenta de Resend (el 21 de octubre no habia
+sesion abierta) y, sobre todo, Google Postmaster Tools, que es quien dice la
+tasa de spam real del dominio.
+
+### Como queda el plan
+- **101–126 · buzon institucional, 265 fichas en 26 tandas.** Listas para
+  enviar; son las que tienen posibilidad real de responder.
+- **201–227 · buzon personal, 299 fichas en 27 tandas.** EN ESPERA. Un correo
+  mas no entra donde no entro el primero: antes hay que resolver la entrega o
+  cambiar de canal.
+- 98 (60 escuelas publicas) y 99 (32 apartadas) sin cambios.
+
+Dentro de cada pais los tipos de perfil quedan contiguos, para que el resumen de
+cada tanda siga siendo legible. El corte de 25 es por pais.
+
+Respaldo del plan anterior: `respaldo_plan_invitacion_20261021`.
