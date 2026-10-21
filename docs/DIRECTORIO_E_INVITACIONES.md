@@ -268,3 +268,54 @@ buzón YA tenga otra invitación con `enviada_en is not null`. No se aplicó el 
 de octubre porque las tandas estaban saliendo cada 20 minutos y tocar la función
 de la cola entre dos envíos es arriesgado; el único caso pendiente se apartó a
 mano a la tanda 99.
+
+## REGLA DE FUSION DE DUPLICADOS (propuesta el 21 oct 2026, pendiente de aprobacion)
+
+Se aplica en la TANDA FINAL, nunca antes, y ficha por ficha con el antes/despues
+a la vista. Ninguna fusion se ejecuta sin el visto bueno de Enyoria sobre ese
+par concreto.
+
+**Que ficha sobrevive**, en este orden; el primer criterio que decida, manda:
+
+1. **La que ya fue reclamada** por su titular. Si una tiene `reclamada_por`, esa
+   sobrevive sin discusion: detras hay una persona con cuenta y perfil.
+2. **La que ya recibio invitacion** (`enviada_en`). Su token esta sellado y su
+   plazo de fundador contado desde el envio; borrarla invalida un enlace que
+   alguien tiene en su bandeja. Si ambas fueron invitadas, sobrevive la primera.
+3. **La de fuente curada** antes que la de padron automatico (`denue`,
+   `iluminemos`): el nombre y la clasificacion ya pasaron por revision humana.
+4. **La que tenga mas campos llenos**, contando correo, telefono, sitio,
+   direccion, geolocalizacion, areas de intervencion, especialidades y
+   descripcion del giro.
+
+**Que se conserva de la ficha que se borra** — la fusion enriquece, no solo
+elimina:
+
+5. Antes de borrar, se copian a la superviviente TODOS los campos que ella tenga
+   vacios y la otra llenos. Medido en los cinco pares del 21 de octubre: ninguna
+   ficha domina a su gemela en todos los campos, asi que quedarse con una a
+   secas SIEMPRE pierde datos. Ejemplo: en CCYET la ficha de `iluminemos` tiene
+   direccion y la curada no, pero la curada tiene 3 areas, 3 especialidades y 82
+   caracteres de giro, y la otra ninguno.
+6. **El nombre que queda es el mejor escrito y mas descriptivo**, aunque venga de
+   la ficha que se borra. Nunca el de MAYUSCULAS de padron.
+7. Antes de cualquier borrado se respalda la ficha completa en una tabla
+   `respaldo_fusion_<fecha>`, como se hizo con `respaldo_directorio_20261019`.
+
+**Lo que esta regla NO decide**: si dos fichas son la misma organizacion. Eso lo
+dice Enyoria. La regla solo dice que hacer una vez el ya lo decidio.
+
+### Los cinco pares, con lo que la regla dictaria
+
+| Par | Sobrevive por | Observacion |
+|---|---|---|
+| CCYET Capacitacion (tanda 1, invitada) / CCYET Estimulacion Temprana (tanda 2, invitada) | regla 2: la primera invitada | ambas ya recibieron correo |
+| Clinica CAI Neurodesarrollo (tanda 1, invitada) / CAI Especializada (tanda 2, invitada) | regla 2: la primera invitada | ambas ya recibieron correo |
+| Upale (tanda 2, invitada) / Upale Desarrollo del Potencial (apartada a 99) | regla 2 | la segunda nunca recibio |
+| CEPI Culiacan curada (tanda 2, invitada) / CENTRO... DENUE (apartada a 99 el 21 oct) | regla 2 | correos DISTINTOS: la guarda por buzon no la frenaba |
+| Centro de Neurodesarrollo y Clinica de la Conducta / Centro de Neurodesarrollo / Clinica de la Conducta | regla 4 | **ninguna tiene correo** y ninguna esta en el plan: no se invitan |
+
+CORRECCION al informe del 21 de octubre: ese ultimo par se marco como "mismo
+correo", pero lo que comparten es NO TENER correo (dos nulos comparan iguales).
+Siguen pareciendo duplicados por nombre y ciudad, pero esa evidencia concreta
+era espuria.
