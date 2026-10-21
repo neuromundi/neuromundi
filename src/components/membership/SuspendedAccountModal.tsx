@@ -33,8 +33,12 @@ export function SuspendedAccountModal({
     window.location.reload();
   };
 
+  // dismissible={false}: la X existia y no cerraba nada, porque onClose es
+  // deliberadamente vacio (de aqui no se sale sin elegir). Un boton de cerrar
+  // que no cierra es peor que no tenerlo, y el Modal ya sabe ocultarlo.
+  // Medido el 21 de octubre de 2026 pulsandola en el sitio en vivo.
   return (
-    <Modal open onClose={() => undefined} title={t('account.suspended.title')}>
+    <Modal open onClose={() => undefined} dismissible={false} title={t('account.suspended.title')}>
       <div className="space-y-4">
         <div className="flex items-start gap-3 rounded-2xl border border-amber-200 bg-amber-50 p-3">
           <PauseCircle className="mt-0.5 h-5 w-5 shrink-0 text-amber-600" aria-hidden="true" />
