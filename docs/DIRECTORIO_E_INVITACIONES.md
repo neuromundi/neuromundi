@@ -213,3 +213,58 @@ ambulancias — y ahí el campo queda vacío y lo resuelve la verificación.
 
 Las fichas ya cargadas no están afectadas: todas son de clases 1/2, verificado
 contra la base.
+
+## Pendiente para la TANDA FINAL (anotado el 21 oct 2026)
+
+Antes de lanzar la última tanda hay que recordarle a Enyoria estos tres bloques.
+
+### 1. Las 31 fichas apartadas (tanda 99)
+Van al final de la campaña por instrucción suya. Incluye, desde el 21 de octubre,
+a **Úpale — Desarrollo del Potencial Infantil**, movida de la tanda 46 porque
+comparte buzón (`info@upale.com.mx`) con la ficha «Úpale», que ya recibió su
+invitación el 20 de octubre.
+
+### 2. Las fichas que comparten buzón
+Por instrucción de Enyoria (21 oct 2026) quedan para revisión en la tanda final,
+no se fusionan antes:
+
+| Buzón | Fichas |
+|---|---|
+| `contacto@ccyet.mx` | CCYET Centro de Capacitación y Educación Terapéutica · CCYET – Centro de Estimulación Temprana |
+| `recepcion@clinicainfantil.com.mx` | Clínica de Atención Infantil y Neurodesarrollo CAI · Clínica Especializada en Atención Infantil (CAI) |
+| `info@upale.com.mx` | Úpale · Úpale — Desarrollo del Potencial Infantil |
+| `cancelaciones@teleton.org.mx` | CRIT Estado de México · CRIT Teletón Quintana Roo (NO son duplicados: dos centros distintos con un buzón institucional compartido, y además es un buzón de *cancelaciones*, mal sitio para una invitación) |
+
+### 3. Duplicados detectados y NO fusionados
+Esperan decisión de Enyoria sobre cuál ficha sobrevive:
+Centro de Neurodesarrollo y Clínica de la Conducta (×2, CDMX) · CCYET (×2) ·
+Úpale (×2) · Clínica CAI (×2) · Centro de Entrenamiento Psicológico Infantil
+(×2, Culiacán). Aparte, **HOPE Centro de Rehabilitación Integral** (San Nicolás)
+y **CERI** (San Luis Potosí) comparten correo siendo nombres y ciudades
+distintos: puede ser un correo mal asignado, no un duplicado.
+
+NO son duplicados aunque se parezcan: los CAM y USAER numerados, los CREE de los
+distintos DIF estatales, y APNA/APNAV/APNAC/APNABA/APNALP en España.
+
+## DEFECTO ABIERTO: la cola deduplica por buzón DENTRO de una tanda, no entre tandas
+
+`directorio_invitaciones_cola_tanda_v3` numera con
+`row_number() over (partition by lower(btrim(i.correo)) order by pl.orden)` y se
+queda con `n = 1`, pero ese conteo sólo ve las filas de ESA tanda. Dos fichas
+con el mismo buzón en tandas distintas reciben las dos.
+
+Ya ocurrió, medido el 21 de octubre de 2026 — tres buzones recibieron dos
+invitaciones cada uno:
+
+- `contacto@ccyet.mx` — tanda 1 (20 oct 13:07) y tanda 2 (20 oct 15:30)
+- `recepcion@clinicainfantil.com.mx` — tanda 1 (20 oct 13:07) y tanda 2 (20 oct 15:30)
+- `cancelaciones@teleton.org.mx` — tanda 49 (20 oct 15:30) y tanda 49 (21 oct 09:00)
+
+La cola del segundo contacto (`directorio_invitaciones_cola_reenvio`) SÍ
+deduplica globalmente, por eso ahí no volvió a pasar.
+
+Arreglo propuesto, pendiente de aplicar: excluir de la cola toda invitación cuyo
+buzón YA tenga otra invitación con `enviada_en is not null`. No se aplicó el 21
+de octubre porque las tandas estaban saliendo cada 20 minutos y tocar la función
+de la cola entre dos envíos es arriesgado; el único caso pendiente se apartó a
+mano a la tanda 99.
