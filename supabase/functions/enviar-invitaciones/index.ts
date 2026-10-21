@@ -574,11 +574,60 @@ function tablaComparativa(r?: Row): string {
     <p style="color:#94a3b8;font-size:10px;margin:6px 2px 0;line-height:1.4">${pt ? 'Comparação com informação pública de cada plataforma em Setembro de 2026. As plataformas mencionadas são marcas dos respectivos titulares; são citadas apenas para fins comparativos e informativos.' : 'Comparativa con información pública de cada plataforma a septiembre de 2026. Las plataformas mencionadas son marcas de sus respectivos titulares; se citan solo con fines comparativos e informativos.'}</p>`;
 }
 
-function buildEmail(r: Row, fundador = true, promo: string | null = null): { subject: string; html: string } {
+function buildEmail(
+  r: Row, fundador = true, promo: string | null = null, reenvio: string | null = null,
+): { subject: string; html: string } {
   const claim = `${SITE}/reclamar/${r.token}`;
   const rawNombre = r.nombre || 'su organización';
   const nombre = esc(rawNombre); // escapado para el HTML; el asunto usa rawNombre
   const seg = segmentOf(r);
+
+  // ── SEGUNDO CONTACTO: el plazo gratuito de 30 dias ──────────────────────
+  // Las 83 fichas de paga ya escritas lo fueron SIN este plazo, porque no
+  // existia (migracion 0323). Su correo no prometia ningun plazo de pago, asi
+  // que no hay nada que desdecir; lo que hay es una oferta mejor que no
+  // conocen. El correo no finge ser un recordatorio: dice que algo cambio,
+  // porque presentarlo como "por si se le paso" seria esconder la novedad que
+  // justifica el segundo correo.
+  if (reenvio === 'plazo30') {
+    const pt = esPT(r);
+    const cuerpo = pt
+      ? `<p>Olá, equipa de <b>${nombre}</b>:</p>
+         <p>Há poucos dias convidámo-lo a completar o seu perfil no directório da Neuromundi.
+            Desde então mudámos uma coisa importante e preferimos dizer-lho: <b>já não precisa de
+            pagar a quota para começar</b>.</p>
+         <p>Ao activar o seu perfil terá <b>30 dias para conhecer e usar a plataforma sem custo</b>,
+            com a sua ficha publicada e a receber pedidos. A quota paga-se no final desse prazo.</p>
+         <p>E reclamar agora <b>garante-lhe o preço de Membro Fundador</b> — metade, de forma
+            vitalícia — mesmo que pague ao final desses 30 dias.</p>
+         ${bloquePrecio(r)}
+         ${bloqueFechas(r)}
+         <p>Se, pelo contrário, preferir retirar a sua ficha do directório, pode fazê-lo a partir
+            dessa mesma ligação. Respeitamos sempre a sua decisão.</p>`
+      : `<p>Hola, equipo de <b>${nombre}</b>:</p>
+         <p>Hace unos días le invitamos a completar su perfil en el directorio de Neuromundi.
+            Desde entonces cambiamos algo importante y preferimos decírselo: <b>ya no hace falta
+            cubrir la cuota para empezar</b>.</p>
+         <p>Al activar su perfil tendrá <b>30 días para conocer y usar la plataforma sin costo</b>,
+            con su ficha publicada y recibiendo consultas. La cuota se cubre al terminar ese plazo.</p>
+         <p>Y reclamar ahora <b>le asegura el precio de Miembro Fundador</b> —la mitad, de por
+            vida— aunque pague al final de esos 30 días.</p>
+         ${bloquePrecio(r)}
+         ${bloqueFechas(r)}
+         <p>Si por el contrario prefiere retirar su ficha del directorio, puede hacerlo desde ese
+            mismo enlace. En todo momento respetamos su decisión.</p>`;
+    return {
+      subject: pt
+        ? `${rawNombre}: agora são 30 dias sem custo para conhecer a Neuromundi`
+        : `${rawNombre}: ahora son 30 días sin costo para conocer Neuromundi`,
+      html: shell(
+        pt ? 'Trinta dias sem custo' : 'Treinta días sin costo',
+        cuerpo,
+        pt ? 'Activar o meu perfil' : 'Activar mi perfil',
+        claim,
+      ),
+    };
+  }
 
   // Bloque de cortesía: si viene un código exento, se anuncia arriba del cuerpo.
   const promoBlock = promo
@@ -654,6 +703,25 @@ function buildEmail(r: Row, fundador = true, promo: string | null = null): { sub
          <b style="color:#0369a1">${r.precio_desde ? 'desde ' : ''}${MXN(Number(r.precio_fundador))} ${cur} al año</b>,
          en lugar del precio ordinario de <b>${r.precio_desde ? 'desde ' : ''}${MXN(Number(r.precio_ordinario))} ${cur}</b>.${r.precio_desde ? ' La cuota exacta queda definida cuando indique su profesión al completar su perfil.' : ''}
        </p>`)
+    : '';
+
+  // 30 DIAS SIN COSTO (21 oct 2026, aprobado por Enyoria). Hasta la migracion
+  // 0323 el perfil de paga NO podia publicarse sin cubrir la cuota, asi que
+  // para ver que le daba la plataforma habia que pagar primero. Ahora la
+  // prueba cuenta como cuota cubierta y el correo lo dice, porque callarlo
+  // deja intacta la unica objecion que de verdad frena: pagar a ciegas.
+  //
+  // La ultima frase NO es adorno: founder_eligible() medía el plazo en el
+  // momento del pago (migracion 0325), de modo que usar el mes y pagar al
+  // final habria costado el precio de fundador. Ya no, y se dice aqui.
+  const parrafoPrueba = hayTarifa
+    ? (pt
+      ? `<p>Ao activar o seu perfil terá <b>30 dias para conhecer e usar a plataforma sem custo</b>,
+           com a sua ficha publicada e a receber pedidos. A quota paga-se no final desse prazo, e
+           reclamar agora garante-lhe o preço de Membro Fundador mesmo que pague ao final.</p>`
+      : `<p>Al activar su perfil tendrá <b>30 días para conocer y usar la plataforma sin costo</b>,
+           con su ficha publicada y recibiendo consultas. La cuota se cubre al terminar ese plazo, y
+           reclamar ahora le asegura el precio de Miembro Fundador aunque pague al final.</p>`)
     : '';
 
   // Las organizaciones exentas NO reciben parrafoOferta (no tienen tarifa), y sin
@@ -757,6 +825,7 @@ function buildEmail(r: Row, fundador = true, promo: string | null = null): { sub
   const cuerpo = `${intro}
     ${beneficios(r)}
     ${parrafoOferta}
+    ${parrafoPrueba}
     ${parrafoExento}
     ${tablaComparativa(r)}
     ${parrafoPlazo}
@@ -791,7 +860,7 @@ Deno.serve(async (req: Request) => {
   // Los plazos se leen de campaign_config en cada invocación, nunca se fijan aquí.
   await cargarRelojes();
 
-  let body: { send?: boolean; limit?: number; segment?: string; tipo_correo?: string; token?: string; fundador?: boolean; promo?: string | null; tanda?: number } = {};
+  let body: { send?: boolean; limit?: number; segment?: string; tipo_correo?: string; token?: string; fundador?: boolean; promo?: string | null; tanda?: number; reenvio?: string } = {};
   try { body = await req.json(); } catch { /* vacío = dry-run, todos */ }
   const doSend = body.send === true;
   // Encuadre de fundador en el correo (por defecto sí, como el envío masivo).
@@ -805,6 +874,10 @@ Deno.serve(async (req: Request) => {
     ? (body.segment as string) : 'todos';
   const tipoCorreo = ['personal', 'institucional', 'todos'].includes(body.tipo_correo ?? '')
     ? (body.tipo_correo as string) : 'todos';
+  // SEGUNDO CONTACTO. Lista blanca, no texto libre: un motivo mal escrito
+  // dejaria la marca de idempotencia en otra casilla y permitiria enviar dos
+  // veces el mismo correo a la misma persona.
+  const reenvio = body.reenvio === 'plazo30' ? 'plazo30' : null;
 
   let rows: Row[] = [];
   if (body.token) {
@@ -846,7 +919,9 @@ Deno.serve(async (req: Request) => {
   } else {
     // Si viene `tanda`, la cola respeta el plan (directorio_plan_invitacion) y
     // trae la tarifa exacta de cada ficha. Sin `tanda`, comportamiento anterior.
-    const { data, error } = body.tanda
+    const { data, error } = reenvio
+      ? await admin.rpc('directorio_invitaciones_cola_reenvio', { p_motivo: reenvio, p_limit: 200 })
+      : body.tanda
       ? await admin.rpc('directorio_invitaciones_cola_tanda_v3', { p_tanda: body.tanda, p_limit: 200 })
       : await admin.rpc('directorio_invitaciones_cola_v2', { p_limit: 1000 });
     if (error) return json(500, { error: error.message });
@@ -861,7 +936,7 @@ Deno.serve(async (req: Request) => {
     let personal = 0, institucional = 0;
     for (const r of rows) { porTanda[segmentOf(r)]++; r.correo_personal ? personal++ : institucional++; }
     return json(200, {
-      dry_run: true, segment, tipo_correo: tipoCorreo, total: rows.length,
+      dry_run: true, segment, tipo_correo: tipoCorreo, reenvio, total: rows.length,
       // Aviso explicito de corte: antes habia que adivinarlo comparando cifras.
       limite_efectivo: limit,
       se_cortaria: rows.length > limit,
@@ -893,12 +968,30 @@ Deno.serve(async (req: Request) => {
       // se imprime sea exactamente la que quedo guardada en la base. Si el
       // sellado falla no se inventa nada: fundadorDe() cae a la fecha del pais.
       try {
-        const { data: hasta } = await admin.rpc('sellar_plazo_invitacion', { p_token: r.token });
+        // En el segundo contacto se LEE el plazo ya sellado, no se vuelve a
+        // sellar: volver a contarlo desde hoy le regalaria semanas de plazo de
+        // fundador a quien ya tenia el suyo, y el correo imprimiria una fecha
+        // distinta de la que la plataforma aplica.
+        const { data: hasta } = reenvio
+          ? await admin
+              .from('directorio_invitaciones')
+              .select('fundador_hasta')
+              .eq('token', r.token)
+              .maybeSingle()
+              .then((x) => ({ data: (x.data as { fundador_hasta?: string } | null)?.fundador_hasta ?? null }))
+          : await admin.rpc('sellar_plazo_invitacion', { p_token: r.token });
         if (hasta) r.fundador_hasta = hasta as unknown as string;
       } catch { /* sin sellado, el correo usa la fecha del pais */ }
-      const { subject, html } = buildEmail(r, fundador, body.promo ?? null);
-      if (await sendEmail(r.correo, subject, html, `inv-${r.token}`, `${SITE}/reclamar/${r.token}`)) {
-        await admin.rpc('directorio_invitacion_enviada', { p_token: r.token });
+      const { subject, html } = buildEmail(r, fundador, body.promo ?? null, reenvio);
+      // La clave de idempotencia lleva el motivo: con `inv-<token>` a secas,
+      // Resend trataria el segundo contacto como repeticion del primero y no
+      // lo entregaria.
+      const idem = reenvio ? `re-${reenvio}-${r.token}` : `inv-${r.token}`;
+      if (await sendEmail(r.correo, subject, html, idem, `${SITE}/reclamar/${r.token}`)) {
+        // El segundo contacto NO toca enviada_en: esa fecha sostiene los plazos
+        // sellados y el informe de entrega del primer correo.
+        if (reenvio) await admin.rpc('directorio_invitacion_reenviada', { p_token: r.token, p_motivo: reenvio });
+        else await admin.rpc('directorio_invitacion_enviada', { p_token: r.token });
         enviados++;
       } else { fallidos++; }
     } catch { fallidos++; }
@@ -906,7 +999,7 @@ Deno.serve(async (req: Request) => {
   }
   const sinProcesar = Math.max(0, rows.length - lote.length);
   return json(200, {
-    ok: true, segment, tipo_correo: tipoCorreo, enviados, fallidos,
+    ok: true, segment, tipo_correo: tipoCorreo, reenvio, enviados, fallidos,
     procesados: lote.length,
     // Si el lote se corto por el limite, se dice: antes quedaba oculto.
     en_cola: rows.length, sin_procesar: sinProcesar,
