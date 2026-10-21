@@ -60,7 +60,10 @@
       "caregiver": "Betreuungsperson",
       "company": "Unternehmen",
       "tourism": "Tourismus"
-    }
+    },
+    "cuotaPaga": "Dein Profil zu vervollständigen kostet jetzt nichts: Du hast 30 Tage, um die Plattform kostenlos zu nutzen, mit veröffentlichtem Eintrag. Der Beitrag wird am Ende dieses Zeitraums fällig.",
+    "cuotaGratis": "Deine Mitgliedschaft ist kostenlos. Es gibt keine Anmeldegebühr und keinen Jahresbeitrag, jetzt nicht und später nicht.",
+    "cuotaEmpresa": "Deine Mitgliedschaft ist kostenlos, solange du mindestens eine Stelle, ein Ehrenamt oder einen Sozialdienst veröffentlicht hältst. Es gibt keine Anmeldegebühr und keinen Jahresbeitrag."
   },
   "common": {
     "appName": "Neuromundi",

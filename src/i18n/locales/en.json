@@ -60,7 +60,10 @@
       "caregiver": "Caregiver",
       "company": "Company",
       "tourism": "Tourism"
-    }
+    },
+    "cuotaPaga": "Completing your profile costs you nothing now: you get 30 days to try the platform at no cost, with your listing published. The fee is paid at the end of that period.",
+    "cuotaGratis": "Your membership is free. There is no registration fee and no annual fee, now or later.",
+    "cuotaEmpresa": "Your membership is free as long as you keep at least one job, volunteering or community-service opening published. There is no registration fee and no annual fee."
   },
   "common": {
     "appName": "Neuromundi",

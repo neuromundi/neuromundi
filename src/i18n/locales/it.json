@@ -60,7 +60,10 @@
       "caregiver": "Caregiver",
       "company": "Azienda",
       "tourism": "Turismo"
-    }
+    },
+    "cuotaPaga": "Completare il tuo profilo non ti costa nulla adesso: hai 30 giorni per conoscere e usare la piattaforma senza costi, con la tua scheda pubblicata. La quota si versa alla fine di questo periodo.",
+    "cuotaGratis": "La tua iscrizione è gratuita. Non c’è quota di iscrizione né quota annuale, né ora né dopo.",
+    "cuotaEmpresa": "La tua iscrizione è gratuita se mantieni pubblicata almeno un’offerta di lavoro, volontariato o servizio civile. Non c’è quota di iscrizione né quota annuale."
   },
   "common": {
     "appName": "Neuromundi",

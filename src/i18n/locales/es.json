@@ -60,7 +60,10 @@
       "caregiver": "Cuidador",
       "company": "Empresa",
       "tourism": "Turismo"
-    }
+    },
+    "cuotaPaga": "Completar tu perfil no te cuesta nada ahora: tienes 30 días para conocer y usar la plataforma sin costo, con tu ficha publicada. La cuota se cubre al terminar ese plazo.",
+    "cuotaGratis": "Tu membresía es gratuita. No hay cuota de inscripción ni cuota anual, ni ahora ni después.",
+    "cuotaEmpresa": "Tu membresía es gratuita mientras mantengas publicada al menos una oferta de empleo, voluntariado o servicio social. No hay cuota de inscripción ni cuota anual."
   },
   "common": {
     "appName": "Neuromundi",

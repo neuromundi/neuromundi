@@ -31,6 +31,10 @@ interface Ficha {
   especializacion: string | null;
   fuente: string;
   fuente_url: string | null;
+  /** 'privado' | 'publico' | 'social'. Decide si se le pide cuota, igual que en
+   *  reclamar-ficha. Lo devolvía ficha_por_token desde siempre; lo que faltaba
+   *  era declararlo aquí y decírselo a quien lee la página. */
+  sector: string;
 }
 
 const FUNCION = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/reclamar-ficha`;
@@ -255,6 +259,24 @@ export function ReclamarFicha() {
             </div>
           ))}
         </dl>
+      </div>
+
+      {/* LA SITUACIÓN DE CUOTA, DICHA EN LA PÁGINA (21 oct 2026).
+          Medido esa madrugada: 15 personas llegaron hasta aquí desde el correo y
+          NINGUNA pulsó el botón; la función de reclamo no se invocó ni una vez.
+          La página no mencionaba el dinero en ningún lugar: ni "cuota" ni
+          "gratuito". Quien venía de un correo con una cifra no tenía forma de
+          saber que pulsar no le cobra nada, y a quien se le dijo que su
+          membresía es gratuita no se le confirmaba aquí.
+          El texto se reparte igual que en el correo: el sector decide, y las
+          empresas llevan el suyo porque su gratuidad está condicionada a
+          mantener una oferta publicada (migración 0223). */}
+      <div className="mt-8 rounded-2xl border border-emerald-100 bg-emerald-50/60 p-4 text-sm/6 text-emerald-900">
+        {ficha.sector === 'privado'
+          ? t('reclamar.cuotaPaga')
+          : ficha.provider_type === 'company'
+            ? t('reclamar.cuotaEmpresa')
+            : t('reclamar.cuotaGratis')}
       </div>
 
       <div className="mt-8">

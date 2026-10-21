@@ -60,7 +60,10 @@
       "caregiver": "Aidant",
       "company": "Entreprise",
       "tourism": "Tourisme"
-    }
+    },
+    "cuotaPaga": "Compléter votre profil ne vous coûte rien maintenant : vous disposez de 30 jours pour utiliser la plateforme sans frais, votre fiche publiée. La cotisation se règle à la fin de ce délai.",
+    "cuotaGratis": "Votre adhésion est gratuite. Il n'y a ni frais d'inscription ni cotisation annuelle, ni maintenant ni plus tard.",
+    "cuotaEmpresa": "Votre adhésion est gratuite tant que vous maintenez publiée au moins une offre d'emploi, de bénévolat ou de service civique. Il n'y a ni frais d'inscription ni cotisation annuelle."
   },
   "common": {
     "appName": "Neuromundi",
