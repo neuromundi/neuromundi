@@ -1730,7 +1730,7 @@
     "title": "Mitgliedsbeitrag",
     "annual": "Jahresabonnement",
     "perYear": "/ Jahr",
-    "explainPending": "Dein Konto ist registriert. Damit dein Profil Anfragen erhält und mit anderen Mitgliedern interagiert, zahle innerhalb von {{days}} Tagen.",
+    "explainPending": "Du hast {{days}} Tage, um Neuromundi kostenlos kennenzulernen und zu nutzen: Dein Profil bleibt veröffentlicht, erscheint vollständig im Verzeichnis und kann Anfragen erhalten. Danach zahle deinen Beitrag, um fortzufahren.",
     "quoteLabel": "Dein Beitrag:",
     "calculating": "Berechnung…",
     "payNow": "Jetzt zahlen",
@@ -1747,7 +1747,7 @@
     "promoExhausted": "Der Code hat sein Nutzungslimit erreicht.",
     "promoScope": "Dieser Code gilt nicht für deinen Kontotyp.",
     "payError": "Zahlung konnte nicht gestartet werden. Versuche es später.",
-    "bannerPending": "Du hast noch {{days}} Tage, um deinen Beitrag zu zahlen.",
+    "bannerPending": "Dir bleiben {{days}} Tage kostenlose Nutzung. Danach zahle deinen Beitrag, damit dein Profil veröffentlicht bleibt.",
     "bannerPastDue": "Dein Profil erhält keine Anfragen und kann nicht interagieren, bis die Zahlung abgeschlossen ist.",
     "bannerCta": "Zahlung abschließen",
     "founderDiscount": "Als Gründer erhältst du 50 % lebenslangen Rabatt auf den Mitgliedsbeitrag; es gilt nur die jährliche Erhöhung entsprechend der Inflation deines Landes.",
@@ -2301,7 +2301,7 @@
   },
   "shop": {
     "title": "Shop",
-    "empty": "Keine Produkte verfügbar.",
+    "empty": "Wir stellen die ersten Produkte unserer Mitglieder zusammen, um sie hier zu zeigen.",
     "buy": "Kaufen",
     "buying": "Weiterleitung…",
     "buyError": "Kauf konnte nicht gestartet werden.",
@@ -2341,7 +2341,8 @@
     "allProducts": "Ganzer Shop",
     "scope": "Welche Produkte anzeigen",
     "corporateHint": "Produkte, die Neuromundi direkt anbietet.",
-    "soldOut": "Ausverkauft"
+    "soldOut": "Ausverkauft",
+    "emptySellCta": "Verkaufst du etwas, das neurodivergenten Menschen und ihren Familien hilft? Stelle es ohne Provision ein."
   },
   "affil": {
     "tab": "Meine Partner",
@@ -2371,7 +2372,7 @@
   "lms": {
     "title": "Neuromundi Academy",
     "subtitle": "Lerne mit Fachleuten über Neuroentwicklung, Neurodivergenz und neurologische Erkrankungen. Kurse für Familien und Fachkräfte.",
-    "empty": "Kurse folgen in Kürze.",
+    "empty": "Wir bereiten die ersten Kurse mit Fachleuten aus der Community vor.",
     "enroll": "Einschreiben",
     "enrolled": "Eingeschrieben",
     "continue": "Fortsetzen",
@@ -2463,7 +2464,9 @@
       "specialists": "Fachkräfte",
       "educators": "Lehrkräfte"
     },
-    "searchPlaceholder": "Kurs nach Titel oder Thema suchen…"
+    "searchPlaceholder": "Kurs nach Titel oder Thema suchen…",
+    "noResults": "Kein Kurs passt zu deiner Suche.",
+    "emptyTeachCta": "Unterrichtest du? Schlage deinen Kurs vor."
   },
   "pwd": {
     "label": "Sicherheit",
@@ -6528,5 +6531,38 @@
   "panel": {
     "noCargoTitle": "Wir konnten dein Panel nicht laden",
     "noCargoBody": "Mit deinem Konto ist alles in Ordnung: nur dein Profil kam nicht an. Prüfe deine Verbindung und versuche es erneut."
+  },
+  "avisoSeccion": {
+    "cta": "Benachrichtige mich zur Eröffnung",
+    "hecho": "Erledigt, wir melden uns.",
+    "enviar": "Benachrichtigen",
+    "enviando": "Wird gesendet…",
+    "correoLabel": "Deine E-Mail",
+    "correoInvalido": "Prüfe deine E-Mail: Das sieht nicht nach einer gültigen Adresse aus."
+  },
+  "core": {
+    "title": "Kernschleife",
+    "last30": "Letzte 30 Tage",
+    "supply": "Aktives Angebot",
+    "paying": "{{n}} zahlend",
+    "demand": "Nachfrage",
+    "new": "+{{n}} neu (30T)",
+    "contacts": "Kontaktanfragen",
+    "views": "{{n}} Aufrufe · {{pct}}%",
+    "appts": "Termine",
+    "ofContacts": "von {{n}} Kontakten",
+    "reviews": "Bewertungen",
+    "accepted": "{{n}} angenommen",
+    "directory": "Verzeichnis: {{claimed}}/{{seeded}} Einträge beansprucht"
+  },
+  "roi": {
+    "title": "Was Neuromundi dir gebracht hat",
+    "views": "Profilaufrufe",
+    "requests": "Kontaktanfragen",
+    "accepted": "{{n}} angenommen",
+    "appts": "Termine",
+    "reviews": "Bewertungen",
+    "sales": "Verkäufe",
+    "total": "{{n}} gesamt"
   }
 }

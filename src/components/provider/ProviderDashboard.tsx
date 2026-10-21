@@ -75,6 +75,7 @@ import { PerfilPublicadoCard } from './PerfilPublicadoCard';
 import { MuroDeAliadosCard } from './MuroDeAliadosCard';
 import { ExemptionCard } from './ExemptionCard';
 import { OrgVerificationCard } from './OrgVerificationCard';
+import { ProviderRoiCard } from './ProviderRoiCard';
 import { LockedFeature } from './LockedFeature';
 import { useMembership } from '@/hooks/useMembership';
 import { ProfileCompletion } from './ProfileCompletion';
@@ -835,6 +836,8 @@ export function ProviderDashboard() {
       {/* Verificación documental de la ONG (acta o carta de org. de hecho):
           condiciona el asiento de Fundadora. */}
       {providerType === 'ngo' && <OrgVerificationCard userId={userId} />}
+      {/* ROI: lo que la plataforma le entregó al prestador (sostiene la renovación). */}
+      <ProviderRoiCard />
       {isFounder ? (
         <div className="mb-4 flex items-center gap-3 rounded-2xl border border-brand-200 bg-brand-50 p-3">
           <FounderBadge isFounder size="md" />

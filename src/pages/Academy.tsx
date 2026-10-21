@@ -9,7 +9,7 @@
 import { useMemo, useState } from 'react';
 import { useEmpresaLimitada } from '@/hooks/useEmpresaLimitada';
 import { EmpresaLimitadaMuro } from '@/components/membership/EmpresaLimitadaMuro';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { listaDeTextos } from '@/lib/listaDeTextos';
 import { GraduationCap, BookOpen, Play, Check, HeartHandshake, Stethoscope, School, Search } from 'lucide-react';
@@ -17,6 +17,8 @@ import { Button, SkeletonCard, useToast, EmptyState, HowTo , AvisoDeFallo } from
 import { useAuth } from '@/hooks/useAuth';
 import { useAcademy } from '@/hooks/useAcademy';
 import { CountryFilter } from '@/components/common/CountryFilter';
+import { AvisoDeSeccion } from '@/components/common/AvisoDeSeccion';
+import { useCountry } from '@/stores/countryStore';
 import { SectionFilter, perteneceASeccion } from '@/components/common/SectionFilter';
 import type { SectionValue } from '@/data/sections';
 
@@ -35,6 +37,7 @@ export function Academy() {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
   const { courses, enrolledIds, loading, fallo, enroll, reload } = useAcademy();
+  const { country } = useCountry();
 
   const [profile, setProfile] = useState<ProfileKey | null>(null);
   const [level, setLevel] = useState<string>('');
@@ -163,8 +166,28 @@ export function Academy() {
       ) : filtered.length === 0 ? (
         fallo ? (
           <AvisoDeFallo onRetry={() => void reload()} />
+        ) : courses.length === 0 ? (
+          // CATALOGO VACIO DE VERDAD: no hay ni un curso en la plataforma.
+          // Se distingue del caso de abajo porque decir "estamos preparando
+          // los primeros cursos" cuando SI hay cursos y el filtro no devolvio
+          // ninguno es falso, y manda al visitante a esperar algo que ya esta.
+          <EmptyState
+            icon={<GraduationCap className="h-6 w-6" />}
+            title={t('lms.emptyTitle')}
+            description={t('lms.empty')}
+            action={
+              <div className="flex flex-col items-center gap-3">
+                <AvisoDeSeccion seccion="academy" pais={country} />
+                <Link to="/crear-cuenta" className="text-sm font-semibold text-brand-700 underline">
+                  {t('lms.emptyTeachCta')}
+                </Link>
+              </div>
+            }
+          />
         ) : (
-          <EmptyState icon={<GraduationCap className="h-6 w-6" />} title={t('lms.emptyTitle')} description={t('lms.empty')} />
+          <p className="rounded-2xl border border-dashed border-slate-200 p-8 text-center text-muted">
+            {t('lms.noResults')}
+          </p>
         )
       ) : (
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

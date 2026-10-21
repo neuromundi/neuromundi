@@ -1767,7 +1767,7 @@
     "title": "멤버십 요금",
     "annual": "연간 구독",
     "perYear": "/ 년",
-    "explainPending": "계정이 등록되었습니다. 프로필이 문의를 받고 다른 회원과 상호작용하려면 {{days}}일 이내에 결제를 완료하세요.",
+    "explainPending": "{{days}}일 동안 비용 없이 Neuromundi를 살펴보고 사용할 수 있습니다. 프로필이 공개되고 디렉터리에 전체가 표시되며 문의도 받을 수 있습니다. 기간이 끝나면 회비를 납부해 계속 이용하세요.",
     "quoteLabel": "요금:",
     "calculating": "계산 중…",
     "payNow": "지금 결제",
@@ -1784,7 +1784,7 @@
     "promoExhausted": "코드가 사용 한도에 도달했습니다.",
     "promoScope": "이 코드는 귀하의 계정 유형에 적용되지 않습니다.",
     "payError": "결제를 시작할 수 없습니다. 나중에 다시 시도하세요.",
-    "bannerPending": "멤버십 요금 결제까지 {{days}}일 남았습니다.",
+    "bannerPending": "무료 이용 기간이 {{days}}일 남았습니다. 이후에는 회비를 납부해야 프로필이 계속 공개됩니다.",
     "bannerPastDue": "결제가 완료될 때까지 프로필은 문의를 받거나 상호작용하지 않습니다.",
     "bannerCta": "결제 완료",
     "founderDiscount": "창립 회원은 멤버십 요금에 대해 평생 50% 할인을 받습니다. 국가의 물가상승률에 따른 연간 인상만 적용됩니다.",
@@ -2338,7 +2338,7 @@
   },
   "shop": {
     "title": "스토어",
-    "empty": "이용 가능한 제품이 없습니다.",
+    "empty": "회원들의 첫 상품을 모아 이곳에 소개할 준비를 하고 있습니다.",
     "buy": "구매",
     "buying": "이동 중…",
     "buyError": "구매를 시작할 수 없습니다.",
@@ -2378,7 +2378,8 @@
     "allProducts": "모든 제품",
     "scope": "표시할 제품",
     "corporateHint": "Neuromundi가 직접 제공하는 제품.",
-    "soldOut": "품절"
+    "soldOut": "품절",
+    "emptySellCta": "신경다양성 당사자와 가족에게 도움이 되는 상품을 판매하시나요? 수수료 없이 등록하세요."
   },
   "affil": {
     "tab": "내 제휴사",
@@ -2408,7 +2409,7 @@
   "lms": {
     "title": "Neuromundi 아카데미",
     "subtitle": "전문가와 함께 신경발달, 신경다양성 및 신경계 질환에 대해 배우세요. 가족과 전문가를 위한 강좌.",
-    "empty": "강좌가 곧 제공됩니다.",
+    "empty": "커뮤니티 전문가들과 함께 첫 강의를 준비하고 있습니다.",
     "enroll": "등록",
     "enrolled": "등록됨",
     "continue": "계속",
@@ -2500,7 +2501,9 @@
       "specialists": "전문가",
       "educators": "교육자"
     },
-    "searchPlaceholder": "제목이나 주제로 강좌 검색…"
+    "searchPlaceholder": "제목이나 주제로 강좌 검색…",
+    "noResults": "검색 조건에 맞는 강의가 없습니다.",
+    "emptyTeachCta": "강의를 하시나요? 강의를 제안해 주세요."
   },
   "pwd": {
     "label": "강도",
@@ -6528,5 +6531,38 @@
   "panel": {
     "noCargoTitle": "내 패널을 불러올 수 없었습니다",
     "noCargoBody": "계정에는 문제가 없습니다. 도착하지 않은 것은 프로필입니다. 연결을 확인하고 다시 시도해 주세요."
+  },
+  "avisoSeccion": {
+    "cta": "열리면 알려주기",
+    "hecho": "접수했습니다. 알려드리겠습니다.",
+    "enviar": "알림 받기",
+    "enviando": "보내는 중…",
+    "correoLabel": "이메일",
+    "correoInvalido": "이메일을 확인해 주세요. 올바른 형식이 아닌 것 같습니다."
+  },
+  "core": {
+    "title": "핵심 루프",
+    "last30": "최근 30일",
+    "supply": "활성 공급",
+    "paying": "{{n}} 유료",
+    "demand": "수요",
+    "new": "+{{n}} 신규 (30일)",
+    "contacts": "연락 요청",
+    "views": "{{n}} 조회 · {{pct}}%",
+    "appts": "예약",
+    "ofContacts": "{{n}}건의 연락 중",
+    "reviews": "리뷰",
+    "accepted": "{{n}}건 수락",
+    "directory": "디렉터리: {{claimed}}/{{seeded}} 등록 신청됨"
+  },
+  "roi": {
+    "title": "Neuromundi가 가져다준 것",
+    "views": "프로필 조회",
+    "requests": "연락 요청",
+    "accepted": "{{n}}건 수락",
+    "appts": "예약",
+    "reviews": "리뷰",
+    "sales": "판매",
+    "total": "총 {{n}}"
   }
 }

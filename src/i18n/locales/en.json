@@ -1767,7 +1767,7 @@
     "title": "Membership fee",
     "annual": "Annual subscription",
     "perYear": "/ year",
-    "explainPending": "Your account is registered. For your profile to receive inquiries and interact with other members, complete payment within {{days}} days.",
+    "explainPending": "You have {{days}} days to try Neuromundi at no cost: your profile stays published, appears in full in the directory and can receive enquiries. When that period ends, pay your fee to continue.",
     "quoteLabel": "Your fee:",
     "calculating": "Calculating…",
     "payNow": "Pay now",
@@ -1784,7 +1784,7 @@
     "promoExhausted": "The code reached its usage limit.",
     "promoScope": "This code doesn't apply to your account type.",
     "payError": "Couldn't start payment. Try again later.",
-    "bannerPending": "You have {{days}} days left to pay your membership fee.",
+    "bannerPending": "You have {{days}} days left at no cost. After that, pay your fee to keep your profile published.",
     "bannerPastDue": "Your profile won't receive inquiries or interact until payment is complete.",
     "bannerCta": "Complete payment",
     "founderDiscount": "As a Founder you get a 50% lifetime discount on the membership fee; only the annual increase according to your country's inflation applies.",
@@ -2338,7 +2338,7 @@
   },
   "shop": {
     "title": "Store",
-    "empty": "No products available.",
+    "empty": "We're gathering the first products from our members to show them here.",
     "buy": "Buy",
     "buying": "Redirecting…",
     "buyError": "Couldn't start purchase.",
@@ -2378,7 +2378,8 @@
     "allProducts": "All products",
     "scope": "Which products to show",
     "corporateHint": "Products offered directly by Neuromundi.",
-    "soldOut": "Sold out"
+    "soldOut": "Sold out",
+    "emptySellCta": "Do you sell something useful to neurodivergent people and their families? List it with no commission."
   },
   "affil": {
     "tab": "My Affiliates",
@@ -2408,7 +2409,7 @@
   "lms": {
     "title": "Neuromundi Academy",
     "subtitle": "Learn about neurodevelopment, neurodivergence and neurological conditions with specialists. Courses for families and professionals.",
-    "empty": "Courses coming soon.",
+    "empty": "We're putting together the first courses with specialists from the community.",
     "enroll": "Enroll",
     "enrolled": "Enrolled",
     "continue": "Continue",
@@ -2500,7 +2501,9 @@
       "specialists": "Specialists",
       "educators": "Educators"
     },
-    "searchPlaceholder": "Search a course by title or topic…"
+    "searchPlaceholder": "Search a course by title or topic…",
+    "noResults": "No course matches your search.",
+    "emptyTeachCta": "Do you teach? Propose your course."
   },
   "pwd": {
     "label": "Strength",
@@ -6528,5 +6531,38 @@
   "panel": {
     "noCargoTitle": "We could not load your panel",
     "noCargoBody": "Your account is fine: it was your profile that did not arrive. Check your connection and try again."
+  },
+  "avisoSeccion": {
+    "cta": "Notify me when it opens",
+    "hecho": "Done, we'll let you know.",
+    "enviar": "Notify me",
+    "enviando": "Sending…",
+    "correoLabel": "Your email",
+    "correoInvalido": "Check your email: that doesn't look like a valid address."
+  },
+  "core": {
+    "title": "Core loop",
+    "last30": "Last 30 days",
+    "supply": "Active supply",
+    "paying": "{{n}} paying",
+    "demand": "Demand",
+    "new": "+{{n}} new (30d)",
+    "contacts": "Contact requests",
+    "views": "{{n}} views · {{pct}}%",
+    "appts": "Bookings",
+    "ofContacts": "of {{n}} contacts",
+    "reviews": "Reviews",
+    "accepted": "{{n}} accepted",
+    "directory": "Directory: {{claimed}}/{{seeded}} listings claimed"
+  },
+  "roi": {
+    "title": "What Neuromundi brought you",
+    "views": "Profile views",
+    "requests": "Contact requests",
+    "accepted": "{{n}} accepted",
+    "appts": "Bookings",
+    "reviews": "Reviews",
+    "sales": "Sales",
+    "total": "{{n}} total"
   }
 }

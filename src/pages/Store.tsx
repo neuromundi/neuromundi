@@ -6,11 +6,13 @@
  */
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { ShoppingBag, Tag, Search, Star, ShieldCheck, MessageSquare, Plus } from 'lucide-react';
 import { Button, useToast, EmptyState, SkeletonCard, StarRating , AvisoDeFallo } from '@/components/ui';
 import { useStore, getRefCode, type Product } from '@/hooks/useShop';
 import { ProductReviewsModal } from '@/components/shop/ProductReviewsModal';
 import { SuggestModal } from '@/components/common/SuggestModal';
+import { AvisoDeSeccion } from '@/components/common/AvisoDeSeccion';
 import { CountryFilter } from '@/components/common/CountryFilter';
 import { useCountry } from '@/stores/countryStore';
 import { useCatLabel } from '@/lib/catLabel';
@@ -229,7 +231,21 @@ export function Store() {
         fallo ? (
           <AvisoDeFallo onRetry={() => window.location.reload()} />
         ) : (
-          <EmptyState icon={<ShoppingBag className="h-6 w-6" />} title={t('shop.emptyTitle')} description={t('shop.empty')} />
+          <EmptyState
+            icon={<ShoppingBag className="h-6 w-6" />}
+            title={t('shop.emptyTitle')}
+            description={t('shop.empty')}
+            action={
+              <div className="flex flex-col items-center gap-3">
+                <AvisoDeSeccion seccion="tienda" pais={country} />
+                {/* La sección vacía es también donde está parado quien podría
+                    llenarla: un comercio que aún no se ha afiliado. */}
+                <Link to="/crear-cuenta" className="text-sm font-semibold text-brand-700 underline">
+                  {t('shop.emptySellCta')}
+                </Link>
+              </div>
+            }
+          />
         )
       ) : (
         <>

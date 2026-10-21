@@ -21,6 +21,7 @@ import { AdminMembers } from './AdminMembers';
 import { AdminExemptions } from './AdminExemptions';
 import { AdminReports } from './AdminReports';
 import { AdminMetrics } from './AdminMetrics';
+import { AdminCoreMetrics } from './AdminCoreMetrics';
 import { AdminMessages } from './AdminMessages';
 import { AdminReferrals } from './AdminReferrals';
 import { AdminFees } from './AdminFees';
@@ -338,7 +339,7 @@ export function AdminDashboard({ advisor = false }: { advisor?: boolean } = {}) 
       </div>
 
       {section === 'metrics' ? (
-        <AdminMetrics />
+        <><AdminCoreMetrics /><AdminMetrics /></>
       ) : section === 'messages' ? (
         <AdminMessages />
       ) : section === 'moderation' ? (

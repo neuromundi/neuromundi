@@ -1730,7 +1730,7 @@
     "title": "Cotisation d'adhésion",
     "annual": "Abonnement annuel",
     "perYear": "/ an",
-    "explainPending": "Votre compte est enregistré. Pour que votre profil reçoive des demandes et interagisse avec d'autres membres, effectuez le paiement sous {{days}} jours.",
+    "explainPending": "Vous avez {{days}} jours pour découvrir et utiliser Neuromundi sans frais : votre profil reste publié, apparaît en entier dans l’annuaire et peut recevoir des demandes. À la fin de ce délai, réglez votre cotisation pour continuer.",
     "quoteLabel": "Votre cotisation :",
     "calculating": "Calcul…",
     "payNow": "Payer maintenant",
@@ -1747,7 +1747,7 @@
     "promoExhausted": "Le code a atteint sa limite d'utilisation.",
     "promoScope": "Ce code ne s'applique pas à votre type de compte.",
     "payError": "Impossible de démarrer le paiement. Réessayez plus tard.",
-    "bannerPending": "Il vous reste {{days}} jours pour payer votre cotisation.",
+    "bannerPending": "Il vous reste {{days}} jours d’utilisation sans frais. Ensuite, réglez votre cotisation pour que votre profil reste publié.",
     "bannerPastDue": "Votre profil ne recevra pas de demandes et ne pourra pas interagir tant que le paiement n'est pas effectué.",
     "bannerCta": "Finaliser le paiement",
     "founderDiscount": "En tant que Fondateur, vous bénéficiez de 50 % de réduction à vie sur la cotisation ; seule l’augmentation annuelle selon l’inflation de votre pays s’applique.",
@@ -2301,7 +2301,7 @@
   },
   "shop": {
     "title": "Boutique",
-    "empty": "Aucun produit disponible.",
+    "empty": "Nous réunissons les premiers produits de nos membres pour vous les présenter ici.",
     "buy": "Acheter",
     "buying": "Redirection…",
     "buyError": "Impossible de démarrer l'achat.",
@@ -2341,7 +2341,8 @@
     "allProducts": "Toute la boutique",
     "scope": "Quels produits afficher",
     "corporateHint": "Produits proposés directement par Neuromundi.",
-    "soldOut": "Épuisé"
+    "soldOut": "Épuisé",
+    "emptySellCta": "Vous vendez quelque chose d’utile aux personnes neuroatypiques et à leurs familles ? Publiez-le sans commission."
   },
   "affil": {
     "tab": "Mes affiliés",
@@ -2371,7 +2372,7 @@
   "lms": {
     "title": "Neuromundi Academy",
     "subtitle": "Apprenez le neurodéveloppement, la neurodivergence et les affections neurologiques avec des spécialistes. Des cours pour les familles et les professionnels.",
-    "empty": "Cours bientôt disponibles.",
+    "empty": "Nous préparons les premiers cours avec des spécialistes de la communauté.",
     "enroll": "S'inscrire",
     "enrolled": "Inscrit",
     "continue": "Continuer",
@@ -2463,7 +2464,9 @@
       "specialists": "Spécialistes",
       "educators": "Enseignants"
     },
-    "searchPlaceholder": "Rechercher un cours par titre ou thème…"
+    "searchPlaceholder": "Rechercher un cours par titre ou thème…",
+    "noResults": "Aucun cours ne correspond à votre recherche.",
+    "emptyTeachCta": "Vous enseignez ? Proposez votre cours."
   },
   "pwd": {
     "label": "Sécurité",
@@ -6528,5 +6531,38 @@
   "panel": {
     "noCargoTitle": "Nous n'avons pas pu charger ton panneau",
     "noCargoBody": "Ton compte va bien : c'est ton profil qui n'est pas arrivé. Vérifie ta connexion et réessaie."
+  },
+  "avisoSeccion": {
+    "cta": "Prévenez-moi à l’ouverture",
+    "hecho": "C’est noté, nous vous préviendrons.",
+    "enviar": "Me prévenir",
+    "enviando": "Envoi…",
+    "correoLabel": "Votre adresse e-mail",
+    "correoInvalido": "Vérifiez votre adresse : elle ne semble pas valide."
+  },
+  "core": {
+    "title": "Boucle centrale",
+    "last30": "30 derniers jours",
+    "supply": "Offre active",
+    "paying": "{{n}} payants",
+    "demand": "Demande",
+    "new": "+{{n}} nouvelles (30j)",
+    "contacts": "Demandes de contact",
+    "views": "{{n}} vues · {{pct}}%",
+    "appts": "Rendez-vous",
+    "ofContacts": "sur {{n}} contacts",
+    "reviews": "Avis",
+    "accepted": "{{n}} acceptées",
+    "directory": "Annuaire : {{claimed}}/{{seeded}} fiches réclamées"
+  },
+  "roi": {
+    "title": "Ce que Neuromundi vous a apporté",
+    "views": "Vues de votre profil",
+    "requests": "Demandes de contact",
+    "accepted": "{{n}} acceptées",
+    "appts": "Rendez-vous",
+    "reviews": "Avis",
+    "sales": "Ventes",
+    "total": "{{n}} au total"
   }
 }

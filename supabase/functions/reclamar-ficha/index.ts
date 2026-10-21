@@ -154,8 +154,16 @@ Deno.serve(async (req) => {
     // opciones de pago, y la plataforma le muestra la cuota como a cualquier
     // proveedor. Con 'exempt' el hook se las salta y no aparece nada que pagar.
     membership_status: cobrable ? 'pending' : 'exempt',
+    // 30 DIAS SIN COSTO (21 oct 2026). Antes eran 15, y durante esos 15 dias
+    // el perfil NO podia publicarse: cuota_cubierta() no admitia 'pending', asi
+    // que para ver que le daba la plataforma tenia que pagar primero. Con la
+    // migracion 0323 el periodo de prueba cuenta como cuota cubierta: publica,
+    // aparece completo en el directorio y opera. Al vencer, se bloquea.
+    //
+    // El correo enviado NO prometia 15 dias (el plazo se fijaba aqui, al
+    // reclamar), asi que ampliarlo no desmiente nada de lo ya enviado.
     membership_due_at: cobrable
-      ? new Date(Date.now() + 15 * 86400000).toISOString()
+      ? new Date(Date.now() + 30 * 86400000).toISOString()
       : null,
     // NO publicar aquí. El disparador trg_gate_publicacion rechaza
     // is_published = true mientras falten foto, descripción, teléfono, país o

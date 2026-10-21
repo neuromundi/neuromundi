@@ -189,7 +189,7 @@ export function MembershipModal({ open, onClose }: { open: boolean; onClose: () 
       ) : (
         <div className="space-y-4">
           <p className="text-sm text-slate-700">
-            {t('membership.explainPending', { days: daysLeft ?? 7 })}
+            {t('membership.explainPending', { days: daysLeft ?? 30 })}
           </p>
 
           {options?.is_founder && (

@@ -1730,7 +1730,7 @@
     "title": "会员费",
     "annual": "年度订阅",
     "perYear": "/ 年",
-    "explainPending": "你的账户已注册。为使你的资料能够接收咨询并与其他成员互动，请在 {{days}} 天内完成付款。",
+    "explainPending": "您有 {{days}} 天可以免费了解和使用 Neuromundi：您的资料会发布、在目录中完整显示，并可接收咨询。该期限结束后，缴纳会费即可继续。",
     "quoteLabel": "你的会费：",
     "calculating": "计算中…",
     "payNow": "立即付款",
@@ -1747,7 +1747,7 @@
     "promoExhausted": "促销码已达使用上限。",
     "promoScope": "此促销码不适用于你的账户类型。",
     "payError": "无法开始付款，请稍后再试。",
-    "bannerPending": "你还有 {{days}} 天来支付会员费。",
+    "bannerPending": "您还有 {{days}} 天免费使用时间。之后请缴纳会费，以便资料继续发布。",
     "bannerPastDue": "在完成付款之前，你的资料将无法接收咨询或互动。",
     "bannerCta": "完成付款",
     "founderDiscount": "作为创始会员，你可终身享受会费五折优惠；仅按你所在国家的通胀进行年度调整。",
@@ -2301,7 +2301,7 @@
   },
   "shop": {
     "title": "商店",
-    "empty": "暂无可售商品。",
+    "empty": "我们正在汇集会员的首批商品，稍后在此展示。",
     "buy": "购买",
     "buying": "跳转中…",
     "buyError": "无法开始购买。",
@@ -2341,7 +2341,8 @@
     "allProducts": "全部商品",
     "scope": "显示哪些商品",
     "corporateHint": "由 Neuromundi 直接提供的商品。",
-    "soldOut": "售罄"
+    "soldOut": "售罄",
+    "emptySellCta": "您销售的商品对神经多样性人士及其家庭有帮助吗？免佣金上架。"
   },
   "affil": {
     "tab": "我的推广伙伴",
@@ -2371,7 +2372,7 @@
   "lms": {
     "title": "Neuromundi Academy",
     "subtitle": "跟随专家学习神经发育、神经多样性与神经系统疾病。面向家庭和专业人士的课程。",
-    "empty": "课程即将上线。",
+    "empty": "我们正在与社区的专业人士筹备首批课程。",
     "enroll": "报名",
     "enrolled": "已报名",
     "continue": "继续",
@@ -2463,7 +2464,9 @@
       "specialists": "专业人员",
       "educators": "教师"
     },
-    "searchPlaceholder": "按标题或主题搜索课程…"
+    "searchPlaceholder": "按标题或主题搜索课程…",
+    "noResults": "没有符合您搜索条件的课程。",
+    "emptyTeachCta": "您从事教学吗？来提交您的课程。"
   },
   "pwd": {
     "label": "强度",
@@ -6528,5 +6531,38 @@
   "panel": {
     "noCargoTitle": "无法加载你的面板",
     "noCargoBody": "你的账号没有问题：没有加载到的是你的个人资料。请检查网络后重试。"
+  },
+  "avisoSeccion": {
+    "cta": "开放时通知我",
+    "hecho": "已登记，我们会通知您。",
+    "enviar": "通知我",
+    "enviando": "正在发送…",
+    "correoLabel": "您的邮箱",
+    "correoInvalido": "请检查邮箱：这似乎不是有效地址。"
+  },
+  "core": {
+    "title": "核心循环",
+    "last30": "最近30天",
+    "supply": "活跃供给",
+    "paying": "{{n}} 付费",
+    "demand": "需求",
+    "new": "+{{n}} 新增 (30天)",
+    "contacts": "联系请求",
+    "views": "{{n}} 浏览 · {{pct}}%",
+    "appts": "预约",
+    "ofContacts": "共 {{n}} 个联系",
+    "reviews": "评价",
+    "accepted": "{{n}} 已接受",
+    "directory": "目录：{{claimed}}/{{seeded}} 条已认领"
+  },
+  "roi": {
+    "title": "Neuromundi 为你带来的",
+    "views": "资料浏览",
+    "requests": "联系请求",
+    "accepted": "{{n}} 已接受",
+    "appts": "预约",
+    "reviews": "评价",
+    "sales": "销售",
+    "total": "共 {{n}}"
   }
 }

@@ -1730,7 +1730,7 @@
     "title": "Cota de afiliação",
     "annual": "Assinatura anual",
     "perYear": "/ ano",
-    "explainPending": "Sua conta foi registrada. Para que seu perfil receba consultas e interaja com outros membros, faça o pagamento em até {{days}} dias.",
+    "explainPending": "Tem {{days}} dias para conhecer e usar a Neuromundi sem custo: o seu perfil fica publicado, aparece completo no diretório e pode receber pedidos. No fim desse prazo, pague a sua quota para continuar.",
     "quoteLabel": "Sua cota:",
     "calculating": "Calculando…",
     "payNow": "Pagar agora",
@@ -1747,7 +1747,7 @@
     "promoExhausted": "O código atingiu o limite de usos.",
     "promoScope": "Este código não se aplica ao seu tipo de conta.",
     "payError": "Não foi possível iniciar o pagamento. Tente mais tarde.",
-    "bannerPending": "Você tem {{days}} dias para pagar sua cota de afiliação.",
+    "bannerPending": "Faltam {{days}} dias de uso sem custo. Depois, pague a sua quota para o seu perfil continuar publicado.",
     "bannerPastDue": "Seu perfil não receberá consultas nem poderá interagir até concluir o pagamento.",
     "bannerCta": "Concluir pagamento",
     "founderDiscount": "Como Fundador você tem 50% de desconto vitalício na mensalidade; aplica-se apenas o aumento anual conforme a inflação do seu país.",
@@ -2301,7 +2301,7 @@
   },
   "shop": {
     "title": "Loja",
-    "empty": "Sem produtos disponíveis.",
+    "empty": "Estamos a reunir os primeiros produtos dos nossos afiliados para os apresentar aqui.",
     "buy": "Comprar",
     "buying": "Redirecionando…",
     "buyError": "Não foi possível iniciar a compra.",
@@ -2341,7 +2341,8 @@
     "allProducts": "Toda a loja",
     "scope": "Quais produtos exibir",
     "corporateHint": "Produtos oferecidos diretamente pela Neuromundi.",
-    "soldOut": "Esgotado"
+    "soldOut": "Esgotado",
+    "emptySellCta": "Vende algo útil para pessoas neurodivergentes e as suas famílias? Publique-o sem comissão."
   },
   "affil": {
     "tab": "Meus afiliados",
@@ -2371,7 +2372,7 @@
   "lms": {
     "title": "Neuromundi Academy",
     "subtitle": "Aprenda sobre neurodesenvolvimento, neurodivergência e condições neurológicas com especialistas. Cursos para famílias e profissionais.",
-    "empty": "Cursos em breve.",
+    "empty": "Estamos a preparar os primeiros cursos com especialistas da comunidade.",
     "enroll": "Inscrever-me",
     "enrolled": "Inscrito",
     "continue": "Continuar",
@@ -2463,7 +2464,9 @@
       "specialists": "Especialistas",
       "educators": "Docentes"
     },
-    "searchPlaceholder": "Busque um curso por título ou tema…"
+    "searchPlaceholder": "Busque um curso por título ou tema…",
+    "noResults": "Nenhum curso corresponde à sua pesquisa.",
+    "emptyTeachCta": "Dá formação? Proponha o seu curso."
   },
   "pwd": {
     "label": "Segurança",
@@ -6528,5 +6531,38 @@
   "panel": {
     "noCargoTitle": "Não conseguimos carregar o teu painel",
     "noCargoBody": "A tua conta está bem: o que não chegou foi o teu perfil. Verifica a ligação e tenta de novo."
+  },
+  "avisoSeccion": {
+    "cta": "Avise-me quando abrir",
+    "hecho": "Pronto, iremos avisá-lo.",
+    "enviar": "Avisar-me",
+    "enviando": "A enviar…",
+    "correoLabel": "O seu e-mail",
+    "correoInvalido": "Verifique o seu e-mail: não parece um endereço válido."
+  },
+  "core": {
+    "title": "Ciclo central",
+    "last30": "Últimos 30 dias",
+    "supply": "Oferta ativa",
+    "paying": "{{n}} pagantes",
+    "demand": "Demanda",
+    "new": "+{{n}} novas (30d)",
+    "contacts": "Solicitações de contato",
+    "views": "{{n}} visualizações · {{pct}}%",
+    "appts": "Agendamentos",
+    "ofContacts": "de {{n}} contatos",
+    "reviews": "Avaliações",
+    "accepted": "{{n}} aceitas",
+    "directory": "Diretório: {{claimed}}/{{seeded}} fichas reivindicadas"
+  },
+  "roi": {
+    "title": "O que a Neuromundi te trouxe",
+    "views": "Visualizações do perfil",
+    "requests": "Solicitações de contato",
+    "accepted": "{{n}} aceitas",
+    "appts": "Agendamentos",
+    "reviews": "Avaliações",
+    "sales": "Vendas",
+    "total": "{{n}} no total"
   }
 }
