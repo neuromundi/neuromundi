@@ -114,7 +114,10 @@ export function FoundersWallSection() {
 
   return (
     <div>
-      {/* Selector por país */}
+      {/* Selector por país. No se pinta mientras el muro esté cerrado: un
+          selector vacío parece un error, y además insinuaría que hay países
+          con fundadores escondidos. (20 oct 2026.) */}
+      {countries.length > 0 && (
       <div className="mb-6 flex justify-end">
         <label className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm">
           <Globe className="h-4 w-4 text-slate-400" aria-hidden="true" />
@@ -133,13 +136,20 @@ export function FoundersWallSection() {
           </select>
         </label>
       </div>
+      )}
 
       {loading ? (
         <SkeletonCard rows={4} />
       ) : fallo ? (
         <AvisoDeFallo />
       ) : entries.length === 0 ? (
-        <EmptyState icon={<Award className="h-6 w-6" />} title={t('foundersWall.title')} description={t('foundersWall.empty')} />
+        // Dos vacíos distintos: el muro todavía no se abre en ningún país
+        // (countries vacío), o este país concreto aún no tiene a nadie.
+        <EmptyState
+          icon={<Award className="h-6 w-6" />}
+          title={t('foundersWall.title')}
+          description={countries.length === 0 ? t('foundersWall.pendiente') : t('foundersWall.empty')}
+        />
       ) : (
         <div className="space-y-6">
           {featured.length > 0 && (
