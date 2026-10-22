@@ -95,7 +95,17 @@ interface Row {
 // misma función que usa el checkout, así que el correo y el cobro no pueden
 // discrepar. Si la ficha no tiene tarifa configurada se devuelve null y el
 // correo cae al texto genérico en vez de inventar una cifra.
-const MXN = (n: number) => '$' + n.toLocaleString('es-MX', { maximumFractionDigits: 0 });
+// FORMATO DE DINERO POR MONEDA (22 oct 2026). Antes se formateaba todo con
+// es-MX y un '$' fijo, heredado de cuando solo habia fichas mexicanas: Portugal
+// veia "$225 EUR" —el euro no lleva signo de peso— y Brasil "$1,500 BRL", que
+// un brasileno lee como uno y medio, porque alli la coma es el separador
+// decimal. El codigo ISO de la moneda lo pone la plantilla, asi que aqui solo
+// va el signo cuando la moneda de verdad usa el signo de peso.
+const MILES_CON_PUNTO = new Set(['ARS', 'BOB', 'BRL', 'CLP', 'COP', 'CRC', 'EUR', 'PYG', 'UYU']);
+const SIGNO_DE_PESO = new Set(['MXN', 'USD', 'ARS', 'CLP', 'COP', 'UYU', 'DOP']);
+const MXN = (n: number, cur = 'MXN') =>
+  (SIGNO_DE_PESO.has(cur) ? '$' : '') +
+  n.toLocaleString(MILES_CON_PUNTO.has(cur) ? 'de-DE' : 'en-US', { maximumFractionDigits: 0 });
 
 // ---------------------------------------------------------------------------
 // LOS RELOJES DE LA CAMPANA VIVEN EN UN SOLO LUGAR: campaign_config.
@@ -166,13 +176,13 @@ function bloquePrecio(r: Row): string {
         : ' La cuota exacta queda definida cuando indique su profesión al completar su perfil.')
     : '';
   const cuerpo = pt
-    ? `A adesão anual para o seu tipo de perfil é de <b>${desde ? 'a partir de ' : ''}${MXN(Number(r.precio_ordinario))} ${cur}</b>.
+    ? `A adesão anual para o seu tipo de perfil é de <b>${desde ? 'a partir de ' : ''}${MXN(Number(r.precio_ordinario), cur)} ${cur}</b>.
       Se a activar <b>${fd ? `antes de ${fechaLarga(fd, true)}` : 'durante a campanha de fundadores'}</b> fica como Membro Fundador e paga
-      <b style="color:#0369a1">${desde ? 'a partir de ' : ''}${MXN(Number(r.precio_fundador))} ${cur} por ano</b>, metade, e esse preço é respeitado nas renovações.${notaDesde}
+      <b style="color:#0369a1">${desde ? 'a partir de ' : ''}${MXN(Number(r.precio_fundador), cur)} ${cur} por ano</b>, metade, e esse preço é respeitado nas renovações.${notaDesde}
       <br><br>A tarifa de fundador é <b>anual</b>; o pagamento mensal existe, mas com a quota normal.<br><br>Reclamar a ficha não cobra nada e o pagamento é um passo posterior: a decisão é sua.`
-    : `La membresía anual para su tipo de perfil es de <b>${desde ? 'desde ' : ''}${MXN(Number(r.precio_ordinario))} ${cur}</b>.
+    : `La membresía anual para su tipo de perfil es de <b>${desde ? 'desde ' : ''}${MXN(Number(r.precio_ordinario), cur)} ${cur}</b>.
       Si la activa <b>${fd ? `antes del ${fechaLarga(fd)}` : 'durante la campaña de fundadores'}</b> queda como Miembro Fundador y paga
-      <b style="color:#0369a1">${desde ? 'desde ' : ''}${MXN(Number(r.precio_fundador))} ${cur} al año</b>, la mitad, y ese precio se le respeta en las renovaciones.${notaDesde}
+      <b style="color:#0369a1">${desde ? 'desde ' : ''}${MXN(Number(r.precio_fundador), cur)} ${cur} al año</b>, la mitad, y ese precio se le respeta en las renovaciones.${notaDesde}
       <br><br>La tarifa de fundador es <b>anual</b>; el pago mensual existe, pero a cuota ordinaria.<br><br>Reclamar la ficha no cobra nada y el pago es un paso posterior: usted decide si lo da.`;
   return `<div style="margin:18px 0;padding:14px 16px;border:1px solid #bae6fd;background:#f0f9ff;border-radius:12px">
     <p style="margin:0 0 6px;font-weight:800;font-size:15px;color:#0c4a6e">${titulo}</p>
@@ -239,13 +249,13 @@ function bloqueFechas(r: Row): string {
     ? (pt
         ? `<p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#334155">
          <b>${fechaLarga(fd, true)}</b> — último dia para ficar como Membro Fundador e pagar
-         <b style="color:#0369a1">${MXN(Number(r.precio_fundador))} ${cur}</b> por ano em vez de
-         <b>${MXN(Number(r.precio_ordinario))} ${cur}</b>. Depois dessa data aplica-se a quota normal.
+         <b style="color:#0369a1">${MXN(Number(r.precio_fundador), cur)} ${cur}</b> por ano em vez de
+         <b>${MXN(Number(r.precio_ordinario), cur)} ${cur}</b>. Depois dessa data aplica-se a quota normal.
        </p>`
         : `<p style="margin:0 0 12px;font-size:14px;line-height:1.6;color:#334155">
          <b>${fechaLarga(fd)}</b> — último día para quedar como Miembro Fundador y pagar
-         <b style="color:#0369a1">${MXN(Number(r.precio_fundador))} ${cur}</b> al año en lugar de
-         <b>${MXN(Number(r.precio_ordinario))} ${cur}</b>. Después de esa fecha aplica la cuota ordinaria.
+         <b style="color:#0369a1">${MXN(Number(r.precio_fundador), cur)} ${cur}</b> al año en lugar de
+         <b>${MXN(Number(r.precio_ordinario), cur)} ${cur}</b>. Después de esa fecha aplica la cuota ordinaria.
        </p>`)
     : '';
 
@@ -563,7 +573,7 @@ function tablaComparativa(r?: Row): string {
         <td style="padding:9px 6px;background:#f8fafc;font-weight:800;border-top:2px solid #e2e8f0">${pt ? 'Preço' : 'Precio'}<br><span style="font-weight:400;color:#64748b;font-size:10px">${pt ? 'Quota do prestador · utentes sempre grátis' : 'Cuota del prestador · pacientes siempre gratis'}</span></td>
         <td align="center" style="padding:9px 4px;background:#e0f2fe;color:#0369a1;font-weight:800;border-top:2px solid #e2e8f0">${
           r?.precio_configurado && r?.precio_fundador
-            ? `${MXN(Math.round(Number(r.precio_fundador) / 12))}<br><span style="font-weight:500;color:#64748b;font-size:10px">${r.moneda || 'MXN'}/mes equivalente · ${MXN(Number(r.precio_fundador))} al año</span>`
+            ? `${MXN(Math.round(Number(r.precio_fundador) / 12), r.moneda || 'MXN')}<br><span style="font-weight:500;color:#64748b;font-size:10px">${r.moneda || 'MXN'}${pt ? '/mês equivalente · ' : '/mes equivalente · '}${MXN(Number(r.precio_fundador), r.moneda || 'MXN')}${pt ? ' por ano' : ' al año'}</span>`
             : `≈ $250–$800<br><span style="font-weight:500;color:#64748b;font-size:10px">MXN/mes · fundadores</span>`
         }</td>
         <td align="center" style="padding:9px 4px;background:#f8fafc;font-weight:800;border-top:2px solid #e2e8f0">≈ $1,500–$4,000<br><span style="font-weight:500;color:#64748b;font-size:10px">MXN/mes</span></td>
@@ -692,16 +702,16 @@ function buildEmail(
          com estas condições vitalícias:</p>
        <p style="margin:12px 0;padding:14px 16px;border:1px solid #bae6fd;background:#f0f9ff;border-radius:12px;font-size:15px;line-height:1.6;color:#0c4a6e">
          <u>Desconto vitalício</u><sup>*</sup> de <b>50%</b> como Membro Fundador: apenas
-         <b style="color:#0369a1">${r.precio_desde ? 'a partir de ' : ''}${MXN(Number(r.precio_fundador))} ${cur} por ano</b>,
-         em vez do preço normal de <b>${r.precio_desde ? 'a partir de ' : ''}${MXN(Number(r.precio_ordinario))} ${cur}</b>.${r.precio_desde ? ' A quota exacta fica definida quando indicar a sua profissão ao completar o perfil.' : ''}
+         <b style="color:#0369a1">${r.precio_desde ? 'a partir de ' : ''}${MXN(Number(r.precio_fundador), cur)} ${cur} por ano</b>,
+         em vez do preço normal de <b>${r.precio_desde ? 'a partir de ' : ''}${MXN(Number(r.precio_ordinario), cur)} ${cur}</b>.${r.precio_desde ? ' A quota exacta fica definida quando indicar a sua profissão ao completar o perfil.' : ''}
        </p>`
     : `<p>Y para motivarle aún más a formar parte de Neuromundi, le ofrecemos ingresar como
          <b>Miembro Fundador</b>. Queremos que forme parte de la base fundadora de la plataforma,
          con estas condiciones de por vida:</p>
        <p style="margin:12px 0;padding:14px 16px;border:1px solid #bae6fd;background:#f0f9ff;border-radius:12px;font-size:15px;line-height:1.6;color:#0c4a6e">
          <u>Descuento vitalicio</u><sup>*</sup> del <b>50%</b> como Miembro Fundador: Sólo
-         <b style="color:#0369a1">${r.precio_desde ? 'desde ' : ''}${MXN(Number(r.precio_fundador))} ${cur} al año</b>,
-         en lugar del precio ordinario de <b>${r.precio_desde ? 'desde ' : ''}${MXN(Number(r.precio_ordinario))} ${cur}</b>.${r.precio_desde ? ' La cuota exacta queda definida cuando indique su profesión al completar su perfil.' : ''}
+         <b style="color:#0369a1">${r.precio_desde ? 'desde ' : ''}${MXN(Number(r.precio_fundador), cur)} ${cur} al año</b>,
+         en lugar del precio ordinario de <b>${r.precio_desde ? 'desde ' : ''}${MXN(Number(r.precio_ordinario), cur)} ${cur}</b>.${r.precio_desde ? ' La cuota exacta queda definida cuando indique su profesión al completar su perfil.' : ''}
        </p>`)
     : '';
 
