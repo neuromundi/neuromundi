@@ -358,3 +358,42 @@ Dentro de cada pais los tipos de perfil quedan contiguos, para que el resumen de
 cada tanda siga siendo legible. El corte de 25 es por pais.
 
 Respaldo del plan anterior: `respaldo_plan_invitacion_20261021`.
+
+## Museos y espacios culturales: organizaciones aliadas (regla permanente, 21 oct 2026)
+
+Enyoria: *"vamos a manejar a los museos como organizaciones aliadas, generalmente son
+de recursos limitados y no pagarían una cuota por visibilidad"*.
+
+No es una excepción puntual: es una regla a tener presente de forma permanente.
+
+### Qué se hizo el 21 de octubre
+Siete fichas estaban como `sector='privado'`, es decir, en el carril de paga. Cuatro
+de ellas salían a las **09:20 del día siguiente en la tanda 118**, con una cuota de
+$2,500 MXN en el correo:
+
+| Ficha | Dónde estaba |
+|---|---|
+| 3 Museos / Museo de Historia Mexicana (Monterrey) | tanda 118, salía en 11 horas |
+| Museo del Acero Horno³ (Monterrey) | tanda 118, salía en 11 horas |
+| Museo del Estanquillo (CDMX) | tanda 118, salía en 11 horas |
+| Aquarium de Veracruz — 'Conexión Azul' | tanda 118, salía en 11 horas |
+| Gran Museo del Mundo Maya (Mérida) | tanda 220 (en espera) |
+| CECUT — Centro Cultural Tijuana | sin tanda |
+| Papalote Museo del Niño (Monterrey) | sin tanda |
+
+Las siete pasaron a `sector='social'` y las cinco que tenían ficha de invitación se
+movieron a la **tanda 130 — museos y espacios culturales aliados**, carril exento y
+SIN programar: necesita su resumen y su autorización como cualquier otra.
+
+CECUT y Papalote no tienen invitación creada, así que no pueden entrar en una tanda
+hasta que se les genere una. Quedan con el sector corregido.
+
+### Pendiente de decidir
+Cuatro fichas de **playas incluyentes** (`provider_type='tourism'`): Progreso y Playa
+Miramar ya están como `publico`; **Bahías de Papanoa** y **La Entrega (Huatulco)**
+siguen como `privado`. Son playas, no museos, así que la regla no las cubre por su
+letra — pero sí por su espíritu. Enyoria decide.
+
+### Cómo detectarlos
+Buscar por nombre `museo|museum|aquarium|acuario|planetario|zoológico|jardín botánico|
+pinacoteca|galería de arte` y por `provider_type='tourism'`, y revisar el `sector`.
