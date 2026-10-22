@@ -397,3 +397,34 @@ letra — pero sí por su espíritu. Enyoria decide.
 ### Cómo detectarlos
 Buscar por nombre `museo|museum|aquarium|acuario|planetario|zoológico|jardín botánico|
 pinacoteca|galería de arte` y por `provider_type='tourism'`, y revisar el `sector`.
+
+### Ampliación: la categoría es ESPACIOS INCLUYENTES (21 oct 2026)
+
+Enyoria confirma: *"tanto museos como playas son exentos y aliados. Deberemos armar
+una tanda sólo para ellos como aliados en la categoría de espacios incluyentes"*.
+
+Las dos playas que seguían como `privado` —Bahías de Papanoa y La Entrega
+(Huatulco)— pasaron a `social`. Progreso y Playa Miramar ya eran `publico`.
+
+**Tanda 130 — espacios incluyentes aliados: 6 fichas, carril exento, sin programar.**
+3 Museos (Monterrey), Museo del Acero Horno³, Museo del Estanquillo, Aquarium de
+Veracruz, Gran Museo del Mundo Maya y Papalote Museo del Niño Monterrey.
+
+A Papalote Monterrey se le añadió el correo `atencionalvisitante@papalotemty.org.mx`,
+tomado de su sitio oficial. OJO: el Papalote de Monterrey tiene **dominio propio**
+(papalotemty.org.mx); papalote.org.mx es el de Ciudad de México y habría sido el
+buzón equivocado.
+
+### Cinco fichas de espacios incluyentes SIN correo de contacto
+No pueden entrar en ninguna tanda hasta encontrárselo:
+
+| Ficha | Sitio |
+|---|---|
+| CECUT — Centro Cultural Tijuana | cecut.gob.mx (su página de contacto no respondió) |
+| Playa Incluyente de Progreso (DIF Municipal) | ficha de yucatan.travel, sin correo propio |
+| Playa Incluyente La Entrega (Huatulco) | sólo oaxaca.gob.mx |
+| Playa Incluyente Bahías de Papanoa | sin sitio |
+| Playa Miramar (DIF Ciudad Madero) | sin sitio |
+
+Las playas son programas municipales o estatales: su contacto real es el DIF del
+municipio, no la playa. Es trabajo de investigación, no de base de datos.

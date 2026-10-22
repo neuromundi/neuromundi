@@ -665,14 +665,15 @@ Al extraer lógica de una página a `src/lib`, **añade su test** (patrón: `*.t
 | 0079 | **Perfil Asesor** (explorador + moderador de Tribu): `profiles.is_advisor` (privilegio, blindado en `protect_profile_columns`); helpers `is_advisor()` / `is_admin_or_advisor()`. La moderación de Tribu (`admin_tribe_forums`, `admin_set_forum_status`, `admin_tribe_moderators`, `admin_set_moderator_status`, `admin_set_tribe_member`, `admin_tribe_member_lookup`) se abre a `is_admin_or_advisor()`. `tribe_forum_messages` deja leer cualquier foro a admin/asesor + `tribe_delete_message`. Asignación por folio: `admin_set_advisor(member_no,bool)` / `admin_list_advisors` (solo admin). Front: `useAuth.isAdvisor`, gate exime al asesor, `Dashboard`→`AdminDashboard advisor` (**solo Tribu**, sin métricas), `AdminAdvisors` (asignar), `AdminTribe` gana el área "Mensajes" (visor + borrado) |
 
 ## Reglas de producto/negocio ya implementadas
-- **Museos y espacios culturales = ORGANIZACIONES ALIADAS, nunca perfiles de paga**
-  (regla permanente de Enyoria, 21 oct 2026). Suelen tener recursos limitados y no
-  pagarían una cuota por visibilidad. En el directorio la palanca es `sector`: con
-  `social` o `publico`, `esFree()` del correo de invitación y el `cobrable` de
-  `reclamar-ficha` los tratan como exentos. Un museo que llegue como `privado` está
-  mal clasificado: corregirlo ANTES de que entre en una tanda de paga. Aplica a
-  museos, centros culturales, acuarios y planetarios, sea cual sea su figura jurídica
-  (un museo de fundación privada también es aliado).
+- **ESPACIOS INCLUYENTES = ORGANIZACIONES ALIADAS, nunca perfiles de paga**
+  (regla permanente de Enyoria, 21 oct 2026). Museos, centros culturales, acuarios,
+  planetarios y **playas incluyentes**. Suelen tener recursos limitados y no pagarían
+  una cuota por visibilidad. En el directorio la palanca es `sector`: con `social` o
+  `publico`, `esFree()` del correo de invitación y el `cobrable` de `reclamar-ficha`
+  los tratan como exentos. Uno que llegue como `privado` está mal clasificado:
+  corregirlo ANTES de que entre en una tanda de paga. Aplica sea cual sea su figura
+  jurídica — un museo de fundación privada también es aliado. Van en su propia tanda
+  de aliados, no mezclados con el carril de paga.
 - **Clasificación "Otro"**: si `products.store_category = 'otro'`, `store_category_other`
   es **obligatorio** (Zod + CHECK en la base) y la Tienda muestra ese texto en su lugar.
 - **Denuncias**: la categoría "Otro" también exige detalle.
