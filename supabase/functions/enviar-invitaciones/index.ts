@@ -102,7 +102,7 @@ interface Row {
 // decimal. El codigo ISO de la moneda lo pone la plantilla, asi que aqui solo
 // va el signo cuando la moneda de verdad usa el signo de peso.
 const MILES_CON_PUNTO = new Set(['ARS', 'BOB', 'BRL', 'CLP', 'COP', 'CRC', 'EUR', 'PYG', 'UYU']);
-const SIGNO_DE_PESO = new Set(['MXN', 'USD', 'ARS', 'CLP', 'COP', 'UYU', 'DOP']);
+const SIGNO_DE_PESO = new Set(['MXN', 'USD', 'CAD', 'ARS', 'CLP', 'COP', 'UYU', 'DOP']);
 const MXN = (n: number, cur = 'MXN') =>
   (SIGNO_DE_PESO.has(cur) ? '$' : '') +
   n.toLocaleString(MILES_CON_PUNTO.has(cur) ? 'de-DE' : 'en-US', { maximumFractionDigits: 0 });
