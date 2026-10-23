@@ -60,7 +60,10 @@ function idiomaDeStripe(lang: string | null | undefined): string {
   const base = l.slice(0, 2);
   if (base === 'es') return 'es-419';
   if (base === 'pt') return 'pt-BR';
-  const admitidos = ['en', 'fr', 'de', 'it', 'ja', 'ko', 'zh', 'ar'];
+  // 'ar' NO esta en la lista de Stripe (verificado el 23 oct 2026 contra la
+  // referencia de la API): mandarlo devuelve 400 y el usuario arabe NO llega
+  // a la pantalla de pago. Cae a 'auto' igual que el hebreo.
+  const admitidos = ['en', 'fr', 'de', 'it', 'ja', 'ko', 'zh'];
   return admitidos.includes(base) ? base : 'auto';
 }
 
