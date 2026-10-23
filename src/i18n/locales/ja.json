@@ -1265,6 +1265,21 @@
     "confirmBody": "誰かにコードをコピーされたと思う場合に便利です。"
   },
   "admin": {
+    "secHomeClicks": "ホーム モニター",
+    "homeclicks": {
+      "title": "ホーム モニター",
+      "subtitle": "ホームのどの項目が、どの国からクリックされているか。",
+      "refresh": "更新",
+      "total": "総クリック数",
+      "last30": "過去30日間",
+      "byOption": "項目別",
+      "in30": "（30日）",
+      "trend": "推移（30日間）",
+      "byCountry": "国別",
+      "noCountry": "国なし",
+      "empty": "まだクリックは記録されていません。",
+      "unavailable": "モニターを読み込めませんでした。"
+    },
     "title": "管理",
     "typeService": "専門家",
     "typeMerchant": "事業者",

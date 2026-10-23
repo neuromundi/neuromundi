@@ -1265,6 +1265,21 @@
     "confirmBody": "Nützlich, wenn du glaubst, dass jemand deinen Code kopiert hat."
   },
   "admin": {
+    "secHomeClicks": "Startseiten-Monitor",
+    "homeclicks": {
+      "title": "Startseiten-Monitor",
+      "subtitle": "Welche Startseiten-Optionen angeklickt werden und aus welchem Land.",
+      "refresh": "Aktualisieren",
+      "total": "Klicks gesamt",
+      "last30": "Letzte 30 Tage",
+      "byOption": "Nach Option",
+      "in30": "in 30 T",
+      "trend": "Trend (30 Tage)",
+      "byCountry": "Nach Land",
+      "noCountry": "Ohne Land",
+      "empty": "Noch keine Klicks erfasst.",
+      "unavailable": "Monitor konnte nicht geladen werden."
+    },
     "title": "Verwaltung",
     "typeService": "Fachkraft",
     "typeMerchant": "Anbieter",

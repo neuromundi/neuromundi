@@ -1302,6 +1302,21 @@
     "confirmBody": "Esto es útil si crees que alguien más pudo copiar tu código."
   },
   "admin": {
+    "secHomeClicks": "Monitor del home",
+    "homeclicks": {
+      "title": "Monitor del home",
+      "subtitle": "Qué opciones de la portada se pulsan y desde qué país.",
+      "refresh": "Actualizar",
+      "total": "Clics totales",
+      "last30": "Últimos 30 días",
+      "byOption": "Por opción",
+      "in30": "en 30 d",
+      "trend": "Tendencia (30 días)",
+      "byCountry": "Por país",
+      "noCountry": "Sin país",
+      "empty": "Aún no hay clics registrados.",
+      "unavailable": "No se pudo cargar el monitor."
+    },
     "title": "Administración",
     "typeService": "Especialista",
     "typeMerchant": "Proveedor",

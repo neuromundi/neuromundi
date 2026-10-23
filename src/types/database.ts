@@ -8151,6 +8151,8 @@ export type Database = {
       }
       admin_metrics: { Args: never; Returns: Json }
       admin_core_metrics: { Args: never; Returns: Json }
+      admin_home_clicks: { Args: never; Returns: Json }
+      track_home_event: { Args: { p_option: string | null; p_country?: string | null }; Returns: undefined }
       my_provider_roi: { Args: never; Returns: Json }
       pedir_aviso_de_seccion: { Args: { p_seccion: string; p_correo: string; p_pais?: string | null }; Returns: Json }
       admin_avisos_de_seccion: { Args: never; Returns: { seccion: string; pais: string; total: number }[] }

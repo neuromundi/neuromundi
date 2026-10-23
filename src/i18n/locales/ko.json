@@ -1302,6 +1302,21 @@
     "confirmBody": "누군가 코드를 복사했다고 생각되면 유용합니다."
   },
   "admin": {
+    "secHomeClicks": "홈 모니터",
+    "homeclicks": {
+      "title": "홈 모니터",
+      "subtitle": "홈의 어떤 옵션이, 어느 국가에서 클릭되는지.",
+      "refresh": "새로고침",
+      "total": "총 클릭 수",
+      "last30": "최근 30일",
+      "byOption": "옵션별",
+      "in30": "(30일)",
+      "trend": "추세(30일)",
+      "byCountry": "국가별",
+      "noCountry": "국가 없음",
+      "empty": "아직 기록된 클릭이 없습니다.",
+      "unavailable": "모니터를 불러오지 못했습니다."
+    },
     "title": "관리",
     "typeService": "전문가",
     "typeMerchant": "제공자",

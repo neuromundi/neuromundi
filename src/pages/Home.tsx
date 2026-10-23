@@ -23,6 +23,7 @@ import { HeartHandshake, Award } from 'lucide-react';
 import { useCountry } from '@/stores/countryStore';
 import { COUNTRIES } from '@/data/countries';
 import { useInView } from '@/hooks/useInView';
+import { trackHomeClick } from '@/lib/homeTrack';
 
 // Banner de distintivos (10 imágenes): fuera del bundle inicial y montado al
 // acercarse al viewport, para no cargar su DOM/imágenes en la ruta crítica.
@@ -95,13 +96,13 @@ export function Home() {
                 className="flex-1"
                 options={countries}
                 value={country ?? ''}
-                onChange={(v) => setCountry(v || null)}
+                onChange={(v) => { trackHomeClick('selector-pais'); setCountry(v || null); }}
                 placeholder={t('home.country.all')}
                 searchPlaceholder={t('home.country.search')}
                 noMatches={t('home.country.noMatch')}
                 ariaLabel={t('home.country.label')}
               />
-              <Button type="button" size="lg" onClick={() => navigate('/directorio')} leadingIcon={<Compass className="h-5 w-5" />}>
+              <Button type="button" size="lg" onClick={() => { trackHomeClick('cta-directorio'); navigate('/directorio'); }} leadingIcon={<Compass className="h-5 w-5" />}>
                 {t('home.country.cta')}
               </Button>
             </div>
@@ -120,16 +121,16 @@ export function Home() {
               primario azul "Explorar directorio". */}
           <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-3">
             {[
-              { icon: <UserPlus className="h-5 w-5" />, label: t('home.cta.join'), to: '/crear-cuenta',
+              { icon: <UserPlus className="h-5 w-5" />, label: t('home.cta.join'), to: '/crear-cuenta', track: 'acceso-crear-cuenta',
                 border: 'border-brand-600', iconBg: 'bg-brand-600', text: 'text-brand-800', ring: 'focus-visible:ring-brand-500' },
-              { icon: <MessageCircleQuestion className="h-5 w-5" />, label: t('home.cta.expert'), to: '/pregunta-al-experto',
+              { icon: <MessageCircleQuestion className="h-5 w-5" />, label: t('home.cta.expert'), to: '/pregunta-al-experto', track: 'acceso-experto',
                 border: 'border-teal-600', iconBg: 'bg-teal-600', text: 'text-teal-800', ring: 'focus-visible:ring-teal-500' },
-              { icon: <BookOpenCheck className="h-5 w-5" />, label: t('home.cta.kits'), to: '/kit',
+              { icon: <BookOpenCheck className="h-5 w-5" />, label: t('home.cta.kits'), to: '/kit', track: 'acceso-kit',
                 border: 'border-amber-600', iconBg: 'bg-amber-600', text: 'text-amber-800', ring: 'focus-visible:ring-amber-500' },
             ].map((c) => (
               <button
                 key={c.to}
-                onClick={() => navigate(c.to)}
+                onClick={() => { trackHomeClick(c.track); navigate(c.to); }}
                 className={`group flex items-center gap-3 rounded-2xl border-2 ${c.border} bg-white px-4 py-3.5 text-start shadow-sm min-h-[44px] transition-all motion-safe:duration-150 hover:shadow-md motion-safe:hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${c.ring}`}
               >
                 <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${c.iconBg} text-white`}>
@@ -144,7 +145,7 @@ export function Home() {
           <div className="mt-5 flex justify-center">
             <button
               type="button"
-              onClick={() => navigate('/become-a-founder')}
+              onClick={() => { trackHomeClick('cta-fundador'); navigate('/become-a-founder'); }}
               className="inline-flex items-center gap-2 rounded-full border-2 border-brand-500 bg-white px-5 py-2.5 text-sm font-bold text-brand-700 shadow-sm transition-colors hover:bg-brand-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
             >
               <Award className="h-4 w-4" aria-hidden="true" /> {t('home.becomeFounderBtn')}
@@ -187,7 +188,7 @@ export function Home() {
           <p className="mt-3 text-muted">{t('home.about.body1')}</p>
           <p className="mt-3 text-muted">{t('home.about.body2')}</p>
           <div className="mt-5">
-            <Button variant="secondary" aria-label={t('info.title')} onClick={() => navigate('/conocer-mas')} trailingIcon={<ArrowRight className="h-4 w-4" />}>
+            <Button variant="secondary" aria-label={t('info.title')} onClick={() => { trackHomeClick('cta-conocer-mas'); navigate('/conocer-mas'); }} trailingIcon={<ArrowRight className="h-4 w-4" />}>
               {t('home.about.more')}
             </Button>
           </div>
@@ -207,7 +208,7 @@ export function Home() {
             </span>
             <h2 className="mt-3 text-2xl font-bold text-slate-900">{t('kit.home.title')}</h2>
             <p className="mt-2 leading-relaxed text-slate-700">{t('kit.home.text')}</p>
-            <Button className="mt-5 w-fit" size="lg" onClick={() => navigate('/kit')} leadingIcon={<BookOpenCheck className="h-5 w-5" />}>
+            <Button className="mt-5 w-fit" size="lg" onClick={() => { trackHomeClick('cta-kit-seccion'); navigate('/kit'); }} leadingIcon={<BookOpenCheck className="h-5 w-5" />}>
               {t('kit.home.cta')}
             </Button>
           </div>
@@ -232,7 +233,7 @@ export function Home() {
             <h2 className="mt-3 text-2xl font-bold text-slate-900">{t('home.founders.title')}</h2>
             <p className="mt-2 leading-relaxed text-slate-700">{t('home.founders.body')}</p>
             <div className="mt-5 flex flex-wrap gap-2">
-              <Button size="lg" onClick={() => navigate('/fundadores')} leadingIcon={<Award className="h-5 w-5" />}>
+              <Button size="lg" onClick={() => { trackHomeClick('cta-muro-fundadores'); navigate('/fundadores'); }} leadingIcon={<Award className="h-5 w-5" />}>
                 {t('home.founders.cta')}
               </Button>
             </div>
@@ -247,7 +248,7 @@ export function Home() {
             <h2 className="mt-3 text-2xl font-bold text-slate-900">{t('home.alliesPromo.title')}</h2>
             <p className="mt-2 leading-relaxed text-slate-700">{t('home.alliesPromo.body')}</p>
             <div className="mt-5 flex flex-wrap gap-2">
-              <Button size="lg" onClick={() => navigate('/aliados')} leadingIcon={<HeartHandshake className="h-5 w-5" />}>
+              <Button size="lg" onClick={() => { trackHomeClick('cta-muro-aliados'); navigate('/aliados'); }} leadingIcon={<HeartHandshake className="h-5 w-5" />}>
                 {t('home.alliesPromo.cta')}
               </Button>
             </div>

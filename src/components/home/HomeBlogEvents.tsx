@@ -23,6 +23,7 @@ import { BookOpen, CalendarDays, ArrowRight, Globe2, MapPin } from 'lucide-react
 import { useHomePeek, type PeekPost, type PeekEvent } from '@/hooks/useHomePeek';
 import { fechaDeEvento } from '@/lib/horaEvento';
 import { safeHttpUrl } from '@/lib/safeUrl';
+import { trackHomeClick } from '@/lib/homeTrack';
 
 const MINIATURA = 'h-14 w-14 shrink-0 rounded-xl object-cover';
 const MINIATURA_VACIA = 'flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-brand-50 to-slate-100 text-brand-300';
@@ -33,6 +34,7 @@ function Ficha({
   cuerpo,
   verTodo,
   destino,
+  track,
   children,
 }: {
   icono: React.ReactNode;
@@ -40,6 +42,7 @@ function Ficha({
   cuerpo: string;
   verTodo: string;
   destino: string;
+  track: string;
   children: React.ReactNode;
 }) {
   return (
@@ -58,6 +61,7 @@ function Ficha({
 
       <Link
         to={destino}
+        onClick={() => trackHomeClick(track)}
         className="mt-auto inline-flex items-center gap-1.5 pt-4 text-sm font-semibold text-brand-700 hover:text-brand-800"
       >
         {verTodo} <ArrowRight className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />
@@ -79,7 +83,7 @@ function RenglonBlog({ p }: { p: PeekPost }) {
     </div>
   );
   return (
-    <li className="group">
+    <li className="group" onClick={() => trackHomeClick('blog-item')}>
       {esEnlace ? (
         <a href={safeHttpUrl(p.external_url)} target="_blank" rel="noopener noreferrer">{interior}</a>
       ) : (
@@ -93,7 +97,7 @@ function RenglonEvento({ ev, idioma }: { ev: PeekEvent; idioma: string }) {
   const { t } = useTranslation();
   const lugar = ev.is_online ? null : [ev.city, ev.country].filter(Boolean).join(', ');
   return (
-    <li className="group">
+    <li className="group" onClick={() => trackHomeClick('evento-item')}>
       <Link to="/eventos" className="flex items-center gap-3">
         {ev.cover_url ? (
           <img loading="lazy" decoding="async" width={56} height={56} src={ev.cover_url} alt="" className={MINIATURA} />
@@ -143,6 +147,7 @@ export function HomeBlogEvents() {
         cuerpo={t('home.peek.blogBody')}
         verTodo={t('home.peek.blogCta')}
         destino="/blog"
+        track="blog-ver-todo"
       >
         {posts.length > 0
           ? posts.map((p) => <RenglonBlog key={p.id} p={p} />)
@@ -155,6 +160,7 @@ export function HomeBlogEvents() {
         cuerpo={t('home.peek.eventsBody')}
         verTodo={t('home.peek.eventsCta')}
         destino="/eventos"
+        track="eventos-ver-todo"
       >
         {events.length > 0
           ? events.map((ev) => <RenglonEvento key={ev.id} ev={ev} idioma={i18n.language} />)

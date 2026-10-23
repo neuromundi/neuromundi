@@ -1265,6 +1265,21 @@
     "confirmBody": "Útil se você acha que alguém pode ter copiado seu código."
   },
   "admin": {
+    "secHomeClicks": "Monitor da página inicial",
+    "homeclicks": {
+      "title": "Monitor da página inicial",
+      "subtitle": "Quais opções da página inicial são clicadas e de qual país.",
+      "refresh": "Atualizar",
+      "total": "Cliques totais",
+      "last30": "Últimos 30 dias",
+      "byOption": "Por opção",
+      "in30": "em 30 d",
+      "trend": "Tendência (30 dias)",
+      "byCountry": "Por país",
+      "noCountry": "Sem país",
+      "empty": "Ainda não há cliques registrados.",
+      "unavailable": "Não foi possível carregar o monitor."
+    },
     "title": "Administração",
     "typeService": "Especialista",
     "typeMerchant": "Fornecedor",

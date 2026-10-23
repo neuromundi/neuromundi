@@ -8,6 +8,7 @@
  */
 import { useTranslation } from 'react-i18next';
 import { ArrowRight } from 'lucide-react';
+import { trackHomeClick } from '@/lib/homeTrack';
 
 export function AcademicAllyBand() {
   const { t, i18n } = useTranslation();
@@ -43,6 +44,7 @@ export function AcademicAllyBand() {
           href={observatoryUrl}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => trackHomeClick('aliado-academico')}
           className="mt-4 inline-flex items-center gap-2 rounded-xl bg-[#0d2545] px-4 py-2.5 text-sm font-bold text-white transition hover:bg-[#13365f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0d2545]"
         >
           {t('ally.cta')} <ArrowRight className="h-4 w-4" aria-hidden="true" />

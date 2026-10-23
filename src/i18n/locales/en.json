@@ -1302,6 +1302,21 @@
     "confirmBody": "This is useful if you think someone may have copied your code."
   },
   "admin": {
+    "secHomeClicks": "Home monitor",
+    "homeclicks": {
+      "title": "Home monitor",
+      "subtitle": "Which home options get clicked, and from which country.",
+      "refresh": "Refresh",
+      "total": "Total clicks",
+      "last30": "Last 30 days",
+      "byOption": "By option",
+      "in30": "in 30d",
+      "trend": "Trend (30 days)",
+      "byCountry": "By country",
+      "noCountry": "No country",
+      "empty": "No clicks recorded yet.",
+      "unavailable": "Couldn't load the monitor."
+    },
     "title": "Administration",
     "typeService": "Specialist",
     "typeMerchant": "Provider",

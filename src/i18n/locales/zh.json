@@ -1265,6 +1265,21 @@
     "confirmBody": "如果你担心有人复制了你的二维码，这很有用。"
   },
   "admin": {
+    "secHomeClicks": "首页监测",
+    "homeclicks": {
+      "title": "首页监测",
+      "subtitle": "首页哪些选项被点击，以及来自哪个国家。",
+      "refresh": "刷新",
+      "total": "总点击数",
+      "last30": "最近30天",
+      "byOption": "按选项",
+      "in30": "（30天）",
+      "trend": "趋势（30天）",
+      "byCountry": "按国家",
+      "noCountry": "无国家",
+      "empty": "尚无点击记录。",
+      "unavailable": "无法加载监测。"
+    },
     "title": "管理",
     "typeService": "专业人员",
     "typeMerchant": "提供商",

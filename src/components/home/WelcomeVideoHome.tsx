@@ -13,6 +13,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { PlayCircle, X } from 'lucide-react';
 import { useInView } from '@/hooks/useInView';
+import { trackHomeClick } from '@/lib/homeTrack';
 
 export function WelcomeVideoHome() {
   const { t, i18n } = useTranslation();
@@ -66,7 +67,7 @@ export function WelcomeVideoHome() {
           cuando está disponible. */}
       <button
         type="button"
-        onClick={() => { if (videoUrl) setOpen(true); }}
+        onClick={() => { if (videoUrl) { trackHomeClick('video-bienvenida'); setOpen(true); } }}
         aria-label={t('home.video.title')}
         disabled={!videoUrl}
         className="group relative mt-3 min-h-[280px] flex-1 overflow-hidden rounded-3xl border border-slate-100 bg-black shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"

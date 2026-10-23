@@ -14,6 +14,7 @@ import { useTranslation } from 'react-i18next';
 import { Award, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui';
 import { badgeArt } from '@/data/badgeArt';
+import { trackHomeClick } from '@/lib/homeTrack';
 
 // `art` = clave en badgeArt (resuelve la imagen por idioma); `name`/`desc` = claves i18n.
 const BADGES = [
@@ -62,7 +63,7 @@ export function MemberBadgesBanner() {
       </div>
 
       <div className="mt-5">
-        <Button variant="secondary" onClick={() => navigate('/verificados')} trailingIcon={<ArrowRight className="h-4 w-4 rtl:rotate-180" />}>
+        <Button variant="secondary" onClick={() => { trackHomeClick('cta-verificados'); navigate('/verificados'); }} trailingIcon={<ArrowRight className="h-4 w-4 rtl:rotate-180" />}>
           {t('memberBadges.cta')}
         </Button>
       </div>

@@ -22,6 +22,7 @@ import { AdminExemptions } from './AdminExemptions';
 import { AdminReports } from './AdminReports';
 import { AdminMetrics } from './AdminMetrics';
 import { AdminCoreMetrics } from './AdminCoreMetrics';
+import { AdminHomeClicks } from './AdminHomeClicks';
 import { AdminMessages } from './AdminMessages';
 import { AdminReferrals } from './AdminReferrals';
 import { AdminFees } from './AdminFees';
@@ -236,12 +237,12 @@ function ProviderList({ filter }: { filter: AdminFilter }) {
   );
 }
 
-type AdminSection = 'metrics' | 'members' | 'exemptions' | 'messages' | 'moderation' | 'products' | 'store' | 'renewals' | 'referrals' | 'fees' | 'donations' | 'founders' | 'badges' | 'carousel' | 'tribe' | 'accounts' | 'advisors' | 'campaign' | 'survey' | 'improve' | 'experto' | 'eventos' | 'contenido' | 'aliados' | 'suggestions' | 'invitations' | 'fichas' | 'comisiones' | 'reports' | 'other';
+type AdminSection = 'metrics' | 'homeclicks' | 'members' | 'exemptions' | 'messages' | 'moderation' | 'products' | 'store' | 'renewals' | 'referrals' | 'fees' | 'donations' | 'founders' | 'badges' | 'carousel' | 'tribe' | 'accounts' | 'advisors' | 'campaign' | 'survey' | 'improve' | 'experto' | 'eventos' | 'contenido' | 'aliados' | 'suggestions' | 'invitations' | 'fichas' | 'comisiones' | 'reports' | 'other';
 
 // Secciones que puede ver un ASESOR (explorador + moderador de Tribu): SOLO la
 // moderación de Tribu. Las demás (incluidas métricas) son de administrador.
 const ADVISOR_SECTIONS: AdminSection[] = ['tribe'];
-const ALL_SECTIONS: AdminSection[] = ['metrics', 'members', 'exemptions', 'messages', 'moderation', 'products', 'store', 'renewals', 'referrals', 'fees', 'donations', 'founders', 'badges', 'carousel', 'tribe', 'accounts', 'advisors', 'campaign', 'survey', 'improve', 'experto', 'eventos', 'contenido', 'aliados', 'suggestions', 'invitations', 'fichas', 'comisiones', 'reports', 'other'];
+const ALL_SECTIONS: AdminSection[] = ['metrics', 'homeclicks', 'members', 'exemptions', 'messages', 'moderation', 'products', 'store', 'renewals', 'referrals', 'fees', 'donations', 'founders', 'badges', 'carousel', 'tribe', 'accounts', 'advisors', 'campaign', 'survey', 'improve', 'experto', 'eventos', 'contenido', 'aliados', 'suggestions', 'invitations', 'fichas', 'comisiones', 'reports', 'other'];
 
 /** Numero que se pinta en el boton de cada seccion; 0 = no se pinta nada. */
 function avisosPorSeccion(s: AdminSection, p: Pendientes | null): number {
@@ -333,13 +334,15 @@ export function AdminDashboard({ advisor = false }: { advisor?: boolean } = {}) 
                 {avisosPorSeccion(s, pendientes)}
               </span>
             )}
-            {t(s === 'metrics' ? 'admin.secMetrics' : s === 'members' ? 'admin.secMembers' : s === 'exemptions' ? 'admin.secExemptions' : s === 'messages' ? 'admin.secMessages' : s === 'moderation' ? 'admin.secModeration' : s === 'products' ? 'admin.secProducts' : s === 'store' ? 'admin.secStore' : s === 'renewals' ? 'admin.secRenewals' : s === 'referrals' ? 'admin.secReferrals' : s === 'fees' ? 'admin.secFees' : s === 'donations' ? 'admin.secDonations' : s === 'founders' ? 'admin.secFounders' : s === 'badges' ? 'admin.secBadges' : s === 'carousel' ? 'admin.secCarousel' : s === 'tribe' ? 'admin.secTribe' : s === 'accounts' ? 'admin.secAccounts' : s === 'advisors' ? 'admin.secAdvisors' : s === 'campaign' ? 'admin.secCampaign' : s === 'survey' ? 'admin.secSurvey' : s === 'improve' ? 'admin.secImprove' : s === 'experto' ? 'admin.secExperto' : s === 'eventos' ? 'admin.secEventos' : s === 'contenido' ? 'admin.secContenido' : s === 'aliados' ? 'admin.secAliados' : s === 'suggestions' ? 'admin.secSuggestions' : s === 'invitations' ? 'admin.secInvitations' : s === 'fichas' ? 'admin.secFichas' : s === 'comisiones' ? 'admin.secComisiones' : s === 'reports' ? 'admin.secReports' : 'admin.secOther')}
+            {t(s === 'metrics' ? 'admin.secMetrics' : s === 'homeclicks' ? 'admin.secHomeClicks' : s === 'members' ? 'admin.secMembers' : s === 'exemptions' ? 'admin.secExemptions' : s === 'messages' ? 'admin.secMessages' : s === 'moderation' ? 'admin.secModeration' : s === 'products' ? 'admin.secProducts' : s === 'store' ? 'admin.secStore' : s === 'renewals' ? 'admin.secRenewals' : s === 'referrals' ? 'admin.secReferrals' : s === 'fees' ? 'admin.secFees' : s === 'donations' ? 'admin.secDonations' : s === 'founders' ? 'admin.secFounders' : s === 'badges' ? 'admin.secBadges' : s === 'carousel' ? 'admin.secCarousel' : s === 'tribe' ? 'admin.secTribe' : s === 'accounts' ? 'admin.secAccounts' : s === 'advisors' ? 'admin.secAdvisors' : s === 'campaign' ? 'admin.secCampaign' : s === 'survey' ? 'admin.secSurvey' : s === 'improve' ? 'admin.secImprove' : s === 'experto' ? 'admin.secExperto' : s === 'eventos' ? 'admin.secEventos' : s === 'contenido' ? 'admin.secContenido' : s === 'aliados' ? 'admin.secAliados' : s === 'suggestions' ? 'admin.secSuggestions' : s === 'invitations' ? 'admin.secInvitations' : s === 'fichas' ? 'admin.secFichas' : s === 'comisiones' ? 'admin.secComisiones' : s === 'reports' ? 'admin.secReports' : 'admin.secOther')}
           </button>
         ))}
       </div>
 
       {section === 'metrics' ? (
         <><AdminCoreMetrics /><AdminMetrics /></>
+      ) : section === 'homeclicks' ? (
+        <AdminHomeClicks />
       ) : section === 'messages' ? (
         <AdminMessages />
       ) : section === 'moderation' ? (

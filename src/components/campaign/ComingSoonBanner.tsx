@@ -11,6 +11,7 @@ import { Button, useToast } from '@/components/ui';
 import { supabase } from '@/lib/supabase';
 import { useCountry } from '@/stores/countryStore';
 import { useCampaign } from '@/hooks/useCampaign';
+import { trackHomeClick } from '@/lib/homeTrack';
 
 export function ComingSoonBanner() {
   const { t } = useTranslation();
@@ -29,6 +30,7 @@ export function ComingSoonBanner() {
     const { error } = await supabase.rpc('join_launch_waitlist', { p_email: email.trim(), p_country: country ?? undefined });
     setBusy(false);
     if (error) { toast.error(t('launch.invalid')); return; }
+    trackHomeClick('waitlist-lanzamiento');
     setDone(true); setEmail('');
   };
 
