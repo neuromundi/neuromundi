@@ -1823,7 +1823,11 @@
     "monthlyWarnTitle": "월 단위로 결제하면 창립 회원 요금을 포기하게 됩니다",
     "monthlyWarnBody": "창립 회원 평생 할인은 연간 구독에만 적용됩니다. 월 결제를 선택하면 일반 요금인 월 {{monthly}}을 내게 됩니다. 연간 구독은 연 {{annual}}이며, 회원으로 있는 동안 그 가격이 유지됩니다.",
     "monthlyWarnKeep": "연간 요금 유지",
-    "monthlyWarnGo": "월 결제로 계속"
+    "monthlyWarnGo": "월 결제로 계속",
+    "cancelTitle": "결제가 완료되지 않았습니다",
+    "cancelBody": "요금이 청구되지 않았습니다. 프로필은 그대로이며 언제든지 다시 시도할 수 있습니다.",
+    "cancelRetry": "다시 결제하기",
+    "cancelClose": "나중에"
   },
   "rules": {
     "version": "버전",

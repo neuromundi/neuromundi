@@ -1786,7 +1786,11 @@
     "monthlyWarnTitle": "Pagando al mese rinunci alla tua quota di Membro Fondatore",
     "monthlyWarnBody": "Lo sconto a vita da Membro Fondatore vale solo per l'abbonamento annuale. Con il pagamento mensile paghi la quota ordinaria: {{monthly}} al mese. Con l'annuale paghi {{annual}} all'anno e mantieni quel prezzo finché resti membro.",
     "monthlyWarnKeep": "Mantieni la quota annuale",
-    "monthlyWarnGo": "Continua con il pagamento mensile"
+    "monthlyWarnGo": "Continua con il pagamento mensile",
+    "cancelTitle": "Non abbiamo completato il tuo pagamento",
+    "cancelBody": "Non ti è stato addebitato nulla. Il tuo profilo resta esattamente com'era e puoi riprovare quando vuoi.",
+    "cancelRetry": "Riprova il pagamento",
+    "cancelClose": "Non ora"
   },
   "rules": {
     "version": "Versione",

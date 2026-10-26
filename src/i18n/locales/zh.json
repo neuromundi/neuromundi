@@ -1786,7 +1786,11 @@
     "monthlyWarnTitle": "按月付费将放弃创始会员资费",
     "monthlyWarnBody": "创始会员的终身折扣仅适用于年度订阅。选择按月付费将按普通资费计算，每月 {{monthly}}。年度订阅为每年 {{annual}}，只要您继续是会员就一直享有该价格。",
     "monthlyWarnKeep": "保留年度资费",
-    "monthlyWarnGo": "继续按月付费"
+    "monthlyWarnGo": "继续按月付费",
+    "cancelTitle": "付款未完成",
+    "cancelBody": "我们没有向你收取任何费用。你的资料保持原样，随时可以重试。",
+    "cancelRetry": "重新付款",
+    "cancelClose": "暂不"
   },
   "rules": {
     "version": "版本",

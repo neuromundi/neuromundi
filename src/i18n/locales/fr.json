@@ -1786,7 +1786,11 @@
     "monthlyWarnTitle": "En payant au mois, vous renoncez à votre tarif de Membre Fondateur",
     "monthlyWarnBody": "La réduction à vie de Membre Fondateur ne s'applique qu'à l'abonnement annuel. Avec le paiement mensuel, vous payez le tarif ordinaire : {{monthly}} par mois. Avec l'abonnement annuel, vous payez {{annual}} par an et conservez ce prix tant que vous restez membre.",
     "monthlyWarnKeep": "Garder le tarif annuel",
-    "monthlyWarnGo": "Continuer avec le paiement mensuel"
+    "monthlyWarnGo": "Continuer avec le paiement mensuel",
+    "cancelTitle": "Votre paiement n'a pas abouti",
+    "cancelBody": "Aucun montant n'a été débité. Votre profil reste exactement tel qu'il était et vous pouvez réessayer quand vous le souhaitez.",
+    "cancelRetry": "Réessayer le paiement",
+    "cancelClose": "Pas maintenant"
   },
   "rules": {
     "version": "Version",

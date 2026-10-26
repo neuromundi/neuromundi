@@ -1786,7 +1786,11 @@
     "monthlyWarnTitle": "Se pagar por mês, você abre mão da sua cota de Membro Fundador",
     "monthlyWarnBody": "O desconto vitalício de Membro Fundador só vale para a assinatura anual. No pagamento mensal você paga a cota comum: {{monthly}} por mês. Na anual você paga {{annual}} por ano e mantém esse preço enquanto continuar sendo membro.",
     "monthlyWarnKeep": "Manter a cota anual",
-    "monthlyWarnGo": "Continuar com pagamento mensal"
+    "monthlyWarnGo": "Continuar com pagamento mensal",
+    "cancelTitle": "Não concluímos o seu pagamento",
+    "cancelBody": "Não lhe foi cobrado nada. O seu perfil continua exatamente como estava e pode tentar de novo quando quiser.",
+    "cancelRetry": "Tentar pagar de novo",
+    "cancelClose": "Agora não"
   },
   "rules": {
     "version": "Versão",

@@ -1786,7 +1786,11 @@
     "monthlyWarnTitle": "Bei monatlicher Zahlung verzichten Sie auf Ihren Gründungsmitglied-Beitrag",
     "monthlyWarnBody": "Der lebenslange Rabatt für Gründungsmitglieder gilt nur für das Jahresabonnement. Bei monatlicher Zahlung gilt der reguläre Beitrag: {{monthly}} pro Monat. Im Jahresabonnement zahlen Sie {{annual}} pro Jahr und behalten diesen Preis, solange Sie Mitglied bleiben.",
     "monthlyWarnKeep": "Jahresbeitrag behalten",
-    "monthlyWarnGo": "Mit monatlicher Zahlung fortfahren"
+    "monthlyWarnGo": "Mit monatlicher Zahlung fortfahren",
+    "cancelTitle": "Wir konnten deine Zahlung nicht abschließen",
+    "cancelBody": "Es wurde nichts abgebucht. Dein Profil bleibt genau so, wie es war, und du kannst es jederzeit erneut versuchen.",
+    "cancelRetry": "Zahlung erneut versuchen",
+    "cancelClose": "Jetzt nicht"
   },
   "rules": {
     "version": "Version",

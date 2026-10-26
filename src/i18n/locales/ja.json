@@ -1786,7 +1786,11 @@
     "monthlyWarnTitle": "月払いにすると、創設メンバー料金は適用されません",
     "monthlyWarnBody": "創設メンバーの生涯割引は年間プランにのみ適用されます。月払いの場合は通常料金となり、月額 {{monthly}} です。年間プランなら年額 {{annual}} で、会員である限りその価格が続きます。",
     "monthlyWarnKeep": "年間プランのままにする",
-    "monthlyWarnGo": "月払いで続ける"
+    "monthlyWarnGo": "月払いで続ける",
+    "cancelTitle": "お支払いが完了しませんでした",
+    "cancelBody": "料金は請求されていません。プロフィールはそのままです。いつでもやり直せます。",
+    "cancelRetry": "もう一度支払う",
+    "cancelClose": "あとで"
   },
   "rules": {
     "version": "バージョン",

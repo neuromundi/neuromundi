@@ -1823,7 +1823,11 @@
     "monthlyWarnTitle": "Paying monthly means giving up your Founding Member rate",
     "monthlyWarnBody": "The lifetime Founding Member discount applies only to the annual subscription. With monthly billing you pay the ordinary rate: {{monthly}} per month. The annual subscription is {{annual}} per year, and you keep that price for as long as you remain a member.",
     "monthlyWarnKeep": "Keep the annual rate",
-    "monthlyWarnGo": "Continue with monthly billing"
+    "monthlyWarnGo": "Continue with monthly billing",
+    "cancelTitle": "We didn't complete your payment",
+    "cancelBody": "You were not charged. Your profile is exactly as it was, and you can try again whenever you like.",
+    "cancelRetry": "Try payment again",
+    "cancelClose": "Not now"
   },
   "rules": {
     "version": "Version",

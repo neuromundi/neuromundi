@@ -1823,7 +1823,11 @@
     "monthlyWarnTitle": "Si pagas por mes, renuncias a tu cuota de Miembro Fundador",
     "monthlyWarnBody": "El descuento vitalicio de Miembro Fundador sólo se aplica a la suscripción anual. Con el pago mensual pagas la cuota ordinaria: {{monthly}} al mes. Con la anual pagas {{annual}} al año y conservas ese precio mientras sigas siendo miembro.",
     "monthlyWarnKeep": "Mantener la cuota anual",
-    "monthlyWarnGo": "Continuar con pago mensual"
+    "monthlyWarnGo": "Continuar con pago mensual",
+    "cancelTitle": "No completamos tu pago",
+    "cancelBody": "No se te cobró nada. Tu perfil sigue exactamente como estaba y puedes intentarlo de nuevo cuando quieras.",
+    "cancelRetry": "Reintentar el pago",
+    "cancelClose": "Ahora no"
   },
   "rules": {
     "version": "Versión",
