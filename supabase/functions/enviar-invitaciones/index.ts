@@ -546,6 +546,7 @@ const PRECIO_DOCTORALIA: Record<string, { monto: string; nota: string }> = {
   'México':    { monto: '≈ $1,500–$4,000', nota: 'MXN/mes' },
   'Argentina': { monto: '25.000 ARS',    nota: 'al mes' },
   'Chile':     { monto: '59.000 CLP',    nota: 'al mes' },
+  'Colombia':  { monto: '$249.000',      nota: 'COP al mes' },
 };
 
 // Tabla comparativa (versión CORREO, región México): HTML de tablas + estilos en
