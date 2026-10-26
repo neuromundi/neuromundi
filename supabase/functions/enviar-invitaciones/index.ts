@@ -517,10 +517,39 @@ function beneficiosPT(r: Row, fundador = true): string {
   <p style="margin:12px 0 0;color:#334155;font-size:14px;line-height:1.5">📄&nbsp; Se anunciar um evento, pode enviar-nos o seu cartaz para <a href="mailto:admin@neuromundi.com" style="color:#0369a1">admin@neuromundi.com</a> ou carregá-lo ao publicá-lo: mostramo-lo no cartão do evento, com o devido crédito. Se não o enviar, colocamos uma capa da Neuromundi.</p>`;
 }
 
+// PRECIO REAL DE DOCTORALIA POR PAIS (26 oct 2026). Medido en los tarifarios
+// publicos de la propia Doctoralia, uno por pais. Antes esta columna mostraba
+// SIEMPRE el precio mexicano —"≈ $1,500–$4,000 MXN/mes"— a todos los paises: a
+// una clinica de Lisboa se le ensenaba su cuota en euros y, debajo, una
+// comparacion en una moneda ajena contra una empresa que si opera en su pais
+// con otro precio. Eso resta credibilidad justo donde se pide confianza.
+//
+// DOS REGLAS AL TOCAR ESTA TABLA:
+//  1. Un pais que no este aqui muestra "No publico". NUNCA se convierte el
+//     precio de otro pais ni se estima: una cifra inventada es peor que
+//     ninguna, porque no se ve que es falsa.
+//  2. BRASIL NO ESTA, a proposito. Doctoralia Brasil publica R$ 429 bajo la
+//     etiqueta "Plano anual 12x" SIN escribir "por mes". Puede ser doce cuotas
+//     (R$ 5.148 al ano) o el ano completo. Dos analisis brasilenos
+//     independientes de octubre de 2026 llegan a la misma duda y recomiendan
+//     confirmarlo con Doctoralia. Si la lectura fuera la equivocada estariamos
+//     diciendo que la competencia cuesta DOCE VECES lo que cuesta, en un correo
+//     a 67 clinicas. Hasta confirmarlo, Brasil va sin cifra.
+const PRECIO_DOCTORALIA: Record<string, { monto: string; nota: string }> = {
+  'España':    { monto: '89 €',          nota: 'al mes + IVA' },
+  'Portugal':  { monto: '32 €',          nota: 'por mês' },
+  'México':    { monto: '$1,740',        nota: 'MXN/mes + IVA' },
+  'Argentina': { monto: '25.000 ARS',    nota: 'al mes' },
+  'Chile':     { monto: '59.000 CLP',    nota: 'al mes' },
+};
+
 // Tabla comparativa (versión CORREO, región México): HTML de tablas + estilos en
 // línea + palomitas/taches de texto (Gmail/Outlook no soportan flex/grid ni SVG).
 function tablaComparativa(r?: Row): string {
   const pt = r ? esPT(r) : false;
+  // Doctores.lat es un directorio latinoamericano: nombrarlo ante una clinica
+  // de Madrid o de Lisboa no compara nada, solo ocupa una columna.
+  const conDoctoresLat = !(r?.pais === 'España' || r?.pais === 'Portugal');
   const yes = '<td align="center" style="padding:9px 4px;color:#16a34a;font-weight:bold;border-bottom:1px solid #f1f5f9">✓</td>';
   const yesNm = '<td align="center" style="padding:9px 4px;background:#eff9ff;color:#16a34a;font-weight:bold;border-bottom:1px solid #f1f5f9">✓</td>';
   const no = '<td align="center" style="padding:9px 4px;color:#cbd5e1;font-weight:bold;border-bottom:1px solid #f1f5f9">✗</td>';
@@ -557,7 +586,7 @@ function tablaComparativa(r?: Row): string {
     [etiquetas[8], true, false, false, false],
   ];
   const body = rows.map(([label, nm, d, td2, dl]) =>
-    `<tr>${feat(label)}${nm ? yesNm : no}${d ? yes : no}${td2 ? yes : no}${dl ? yes : no}</tr>`).join('');
+    `<tr>${feat(label)}${nm ? yesNm : no}${d ? yes : no}${td2 ? yes : no}${conDoctoresLat ? (dl ? yes : no) : ''}</tr>`).join('');
   return `
     <p style="margin:22px 0 8px;font-weight:800;font-size:16px">${pt ? 'Como se compara a Neuromundi' : 'Cómo se compara Neuromundi'}</p>
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;font-size:12px;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden">
@@ -566,7 +595,7 @@ function tablaComparativa(r?: Row): string {
         <td align="center" style="padding:8px 4px;background:#0369a1;color:#fff;font-weight:bold;border-bottom:1px solid #e2e8f0">Neuromundi</td>
         <td align="center" style="padding:8px 4px;background:#f1f5f9;font-weight:bold;border-bottom:1px solid #e2e8f0">Doctoralia</td>
         <td align="center" style="padding:8px 4px;background:#f1f5f9;font-weight:bold;border-bottom:1px solid #e2e8f0">Top Doctors</td>
-        <td align="center" style="padding:8px 4px;background:#f1f5f9;font-weight:bold;border-bottom:1px solid #e2e8f0">Doctores.lat</td>
+        ${conDoctoresLat ? '<td align="center" style="padding:8px 4px;background:#f1f5f9;font-weight:bold;border-bottom:1px solid #e2e8f0">Doctores.lat</td>' : ''}
       </tr>
       ${body}
       <tr>
@@ -576,12 +605,19 @@ function tablaComparativa(r?: Row): string {
             ? `${MXN(Math.round(Number(r.precio_fundador) / 12), r.moneda || 'MXN')}<br><span style="font-weight:500;color:#64748b;font-size:10px">${r.moneda || 'MXN'}${pt ? '/mês equivalente · ' : '/mes equivalente · '}${MXN(Number(r.precio_fundador), r.moneda || 'MXN')}${pt ? ' por ano' : ' al año'}</span>`
             : `≈ $250–$800<br><span style="font-weight:500;color:#64748b;font-size:10px">MXN/mes · fundadores</span>`
         }</td>
-        <td align="center" style="padding:9px 4px;background:#f8fafc;font-weight:800;border-top:2px solid #e2e8f0">≈ $1,500–$4,000<br><span style="font-weight:500;color:#64748b;font-size:10px">MXN/mes</span></td>
+        <td align="center" style="padding:9px 4px;background:#f8fafc;font-weight:800;border-top:2px solid #e2e8f0">${
+          (() => {
+            const d = r?.pais ? PRECIO_DOCTORALIA[r.pais] : undefined;
+            return d
+              ? `${d.monto}<br><span style="font-weight:500;color:#64748b;font-size:10px">${d.nota}</span>`
+              : (pt ? 'Não público' : 'No público');
+          })()
+        }</td>
         <td align="center" style="padding:9px 4px;background:#f8fafc;font-weight:800;border-top:2px solid #e2e8f0">Bajo invitación<br><span style="font-weight:500;color:#64748b;font-size:10px">no público</span></td>
-        <td align="center" style="padding:9px 4px;background:#f8fafc;font-weight:800;border-top:2px solid #e2e8f0">No público</td>
+        ${conDoctoresLat ? '<td align="center" style="padding:9px 4px;background:#f8fafc;font-weight:800;border-top:2px solid #e2e8f0">No público</td>' : ''}
       </tr>
     </table>
-    <p style="color:#94a3b8;font-size:10px;margin:6px 2px 0;line-height:1.4">${pt ? 'Comparação com informação pública de cada plataforma em Setembro de 2026. As plataformas mencionadas são marcas dos respectivos titulares; são citadas apenas para fins comparativos e informativos.' : 'Comparativa con información pública de cada plataforma a septiembre de 2026. Las plataformas mencionadas son marcas de sus respectivos titulares; se citan solo con fines comparativos e informativos.'}</p>`;
+    <p style="color:#94a3b8;font-size:10px;margin:6px 2px 0;line-height:1.4">${pt ? 'Comparação com informação pública de cada plataforma em Outubro de 2026. As plataformas mencionadas são marcas dos respectivos titulares; são citadas apenas para fins comparativos e informativos.' : 'Comparativa con información pública de cada plataforma a octubre de 2026. Las plataformas mencionadas son marcas de sus respectivos titulares; se citan solo con fines comparativos e informativos.'}</p>`;
 }
 
 function buildEmail(
