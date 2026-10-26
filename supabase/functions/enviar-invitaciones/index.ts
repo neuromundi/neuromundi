@@ -618,8 +618,8 @@ function tablaComparativa(r?: Row): string {
               : (pt ? 'Não público' : 'No público');
           })()
         }</td>
-        <td align="center" style="padding:9px 4px;background:#f8fafc;font-weight:800;border-top:2px solid #e2e8f0">Bajo invitación<br><span style="font-weight:500;color:#64748b;font-size:10px">no público</span></td>
-        ${conDoctoresLat ? '<td align="center" style="padding:9px 4px;background:#f8fafc;font-weight:800;border-top:2px solid #e2e8f0">No público</td>' : ''}
+        <td align="center" style="padding:9px 4px;background:#f8fafc;font-weight:800;border-top:2px solid #e2e8f0">${pt ? 'Sob convite' : 'Bajo invitación'}<br><span style="font-weight:500;color:#64748b;font-size:10px">${pt ? 'não público' : 'no público'}</span></td>
+        ${conDoctoresLat ? `<td align="center" style="padding:9px 4px;background:#f8fafc;font-weight:800;border-top:2px solid #e2e8f0">${pt ? 'Não público' : 'No público'}</td>` : ''}
       </tr>
     </table>
     <p style="color:#94a3b8;font-size:10px;margin:6px 2px 0;line-height:1.4">${pt ? 'Comparação com informação pública de cada plataforma em Outubro de 2026. As plataformas mencionadas são marcas dos respectivos titulares; são citadas apenas para fins comparativos e informativos.' : 'Comparativa con información pública de cada plataforma a octubre de 2026. Las plataformas mencionadas son marcas de sus respectivos titulares; se citan solo con fines comparativos e informativos.'}</p>`;
