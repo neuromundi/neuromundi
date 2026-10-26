@@ -547,6 +547,13 @@ const PRECIO_DOCTORALIA: Record<string, { monto: string; nota: string }> = {
   'Argentina': { monto: '25.000 ARS',    nota: 'al mes' },
   'Chile':     { monto: '59.000 CLP',    nota: 'al mes' },
   'Colombia':  { monto: '$249.000',      nota: 'COP al mes' },
+  // Brasil entra el 26 oct 2026. La pagina de Doctoralia Brasil nunca escribe
+  // "por mes" junto a los planes —solo "Plano anual 12x"— y por eso estuvo
+  // fuera tres dias. Resuelto con dos fuentes brasilenas que si lo dicen:
+  // "R$429 a R$679/mes por profissional" y "Starter R$ 429/mes ... R$ 5.148
+  // por ano". Coincide ademas con la magnitud de los paises hermanos: leido
+  // como anual, Brasil seria diez veces mas barato que Mexico o Colombia.
+  'Brasil':    { monto: 'R$ 429',        nota: 'por mês' },
 };
 
 // Tabla comparativa (versión CORREO, región México): HTML de tablas + estilos en
