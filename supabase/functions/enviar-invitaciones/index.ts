@@ -538,7 +538,12 @@ function beneficiosPT(r: Row, fundador = true): string {
 const PRECIO_DOCTORALIA: Record<string, { monto: string; nota: string }> = {
   'España':    { monto: '89 €',          nota: 'al mes + IVA' },
   'Portugal':  { monto: '32 €',          nota: 'por mês' },
-  'México':    { monto: '$1,740',        nota: 'MXN/mes + IVA' },
+  // Mexico va con RANGO, no con el plan de entrada (26 oct 2026, correccion de
+  // Enyoria): los $1,740 son el Starter, pero las cuentas premium y los
+  // complementos suben la factura real hasta el entorno de los $4,000. El
+  // rango es el mismo que muestra el cuadro de la portada, para que las dos
+  // superficies no se contradigan.
+  'México':    { monto: '≈ $1,500–$4,000', nota: 'MXN/mes' },
   'Argentina': { monto: '25.000 ARS',    nota: 'al mes' },
   'Chile':     { monto: '59.000 CLP',    nota: 'al mes' },
 };
