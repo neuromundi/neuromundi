@@ -188,6 +188,25 @@ Deno.serve(async (req: Request) => {
     return json(500, { error: 'Cuota mal configurada para esta moneda. Avise al administrador.' });
   }
 
+  // TECHO DE STRIPE POR COBRO (26 oct 2026). Stripe limita el importe por el
+  // numero de digitos en unidades minimas: 12 para IDR, 10 para COP, 9 para
+  // INR y 8 para todo lo demas, es decir 999.999,99 en una moneda de dos
+  // decimales. Salio al pasar Argentina de dolares a pesos: la cuota ordinaria
+  // anual de escuela son 1.390.000 ARS y NO SE PUEDE COBRAR. Sin este guardia,
+  // el usuario veia el precio, pulsaba pagar y recibia un error crudo de
+  // Stripe sin saber que hacer; ahora se le dice que elija el pago mensual,
+  // que para ese mismo caso son 139.000 y si cabe.
+  const DIGITOS_MAXIMOS: Record<string, number> = { idr: 999999999999, cop: 9999999999, inr: 999999999 };
+  const techo = DIGITOS_MAXIMOS[pricing.currency.toLowerCase()] ?? 99999999;
+  if (unitAmount > techo) {
+    return json(400, {
+      error: period === 'annual'
+        ? 'El pago anual de esta cuota supera el máximo que admite el procesador de pagos en tu moneda. Elige el pago mensual.'
+        : 'Esta cuota supera el máximo que admite el procesador de pagos en tu moneda. Avisa al administrador.',
+      code: 'amount_too_large',
+    });
+  }
+
   // ── Descuentos ────────────────────────────────────────────────────────────
   // (1) Programa de recomendación (membership_discount → total_pct):
   //     referral_pct + referrer_pct combinados, solo el primer pago.
