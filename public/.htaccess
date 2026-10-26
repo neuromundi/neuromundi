@@ -34,7 +34,11 @@
   # rutas (con o sin barra) sirvan la SPA; los archivos internos (/kit/…​.pdf,
   # /tribu/…​.webp) siguen sirviéndose normal porque no coinciden con ^ruta/?$.
   DirectorySlash Off
-  RewriteRule ^(kit|tribu)/?$ /index.html [L]
+  # `proveedor` se suma a kit/tribu: gen-seo-langs crea dist/proveedor/ (carpeta
+  # física con los snapshots por ficha), así que /proveedor a secas caería en el
+  # mismo 403 de carpeta-sin-índice. Las fichas /proveedor/<id> sí se sirven por
+  # la regla de snapshot de dos segmentos (más abajo) o por la SPA.
+  RewriteRule ^(kit|tribu|proveedor)/?$ /index.html [L]
 
   # IMPORTANTE: si falta un archivo dentro de /assets/ (p. ej. un chunk con hash
   # viejo tras un nuevo despliegue), devolver un 404 REAL en vez de index.html.
@@ -42,6 +46,17 @@
   # y fallaría con "Failed to fetch dynamically imported module".
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteRule ^assets/ - [R=404,L]
+
+  # SEO: snapshot por FICHA de prestador (/proveedor/<id>). Es de DOS segmentos,
+  # así que la regla de un solo segmento de abajo NO lo cubre. Si existe
+  # dist/proveedor/<id>.html (generado por gen-seo-langs.mjs, con su canónica
+  # PROPIA) se sirve ese snapshot; si no, la ficha cae a la SPA. Sin esto,
+  # Googlebot recibía la portada (canónica = raíz) para cada ficha y las tomaba
+  # como duplicadas de la home.
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{DOCUMENT_ROOT}/proveedor/$1.html -f
+  RewriteRule ^proveedor/([^/]+)/?$ /proveedor/$1.html [L]
 
   # SEO: snapshot por RUTA. Si existe dist/<ruta>.html (generado por
   # gen-seo-langs.mjs con su canónica/título propios) y la URL es de UN solo

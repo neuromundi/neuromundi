@@ -248,6 +248,64 @@ try {
     rcount++;
   }
   console.log(`[gen-seo-langs] Generados ${rcount} snapshots por ruta en dist/<ruta>.html`);
+
+  // Snapshots por PRESTADOR (/proveedor/<id>). La causa de que decenas de fichas
+  // cayeran en "Rastreada/Duplicada: Google eligió otra canónica" era que la SPA
+  // les servía el index.html de la portada, cuya canónica apunta a la raíz: para
+  // Googlebot todas las fichas se declaraban "la portada". Aquí generamos
+  // dist/proveedor/<id>.html para cada prestador PUBLICADO, con su título,
+  // descripción y canónica PROPIA. El .htaccess sirve ese archivo (regla de dos
+  // segmentos). Dos segmentos => NO lo cubre la regla de un solo segmento.
+  //
+  // Try propio: si Supabase no responde durante el build (o faltan las claves),
+  // se omite SOLO esta capa, sin tumbar los snapshots de arriba ni el despliegue.
+  try {
+    const SB_URL = process.env.VITE_SUPABASE_URL;
+    const SB_KEY = process.env.VITE_SUPABASE_ANON_KEY;
+    if (!SB_URL || !SB_KEY) {
+      console.warn('[gen-seo-langs] Sin VITE_SUPABASE_URL/ANON_KEY: se omiten los snapshots de prestadores.');
+    } else {
+      // Fuente = directorio_publico_seguro (la vista pública que lee el frente;
+      // anon tiene SELECT). Filtro: publicadas y NO reclamables, para generar
+      // snapshot SOLO de prestadores reales con dueño. Las fichas sembradas
+      // (reclamable=true, is_published=false) quedan fuera a propósito: se
+      // marcan noindex desde ProviderProfile, no se indexan.
+      const sel = 'id,full_name,business_name,title_prefix,profession,provider_type,city,state,country,bio';
+      const res = await fetch(`${SB_URL}/rest/v1/directorio_publico_seguro?select=${sel}&is_published=eq.true&reclamable=eq.false`, {
+        headers: { apikey: SB_KEY, authorization: `Bearer ${SB_KEY}` },
+      });
+      if (!res.ok) throw new Error(`REST ${res.status}`);
+      const rows = await res.json();
+      mkdirSync(join(DIST, 'proveedor'), { recursive: true });
+      let pcount = 0;
+      for (const p of Array.isArray(rows) ? rows : []) {
+        if (!p || !p.id) continue;
+        const nombre = (p.business_name || [p.title_prefix, p.full_name].filter(Boolean).join(' ') || '').trim();
+        if (!nombre) continue;
+        const oficio = (p.profession || p.provider_type || '').trim();
+        const lugar = [p.city, p.state, p.country].filter(Boolean).join(', ');
+        const title = `${[nombre, oficio].filter(Boolean).join(' — ').slice(0, 65)} | Neuromundi`;
+        const bioLimpia = (p.bio || '').replace(/\s+/g, ' ').trim();
+        const desc = (bioLimpia || `${nombre}${oficio ? ', ' + oficio : ''}${lugar ? ' en ' + lugar : ''}. Perfil en Neuromundi.`).slice(0, 160);
+        const canonUrl = `${ORIGIN}/proveedor/${p.id}`;
+        const html = src
+          .replace(/\s*<link rel="alternate" hreflang="[^"]*" href="[^"]*"\s*\/>/g, '')
+          .replace(/<title>[\s\S]*?<\/title>/, `<title>${esc(title)}</title>`)
+          .replace(/(<meta name="description" content=")[^"]*(")/, `$1${escAttr(desc)}$2`)
+          .replace(/(<meta property="og:title" content=")[^"]*(")/, `$1${escAttr(title)}$2`)
+          .replace(/(<meta property="og:description" content=")[^"]*(")/, `$1${escAttr(desc)}$2`)
+          .replace(/(<meta property="og:url" content=")[^"]*(")/, `$1${canonUrl}$2`)
+          .replace(/(<meta name="twitter:title" content=")[^"]*(")/, `$1${escAttr(title)}$2`)
+          .replace(/(<meta name="twitter:description" content=")[^"]*(")/, `$1${escAttr(desc)}$2`)
+          .replace(/(<link rel="canonical" href=")[^"]*(")/, `$1${canonUrl}$2`);
+        writeFileSync(join(DIST, 'proveedor', `${p.id}.html`), html, 'utf8');
+        pcount++;
+      }
+      console.log(`[gen-seo-langs] Generados ${pcount} snapshots por prestador en dist/proveedor/<id>.html`);
+    }
+  } catch (e) {
+    console.warn('[gen-seo-langs] AVISO: no se generaron los snapshots de prestadores:', e?.message ?? e);
+  }
 } catch (e) {
   console.warn('[gen-seo-langs] AVISO: no se generaron los snapshots SEO por idioma:', e?.message ?? e);
   process.exit(0); // nunca bloquear el despliegue por la capa de SEO

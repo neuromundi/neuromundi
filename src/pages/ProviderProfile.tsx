@@ -79,6 +79,33 @@ export function ProviderProfile() {
     void trackProfileEvent(providerId, 'contact');
   };
 
+  // SEO: las fichas SEMBRADAS o no publicadas NO deben indexarse. Eran el pozo
+  // sin fondo de Search Console: Google rastreaba fichas sin dueño y las volcaba
+  // en "Rastreada/Duplicada: eligió otra canónica". Cuando la ficha no es un
+  // prestador publicado real (no existe / error / no publicada), inyectamos
+  // <meta name="robots" content="noindex, follow">. Las publicadas SÍ se indexan
+  // (y además reciben su snapshot propio con canónica correcta en el build). El
+  // tag se retira al salir de la página para no afectar a otras rutas.
+  useEffect(() => {
+    const noIndexable = !loading && (!!error || !profile);
+    const SEL = 'meta[name="robots"][data-nm-ficha]';
+    let meta = document.querySelector(SEL);
+    if (noIndexable) {
+      if (!meta) {
+        meta = document.createElement('meta');
+        meta.setAttribute('name', 'robots');
+        meta.setAttribute('data-nm-ficha', '');
+        document.head.appendChild(meta);
+      }
+      meta.setAttribute('content', 'noindex, follow');
+    } else if (meta) {
+      meta.remove();
+    }
+    return () => {
+      document.querySelector(SEL)?.remove();
+    };
+  }, [loading, error, profile]);
+
   if (loading) {
     return (
       <div className="mx-auto max-w-2xl p-4">
