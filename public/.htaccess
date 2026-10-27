@@ -58,6 +58,16 @@
   RewriteCond %{DOCUMENT_ROOT}/proveedor/$1.html -f
   RewriteRule ^proveedor/([^/]+)/?$ /proveedor/$1.html [L]
 
+  # SOLUCIÓN DE RAÍZ: fichas SIN snapshot propio (sembradas / sin publicar) se
+  # sirven con la variante NOINDEX (dist/proveedor/_noindex.html), NO con la
+  # portada. Googlebot recibe noindex en el primer HTML (sin depender de JS), así
+  # las ~1800 fichas sin dueño dejan de volcarse en "Duplicada/Soft 404", sean
+  # cuantas sean. El humano ve la SPA igual (puede reclamar la ficha). Va DESPUÉS
+  # de la regla de snapshot: si la ficha SÍ tiene snapshot, gana aquella.
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^proveedor/([^/]+)/?$ /proveedor/_noindex.html [L]
+
   # SEO: snapshot por RUTA. Si existe dist/<ruta>.html (generado por
   # gen-seo-langs.mjs con su canónica/título propios) y la URL es de UN solo
   # segmento que no es archivo/carpeta real, servir ese snapshot en vez de la

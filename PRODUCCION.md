@@ -402,6 +402,58 @@ checkout no sabe cuánto cobrar.
   activo no verás nada.
 - [ ] Revisa `public/robots.txt` y que no quede ningún `noindex` de pruebas.
 
+### 12.1 Snapshots SEO por prestador (`/proveedor/<id>`) — 25 oct 2026
+
+Las fichas `/proveedor/<id>` son SPA: Googlebot recibía el `index.html` de la
+portada, cuya canónica apunta a la raíz, así que tomaba **todas** las fichas como
+duplicadas de la home ("Rastreada/Duplicada: Google eligió otra canónica" en
+Search Console: 44 fichas el 25 oct). Arreglo en tres piezas:
+
+1. **`gen-seo-langs.mjs`** genera `dist/proveedor/<id>.html` para cada prestador
+   **publicado y no reclamable** (lee `directorio_publico_seguro` por REST con la
+   anon key), con su **título, descripción y canónica PROPIA**. Es mejor esfuerzo:
+   si falta `VITE_SUPABASE_URL`/`VITE_SUPABASE_ANON_KEY` o Supabase no responde en
+   el build, se omite esta capa sin romper el despliegue. **Solo corre en CI** (ahí
+   existen esas variables); en un `npm run build` local sin ellas, no genera nada.
+2. **`public/.htaccess`** sirve ese snapshot con una regla de DOS segmentos
+   (`^proveedor/([^/]+)/?$`); si no hay snapshot, la ficha cae a la SPA. `proveedor`
+   se sumó a la regla `^(kit|tribu|proveedor)/?$` porque `dist/proveedor/` es ahora
+   carpeta física (evita el 403 de carpeta-sin-índice).
+3. **`ProviderProfile.tsx`** marca `noindex, follow` las fichas **sembradas / no
+   publicadas** (las ~1800 sin dueño), para que dejen de pedir indexación.
+
+**Solución de raíz (27 oct 2026).** El punto 3 por JS no bastaba: Google indexa
+en dos pasadas y usaba el primer HTML (canónica = portada) antes de ejecutar el
+JS, así que las fichas sembradas seguían cayendo en "Duplicada: eligió otra
+canónica" (29 el 26 oct) y "Soft 404" (8). Ahora el noindex se entrega **desde el
+servidor**, sin depender de JS:
+
+4. **`gen-seo-langs.mjs`** genera **siempre** `dist/proveedor/_noindex.html`: la
+   misma cáscara de la SPA pero **sin canónica** y con `<meta robots noindex>`.
+5. **`public/.htaccess`** tiene una segunda regla de dos segmentos: si
+   `/proveedor/<id>` **no** tiene snapshot propio, sirve `_noindex.html` (no la
+   portada). Orden: primero la regla de snapshot (gana si la ficha está
+   publicada), después la de `_noindex`. Así **toda** ficha sin dueño sale
+   noindex en el primer HTML, sean cuantas sean — el informe deja de crecer. El
+   humano ve la SPA normal y puede reclamar la ficha.
+
+   *Acoplamiento a tener presente:* si Supabase no responde durante el build de
+   CI, no se generan los snapshots de prestadores y TODAS las fichas (incluidas
+   las publicadas) caen al `_noindex` hasta el siguiente build bueno. Es seguro
+   (noindex temporal, se autocorrige), no roto.
+
+- [ ] **Verificación obligatoria tras desplegar** (un `.htaccess` mal formado da
+  500 en todo el sitio): abre la home y una ficha **publicada**; en el código
+  fuente de la ficha, `rel="canonical"` debe ser **su propia URL**, no la home.
+  Si algo da 500, el rollback es quitar el bloque `^proveedor/([^/]+)` del
+  `.htaccess` y redesplegar. (Probado el 25 oct: una ficha publicada abrió sin
+  fallo.)
+- [ ] Tras desplegar, abre una ficha **sembrada** (sin dueño, de las del
+  directorio): en el código fuente debe aparecer `<meta name="robots"
+  content="noindex, follow">` y **no** una canónica a la portada.
+- [ ] En Search Console, "Validar corrección" en los cubos "Duplicada…",
+  "Soft 404" y "Rastreada: sin indexar" después del despliegue.
+
 ---
 
 ## 13) 🔴 Pruebas de humo en producción

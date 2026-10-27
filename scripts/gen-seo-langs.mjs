@@ -249,6 +249,33 @@ try {
   }
   console.log(`[gen-seo-langs] Generados ${rcount} snapshots por ruta en dist/<ruta>.html`);
 
+  // SOLUCIÓN DE RAÍZ — variante NOINDEX para fichas SIN snapshot propio.
+  //
+  // El pozo sin fondo de Search Console son las ~1800 fichas SEMBRADAS (sin
+  // dueño): cada /proveedor/<id> que Googlebot descubre y que NO es un prestador
+  // publicado caía en la SPA (index.html, canónica = portada) y terminaba en
+  // "Duplicada: Google eligió otra canónica" o "Soft 404". Y como Google las va
+  // rastreando de a poco, el informe nunca deja de crecer.
+  //
+  // Aquí generamos UN archivo —dist/proveedor/_noindex.html— que es la misma
+  // cáscara de la SPA pero SIN canónica y CON <meta robots noindex>. El .htaccess
+  // lo sirve para cualquier /proveedor/<id> que no tenga snapshot propio. Así:
+  //   · el humano ve la ficha normal (puede reclamarla): es la misma SPA;
+  //   · Googlebot recibe noindex en el PRIMER HTML, sin depender de que ejecute
+  //     JS, y deja de indexar/duplicar las fichas sembradas, sean cuantas sean.
+  // Se escribe SIEMPRE (aunque el fetch de prestadores de abajo falle), para que
+  // el fallback del .htaccess nunca quede sin destino.
+  try {
+    mkdirSync(join(DIST, 'proveedor'), { recursive: true });
+    const noindexHtml = src
+      .replace(/\s*<link rel="canonical"[^>]*>/, '')
+      .replace('</head>', '    <meta name="robots" content="noindex, follow" />\n  </head>');
+    writeFileSync(join(DIST, 'proveedor', '_noindex.html'), noindexHtml, 'utf8');
+    console.log('[gen-seo-langs] Generado dist/proveedor/_noindex.html (fallback noindex de fichas sin snapshot)');
+  } catch (e) {
+    console.warn('[gen-seo-langs] AVISO: no se generó el fallback noindex de fichas:', e?.message ?? e);
+  }
+
   // Snapshots por PRESTADOR (/proveedor/<id>). La causa de que decenas de fichas
   // cayeran en "Rastreada/Duplicada: Google eligió otra canónica" era que la SPA
   // les servía el index.html de la portada, cuya canónica apunta a la raíz: para
