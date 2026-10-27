@@ -321,6 +321,28 @@ function bloqueFechas(r: Row): string {
   </div>`;
 }
 
+// LOS 30 DIAS, EN TODOS LOS CORREOS QUE COBRAN (27 oct 2026).
+//
+// Este parrafo vivia dentro del primer contacto, de modo que la variante de
+// RECORDATORIO —la que se manda a quien ya fue escrito en septiembre— no lo
+// llevaba: se redacto antes de que la prueba existiera y nadie la actualizo.
+// Medido el 27 de octubre: 10 de las 50 fichas mexicanas de ese dia recibieron
+// el recordatorio SIN la prueba, y son justamente las que ya nos habian
+// ignorado una vez, las que mas necesitan una razon nueva para abrir.
+//
+// Solo aplica a quien paga: una organizacion exenta no tiene cuota que diferir.
+function bloquePrueba(r: Row): string {
+  const hayTarifa = r.precio_configurado && r.precio_fundador && r.precio_ordinario && !esFree(r);
+  if (!hayTarifa) return '';
+  return esPT(r)
+    ? `<p>Ao activar o seu perfil terá <b>30 dias para conhecer e usar a plataforma sem custo</b>,
+         com a sua ficha publicada e a receber pedidos. A quota paga-se no final desse prazo, e
+         reclamar agora garante-lhe o preço de Membro Fundador mesmo que pague ao final.</p>`
+    : `<p>Al activar su perfil tendrá <b>30 días para conocer y usar la plataforma sin costo</b>,
+         con su ficha publicada y recibiendo consultas. La cuota se cubre al terminar ese plazo, y
+         reclamar ahora le asegura el precio de Miembro Fundador aunque pague al final.</p>`;
+}
+
 function segmentOf(r: Row): 'nuevos' | 'ya_publico_social' | 'ya_privado' {
   if (!r.ya_contactado_8sep) return 'nuevos';
   return esFree(r) ? 'ya_publico_social' : 'ya_privado';
@@ -730,6 +752,7 @@ function buildEmail(
       ${beneficios(r)}
       <p style="margin-top:12px">Además, al completarlo ahora entra como <b>Miembro Fundador</b>, con <u>beneficios preferentes de por vida</u>.</p>
       ${bloquePrecio(r)}
+      ${bloquePrueba(r)}
       ${tablaComparativa(r)}
     ${bloqueFechas(r)}`;
     return { subject: `${rawNombre}: le reservamos su perfil en Neuromundi`, html: shell('Conviértase en Fundador Neuromundi', promoBlock + cuerpo, 'Quiero ser fundador', claim) };
@@ -773,15 +796,7 @@ function buildEmail(
   // La ultima frase NO es adorno: founder_eligible() medía el plazo en el
   // momento del pago (migracion 0325), de modo que usar el mes y pagar al
   // final habria costado el precio de fundador. Ya no, y se dice aqui.
-  const parrafoPrueba = hayTarifa
-    ? (pt
-      ? `<p>Ao activar o seu perfil terá <b>30 dias para conhecer e usar a plataforma sem custo</b>,
-           com a sua ficha publicada e a receber pedidos. A quota paga-se no final desse prazo, e
-           reclamar agora garante-lhe o preço de Membro Fundador mesmo que pague ao final.</p>`
-      : `<p>Al activar su perfil tendrá <b>30 días para conocer y usar la plataforma sin costo</b>,
-           con su ficha publicada y recibiendo consultas. La cuota se cubre al terminar ese plazo, y
-           reclamar ahora le asegura el precio de Miembro Fundador aunque pague al final.</p>`)
-    : '';
+  const parrafoPrueba = bloquePrueba(r);
 
   // Las organizaciones exentas NO reciben parrafoOferta (no tienen tarifa), y sin
   // esto el correo nunca les dice que no pagan nada: medido el 14 oct 2026, 119 de
