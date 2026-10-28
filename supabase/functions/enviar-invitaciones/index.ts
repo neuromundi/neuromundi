@@ -655,6 +655,290 @@ function tablaComparativa(r?: Row): string {
     <p style="color:#94a3b8;font-size:10px;margin:6px 2px 0;line-height:1.4">${pt ? 'Comparação com informação pública de cada plataforma em Outubro de 2026. As plataformas mencionadas são marcas dos respectivos titulares; são citadas apenas para fins comparativos e informativos.' : 'Comparativa con información pública de cada plataforma a octubre de 2026. Las plataformas mencionadas son marcas de sus respectivos titulares; se citan solo con fines comparativos e informativos.'}</p>`;
 }
 
+
+// ===========================================================================
+// INGLÉS Y FRANCÉS (28 oct 2026). Estados Unidos y Canadá.
+//
+// Por que existe este bloque aparte y no una rama mas dentro de buildEmail:
+// el correo en español lleva 985 envios y esta aprobado palabra por palabra.
+// Tocarlo para encajar dos idiomas mas arriesga cambiarlo sin querer. Aqui el
+// texto es independiente y el de español queda intacto, lo que ademas permite
+// comprobarlo: el correo armado de los ocho paises hispanos y lusofonos sale
+// identico antes y despues de este bloque.
+//
+// PREMISA, corregida por Enyoria el 28 oct 2026: Neuromundi NO es una
+// plataforma hispanohablante que llega a otros mercados a traves del español.
+// Atiende el mercado de CADA PAIS en su propio idioma. El texto de abajo dice
+// eso y nada mas; la version anterior ofrecia "visibilidad ante las familias
+// hispanohablantes de su zona" y era FALSA.
+//
+// FECHAS: aqui se formatean en UTC, no en hora de Mexico, por decision suya
+// del 28 oct: el correo dice exactamente la fecha que guarda la configuracion,
+// sin desfase. Para un destinatario de Nueva York o California esa fecha
+// tambien es correcta en su propio reloj.
+// ===========================================================================
+const esFR = (r: Row) =>
+  r.pais === 'Canadá' && (r.estado === 'Quebec' || /^(Clinique|Cabinet)\b/i.test(r.nombre ?? ''));
+const esEN = (r: Row) => (r.pais === 'Estados Unidos' || r.pais === 'Canadá') && !esFR(r);
+
+const fechaUTC = (d: Date, fr: boolean) =>
+  new Intl.DateTimeFormat(fr ? 'fr-CA' : 'en-US',
+    { timeZone: 'UTC', day: 'numeric', month: 'long', year: 'numeric' }).format(d);
+
+function firmaLang(fr: boolean): string {
+  return `<table role="presentation" cellpadding="0" cellspacing="0" style="margin:18px 0 0">
+    <tr>
+      <td style="padding-right:14px;vertical-align:middle">
+        <img src="${SITE}/icon-192.png" width="64" height="64" alt="Neuromundi"
+             style="display:block;border:0;width:64px;height:64px">
+      </td>
+      <td style="vertical-align:middle;border-left:2px solid #e2e8f0;padding-left:14px;font-size:13px;line-height:1.5;color:#334155">
+        <b style="font-size:15px;color:#0f172a">Mtra. Nelly Montoya</b><br>
+        ${fr ? 'Présidente-directrice générale et fondatrice &middot; Neuromundi' : 'CEO &amp; Founder &middot; Neuromundi'}<br>
+        <a href="mailto:admin@neuromundi.com" style="color:#0369a1;text-decoration:none">admin@neuromundi.com</a><br>
+        <a href="${SITE}" style="color:#0369a1;text-decoration:none"><b>www.neuromundi.com</b></a>
+      </td>
+    </tr>
+  </table>`;
+}
+
+// Pie legal. NO cita articulos de ninguna ley: se describe el origen del dato,
+// el enlace de baja y el derecho a pedirla, que es lo exigible en los dos
+// paises sin invocar normas que no se han verificado. Si alguien quiere citar
+// la Ley 25 de Quebec o normas federales de EE. UU., que lo revise quien las
+// conozca antes de escribirlas aqui.
+function footerLegalLang(fr: boolean): string {
+  const texto = fr
+    ? `Vous recevez ce courriel parce que votre organisation figure dans le répertoire public de Neuromundi, constitué à partir de sources publiques sur Internet.
+    Nous traitons vos renseignements conformément à notre <a href="${SITE}/privacy" style="color:#0369a1">politique de confidentialité</a>. Vous pouvez consulter, corriger ou faire supprimer votre fiche à partir du lien ci-dessus, ou en répondant à ce courriel.
+    <br><br>Neuromundi &middot; communauté mondiale du neurodéveloppement, de la neurodivergence et des maladies neurologiques.`
+    : `You are receiving this email because your organization appears in Neuromundi's public directory, compiled from publicly available sources on the internet.
+    We handle your information under our <a href="${SITE}/privacy" style="color:#0369a1">privacy policy</a>. You can review, correct or have your listing removed using the link above, or by replying to this email.
+    <br><br>Neuromundi &middot; global community for neurodevelopment, neurodivergence and neurological conditions.`;
+  return `<p style="color:#64748b;font-size:12px;margin-top:18px;line-height:1.5">${texto}</p>`;
+}
+
+function shellLang(title: string, bodyHtml: string, ctaText: string, ctaUrl: string, fr: boolean): string {
+  return `<div style="font-family:Arial,Helvetica,sans-serif;max-width:560px;margin:0 auto;color:#0f172a">
+    <div style="background:linear-gradient(90deg,#0ea5e9,#0369a1);color:#fff;padding:16px 20px;border-radius:14px 14px 0 0;font-weight:800;letter-spacing:.04em">NEUROMUNDI</div>
+    <div style="border:1px solid #e2e8f0;border-top:0;border-radius:0 0 14px 14px;padding:22px 20px">
+      <h1 style="font-size:20px;margin:0 0 12px">${title}</h1>
+      ${bodyHtml}
+      <p style="margin:22px 0 8px"><a href="${ctaUrl}" style="display:inline-block;background:#0ea5e9;color:#fff;text-decoration:none;font-weight:700;padding:12px 20px;border-radius:12px">${ctaText}</a></p>
+      ${firmaLang(fr)}
+      ${footerLegalLang(fr)}
+    </div>
+  </div>`;
+}
+
+function beneficiosLang(r: Row, fr: boolean): string {
+  const tipo = r.provider_type ?? '';
+  let items: string[];
+  if (tipo === 'school') {
+    items = fr
+      ? ['👪&nbsp; <b>Être vue par les familles</b> qui cherchent une école ou un soutien scolaire inclusif dans votre région, avec votre fiche complète : téléphone, site, adresse et services.',
+         '💬&nbsp; <b>Demandes d’information et d’inscription :</b> les familles vous écrivent depuis votre profil et vous décidez à qui répondre.',
+         '🏅&nbsp; La <b>distinction d’École inclusive</b> pour votre profil, votre site Web et vos réseaux sociaux.',
+         '📣&nbsp; Annoncer vos <b>portes ouvertes, ateliers et activités</b> dans la section Événements.']
+      : ['👪&nbsp; <b>Be found by the families</b> looking for an inclusive school or learning support in your area, with your full listing: phone, website, address and services.',
+         '💬&nbsp; <b>Enrolment and information requests:</b> families write to you from your profile and you decide which ones to answer.',
+         '🏅&nbsp; The <b>Inclusive School badge</b> for your profile, your website and your social media.',
+         '📣&nbsp; Announce your <b>open days, family workshops and activities</b> in the Events section.'];
+  } else if (tipo === 'merchant') {
+    items = fr
+      ? ['🛍️&nbsp; Vendre vos produits dans la <b>Boutique</b> et encaisser directement — Neuromundi <b>ne prend aucune commission</b>.',
+         '🔎&nbsp; Être vue par les familles qui cherchent des produits neuroaffirmatifs.',
+         '⭐&nbsp; Recevoir des <b>avis</b> qui rassurent les nouveaux clients.']
+      : ['🛍️&nbsp; Sell your products in the <b>Store</b> and get paid directly — Neuromundi <b>takes no commission</b>.',
+         '🔎&nbsp; Be found by families looking for neuroaffirming products.',
+         '⭐&nbsp; Collect <b>reviews</b> that give new customers confidence.'];
+  } else if (tipo === 'clinic') {
+    items = fr
+      ? ['📅&nbsp; <b>Agenda et réservation en ligne :</b> des rendez-vous directs, en personne ou en ligne, depuis votre profil.',
+         '💬&nbsp; <b>Canal de contact direct :</b> messagerie instantanée avec les patients, les familles et les autres membres qui cherchent à créer des réseaux de référence.']
+      : ['📅&nbsp; <b>Online scheduling and bookings:</b> direct appointments, in person or online, straight from your profile.',
+         '💬&nbsp; <b>A direct contact channel:</b> instant messaging with patients, families and other members building referral networks.'];
+  } else {
+    items = fr
+      ? ['📅&nbsp; <b>Agenda et réservation en ligne :</b> des rendez-vous directs, en personne ou en ligne, intégrés à votre calendrier.',
+         '💬&nbsp; <b>Canal de contact direct :</b> messagerie instantanée avec les patients, les familles et les autres membres de la plateforme.',
+         '📈&nbsp; <b>Mesures d’impact :</b> vues, clics et demandes de contact sur votre profil.']
+      : ['📅&nbsp; <b>Online scheduling and bookings:</b> direct appointments, in person or online, synced to your calendar.',
+         '💬&nbsp; <b>A direct contact channel:</b> instant messaging with patients, families and other members of the platform.',
+         '📈&nbsp; <b>Impact metrics:</b> views, clicks and contact requests on your profile.'];
+  }
+  const comunes = fr
+    ? ['🧰&nbsp; <b>Plus de visibilité, de contacts et de revenus :</b> offrir tous vos services et produits sur la plateforme — vos produits dans la <b>Boutique</b> avec des liens vers votre propre site, vos cours et ateliers dans <b>Academy</b>, vos activités dans <b>Événements</b> et vos articles dans le <b>Blogue</b>.',
+       '⭐&nbsp; <b>Avis et distinctions :</b> accumuler les avis de la communauté et obtenir les distinctions qui attestent de votre qualité et de votre engagement.',
+       '🤝&nbsp; <b>Mur des Alliés :</b> proposer votre organisation, avec son logo, pour la section des Alliés de Neuromundi. Nous examinons chaque proposition avant de la publier.',
+       '🎓&nbsp; <b>Formation et outils :</b> accès gratuit à des cours, des ateliers et des événements réservés aux membres.',
+       '🏆&nbsp; <b>Distinction « Fondateur Neuromundi » :</b> un gage de prestige pour votre profil, votre site Web et vos réseaux sociaux.']
+    : ['🧰&nbsp; <b>Greater visibility, contacts and revenue:</b> offer all your services and products on the platform — your products in the <b>Store</b> with links to your own shop, your courses and workshops in <b>Academy</b>, your activities in <b>Events</b> and your articles on the <b>Blog</b>.',
+       '⭐&nbsp; <b>Reviews and badges:</b> collect reviews from the community and earn the badges that document your quality and your commitment.',
+       '🤝&nbsp; <b>Allies Wall:</b> submit your organization, with its logo, for the Neuromundi Allies section. We review every submission before publishing it.',
+       '🎓&nbsp; <b>Training and tools:</b> free access to courses, workshops and member-only events.',
+       '🏆&nbsp; <b>The “Neuromundi Founder” badge:</b> a mark of standing for your profile, your website and your social media.'];
+  const li = [...items, ...comunes].map((t) => `<li style="margin:6px 0">${t}</li>`).join('');
+  return `<ul style="margin:8px 0 0;padding:0;list-style:none;color:#334155;font-size:14px;line-height:1.5">${li}</ul>`;
+}
+
+// Cuadro comparativo de Estados Unidos y Canada. Doctoralia NO opera en
+// ninguno de los dos, asi que las columnas son las de su propio mercado,
+// medidas el 28 oct 2026.
+//
+// LA ACLARACION "por profesional" NO ES UN ADORNO: Psychology Today cobra por
+// cada terapeuta listado y Neuromundi cobra por organizacion. Sin esa linea el
+// cuadro dice que somos mas caros —39,60 contra 29,95 al mes— y con ella dice
+// la verdad: una clinica de dos profesionales ya paga menos con nosotros.
+function tablaLang(r: Row, fr: boolean): string {
+  const usa = r.pais === 'Estados Unidos';
+  const yes = '<td align="center" style="padding:9px 4px;color:#16a34a;font-weight:bold;border-bottom:1px solid #f1f5f9">✓</td>';
+  const yesNm = '<td align="center" style="padding:9px 4px;background:#eff9ff;color:#16a34a;font-weight:bold;border-bottom:1px solid #f1f5f9">✓</td>';
+  const no = '<td align="center" style="padding:9px 4px;color:#cbd5e1;font-weight:bold;border-bottom:1px solid #f1f5f9">✗</td>';
+  const feat = (t: string) => `<td style="padding:9px 6px;border-bottom:1px solid #f1f5f9">${t}</td>`;
+  const etiquetas = fr
+    ? ['Spécialisée en neurodivergence, neurodéveloppement et maladies neurologiques',
+       'Gratuite pour les familles et les patients',
+       'Agenda et réservation en ligne',
+       'Avis sur les prestataires',
+       'Sceau et avis neuroaffirmatifs',
+       'Communauté de soutien entre pairs',
+       'Trousse d’outils et cours gratuits',
+       'Inclusion en emploi et à l’école',
+       'Boutique spécialisée']
+    : ['Specialised in neurodivergence, neurodevelopment and neurological conditions',
+       'Free for families and patients',
+       'Online scheduling and bookings',
+       'Provider reviews',
+       'Neuroaffirming badge and reviews',
+       'Peer support community',
+       'Free toolkit and course',
+       'Workplace and school inclusion',
+       'Specialised store'];
+  const marcas = usa ? ['Psychology Today', 'Zocdoc', 'Healthgrades'] : ['Psychology Today'];
+  const filas: [string, boolean, boolean[]][] = [
+    [etiquetas[0], true, usa ? [false, false, false] : [false]],
+    [etiquetas[1], true, usa ? [true, true, true] : [true]],
+    [etiquetas[2], true, usa ? [false, true, true] : [false]],
+    [etiquetas[3], true, usa ? [false, true, true] : [false]],
+    [etiquetas[4], true, usa ? [false, false, false] : [false]],
+    [etiquetas[5], true, usa ? [false, false, false] : [false]],
+    [etiquetas[6], true, usa ? [false, false, false] : [false]],
+    [etiquetas[7], true, usa ? [false, false, false] : [false]],
+    [etiquetas[8], true, usa ? [false, false, false] : [false]],
+  ];
+  const body = filas.map(([label, nm, otros]) =>
+    `<tr>${feat(label)}${nm ? yesNm : no}${otros.map((v) => (v ? yes : no)).join('')}</tr>`).join('');
+  const cab = marcas.map((m) =>
+    `<td align="center" style="padding:8px 4px;background:#f1f5f9;font-weight:bold;border-bottom:1px solid #e2e8f0">${m}</td>`).join('');
+  const nuestro = r.precio_configurado && r.precio_fundador
+    ? `${MXN(Math.round(Number(r.precio_fundador) / 12), r.moneda || 'USD')}<br><span style="font-weight:500;color:#64748b;font-size:10px">${r.moneda || 'USD'}${fr ? '/mois &middot; par organisation' : '/month &middot; per organization'}</span>`
+    : (fr ? 'Sur demande' : 'On request');
+  const pt1 = usa ? '$29.95' : '$34.95';
+  const monedaPT = usa ? 'USD' : 'CAD';
+  const celdas = [
+    `<td align="center" style="padding:9px 4px;background:#f8fafc;font-weight:800;border-top:2px solid #e2e8f0">${pt1}<br><span style="font-weight:500;color:#64748b;font-size:10px">${monedaPT}${fr ? '/mois &middot; par professionnel' : '/month &middot; per professional'}</span></td>`,
+  ];
+  if (usa) {
+    celdas.push(`<td align="center" style="padding:9px 4px;background:#f8fafc;font-weight:800;border-top:2px solid #e2e8f0">${fr ? 'Par réservation' : 'Per booking'}<br><span style="font-weight:500;color:#64748b;font-size:10px">${fr ? 'montant non public' : 'amount not public'}</span></td>`);
+    celdas.push(`<td align="center" style="padding:9px 4px;background:#f8fafc;font-weight:800;border-top:2px solid #e2e8f0">${fr ? 'Profil de base gratuit' : 'Free basic profile'}<br><span style="font-weight:500;color:#64748b;font-size:10px">${fr ? 'forfaits non publics' : 'paid plans not public'}</span></td>`);
+  }
+  return `
+    <p style="margin:22px 0 8px;font-weight:800;font-size:16px">${fr ? 'Comment Neuromundi se compare' : 'How Neuromundi compares'}</p>
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;font-size:12px;border:1px solid #e2e8f0;border-radius:10px;overflow:hidden">
+      <tr>
+        <td style="padding:8px 6px;background:#f8fafc;color:#64748b;font-weight:bold;text-transform:uppercase;font-size:10px;border-bottom:1px solid #e2e8f0">${fr ? 'Caractéristique' : 'Feature'}</td>
+        <td align="center" style="padding:8px 4px;background:#0369a1;color:#fff;font-weight:bold;border-bottom:1px solid #e2e8f0">Neuromundi</td>
+        ${cab}
+      </tr>
+      ${body}
+      <tr>
+        <td style="padding:9px 6px;background:#f8fafc;font-weight:800;border-top:2px solid #e2e8f0">${fr ? 'Prix' : 'Price'}<br><span style="font-weight:400;color:#64748b;font-size:10px">${fr ? 'Cotisation du prestataire &middot; toujours gratuit pour les familles' : 'Provider fee &middot; always free for families'}</span></td>
+        <td align="center" style="padding:9px 4px;background:#e0f2fe;color:#0369a1;font-weight:800;border-top:2px solid #e2e8f0">${nuestro}</td>
+        ${celdas.join('')}
+      </tr>
+    </table>
+    <p style="color:#94a3b8;font-size:10px;margin:6px 2px 0;line-height:1.4">${fr
+      ? 'Comparatif établi à partir de l’information publique de chaque plateforme en octobre 2026. Psychology Today facture par professionnel inscrit ; Neuromundi facture par organisation, quel que soit le nombre de professionnels. Les plateformes citées sont des marques de leurs titulaires respectifs ; elles sont mentionnées à des fins de comparaison et d’information uniquement.'
+      : 'Comparison based on each platform’s public information as of October 2026. Psychology Today charges per listed professional; Neuromundi charges per organization, whatever the number of professionals. The platforms mentioned are trademarks of their respective owners; they are cited for comparison and information purposes only.'}</p>`;
+}
+
+function buildEmailLang(r: Row, fr: boolean): { subject: string; html: string } {
+  const claim = `${SITE}/reclamar/${r.token}`;
+  const rawNombre = r.nombre || (fr ? 'votre organisation' : 'your organization');
+  const nombre = esc(rawNombre);
+  const lugar = r.estado || r.ciudad || (fr ? 'votre région' : 'your area');
+  const fd = fundadorDe(r);
+  const corte = RELOJES.verif;
+  const cur = r.moneda || 'USD';
+  const hayTarifa = r.precio_configurado && r.precio_fundador && r.precio_ordinario && !esFree(r);
+
+  const intro = fr
+    ? `<p>Bonjour, équipe de <b>${nombre}</b>,</p>
+       <p>Disons franchement pourquoi nous écrivons à une clinique ${esc(String(lugar))} : <b>Neuromundi</b> n’est pas un répertoire médical généraliste. C’est une communauté bâtie autour du <b>neurodéveloppement, de la neurodivergence et des maladies neurologiques</b>, et elle fonctionne dans chaque pays dans la langue de ce pays. Chez vous, la plateforme, votre profil et les recherches des familles sont en français.</p>
+       <p>Nous ouvrons le répertoire du Canada en ce moment, et les cliniques qui complètent leur profil durant ces premières semaines entrent comme <b>Membres fondateurs</b>.</p>
+       <p>Nous avons examiné votre profil et l’avons ajouté à notre répertoire public : vos renseignements de base sont déjà visibles pour quiconque cherche une clinique comme la vôtre.</p>
+       <p>En réclamant et en activant votre profil complet, vous obtenez un accès libre et illimité à :</p>`
+    : `<p>Hello, ${nombre} team:</p>
+       <p>We should say plainly why we are writing to a practice in ${esc(String(lugar))}. <b>Neuromundi</b> is not a general medical directory: it is a community built around <b>neurodevelopment, neurodivergence and neurological conditions</b>, and it works in every country in that country’s own language. For you, the platform, your profile and the searches families make are all in English.</p>
+       <p>We are opening the ${r.pais === 'Canadá' ? 'Canadian' : 'United States'} directory now, and the practices that complete their profile in these first weeks come in as <b>Founding Members</b>.</p>
+       <p>We reviewed your practice and added it to our public directory: your basic information is already visible to anyone searching for a practice like yours.</p>
+       <p>By claiming and activating your full profile, you get unrestricted access to:</p>`;
+
+  const oferta = hayTarifa
+    ? (fr
+      ? `<p>Et pour que l’adhésion en vaille la peine, nous vous offrons d’entrer comme <b>Membre fondateur</b>, à des conditions à vie :</p>
+         <p style="margin:12px 0;padding:14px 16px;border:1px solid #bae6fd;background:#f0f9ff;border-radius:12px;font-size:15px;line-height:1.6;color:#0c4a6e">
+           <u>Rabais à vie</u><sup>*</sup> de <b>50 %</b> à titre de Membre fondateur : <b style="color:#0369a1">${MXN(Number(r.precio_fundador), cur)} ${cur} par année</b>, au lieu du tarif régulier de <b>${MXN(Number(r.precio_ordinario), cur)} ${cur}</b>.
+         </p>`
+      : `<p>And to make joining worthwhile, we are offering you entry as a <b>Founding Member</b>, on lifetime terms:</p>
+         <p style="margin:12px 0;padding:14px 16px;border:1px solid #bae6fd;background:#f0f9ff;border-radius:12px;font-size:15px;line-height:1.6;color:#0c4a6e">
+           <u>Lifetime 50% discount</u><sup>*</sup> as a Founding Member: <b style="color:#0369a1">${MXN(Number(r.precio_fundador), cur)} ${cur} per year</b>, instead of the regular price of <b>${MXN(Number(r.precio_ordinario), cur)} ${cur}</b>.
+         </p>`)
+    : '';
+
+  const prueba = hayTarifa
+    ? (fr
+      ? `<p>Dès l’activation de votre profil, vous disposez de <b>30 jours pour découvrir et utiliser la plateforme sans frais</b>, votre fiche étant publiée et recevant des demandes. La cotisation se paie à la fin de ce délai, et réclamer maintenant vous garantit le tarif de Membre fondateur même si vous payez à la fin.</p>`
+      : `<p>When you activate your profile you get <b>30 days to explore and use the platform at no cost</b>, with your listing published and receiving enquiries. The fee is due at the end of that period, and claiming now locks in the Founding Member rate even if you pay at the end.</p>`)
+    : '';
+
+  const plazo = fd
+    ? (fr
+      ? `<p>Pour en bénéficier, nous vous invitons à utiliser le lien ci-dessous et à remplir votre profil <b>avant le ${fechaUTC(fd, true)}</b>.</p>`
+      : `<p>To secure it, please use the link below and complete your profile <b>before ${fechaUTC(fd, false)}</b>.</p>`)
+    : '';
+
+  const cierre = (fr
+    ? `<p>Nous espérons que vous accepterez cette invitation et que vous nous permettrez de vous accueillir dans la communauté Neuromundi.</p>
+       <p>Si vous préférez ne pas l’accepter et faire retirer votre fiche du répertoire, vous pouvez le faire à partir de ce même lien.</p>`
+    : `<p>We hope you will accept this invitation and allow us to welcome you to the Neuromundi community.</p>
+       <p>If you would rather not accept it and prefer your listing removed from the directory, you can do that from the same link.</p>`)
+    + (corte
+      ? (fr
+        ? `<p>Pour que votre fiche reste publiée après le <b>${fechaUTC(corte, true)}</b>, il suffit de remplir votre profil${hayTarifa ? ' et d’acquitter la cotisation correspondante' : ''}. Si ${hayTarifa ? 'l’une de ces conditions n’est pas remplie' : 'cette condition n’est pas remplie'}, nous retirons votre fiche du répertoire. Nous respecterons toujours votre décision de ne pas faire partie de Neuromundi.</p>`
+        : `<p>To keep your listing published after <b>${fechaUTC(corte, false)}</b>, all that is needed is that you complete your profile${hayTarifa ? ' and cover the corresponding fee' : ''}. If ${hayTarifa ? 'either requirement is unmet' : 'that requirement is unmet'}, we remove your listing from the directory. We will always respect your decision not to be part of Neuromundi.</p>`)
+      : '');
+
+  const nota = hayTarifa
+    ? `<p style="color:#64748b;font-size:12px;line-height:1.5;margin-top:16px"><sup>*</sup> ${fr
+        ? 'La cotisation annuelle ne sera ajustée qu’en fonction du taux d’inflation annuel de votre pays.'
+        : 'The annual fee will only be adjusted in line with the annual rate of inflation in your country.'}</p>`
+    : '';
+
+  const cuerpo = `${intro}${beneficiosLang(r, fr)}${oferta}${prueba}${tablaLang(r, fr)}${plazo}${cierre}${nota}`;
+  return {
+    subject: fr
+      ? `${rawNombre} : réclamez votre profil et fixez votre tarif de Membre fondateur`
+      : `${rawNombre}: claim your profile and lock in the Founding Member rate`,
+    html: shellLang(
+      fr ? 'Bienvenue à Neuromundi' : 'Welcome to Neuromundi',
+      cuerpo,
+      fr ? 'Activer ou retirer ma fiche' : 'Activate or remove my listing',
+      claim, fr),
+  };
+}
+
 function buildEmail(
   r: Row, fundador = true, promo: string | null = null, reenvio: string | null = null,
 ): { subject: string; html: string } {
@@ -662,6 +946,9 @@ function buildEmail(
   const rawNombre = r.nombre || 'su organización';
   const nombre = esc(rawNombre); // escapado para el HTML; el asunto usa rawNombre
   const seg = segmentOf(r);
+
+  // Estados Unidos y Canada tienen su propio texto, en ingles o en frances.
+  if (esEN(r) || esFR(r)) return buildEmailLang(r, esFR(r));
 
   // ── SEGUNDO CONTACTO: el plazo gratuito de 30 dias ──────────────────────
   // Las 83 fichas de paga ya escritas lo fueron SIN este plazo, porque no
