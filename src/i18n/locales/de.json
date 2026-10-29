@@ -6081,7 +6081,8 @@
       "descripcion": "Beschreibung",
       "telefono": "Telefon",
       "pais": "Wohnsitzland"
-    }
+    },
+    "draft": "Diese Beschreibung hat Neuromundi aus Ihrem Verzeichniseintrag erstellt. Prüfen Sie sie und formulieren Sie sie in eigenen Worten, bevor Sie veröffentlichen."
   },
   "exe": {
     "title": "Beitragsbefreiung",

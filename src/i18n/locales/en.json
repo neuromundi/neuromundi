@@ -6081,7 +6081,8 @@
       "descripcion": "description",
       "telefono": "phone",
       "pais": "country of residence"
-    }
+    },
+    "draft": "Neuromundi drafted this description from your directory listing. Review it and put it in your own words before publishing."
   },
   "exe": {
     "title": "Fee exemption",

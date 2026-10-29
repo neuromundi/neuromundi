@@ -6081,7 +6081,8 @@
       "descripcion": "description",
       "telefono": "téléphone",
       "pais": "pays de résidence"
-    }
+    },
+    "draft": "Cette description a été rédigée par Neuromundi à partir de votre fiche. Relisez-la et reformulez-la dans vos mots avant de publier."
   },
   "exe": {
     "title": "Exonération de cotisation",

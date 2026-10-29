@@ -4338,6 +4338,7 @@ export type Database = {
           avatar_url: string | null
           badge_level: string | null
           bio: string | null
+          bio_borrador: boolean
           birth_date: string | null
           booking_url: string | null
           business_name: string | null
@@ -4460,6 +4461,7 @@ export type Database = {
           avatar_url?: string | null
           badge_level?: string | null
           bio?: string | null
+          bio_borrador?: boolean
           birth_date?: string | null
           booking_url?: string | null
           business_name?: string | null
@@ -4582,6 +4584,7 @@ export type Database = {
           avatar_url?: string | null
           badge_level?: string | null
           bio?: string | null
+          bio_borrador?: boolean
           birth_date?: string | null
           booking_url?: string | null
           business_name?: string | null

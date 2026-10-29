@@ -125,6 +125,57 @@ Deno.serve(async (req) => {
   //     · publico y social  → 'exempt': no se les pide nada.
   //     · privado           → 'pending' con 15 días, y la plataforma le muestra
   //                           la tarifa que le toca por tipo de perfil y país.
+
+// DESCRIPCION PRECARGADA (29 oct 2026). Dos de los tres reclamos reales de la
+// campana se quedaron sin publicar por no tener descripcion, y ninguno de los
+// dos volvio a entrar despues de ese dia. Nadie llega con una descripcion
+// escrita, asi que la plataforma la redacta a partir de lo que SI tiene la
+// ficha y la deja como BORRADOR.
+//
+// Se marca con bio_borrador para que la pantalla lo advierta: es texto nuestro,
+// no suyo, y no puede presentarse como suyo sin que lo sepa. En cuanto la
+// persona lo edita, la marca desaparece.
+//
+// No inventa nada: solo recombina nombre, tipo, ciudad y especializacion, que
+// son los datos de su propia ficha publica.
+function bioDeLaFicha(f: {
+  nombre?: string | null; provider_type?: string | null;
+  ciudad?: string | null; estado?: string | null; pais?: string | null;
+  especializacion?: string | null;
+}): string {
+  const en = f.pais === 'Estados Unidos' || f.pais === 'Canadá';
+  const fr = f.pais === 'Canadá' && f.estado === 'Quebec';
+  const pt = f.pais === 'Brasil' || f.pais === 'Portugal';
+  const tipos: Record<string, [string, string, string, string]> = {
+    // [es, pt, en, fr]
+    clinic: ['un centro de atención', 'um centro de atendimento', 'a care centre', 'un centre de soins'],
+    school: ['un centro educativo', 'um centro educativo', 'a school', 'un établissement scolaire'],
+    merchant: ['un comercio especializado', 'um comércio especializado', 'a specialised store', 'un commerce spécialisé'],
+    ngo: ['una organización de la sociedad civil', 'uma organização da sociedade civil', 'a non-profit organization', 'un organisme sans but lucratif'],
+    company: ['una empresa', 'uma empresa', 'a company', 'une entreprise'],
+    tourism: ['un espacio incluyente', 'um espaço inclusivo', 'an inclusive space', 'un espace inclusif'],
+  };
+  const idx = fr ? 3 : en ? 2 : pt ? 1 : 0;
+  const tipo = (tipos[f.provider_type ?? ''] ?? ['un prestador de servicios', 'um prestador de serviços', 'a service provider', 'un prestataire de services'])[idx];
+  const lugar = [f.ciudad, f.estado].filter(Boolean).join(', ');
+  const nombre = (f.nombre ?? '').trim();
+  const esp = (f.especializacion ?? '').trim();
+  if (fr) {
+    return `${nombre} est ${tipo}${lugar ? ` à ${lugar}` : ''}.`
+      + (esp ? ` Domaines d’intervention : ${esp}.` : '');
+  }
+  if (en) {
+    return `${nombre} is ${tipo}${lugar ? ` in ${lugar}` : ''}.`
+      + (esp ? ` Areas of focus: ${esp}.` : '');
+  }
+  if (pt) {
+    return `${nombre} é ${tipo}${lugar ? ` em ${lugar}` : ''}.`
+      + (esp ? ` Áreas de atuação: ${esp}.` : '');
+  }
+  return `${nombre} es ${tipo}${lugar ? ` en ${lugar}` : ''}.`
+    + (esp ? ` Áreas de atención: ${esp}.` : '');
+}
+
   const cobrable = ficha.sector === 'privado';
   const { error: ePerfil } = await admin.from('profiles').upsert({
     id: userId,
@@ -150,6 +201,9 @@ Deno.serve(async (req) => {
     // le cotizó su correo. El país sale ahora de la propia ficha.
     country: paisFicha,
     services_offered: ficha.especializacion,
+    // Descripcion de arranque, marcada como borrador (ver bioDeLaFicha).
+    bio: bioDeLaFicha(ficha),
+    bio_borrador: true,
     // 'pending' con fecha límite: así useMembership calcula la cotización y las
     // opciones de pago, y la plataforma le muestra la cuota como a cualquier
     // proveedor. Con 'exempt' el hook se las salta y no aparece nada que pagar.

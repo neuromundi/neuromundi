@@ -6081,7 +6081,8 @@
       "descripcion": "descripción",
       "telefono": "teléfono",
       "pais": "país de residencia"
-    }
+    },
+    "draft": "Esta descripción la preparó Neuromundi con los datos de su ficha. Revísela y cuéntelo con sus palabras antes de publicar."
   },
   "exe": {
     "title": "Exención de cuota",

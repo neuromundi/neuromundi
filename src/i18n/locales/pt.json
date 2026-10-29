@@ -6081,7 +6081,8 @@
       "descripcion": "descrição",
       "telefono": "telefone",
       "pais": "país de residência"
-    }
+    },
+    "draft": "Esta descrição foi preparada pela Neuromundi a partir da sua ficha. Reveja-a e escreva-a com as suas palavras antes de publicar."
   },
   "exe": {
     "title": "Isenção de cota",

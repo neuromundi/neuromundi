@@ -259,6 +259,10 @@ export function Settings() {
       full_name: values.full_name.trim(),
       phone: orNull(values.phone),
       bio: orNull(values.bio),
+      // Guardar la descripción la hace suya: deja de ser el borrador que
+      // precargó reclamar-ficha, y el aviso de "revise esta descripción"
+      // desaparece. (Migración 0330.)
+      bio_borrador: false,
       country: orNull(values.country),
       state: orNull(values.state),
       municipality: orNull(values.municipality),

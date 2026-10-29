@@ -25,6 +25,7 @@ type Estado = {
   exento: boolean;
   publicado: boolean;
   suspendido: boolean;
+  borrador: boolean;
   puede: boolean;
 };
 
@@ -85,7 +86,13 @@ export function PublicationSteps({ userId }: { userId: string }) {
               titulo={t('pub.step1.title')}
               detalle={estado.completo ? t('pub.step1.ok') : t('pub.step1.missing', { campos: faltantes })}
             >
-              {!estado.completo && (
+              {/* La descripción precargada al reclamar la ficha la escribió la
+                  plataforma, no la persona. Decírselo aquí es lo que la vuelve
+                  un borrador y no un texto suyo puesto sin avisar. */}
+              {estado.borrador && (
+                <p className="mb-2 rounded-lg bg-white/70 p-2 text-xs text-amber-900">{t('pub.draft')}</p>
+              )}
+              {(!estado.completo || estado.borrador) && (
                 <Button size="sm" variant="secondary" onClick={() => navigate('/ajustes')}>
                   {t('pub.step1.cta')}
                 </Button>

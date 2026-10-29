@@ -6081,7 +6081,8 @@
       "descripcion": "descrizione",
       "telefono": "telefono",
       "pais": "paese di residenza"
-    }
+    },
+    "draft": "Questa descrizione è stata preparata da Neuromundi a partire dalla sua scheda. La rilegga e la riscriva con parole sue prima di pubblicare."
   },
   "exe": {
     "title": "Esenzione dalla quota",

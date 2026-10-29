@@ -6081,7 +6081,8 @@
       "descripcion": "简介",
       "telefono": "电话",
       "pais": "居住国家"
-    }
+    },
+    "draft": "这段简介由 Neuromundi 依据你的目录信息草拟。发布前请检查并用你自己的话改写。"
   },
   "exe": {
     "title": "会费豁免",
