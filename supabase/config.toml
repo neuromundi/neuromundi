@@ -55,6 +55,11 @@ verify_jwt = false
 [functions.reclamar-ficha]
 verify_jwt = false
 
+# La llama pg_cron con x-cron-secret, no una sesion de usuario: con
+# verify_jwt = true el servidor la rechazaria con 401 antes de ejecutar nada.
+[functions.recordar-publicacion]
+verify_jwt = false
+
 [functions.send-auth-email]
 verify_jwt = false
 
