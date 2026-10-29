@@ -64,6 +64,10 @@ function lista(faltantes: string[], lang: Lang): string {
 
 function armar(f: Fila, lang: Lang): { subject: string; html: string } {
   const nombre = (f.nombre ?? '').trim();
+  // Puede venir VACIO: la cola solo exige is_published = false, asi que un
+  // perfil con todos los campos llenos que nunca pulso Publicar entra aqui
+  // sin faltantes. Antes el correo decia "Falta ." y eso danaba la confianza
+  // de quien lo recibe; ahora ese caso tiene su propia frase (p2solo).
   const falta = lista(f.faltantes ?? [], lang);
   const panel = `${SITE}/panel`;
   const T = {
@@ -73,6 +77,7 @@ function armar(f: Fila, lang: Lang): { subject: string; html: string } {
       hola: `Hola, equipo de <b>${nombre}</b>:`,
       p1: `Reclamó su ficha en Neuromundi, pero su perfil <b>todavía no está publicado</b>, así que las familias que buscan en el directorio aún no lo encuentran como miembro.`,
       p2: `Falta <b>${falta}</b>. Es el único paso que queda.`,
+      p2solo: `Ya está todo lo demás: sólo falta pulsar <b>Publicar mi perfil</b> en su panel.`,
       cta: 'Completar y publicar mi perfil',
       cierre: 'Si prefiere no continuar, no tiene que hacer nada: este es el último de tres avisos y no volveremos a escribirle por este motivo.',
     },
@@ -82,6 +87,7 @@ function armar(f: Fila, lang: Lang): { subject: string; html: string } {
       hola: `Olá, equipa de <b>${nombre}</b>:`,
       p1: `Reclamou a sua ficha na Neuromundi, mas o seu perfil <b>ainda não está publicado</b>, por isso as famílias que procuram no directório ainda não o encontram como membro.`,
       p2: `Falta <b>${falta}</b>. É o único passo que resta.`,
+      p2solo: `Já está tudo o resto: só falta premir <b>Publicar o meu perfil</b> no seu painel.`,
       cta: 'Completar e publicar o meu perfil',
       cierre: 'Se preferir não continuar, não precisa de fazer nada: este é o último de três avisos e não voltaremos a escrever-lhe por este motivo.',
     },
@@ -91,6 +97,7 @@ function armar(f: Fila, lang: Lang): { subject: string; html: string } {
       hola: `Hello, ${nombre} team:`,
       p1: `You claimed your listing on Neuromundi, but your profile <b>is not published yet</b>, so families searching the directory still cannot find you as a member.`,
       p2: `What is missing: <b>${falta}</b>. That is the only step left.`,
+      p2solo: `Everything else is in place: all that is left is to press <b>Publish my profile</b> in your panel.`,
       cta: 'Complete and publish my profile',
       cierre: 'If you would rather not continue, you do not need to do anything: this is the last of three reminders and we will not write to you about this again.',
     },
@@ -100,6 +107,7 @@ function armar(f: Fila, lang: Lang): { subject: string; html: string } {
       hola: `Bonjour, équipe de <b>${nombre}</b>,`,
       p1: `Vous avez réclamé votre fiche sur Neuromundi, mais votre profil <b>n’est pas encore publié</b>. Les familles qui consultent le répertoire ne vous trouvent donc pas encore comme membre.`,
       p2: `Il manque <b>${falta}</b>. C’est la seule étape qui reste.`,
+      p2solo: `Tout le reste est prêt : il ne reste qu’à cliquer sur <b>Publier mon profil</b> dans votre espace.`,
       cta: 'Compléter et publier mon profil',
       cierre: 'Si vous préférez ne pas continuer, vous n’avez rien à faire : ceci est le dernier de trois rappels et nous ne vous écrirons plus à ce sujet.',
     },
@@ -116,7 +124,7 @@ function armar(f: Fila, lang: Lang): { subject: string; html: string } {
       <h1 style="font-size:20px;margin:0 0 12px">${T.title}</h1>
       <p>${T.hola}</p>
       <p>${T.p1}</p>
-      <p>${T.p2}</p>
+      <p>${falta ? T.p2 : T.p2solo}</p>
       <p style="margin:22px 0 8px"><a href="${panel}" style="display:inline-block;background:#0ea5e9;color:#fff;text-decoration:none;font-weight:700;padding:12px 20px;border-radius:12px">${T.cta}</a></p>
       ${cierre}
     </div>

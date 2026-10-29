@@ -162,18 +162,22 @@ function bioDeLaFicha(f: {
   const esp = (f.especializacion ?? '').trim();
   if (fr) {
     return `${nombre} est ${tipo}${lugar ? ` à ${lugar}` : ''}.`
-      + (esp ? ` Domaines d’intervention : ${esp}.` : '');
+      + (esp ? ` Domaines d’intervention : ${esp}.` : '')
+      + ` (Description provisoire rédigée par Neuromundi ; le titulaire peut la modifier librement.)`;
   }
   if (en) {
     return `${nombre} is ${tipo}${lugar ? ` in ${lugar}` : ''}.`
-      + (esp ? ` Areas of focus: ${esp}.` : '');
+      + (esp ? ` Areas of focus: ${esp}.` : '')
+      + ` (Draft description created by Neuromundi; the owner is free to edit it.)`;
   }
   if (pt) {
     return `${nombre} é ${tipo}${lugar ? ` em ${lugar}` : ''}.`
-      + (esp ? ` Áreas de atuação: ${esp}.` : '');
+      + (esp ? ` Áreas de atuação: ${esp}.` : '')
+      + ` (Descrição provisória criada pela Neuromundi; o titular pode alterá-la livremente.)`;
   }
   return `${nombre} es ${tipo}${lugar ? ` en ${lugar}` : ''}.`
-    + (esp ? ` Áreas de atención: ${esp}.` : '');
+    + (esp ? ` Áreas de atención: ${esp}.` : '')
+    + ` (Descripción de borrador creada por Neuromundi; el titular puede modificarla libremente.)`;
 }
 
   const cobrable = ficha.sector === 'privado';
