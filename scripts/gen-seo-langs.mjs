@@ -208,6 +208,12 @@ try {
       .replace(/(<meta name="twitter:title" content=")[^"]*(")/, `$1${escAttr(cfg.title)}$2`)
       .replace(/(<meta name="twitter:description" content=")[^"]*(")/, `$1${escAttr(cfg.desc)}$2`)
       .replace(/(<link rel="canonical" href=")[^"]*(")/, `$1${ORIGIN}/${code}/$2`)
+      // Cuerpo SEO estático traducido. SIN esto, el `<main>` oculto de #root
+      // queda en ESPAÑOL en todas las variantes de idioma, así que Googlebot ve
+      // `/en/` con el MISMO contenido que `/` y pliega la inglesa en la española
+      // ("Duplicada: Google eligió otra canónica", medido el 5 nov en `/en/`).
+      // Al poner la descripción traducida, cada idioma tiene contenido propio.
+      .replace(/<main[^>]*>[\s\S]*?<\/main>/, `<main style="font-family:system-ui,sans-serif;color:#0f172a"><h1 style="color:#0284c7">Neuromundi</h1><p>${esc(cfg.desc)}</p></main>`)
       .replace('</head>', boot);
 
     mkdirSync(join(DIST, code), { recursive: true });

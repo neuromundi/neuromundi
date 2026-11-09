@@ -442,6 +442,19 @@ servidor**, sin depender de JS:
    las publicadas) caen al `_noindex` hasta el siguiente build bueno. Es seguro
    (noindex temporal, se autocorrige), no roto.
 
+### 12.2 Cuerpo SEO traducido por idioma (9 nov 2026)
+
+`index.html` lleva un cuerpo estático oculto en `#root` (`data-nm-shell`: un
+`<h1>` + descripción, para crawlers y no-JS). Estaba **en español en TODAS las
+variantes de idioma**, así que Googlebot veía `/en/` con el mismo contenido que
+`/` y plegaba la inglesa en la española (**"Duplicada: Google eligió otra
+canónica"**, medido el 5 nov en `/en/`). Arreglo: `gen-seo-langs.mjs`, en el
+bucle de idiomas, **reescribe el `<main>` con la descripción traducida** de cada
+idioma. Así cada `/xx/` tiene contenido propio. (El pie con los enlaces legales
+sigue en español; es irrelevante para el deduplicado.) Verificar tras desplegar:
+`curl -s https://www.neuromundi.com/en/ | grep -o 'global community'` debe
+encontrarlo.
+
 - [ ] **Verificación obligatoria tras desplegar** (un `.htaccess` mal formado da
   500 en todo el sitio): abre la home y una ficha **publicada**; en el código
   fuente de la ficha, `rel="canonical"` debe ser **su propia URL**, no la home.
